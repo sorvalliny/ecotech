@@ -10,15 +10,15 @@
 <style>
 /* ── TOKENS ── */
 :root {
-  --bg:#07070F; --card:#0E0E1C; --card2:#12121F; --border:rgba(255,255,255,0.07);
-  --bhi:rgba(255,255,255,0.14); --muted:#6B6B8E;
-  --violet:#7C3AED; --vdim:rgba(124,58,237,0.14); --vborder:rgba(124,58,237,0.4);
-  --teal:#2DD4BF; --tdim:rgba(45,212,191,0.12);
-  --amber:#F59E0B; --adim:rgba(245,158,11,0.12);
-  --green:#10B981; --gdim:rgba(16,185,129,0.12);
+  --bg:#08081A; --card:#111128; --card2:#161630; --border:rgba(255,255,255,0.07);
+  --bhi:rgba(255,255,255,0.14); --muted:#7A7A9D;
+  --violet:#7B2FFF; --vdim:rgba(123,47,255,0.14); --vborder:rgba(123,47,255,0.4);
+  --teal:#00D4B4; --tdim:rgba(0,212,180,0.12);
+  --amber:#FFB830; --adim:rgba(255,184,48,0.12);
+  --green:#34D399; --gdim:rgba(52,211,153,0.12);
   --red:#EF4444; --rdim:rgba(239,68,68,0.12);
   --blue:#3B82F6; --bdim:rgba(59,130,246,0.12);
-  --pink:#EC4899; --pdim:rgba(236,72,153,0.12);
+  --pink:#FF2D8A; --pdim:rgba(255,45,138,0.12);
   --r:12px; --font:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -87,8 +87,8 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 .pfdiv{width:1px;height:26px;background:var(--border);flex-shrink:0}
 .chips{flex:1;display:flex;gap:5px;flex-wrap:wrap}
 .chip{font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap;border:1px solid transparent}
-.chip-h{background:var(--gdim);color:var(--green);border-color:rgba(16,185,129,.35)}
-.chip-m{background:var(--adim);color:var(--amber);border-color:rgba(245,158,11,.35)}
+.chip-h{background:var(--gdim);color:var(--green);border-color:rgba(52,211,153,.35)}
+.chip-m{background:var(--adim);color:var(--amber);border-color:rgba(255,184,48,.35)}
 .chip-l{background:var(--rdim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
 .exbtn{margin-left:auto;background:none;border:1px solid var(--border);border-radius:8px;color:var(--muted);padding:5px 10px;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--font);letter-spacing:.04em;transition:all .15s;white-space:nowrap;flex-shrink:0}
 .exbtn:hover{border-color:var(--bhi);color:#fff}
@@ -109,14 +109,14 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 .gbadge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;border:1px solid transparent;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
 .g0{background:rgba(107,107,142,.15);color:#8888AA;border-color:rgba(107,107,142,.3)}
 .g1{background:rgba(59,130,246,.14);color:#93C5FD;border-color:rgba(59,130,246,.3)}
-.g2{background:rgba(139,92,246,.14);color:#C4B5FD;border-color:rgba(139,92,246,.3)}
-.g3{background:rgba(245,158,11,.14);color:#FCD34D;border-color:rgba(245,158,11,.3)}
-.g4{background:rgba(16,185,129,.14);color:#6EE7B7;border-color:rgba(16,185,129,.3)}
-.g5{background:rgba(45,212,191,.14);color:#5EEAD4;border-color:rgba(45,212,191,.3)}
+.g2{background:rgba(123,47,255,.14);color:#C4B5FD;border-color:rgba(123,47,255,.3)}
+.g3{background:rgba(255,184,48,.14);color:#FCD34D;border-color:rgba(255,184,48,.3)}
+.g4{background:rgba(52,211,153,.14);color:#6EE7B7;border-color:rgba(52,211,153,.3)}
+.g5{background:rgba(0,212,180,.14);color:#5EEAD4;border-color:rgba(0,212,180,.3)}
 
 /* ── TRACK TAGS ── */
 .track-d{background:rgba(59,130,246,.1);color:#93C5FD;border:1px solid rgba(59,130,246,.25);font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;letter-spacing:.04em}
-.track-v{background:rgba(16,185,129,.1);color:#6EE7B7;border:1px solid rgba(16,185,129,.25);font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;letter-spacing:.04em}
+.track-v{background:rgba(52,211,153,.1);color:#6EE7B7;border:1px solid rgba(52,211,153,.25);font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;letter-spacing:.04em}
 
 /* ── BACKLOG ── */
 .bltop{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
@@ -144,16 +144,16 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 .tag{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;border:1px solid transparent}
 .tag-design{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
 .tag-feature{background:var(--bdim);color:#93C5FD;border-color:rgba(59,130,246,.3)}
-.tag-tooling{background:var(--tdim);color:var(--teal);border-color:rgba(45,212,191,.3)}
-.tag-process{background:var(--adim);color:var(--amber);border-color:rgba(245,158,11,.3)}
-.tag-content{background:var(--pdim);color:#F9A8D4;border-color:rgba(236,72,153,.3)}
+.tag-tooling{background:var(--tdim);color:var(--teal);border-color:rgba(0,212,180,.3)}
+.tag-process{background:var(--adim);color:var(--amber);border-color:rgba(255,184,48,.3)}
+.tag-content{background:var(--pdim);color:#F9A8D4;border-color:rgba(255,45,138,.3)}
 .tag-infra{background:var(--rdim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
 .ptag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap;border:1px solid transparent}
-.pt-PR01{background:rgba(45,212,191,.14);color:var(--teal);border-color:rgba(45,212,191,.3)}
+.pt-PR01{background:rgba(0,212,180,.14);color:var(--teal);border-color:rgba(0,212,180,.3)}
 .pt-PR02{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
-.pt-PR03{background:var(--adim);color:var(--amber);border-color:rgba(245,158,11,.3)}
+.pt-PR03{background:var(--adim);color:var(--amber);border-color:rgba(255,184,48,.3)}
 .pt-PR04{background:var(--bdim);color:#93C5FD;border-color:rgba(59,130,246,.3)}
-.pt-PR05{background:var(--pdim);color:#F9A8D4;border-color:rgba(236,72,153,.3)}
+.pt-PR05{background:var(--pdim);color:#F9A8D4;border-color:rgba(255,45,138,.3)}
 .pt-PR06{background:var(--rdim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
 .aud{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border)}
 .rice{display:flex;flex-direction:column;gap:2px}
@@ -195,8 +195,8 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 .pmo-table tr:hover td{background:rgba(255,255,255,.02)}
 .pmo-gate-track{display:flex;gap:3px;align-items:center}
 .pmo-gate-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex-shrink:0;border:1px solid transparent}
-.pmo-gate-dot.g-done{background:rgba(16,185,129,.2);color:var(--green);border-color:rgba(16,185,129,.4)}
-.pmo-gate-dot.g-cur{background:rgba(245,158,11,.2);color:var(--amber);border-color:rgba(245,158,11,.4)}
+.pmo-gate-dot.g-done{background:rgba(52,211,153,.2);color:var(--green);border-color:rgba(52,211,153,.4)}
+.pmo-gate-dot.g-cur{background:rgba(255,184,48,.2);color:var(--amber);border-color:rgba(255,184,48,.4)}
 .pmo-gate-dot.g-todo{background:rgba(255,255,255,.05);color:var(--muted);border-color:var(--border)}
 .cpo-funnel{display:flex;gap:8px;align-items:flex-end;margin:16px 0;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:14px}
 .funnel-stage{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -300,19 +300,19 @@ header.ecotech-orig{top:44px!important;}
   <aside class="sidebar hidden" id="sidebar">
     <div class="slabel">Продукт</div>
     <div id="proj-filters"><button class="fbtn active" onclick="setF(&#39;project&#39;,&#39;all&#39;,this)"><span>Все продукты</span></button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR01&#39;,this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#2DD4BF;margin-right:5px;vertical-align:middle"></span>Продуктовый фреймворк</span>
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#00D4B4;margin-right:5px;vertical-align:middle"></span>Продуктовый фреймворк</span>
       <span class="fcount" id="fcp-PR01"></span>
     </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR02&#39;,this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7C3AED;margin-right:5px;vertical-align:middle"></span>Хендбук для руководителей</span>
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7B2FFF;margin-right:5px;vertical-align:middle"></span>Хендбук для руководителей</span>
       <span class="fcount" id="fcp-PR02"></span>
     </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR03&#39;,this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#F59E0B;margin-right:5px;vertical-align:middle"></span>Лендинг для бизнеса</span>
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FFB830;margin-right:5px;vertical-align:middle"></span>Лендинг для бизнеса</span>
       <span class="fcount" id="fcp-PR03"></span>
     </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR04&#39;,this)">
       <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#3B82F6;margin-right:5px;vertical-align:middle"></span>Трекер инициатив (Shiva/WB)</span>
       <span class="fcount" id="fcp-PR04"></span>
     </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR05&#39;,this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#EC4899;margin-right:5px;vertical-align:middle"></span>Реестр целей и инициатив</span>
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FF2D8A;margin-right:5px;vertical-align:middle"></span>Реестр целей и инициатив</span>
       <span class="fcount" id="fcp-PR05"></span>
     </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR06&#39;,this)">
       <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#EF4444;margin-right:5px;vertical-align:middle"></span>Корпоративный ProductHunt</span>
@@ -777,19 +777,19 @@ header.ecotech-orig{top:44px!important;}
     <div id="pg-backlog" style="display:none">
       <div class="legend" id="legend">
     <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR01&#39;,null)">
-      <div class="leg-dot" style="background:#2DD4BF"></div>PR01 · Продуктовый фреймворк
+      <div class="leg-dot" style="background:#00D4B4"></div>PR01 · Продуктовый фреймворк
     </div>
     <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR02&#39;,null)">
-      <div class="leg-dot" style="background:#7C3AED"></div>PR02 · Хендбук для руководителей
+      <div class="leg-dot" style="background:#7B2FFF"></div>PR02 · Хендбук для руководителей
     </div>
     <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR03&#39;,null)">
-      <div class="leg-dot" style="background:#F59E0B"></div>PR03 · Лендинг для бизнеса
+      <div class="leg-dot" style="background:#FFB830"></div>PR03 · Лендинг для бизнеса
     </div>
     <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR04&#39;,null)">
       <div class="leg-dot" style="background:#3B82F6"></div>PR04 · Трекер инициатив (Shiva/WB)
     </div>
     <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR05&#39;,null)">
-      <div class="leg-dot" style="background:#EC4899"></div>PR05 · Реестр целей и инициатив
+      <div class="leg-dot" style="background:#FF2D8A"></div>PR05 · Реестр целей и инициатив
     </div>
     <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR06&#39;,null)">
       <div class="leg-dot" style="background:#EF4444"></div>PR06 · Корпоративный ProductHunt
@@ -882,23 +882,23 @@ header.ecotech-orig{top:44px!important;}
 // STAGE-GATE MODEL
 // ════════════════════════════════════════════
 const STAGES = [
-  { gate:0, emoji:'💡', name:'Идея',       color:'#6B6B8E', desc:'Скрининг: гипотеза попала в очередь на оценку R/ICE.' },
+  { gate:0, emoji:'💡', name:'Идея',       color:'#7A7A9D', desc:'Скрининг: гипотеза попала в очередь на оценку R/ICE.' },
   { gate:1, emoji:'🔍', name:'Концепция',  color:'#3B82F6', desc:'Discovery: CustDev проведён, аудитория и проблема подтверждены.' },
-  { gate:2, emoji:'🛠', name:'Прототип',   color:'#8B5CF6', desc:'MVP проверен на пользователях, PMF-гипотеза сформулирована.' },
-  { gate:3, emoji:'⚙️', name:'Разработка', color:'#F59E0B', desc:'PnL утверждён, команда собрана, идёт активная разработка.' },
-  { gate:4, emoji:'🚀', name:'Запуск',     color:'#10B981', desc:'Продукт доступен пользователям, KPI и метрики мониторятся.' },
-  { gate:5, emoji:'📈', name:'Масштаб',    color:'#2DD4BF', desc:'Устойчивый рост, PMF найден, CAC < LTV, расширение аудитории.' },
+  { gate:2, emoji:'🛠', name:'Прототип',   color:'#7B2FFF', desc:'MVP проверен на пользователях, PMF-гипотеза сформулирована.' },
+  { gate:3, emoji:'⚙️', name:'Разработка', color:'#FFB830', desc:'PnL утверждён, команда собрана, идёт активная разработка.' },
+  { gate:4, emoji:'🚀', name:'Запуск',     color:'#34D399', desc:'Продукт доступен пользователям, KPI и метрики мониторятся.' },
+  { gate:5, emoji:'📈', name:'Масштаб',    color:'#00D4B4', desc:'Устойчивый рост, PMF найден, CAC < LTV, расширение аудитории.' },
 ];
 
 // ════════════════════════════════════════════
 // DATA
 // ════════════════════════════════════════════
 const PROJECTS = [
-  { id:'PR01', layer:'Уровень 0 — Фундамент',  name:'Продуктовый фреймворк',       gate:4, desc:'Операционный справочник контура: регламенты, процессы, методологии, база знаний. Источник истины для лидов и команд.',         status:'wip',     release:'v13', color:'#2DD4BF' },
-  { id:'PR02', layer:'Уровень 1 — Команды',     name:'Хендбук для руководителей',   gate:3, desc:'Прикладные инструменты для продактов, проджектов и техлидов: шаблоны, чек-листы, приоритизация, планирование.',                status:'wip',     release:'v13', color:'#7C3AED' },
-  { id:'PR03', layer:'Уровень 3 — Рост',        name:'Лендинг для бизнеса',         gate:3, desc:'Как создать продукт в экосистеме RWB. Вход для новых команд и стартапов: путь от идеи до продукта.',                           status:'wip',     release:'v13', color:'#F59E0B' },
+  { id:'PR01', layer:'Уровень 0 — Фундамент',  name:'Продуктовый фреймворк',       gate:4, desc:'Операционный справочник контура: регламенты, процессы, методологии, база знаний. Источник истины для лидов и команд.',         status:'wip',     release:'v13', color:'#00D4B4' },
+  { id:'PR02', layer:'Уровень 1 — Команды',     name:'Хендбук для руководителей',   gate:3, desc:'Прикладные инструменты для продактов, проджектов и техлидов: шаблоны, чек-листы, приоритизация, планирование.',                status:'wip',     release:'v13', color:'#7B2FFF' },
+  { id:'PR03', layer:'Уровень 3 — Рост',        name:'Лендинг для бизнеса',         gate:3, desc:'Как создать продукт в экосистеме RWB. Вход для новых команд и стартапов: путь от идеи до продукта.',                           status:'wip',     release:'v13', color:'#FFB830' },
   { id:'PR04', layer:'Уровень 2 — Управление',  name:'Трекер инициатив (Shiva/WB)', gate:1, desc:'Фронтенд для управления развитием продуктов внутри команд. ТЗ для команды разработки Shiva/WB.',                              status:'planned', release:'v14', color:'#3B82F6' },
-  { id:'PR05', layer:'Уровень 2 — Управление',  name:'Реестр целей и инициатив',    gate:1, desc:'Корпоративный трекер для проектных комитетов и планирования. Бизнес видит актуальный статус продуктов 24/7.',                  status:'planned', release:'v14', color:'#EC4899' },
+  { id:'PR05', layer:'Уровень 2 — Управление',  name:'Реестр целей и инициатив',    gate:1, desc:'Корпоративный трекер для проектных комитетов и планирования. Бизнес видит актуальный статус продуктов 24/7.',                  status:'planned', release:'v14', color:'#FF2D8A' },
   { id:'PR06', layer:'Уровень 3 — Рост',        name:'Корпоративный ProductHunt',   gate:0, desc:'Витрина и блог продуктов экосистемы: подача идей, рассказы о продуктах, обмен экспертизой. Стартапы силами сотрудников.',      status:'backlog', release:'v15+', color:'#EF4444' },
 ];
 
