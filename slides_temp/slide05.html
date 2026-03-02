@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RWB · Скорость · 5/10</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rwb-dark:#150022;--rwb-plum:#7D256F;--rwb-berry:#BC3D96;
+  --rwb-pink:#EC238D;--rwb-mid:#200030;--rwb-gray:#9B8FAF;
+  --teal:#00D4B4;--white:#FFFFFF;
+}
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap');
+body{font-family:'Golos Text',sans-serif;background:transparent;color:#fff;margin:0;padding:0}
+.slide{background:var(--rwb-mid);border-radius:20px;overflow:hidden;
+  min-height:540px;position:relative;border:1px solid rgba(188,61,150,.18);
+  box-shadow:0 32px 80px rgba(0,0,0,.65);
+  animation:sIn .35s cubic-bezier(.22,1,.36,1)}
+@keyframes sIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HELPERS ── */
+.ut{font-family:'Unbounded',sans-serif}
+.tag{display:inline-block;padding:3px 10px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:.05em}
+.tb{background:rgba(188,61,150,.25);color:#E87FCC;border:1px solid rgba(188,61,150,.4)}
+.tp{background:rgba(236,35,141,.2);color:#FF85C0;border:1px solid rgba(236,35,141,.35)}
+.tt{background:rgba(0,212,180,.12);color:#00D4B4;border:1px solid rgba(0,212,180,.3)}
+.tw{background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.12)}
+.gb{height:3px;background:linear-gradient(90deg,#7D256F,#BC3D96,#EC238D,#FF6EC7);
+  position:absolute;top:0;left:0;right:0;border-radius:20px 20px 0 0}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;padding:18px;transition:background .2s}
+.noise{position:absolute;inset:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
+.pb{height:5px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden}
+.pf{height:100%;border-radius:3px;background:linear-gradient(90deg,#BC3D96,#EC238D)}
+.ci{width:16px;height:16px;border-radius:50%;background:rgba(188,61,150,.2);
+  border:1px solid rgba(188,61,150,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;min-height:540px}
+.g21{display:grid;grid-template-columns:1fr 1.6fr;min-height:540px}
+.g12{display:grid;grid-template-columns:1.4fr 1fr;min-height:540px}
+.hr{position:relative;overflow:hidden;background:linear-gradient(145deg,#0D001A 0%,#250040 40%,#400060 70%,#6A0050 100%)}
+.bn{font-family:'Unbounded',sans-serif;font-size:110px;font-weight:900;line-height:1;
+  background:linear-gradient(135deg,#BC3D96,#EC238D);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.blink{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:1;
+  padding:11px 14px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(141,41,127,.4),rgba(236,35,141,.25));
+  border:1px solid rgba(188,61,150,.55);text-decoration:none;color:#fff;transition:all .2s;
+  box-shadow:0 4px 20px rgba(188,61,150,.25)}
+.blink:hover{background:linear-gradient(135deg,rgba(141,41,127,.65),rgba(236,35,141,.45));
+  box-shadow:0 8px 32px rgba(188,61,150,.5);transform:translateY(-1px)}
+.ctap{background:linear-gradient(160deg,#7D256F 0%,#BC3D96 55%,#EC238D 100%);
+  padding:48px 40px;display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;z-index:1;overflow:hidden}
+@keyframes f0{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(6px,-14px) rotate(3deg)}75%{transform:translate(-4px,8px) rotate(-2deg)}}
+@keyframes f1{0%,100%{transform:translate(0,0) rotate(0deg)}33%{transform:translate(-10px,6px) rotate(-4deg)}66%{transform:translate(8px,-10px) rotate(2deg)}}
+@keyframes f2{0%,100%{transform:translate(0,0) rotate(0deg)}20%{transform:translate(8px,12px) rotate(5deg)}70%{transform:translate(-6px,-8px) rotate(-3deg)}}
+@keyframes f3{0%,100%{transform:translate(0,0) rotate(0deg)}40%{transform:translate(-12px,-6px) rotate(-6deg)}80%{transform:translate(6px,10px) rotate(4deg)}}
+@keyframes f4{0%,100%{transform:translate(0,0) rotate(0deg)}30%{transform:translate(10px,-4px) rotate(3deg)}60%{transform:translate(-8px,14px) rotate(-5deg)}}
+@keyframes f5{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-14px,-12px) rotate(-4deg)}}
+@keyframes f6{0%,100%{transform:translate(0,0) rotate(0deg)}45%{transform:translate(12px,6px) rotate(6deg)}85%{transform:translate(-6px,-10px) rotate(-3deg)}}
+@keyframes f7{0%,100%{transform:translate(0,0) rotate(0deg)}35%{transform:translate(-8px,14px) rotate(-5deg)}75%{transform:translate(10px,-6px) rotate(3deg)}}
+@media(max-width:700px){.g2,.g21,.g12{grid-template-columns:1fr}.hr{display:none}}
+</style>
+<style>
+body{background:#0D0018!important;min-height:100vh;display:flex;flex-direction:column;}
+.slide-page-wrap{flex:1;max-width:880px;width:100%;margin:24px auto 0;padding:0 20px;}
+.slide-progress{display:flex;align-items:center;gap:10px;padding:0 0 14px;}
+.sp-dots{display:flex;gap:5px;flex:1;}
+.sp-dot{height:3px;border-radius:2px;flex:1;background:rgba(255,255,255,.1);transition:background .3s;}
+.sp-dot.done{background:rgba(188,61,150,.6);}
+.sp-dot.current{background:linear-gradient(90deg,#BC3D96,#EC238D);}
+.sp-label{font-size:10px;color:rgba(255,255,255,.3);white-space:nowrap;font-family:monospace;}
+.slide-nav-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0 28px;}
+.snav-btn{display:flex;align-items:center;gap:6px;text-decoration:none;font-size:12px;font-weight:600;padding:8px 18px;border-radius:50px;transition:all .2s;cursor:pointer;border:none;font-family:inherit;}
+.snav-prev{color:rgba(255,255,255,.5);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);}
+.snav-prev:hover{background:rgba(255,255,255,.12);color:#fff;}
+.snav-next{color:#fff;background:linear-gradient(135deg,#BC3D96,#EC238D);box-shadow:0 4px 16px rgba(188,61,150,.35);}
+.snav-next:hover{box-shadow:0 6px 24px rgba(188,61,150,.55);transform:translateY(-1px);}
+.snav-end{color:rgba(255,255,255,.35);font-size:11px;font-family:monospace;}
+</style>
+<script>
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'){'window.location="slide06.html"'}
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'){'window.location="slide04.html"'}
+});
+</script>
+  <script src="../platform.js"></script>
+<style>
+.ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,0.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,0.15);display:flex;align-items:center;padding:0 24px;gap:0;}
+.en-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-0.3px;white-space:nowrap;flex-shrink:0;}
+.en-logo span{color:#7B2FFF;}
+.en-sep{width:1px;height:16px;background:rgba(123,47,255,0.2);margin:0 16px;flex-shrink:0;}
+.en-links{display:flex;gap:2px;align-items:center;overflow-x:auto;}
+.en-links a{font-size:12px;font-weight:600;color:#7A7A9D;text-decoration:none;padding:5px 10px;border-radius:7px;transition:color 0.15s,background 0.15s;white-space:nowrap;}
+.en-links a:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.en-links a.en-active{color:#C49CFF;background:rgba(123,47,255,0.12);}
+</style>
+</head>
+<body>
+<nav class="ecotech-nav">
+  <a class="en-logo" href="../index.html">EcoTech <span>Platform</span></a>
+  <div class="en-sep"></div>
+  <div class="en-links">
+    <a href="../index.html">Навигация</a>
+    <a href="../Витрина/EcoTech Platform - главная страница.html">Главная</a>
+    <a href="../Витрина/EcoTech Platform — Витрина.html">Витрина</a>
+    <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
+    <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук</a>
+    <a href="../Бизнесу/index.html">Бизнесу</a>
+    <a href="../Продукту/index.html">Продукту</a>
+    <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер</a>
+    <a href="../Проектный офис/RWB · Product OS · Бэклог развития.html">Бэклог</a>
+    <a href="slide01.html" class="en-active">Слайды</a>
+  </div>
+</nav>
+<div class="slide-page-wrap"><div class="slide-progress">
+  <div class="sp-dots"><div class="sp-dot done"></div><div class="sp-dot done"></div><div class="sp-dot done"></div><div class="sp-dot done"></div><div class="sp-dot current"></div><div class="sp-dot"></div><div class="sp-dot"></div><div class="sp-dot"></div><div class="sp-dot"></div><div class="sp-dot"></div></div>
+  <div class="sp-label">5 / 10</div>
+</div>
+<div class="slide">
+<div class="g21">
+  <div class="noise"></div>
+  <div style="padding:48px 40px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid rgba(188,61,150,.15);position:relative;z-index:1;background:linear-gradient(160deg,rgba(141,41,127,.2),rgba(236,35,141,.08))">
+    <div><div style="display:flex;align-items:center;height:20px">
+  <img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" height="20"
+       style="display:block;object-fit:contain;height:20px"
+       onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+  <svg viewBox="0 0 72 20" height="20" fill="none" style="display:none">
+    <text x="0" y="18" font-family="Unbounded,sans-serif" font-weight="900"
+      font-size="16" fill="white" letter-spacing="-1">RWB</text></svg>
+</div><span class="tag tb" style="display:inline-block;margin-top:20px">СКОРОСТЬ РЕШЕНИЯ</span></div>
+    <div><div class="bn">14</div><div class="ut" style="font-size:30px;font-weight:900;color:#fff;margin-top:-8px">недель</div><div style="color:var(--rwb-gray);font-size:13px;margin-top:10px;line-height:1.6">от инициативы до<br>MVP продукта</div></div>
+    <div style="font-size:11px;color:var(--rwb-gray)">RWB · 2026</div>
+  </div>
+  <div style="padding:40px 36px;display:flex;flex-direction:column;gap:10px;justify-content:center;position:relative;z-index:1"><div class="card" style="display:flex;gap:14px;align-items:flex-start"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><div><div style="font-weight:700;font-size:14px">Скорость</div><div style="color:var(--rwb-gray);font-size:12px;margin-top:3px">От идеи до старта разработки — от 3 недель</div></div></div><div class="card" style="display:flex;gap:14px;align-items:flex-start"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>"/></svg><div><div style="font-weight:700;font-size:14px">Прозрачность</div><div style="color:var(--rwb-gray);font-size:12px;margin-top:3px">Статус инициативы в реальном времени в едином дашборде</div></div></div><div class="card" style="display:flex;gap:14px;align-items:flex-start"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>"/></svg><div><div style="font-weight:700;font-size:14px">Связь с целями</div><div style="color:var(--rwb-gray);font-size:12px;margin-top:3px">Каждая инициатива привязана к OKR компании и департамента</div></div></div><div class="card" style="display:flex;gap:14px;align-items:flex-start"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg><div><div style="font-weight:700;font-size:14px">Результат</div><div style="color:var(--rwb-gray);font-size:12px;margin-top:3px">MVP в проде с измеримыми метриками</div></div></div><div class="card" style="display:flex;gap:14px;align-items:flex-start"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><div style="font-weight:700;font-size:14px">Поддержка</div><div style="color:var(--rwb-gray);font-size:12px;margin-top:3px">Департамент сопровождает вас от брифа до роста продукта</div></div></div></div>
+</div></div>
+<div class="slide-nav-row"><a class="snav-btn snav-prev" href="slide04.html">← Назад</a><a class="snav-btn snav-next" href="slide06.html">Далее →</a></div></div>
+</body>
+</html>

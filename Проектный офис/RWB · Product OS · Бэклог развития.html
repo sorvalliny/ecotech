@@ -1,0 +1,2895 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head><meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RWB · Product OS · Бэклог развития</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Manrope:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #07070F;
+  --surface: #0E0E1A;
+  --card: #141424;
+  --card2: #1A1A2E;
+  --border: rgba(255,255,255,0.07);
+  --border-hi: rgba(255,255,255,0.12);
+  --text: #E2DEFF;
+  --muted: #6B6B8E;
+  --gray2: #AEAED0;
+
+  --violet: #8B5CF6;
+  --violet-dim: rgba(139,92,246,0.12);
+  --violet-border: rgba(139,92,246,0.3);
+  --teal: #2DD4BF;
+  --teal-dim: rgba(45,212,191,0.1);
+  --amber: #F59E0B;
+  --amber-dim: rgba(245,158,11,0.1);
+  --pink: #EC4899;
+  --pink-dim: rgba(236,72,153,0.1);
+  --blue: #3B82F6;
+  --blue-dim: rgba(59,130,246,0.1);
+  --red: #EF4444;
+  --red-dim: rgba(239,68,68,0.1);
+  --green: #22C55E;
+  --green-dim: rgba(34,197,94,0.1);
+
+  --font: 'Manrope', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --radius: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.02; pointer-events: none; z-index: 0;
+}
+
+/* ── HEADER ── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(7,7,15,0.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 28px;
+  display: flex; align-items: center; gap: 16px;
+}
+.logo { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+.logo span { color: var(--violet); }
+.header-title { font-size: 14px; font-weight: 800; color: #fff; flex: 1; }
+.header-stats { display: flex; gap: 16px; }
+.hstat { text-align: right; }
+.hstat-val { font-family: var(--mono); font-size: 18px; font-weight: 700; line-height: 1; }
+.hstat-label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+/* ── LAYOUT ── */
+.layout { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 57px); position: relative; z-index: 1; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  background: var(--surface); border-right: 1px solid var(--border);
+  padding: 20px 0; position: sticky; top: 57px; height: calc(100vh - 57px);
+  overflow-y: auto;
+}
+.sidebar-section { padding: 0 12px; margin-bottom: 4px; }
+.sidebar-label { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; padding: 10px 8px 4px; }
+.filter-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 7px 10px; border-radius: 8px;
+  background: none; border: none; color: var(--muted); font-size: 12px;
+  font-family: var(--font); font-weight: 600; cursor: pointer; text-align: left;
+  transition: all 0.15s;
+}
+.filter-btn:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+.filter-btn.active { background: var(--violet-dim); color: #C4B5FD; border: none; }
+.filter-count { font-family: var(--mono); font-size: 10px; opacity: .6; }
+.sidebar-divider { height: 1px; background: var(--border); margin: 8px 12px; }
+
+/* Sort controls */
+.sort-row { display: flex; gap: 6px; padding: 0 12px; flex-wrap: wrap; }
+.sort-btn {
+  font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px;
+  border: 1px solid var(--border); background: none; color: var(--muted);
+  cursor: pointer; font-family: var(--font); transition: all 0.15s;
+}
+.sort-btn:hover { border-color: var(--violet-border); color: #C4B5FD; }
+.sort-btn.active { background: var(--violet-dim); border-color: var(--violet-border); color: #C4B5FD; }
+
+/* ── MAIN CONTENT ── */
+main { padding: 24px 28px 80px; }
+
+/* ── SEARCH ── */
+.search-wrap { margin-bottom: 20px; }
+.search-input {
+  width: 100%; background: var(--card); border: 1px solid var(--border-hi);
+  border-radius: var(--radius); color: #fff; padding: 10px 14px 10px 36px;
+  font-size: 13px; font-family: var(--font); outline: none;
+  transition: border-color 0.2s;
+}
+.search-input:focus { border-color: var(--violet-border); }
+.search-wrap { position: relative; }
+.search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 14px; pointer-events: none; }
+
+/* ── SUMMARY BAR ── */
+.summary-bar {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 24px;
+}
+.sum-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px 14px; transition: border-color 0.2s;
+}
+.sum-card:hover { border-color: var(--border-hi); }
+.sum-num { font-family: var(--mono); font-size: 24px; font-weight: 700; line-height: 1; margin-bottom: 2px; }
+.sum-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; }
+
+/* ── ITEMS GRID ── */
+.items-list { display: flex; flex-direction: column; gap: 6px; }
+.group-label {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: .1em;
+  text-transform: uppercase; padding: 16px 0 6px; margin-top: 4px;
+}
+.group-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── ITEM CARD ── */
+.item {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 16px; display: grid;
+  grid-template-columns: 32px 1fr auto auto 120px 100px;
+  align-items: center; gap: 12px;
+  transition: border-color 0.15s, background 0.15s;
+  cursor: pointer;
+}
+.item:hover { border-color: var(--border-hi); background: var(--card2); }
+.item.selected { border-color: var(--violet-border); background: var(--violet-dim); }
+.item.editing { border-color: var(--teal); background: rgba(45,212,191,0.05); }
+
+.item-rank { font-family: var(--mono); font-size: 11px; color: var(--muted); font-weight: 700; text-align: center; }
+.item-main {}
+.item-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; line-height: 1.3; }
+.item-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.item-meta { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+
+.tag {
+  display: inline-flex; align-items: center; gap: 3px; font-size: 9px; font-weight: 700;
+  padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: .05em;
+  white-space: nowrap; border: 1px solid transparent;
+}
+.tag-design { background: var(--violet-dim); color: #C4B5FD; border-color: var(--violet-border); }
+.tag-feature { background: var(--blue-dim); color: #93C5FD; border-color: rgba(59,130,246,0.3); }
+.tag-tooling { background: var(--teal-dim); color: var(--teal); border-color: rgba(45,212,191,0.3); }
+.tag-process { background: var(--amber-dim); color: var(--amber); border-color: rgba(245,158,11,0.3); }
+.tag-content { background: var(--pink-dim); color: #F9A8D4; border-color: rgba(236,72,153,0.3); }
+.tag-infra { background: var(--red-dim); color: #FCA5A5; border-color: rgba(239,68,68,0.3); }
+.tag-project { background: rgba(16,185,129,0.12); color: #6EE7B7; border-color: rgba(16,185,129,0.35); }
+
+.impact-badge {
+  font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 6px;
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.imp-ux { background: rgba(139,92,246,0.15); color: #C4B5FD; }
+.imp-pm { background: rgba(59,130,246,0.15); color: #93C5FD; }
+.imp-all { background: rgba(34,197,94,0.15); color: #86EFAC; }
+.imp-tl { background: rgba(245,158,11,0.15); color: #FDE68A; }
+.imp-pmo { background: rgba(236,72,153,0.15); color: #FBCFE8; }
+
+.item-score-col { text-align: center; }
+.score-val { font-family: var(--mono); font-size: 22px; font-weight: 800; line-height: 1; }
+.score-label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-top: 1px; }
+.score-high { color: var(--green); }
+.score-mid  { color: var(--amber); }
+.score-low  { color: var(--red); }
+
+.item-status-col { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.status-dot {
+  font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; white-space: nowrap;
+  letter-spacing: .04em;
+}
+.st-backlog  { background: rgba(107,107,142,0.15); color: var(--muted); }
+.st-planned  { background: var(--violet-dim); color: #C4B5FD; }
+.st-wip      { background: var(--teal-dim); color: var(--teal); }
+.st-done     { background: var(--green-dim); color: var(--green); }
+
+.item-rice { display: flex; flex-direction: column; gap: 2px; }
+.rice-bar-row { display: flex; align-items: center; gap: 5px; font-size: 10px; }
+.rice-key { color: var(--muted); font-family: var(--mono); width: 10px; }
+.rice-bar-bg { flex: 1; height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; }
+.rice-bar-fill { height: 100%; border-radius: 2px; background: var(--violet); }
+
+/* ── EDIT PANEL ── */
+.edit-panel {
+  display: none;
+  position: fixed; right: 0; top: 57px; bottom: 0; width: 340px;
+  background: var(--surface); border-left: 1px solid var(--border);
+  z-index: 50; overflow-y: auto; padding: 20px;
+  animation: slideIn 0.2s ease;
+}
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+.edit-panel.open { display: block; }
+.edit-panel-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 16px; }
+.edit-close { float: right; background: none; border: none; color: var(--muted); font-size: 16px; cursor: pointer; margin-top: -4px; }
+.edit-close:hover { color: #fff; }
+
+.slider-group { margin-bottom: 16px; }
+.slider-label { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.slider-name { font-size: 11px; font-weight: 700; color: var(--gray2); }
+.slider-num { font-family: var(--mono); font-size: 12px; font-weight: 700; color: #fff; }
+input[type=range] {
+  width: 100%; accent-color: var(--violet); cursor: pointer; height: 4px;
+}
+.score-preview {
+  background: var(--card2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px; text-align: center; margin: 16px 0;
+}
+.score-preview-val { font-family: var(--mono); font-size: 36px; font-weight: 900; }
+.score-preview-formula { font-size: 10px; color: var(--muted); margin-top: 4px; font-family: var(--mono); }
+
+.edit-field { margin-bottom: 12px; }
+.edit-field label { display: block; font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
+.edit-field input, .edit-field select, .edit-field textarea {
+  width: 100%; background: var(--card); border: 1px solid var(--border-hi);
+  border-radius: 8px; color: #fff; padding: 8px 10px; font-size: 12px;
+  font-family: var(--font); outline: none; transition: border-color 0.15s;
+}
+.edit-field input:focus, .edit-field select:focus, .edit-field textarea:focus { border-color: var(--violet-border); }
+.edit-field textarea { resize: vertical; min-height: 60px; }
+.edit-field select { cursor: pointer; }
+.edit-field select option { background: var(--card2); }
+
+.btn-save {
+  width: 100%; padding: 10px; background: var(--violet); color: #fff; border: none;
+  border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: var(--font);
+  transition: background 0.15s;
+}
+.btn-save:hover { background: #7C3AED; }
+
+/* ── EMPTY ── */
+.empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+.empty-icon { font-size: 40px; margin-bottom: 12px; }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .summary-bar { grid-template-columns: repeat(2, 1fr); }
+  .item { grid-template-columns: 28px 1fr auto; }
+  .item-rice, .item-score-col, .item-status-col { display: none; }
+  .edit-panel { width: 100%; }
+  header { padding: 12px 16px; }
+  .header-stats { display: none; }
+  main { padding: 16px; }
+}
+
+/* ── LEGEND ── */
+.legend { display: flex; gap: 12px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--muted); }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+</style>
+<style>
+.ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,0.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,0.15);display:flex;align-items:center;padding:0 24px;gap:0;}
+.en-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-0.3px;white-space:nowrap;flex-shrink:0;}
+.en-logo span{color:#7B2FFF;}
+.en-sep{width:1px;height:16px;background:rgba(123,47,255,0.2);margin:0 16px;flex-shrink:0;}
+.en-links{display:flex;gap:2px;align-items:center;overflow-x:auto;}
+.en-links a{font-size:12px;font-weight:600;color:#7A7A9D;text-decoration:none;padding:5px 10px;border-radius:7px;transition:color 0.15s,background 0.15s;white-space:nowrap;}
+.en-links a:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.en-links a.en-active{color:#C49CFF;background:rgba(123,47,255,0.12);}
+header{top:44px!important;}
+.sidebar{top:101px!important;height:calc(100vh - 101px)!important;}
+.layout{min-height:calc(100vh - 101px)!important;}
+.detail-panel{top:101px!important;}
+</style>
+  <script src="../platform.js"></script>
+</head>
+<body>
+<nav class="ecotech-nav">
+  <a class="en-logo" href="../index.html">EcoTech <span>Platform</span></a>
+  <div class="en-sep"></div>
+  <div class="en-links">
+    <a href="../index.html">Навигация</a>
+    <a href="../Витрина/EcoTech Platform - главная страница.html">Главная</a>
+    <a href="../Витрина/EcoTech Platform — Витрина.html">Витрина</a>
+    <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
+    <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук</a>
+    <a href="../Бизнесу/index.html">Бизнесу</a>
+    <a href="../Продукту/index.html">Продукту</a>
+    <a href="RWB · Product OS - Трекер инициатив.html">Трекер</a>
+    <a href="RWB · Product OS · Бэклог развития.html" class="en-active">Бэклог</a>
+    <a href="../slides_temp/slide01.html">Слайды</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <div class="logo"><span>RWB</span> · Product OS</div>
+  <div class="header-title">Бэклог развития — расставь приоритеты</div>
+  <div class="header-stats">
+    <div class="hstat">
+      <div class="hstat-val" id="stat-total" style="color:var(--violet)">44</div>
+      <div class="hstat-label">всего</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val" id="stat-high" style="color:var(--green)">44</div>
+      <div class="hstat-label">High</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val" id="stat-planned" style="color:var(--teal)">11</div>
+      <div class="hstat-label">в работе</div>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Категория</div>
+    <button class="filter-btn active" onclick="setFilter(&#39;cat&#39;,&#39;all&#39;,this)">
+      <span>Все категории</span> <span class="filter-count" id="fc-all">44</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;design&#39;,this)">
+      <span>🎨 Дизайн &amp; UX</span> <span class="filter-count" id="fc-design">6</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;feature&#39;,this)">
+      <span>⚡ Новые фичи</span> <span class="filter-count" id="fc-feature">12</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;tooling&#39;,this)">
+      <span>🔧 Инструменты</span> <span class="filter-count" id="fc-tooling">6</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;process&#39;,this)">
+      <span>📋 Процессы</span> <span class="filter-count" id="fc-process">6</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;content&#39;,this)">
+      <span>📄 Контент</span> <span class="filter-count" id="fc-content">5</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;infra&#39;,this)">
+      <span>🏗 Инфраструктура</span> <span class="filter-count" id="fc-infra">3</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;project&#39;,this)">
+      <span>🗂 Проекты OS</span> <span class="filter-count" id="fc-project"></span>
+    </button>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Статус</div>
+    <button class="filter-btn" onclick="setFilter(&#39;status&#39;,&#39;all&#39;,this)">
+      <span>Все статусы</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;status&#39;,&#39;backlog&#39;,this)">
+      <span>📥 Бэклог</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;status&#39;,&#39;planned&#39;,this)">
+      <span>📌 Запланировано</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;status&#39;,&#39;wip&#39;,this)">
+      <span>🔄 В работе</span>
+    </button>
+    <button class="filter-btn" onclick="setFilter(&#39;status&#39;,&#39;done&#39;,this)">
+      <span>✅ Готово</span>
+    </button>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Сортировка</div>
+    <div class="sort-row" style="flex-direction:column; gap:4px;">
+      <button class="sort-btn active" onclick="setSort(&#39;score&#39;,this)">Score ↓</button>
+      <button class="sort-btn" onclick="setSort(&#39;name&#39;,this)">По названию</button>
+      <button class="sort-btn" onclick="setSort(&#39;effort&#39;,this)">Effort ↑</button>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Аудитория</div>
+    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;all&#39;,this)">Все</button>
+    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;PM&#39;,this)">🎯 PM / PO</button>
+    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;UX&#39;,this)">🎨 UX / Design</button>
+    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;TL&#39;,this)">🔧 Tech Lead</button>
+    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;PMO&#39;,this)">📋 PMO</button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main>
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="search" type="text" placeholder="Поиск по названию или описанию..." oninput="renderItems()">
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-bar">
+    <div class="sum-card" style="border-color:rgba(34,197,94,0.2)">
+      <div class="sum-num" style="color:var(--green)" id="s-high">44</div>
+      <div class="sum-label">🟢 High priority</div>
+    </div>
+    <div class="sum-card" style="border-color:rgba(245,158,11,0.2)">
+      <div class="sum-num" style="color:var(--amber)" id="s-mid">0</div>
+      <div class="sum-label">🟡 Medium</div>
+    </div>
+    <div class="sum-card" style="border-color:rgba(239,68,68,0.2)">
+      <div class="sum-num" style="color:var(--red)" id="s-low">0</div>
+      <div class="sum-label">🔴 Low priority</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-num" style="color:var(--teal)" id="s-wip">3</div>
+      <div class="sum-label">🔄 В работе</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-num" style="color:var(--violet)" id="s-total">44</div>
+      <div class="sum-label">📋 Всего задач</div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Score &gt; 20 = High (берём в релиз)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Score 10–20 = Medium (следующий релиз)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Score &lt; 10 = Low (бэклог)</div>
+    <div style="margin-left:auto;font-size:10px;color:var(--muted)">Кликни на карточку → редактировать R/ICE</div>
+  </div>
+
+  <!-- ITEMS -->
+  <div class="items-list" id="items-list"><div class="group-label">📄 Контент</div><div class="item " onclick="openEdit(&#39;C04&#39;)">
+    <div class="item-rank">#1</div>
+    <div class="item-main">
+      <div class="item-name">Принципы Product OS (раздел)</div>
+      <div class="item-desc">Восстановить из v11 раздел 6 принципов: Ценность до кода, Скорость через ясность, MVP не плохо а достаточно, Data-driven, Прозрачность, OKR-связь</div>
+      <div class="item-meta">
+        <span class="tag tag-content">📄 Контент</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">C04</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:100%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">10</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:10%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">1</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">360.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      <span style="font-size:9px;color:var(--muted)" title="Контент уже есть в v11, просто не перенесли в v12 MVP">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;C02&#39;)">
+    <div class="item-rank">#2</div>
+    <div class="item-main">
+      <div class="item-name">Release Notes шаблон</div>
+      <div class="item-desc">Интерактивный шаблон Release Notes: версия, что изменилось, rollback plan, коммуникация для заказчика и пользователей</div>
+      <div class="item-meta">
+        <span class="tag tag-content">📄 Контент</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">C02</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:20%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">2</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">162.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      <span style="font-size:9px;color:var(--muted)" title="Уже есть в v11 как текст — нужно перенести как интерактивный шаблон">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;C01&#39;)">
+    <div class="item-rank">#3</div>
+    <div class="item-main">
+      <div class="item-name">Расширенный глоссарий (60+ терминов)</div>
+      <div class="item-desc">Добавить 20+ терминов: MoSCoW, JTBD, Activation Rate, Churn Rate, LTV, CAC, Payback Period, SaaS-метрики, DevOps термины</div>
+      <div class="item-meta">
+        <span class="tag tag-content">📄 Контент</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">C01</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:100%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">10</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:20%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">2</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">150.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;C05&#39;)">
+    <div class="item-rank">#4</div>
+    <div class="item-main">
+      <div class="item-name">Роли и матрица ответственности (RACI)</div>
+      <div class="item-desc">Детальные карточки ролей из v11: PM, TL, Designer, DA, BA — обязанности, KPI, что делать на каждой стадии. RACI матрица.</div>
+      <div class="item-meta">
+        <span class="tag tag-content">📄 Контент</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">C05</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:30%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">3</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">147.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      <span style="font-size:9px;color:var(--muted)" title="Один из самых просматриваемых разделов v11">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;C03&#39;)">
+    <div class="item-rank">#5</div>
+    <div class="item-main">
+      <div class="item-name">Расширенный Q&amp;A (20+ вопросов)</div>
+      <div class="item-desc">Добавить вопросы: B2G-специфика, работа с несколькими трекерами, как питчить CEO, когда пивотить, как работать с токсичным заказчиком</div>
+      <div class="item-meta">
+        <span class="tag tag-content">📄 Контент</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">C03</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:20%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">2</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">112.5</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="group-label">🎨 Дизайн &amp; UX</div><div class="item " onclick="openEdit(&#39;D02&#39;)">
+    <div class="item-rank">#1</div>
+    <div class="item-main">
+      <div class="item-name">Корпоративная дизайн-система RWB</div>
+      <div class="item-desc">Перевести весь handbook на корпоративный стиль: шрифты Unbounded+Golos Text, темная тема v11, корп. иконки (SVG не стоковые), токены цветов</div>
+      <div class="item-meta">
+        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="impact-badge imp-ux">UX</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D02</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">129.6</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-planned">Запланировано</span>
+      <span style="font-size:9px;color:var(--muted)" title="v12 MVP использует стоковые иконки и дефолтные шрифты. Нужна полная перепаковка под RWB Brand.">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;D01&#39;)">
+    <div class="item-rank">#2</div>
+    <div class="item-main">
+      <div class="item-name">Орбитальная визуализация стадий</div>
+      <div class="item-desc">Восстановить/улучшить интерактивную карту орбит из v11: звезда WB в центре, продукты на орбитах, анимация переходов между стадиями зрелости</div>
+      <div class="item-meta">
+        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="impact-badge imp-ux">UX</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D01</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">96.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-planned">Запланировано</span>
+      <span style="font-size:9px;color:var(--muted)" title="Была в v11, пропала в MVP. Ключевой UX-элемент для презентации заказчикам и CEO.">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;D03&#39;)">
+    <div class="item-rank">#3</div>
+    <div class="item-main">
+      <div class="item-name">UX-кейсы и интерактивные сценарии</div>
+      <div class="item-desc">Восстановить UX-кейсы из v11: интерактивные примеры как работает фреймворк на реальных продуктах контура, анимированные процессы</div>
+      <div class="item-meta">
+        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D03</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">68.6</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;D05&#39;)">
+    <div class="item-rank">#4</div>
+    <div class="item-main">
+      <div class="item-name">Тёмная/светлая тема</div>
+      <div class="item-desc">Toggle тёмная/светлая тема с сохранением в localStorage. Светлая — для печати и презентаций, тёмная — для ежедневной работы</div>
+      <div class="item-meta">
+        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="impact-badge imp-ux">UX</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D05</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:30%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">3</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">60.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;D06&#39;)">
+    <div class="item-rank">#5</div>
+    <div class="item-main">
+      <div class="item-name">Анимации переходов и микроинтеракции</div>
+      <div class="item-desc">Добавить motion design: плавные переходы между разделами, hover-анимации на карточках, прогресс-индикаторы чек-листов</div>
+      <div class="item-meta">
+        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="impact-badge imp-ux">UX</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D06</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">50.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;D04&#39;)">
+    <div class="item-rank">#6</div>
+    <div class="item-main">
+      <div class="item-name">Адаптивная мобильная версия</div>
+      <div class="item-desc">Полноценная мобильная версия: bottom nav, swipe-жесты, читаемые карточки на 360px, чек-листы на тач-устройствах</div>
+      <div class="item-meta">
+        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D04</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">48.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="group-label">⚡ Новые фичи</div><div class="item " onclick="openEdit(&#39;F06&#39;)">
+    <div class="item-rank">#1</div>
+    <div class="item-main">
+      <div class="item-name">Уведомления / Алерты по датам комитетов</div>
+      <div class="item-desc">Бейдж ⚠️ в матрице если дата комитета &lt; 3 дней. Напоминание о не пройденных Gate. Опционально — браузерные push-уведомления</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F06</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:30%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">3</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">126.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F02&#39;)">
+    <div class="item-rank">#2</div>
+    <div class="item-main">
+      <div class="item-name">PMO Реестр инициатив</div>
+      <div class="item-desc">Единый реестр всех инициатив: очередь на скрининг, R/ICE скоринг, статус Gate 0, ответственный, дедлайн. CRUD + фильтры + экспорт</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pmo">PMO</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F02</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">108.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-planned">Запланировано</span>
+      <span style="font-size:9px;color:var(--muted)" title="12 команд без общего реестра — первоочередная задача для PMO">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F03&#39;)">
+    <div class="item-rank">#3</div>
+    <div class="item-main">
+      <div class="item-name">PnL шаблон и финансовая модель</div>
+      <div class="item-desc">Интерактивная PnL: монетизация, прогноз доходов по месяцам, расходы по категориям, auto-расчёт маржи / breakeven / ROI, график</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F03</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">89.6</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-planned">Запланировано</span>
+      <span style="font-size:9px;color:var(--muted)" title="Блокирует Gate 3 для коммерческих продуктов. В v12 кнопка есть, модуль — нет.">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F01&#39;)">
+    <div class="item-rank">#4</div>
+    <div class="item-main">
+      <div class="item-name">Корпоративный ProductHunt витрина</div>
+      <div class="item-desc">Переделать витрину в полноценный ProductHunt: лендинги продуктов, апвоуты, рейтинг популярности, подкаты API экосистемы по категориям (WB API, внутренние)</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F01</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">81.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-planned">Запланировано</span>
+      <span style="font-size:9px;color:var(--muted)" title="Конечный артефакт по задаче — " корп.="" producthunt="" с="" подкатами="" экосистемы""="">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F05&#39;)">
+    <div class="item-rank">#5</div>
+    <div class="item-main">
+      <div class="item-name">Product Health Dashboard</div>
+      <div class="item-desc">Еженедельный дашборд для Продуктового комитета: North Star, Retention, NPS, технические метрики, статус Red/Yellow/Green, тренды</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F05</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">74.7</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      <span style="font-size:9px;color:var(--muted)" title="Шаблон уже есть в v11 как документ, нужен интерактивный модуль">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F07&#39;)">
+    <div class="item-rank">#6</div>
+    <div class="item-main">
+      <div class="item-name">Профиль команды продукта</div>
+      <div class="item-desc">Страница каждого продукта с командой: PM, TL, дизайнер, DA, контакты, аватары, роли. Кликабельный из матрицы и витрины</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F07</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">72.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F04&#39;)">
+    <div class="item-rank">#7</div>
+    <div class="item-main">
+      <div class="item-name">OKR Планировщик</div>
+      <div class="item-desc">Дерево целей: Цели компании → Департамент → Инициативы → Продукты. Привязка инициатив к OKR, трекинг прогресса по KR</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F04</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">64.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F08&#39;)">
+    <div class="item-rank">#8</div>
+    <div class="item-main">
+      <div class="item-name">CustDev трекер интервью</div>
+      <div class="item-desc">Структурированная запись CustDev: карточки интервью, инсайты, гипотезы, статус подтверждения. Счётчик интервью на Gate 1.</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F08</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">58.8</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F09&#39;)">
+    <div class="item-rank">#9</div>
+    <div class="item-main">
+      <div class="item-name">Gate Timeline — дорожная карта гейтов</div>
+      <div class="item-desc">Временная шкала всех Gate по всем продуктам: кто, когда, какой Gate. Вид Gantt + Kanban. Планирование нагрузки на комитеты.</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pmo">PMO</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F09</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">49.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F12&#39;)">
+    <div class="item-rank">#10</div>
+    <div class="item-main">
+      <div class="item-name">Сравнение конкурентов (интерактивная матрица)</div>
+      <div class="item-desc">Интерактивная таблица конкурентного анализа: добавление конкурентов, критериев, оценок. Автоматическое УТП по разрывам.</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F12</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">42.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F11&#39;)">
+    <div class="item-rank">#11</div>
+    <div class="item-main">
+      <div class="item-name">Роадмап продукта (визуализация)</div>
+      <div class="item-desc">Интерактивный roadmap: горизонты Now/Next/Later, эпики, релизы, зависимости. Экспорт в PNG/PDF для презентации CEO.</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F11</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">36.8</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;F10&#39;)">
+    <div class="item-rank">#12</div>
+    <div class="item-main">
+      <div class="item-name">A/B тест трекер</div>
+      <div class="item-desc">Управление A/B экспериментами: гипотеза, метрика, аудитория, статус, результат. Интеграция с дашбордом здоровья продукта.</div>
+      <div class="item-meta">
+        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F10</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">35.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="group-label">📋 Процессы</div><div class="item " onclick="openEdit(&#39;P01&#39;)">
+    <div class="item-rank">#1</div>
+    <div class="item-main">
+      <div class="item-name">B2B/B2C/B2G ветки стадий</div>
+      <div class="item-desc">Специфика по сегменту на каждой стадии: B2G — юр. pre-check и доп. недели, B2B — CustDev с ЛПР, B2C — массовый A/B. Хинты и отличия.</div>
+      <div class="item-meta">
+        <span class="tag tag-process">📋 Процессы</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P01</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">112.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;P05&#39;)">
+    <div class="item-rank">#2</div>
+    <div class="item-main">
+      <div class="item-name">Стек AS IS → TO BE (инструменты 2026)</div>
+      <div class="item-desc">Визуализация миграции инструментов: YouTrack → собственный трекер, Confluence → Wiki RWB, таблицы → реестр PMO. Статус и таймлайн.</div>
+      <div class="item-meta">
+        <span class="tag tag-process">📋 Процессы</span>
+        <span class="impact-badge imp-pmo">PMO</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P05</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">72.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;P04&#39;)">
+    <div class="item-rank">#3</div>
+    <div class="item-main">
+      <div class="item-name">Матрица доступов (AS IS → TO BE)</div>
+      <div class="item-desc">Интерактивная матрица доступов к инструментам по ролям. AS IS текущее состояние, TO BE целевое. Из v11.</div>
+      <div class="item-meta">
+        <span class="tag tag-process">📋 Процессы</span>
+        <span class="impact-badge imp-pmo">PMO</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P04</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:30%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">3</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">66.7</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;P03&#39;)">
+    <div class="item-rank">#4</div>
+    <div class="item-main">
+      <div class="item-name">Ретроспектива шаблон (интерактивный)</div>
+      <div class="item-desc">Онлайн-ретро прямо в handbook: Stop/Start/Continue + Action items с ответственными и дедлайнами. Архив ретро по продукту.</div>
+      <div class="item-meta">
+        <span class="tag tag-process">📋 Процессы</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P03</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">60.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;P02&#39;)">
+    <div class="item-rank">#5</div>
+    <div class="item-main">
+      <div class="item-name">DoR/DoD конструктор</div>
+      <div class="item-desc">Интерактивный редактор Definition of Ready и Definition of Done: выбираешь тип задачи, стадию → получаешь чек-лист. Сохранение под продукт.</div>
+      <div class="item-meta">
+        <span class="tag tag-process">📋 Процессы</span>
+        <span class="impact-badge imp-tl">TL</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P02</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">58.8</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;P06&#39;)">
+    <div class="item-rank">#6</div>
+    <div class="item-main">
+      <div class="item-name">Kill-условия конфигуратор</div>
+      <div class="item-desc">Кастомные kill-условия под каждый продукт: PM задаёт пороги (North Star -N%, NPS &lt; N), система предупреждает при приближении.</div>
+      <div class="item-meta">
+        <span class="tag tag-process">📋 Процессы</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P06</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">58.8</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="group-label">🔧 Инструменты</div><div class="item " onclick="openEdit(&#39;T02&#39;)">
+    <div class="item-rank">#1</div>
+    <div class="item-main">
+      <div class="item-name">PDF-экспорт с корпоративным форматом</div>
+      <div class="item-desc">Нормальный PDF для A4: print-стили, постраничный layout, корп. шапка/подвал, Product ID → PDF для Gate-презентации</div>
+      <div class="item-meta">
+        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T02</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">110.3</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-planned">Запланировано</span>
+      <span style="font-size:9px;color:var(--muted)" title="Сейчас window.print() без стилей — некрасиво. Нужен нормальный A4.">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;T06&#39;)">
+    <div class="item-rank">#2</div>
+    <div class="item-main">
+      <div class="item-name">Поиск по всему handbook</div>
+      <div class="item-desc">Полнотекстовый поиск по всем разделам: чек-листы, глоссарий, Q&amp;A, шаблоны. Ctrl+K / ⌘K быстрый доступ.</div>
+      <div class="item-meta">
+        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T06</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:60%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">6</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">94.5</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;T05&#39;)">
+    <div class="item-rank">#3</div>
+    <div class="item-main">
+      <div class="item-name">Мастер настройки нового продукта (Wizard)</div>
+      <div class="item-desc">Step-by-step онбординг нового PM: создать продукт → заполнить бриф → назначить команду → запустить R/ICE. 5 шагов, 10 минут.</div>
+      <div class="item-meta">
+        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T05</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">89.6</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      <span style="font-size:9px;color:var(--muted)" title="Y-combinator подход: быстрый старт без " читай="" документацию""="">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;T04&#39;)">
+    <div class="item-rank">#4</div>
+    <div class="item-main">
+      <div class="item-name">Экспорт в Confluence / Wiki</div>
+      <div class="item-desc">Кнопка "Экспорт в Wiki": конвертация Product ID / Gate отчёта в Confluence-разметку или markdown для корп. Wiki</div>
+      <div class="item-meta">
+        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="impact-badge imp-pmo">PMO</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T04</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">68.6</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;T01&#39;)">
+    <div class="item-rank">#5</div>
+    <div class="item-main">
+      <div class="item-name">Интеграция с YouTrack / трекерами</div>
+      <div class="item-desc">Унификация статусов Gate поверх YouTrack и собственных трекеров: маппинг статусов, авто-обновление матрицы, webhooks</div>
+      <div class="item-meta">
+        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="impact-badge imp-tl">TL</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T01</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">40.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      <span style="font-size:9px;color:var(--muted)" title="12 команд в разных трекерах — высокий effort, но стратегически важно">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;T03&#39;)">
+    <div class="item-rank">#6</div>
+    <div class="item-main">
+      <div class="item-name">Автосохранение в cloud (вместо localStorage)</div>
+      <div class="item-desc">Данные продуктов, чек-листы, R/ICE в облаке (simple JSON API или Google Sheets). Синхронизация между пользователями.</div>
+      <div class="item-meta">
+        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="impact-badge imp-pmo">PMO</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T03</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">40.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      <span style="font-size:9px;color:var(--muted)" title="Пока localStorage — данные только в браузере одного пользователя">📝</span>
+    </div>
+  </div><div class="group-label">🗂 Проекты OS</div><div class="item " onclick="openEdit(&#39;PR02&#39;)">
+    <div class="item-rank">#1</div>
+    <div class="item-main">
+      <div class="item-name">Хендбук для руководителей продукта</div>
+      <div class="item-desc">Прикладной инструментарий для продактов, проджектов и техлидов. Приоритизация, планирование, чек-листы стадий, RACI, шаблоны — всё для ускорения работы в рамках фреймворка.</div>
+      <div class="item-meta">
+        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR02</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">104.1</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-wip">В работе</span>
+      <span style="font-size:9px;color:var(--muted)" title="В работе. Прикладная надстройка над фреймворком для команд.">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;PR03&#39;)">
+    <div class="item-rank">#2</div>
+    <div class="item-main">
+      <div class="item-name">Лендинг-презентация для бизнеса</div>
+      <div class="item-desc">Как создать продукт в экосистеме RWB. Вход для новых команд, стартапов и бизнес-заказчиков: путь от идеи до продукта, ценность экосистемы, первый шаг.</div>
+      <div class="item-meta">
+        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR03</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">100.8</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-wip">В работе</span>
+      <span style="font-size:9px;color:var(--muted)" title="В работе. Внешняя витрина для привлечения новых команд в экосистему.">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;PR01&#39;)">
+    <div class="item-rank">#3</div>
+    <div class="item-main">
+      <div class="item-name">Продуктовый фреймворк</div>
+      <div class="item-desc">Операционный справочник правил и работы контура продуктов экосистемы: регламенты, процессы, методологии, база знаний. Источник истины для лидов и команд RWB.</div>
+      <div class="item-meta">
+        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR01</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:100%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">10</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:100%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">10</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">100.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-wip">В работе</span>
+      <span style="font-size:9px;color:var(--muted)" title="Фундамент всей системы. Питает все остальные проекты. В работе.">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;PR05&#39;)">
+    <div class="item-rank">#4</div>
+    <div class="item-main">
+      <div class="item-name">Реестр целей и инициатив экосистемы</div>
+      <div class="item-desc">Корпоративный трекер: фронтенд для управления портфелем инициатив. Для проектных комитетов, планирования и прозрачности. Бизнес видит актуальный статус 24/7.</div>
+      <div class="item-meta">
+        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="impact-badge imp-pmo">PMO</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR05</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">70.9</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-planned">Запланировано</span>
+      <span style="font-size:9px;color:var(--muted)" title="Ключевой инструмент для PMO и проектных комитетов. Нужна детализация концепции.">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;PR04&#39;)">
+    <div class="item-rank">#5</div>
+    <div class="item-main">
+      <div class="item-name">Трекер инициатив и проектов (Shiva/WB)</div>
+      <div class="item-desc">Фронтенд для управления развитием продуктов внутри команд. ТЗ для команды разработки Shiva/WB: они оценивают и разрабатывают внутри своего продукта.</div>
+      <div class="item-meta">
+        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="impact-badge imp-tl">TL</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR04</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">63.0</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-planned">Запланировано</span>
+      <span style="font-size:9px;color:var(--muted)" title="Следующий шаг — написать ТЗ. Разработка силами Shiva/WB после согласования.">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;PR06&#39;)">
+    <div class="item-rank">#6</div>
+    <div class="item-main">
+      <div class="item-name">Корпоративный ProductHunt</div>
+      <div class="item-desc">Витрина и блог о продуктах экосистемы: интеграция, развитие стартапов силами сотрудников, подача идей, рассказы о продуктах, обмен экспертизой внутри компании.</div>
+      <div class="item-meta">
+        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR06</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">43.6</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      <span style="font-size:9px;color:var(--muted)" title="Долгосрочная цель. Требует аудитории и инфраструктуры из других проектов.">📝</span>
+    </div>
+  </div><div class="group-label">🏗 Инфраструктура</div><div class="item " onclick="openEdit(&#39;I03&#39;)">
+    <div class="item-rank">#1</div>
+    <div class="item-main">
+      <div class="item-name">PWA — установка как приложение</div>
+      <div class="item-desc">Progressive Web App: оффлайн-режим, установка на рабочий стол/телефон, push-уведомления о дедлайнах Gate</div>
+      <div class="item-meta">
+        <span class="tag tag-infra">🏗 Инфраструктура</span>
+        <span class="impact-badge imp-pm">PM</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">I03</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:50%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">5</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">43.8</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;I01&#39;)">
+    <div class="item-rank">#2</div>
+    <div class="item-main">
+      <div class="item-name">Аутентификация и мульти-пользовательский режим</div>
+      <div class="item-desc">Базовая авторизация (SSO / корп. аккаунт), разные пространства для разных команд, история изменений, кто что редактировал</div>
+      <div class="item-meta">
+        <span class="tag tag-infra">🏗 Инфраструктура</span>
+        <span class="impact-badge imp-pmo">PMO</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">I01</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:100%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">10</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">25.2</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      <span style="font-size:9px;color:var(--muted)" title="Большой epic. Нужен backend. Возможно — отдельный продукт.">📝</span>
+    </div>
+  </div><div class="item " onclick="openEdit(&#39;I02&#39;)">
+    <div class="item-rank">#3</div>
+    <div class="item-main">
+      <div class="item-name">API для интеграций (REST)</div>
+      <div class="item-desc">REST API для чтения/записи данных продуктов: статусы Gate, метрики здоровья, реестр инициатив. Для интеграции с BI и трекерами.</div>
+      <div class="item-meta">
+        <span class="tag tag-infra">🏗 Инфраструктура</span>
+        <span class="impact-badge imp-tl">TL</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">I02</span>
+        <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
+      </div>
+    </div>
+    <div class="item-rice">
+      <div class="rice-bar-row">
+        <span class="rice-key">R</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:70%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">7</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">I</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:80%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">8</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">C</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:40%;background:var(--violet)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">4</span>
+      </div><div class="rice-bar-row">
+        <span class="rice-key">E</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:90%;background:var(--amber)"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">9</span>
+      </div>
+    </div>
+    <div class="item-score-col">
+      <div class="score-val score-high">24.9</div>
+      <div class="score-label">🟢 High</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot st-backlog">Бэклог</span>
+      
+    </div>
+  </div></div>
+  <div class="empty" id="empty-state" style="display:none">
+    <div class="empty-icon">🔍</div>
+    <div style="font-size:14px;font-weight:700;color:var(--gray2);margin-bottom:6px">Ничего не найдено</div>
+    <div>Попробуй другой фильтр или поисковый запрос</div>
+  </div>
+</main>
+
+</div><!-- /layout -->
+
+<!-- EDIT PANEL -->
+<div class="edit-panel" id="edit-panel">
+  <button class="edit-close" onclick="closeEdit()">✕</button>
+  <div class="edit-panel-title" id="ep-title">Принципы Product OS (раздел)</div>
+
+  <div class="slider-group">
+    <div class="slider-label">
+      <span class="slider-name">📡 Reach — охват пользователей</span>
+      <span class="slider-num" id="ep-r-val">6</span>
+    </div>
+    <input type="range" min="1" max="10" value="5" id="ep-r" oninput="updateEditScore()">
+  </div>
+  <div class="slider-group">
+    <div class="slider-label">
+      <span class="slider-name">💥 Impact — влияние на метрику</span>
+      <span class="slider-num" id="ep-i-val">6</span>
+    </div>
+    <input type="range" min="1" max="10" value="5" id="ep-i" oninput="updateEditScore()">
+  </div>
+  <div class="slider-group">
+    <div class="slider-label">
+      <span class="slider-name">🎯 Confidence — уверенность в оценке</span>
+      <span class="slider-num" id="ep-c-val">10</span>
+    </div>
+    <input type="range" min="1" max="10" value="5" id="ep-c" oninput="updateEditScore()">
+  </div>
+  <div class="slider-group">
+    <div class="slider-label">
+      <span class="slider-name">⚙️ Effort — трудозатраты</span>
+      <span class="slider-num" id="ep-e-val">1</span>
+    </div>
+    <input type="range" min="1" max="10" value="5" id="ep-e" oninput="updateEditScore()">
+  </div>
+
+  <div class="score-preview">
+    <div class="score-preview-val score-high" id="ep-score">360.0</div>
+    <div class="score-preview-formula">(R × I × C) / E</div>
+  </div>
+
+  <div class="edit-field">
+    <label>Статус</label>
+    <select id="ep-status">
+      <option value="backlog">📥 Бэклог</option>
+      <option value="planned">📌 Запланировано</option>
+      <option value="wip">🔄 В работе</option>
+      <option value="done">✅ Готово</option>
+    </select>
+  </div>
+
+  <div class="edit-field">
+    <label>Целевой релиз</label>
+    <select id="ep-release">
+      <option value="v13">v13</option>
+      <option value="v14">v14</option>
+      <option value="v15+">v15+</option>
+      <option value="backlog">Бэклог (без срока)</option>
+    </select>
+  </div>
+
+  <div class="edit-field">
+    <label>Заметки PM</label>
+    <textarea id="ep-notes" placeholder="Почему важно? Зависимости? Альтернативы?"></textarea>
+  </div>
+
+  <button class="btn-save" onclick="saveEdit()">💾 Сохранить изменения</button>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// ДАННЫЕ БЭКЛОГА
+// ══════════════════════════════════════════
+const BACKLOG_DEFAULT = [
+
+  // ═══ ПРОЕКТЫ PRODUCT OS ═══
+  {
+    id: 'PR01',
+    name: 'Продуктовый фреймворк',
+    desc: 'Операционный справочник правил и работы контура продуктов экосистемы: регламенты, процессы, методологии, база знаний. Источник истины для лидов и команд RWB.',
+    cat: 'project', audience: 'PM',
+    r: 10, i: 10, c: 9, e: 9,
+    status: 'wip', release: 'v13',
+    notes: 'Фундамент всей системы. Питает все остальные проекты. В работе.'
+  },
+  {
+    id: 'PR02',
+    name: 'Хендбук для руководителей продукта',
+    desc: 'Прикладной инструментарий для продактов, проджектов и техлидов. Приоритизация, планирование, чек-листы стадий, RACI, шаблоны — всё для ускорения работы в рамках фреймворка.',
+    cat: 'project', audience: 'PM',
+    r: 9, i: 9, c: 9, e: 7,
+    status: 'wip', release: 'v13',
+    notes: 'В работе. Прикладная надстройка над фреймворком для команд.'
+  },
+  {
+    id: 'PR03',
+    name: 'Лендинг-презентация для бизнеса',
+    desc: 'Как создать продукт в экосистеме RWB. Вход для новых команд, стартапов и бизнес-заказчиков: путь от идеи до продукта, ценность экосистемы, первый шаг.',
+    cat: 'project', audience: 'PM',
+    r: 7, i: 8, c: 9, e: 5,
+    status: 'wip', release: 'v13',
+    notes: 'В работе. Внешняя витрина для привлечения новых команд в экосистему.'
+  },
+  {
+    id: 'PR04',
+    name: 'Трекер инициатив и проектов (Shiva/WB)',
+    desc: 'Фронтенд для управления развитием продуктов внутри команд. ТЗ для команды разработки Shiva/WB: они оценивают и разрабатывают внутри своего продукта.',
+    cat: 'project', audience: 'TL',
+    r: 8, i: 9, c: 7, e: 8,
+    status: 'planned', release: 'v14',
+    notes: 'Следующий шаг — написать ТЗ. Разработка силами Shiva/WB после согласования.'
+  },
+  {
+    id: 'PR05',
+    name: 'Реестр целей и инициатив экосистемы',
+    desc: 'Корпоративный трекер: фронтенд для управления портфелем инициатив. Для проектных комитетов, планирования и прозрачности. Бизнес видит актуальный статус 24/7.',
+    cat: 'project', audience: 'PMO',
+    r: 9, i: 9, c: 7, e: 8,
+    status: 'planned', release: 'v14',
+    notes: 'Ключевой инструмент для PMO и проектных комитетов. Нужна детализация концепции.'
+  },
+  {
+    id: 'PR06',
+    name: 'Корпоративный ProductHunt',
+    desc: 'Витрина и блог о продуктах экосистемы: интеграция, развитие стартапов силами сотрудников, подача идей, рассказы о продуктах, обмен экспертизой внутри компании.',
+    cat: 'project', audience: 'PM',
+    r: 8, i: 7, c: 7, e: 9,
+    status: 'backlog', release: 'v15+',
+    notes: 'Долгосрочная цель. Требует аудитории и инфраструктуры из других проектов.'
+  },
+
+  // ═══ ДИЗАЙН & UX ═══
+  {
+    id: 'D01',
+    name: 'Орбитальная визуализация стадий',
+    desc: 'Восстановить/улучшить интерактивную карту орбит из v11: звезда WB в центре, продукты на орбитах, анимация переходов между стадиями зрелости',
+    cat: 'design', audience: 'UX',
+    r: 8, i: 9, c: 8, e: 6,
+    status: 'planned', release: 'v13',
+    notes: 'Была в v11, пропала в MVP. Ключевой UX-элемент для презентации заказчикам и CEO.'
+  },
+  {
+    id: 'D02',
+    name: 'Корпоративная дизайн-система RWB',
+    desc: 'Перевести весь handbook на корпоративный стиль: шрифты Unbounded+Golos Text, темная тема v11, корп. иконки (SVG не стоковые), токены цветов',
+    cat: 'design', audience: 'UX',
+    r: 9, i: 8, c: 9, e: 5,
+    status: 'planned', release: 'v13',
+    notes: 'v12 MVP использует стоковые иконки и дефолтные шрифты. Нужна полная перепаковка под RWB Brand.'
+  },
+  {
+    id: 'D03',
+    name: 'UX-кейсы и интерактивные сценарии',
+    desc: 'Восстановить UX-кейсы из v11: интерактивные примеры как работает фреймворк на реальных продуктах контура, анимированные процессы',
+    cat: 'design', audience: 'PM',
+    r: 7, i: 7, c: 7, e: 5,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'D04',
+    name: 'Адаптивная мобильная версия',
+    desc: 'Полноценная мобильная версия: bottom nav, swipe-жесты, читаемые карточки на 360px, чек-листы на тач-устройствах',
+    cat: 'design', audience: 'PM',
+    r: 6, i: 5, c: 8, e: 5,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'D05',
+    name: 'Тёмная/светлая тема',
+    desc: 'Toggle тёмная/светлая тема с сохранением в localStorage. Светлая — для печати и презентаций, тёмная — для ежедневной работы',
+    cat: 'design', audience: 'UX',
+    r: 5, i: 4, c: 9, e: 3,
+    status: 'backlog', release: 'v15+',
+    notes: ''
+  },
+  {
+    id: 'D06',
+    name: 'Анимации переходов и микроинтеракции',
+    desc: 'Добавить motion design: плавные переходы между разделами, hover-анимации на карточках, прогресс-индикаторы чек-листов',
+    cat: 'design', audience: 'UX',
+    r: 5, i: 5, c: 8, e: 4,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+
+  // ═══ НОВЫЕ ФИЧИ ═══
+  {
+    id: 'F01',
+    name: 'Корпоративный ProductHunt витрина',
+    desc: 'Переделать витрину в полноценный ProductHunt: лендинги продуктов, апвоуты, рейтинг популярности, подкаты API экосистемы по категориям (WB API, внутренние)',
+    cat: 'feature', audience: 'PM',
+    r: 9, i: 9, c: 7, e: 7,
+    status: 'planned', release: 'v13',
+    notes: 'Конечный артефакт по задаче — "корп. ProductHunt с подкатами экосистемы"'
+  },
+  {
+    id: 'F02',
+    name: 'PMO Реестр инициатив',
+    desc: 'Единый реестр всех инициатив: очередь на скрининг, R/ICE скоринг, статус Gate 0, ответственный, дедлайн. CRUD + фильтры + экспорт',
+    cat: 'feature', audience: 'PMO',
+    r: 9, i: 9, c: 8, e: 6,
+    status: 'planned', release: 'v13',
+    notes: '12 команд без общего реестра — первоочередная задача для PMO'
+  },
+  {
+    id: 'F03',
+    name: 'PnL шаблон и финансовая модель',
+    desc: 'Интерактивная PnL: монетизация, прогноз доходов по месяцам, расходы по категориям, auto-расчёт маржи / breakeven / ROI, график',
+    cat: 'feature', audience: 'PM',
+    r: 7, i: 8, c: 8, e: 5,
+    status: 'planned', release: 'v13',
+    notes: 'Блокирует Gate 3 для коммерческих продуктов. В v12 кнопка есть, модуль — нет.'
+  },
+  {
+    id: 'F04',
+    name: 'OKR Планировщик',
+    desc: 'Дерево целей: Цели компании → Департамент → Инициативы → Продукты. Привязка инициатив к OKR, трекинг прогресса по KR',
+    cat: 'feature', audience: 'PM',
+    r: 8, i: 8, c: 7, e: 7,
+    status: 'backlog', release: 'v13',
+    notes: ''
+  },
+  {
+    id: 'F05',
+    name: 'Product Health Dashboard',
+    desc: 'Еженедельный дашборд для Продуктового комитета: North Star, Retention, NPS, технические метрики, статус Red/Yellow/Green, тренды',
+    cat: 'feature', audience: 'PM',
+    r: 8, i: 8, c: 7, e: 6,
+    status: 'backlog', release: 'v13',
+    notes: 'Шаблон уже есть в v11 как документ, нужен интерактивный модуль'
+  },
+  {
+    id: 'F06',
+    name: 'Уведомления / Алерты по датам комитетов',
+    desc: 'Бейдж ⚠️ в матрице если дата комитета < 3 дней. Напоминание о не пройденных Gate. Опционально — браузерные push-уведомления',
+    cat: 'feature', audience: 'PM',
+    r: 7, i: 6, c: 9, e: 3,
+    status: 'backlog', release: 'v13',
+    notes: ''
+  },
+  {
+    id: 'F07',
+    name: 'Профиль команды продукта',
+    desc: 'Страница каждого продукта с командой: PM, TL, дизайнер, DA, контакты, аватары, роли. Кликабельный из матрицы и витрины',
+    cat: 'feature', audience: 'PM',
+    r: 6, i: 6, c: 8, e: 4,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'F08',
+    name: 'CustDev трекер интервью',
+    desc: 'Структурированная запись CustDev: карточки интервью, инсайты, гипотезы, статус подтверждения. Счётчик интервью на Gate 1.',
+    cat: 'feature', audience: 'PM',
+    r: 6, i: 7, c: 7, e: 5,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'F09',
+    name: 'Gate Timeline — дорожная карта гейтов',
+    desc: 'Временная шкала всех Gate по всем продуктам: кто, когда, какой Gate. Вид Gantt + Kanban. Планирование нагрузки на комитеты.',
+    cat: 'feature', audience: 'PMO',
+    r: 7, i: 7, c: 6, e: 6,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'F10',
+    name: 'A/B тест трекер',
+    desc: 'Управление A/B экспериментами: гипотеза, метрика, аудитория, статус, результат. Интеграция с дашбордом здоровья продукта.',
+    cat: 'feature', audience: 'PM',
+    r: 5, i: 7, c: 6, e: 6,
+    status: 'backlog', release: 'v15+',
+    notes: ''
+  },
+  {
+    id: 'F11',
+    name: 'Роадмап продукта (визуализация)',
+    desc: 'Интерактивный roadmap: горизонты Now/Next/Later, эпики, релизы, зависимости. Экспорт в PNG/PDF для презентации CEO.',
+    cat: 'feature', audience: 'PM',
+    r: 7, i: 7, c: 6, e: 8,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'F12',
+    name: 'Сравнение конкурентов (интерактивная матрица)',
+    desc: 'Интерактивная таблица конкурентного анализа: добавление конкурентов, критериев, оценок. Автоматическое УТП по разрывам.',
+    cat: 'feature', audience: 'PM',
+    r: 5, i: 6, c: 7, e: 5,
+    status: 'backlog', release: 'v15+',
+    notes: ''
+  },
+
+  // ═══ ИНСТРУМЕНТЫ ═══
+  {
+    id: 'T01',
+    name: 'Интеграция с YouTrack / трекерами',
+    desc: 'Унификация статусов Gate поверх YouTrack и собственных трекеров: маппинг статусов, авто-обновление матрицы, webhooks',
+    cat: 'tooling', audience: 'TL',
+    r: 8, i: 9, c: 5, e: 9,
+    status: 'backlog', release: 'v15+',
+    notes: '12 команд в разных трекерах — высокий effort, но стратегически важно'
+  },
+  {
+    id: 'T02',
+    name: 'PDF-экспорт с корпоративным форматом',
+    desc: 'Нормальный PDF для A4: print-стили, постраничный layout, корп. шапка/подвал, Product ID → PDF для Gate-презентации',
+    cat: 'tooling', audience: 'PM',
+    r: 7, i: 7, c: 9, e: 4,
+    status: 'planned', release: 'v13',
+    notes: 'Сейчас window.print() без стилей — некрасиво. Нужен нормальный A4.'
+  },
+  {
+    id: 'T03',
+    name: 'Автосохранение в cloud (вместо localStorage)',
+    desc: 'Данные продуктов, чек-листы, R/ICE в облаке (simple JSON API или Google Sheets). Синхронизация между пользователями.',
+    cat: 'tooling', audience: 'PMO',
+    r: 8, i: 8, c: 5, e: 8,
+    status: 'backlog', release: 'v15+',
+    notes: 'Пока localStorage — данные только в браузере одного пользователя'
+  },
+  {
+    id: 'T04',
+    name: 'Экспорт в Confluence / Wiki',
+    desc: 'Кнопка "Экспорт в Wiki": конвертация Product ID / Gate отчёта в Confluence-разметку или markdown для корп. Wiki',
+    cat: 'tooling', audience: 'PMO',
+    r: 7, i: 7, c: 7, e: 5,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'T05',
+    name: 'Мастер настройки нового продукта (Wizard)',
+    desc: 'Step-by-step онбординг нового PM: создать продукт → заполнить бриф → назначить команду → запустить R/ICE. 5 шагов, 10 минут.',
+    cat: 'tooling', audience: 'PM',
+    r: 7, i: 8, c: 8, e: 5,
+    status: 'backlog', release: 'v13',
+    notes: 'Y-combinator подход: быстрый старт без "читай документацию"'
+  },
+  {
+    id: 'T06',
+    name: 'Поиск по всему handbook',
+    desc: 'Полнотекстовый поиск по всем разделам: чек-листы, глоссарий, Q&A, шаблоны. Ctrl+K / ⌘K быстрый доступ.',
+    cat: 'tooling', audience: 'PM',
+    r: 7, i: 6, c: 9, e: 4,
+    status: 'backlog', release: 'v13',
+    notes: ''
+  },
+
+  // ═══ ПРОЦЕССЫ ═══
+  {
+    id: 'P01',
+    name: 'B2B/B2C/B2G ветки стадий',
+    desc: 'Специфика по сегменту на каждой стадии: B2G — юр. pre-check и доп. недели, B2B — CustDev с ЛПР, B2C — массовый A/B. Хинты и отличия.',
+    cat: 'process', audience: 'PM',
+    r: 8, i: 7, c: 8, e: 4,
+    status: 'backlog', release: 'v13',
+    notes: ''
+  },
+  {
+    id: 'P02',
+    name: 'DoR/DoD конструктор',
+    desc: 'Интерактивный редактор Definition of Ready и Definition of Done: выбираешь тип задачи, стадию → получаешь чек-лист. Сохранение под продукт.',
+    cat: 'process', audience: 'TL',
+    r: 6, i: 7, c: 7, e: 5,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'P03',
+    name: 'Ретроспектива шаблон (интерактивный)',
+    desc: 'Онлайн-ретро прямо в handbook: Stop/Start/Continue + Action items с ответственными и дедлайнами. Архив ретро по продукту.',
+    cat: 'process', audience: 'PM',
+    r: 5, i: 6, c: 8, e: 4,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'P04',
+    name: 'Матрица доступов (AS IS → TO BE)',
+    desc: 'Интерактивная матрица доступов к инструментам по ролям. AS IS текущее состояние, TO BE целевое. Из v11.',
+    cat: 'process', audience: 'PMO',
+    r: 5, i: 5, c: 8, e: 3,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'P05',
+    name: 'Стек AS IS → TO BE (инструменты 2026)',
+    desc: 'Визуализация миграции инструментов: YouTrack → собственный трекер, Confluence → Wiki RWB, таблицы → реестр PMO. Статус и таймлайн.',
+    cat: 'process', audience: 'PMO',
+    r: 6, i: 6, c: 8, e: 4,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'P06',
+    name: 'Kill-условия конфигуратор',
+    desc: 'Кастомные kill-условия под каждый продукт: PM задаёт пороги (North Star -N%, NPS < N), система предупреждает при приближении.',
+    cat: 'process', audience: 'PM',
+    r: 6, i: 7, c: 7, e: 5,
+    status: 'backlog', release: 'v15+',
+    notes: ''
+  },
+
+  // ═══ КОНТЕНТ ═══
+  {
+    id: 'C01',
+    name: 'Расширенный глоссарий (60+ терминов)',
+    desc: 'Добавить 20+ терминов: MoSCoW, JTBD, Activation Rate, Churn Rate, LTV, CAC, Payback Period, SaaS-метрики, DevOps термины',
+    cat: 'content', audience: 'PM',
+    r: 6, i: 5, c: 10, e: 2,
+    status: 'backlog', release: 'v13',
+    notes: ''
+  },
+  {
+    id: 'C02',
+    name: 'Release Notes шаблон',
+    desc: 'Интерактивный шаблон Release Notes: версия, что изменилось, rollback plan, коммуникация для заказчика и пользователей',
+    cat: 'content', audience: 'PM',
+    r: 6, i: 6, c: 9, e: 2,
+    status: 'backlog', release: 'v13',
+    notes: 'Уже есть в v11 как текст — нужно перенести как интерактивный шаблон'
+  },
+  {
+    id: 'C03',
+    name: 'Расширенный Q&A (20+ вопросов)',
+    desc: 'Добавить вопросы: B2G-специфика, работа с несколькими трекерами, как питчить CEO, когда пивотить, как работать с токсичным заказчиком',
+    cat: 'content', audience: 'PM',
+    r: 5, i: 5, c: 9, e: 2,
+    status: 'backlog', release: 'v14',
+    notes: ''
+  },
+  {
+    id: 'C04',
+    name: 'Принципы Product OS (раздел)',
+    desc: 'Восстановить из v11 раздел 6 принципов: Ценность до кода, Скорость через ясность, MVP не плохо а достаточно, Data-driven, Прозрачность, OKR-связь',
+    cat: 'content', audience: 'PM',
+    r: 6, i: 6, c: 10, e: 1,
+    status: 'backlog', release: 'v13',
+    notes: 'Контент уже есть в v11, просто не перенесли в v12 MVP'
+  },
+  {
+    id: 'C05',
+    name: 'Роли и матрица ответственности (RACI)',
+    desc: 'Детальные карточки ролей из v11: PM, TL, Designer, DA, BA — обязанности, KPI, что делать на каждой стадии. RACI матрица.',
+    cat: 'content', audience: 'PM',
+    r: 7, i: 7, c: 9, e: 3,
+    status: 'backlog', release: 'v13',
+    notes: 'Один из самых просматриваемых разделов v11'
+  },
+
+  // ═══ ИНФРАСТРУКТУРА ═══
+  {
+    id: 'I01',
+    name: 'Аутентификация и мульти-пользовательский режим',
+    desc: 'Базовая авторизация (SSO / корп. аккаунт), разные пространства для разных команд, история изменений, кто что редактировал',
+    cat: 'infra', audience: 'PMO',
+    r: 7, i: 9, c: 4, e: 10,
+    status: 'backlog', release: 'v15+',
+    notes: 'Большой epic. Нужен backend. Возможно — отдельный продукт.'
+  },
+  {
+    id: 'I02',
+    name: 'API для интеграций (REST)',
+    desc: 'REST API для чтения/записи данных продуктов: статусы Gate, метрики здоровья, реестр инициатив. Для интеграции с BI и трекерами.',
+    cat: 'infra', audience: 'TL',
+    r: 7, i: 8, c: 4, e: 9,
+    status: 'backlog', release: 'v15+',
+    notes: ''
+  },
+  {
+    id: 'I03',
+    name: 'PWA — установка как приложение',
+    desc: 'Progressive Web App: оффлайн-режим, установка на рабочий стол/телефон, push-уведомления о дедлайнах Gate',
+    cat: 'infra', audience: 'PM',
+    r: 5, i: 5, c: 7, e: 4,
+    status: 'backlog', release: 'v15+',
+    notes: ''
+  },
+];
+
+// ══════════════════════════════════════════
+// СОСТОЯНИЕ
+// ══════════════════════════════════════════
+let backlog = (window.PT ? PT.load(PT.KEY_BACKLOG) : JSON.parse(localStorage.getItem('rwb_backlog') || 'null')) || BACKLOG_DEFAULT;
+let filters = { cat: 'all', status: 'all', audience: 'all' };
+let sortBy = 'score';
+let editingId = null;
+
+function getScore(item) { return (item.r * item.i * item.c) / item.e; }
+
+function scoreClass(s) { return s > 20 ? 'score-high' : s >= 10 ? 'score-mid' : 'score-low'; }
+function priorityLabel(s) { return s > 20 ? '🟢 High' : s >= 10 ? '🟡 Med' : '🔴 Low'; }
+
+// ══════════════════════════════════════════
+// РЕНДЕР
+// ══════════════════════════════════════════
+function getFiltered() {
+  const q = document.getElementById('search').value.toLowerCase();
+  return backlog.filter(item => {
+    if (filters.cat !== 'all' && item.cat !== filters.cat) return false;
+    if (filters.status !== 'all' && item.status !== filters.status) return false;
+    if (filters.audience !== 'all' && item.audience !== filters.audience) return false;
+    if (q && !item.name.toLowerCase().includes(q) && !item.desc.toLowerCase().includes(q)) return false;
+    return true;
+  }).sort((a, b) => {
+    if (sortBy === 'score') return getScore(b) - getScore(a);
+    if (sortBy === 'name') return a.name.localeCompare(b.name);
+    if (sortBy === 'effort') return a.e - b.e;
+    return 0;
+  });
+}
+
+const CAT_LABELS = { project:'🗂 Проекты OS', design:'🎨 Дизайн & UX', feature:'⚡ Новые фичи', tooling:'🔧 Инструменты', process:'📋 Процессы', content:'📄 Контент', infra:'🏗 Инфраструктура' };
+const STATUS_LABELS = { backlog:'Бэклог', planned:'Запланировано', wip:'В работе', done:'Готово' };
+const STATUS_CLASSES = { backlog:'st-backlog', planned:'st-planned', wip:'st-wip', done:'st-done' };
+const AUD_CLASSES = { PM:'imp-pm', UX:'imp-ux', TL:'imp-tl', PMO:'imp-pmo', all:'imp-all' };
+
+function renderItems() {
+  const items = getFiltered();
+  const list = document.getElementById('items-list');
+  const empty = document.getElementById('empty-state');
+
+  // Update counts
+  updateCounts();
+
+  if (!items.length) {
+    list.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  // Group by category if no cat filter
+  let html = '';
+  if (filters.cat === 'all') {
+    const groups = {};
+    items.forEach(item => {
+      if (!groups[item.cat]) groups[item.cat] = [];
+      groups[item.cat].push(item);
+    });
+    Object.entries(groups).forEach(([cat, catItems]) => {
+      html += `<div class="group-label">${CAT_LABELS[cat] || cat}</div>`;
+      catItems.forEach((item, i) => { html += renderItem(item, i + 1); });
+    });
+  } else {
+    items.forEach((item, i) => { html += renderItem(item, i + 1); });
+  }
+  list.innerHTML = html;
+}
+
+function renderItem(item, rank) {
+  const score = getScore(item);
+  const sc = scoreClass(score);
+  const rMax = 10;
+  return `<div class="item ${editingId === item.id ? 'editing' : ''}" onclick="openEdit('${item.id}')">
+    <div class="item-rank">#${rank}</div>
+    <div class="item-main">
+      <div class="item-name">${item.name}</div>
+      <div class="item-desc">${item.desc}</div>
+      <div class="item-meta">
+        <span class="tag tag-${item.cat}">${CAT_LABELS[item.cat]||item.cat}</span>
+        <span class="impact-badge ${AUD_CLASSES[item.audience]||'imp-pm'}">${item.audience}</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">${item.id}</span>
+        ${item.release ? `<span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">${item.release}</span>` : ''}
+      </div>
+    </div>
+    <div class="item-rice">
+      ${['r','i','c','e'].map((k,idx) => `<div class="rice-bar-row">
+        <span class="rice-key">${k.toUpperCase()}</span>
+        <div class="rice-bar-bg"><div class="rice-bar-fill" style="width:${item[k]*10}%;background:${idx===3?'var(--amber)':'var(--violet)'}"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">${item[k]}</span>
+      </div>`).join('')}
+    </div>
+    <div class="item-score-col">
+      <div class="score-val ${sc}">${score.toFixed(1)}</div>
+      <div class="score-label">${priorityLabel(score)}</div>
+    </div>
+    <div class="item-status-col">
+      <span class="status-dot ${STATUS_CLASSES[item.status]}">${STATUS_LABELS[item.status]}</span>
+      ${item.notes ? `<span style="font-size:9px;color:var(--muted)" title="${item.notes}">📝</span>` : ''}
+    </div>
+  </div>`;
+}
+
+function updateCounts() {
+  const all = backlog;
+  const filtered = getFiltered();
+  const scores = filtered.map(getScore);
+
+  const high = scores.filter(s => s > 20).length;
+  const mid = scores.filter(s => s >= 10 && s <= 20).length;
+  const low = scores.filter(s => s < 10).length;
+  const wip = filtered.filter(i => i.status === 'wip').length;
+
+  document.getElementById('s-high').textContent = high;
+  document.getElementById('s-mid').textContent = mid;
+  document.getElementById('s-low').textContent = low;
+  document.getElementById('s-wip').textContent = wip;
+  document.getElementById('s-total').textContent = filtered.length;
+  document.getElementById('stat-total').textContent = all.length;
+  document.getElementById('stat-high').textContent = all.filter(i => getScore(i) > 20).length;
+  document.getElementById('stat-planned').textContent = all.filter(i => i.status === 'wip' || i.status === 'planned').length;
+
+  // sidebar counts
+  const cats = ['design','feature','tooling','process','content','infra'];
+  document.getElementById('fc-all').textContent = all.length;
+  cats.forEach(c => {
+    const el = document.getElementById('fc-' + c);
+    if (el) el.textContent = all.filter(i => i.cat === c).length;
+  });
+}
+
+// ══════════════════════════════════════════
+// ФИЛЬТРЫ
+// ══════════════════════════════════════════
+function setFilter(type, val, btn) {
+  filters[type] = val;
+  if (btn) {
+    const parent = btn.closest('.sidebar-section');
+    if (parent) parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  if (window.PT) PT.setUIState({backlog_filters: filters});
+  renderItems();
+}
+
+function setSort(val, btn) {
+  sortBy = val;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderItems();
+}
+
+// ══════════════════════════════════════════
+// EDIT PANEL
+// ══════════════════════════════════════════
+function openEdit(id) {
+  const item = backlog.find(i => i.id === id);
+  if (!item) return;
+  editingId = id;
+
+  document.getElementById('ep-title').textContent = item.name;
+  document.getElementById('ep-r').value = item.r;
+  document.getElementById('ep-i').value = item.i;
+  document.getElementById('ep-c').value = item.c;
+  document.getElementById('ep-e').value = item.e;
+  document.getElementById('ep-r-val').textContent = item.r;
+  document.getElementById('ep-i-val').textContent = item.i;
+  document.getElementById('ep-c-val').textContent = item.c;
+  document.getElementById('ep-e-val').textContent = item.e;
+  document.getElementById('ep-status').value = item.status;
+  document.getElementById('ep-release').value = item.release || 'backlog';
+  document.getElementById('ep-notes').value = item.notes || '';
+
+  updateEditScore();
+  document.getElementById('edit-panel').classList.add('open');
+  renderItems();
+}
+
+function closeEdit() {
+  editingId = null;
+  document.getElementById('edit-panel').classList.remove('open');
+  renderItems();
+}
+
+function updateEditScore() {
+  const r = +document.getElementById('ep-r').value;
+  const i = +document.getElementById('ep-i').value;
+  const c = +document.getElementById('ep-c').value;
+  const e = +document.getElementById('ep-e').value;
+  document.getElementById('ep-r-val').textContent = r;
+  document.getElementById('ep-i-val').textContent = i;
+  document.getElementById('ep-c-val').textContent = c;
+  document.getElementById('ep-e-val').textContent = e;
+  const score = (r * i * c) / e;
+  const sc = document.getElementById('ep-score');
+  sc.textContent = score.toFixed(1);
+  sc.className = 'score-preview-val ' + scoreClass(score);
+}
+
+function saveEdit() {
+  if (!editingId) return;
+  const item = backlog.find(i => i.id === editingId);
+  if (!item) return;
+  item.r = +document.getElementById('ep-r').value;
+  item.i = +document.getElementById('ep-i').value;
+  item.c = +document.getElementById('ep-c').value;
+  item.e = +document.getElementById('ep-e').value;
+  item.status = document.getElementById('ep-status').value;
+  item.release = document.getElementById('ep-release').value;
+  item.notes = document.getElementById('ep-notes').value;
+  if (window.PT) PT.save(PT.KEY_BACKLOG, backlog); else localStorage.setItem('rwb_backlog', JSON.stringify(backlog));
+  renderItems();
+  // Flash feedback
+  const btn = document.querySelector('.btn-save');
+  btn.textContent = '✅ Сохранено!';
+  setTimeout(() => btn.textContent = '💾 Сохранить изменения', 1500);
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.PT) {
+    const _ui = PT.getUIState();
+    if (_ui.backlog_filters) Object.assign(filters, _ui.backlog_filters);
+  }
+  renderItems();
+});
+</script>
+
+
+</body></html>

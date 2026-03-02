@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoTech Platform — Витрина</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Backgrounds */
+      --bg:          #08081A;
+      --surface:     #111128;
+      --card:        #161630;
+      --surface2:    #1A1A38;
+      --border:      rgba(255,255,255,0.07);
+      --border-h:    rgba(255,255,255,0.14);
+      /* Brand colors */
+      --violet:      #7B2FFF;
+      --violet-dim:  rgba(123,47,255,0.12);
+      --violet-border: rgba(123,47,255,0.35);
+      --pink:        #FF2D8A;
+      --pink-dim:    rgba(255,45,138,0.12);
+      --pink-border: rgba(255,45,138,0.35);
+      --teal:        #00D4B4;
+      --teal-dim:    rgba(0,212,180,0.10);
+      --teal-border: rgba(0,212,180,0.35);
+      --amber:       #FFB830;
+      --amber-dim:   rgba(255,184,48,0.10);
+      --amber-border: rgba(255,184,48,0.35);
+      --green:       #34D399;
+      --blue:        #3B82F6;
+      --blue-dim:    rgba(59,130,246,0.12);
+      /* Stage colors */
+      --stage-g1:    #C49CFF;
+      --stage-g2:    #FF85C0;
+      --stage-g0:    #8B8BAE;
+      /* Text */
+      --text:        #E8E6FF;
+      --muted:       #7A7A9D;
+      --gray2:       #C4C4D8;
+      --white:       #FFFFFF;
+      /* Typography */
+      --font-head:   'Unbounded', sans-serif;
+      --font-body:   'Golos Text', sans-serif;
+      /* Layout */
+      --radius:      16px;
+      --radius-sm:   10px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+    }
+    body::before {
+      content:'';position:fixed;inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity:0.025;pointer-events:none;z-index:0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 48px 40px 40px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      overflow: hidden;
+    }
+
+    .hero-text { flex: 1; min-width: 0; }
+
+    .hero-eyebrow {
+      font-family: var(--font-head);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--violet);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .hero h1 .glow {
+      background: linear-gradient(90deg, var(--violet), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 18px rgba(123,47,255,0.5));
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--gray2);
+      max-width: 360px;
+      line-height: 1.75;
+    }
+
+    /* ── ORBITAL SCREENSAVER ── */
+    .orbital-wrap {
+      flex-shrink: 0;
+      width: 300px;
+      height: 300px;
+      position: relative;
+    }
+
+    /* Ambient glow behind whole orbital */
+    .orbital-wrap::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(123,47,255,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .orb-system {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* Decorative orbit ring circles */
+    .orb-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid var(--border);
+    }
+    .orb-ring-1 {
+      width: 130px; height: 130px;
+      border-color: rgba(0,212,180,0.18);
+    }
+    .orb-ring-2 {
+      width: 230px; height: 230px;
+      border-color: rgba(123,47,255,0.14);
+    }
+    /* Subtle outer glow ring */
+    .orb-ring-2::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid rgba(123,47,255,0.05);
+    }
+
+    /* Center element */
+    .orb-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 62px; height: 62px;
+      border-radius: 50%;
+      background: var(--violet-dim);
+      border: 1.5px solid var(--violet-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      animation: center-pulse 3.5s ease-in-out infinite;
+    }
+    @keyframes center-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(123,47,255,0.25), 0 0 18px rgba(123,47,255,0.18); }
+      50%       { box-shadow: 0 0 0 7px rgba(123,47,255,0), 0 0 28px rgba(123,47,255,0.3); }
+    }
+    .orb-center-a {
+      font-family: var(--font-head);
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--stage-g1);
+      text-transform: uppercase;
+    }
+    .orb-center-b {
+      font-size: 7px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Orbit track: zero-size element anchored at orbital center */
+    .orb-track {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+    }
+    /* Inner ring — 9 s, counter-clockwise feel (CW rotation) */
+    .orb-track.r1 { animation: orb-spin-r1 9s linear infinite; }
+    /* Outer ring — 18 s */
+    .orb-track.r2 { animation: orb-spin-r2 18s linear infinite; }
+
+    @keyframes orb-spin-r1 { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+    @keyframes orb-spin-r2 { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+
+    /* Dot: absolutely positioned relative to its track */
+    .orb-dot {
+      position: absolute;
+      width: 30px; height: 30px;
+      left: -15px;            /* center horizontally on track's x-axis */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    /* Inner: radius 65px → top = -(65 + 15) = -80px */
+    .orb-dot.r1 {
+      top: -80px;
+      animation: orb-counter-r1 9s linear infinite;
+    }
+    /* Outer: radius 115px → top = -(115 + 15) = -130px */
+    .orb-dot.r2 {
+      top: -130px;
+      animation: orb-counter-r2 18s linear infinite;
+    }
+    /* Counter-rotations keep text upright */
+    @keyframes orb-counter-r1 { from { transform: rotate(0deg); }  to { transform: rotate(-360deg); } }
+    @keyframes orb-counter-r2 { from { transform: rotate(0deg); }  to { transform: rotate(-360deg); } }
+
+    /* Orbital dot color variants — design system */
+    .dot-green  { background: var(--teal-dim);          border: 1px solid var(--teal-border);    color: var(--teal);      box-shadow: 0 0 6px rgba(0,212,180,0.2); }
+    .dot-blue   { background: var(--violet-dim);        border: 1px solid var(--violet-border);  color: var(--stage-g1); }
+    .dot-gray   { background: rgba(139,139,174,0.10);   border: 1px solid rgba(139,139,174,0.3); color: var(--stage-g0); }
+    .dot-orange { background: var(--amber-dim);         border: 1px solid var(--amber-border);   color: var(--amber); }
+    .dot-purple { background: var(--pink-dim);          border: 1px solid var(--pink-border);    color: var(--stage-g2); }
+
+    /* ── SECTION ── */
+    .section {
+      padding: 32px 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-head);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--violet);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 22px;
+    }
+
+    /* ── MODULE GRID ── */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+      gap: 10px;
+    }
+
+    .module-card {
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0;
+      background: var(--card);
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+    .module-card:hover {
+      border-color: var(--violet-border);
+      box-shadow: 0 4px 24px rgba(123,47,255,0.12), 0 0 0 1px rgba(123,47,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    .module-top { height: 3px; }
+
+    .module-body { padding: 14px 16px 16px; }
+
+    .module-code {
+      font-family: var(--font-head);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .module-name {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-head);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+    .status-pill::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+    }
+
+    /* Status pills — design system palette */
+    .pill-green  { background: rgba(52,211,153,0.12);      color: var(--green);      border: 1px solid rgba(52,211,153,0.3); }
+    .pill-green::before  { background: var(--green); box-shadow: 0 0 4px var(--green); }
+    .pill-blue   { background: var(--violet-dim);          color: var(--stage-g1);   border: 1px solid var(--violet-border); }
+    .pill-blue::before   { background: var(--violet); }
+    .pill-gray   { background: rgba(139,139,174,0.10);     color: var(--stage-g0);   border: 1px solid rgba(139,139,174,0.25); }
+    .pill-gray::before   { background: var(--stage-g0); }
+    .pill-orange { background: var(--amber-dim);           color: var(--amber);      border: 1px solid var(--amber-border); }
+    .pill-orange::before { background: var(--amber); }
+    .pill-purple { background: var(--pink-dim);            color: var(--stage-g2);   border: 1px solid var(--pink-border); }
+    .pill-purple::before { background: var(--pink); }
+
+    .module-desc {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      line-height: 1.55;
+    }
+
+    .link-hint {
+      font-size: 10px;
+      color: var(--violet);
+      margin-top: 8px;
+      opacity: 0.7;
+    }
+
+    /* Divider "В проработке" */
+    .modules-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0 14px;
+    }
+    .modules-divider span {
+      font-family: var(--font-head);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--amber);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .modules-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── PORTFOLIO ── */
+    .portfolio-intro {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      max-width: 600px;
+      line-height: 1.75;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .portfolio-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: var(--card);
+      position: relative;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .portfolio-card.pilot {
+      border-color: var(--teal-border);
+      box-shadow: 0 0 14px rgba(0,212,180,0.06);
+    }
+    .portfolio-card.platform {
+      border-color: var(--violet-border);
+      box-shadow: 0 0 14px rgba(123,47,255,0.08);
+    }
+
+    .portfolio-code {
+      font-family: var(--font-head);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .portfolio-name {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .portfolio-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .pilot-badge {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: var(--teal-dim);
+      color: var(--teal);
+      border: 1px solid var(--teal-border);
+      font-family: var(--font-head);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 6px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    .portfolio-card.tbd {
+      border-style: dashed;
+      border-color: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.01);
+    }
+    .portfolio-card.tbd .portfolio-name { color: rgba(255, 255, 255, 0.22); font-style: italic; }
+    .portfolio-card.tbd .portfolio-meta { color: rgba(255, 255, 255, 0.14); }
+
+    /* ── FOOTER ── */
+    .wiki-footer {
+      border-top: 1px solid var(--border);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .wiki-footer strong { color: rgba(255, 255, 255, 0.38); }
+
+    /* ── NAV ── */
+    .ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,0.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,0.15);display:flex;align-items:center;padding:0 24px;gap:0;}
+    .en-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-0.3px;white-space:nowrap;flex-shrink:0;}
+    .en-logo span{color:#7B2FFF;}
+    .en-sep{width:1px;height:16px;background:rgba(123,47,255,0.2);margin:0 16px;flex-shrink:0;}
+    .en-links{display:flex;gap:2px;align-items:center;overflow-x:auto;}
+    .en-links a{font-size:12px;font-weight:600;color:#7A7A9D;text-decoration:none;padding:5px 10px;border-radius:7px;transition:color 0.15s,background 0.15s;white-space:nowrap;}
+    .en-links a:hover{color:#fff;background:rgba(255,255,255,0.06);}
+    .en-links a.en-active{color:#C49CFF;background:rgba(123,47,255,0.12);}
+
+    @media (max-width: 700px) {
+      .hero { flex-direction: column-reverse; padding: 28px 20px 32px; gap: 32px; }
+      .orbital-wrap { width: 260px; height: 260px; }
+      .section { padding: 28px 20px; }
+      .wiki-footer { padding: 14px 20px; }
+    }
+  </style>
+  <script src="../platform.js"></script>
+</head>
+<body>
+<nav class="ecotech-nav">
+  <a class="en-logo" href="../index.html">EcoTech <span>Platform</span></a>
+  <div class="en-sep"></div>
+  <div class="en-links">
+    <a href="../index.html">Навигация</a>
+    <a href="EcoTech Platform - главная страница.html">Главная</a>
+    <a href="EcoTech Platform — Витрина.html" class="en-active">Витрина</a>
+    <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
+    <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук</a>
+    <a href="../Бизнесу/index.html">Бизнесу</a>
+    <a href="../Продукту/index.html">Продукту</a>
+    <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер</a>
+    <a href="../Проектный офис/RWB · Product OS · Бэклог развития.html">Бэклог</a>
+    <a href="../slides_temp/slide01.html">Слайды</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Проектный офис · WB Wiki</div>
+    <h1>EcoTech <span class="glow">Platform</span></h1>
+    <p class="hero-sub">Единая система правил и инструментов для развивающихся продуктов и новых инициатив Экосистемы</p>
+  </div>
+
+  <!-- ── ORBITAL SCREENSAVER ── -->
+  <div class="orbital-wrap">
+    <div class="orb-system">
+
+      <!-- Decorative ring circles -->
+      <div class="orb-ring orb-ring-1"></div>
+      <div class="orb-ring orb-ring-2"></div>
+
+      <!-- Inner orbit (r=65px, 9s): PR01 PR02 PR03 — спaced 120° → delays 0, -3, -6 -->
+      <div class="orb-track r1" style="animation-delay:0s">
+        <div class="orb-dot r1 dot-green" style="animation-delay:0s">PR01</div>
+      </div>
+      <div class="orb-track r1" style="animation-delay:-3s">
+        <div class="orb-dot r1 dot-green" style="animation-delay:-3s">PR02</div>
+      </div>
+      <div class="orb-track r1" style="animation-delay:-6s">
+        <div class="orb-dot r1 dot-green" style="animation-delay:-6s">PR03</div>
+      </div>
+
+      <!-- Outer orbit (r=115px, 18s): PR04 PR05 PR06 PR07 PR08 — spaced 72° → delays 0, -3.6, -7.2, -10.8, -14.4 -->
+      <div class="orb-track r2" style="animation-delay:0s">
+        <div class="orb-dot r2 dot-blue" style="animation-delay:0s">PR04</div>
+      </div>
+      <div class="orb-track r2" style="animation-delay:-3.6s">
+        <div class="orb-dot r2 dot-blue" style="animation-delay:-3.6s">PR05</div>
+      </div>
+      <div class="orb-track r2" style="animation-delay:-7.2s">
+        <div class="orb-dot r2 dot-gray" style="animation-delay:-7.2s">PR06</div>
+      </div>
+      <div class="orb-track r2" style="animation-delay:-10.8s">
+        <div class="orb-dot r2 dot-orange" style="animation-delay:-10.8s">PR07</div>
+      </div>
+      <div class="orb-track r2" style="animation-delay:-14.4s">
+        <div class="orb-dot r2 dot-purple" style="animation-delay:-14.4s">PR08</div>
+      </div>
+
+      <!-- Center -->
+      <div class="orb-center">
+        <div class="orb-center-a">EcoTech</div>
+        <div class="orb-center-b">Platform</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODULES ══ -->
+<div class="section">
+  <div class="section-eyebrow">Платформа</div>
+  <div class="section-title">Модули EcoTech Platform</div>
+
+  <div class="modules-grid">
+
+    <a class="module-card" href="../Фреймворк/rwb-product-os-v3.html">
+      <div class="module-top" style="background:var(--teal);"></div>
+      <div class="module-body">
+        <div class="module-code" style="color:var(--teal);">PR01</div>
+        <div class="module-name">Фреймворк</div>
+        <span class="status-pill pill-green">Готов</span>
+        <div class="module-desc">Gate-модель G0–G5, критерии перехода, RICE-приоритизация</div>
+        <div class="link-hint">→ открыть страницу</div>
+      </div>
+    </a>
+
+    <a class="module-card" href="../Хэндбук/rwb-product-os-v12.html">
+      <div class="module-top" style="background:var(--teal);"></div>
+      <div class="module-body">
+        <div class="module-code" style="color:var(--teal);">PR02</div>
+        <div class="module-name">Хэндбук</div>
+        <span class="status-pill pill-green">В работе</span>
+        <div class="module-desc">Документация, гайды и шаблоны артефактов для команд</div>
+        <div class="link-hint">→ открыть страницу</div>
+      </div>
+    </a>
+
+    <a class="module-card" href="EcoTech Platform - главная страница.html">
+      <div class="module-top" style="background:var(--teal);"></div>
+      <div class="module-body">
+        <div class="module-code" style="color:var(--teal);">PR03</div>
+        <div class="module-name">Лендинг</div>
+        <span class="status-pill pill-green">В работе</span>
+        <div class="module-desc">Витрина платформы — точка входа для команд и новых инициатив</div>
+        <div class="link-hint">→ открыть страницу</div>
+      </div>
+    </a>
+
+    <a class="module-card" href="../Проектный офис/RWB · Product OS - Трекер инициатив.html">
+      <div class="module-top" style="background:var(--violet);"></div>
+      <div class="module-body">
+        <div class="module-code" style="color:var(--stage-g1);">PR04</div>
+        <div class="module-name">Трекер</div>
+        <span class="status-pill pill-blue">Проработка</span>
+        <div class="module-desc">Инструмент отслеживания прогресса по Gate-модели</div>
+        <div class="link-hint">→ открыть страницу</div>
+      </div>
+    </a>
+
+    <a class="module-card" href="#">
+      <div class="module-top" style="background:var(--violet);"></div>
+      <div class="module-body">
+        <div class="module-code" style="color:var(--stage-g1);">PR05</div>
+        <div class="module-name">Реестр</div>
+        <span class="status-pill pill-blue">Архитектура</span>
+        <div class="module-desc">Интеграция Shiva (командный) ↔ WB Tracker (PMO/портфель)</div>
+        <div class="link-hint">→ открыть страницу</div>
+      </div>
+    </a>
+
+    <a class="module-card" href="#">
+      <div class="module-top" style="background:var(--stage-g0);"></div>
+      <div class="module-body">
+        <div class="module-code" style="color:var(--stage-g0);">PR06</div>
+        <div class="module-name">ProductHunt</div>
+        <span class="status-pill pill-gray">Backlog</span>
+        <div class="module-desc">Поиск и каталог инициатив и продуктовых идей Экосистемы</div>
+        <div class="link-hint">→ открыть страницу</div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="modules-divider"><span>В проработке</span></div>
+
+  <div class="modules-grid">
+
+    <a class="module-card" href="#">
+      <div class="module-top" style="background:var(--amber);"></div>
+      <div class="module-body">
+        <div class="module-code" style="color:var(--amber);">PR07</div>
+        <div class="module-name">Образовательный модуль</div>
+        <span class="status-pill pill-orange">В проработке</span>
+        <div class="module-desc">Онбординг команд, обучение стандартам, база знаний для инициатив</div>
+        <div class="link-hint">→ открыть страницу</div>
+      </div>
+    </a>
+
+    <a class="module-card" href="#">
+      <div class="module-top" style="background:var(--pink);"></div>
+      <div class="module-body">
+        <div class="module-code" style="color:var(--stage-g2);">PR08</div>
+        <div class="module-name">Апгрейд найма</div>
+        <span class="status-pill pill-purple">В проработке</span>
+        <div class="module-desc">Целевой найм в команды продуктов и новые инициативы Экосистемы</div>
+        <div class="link-hint">→ открыть страницу</div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ══ PORTFOLIO ══ -->
+<div class="section">
+  <div class="section-eyebrow">Экосистема</div>
+  <div class="section-title">Обзор портфеля продуктов и инициатив</div>
+  <p class="portfolio-intro">Продукты и инициативы, для которых создана EcoTech Platform. Фреймворк, инструменты и стандарты написаны для этого портфеля.</p>
+
+  <div class="portfolio-grid">
+
+    <div class="portfolio-card platform">
+      <div class="portfolio-code" style="color:var(--stage-g1);">EDU-0</div>
+      <div class="portfolio-name">EcoTech Platform</div>
+      <div class="portfolio-meta">Платформа развития Экосистемы</div>
+    </div>
+
+    <div class="portfolio-card pilot">
+      <div class="pilot-badge">Пилот</div>
+      <div class="portfolio-code">EDU</div>
+      <div class="portfolio-name">EdTech контур</div>
+      <div class="portfolio-meta">Образовательные продукты · Gate 0→1</div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-code">ECO-1</div>
+      <div class="portfolio-name">WB Kids</div>
+      <div class="portfolio-meta">Продукт Экосистемы</div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-code">ECO-2</div>
+      <div class="portfolio-name">WB Встречи</div>
+      <div class="portfolio-meta">Продукт Экосистемы</div>
+    </div>
+
+    <div class="portfolio-card tbd">
+      <div class="portfolio-code">ECO-3</div>
+      <div class="portfolio-name">Продукт / инициатива</div>
+      <div class="portfolio-meta">Добавить →</div>
+    </div>
+
+    <div class="portfolio-card tbd">
+      <div class="portfolio-code">ECO-4</div>
+      <div class="portfolio-name">Продукт / инициатива</div>
+      <div class="portfolio-meta">Добавить →</div>
+    </div>
+
+    <div class="portfolio-card tbd">
+      <div class="portfolio-code">ECO-5</div>
+      <div class="portfolio-name">Продукт / инициатива</div>
+      <div class="portfolio-meta">Добавить →</div>
+    </div>
+
+    <div class="portfolio-card tbd">
+      <div class="portfolio-code">ECO-6+</div>
+      <div class="portfolio-name">+ ещё продукты</div>
+      <div class="portfolio-meta">Портфель 10+ продуктов</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="wiki-footer">
+  <div><strong>EcoTech Platform</strong> · Проектный офис · MVP Витрина</div>
+  <div>Март 2026 · v1.0</div>
+</div>
+
+
+
+</body></html>

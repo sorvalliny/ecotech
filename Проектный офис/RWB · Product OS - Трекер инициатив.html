@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RWB · Product OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --bg:#07070F; --card:#0E0E1C; --card2:#12121F; --border:rgba(255,255,255,0.07);
+  --bhi:rgba(255,255,255,0.14); --muted:#6B6B8E;
+  --violet:#7C3AED; --vdim:rgba(124,58,237,0.14); --vborder:rgba(124,58,237,0.4);
+  --teal:#2DD4BF; --tdim:rgba(45,212,191,0.12);
+  --amber:#F59E0B; --adim:rgba(245,158,11,0.12);
+  --green:#10B981; --gdim:rgba(16,185,129,0.12);
+  --red:#EF4444; --rdim:rgba(239,68,68,0.12);
+  --blue:#3B82F6; --bdim:rgba(59,130,246,0.12);
+  --pink:#EC4899; --pdim:rgba(236,72,153,0.12);
+  --r:12px; --font:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh;font-size:14px;line-height:1.5;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.02;pointer-events:none;z-index:0}
+
+/* ── HEADER ── */
+header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:14px}
+.logo{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.logo b{color:var(--violet)}
+.htitle{font-size:14px;font-weight:800;color:#fff;flex:1}
+.tabs{display:flex;gap:2px;background:rgba(255,255,255,0.04);border-radius:10px;padding:3px}
+.tab{padding:6px 16px;border:none;border-radius:8px;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;color:var(--muted);background:transparent;letter-spacing:.02em;white-space:nowrap}
+.tab.active{background:var(--violet);color:#fff}
+.tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.06)}
+
+/* ── APP SHELL ── */
+.app{display:flex;height:calc(100vh - 52px);overflow:hidden;position:relative;z-index:1}
+
+/* ── SIDEBAR ── */
+.sidebar{width:220px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;padding:8px 0 24px;background:rgba(7,7,15,.5);transition:width .2s,opacity .2s}
+.sidebar.hidden{width:0;overflow:hidden;opacity:0;pointer-events:none}
+.slabel{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;padding:12px 14px 5px}
+.fbtn{display:flex;align-items:center;justify-content:space-between;width:calc(100% - 8px);padding:7px 12px;border-radius:8px;background:none;border:none;color:var(--muted);font-size:12px;font-family:var(--font);font-weight:600;cursor:pointer;text-align:left;transition:all .15s;margin:0 4px}
+.fbtn:hover,.fbtn.active{background:var(--vdim);color:#C4B5FD}
+.fcount{font-family:var(--mono);font-size:10px;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:10px}
+.sdiv{height:1px;background:var(--border);margin:8px 14px}
+.sort-row{display:flex;flex-direction:column;gap:3px;padding:0 4px}
+.sbtn{padding:6px 10px;border:1px solid var(--border);border-radius:7px;background:none;color:var(--muted);font-size:11px;font-family:var(--font);font-weight:600;cursor:pointer;text-align:left;transition:all .15s;width:100%}
+.sbtn:hover,.sbtn.active{border-color:var(--vborder);color:#C4B5FD;background:var(--vdim)}
+
+/* ── MAIN ── */
+.main{flex:1;overflow-y:auto;padding:20px 24px;min-width:0}
+
+/* ── PORTFOLIO STATS ── */
+.pstats{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.pstat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;display:flex;flex-direction:column;gap:2px;min-width:100px}
+.pstat-num{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1}
+.pstat-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+
+/* ── DIVLABEL ── */
+.divlabel{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;padding:14px 0 10px;display:flex;align-items:center;gap:10px}
+.divlabel::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── PROJECT CARDS ── */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:12px}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .15s;cursor:pointer}
+.pcard:hover{border-color:var(--bhi)}
+.pcard.open{border-color:var(--vborder)}
+.pcard-head{padding:16px 18px 12px}
+.pmeta{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.pid{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.07em}
+.player{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-left:auto}
+.pname{font-size:15px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:5px}
+.pdesc{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:10px}
+.gate-bar{display:flex;gap:3px;align-items:center}
+.gate-step{height:5px;border-radius:3px;flex:1;background:rgba(255,255,255,.07);transition:background .2s}
+.gate-step.done{background:var(--green)}
+.gate-step.current{background:var(--amber)}
+.gate-label-row{display:flex;justify-content:space-between;margin-top:4px;font-size:9px;color:var(--muted);font-family:var(--mono)}
+.pfoot{padding:10px 18px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.15)}
+.pfstat{display:flex;flex-direction:column;gap:1px}
+.pfnum{font-family:var(--mono);font-size:13px;font-weight:700;color:#fff}
+.pflbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.pfdiv{width:1px;height:26px;background:var(--border);flex-shrink:0}
+.chips{flex:1;display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap;border:1px solid transparent}
+.chip-h{background:var(--gdim);color:var(--green);border-color:rgba(16,185,129,.35)}
+.chip-m{background:var(--adim);color:var(--amber);border-color:rgba(245,158,11,.35)}
+.chip-l{background:var(--rdim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
+.exbtn{margin-left:auto;background:none;border:1px solid var(--border);border-radius:8px;color:var(--muted);padding:5px 10px;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--font);letter-spacing:.04em;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.exbtn:hover{border-color:var(--bhi);color:#fff}
+.pcard.open .exbtn{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+.ilist-wrap{display:none;border-top:1px solid var(--border);padding:12px 18px 16px;background:rgba(0,0,0,.12)}
+.pcard.open .ilist-wrap{display:block}
+.ilist{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.irow{display:grid;grid-template-columns:34px 1fr 50px 68px 82px;align-items:center;gap:10px;padding:8px 12px;background:var(--card2);border:1px solid var(--border);border-radius:8px;transition:border-color .12s;cursor:pointer}
+.irow:hover{border-color:var(--bhi)}
+.iid{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700}
+.iname{font-size:12px;font-weight:700;color:#E8E8F0;line-height:1.3}
+.isub{font-size:10px;color:var(--muted);margin-top:1px}
+.iscore{font-family:var(--mono);font-size:13px;font-weight:700;text-align:right}
+.iscl{font-size:9px;color:var(--muted);text-transform:uppercase;text-align:right}
+.ist{font-size:9px;font-weight:700;padding:3px 7px;border-radius:5px;white-space:nowrap;text-align:right}
+
+/* ── GATE BADGES ── */
+.gbadge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;border:1px solid transparent;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+.g0{background:rgba(107,107,142,.15);color:#8888AA;border-color:rgba(107,107,142,.3)}
+.g1{background:rgba(59,130,246,.14);color:#93C5FD;border-color:rgba(59,130,246,.3)}
+.g2{background:rgba(139,92,246,.14);color:#C4B5FD;border-color:rgba(139,92,246,.3)}
+.g3{background:rgba(245,158,11,.14);color:#FCD34D;border-color:rgba(245,158,11,.3)}
+.g4{background:rgba(16,185,129,.14);color:#6EE7B7;border-color:rgba(16,185,129,.3)}
+.g5{background:rgba(45,212,191,.14);color:#5EEAD4;border-color:rgba(45,212,191,.3)}
+
+/* ── TRACK TAGS ── */
+.track-d{background:rgba(59,130,246,.1);color:#93C5FD;border:1px solid rgba(59,130,246,.25);font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;letter-spacing:.04em}
+.track-v{background:rgba(16,185,129,.1);color:#6EE7B7;border:1px solid rgba(16,185,129,.25);font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;letter-spacing:.04em}
+
+/* ── BACKLOG ── */
+.bltop{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.search-inp{flex:1;min-width:180px;max-width:300px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:#fff;font-family:var(--font);font-size:13px}
+.search-inp::placeholder{color:var(--muted)}
+.search-inp:focus{outline:none;border-color:var(--vborder)}
+.summary{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.sum-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;gap:2px;min-width:80px}
+.sum-n{font-family:var(--mono);font-size:18px;font-weight:700;line-height:1}
+.sum-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:1px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;padding:0 0 14px}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);cursor:pointer;padding:3px 6px;border-radius:6px;transition:background .12s}
+.leg-item:hover{background:rgba(255,255,255,.05)}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.items-list{display:flex;flex-direction:column;gap:5px}
+.glabel{display:flex;align-items:center;gap:10px;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;padding:14px 0 5px;margin-top:4px}
+.glabel::after{content:'';flex:1;height:1px;background:var(--border)}
+.item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;display:grid;grid-template-columns:28px 1fr auto auto 118px 96px;align-items:center;gap:12px;transition:border-color .15s,background .15s;cursor:pointer}
+.item:hover{border-color:var(--bhi);background:var(--card2)}
+.item.editing{border-color:var(--vborder);background:var(--vdim)}
+.item-rank{font-family:var(--mono);font-size:10px;color:var(--muted);text-align:center}
+.item-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;line-height:1.3}
+.item-desc{font-size:11px;color:var(--muted);line-height:1.45}
+.item-meta{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;border:1px solid transparent}
+.tag-design{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+.tag-feature{background:var(--bdim);color:#93C5FD;border-color:rgba(59,130,246,.3)}
+.tag-tooling{background:var(--tdim);color:var(--teal);border-color:rgba(45,212,191,.3)}
+.tag-process{background:var(--adim);color:var(--amber);border-color:rgba(245,158,11,.3)}
+.tag-content{background:var(--pdim);color:#F9A8D4;border-color:rgba(236,72,153,.3)}
+.tag-infra{background:var(--rdim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
+.ptag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap;border:1px solid transparent}
+.pt-PR01{background:rgba(45,212,191,.14);color:var(--teal);border-color:rgba(45,212,191,.3)}
+.pt-PR02{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+.pt-PR03{background:var(--adim);color:var(--amber);border-color:rgba(245,158,11,.3)}
+.pt-PR04{background:var(--bdim);color:#93C5FD;border-color:rgba(59,130,246,.3)}
+.pt-PR05{background:var(--pdim);color:#F9A8D4;border-color:rgba(236,72,153,.3)}
+.pt-PR06{background:var(--rdim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
+.aud{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border)}
+.rice{display:flex;flex-direction:column;gap:2px}
+.rrow{display:flex;align-items:center;gap:5px;font-size:10px}
+.rkey{color:var(--muted);font-family:var(--mono);width:10px}
+.rbg{flex:1;height:3px;background:rgba(255,255,255,.07);border-radius:2px}
+.rfill{height:100%;border-radius:2px}
+.score-col{text-align:right}
+.sval{font-family:var(--mono);font-size:15px;font-weight:700;line-height:1}
+.slbl2{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:1px}
+.s-hi{color:var(--green)}.s-mi{color:var(--amber)}.s-lo{color:#FCA5A5}
+.status-col{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.sdot{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;letter-spacing:.04em}
+.st-backlog{background:rgba(107,107,142,.15);color:var(--muted)}
+.st-planned{background:var(--vdim);color:#C4B5FD}
+.st-wip{background:var(--tdim);color:var(--teal)}
+.st-done{background:var(--gdim);color:var(--green)}
+
+/* ── TRACKER VIEW ── */
+.role-switcher{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.rbtn{padding:8px 20px;border:1px solid var(--border);border-radius:10px;background:none;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;letter-spacing:.03em}
+.rbtn:hover{border-color:var(--bhi);color:#fff}
+.rbtn.active{background:var(--violet);border-color:var(--vborder);color:#fff}
+.role-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--muted);padding:3px 10px;background:rgba(255,255,255,.04);border-radius:6px;border:1px solid var(--border);margin-bottom:16px}
+.trk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-top:12px}
+.trk-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.trk-card h3{font-size:13px;font-weight:800;color:#fff;margin:0}
+.trk-section{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.trk-section-head{display:flex;align-items:center;justify-content:space-between;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.trk-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.trk-item:last-child{border-bottom:none;padding-bottom:0}
+.trk-item-id{font-family:var(--mono);font-size:9px;color:var(--muted);flex-shrink:0;padding-top:2px}
+.trk-item-name{font-size:11px;font-weight:700;color:#E8E8F0;line-height:1.35;flex:1}
+.trk-item-score{font-family:var(--mono);font-size:11px;font-weight:700;flex-shrink:0}
+.pmo-table{width:100%;border-collapse:separate;border-spacing:0;margin-top:10px}
+.pmo-table th{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.pmo-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.pmo-table tr:last-child td{border-bottom:none}
+.pmo-table tr:hover td{background:rgba(255,255,255,.02)}
+.pmo-gate-track{display:flex;gap:3px;align-items:center}
+.pmo-gate-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex-shrink:0;border:1px solid transparent}
+.pmo-gate-dot.g-done{background:rgba(16,185,129,.2);color:var(--green);border-color:rgba(16,185,129,.4)}
+.pmo-gate-dot.g-cur{background:rgba(245,158,11,.2);color:var(--amber);border-color:rgba(245,158,11,.4)}
+.pmo-gate-dot.g-todo{background:rgba(255,255,255,.05);color:var(--muted);border-color:var(--border)}
+.cpo-funnel{display:flex;gap:8px;align-items:flex-end;margin:16px 0;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:14px}
+.funnel-stage{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.funnel-bar{width:100%;border-radius:8px 8px 0 0;min-height:8px;transition:height .3s}
+.funnel-n{font-family:var(--mono);font-size:18px;font-weight:700;line-height:1}
+.funnel-lbl{font-size:9px;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:.06em}
+.ceo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.ceo-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.ceo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.ceo-accent{position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+.ceo-pid{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700;margin-bottom:6px}
+.ceo-name{font-size:13px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:8px}
+.ceo-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ceo-stats{display:flex;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.ceo-stat{flex:1;text-align:center}
+.ceo-stat-n{font-family:var(--mono);font-size:14px;font-weight:700;color:#fff}
+.ceo-stat-l{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kpi-strip{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;flex:1;min-width:120px;display:flex;flex-direction:column;gap:3px}
+.kpi-n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1}
+.kpi-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.pm-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.pm-sel{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:#fff;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer}
+.pm-sel:focus{outline:none;border-color:var(--vborder)}
+.pm-gate-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:flex-start;gap:16px}
+.pm-gate-icon{font-size:28px;line-height:1;flex-shrink:0}
+.pm-gate-name{font-size:15px;font-weight:800;color:#fff;line-height:1.2}
+.pm-gate-desc{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5}
+.pm-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pm-col-head{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+
+/* ── EDIT PANEL ── */
+.edit-panel{position:fixed;top:52px;right:0;bottom:0;width:320px;background:var(--card);border-left:1px solid var(--border);z-index:150;transform:translateX(100%);transition:transform .2s;overflow-y:auto;display:flex;flex-direction:column}
+.edit-panel.open{transform:none;box-shadow:-8px 0 32px rgba(0,0,0,.5)}
+.ep-head{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px}
+.ep-title{font-size:13px;font-weight:800;color:#fff;line-height:1.35;flex:1}
+.ep-close{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;line-height:1;padding:0;flex-shrink:0}
+.ep-close:hover{color:#fff}
+.ep-body{padding:16px 18px;flex:1;display:flex;flex-direction:column;gap:14px}
+.ep-group{display:flex;flex-direction:column;gap:8px}
+.ep-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.ep-row{display:flex;align-items:center;gap:10px}
+.ep-key{font-family:var(--mono);font-size:11px;color:var(--muted);width:14px;flex-shrink:0}
+.ep-slider{flex:1;accent-color:var(--violet)}
+.ep-val{font-family:var(--mono);font-size:12px;color:#fff;width:18px;text-align:right;flex-shrink:0}
+.score-preview{display:flex;flex-direction:column;align-items:center;gap:3px;padding:14px;background:rgba(0,0,0,.2);border-radius:10px;border:1px solid var(--border)}
+.score-preview-val{font-family:var(--mono);font-size:28px;font-weight:700}
+.score-preview-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.ep-select{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:#fff;font-family:var(--font);font-size:13px}
+.ep-select:focus{outline:none;border-color:var(--vborder)}
+.ep-textarea{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:#fff;font-family:var(--font);font-size:12px;resize:vertical;min-height:70px}
+.ep-textarea:focus{outline:none;border-color:var(--vborder)}
+.ep-foot{padding:14px 18px;border-top:1px solid var(--border)}
+.btn-save{width:100%;padding:10px;background:var(--violet);border:none;border-radius:8px;color:#fff;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:background .15s}
+.btn-save:hover{background:#6D28D9}
+.empty{text-align:center;padding:48px 24px;color:var(--muted);font-size:13px}
+</style>
+<style>
+.ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,0.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,0.15);display:flex;align-items:center;padding:0 24px;gap:0;}
+.en-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-0.3px;white-space:nowrap;flex-shrink:0;}
+.en-logo span{color:#7B2FFF;}
+.en-sep{width:1px;height:16px;background:rgba(123,47,255,0.2);margin:0 16px;flex-shrink:0;}
+.en-links{display:flex;gap:2px;align-items:center;overflow-x:auto;}
+.en-links a{font-size:12px;font-weight:600;color:#7A7A9D;text-decoration:none;padding:5px 10px;border-radius:7px;transition:color 0.15s,background 0.15s;white-space:nowrap;}
+.en-links a:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.en-links a.en-active{color:#C49CFF;background:rgba(123,47,255,0.12);}
+header.ecotech-orig{top:44px!important;}
+.app{height:calc(100vh - 96px)!important;}
+</style>
+  <script src="../platform.js"></script>
+</head>
+<body>
+<nav class="ecotech-nav">
+  <a class="en-logo" href="../index.html">EcoTech <span>Platform</span></a>
+  <div class="en-sep"></div>
+  <div class="en-links">
+    <a href="../index.html">Навигация</a>
+    <a href="../Витрина/EcoTech Platform - главная страница.html">Главная</a>
+    <a href="../Витрина/EcoTech Platform — Витрина.html">Витрина</a>
+    <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
+    <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук</a>
+    <a href="../Бизнесу/index.html">Бизнесу</a>
+    <a href="../Продукту/index.html">Продукту</a>
+    <a href="RWB · Product OS - Трекер инициатив.html" class="en-active">Трекер</a>
+    <a href="RWB · Product OS · Бэклог развития.html">Бэклог</a>
+    <a href="../slides_temp/slide01.html">Слайды</a>
+  </div>
+</nav>
+
+<header class="ecotech-orig">
+  <div class="logo"><b>RWB</b> · Product OS</div>
+  <div class="htitle">Реестр продуктов &amp; инициатив</div>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(&#39;portfolio&#39;,this)">🗂 Портфель</button>
+    <button class="tab" onclick="switchTab(&#39;backlog&#39;,this)">📋 Беклог</button>
+    <button class="tab" onclick="switchTab(&#39;tracker&#39;,this)">📊 Трекер</button>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar hidden" id="sidebar">
+    <div class="slabel">Продукт</div>
+    <div id="proj-filters"><button class="fbtn active" onclick="setF(&#39;project&#39;,&#39;all&#39;,this)"><span>Все продукты</span></button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR01&#39;,this)">
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#2DD4BF;margin-right:5px;vertical-align:middle"></span>Продуктовый фреймворк</span>
+      <span class="fcount" id="fcp-PR01"></span>
+    </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR02&#39;,this)">
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7C3AED;margin-right:5px;vertical-align:middle"></span>Хендбук для руководителей</span>
+      <span class="fcount" id="fcp-PR02"></span>
+    </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR03&#39;,this)">
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#F59E0B;margin-right:5px;vertical-align:middle"></span>Лендинг для бизнеса</span>
+      <span class="fcount" id="fcp-PR03"></span>
+    </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR04&#39;,this)">
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#3B82F6;margin-right:5px;vertical-align:middle"></span>Трекер инициатив (Shiva/WB)</span>
+      <span class="fcount" id="fcp-PR04"></span>
+    </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR05&#39;,this)">
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#EC4899;margin-right:5px;vertical-align:middle"></span>Реестр целей и инициатив</span>
+      <span class="fcount" id="fcp-PR05"></span>
+    </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR06&#39;,this)">
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#EF4444;margin-right:5px;vertical-align:middle"></span>Корпоративный ProductHunt</span>
+      <span class="fcount" id="fcp-PR06"></span>
+    </button></div>
+    <div class="sdiv"></div>
+    <div class="slabel">Тип инициативы</div>
+    <button class="fbtn active" onclick="setF(&#39;track&#39;,&#39;all&#39;,this)"><span>Все типы</span></button>
+    <button class="fbtn" onclick="setF(&#39;track&#39;,&#39;discovery&#39;,this)"><span>🔍 Discovery</span></button>
+    <button class="fbtn" onclick="setF(&#39;track&#39;,&#39;delivery&#39;,this)"><span>🚀 Delivery</span></button>
+    <div class="sdiv"></div>
+    <div class="slabel">Категория</div>
+    <button class="fbtn active" onclick="setF(&#39;cat&#39;,&#39;all&#39;,this)"><span>Все</span><span class="fcount" id="fc-all"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;design&#39;,this)"><span>🎨 Дизайн &amp; UX</span><span class="fcount" id="fc-design"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;feature&#39;,this)"><span>⚡ Новые фичи</span><span class="fcount" id="fc-feature"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;tooling&#39;,this)"><span>🔧 Инструменты</span><span class="fcount" id="fc-tooling"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;process&#39;,this)"><span>📋 Процессы</span><span class="fcount" id="fc-process"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;content&#39;,this)"><span>📄 Контент</span><span class="fcount" id="fc-content"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;infra&#39;,this)"><span>🏗 Инфра</span><span class="fcount" id="fc-infra"></span></button>
+    <div class="sdiv"></div>
+    <div class="slabel">Статус</div>
+    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;all&#39;,this)">Все</button>
+    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;backlog&#39;,this)">📥 Бэклог</button>
+    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;planned&#39;,this)">📌 Запланировано</button>
+    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;wip&#39;,this)">🔄 В работе</button>
+    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;done&#39;,this)">✅ Готово</button>
+    <div class="sdiv"></div>
+    <div class="slabel">Аудитория</div>
+    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;all&#39;,this)">Все</button>
+    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;PM&#39;,this)">🎯 PM / PO</button>
+    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;UX&#39;,this)">🎨 UX / Design</button>
+    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;TL&#39;,this)">🔧 Tech Lead</button>
+    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;PMO&#39;,this)">📋 PMO</button>
+    <div class="sdiv"></div>
+    <div class="slabel">Сортировка</div>
+    <div class="sort-row">
+      <button class="sbtn active" onclick="setSort(&#39;score&#39;,this)">Score ↓</button>
+      <button class="sbtn" onclick="setSort(&#39;name&#39;,this)">По названию</button>
+      <button class="sbtn" onclick="setSort(&#39;effort&#39;,this)">Effort ↑</button>
+    </div>
+  </aside>
+
+  <div class="main" id="main">
+
+    <!-- PORTFOLIO -->
+    <div id="pg-portfolio">
+      <div class="pstats" id="pstats">
+    <div class="pstat"><div class="pstat-num" style="color:#fff">6</div><div class="pstat-lbl">Продуктов</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:var(--teal)">3</div><div class="pstat-lbl">В работе</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:#C4B5FD">2</div><div class="pstat-lbl">Запланировано</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:var(--muted)">1</div><div class="pstat-lbl">Беклог</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:var(--amber)">38</div><div class="pstat-lbl">Инициатив</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:var(--green)">38</div><div class="pstat-lbl">High priority</div></div>
+  </div>
+      <div class="divlabel">Продукты экосистемы — 6 продуктов, 38 инициатив</div>
+      <div class="pgrid" id="pgrid"><div class="pcard" id="pc-PR01">
+      <div class="pcard-head" onclick="togglePC(&#39;PR01&#39;)">
+        <div class="pmeta">
+          <span class="pid">PR01</span>
+          <span class="sdot st-wip">🔄 В работе</span>
+          <span class="gbadge g4">🚀 G4 · Запуск</span>
+          <span class="player">Уровень 0 — Фундамент</span>
+        </div>
+        <div class="pname">Продуктовый фреймворк</div>
+        <div class="pdesc">Операционный справочник контура: регламенты, процессы, методологии, база знаний. Источник истины для лидов и команд.</div>
+        <div class="gate-bar"><div class="gate-step done" title="G0: Идея"></div><div class="gate-step done" title="G1: Концепция"></div><div class="gate-step done" title="G2: Прототип"></div><div class="gate-step done" title="G3: Разработка"></div><div class="gate-step current" title="G4: Запуск"></div><div class="gate-step " title="G5: Масштаб"></div></div>
+        <div class="gate-label-row">
+          <span>G0 Идея</span><span>G1 Концепт</span><span>G2 Прото</span><span>G3 Dev</span><span>G4 Launch</span><span>G5 Scale</span>
+        </div>
+      </div>
+      <div class="pfoot">
+        <div class="pfstat"><div class="pfnum">11</div><div class="pflbl">инициатив</div></div>
+        <div class="pfdiv"></div>
+        <div class="pfstat"><div class="pfnum">123.6</div><div class="pflbl">avg RICE</div></div>
+        <div class="pfdiv"></div>
+        <div class="chips"><span class="chip chip-h">C04 · 360</span><span class="chip chip-h">C02 · 162</span><span class="chip chip-h">C01 · 150</span></div>
+        <button class="exbtn" onclick="togglePC(&#39;PR01&#39;)">Открыть ↓</button>
+      </div>
+      <div class="ilist-wrap">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">
+          Инициативы (11) · по RICE score
+        </div>
+        <div class="ilist"><div class="irow" onclick="goEdit(&#39;C04&#39;)">
+        <div class="iid">C04</div>
+        <div><div class="iname">Принципы Product OS</div><div class="isub">6 принципов: Ценность до кода, Скорость через ясност…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">360.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;C02&#39;)">
+        <div class="iid">C02</div>
+        <div><div class="iname">Release Notes шаблон</div><div class="isub">Интерактивный шаблон: версия, что изменилось, rollba…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">162.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;C01&#39;)">
+        <div class="iid">C01</div>
+        <div><div class="iname">Расширенный глоссарий (60+ терминов)</div><div class="isub">MoSCoW, JTBD, LTV, CAC, Churn, SaaS-метрики, DevOps …</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">150.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;C05&#39;)">
+        <div class="iid">C05</div>
+        <div><div class="iname">Роли и матрица RACI</div><div class="isub">Карточки ролей: PM, TL, Designer, DA, BA — обязаннос…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">147.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;C03&#39;)">
+        <div class="iid">C03</div>
+        <div><div class="iname">Расширенный Q&amp;A (20+ вопросов)</div><div class="isub">B2G-специфика, токсичный заказчик, когда пивотить, к…</div></div>
+        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><div class="iscore s-hi">112.5</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;P01&#39;)">
+        <div class="iid">P01</div>
+        <div><div class="iname">B2B/B2C/B2G ветки стадий</div><div class="isub">Специфика по сегменту на каждой стадии: B2G — юр. pr…</div></div>
+        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><div class="iscore s-hi">112.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;P05&#39;)">
+        <div class="iid">P05</div>
+        <div><div class="iname">Стек AS IS → TO BE (2026)</div><div class="isub">Визуализация миграции: YouTrack → собственный, Confl…</div></div>
+        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><div class="iscore s-hi">72.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;P04&#39;)">
+        <div class="iid">P04</div>
+        <div><div class="iname">Матрица доступов AS IS → TO BE</div><div class="isub">Интерактивная матрица доступов к инструментам по рол…</div></div>
+        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><div class="iscore s-hi">66.7</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;P03&#39;)">
+        <div class="iid">P03</div>
+        <div><div class="iname">Ретроспектива шаблон</div><div class="isub">Онлайн-ретро: Stop/Start/Continue + Action items с о…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">60.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;P02&#39;)">
+        <div class="iid">P02</div>
+        <div><div class="iname">DoR/DoD конструктор</div><div class="isub">Интерактивный редактор Definition of Ready/Done под …</div></div>
+        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><div class="iscore s-hi">58.8</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;P06&#39;)">
+        <div class="iid">P06</div>
+        <div><div class="iname">Kill-условия конфигуратор</div><div class="isub">Кастомные kill-условия под каждый продукт, пороги No…</div></div>
+        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><div class="iscore s-hi">58.8</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div></div>
+      </div>
+    </div><div class="pcard" id="pc-PR02">
+      <div class="pcard-head" onclick="togglePC(&#39;PR02&#39;)">
+        <div class="pmeta">
+          <span class="pid">PR02</span>
+          <span class="sdot st-wip">🔄 В работе</span>
+          <span class="gbadge g3">⚙️ G3 · Разработка</span>
+          <span class="player">Уровень 1 — Команды</span>
+        </div>
+        <div class="pname">Хендбук для руководителей</div>
+        <div class="pdesc">Прикладные инструменты для продактов, проджектов и техлидов: шаблоны, чек-листы, приоритизация, планирование.</div>
+        <div class="gate-bar"><div class="gate-step done" title="G0: Идея"></div><div class="gate-step done" title="G1: Концепция"></div><div class="gate-step done" title="G2: Прототип"></div><div class="gate-step current" title="G3: Разработка"></div><div class="gate-step " title="G4: Запуск"></div><div class="gate-step " title="G5: Масштаб"></div></div>
+        <div class="gate-label-row">
+          <span>G0 Идея</span><span>G1 Концепт</span><span>G2 Прото</span><span>G3 Dev</span><span>G4 Launch</span><span>G5 Scale</span>
+        </div>
+      </div>
+      <div class="pfoot">
+        <div class="pfstat"><div class="pfnum">12</div><div class="pflbl">инициатив</div></div>
+        <div class="pfdiv"></div>
+        <div class="pfstat"><div class="pfnum">70.3</div><div class="pflbl">avg RICE</div></div>
+        <div class="pfdiv"></div>
+        <div class="chips"><span class="chip chip-h">D02 · 130</span><span class="chip chip-h">T02 · 110</span><span class="chip chip-h">T06 · 95</span></div>
+        <button class="exbtn" onclick="togglePC(&#39;PR02&#39;)">Открыть ↓</button>
+      </div>
+      <div class="ilist-wrap">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">
+          Инициативы (12) · по RICE score
+        </div>
+        <div class="ilist"><div class="irow" onclick="goEdit(&#39;D02&#39;)">
+        <div class="iid">D02</div>
+        <div><div class="iname">Корпоративная дизайн-система RWB</div><div class="isub">Шрифты Unbounded+Golos Text, тёмная тема, корп. икон…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">129.6</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;T02&#39;)">
+        <div class="iid">T02</div>
+        <div><div class="iname">PDF-экспорт корпоративный</div><div class="isub">A4 print-стили, корп. шапка/подвал, Product ID → PDF…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">110.3</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;T06&#39;)">
+        <div class="iid">T06</div>
+        <div><div class="iname">Поиск по всему handbook</div><div class="isub">Полнотекстовый поиск по всем разделам. Ctrl+K / ⌘K б…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">94.5</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;F03&#39;)">
+        <div class="iid">F03</div>
+        <div><div class="iname">PnL шаблон и финансовая модель</div><div class="isub">Монетизация, прогноз доходов, расходы, auto-расчёт м…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">89.6</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;T05&#39;)">
+        <div class="iid">T05</div>
+        <div><div class="iname">Мастер настройки нового продукта</div><div class="isub">Step-by-step онбординг: создать → бриф → команда → R…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">89.6</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;D05&#39;)">
+        <div class="iid">D05</div>
+        <div><div class="iname">Тёмная/светлая тема</div><div class="isub">Toggle с сохранением. Светлая — для печати, тёмная —…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">60.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;F08&#39;)">
+        <div class="iid">F08</div>
+        <div><div class="iname">CustDev трекер интервью</div><div class="isub">Карточки интервью, инсайты, гипотезы, статус подтвер…</div></div>
+        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><div class="iscore s-hi">58.8</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;D06&#39;)">
+        <div class="iid">D06</div>
+        <div><div class="iname">Анимации и микроинтеракции</div><div class="isub">Motion design: переходы между разделами, hover-анима…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">50.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;D04&#39;)">
+        <div class="iid">D04</div>
+        <div><div class="iname">Адаптивная мобильная версия</div><div class="isub">Bottom nav, swipe-жесты, читаемые карточки на 360px</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">48.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;F12&#39;)">
+        <div class="iid">F12</div>
+        <div><div class="iname">Сравнение конкурентов (матрица)</div><div class="isub">Интерактивная таблица: конкуренты, критерии, оценки,…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">42.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;F11&#39;)">
+        <div class="iid">F11</div>
+        <div><div class="iname">Роадмап продукта</div><div class="isub">Now/Next/Later, эпики, релизы, зависимости. Экспорт …</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">36.8</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;F10&#39;)">
+        <div class="iid">F10</div>
+        <div><div class="iname">A/B тест трекер</div><div class="isub">Гипотеза, метрика, аудитория, статус, результат. Инт…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">35.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div></div>
+      </div>
+    </div><div class="pcard" id="pc-PR03">
+      <div class="pcard-head" onclick="togglePC(&#39;PR03&#39;)">
+        <div class="pmeta">
+          <span class="pid">PR03</span>
+          <span class="sdot st-wip">🔄 В работе</span>
+          <span class="gbadge g3">⚙️ G3 · Разработка</span>
+          <span class="player">Уровень 3 — Рост</span>
+        </div>
+        <div class="pname">Лендинг для бизнеса</div>
+        <div class="pdesc">Как создать продукт в экосистеме RWB. Вход для новых команд и стартапов: путь от идеи до продукта.</div>
+        <div class="gate-bar"><div class="gate-step done" title="G0: Идея"></div><div class="gate-step done" title="G1: Концепция"></div><div class="gate-step done" title="G2: Прототип"></div><div class="gate-step current" title="G3: Разработка"></div><div class="gate-step " title="G4: Запуск"></div><div class="gate-step " title="G5: Масштаб"></div></div>
+        <div class="gate-label-row">
+          <span>G0 Идея</span><span>G1 Концепт</span><span>G2 Прото</span><span>G3 Dev</span><span>G4 Launch</span><span>G5 Scale</span>
+        </div>
+      </div>
+      <div class="pfoot">
+        <div class="pfstat"><div class="pfnum">2</div><div class="pflbl">инициатив</div></div>
+        <div class="pfdiv"></div>
+        <div class="pfstat"><div class="pfnum">82.3</div><div class="pflbl">avg RICE</div></div>
+        <div class="pfdiv"></div>
+        <div class="chips"><span class="chip chip-h">D01 · 96</span><span class="chip chip-h">D03 · 69</span></div>
+        <button class="exbtn" onclick="togglePC(&#39;PR03&#39;)">Открыть ↓</button>
+      </div>
+      <div class="ilist-wrap">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">
+          Инициативы (2) · по RICE score
+        </div>
+        <div class="ilist"><div class="irow" onclick="goEdit(&#39;D01&#39;)">
+        <div class="iid">D01</div>
+        <div><div class="iname">Орбитальная визуализация стадий</div><div class="isub">Карта орбит: звезда WB в центре, продукты на орбитах…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">96.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;D03&#39;)">
+        <div class="iid">D03</div>
+        <div><div class="iname">UX-кейсы и интерактивные сценарии</div><div class="isub">Интерактивные примеры как работает фреймворк на реал…</div></div>
+        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><div class="iscore s-hi">68.6</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div></div>
+      </div>
+    </div><div class="pcard" id="pc-PR04">
+      <div class="pcard-head" onclick="togglePC(&#39;PR04&#39;)">
+        <div class="pmeta">
+          <span class="pid">PR04</span>
+          <span class="sdot st-planned">📌 Запланировано</span>
+          <span class="gbadge g1">🔍 G1 · Концепция</span>
+          <span class="player">Уровень 2 — Управление</span>
+        </div>
+        <div class="pname">Трекер инициатив (Shiva/WB)</div>
+        <div class="pdesc">Фронтенд для управления развитием продуктов внутри команд. ТЗ для команды разработки Shiva/WB.</div>
+        <div class="gate-bar"><div class="gate-step done" title="G0: Идея"></div><div class="gate-step current" title="G1: Концепция"></div><div class="gate-step " title="G2: Прототип"></div><div class="gate-step " title="G3: Разработка"></div><div class="gate-step " title="G4: Запуск"></div><div class="gate-step " title="G5: Масштаб"></div></div>
+        <div class="gate-label-row">
+          <span>G0 Идея</span><span>G1 Концепт</span><span>G2 Прото</span><span>G3 Dev</span><span>G4 Launch</span><span>G5 Scale</span>
+        </div>
+      </div>
+      <div class="pfoot">
+        <div class="pfstat"><div class="pfnum">7</div><div class="pflbl">инициатив</div></div>
+        <div class="pfdiv"></div>
+        <div class="pfstat"><div class="pfnum">52.6</div><div class="pflbl">avg RICE</div></div>
+        <div class="pfdiv"></div>
+        <div class="chips"><span class="chip chip-h">F06 · 126</span><span class="chip chip-h">T04 · 69</span><span class="chip chip-h">I03 · 44</span></div>
+        <button class="exbtn" onclick="togglePC(&#39;PR04&#39;)">Открыть ↓</button>
+      </div>
+      <div class="ilist-wrap">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">
+          Инициативы (7) · по RICE score
+        </div>
+        <div class="ilist"><div class="irow" onclick="goEdit(&#39;F06&#39;)">
+        <div class="iid">F06</div>
+        <div><div class="iname">Уведомления / Алерты по датам</div><div class="isub">Бейдж ⚠️ если дата комитета &lt; 3 дней. Напоминание о …</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">126.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;T04&#39;)">
+        <div class="iid">T04</div>
+        <div><div class="iname">Экспорт в Confluence / Wiki</div><div class="isub">Конвертация Product ID / Gate отчёта в Confluence-ра…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">68.6</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;I03&#39;)">
+        <div class="iid">I03</div>
+        <div><div class="iname">PWA — установка как приложение</div><div class="isub">Оффлайн-режим, установка на рабочий стол/телефон, pu…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">43.8</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;T01&#39;)">
+        <div class="iid">T01</div>
+        <div><div class="iname">Интеграция с YouTrack / трекерами</div><div class="isub">Маппинг статусов Gate поверх YouTrack, авто-обновлен…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">40.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;T03&#39;)">
+        <div class="iid">T03</div>
+        <div><div class="iname">Автосохранение в cloud</div><div class="isub">JSON API или Google Sheets. Синхронизация между поль…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">40.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;I01&#39;)">
+        <div class="iid">I01</div>
+        <div><div class="iname">Аутентификация и мульти-пользователь</div><div class="isub">SSO / корп. аккаунт, разные пространства для команд,…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">25.2</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;I02&#39;)">
+        <div class="iid">I02</div>
+        <div><div class="iname">API для интеграций (REST)</div><div class="isub">Чтение/запись: статусы Gate, метрики здоровья, реест…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">24.9</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div></div>
+      </div>
+    </div><div class="pcard" id="pc-PR05">
+      <div class="pcard-head" onclick="togglePC(&#39;PR05&#39;)">
+        <div class="pmeta">
+          <span class="pid">PR05</span>
+          <span class="sdot st-planned">📌 Запланировано</span>
+          <span class="gbadge g1">🔍 G1 · Концепция</span>
+          <span class="player">Уровень 2 — Управление</span>
+        </div>
+        <div class="pname">Реестр целей и инициатив</div>
+        <div class="pdesc">Корпоративный трекер для проектных комитетов и планирования. Бизнес видит актуальный статус продуктов 24/7.</div>
+        <div class="gate-bar"><div class="gate-step done" title="G0: Идея"></div><div class="gate-step current" title="G1: Концепция"></div><div class="gate-step " title="G2: Прототип"></div><div class="gate-step " title="G3: Разработка"></div><div class="gate-step " title="G4: Запуск"></div><div class="gate-step " title="G5: Масштаб"></div></div>
+        <div class="gate-label-row">
+          <span>G0 Идея</span><span>G1 Концепт</span><span>G2 Прото</span><span>G3 Dev</span><span>G4 Launch</span><span>G5 Scale</span>
+        </div>
+      </div>
+      <div class="pfoot">
+        <div class="pfstat"><div class="pfnum">4</div><div class="pflbl">инициатив</div></div>
+        <div class="pfdiv"></div>
+        <div class="pfstat"><div class="pfnum">73.9</div><div class="pflbl">avg RICE</div></div>
+        <div class="pfdiv"></div>
+        <div class="chips"><span class="chip chip-h">F02 · 108</span><span class="chip chip-h">F05 · 75</span><span class="chip chip-h">F04 · 64</span></div>
+        <button class="exbtn" onclick="togglePC(&#39;PR05&#39;)">Открыть ↓</button>
+      </div>
+      <div class="ilist-wrap">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">
+          Инициативы (4) · по RICE score
+        </div>
+        <div class="ilist"><div class="irow" onclick="goEdit(&#39;F02&#39;)">
+        <div class="iid">F02</div>
+        <div><div class="iname">PMO Реестр инициатив</div><div class="isub">Единый реестр: очередь на скрининг, R/ICE скоринг, с…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">108.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;F05&#39;)">
+        <div class="iid">F05</div>
+        <div><div class="iname">Product Health Dashboard</div><div class="isub">Еженедельный дашборд для Комитета: North Star, Reten…</div></div>
+        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><div class="iscore s-hi">74.7</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;F04&#39;)">
+        <div class="iid">F04</div>
+        <div><div class="iname">OKR Планировщик</div><div class="isub">Дерево: Цели → Департамент → Инициативы → Продукты. …</div></div>
+        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><div class="iscore s-hi">64.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;F09&#39;)">
+        <div class="iid">F09</div>
+        <div><div class="iname">Gate Timeline — дорожная карта</div><div class="isub">Шкала всех Gate по всем продуктам: кто, когда, какой…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">49.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div></div>
+      </div>
+    </div><div class="pcard" id="pc-PR06">
+      <div class="pcard-head" onclick="togglePC(&#39;PR06&#39;)">
+        <div class="pmeta">
+          <span class="pid">PR06</span>
+          <span class="sdot st-backlog">📥 Бэклог</span>
+          <span class="gbadge g0">💡 G0 · Идея</span>
+          <span class="player">Уровень 3 — Рост</span>
+        </div>
+        <div class="pname">Корпоративный ProductHunt</div>
+        <div class="pdesc">Витрина и блог продуктов экосистемы: подача идей, рассказы о продуктах, обмен экспертизой. Стартапы силами сотрудников.</div>
+        <div class="gate-bar"><div class="gate-step current" title="G0: Идея"></div><div class="gate-step " title="G1: Концепция"></div><div class="gate-step " title="G2: Прототип"></div><div class="gate-step " title="G3: Разработка"></div><div class="gate-step " title="G4: Запуск"></div><div class="gate-step " title="G5: Масштаб"></div></div>
+        <div class="gate-label-row">
+          <span>G0 Идея</span><span>G1 Концепт</span><span>G2 Прото</span><span>G3 Dev</span><span>G4 Launch</span><span>G5 Scale</span>
+        </div>
+      </div>
+      <div class="pfoot">
+        <div class="pfstat"><div class="pfnum">2</div><div class="pflbl">инициатив</div></div>
+        <div class="pfdiv"></div>
+        <div class="pfstat"><div class="pfnum">76.5</div><div class="pflbl">avg RICE</div></div>
+        <div class="pfdiv"></div>
+        <div class="chips"><span class="chip chip-h">F01 · 81</span><span class="chip chip-h">F07 · 72</span></div>
+        <button class="exbtn" onclick="togglePC(&#39;PR06&#39;)">Открыть ↓</button>
+      </div>
+      <div class="ilist-wrap">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">
+          Инициативы (2) · по RICE score
+        </div>
+        <div class="ilist"><div class="irow" onclick="goEdit(&#39;F01&#39;)">
+        <div class="iid">F01</div>
+        <div><div class="iname">ProductHunt витрина</div><div class="isub">Лендинги продуктов, апвоуты, рейтинг популярности, к…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">81.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+      </div><div class="irow" onclick="goEdit(&#39;F07&#39;)">
+        <div class="iid">F07</div>
+        <div><div class="iname">Профиль команды продукта</div><div class="isub">PM, TL, дизайнер, DA, контакты, аватары, роли. Клика…</div></div>
+        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><div class="iscore s-hi">72.0</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+      </div></div>
+      </div>
+    </div></div>
+    </div>
+
+    <!-- BACKLOG -->
+    <div id="pg-backlog" style="display:none">
+      <div class="legend" id="legend">
+    <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR01&#39;,null)">
+      <div class="leg-dot" style="background:#2DD4BF"></div>PR01 · Продуктовый фреймворк
+    </div>
+    <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR02&#39;,null)">
+      <div class="leg-dot" style="background:#7C3AED"></div>PR02 · Хендбук для руководителей
+    </div>
+    <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR03&#39;,null)">
+      <div class="leg-dot" style="background:#F59E0B"></div>PR03 · Лендинг для бизнеса
+    </div>
+    <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR04&#39;,null)">
+      <div class="leg-dot" style="background:#3B82F6"></div>PR04 · Трекер инициатив (Shiva/WB)
+    </div>
+    <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR05&#39;,null)">
+      <div class="leg-dot" style="background:#EC4899"></div>PR05 · Реестр целей и инициатив
+    </div>
+    <div class="leg-item" onclick="setF(&#39;project&#39;,&#39;PR06&#39;,null)">
+      <div class="leg-dot" style="background:#EF4444"></div>PR06 · Корпоративный ProductHunt
+    </div></div>
+      <div class="bltop">
+        <input class="search-inp" id="bl-q" type="text" placeholder="🔍 Поиск…" oninput="renderBL()">
+        <div style="margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted)" id="bl-cnt"></div>
+      </div>
+      <div class="summary" id="summary"></div>
+      <div class="items-list" id="items-list"></div>
+      <div class="empty" id="empty" style="display:none">Ничего не найдено — попробуй другой фильтр</div>
+    </div>
+
+    <!-- TRACKER -->
+    <div id="pg-tracker" style="display:none">
+      <div class="role-switcher">
+        <button class="rbtn active" onclick="switchRole(&#39;pm&#39;,this)">🎯 PM — Мои инициативы</button>
+        <button class="rbtn" onclick="switchRole(&#39;pmo&#39;,this)">📋 PMO — Портфель</button>
+        <button class="rbtn" onclick="switchRole(&#39;cpo&#39;,this)">🔭 CPO — Стратегия</button>
+        <button class="rbtn" onclick="switchRole(&#39;ceo&#39;,this)">👤 CEO — Дашборд</button>
+      </div>
+      <div id="trk-content"></div>
+    </div>
+
+  </div>
+
+  <!-- EDIT PANEL -->
+  <div class="edit-panel" id="ep">
+    <div class="ep-head">
+      <div class="ep-title" id="ep-title">—</div>
+      <button class="ep-close" onclick="closeEP()">✕</button>
+    </div>
+    <div class="ep-body">
+      <div class="score-preview">
+        <div class="score-preview-val s-hi" id="ep-score">—</div>
+        <div class="score-preview-lbl">(R × I × C) / E</div>
+      </div>
+      <div class="ep-group">
+        <div class="ep-lbl">📡 Reach — охват</div>
+        <div class="ep-row"><span class="ep-key">R</span><input class="ep-slider" type="range" id="ep-r" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-r-v">5</span></div>
+        <div class="ep-lbl" style="margin-top:4px">💥 Impact — влияние</div>
+        <div class="ep-row"><span class="ep-key">I</span><input class="ep-slider" type="range" id="ep-i" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-i-v">5</span></div>
+        <div class="ep-lbl" style="margin-top:4px">🎯 Confidence — уверенность</div>
+        <div class="ep-row"><span class="ep-key">C</span><input class="ep-slider" type="range" id="ep-c" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-c-v">5</span></div>
+        <div class="ep-lbl" style="margin-top:4px">⚙️ Effort — трудозатраты</div>
+        <div class="ep-row"><span class="ep-key">E</span><input class="ep-slider" type="range" id="ep-e" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-e-v">5</span></div>
+      </div>
+      <div class="ep-group">
+        <div class="ep-lbl">Продукт</div>
+        <select class="ep-select" id="ep-proj"><option value="PR01">PR01 — Продуктовый фреймворк</option><option value="PR02">PR02 — Хендбук для руководителей</option><option value="PR03">PR03 — Лендинг для бизнеса</option><option value="PR04">PR04 — Трекер инициатив (Shiva/WB)</option><option value="PR05">PR05 — Реестр целей и инициатив</option><option value="PR06">PR06 — Корпоративный ProductHunt</option></select>
+      </div>
+      <div class="ep-group">
+        <div class="ep-lbl">Тип инициативы</div>
+        <select class="ep-select" id="ep-track">
+          <option value="delivery">🚀 Delivery — разрабатываем</option>
+          <option value="discovery">🔍 Discovery — исследуем</option>
+        </select>
+      </div>
+      <div class="ep-group">
+        <div class="ep-lbl">Статус</div>
+        <select class="ep-select" id="ep-status">
+          <option value="backlog">📥 Бэклог</option>
+          <option value="planned">📌 Запланировано</option>
+          <option value="wip">🔄 В работе</option>
+          <option value="done">✅ Готово</option>
+        </select>
+      </div>
+      <div class="ep-group">
+        <div class="ep-lbl">Целевой релиз</div>
+        <select class="ep-select" id="ep-release">
+          <option value="v13">v13</option>
+          <option value="v14">v14</option>
+          <option value="v15+">v15+</option>
+          <option value="backlog">Бэклог (без срока)</option>
+        </select>
+      </div>
+      <div class="ep-group">
+        <div class="ep-lbl">Заметки PM</div>
+        <textarea class="ep-textarea" id="ep-notes" placeholder="Контекст, блокеры, решения…"></textarea>
+      </div>
+    </div>
+    <div class="ep-foot">
+      <button class="btn-save" onclick="saveEP()">💾 Сохранить изменения</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════
+// STAGE-GATE MODEL
+// ════════════════════════════════════════════
+const STAGES = [
+  { gate:0, emoji:'💡', name:'Идея',       color:'#6B6B8E', desc:'Скрининг: гипотеза попала в очередь на оценку R/ICE.' },
+  { gate:1, emoji:'🔍', name:'Концепция',  color:'#3B82F6', desc:'Discovery: CustDev проведён, аудитория и проблема подтверждены.' },
+  { gate:2, emoji:'🛠', name:'Прототип',   color:'#8B5CF6', desc:'MVP проверен на пользователях, PMF-гипотеза сформулирована.' },
+  { gate:3, emoji:'⚙️', name:'Разработка', color:'#F59E0B', desc:'PnL утверждён, команда собрана, идёт активная разработка.' },
+  { gate:4, emoji:'🚀', name:'Запуск',     color:'#10B981', desc:'Продукт доступен пользователям, KPI и метрики мониторятся.' },
+  { gate:5, emoji:'📈', name:'Масштаб',    color:'#2DD4BF', desc:'Устойчивый рост, PMF найден, CAC < LTV, расширение аудитории.' },
+];
+
+// ════════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════════
+const PROJECTS = [
+  { id:'PR01', layer:'Уровень 0 — Фундамент',  name:'Продуктовый фреймворк',       gate:4, desc:'Операционный справочник контура: регламенты, процессы, методологии, база знаний. Источник истины для лидов и команд.',         status:'wip',     release:'v13', color:'#2DD4BF' },
+  { id:'PR02', layer:'Уровень 1 — Команды',     name:'Хендбук для руководителей',   gate:3, desc:'Прикладные инструменты для продактов, проджектов и техлидов: шаблоны, чек-листы, приоритизация, планирование.',                status:'wip',     release:'v13', color:'#7C3AED' },
+  { id:'PR03', layer:'Уровень 3 — Рост',        name:'Лендинг для бизнеса',         gate:3, desc:'Как создать продукт в экосистеме RWB. Вход для новых команд и стартапов: путь от идеи до продукта.',                           status:'wip',     release:'v13', color:'#F59E0B' },
+  { id:'PR04', layer:'Уровень 2 — Управление',  name:'Трекер инициатив (Shiva/WB)', gate:1, desc:'Фронтенд для управления развитием продуктов внутри команд. ТЗ для команды разработки Shiva/WB.',                              status:'planned', release:'v14', color:'#3B82F6' },
+  { id:'PR05', layer:'Уровень 2 — Управление',  name:'Реестр целей и инициатив',    gate:1, desc:'Корпоративный трекер для проектных комитетов и планирования. Бизнес видит актуальный статус продуктов 24/7.',                  status:'planned', release:'v14', color:'#EC4899' },
+  { id:'PR06', layer:'Уровень 3 — Рост',        name:'Корпоративный ProductHunt',   gate:0, desc:'Витрина и блог продуктов экосистемы: подача идей, рассказы о продуктах, обмен экспертизой. Стартапы силами сотрудников.',      status:'backlog', release:'v15+', color:'#EF4444' },
+];
+
+const BACKLOG_DEFAULT = [
+  // ── PR01 Фреймворк ──
+  {id:'C01',project:'PR01',track:'delivery', name:'Расширенный глоссарий (60+ терминов)',desc:'MoSCoW, JTBD, LTV, CAC, Churn, SaaS-метрики, DevOps термины',cat:'content',audience:'PM',r:6,i:5,c:10,e:2,status:'backlog',release:'v13',notes:''},
+  {id:'C02',project:'PR01',track:'delivery', name:'Release Notes шаблон',desc:'Интерактивный шаблон: версия, что изменилось, rollback plan, коммуникация',cat:'content',audience:'PM',r:6,i:6,c:9,e:2,status:'backlog',release:'v13',notes:''},
+  {id:'C03',project:'PR01',track:'discovery',name:'Расширенный Q&A (20+ вопросов)',desc:'B2G-специфика, токсичный заказчик, когда пивотить, как питчить CEO',cat:'content',audience:'PM',r:5,i:5,c:9,e:2,status:'backlog',release:'v14',notes:''},
+  {id:'C04',project:'PR01',track:'delivery', name:'Принципы Product OS',desc:'6 принципов: Ценность до кода, Скорость через ясность, MVP достаточно, Data-driven, Прозрачность, OKR-связь',cat:'content',audience:'PM',r:6,i:6,c:10,e:1,status:'backlog',release:'v13',notes:'Контент уже есть в v11'},
+  {id:'C05',project:'PR01',track:'delivery', name:'Роли и матрица RACI',desc:'Карточки ролей: PM, TL, Designer, DA, BA — обязанности, KPI, стадии. RACI матрица.',cat:'content',audience:'PM',r:7,i:7,c:9,e:3,status:'backlog',release:'v13',notes:'Один из самых просматриваемых разделов v11'},
+  {id:'P01',project:'PR01',track:'discovery',name:'B2B/B2C/B2G ветки стадий',desc:'Специфика по сегменту на каждой стадии: B2G — юр. pre-check, B2B — CustDev с ЛПР, B2C — A/B',cat:'process',audience:'PM',r:8,i:7,c:8,e:4,status:'backlog',release:'v13',notes:''},
+  {id:'P02',project:'PR01',track:'discovery',name:'DoR/DoD конструктор',desc:'Интерактивный редактор Definition of Ready/Done под тип задачи и стадию',cat:'process',audience:'TL',r:6,i:7,c:7,e:5,status:'backlog',release:'v14',notes:''},
+  {id:'P03',project:'PR01',track:'delivery', name:'Ретроспектива шаблон',desc:'Онлайн-ретро: Stop/Start/Continue + Action items с ответственными. Архив по продукту.',cat:'process',audience:'PM',r:5,i:6,c:8,e:4,status:'backlog',release:'v14',notes:''},
+  {id:'P04',project:'PR01',track:'discovery',name:'Матрица доступов AS IS → TO BE',desc:'Интерактивная матрица доступов к инструментам по ролям',cat:'process',audience:'PMO',r:5,i:5,c:8,e:3,status:'backlog',release:'v14',notes:''},
+  {id:'P05',project:'PR01',track:'discovery',name:'Стек AS IS → TO BE (2026)',desc:'Визуализация миграции: YouTrack → собственный, Confluence → Wiki RWB. Статус и таймлайн.',cat:'process',audience:'PMO',r:6,i:6,c:8,e:4,status:'backlog',release:'v14',notes:''},
+  {id:'P06',project:'PR01',track:'discovery',name:'Kill-условия конфигуратор',desc:'Кастомные kill-условия под каждый продукт, пороги North Star / NPS',cat:'process',audience:'PM',r:6,i:7,c:7,e:5,status:'backlog',release:'v15+',notes:''},
+  // ── PR02 Хендбук ──
+  {id:'D02',project:'PR02',track:'delivery', name:'Корпоративная дизайн-система RWB',desc:'Шрифты Unbounded+Golos Text, тёмная тема, корп. иконки SVG, токены цветов',cat:'design',audience:'UX',r:9,i:8,c:9,e:5,status:'planned',release:'v13',notes:'v12 использует стоковые иконки и дефолтные шрифты'},
+  {id:'D04',project:'PR02',track:'delivery', name:'Адаптивная мобильная версия',desc:'Bottom nav, swipe-жесты, читаемые карточки на 360px',cat:'design',audience:'PM',r:6,i:5,c:8,e:5,status:'backlog',release:'v14',notes:''},
+  {id:'D05',project:'PR02',track:'delivery', name:'Тёмная/светлая тема',desc:'Toggle с сохранением. Светлая — для печати, тёмная — для работы',cat:'design',audience:'UX',r:5,i:4,c:9,e:3,status:'backlog',release:'v15+',notes:''},
+  {id:'D06',project:'PR02',track:'delivery', name:'Анимации и микроинтеракции',desc:'Motion design: переходы между разделами, hover-анимации, прогресс-индикаторы',cat:'design',audience:'UX',r:5,i:5,c:8,e:4,status:'backlog',release:'v14',notes:''},
+  {id:'F03',project:'PR02',track:'delivery', name:'PnL шаблон и финансовая модель',desc:'Монетизация, прогноз доходов, расходы, auto-расчёт маржи / breakeven / ROI',cat:'feature',audience:'PM',r:7,i:8,c:8,e:5,status:'planned',release:'v13',notes:'Блокирует Gate 3 для коммерческих продуктов'},
+  {id:'F08',project:'PR02',track:'discovery',name:'CustDev трекер интервью',desc:'Карточки интервью, инсайты, гипотезы, статус подтверждения. Счётчик на Gate 1.',cat:'feature',audience:'PM',r:6,i:7,c:7,e:5,status:'backlog',release:'v14',notes:''},
+  {id:'F10',project:'PR02',track:'delivery', name:'A/B тест трекер',desc:'Гипотеза, метрика, аудитория, статус, результат. Интеграция с дашбордом здоровья.',cat:'feature',audience:'PM',r:5,i:7,c:6,e:6,status:'backlog',release:'v15+',notes:''},
+  {id:'F11',project:'PR02',track:'delivery', name:'Роадмап продукта',desc:'Now/Next/Later, эпики, релизы, зависимости. Экспорт в PNG/PDF.',cat:'feature',audience:'PM',r:7,i:7,c:6,e:8,status:'backlog',release:'v14',notes:''},
+  {id:'F12',project:'PR02',track:'delivery', name:'Сравнение конкурентов (матрица)',desc:'Интерактивная таблица: конкуренты, критерии, оценки, автоматическое УТП',cat:'feature',audience:'PM',r:5,i:6,c:7,e:5,status:'backlog',release:'v15+',notes:''},
+  {id:'T02',project:'PR02',track:'delivery', name:'PDF-экспорт корпоративный',desc:'A4 print-стили, корп. шапка/подвал, Product ID → PDF для Gate-презентации',cat:'tooling',audience:'PM',r:7,i:7,c:9,e:4,status:'planned',release:'v13',notes:'Сейчас window.print() без стилей'},
+  {id:'T05',project:'PR02',track:'delivery', name:'Мастер настройки нового продукта',desc:'Step-by-step онбординг: создать → бриф → команда → R/ICE. 5 шагов, 10 минут.',cat:'tooling',audience:'PM',r:7,i:8,c:8,e:5,status:'backlog',release:'v13',notes:'Y-combinator подход — быстрый старт'},
+  {id:'T06',project:'PR02',track:'delivery', name:'Поиск по всему handbook',desc:'Полнотекстовый поиск по всем разделам. Ctrl+K / ⌘K быстрый доступ.',cat:'tooling',audience:'PM',r:7,i:6,c:9,e:4,status:'backlog',release:'v13',notes:''},
+  // ── PR03 Лендинг ──
+  {id:'D01',project:'PR03',track:'delivery', name:'Орбитальная визуализация стадий',desc:'Карта орбит: звезда WB в центре, продукты на орбитах, анимация переходов между стадиями',cat:'design',audience:'UX',r:8,i:9,c:8,e:6,status:'planned',release:'v13',notes:'Ключевой UX-элемент для CEO и заказчиков'},
+  {id:'D03',project:'PR03',track:'discovery',name:'UX-кейсы и интерактивные сценарии',desc:'Интерактивные примеры как работает фреймворк на реальных продуктах контура',cat:'design',audience:'PM',r:7,i:7,c:7,e:5,status:'backlog',release:'v14',notes:''},
+  // ── PR04 Трекер Shiva/WB ──
+  {id:'F06',project:'PR04',track:'delivery', name:'Уведомления / Алерты по датам',desc:'Бейдж ⚠️ если дата комитета < 3 дней. Напоминание о не пройденных Gate.',cat:'feature',audience:'PM',r:7,i:6,c:9,e:3,status:'backlog',release:'v13',notes:''},
+  {id:'T01',project:'PR04',track:'delivery', name:'Интеграция с YouTrack / трекерами',desc:'Маппинг статусов Gate поверх YouTrack, авто-обновление матрицы, webhooks',cat:'tooling',audience:'TL',r:8,i:9,c:5,e:9,status:'backlog',release:'v15+',notes:'12 команд в разных трекерах'},
+  {id:'T03',project:'PR04',track:'delivery', name:'Автосохранение в cloud',desc:'JSON API или Google Sheets. Синхронизация между пользователями.',cat:'tooling',audience:'PMO',r:8,i:8,c:5,e:8,status:'backlog',release:'v15+',notes:'Пока localStorage — данные только в одном браузере'},
+  {id:'T04',project:'PR04',track:'delivery', name:'Экспорт в Confluence / Wiki',desc:'Конвертация Product ID / Gate отчёта в Confluence-разметку или markdown',cat:'tooling',audience:'PMO',r:7,i:7,c:7,e:5,status:'backlog',release:'v14',notes:''},
+  {id:'I01',project:'PR04',track:'delivery', name:'Аутентификация и мульти-пользователь',desc:'SSO / корп. аккаунт, разные пространства для команд, история изменений',cat:'infra',audience:'PMO',r:7,i:9,c:4,e:10,status:'backlog',release:'v15+',notes:'Большой epic. Нужен backend.'},
+  {id:'I02',project:'PR04',track:'delivery', name:'API для интеграций (REST)',desc:'Чтение/запись: статусы Gate, метрики здоровья, реестр инициатив. Для BI и трекеров.',cat:'infra',audience:'TL',r:7,i:8,c:4,e:9,status:'backlog',release:'v15+',notes:''},
+  {id:'I03',project:'PR04',track:'delivery', name:'PWA — установка как приложение',desc:'Оффлайн-режим, установка на рабочий стол/телефон, push-уведомления Gate',cat:'infra',audience:'PM',r:5,i:5,c:7,e:4,status:'backlog',release:'v15+',notes:''},
+  // ── PR05 Реестр целей ──
+  {id:'F02',project:'PR05',track:'delivery', name:'PMO Реестр инициатив',desc:'Единый реестр: очередь на скрининг, R/ICE скоринг, статус Gate 0. CRUD + фильтры + экспорт',cat:'feature',audience:'PMO',r:9,i:9,c:8,e:6,status:'planned',release:'v13',notes:'12 команд без общего реестра — первоочередная задача'},
+  {id:'F04',project:'PR05',track:'discovery',name:'OKR Планировщик',desc:'Дерево: Цели → Департамент → Инициативы → Продукты. Привязка и трекинг KR.',cat:'feature',audience:'PM',r:8,i:8,c:7,e:7,status:'backlog',release:'v13',notes:''},
+  {id:'F05',project:'PR05',track:'discovery',name:'Product Health Dashboard',desc:'Еженедельный дашборд для Комитета: North Star, Retention, NPS, Red/Yellow/Green',cat:'feature',audience:'PM',r:8,i:8,c:7,e:6,status:'backlog',release:'v13',notes:'Шаблон есть в v11 как документ'},
+  {id:'F09',project:'PR05',track:'delivery', name:'Gate Timeline — дорожная карта',desc:'Шкала всех Gate по всем продуктам: кто, когда, какой Gate. Gantt + Kanban.',cat:'feature',audience:'PMO',r:7,i:7,c:6,e:6,status:'backlog',release:'v14',notes:''},
+  // ── PR06 ProductHunt ──
+  {id:'F01',project:'PR06',track:'delivery', name:'ProductHunt витрина',desc:'Лендинги продуктов, апвоуты, рейтинг популярности, каталог API экосистемы',cat:'feature',audience:'PM',r:9,i:9,c:7,e:7,status:'planned',release:'v13',notes:''},
+  {id:'F07',project:'PR06',track:'delivery', name:'Профиль команды продукта',desc:'PM, TL, дизайнер, DA, контакты, аватары, роли. Кликабельный из матрицы и витрины.',cat:'feature',audience:'PM',r:6,i:6,c:8,e:4,status:'backlog',release:'v14',notes:''},
+];
+
+// ════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════
+let backlog = (window.PT ? PT.load(PT.KEY_BACKLOG) : JSON.parse(localStorage.getItem('rwb_os_backlog') || 'null')) || BACKLOG_DEFAULT;
+let filters = { cat:'all', status:'all', audience:'all', project:'all', track:'all' };
+let sortBy = 'score';
+let editId = null;
+let curTab = 'portfolio';
+let curRole = 'pm';
+
+// ════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════
+function sc(item) { return (item.r * item.i * item.c) / item.e; }
+function scClass(s) { return s > 20 ? 's-hi' : s >= 10 ? 's-mi' : 's-lo'; }
+function chipCls(s)  { return s > 20 ? 'chip-h' : s >= 10 ? 'chip-m' : 'chip-l'; }
+function prioLbl(s)  { return s > 20 ? '🟢 High' : s >= 10 ? '🟡 Med' : '🔴 Low'; }
+function gateColor(g){ return (STAGES[g]||STAGES[0]).color; }
+function stageName(g){ return (STAGES[g]||STAGES[0]).name; }
+function gateClass(g){ return 'g'+g; }
+
+const CAT_LBL = { design:'🎨 Дизайн & UX', feature:'⚡ Новые фичи', tooling:'🔧 Инструменты', process:'📋 Процессы', content:'📄 Контент', infra:'🏗 Инфра' };
+const ST_LBL  = { backlog:'Бэклог', planned:'Запланировано', wip:'В работе', done:'Готово' };
+const ST_ICO  = { backlog:'📥', planned:'📌', wip:'🔄', done:'✅' };
+const ST_CLS  = { backlog:'st-backlog', planned:'st-planned', wip:'st-wip', done:'st-done' };
+
+// ════════════════════════════════════════════
+// TABS
+// ════════════════════════════════════════════
+function switchTab(tab, btn) {
+  curTab = tab;
+  if (window.PT) PT.setUIState({tracker_tab: tab});
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('pg-portfolio').style.display = tab === 'portfolio' ? '' : 'none';
+  document.getElementById('pg-backlog').style.display   = tab === 'backlog'   ? '' : 'none';
+  document.getElementById('pg-tracker').style.display   = tab === 'tracker'   ? '' : 'none';
+  const sb = document.getElementById('sidebar');
+  if (tab === 'backlog') { sb.classList.remove('hidden'); renderBL(); }
+  else { sb.classList.add('hidden'); closeEP(); }
+  if (tab === 'tracker') renderTracker(curRole);
+}
+
+// ════════════════════════════════════════════
+// PORTFOLIO
+// ════════════════════════════════════════════
+function renderPortfolio() {
+  const stCnt = {wip:0,planned:0,backlog:0,done:0};
+  PROJECTS.forEach(p => stCnt[p.status]++);
+  document.getElementById('pstats').innerHTML = `
+    <div class="pstat"><div class="pstat-num" style="color:#fff">${PROJECTS.length}</div><div class="pstat-lbl">Продуктов</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:var(--teal)">${stCnt.wip}</div><div class="pstat-lbl">В работе</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:#C4B5FD">${stCnt.planned}</div><div class="pstat-lbl">Запланировано</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:var(--muted)">${stCnt.backlog}</div><div class="pstat-lbl">Беклог</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:var(--amber)">${backlog.length}</div><div class="pstat-lbl">Инициатив</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:var(--green)">${backlog.filter(i=>sc(i)>20).length}</div><div class="pstat-lbl">High priority</div></div>
+  `;
+
+  document.getElementById('pgrid').innerHTML = PROJECTS.map(p => {
+    const items = backlog.filter(i => i.project === p.id);
+    const sorted = [...items].sort((a,b) => sc(b)-sc(a));
+    const avg = items.length ? (items.reduce((a,i)=>a+sc(i),0)/items.length).toFixed(1) : '—';
+    const topChips = sorted.slice(0,3).map(i => {
+      const s = sc(i);
+      return `<span class="chip ${chipCls(s)}">${i.id} · ${s.toFixed(0)}</span>`;
+    }).join('');
+    const stage = STAGES[p.gate] || STAGES[0];
+    const gateBar = STAGES.map((s,idx) => {
+      let cls = idx < p.gate ? 'done' : idx === p.gate ? 'current' : '';
+      return `<div class="gate-step ${cls}" title="G${idx}: ${s.name}"></div>`;
+    }).join('');
+    const initRows = sorted.map(item => {
+      const s = sc(item);
+      const trackHtml = item.track === 'discovery'
+        ? `<span class="track-d">🔍 Discovery</span>`
+        : `<span class="track-v">🚀 Delivery</span>`;
+      return `<div class="irow" onclick="goEdit('${item.id}')">
+        <div class="iid">${item.id}</div>
+        <div><div class="iname">${item.name}</div><div class="isub">${item.desc.substring(0,52)}${item.desc.length>52?'…':''}</div></div>
+        <div>${trackHtml}</div>
+        <div><div class="iscore ${scClass(s)}">${s.toFixed(1)}</div><div class="iscl">RICE</div></div>
+        <div style="text-align:right"><span class="ist ${ST_CLS[item.status]}">${ST_ICO[item.status]} ${ST_LBL[item.status]}</span></div>
+      </div>`;
+    }).join('');
+    return `<div class="pcard" id="pc-${p.id}">
+      <div class="pcard-head" onclick="togglePC('${p.id}')">
+        <div class="pmeta">
+          <span class="pid">${p.id}</span>
+          <span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span>
+          <span class="gbadge ${gateClass(p.gate)}">${stage.emoji} G${p.gate} · ${stage.name}</span>
+          <span class="player">${p.layer}</span>
+        </div>
+        <div class="pname">${p.name}</div>
+        <div class="pdesc">${p.desc}</div>
+        <div class="gate-bar">${gateBar}</div>
+        <div class="gate-label-row">
+          <span>G0 Идея</span><span>G1 Концепт</span><span>G2 Прото</span><span>G3 Dev</span><span>G4 Launch</span><span>G5 Scale</span>
+        </div>
+      </div>
+      <div class="pfoot">
+        <div class="pfstat"><div class="pfnum">${items.length}</div><div class="pflbl">инициатив</div></div>
+        <div class="pfdiv"></div>
+        <div class="pfstat"><div class="pfnum">${avg}</div><div class="pflbl">avg RICE</div></div>
+        <div class="pfdiv"></div>
+        <div class="chips">${topChips}</div>
+        <button class="exbtn" onclick="togglePC('${p.id}')">Открыть ↓</button>
+      </div>
+      <div class="ilist-wrap">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">
+          Инициативы (${items.length}) · по RICE score
+        </div>
+        <div class="ilist">${initRows}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function togglePC(id) {
+  const card = document.getElementById('pc-' + id);
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.pcard.open').forEach(c => {
+    c.classList.remove('open');
+    c.querySelector('.exbtn').textContent = 'Открыть ↓';
+  });
+  if (!isOpen) {
+    card.classList.add('open');
+    card.querySelector('.exbtn').textContent = 'Свернуть ↑';
+    card.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+}
+
+function goEdit(id) {
+  const tabBtns = document.querySelectorAll('.tab');
+  switchTab('backlog', tabBtns[1]);
+  setTimeout(() => openEP(id), 120);
+}
+
+// ════════════════════════════════════════════
+// BACKLOG
+// ════════════════════════════════════════════
+function initSidebar() {
+  const pf = document.getElementById('proj-filters');
+  pf.innerHTML = `<button class="fbtn active" onclick="setF('project','all',this)"><span>Все продукты</span></button>` +
+    PROJECTS.map(p => `<button class="fbtn" onclick="setF('project','${p.id}',this)">
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${p.color};margin-right:5px;vertical-align:middle"></span>${p.name}</span>
+      <span class="fcount" id="fcp-${p.id}"></span>
+    </button>`).join('');
+
+  const sel = document.getElementById('ep-proj');
+  sel.innerHTML = PROJECTS.map(p => `<option value="${p.id}">${p.id} — ${p.name}</option>`).join('');
+
+  document.getElementById('legend').innerHTML = PROJECTS.map(p => `
+    <div class="leg-item" onclick="setF('project','${p.id}',null)">
+      <div class="leg-dot" style="background:${p.color}"></div>${p.id} · ${p.name}
+    </div>`).join('');
+}
+
+function getFiltered() {
+  const q = (document.getElementById('bl-q')||{value:''}).value.toLowerCase();
+  return backlog.filter(item => {
+    if (filters.project !== 'all' && item.project !== filters.project) return false;
+    if (filters.cat     !== 'all' && item.cat     !== filters.cat)     return false;
+    if (filters.status  !== 'all' && item.status  !== filters.status)  return false;
+    if (filters.audience!== 'all' && item.audience!== filters.audience)return false;
+    if (filters.track   !== 'all' && item.track   !== filters.track)   return false;
+    if (q && !item.name.toLowerCase().includes(q) && !item.desc.toLowerCase().includes(q) && !item.id.toLowerCase().includes(q)) return false;
+    return true;
+  }).sort((a,b) => {
+    if (sortBy === 'score') return sc(b)-sc(a);
+    if (sortBy === 'name') return a.name.localeCompare(b.name);
+    if (sortBy === 'effort') return a.e-b.e;
+    return 0;
+  });
+}
+
+function renderBL() {
+  const items = getFiltered();
+  const list = document.getElementById('items-list');
+  const empty = document.getElementById('empty');
+  updateCounts();
+  document.getElementById('bl-cnt').textContent = `${items.length} / ${backlog.length}`;
+  const high = items.filter(i=>sc(i)>20).length;
+  const mid = items.filter(i=>sc(i)>=10&&sc(i)<=20).length;
+  const low = items.filter(i=>sc(i)<10).length;
+  const wip = items.filter(i=>i.status==='wip').length;
+  const disc = items.filter(i=>i.track==='discovery').length;
+  const delv = items.filter(i=>i.track==='delivery').length;
+  document.getElementById('summary').innerHTML = `
+    <div class="sum-card"><div class="sum-n" style="color:var(--green)">${high}</div><div class="sum-l">🟢 High</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:var(--amber)">${mid}</div><div class="sum-l">🟡 Medium</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:#FCA5A5">${low}</div><div class="sum-l">🔴 Low</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:var(--teal)">${wip}</div><div class="sum-l">🔄 В работе</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:#93C5FD">${disc}</div><div class="sum-l">🔍 Discovery</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:#6EE7B7">${delv}</div><div class="sum-l">🚀 Delivery</div></div>
+  `;
+  if (!items.length) { list.innerHTML = ''; empty.style.display='block'; return; }
+  empty.style.display = 'none';
+  let html = '';
+  if (filters.cat === 'all' && filters.project === 'all' && filters.track === 'all') {
+    const groups = {};
+    items.forEach(i => { if (!groups[i.cat]) groups[i.cat]=[]; groups[i.cat].push(i); });
+    Object.entries(groups).forEach(([cat, gi]) => {
+      html += `<div class="glabel">${CAT_LBL[cat]||cat}</div>`;
+      gi.forEach((item,idx) => { html += renderItem(item, idx+1); });
+    });
+  } else {
+    items.forEach((item,idx) => { html += renderItem(item, idx+1); });
+  }
+  list.innerHTML = html;
+}
+
+function renderItem(item, rank) {
+  const s = sc(item);
+  const trackTag = item.track === 'discovery'
+    ? `<span class="track-d">🔍 Discovery</span>`
+    : `<span class="track-v">🚀 Delivery</span>`;
+  return `<div class="item${editId===item.id?' editing':''}" onclick="openEP('${item.id}')">
+    <div class="item-rank">#${rank}</div>
+    <div class="item-main">
+      <div class="item-name">${item.name}</div>
+      <div class="item-desc">${item.desc}</div>
+      <div class="item-meta">
+        <span class="tag tag-${item.cat}">${CAT_LBL[item.cat]||item.cat}</span>
+        ${trackTag}
+        <span class="aud">${item.audience}</span>
+        <span class="ptag pt-${item.project}">${item.project}</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">${item.id}</span>
+        ${item.release?`<span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,.05);padding:1px 6px;border-radius:4px">${item.release}</span>`:''}
+      </div>
+    </div>
+    <div class="rice">
+      ${['r','i','c','e'].map((k,idx)=>`<div class="rrow">
+        <span class="rkey">${k.toUpperCase()}</span>
+        <div class="rbg"><div class="rfill" style="width:${item[k]*10}%;background:${idx===3?'var(--amber)':'var(--violet)'}"></div></div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--muted);width:12px">${item[k]}</span>
+      </div>`).join('')}
+    </div>
+    <div class="score-col">
+      <div class="sval ${scClass(s)}">${s.toFixed(1)}</div>
+      <div class="slbl2">${prioLbl(s)}</div>
+    </div>
+    <div class="status-col">
+      <span class="sdot ${ST_CLS[item.status]}">${ST_ICO[item.status]} ${ST_LBL[item.status]}</span>
+      ${item.notes?`<span style="font-size:9px;color:var(--muted)" title="${item.notes}">📝</span>`:''}
+    </div>
+  </div>`;
+}
+
+function updateCounts() {
+  const cats = ['design','feature','tooling','process','content','infra'];
+  const el = document.getElementById('fc-all');
+  if (el) el.textContent = backlog.length;
+  cats.forEach(c => {
+    const e = document.getElementById('fc-'+c);
+    if (e) e.textContent = backlog.filter(i=>i.cat===c).length;
+  });
+  PROJECTS.forEach(p => {
+    const e = document.getElementById('fcp-'+p.id);
+    if (e) e.textContent = backlog.filter(i=>i.project===p.id).length;
+  });
+}
+
+function setF(type, val, btn) {
+  filters[type] = val;
+  if (btn) {
+    // find parent group and deactivate siblings
+    const parent = btn.parentElement;
+    if (parent) parent.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  if (window.PT) PT.setUIState({tracker_filters: filters});
+  renderBL();
+}
+
+function setSort(val, btn) {
+  sortBy = val;
+  document.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderBL();
+}
+
+// ════════════════════════════════════════════
+// TRACKER — ROLE VIEWS
+// ════════════════════════════════════════════
+function switchRole(role, btn) {
+  curRole = role;
+  document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderTracker(role);
+}
+
+function renderTracker(role) {
+  const container = document.getElementById('trk-content');
+  if (!container) return;
+  if (role === 'pm')  container.innerHTML = renderPM();
+  if (role === 'pmo') container.innerHTML = renderPMO();
+  if (role === 'cpo') container.innerHTML = renderCPO();
+  if (role === 'ceo') container.innerHTML = renderCEO();
+}
+
+// ── PM VIEW ──
+function renderPM() {
+  // Default to first project
+  const selVal = 'PR01';
+  const projectSel = `<select class="pm-sel" id="pm-proj-sel" onchange="renderPMProject(this.value)">
+    ${PROJECTS.map(p=>`<option value="${p.id}">${p.id} — ${p.name}</option>`).join('')}
+  </select>`;
+
+  const html = `
+    <div class="role-badge">🎯 Вид PM — Инициативы продукта + Gate статус</div>
+    <div class="pm-header">
+      <div style="font-size:12px;color:var(--muted);font-weight:700">Выберите продукт:</div>
+      ${projectSel}
+    </div>
+    <div id="pm-proj-body"></div>`;
+
+  // Render will happen after DOM update via setTimeout
+  setTimeout(() => renderPMProject(selVal), 10);
+  return html;
+}
+
+function renderPMProject(pid) {
+  const body = document.getElementById('pm-proj-body');
+  if (!body) return;
+  const p = PROJECTS.find(x=>x.id===pid);
+  if (!p) return;
+  const stage = STAGES[p.gate];
+  const items = [...backlog.filter(i=>i.project===pid)].sort((a,b)=>sc(b)-sc(a));
+  const disc = items.filter(i=>i.track==='discovery');
+  const delv = items.filter(i=>i.track==='delivery');
+
+  const gateBar = STAGES.map((s,idx) => {
+    let cls = idx < p.gate ? 'done' : idx === p.gate ? 'current' : '';
+    return `<div class="gate-step ${cls}" style="height:8px" title="G${idx}: ${s.name}"></div>`;
+  }).join('');
+
+  const mkItems = (arr) => arr.slice(0,6).map(item => {
+    const s = sc(item);
+    return `<div class="trk-item">
+      <div class="trk-item-id">${item.id}</div>
+      <div>
+        <div class="trk-item-name">${item.name}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">${ST_ICO[item.status]} ${ST_LBL[item.status]} · ${item.release||'—'}</div>
+      </div>
+      <div class="trk-item-score ${scClass(s)}">${s.toFixed(0)}</div>
+    </div>`;
+  }).join('');
+
+  body.innerHTML = `
+    <div class="pm-gate-card" style="border-left:3px solid ${stage.color}">
+      <div class="pm-gate-icon">${stage.emoji}</div>
+      <div style="flex:1">
+        <div class="pm-gate-name">${p.name}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin:6px 0">
+          <span class="gbadge ${gateClass(p.gate)}">G${p.gate} · ${stage.name}</span>
+          <span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span>
+        </div>
+        <div class="pm-gate-desc">${stage.desc}</div>
+        <div class="gate-bar" style="margin-top:10px">${gateBar}</div>
+      </div>
+    </div>
+    <div class="pm-cols">
+      <div class="trk-section">
+        <div class="trk-section-head">
+          <span>🔍 Discovery (${disc.length})</span>
+          <span style="color:#93C5FD">Исследование</span>
+        </div>
+        ${disc.length ? mkItems(disc) : '<div style="font-size:11px;color:var(--muted);padding:8px 0">Нет Discovery-инициатив</div>'}
+      </div>
+      <div class="trk-section">
+        <div class="trk-section-head">
+          <span>🚀 Delivery (${delv.length})</span>
+          <span style="color:#6EE7B7">Разработка</span>
+        </div>
+        ${delv.length ? mkItems(delv) : '<div style="font-size:11px;color:var(--muted);padding:8px 0">Нет Delivery-инициатив</div>'}
+      </div>
+    </div>
+  `;
+}
+
+// ── PMO VIEW ──
+function renderPMO() {
+  const rows = PROJECTS.map(p => {
+    const items = backlog.filter(i=>i.project===p.id);
+    const wip = items.filter(i=>i.status==='wip').length;
+    const planned = items.filter(i=>i.status==='planned').length;
+    const disc = items.filter(i=>i.track==='discovery').length;
+    const delv = items.filter(i=>i.track==='delivery').length;
+    const stage = STAGES[p.gate];
+    const gateDots = STAGES.map((s,idx) => {
+      let cls = idx < p.gate ? 'g-done' : idx === p.gate ? 'g-cur' : 'g-todo';
+      const fwUrl = window.PT ? PT.buildUrl('../Фреймворк/rwb-product-os-v3.html', {orbit:idx}) : '#';
+      return `<a class="pmo-gate-dot ${cls}" title="G${idx}: ${s.name} → Фреймворк" href="${fwUrl}" style="text-decoration:none;cursor:pointer">${idx}</a>`;
+    }).join('');
+    return `<tr>
+      <td style="min-width:160px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="width:8px;height:8px;border-radius:50%;background:${p.color};flex-shrink:0"></div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:#fff">${p.name}</div>
+            <div style="font-size:10px;color:var(--muted)">${p.id} · ${p.layer}</div>
+          </div>
+        </div>
+      </td>
+      <td><a class="gbadge ${gateClass(p.gate)}" href="${window.PT ? PT.buildUrl('../Фреймворк/rwb-product-os-v3.html', {orbit:p.gate}) : '#'}" style="text-decoration:none;cursor:pointer" title="Открыть орбиту ${p.gate} во Фреймворке">${stage.emoji} G${p.gate} · ${stage.name}</a></td>
+      <td><div class="pmo-gate-track">${gateDots}</div></td>
+      <td style="text-align:center">
+        <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--teal)">${wip}</div>
+        <div style="font-size:9px;color:var(--muted)">WIP</div>
+      </td>
+      <td style="text-align:center">
+        <div style="font-family:var(--mono);font-size:12px;color:#93C5FD">${disc}</div>
+        <div style="font-size:9px;color:var(--muted)">Discovery</div>
+      </td>
+      <td style="text-align:center">
+        <div style="font-family:var(--mono);font-size:12px;color:#6EE7B7">${delv}</div>
+        <div style="font-size:9px;color:var(--muted)">Delivery</div>
+      </td>
+      <td><span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span></td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--muted)">${p.release}</td>
+    </tr>`;
+  }).join('');
+
+  const totalWip = backlog.filter(i=>i.status==='wip').length;
+  const totalPlanned = backlog.filter(i=>i.status==='planned').length;
+  const totalDisc = backlog.filter(i=>i.track==='discovery').length;
+  const totalDelv = backlog.filter(i=>i.track==='delivery').length;
+
+  return `
+    <div class="role-badge">📋 Вид PMO — Portfolio Overview + Gate Progress</div>
+    <div class="kpi-strip">
+      <div class="kpi"><div class="kpi-n" style="color:#fff">${PROJECTS.length}</div><div class="kpi-l">Продуктов в портфеле</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--teal)">${totalWip}</div><div class="kpi-l">В активной разработке</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:#93C5FD">${totalDisc}</div><div class="kpi-l">Discovery инициатив</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:#6EE7B7">${totalDelv}</div><div class="kpi-l">Delivery инициатив</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--amber)">${totalPlanned}</div><div class="kpi-l">Запланировано к запуску</div></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
+      <table class="pmo-table" style="width:100%">
+        <thead>
+          <tr>
+            <th>Продукт</th>
+            <th>Gate</th>
+            <th>Прогресс G0→G5</th>
+            <th>WIP</th>
+            <th>Discovery</th>
+            <th>Delivery</th>
+            <th>Статус</th>
+            <th>Релиз</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+// ── CPO VIEW ──
+function renderCPO() {
+  // Gate funnel data
+  const gateCount = Array(6).fill(0);
+  PROJECTS.forEach(p => gateCount[p.gate]++);
+  const maxCount = Math.max(...gateCount, 1);
+  const funnelBars = STAGES.map((s,idx) => {
+    const cnt = gateCount[idx];
+    const h = Math.max(20, (cnt / maxCount) * 120);
+    return `<div class="funnel-stage">
+      <div class="funnel-n" style="color:${s.color}">${cnt}</div>
+      <div class="funnel-bar" style="height:${h}px;background:${s.color};opacity:${cnt?0.7:0.15}"></div>
+      <div class="funnel-lbl">${s.emoji} G${idx}<br>${s.name}</div>
+    </div>`;
+  }).join('');
+
+  // Layer breakdown
+  const layers = {};
+  PROJECTS.forEach(p => {
+    if (!layers[p.layer]) layers[p.layer] = [];
+    layers[p.layer].push(p);
+  });
+
+  const layerCards = Object.entries(layers).map(([layer, projs]) => {
+    const rows = projs.map(p => {
+      const stage = STAGES[p.gate];
+      const items = backlog.filter(i=>i.project===p.id);
+      const highItems = items.filter(i=>sc(i)>20);
+      return `<div class="trk-item">
+        <div class="trk-item-id">${p.id}</div>
+        <div style="flex:1">
+          <div class="trk-item-name">${p.name}</div>
+          <div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap">
+            <span class="gbadge ${gateClass(p.gate)}">${stage.emoji} G${p.gate} · ${stage.name}</span>
+            <span style="font-size:9px;color:var(--muted)">${highItems.length} high-priority</span>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="trk-section" style="margin-bottom:10px">
+      <div class="trk-section-head"><span>${layer}</span><span>${projs.length} продукт${projs.length>1?'а':''}</span></div>
+      ${rows}
+    </div>`;
+  }).join('');
+
+  // Strategic risks
+  const earlyStage = PROJECTS.filter(p=>p.gate<=1);
+  const risks = earlyStage.map(p => {
+    const disc = backlog.filter(i=>i.project===p.id&&i.track==='discovery').length;
+    return `<div class="trk-item">
+      <div style="font-size:14px">${STAGES[p.gate].emoji}</div>
+      <div style="flex:1">
+        <div class="trk-item-name">${p.name}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">G${p.gate} · ${disc} Discovery-задач в беклоге</div>
+      </div>
+      <span class="gbadge ${gateClass(p.gate)}" style="flex-shrink:0">G${p.gate}</span>
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="role-badge">🔭 Вид CPO — Стратегическое состояние портфеля</div>
+    <div class="divlabel">Распределение продуктов по Gate</div>
+    <div class="cpo-funnel">${funnelBars}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">
+      <div>
+        <div class="divlabel">По слоям Product OS</div>
+        ${layerCards}
+      </div>
+      <div>
+        <div class="divlabel">Стратегические риски (G0–G1)</div>
+        ${earlyStage.length ? `<div class="trk-section">${risks}</div>` : '<div style="color:var(--muted);font-size:12px;padding:12px 0">Нет продуктов в ранних стадиях</div>'}
+        <div class="divlabel" style="margin-top:14px">Топ High-Priority инициатив</div>
+        <div class="trk-section">
+          ${[...backlog].sort((a,b)=>sc(b)-sc(a)).slice(0,5).map(item => {
+            const s = sc(item);
+            const proj = PROJECTS.find(p=>p.id===item.project);
+            return `<div class="trk-item">
+              <div class="trk-item-id">${item.id}</div>
+              <div style="flex:1">
+                <div class="trk-item-name">${item.name}</div>
+                <div style="display:flex;gap:5px;margin-top:2px">
+                  <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${proj?proj.color:'#888'};flex-shrink:0;margin-top:3px"></span>
+                  <span style="font-size:9px;color:var(--muted)">${proj?proj.name:'—'}</span>
+                </div>
+              </div>
+              <div class="trk-item-score ${scClass(s)}">${s.toFixed(0)}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+// ── CEO VIEW ──
+function renderCEO() {
+  const inMarket = PROJECTS.filter(p=>p.gate>=4).length;
+  const inDev = PROJECTS.filter(p=>p.gate===3).length;
+  const inPipeline = PROJECTS.filter(p=>p.gate<=2).length;
+  const totalHighPrio = backlog.filter(i=>sc(i)>20).length;
+  const totalWip = backlog.filter(i=>i.status==='wip').length;
+
+  const projCards = PROJECTS.map(p => {
+    const stage = STAGES[p.gate];
+    const items = backlog.filter(i=>i.project===p.id);
+    const wipCount = items.filter(i=>i.status==='wip').length;
+    const highCount = items.filter(i=>sc(i)>20).length;
+    const discCount = items.filter(i=>i.track==='discovery').length;
+    const delivCount = items.filter(i=>i.track==='delivery').length;
+    return `<div class="ceo-card">
+      <div class="ceo-accent" style="background:${p.color}"></div>
+      <div class="ceo-pid">${p.id}</div>
+      <div class="ceo-name">${p.name}</div>
+      <div class="ceo-meta">
+        <span class="gbadge ${gateClass(p.gate)}">${stage.emoji} G${p.gate} · ${stage.name}</span>
+        <span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span>
+      </div>
+      <div class="ceo-stats">
+        <div class="ceo-stat"><div class="ceo-stat-n">${items.length}</div><div class="ceo-stat-l">Инициатив</div></div>
+        <div class="ceo-stat"><div class="ceo-stat-n" style="color:var(--teal)">${wipCount}</div><div class="ceo-stat-l">В работе</div></div>
+        <div class="ceo-stat"><div class="ceo-stat-n" style="color:#93C5FD">${discCount}</div><div class="ceo-stat-l">Discovery</div></div>
+        <div class="ceo-stat"><div class="ceo-stat-n" style="color:#6EE7B7">${delivCount}</div><div class="ceo-stat-l">Delivery</div></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="role-badge">👤 Вид CEO/Business — Executive Dashboard</div>
+    <div class="kpi-strip">
+      <div class="kpi"><div class="kpi-n" style="color:var(--green)">${inMarket}</div><div class="kpi-l">Продуктов запущено (G4+)</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--amber)">${inDev}</div><div class="kpi-l">В активной разработке (G3)</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:#93C5FD">${inPipeline}</div><div class="kpi-l">В пайплайне (G0–G2)</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--teal)">${totalWip}</div><div class="kpi-l">Задач в работе</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--green)">${totalHighPrio}</div><div class="kpi-l">High-Priority инициатив</div></div>
+    </div>
+    <div class="divlabel">6 продуктов экосистемы RWB</div>
+    <div class="ceo-grid">${projCards}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div>
+        <div class="divlabel">Ближайшие к запуску</div>
+        <div class="trk-section">
+          ${backlog.filter(i=>i.status==='planned').slice(0,5).map(item=>{
+            const proj = PROJECTS.find(p=>p.id===item.project);
+            return `<div class="trk-item">
+              <div class="trk-item-id">${item.id}</div>
+              <div style="flex:1"><div class="trk-item-name">${item.name}</div>
+                <div style="font-size:9px;color:var(--muted);margin-top:1px">${proj?proj.name:'—'} · ${item.release}</div>
+              </div>
+              <span class="sdot st-planned" style="flex-shrink:0;font-size:9px">📌</span>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+      <div>
+        <div class="divlabel">Топ приоритеты (RICE)</div>
+        <div class="trk-section">
+          ${[...backlog].sort((a,b)=>sc(b)-sc(a)).slice(0,5).map(item=>{
+            const s = sc(item);
+            const proj = PROJECTS.find(p=>p.id===item.project);
+            const gate = STAGES[proj?proj.gate:0];
+            return `<div class="trk-item">
+              <div class="trk-item-id">${item.id}</div>
+              <div style="flex:1"><div class="trk-item-name">${item.name}</div>
+                <div style="font-size:9px;color:var(--muted);margin-top:1px">${proj?proj.name:'—'}</div>
+              </div>
+              <div class="trk-item-score ${scClass(s)}">${s.toFixed(0)}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+// ════════════════════════════════════════════
+// EDIT PANEL
+// ════════════════════════════════════════════
+function openEP(id) {
+  const item = backlog.find(i => i.id === id);
+  if (!item) return;
+  editId = id;
+  document.getElementById('ep-title').textContent = item.name;
+  document.getElementById('ep-r').value = item.r;
+  document.getElementById('ep-i').value = item.i;
+  document.getElementById('ep-c').value = item.c;
+  document.getElementById('ep-e').value = item.e;
+  document.getElementById('ep-r-v').textContent = item.r;
+  document.getElementById('ep-i-v').textContent = item.i;
+  document.getElementById('ep-c-v').textContent = item.c;
+  document.getElementById('ep-e-v').textContent = item.e;
+  document.getElementById('ep-proj').value = item.project || 'PR01';
+  document.getElementById('ep-track').value = item.track || 'delivery';
+  document.getElementById('ep-status').value = item.status;
+  document.getElementById('ep-release').value = item.release || 'backlog';
+  document.getElementById('ep-notes').value = item.notes || '';
+  updEP();
+  document.getElementById('ep').classList.add('open');
+  if (curTab === 'backlog') renderBL();
+}
+
+function closeEP() {
+  editId = null;
+  document.getElementById('ep').classList.remove('open');
+  if (curTab === 'backlog') renderBL();
+}
+
+function updEP() {
+  const r=+document.getElementById('ep-r').value;
+  const i=+document.getElementById('ep-i').value;
+  const c=+document.getElementById('ep-c').value;
+  const e=+document.getElementById('ep-e').value;
+  document.getElementById('ep-r-v').textContent=r;
+  document.getElementById('ep-i-v').textContent=i;
+  document.getElementById('ep-c-v').textContent=c;
+  document.getElementById('ep-e-v').textContent=e;
+  const s=(r*i*c)/e;
+  const el=document.getElementById('ep-score');
+  el.textContent=s.toFixed(1);
+  el.className='score-preview-val '+scClass(s);
+}
+
+function saveEP() {
+  if (!editId) return;
+  const item = backlog.find(i => i.id === editId);
+  if (!item) return;
+  item.r=+document.getElementById('ep-r').value;
+  item.i=+document.getElementById('ep-i').value;
+  item.c=+document.getElementById('ep-c').value;
+  item.e=+document.getElementById('ep-e').value;
+  item.project=document.getElementById('ep-proj').value;
+  item.track=document.getElementById('ep-track').value;
+  item.status=document.getElementById('ep-status').value;
+  item.release=document.getElementById('ep-release').value;
+  item.notes=document.getElementById('ep-notes').value;
+  if (window.PT) PT.save(PT.KEY_BACKLOG, backlog); else localStorage.setItem('rwb_os_backlog', JSON.stringify(backlog));
+  if (curTab === 'backlog') renderBL();
+  renderPortfolio();
+  const btn=document.querySelector('.btn-save');
+  btn.textContent='✅ Сохранено!';
+  setTimeout(()=>btn.textContent='💾 Сохранить изменения',1600);
+}
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+renderPortfolio();
+initSidebar();
+
+// Восстановление UI-состояния и hash-навигация
+(function() {
+  const tabBtns = document.querySelectorAll('.tab');
+  const _hash = window.PT ? PT.parseHash() : {};
+  const _ui   = window.PT ? PT.getUIState() : {};
+  const _tab  = _hash.tab || _ui.tracker_tab || 'portfolio';
+  const _tabIdx = ['portfolio','backlog','tracker'].indexOf(_tab);
+  if (_tabIdx >= 0 && tabBtns[_tabIdx]) {
+    switchTab(_tab, tabBtns[_tabIdx]);
+  }
+  if (_ui.tracker_filters && _tab === 'backlog') {
+    Object.assign(filters, _ui.tracker_filters);
+    renderBL();
+  }
+})();
+</script>
+
+
+</body></html>
