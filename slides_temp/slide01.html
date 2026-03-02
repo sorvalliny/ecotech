@@ -22,14 +22,14 @@ body{font-family:'Golos Text',sans-serif;background:transparent;color:#fff;margi
 
 /* ── HELPERS ── */
 .ut{font-family:'Unbounded',sans-serif}
-.tag{display:inline-block;padding:3px 10px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:.05em}
+.stag{display:inline-block;padding:3px 10px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:.05em}
 .tb{background:rgba(188,61,150,.25);color:#E87FCC;border:1px solid rgba(188,61,150,.4)}
 .tp{background:rgba(236,35,141,.2);color:#FF85C0;border:1px solid rgba(236,35,141,.35)}
 .tt{background:rgba(0,212,180,.12);color:#00D4B4;border:1px solid rgba(0,212,180,.3)}
 .tw{background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.12)}
 .gb{height:3px;background:linear-gradient(90deg,#7D256F,#BC3D96,#EC238D,#FF6EC7);
   position:absolute;top:0;left:0;right:0;border-radius:20px 20px 0 0}
-.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+.scard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
   border-radius:14px;padding:18px;transition:background .2s}
 .noise{position:absolute;inset:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
 .pb{height:5px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden}
@@ -64,7 +64,8 @@ body{font-family:'Golos Text',sans-serif;background:transparent;color:#fff;margi
 @media(max-width:700px){.g2,.g21,.g12{grid-template-columns:1fr}.hr{display:none}}
 </style>
 <style>
-body{background:#0D0018!important;min-height:100vh;display:flex;flex-direction:column;}
+body{background:#0D0018;min-height:100vh;display:flex;flex-direction:column;}
+body::before{display:none}
 .slide-page-wrap{flex:1;max-width:880px;width:100%;margin:24px auto 0;padding:0 20px;}
 .slide-progress{display:flex;align-items:center;gap:10px;padding:0 0 14px;}
 .sp-dots{display:flex;gap:5px;flex:1;}
@@ -132,7 +133,7 @@ document.addEventListener('keydown',function(e){
       font-size="21" fill="white" letter-spacing="-1">RWB</text></svg>
 </div>
     <div>
-      <span class="tag tb" style="margin-bottom:20px;display:inline-block">ДЛЯ БИЗНЕС-ЗАКАЗЧИКОВ</span>
+      <span class="stag tb" style="margin-bottom:20px;display:inline-block">ДЛЯ БИЗНЕС-ЗАКАЗЧИКОВ</span>
       <h1 class="ut" style="font-size:34px;font-weight:900;line-height:1.1;margin-bottom:14px">Внедряем инновации<br>развиваем экосистему</h1>
       <div class="ut" style="font-size:34px;font-weight:900;background:linear-gradient(90deg,#BC3D96,#EC238D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">вместе</div>
     </div>
