@@ -134,6 +134,32 @@
     .footer strong { color:rgba(255,255,255,0.3); }
 
     @media(max-width:680px){ .page{padding:32px 20px 56px;} .hero h1{font-size:28px;} .gate-header,.gate-row{grid-template-columns:70px 1fr;} .gate-cell:last-child{display:none;} .gate-header span:last-child{display:none;} }
+
+    /* ── SCENARIO CARDS ─────────────────────────────────────────── */
+    .scn-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px;}
+    .scn-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+      padding:26px 22px;display:flex;flex-direction:column;gap:14px;
+      transition:border-color .2s,transform .2s;}
+    .scn-card:hover{border-color:var(--border-h);transform:translateY(-2px);}
+    .scn-head{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+    .scn-freq{font-size:11px;color:var(--muted);}
+    .scn-title{font-size:16px;font-weight:700;color:var(--text);
+      font-family:var(--font-head);line-height:1.3;}
+    .scn-desc{font-size:13px;color:var(--muted);line-height:1.55;margin:0;}
+    .scn-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;
+      border-top:1px solid var(--border);padding-top:14px;}
+    .scn-step{display:flex;align-items:flex-start;gap:12px;padding:8px 0;
+      border-bottom:1px solid var(--border);}
+    .scn-step:last-child{border-bottom:none;padding-bottom:0;}
+    .scn-step-n{width:20px;height:20px;border-radius:50%;font-size:10px;font-weight:700;
+      font-family:var(--font-head);display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;margin-top:2px;background:var(--violet-dim);color:var(--violet);}
+    .scn-step-body{display:flex;flex-direction:column;gap:2px;flex:1;}
+    .scn-step-link{font-size:13px;font-weight:600;text-decoration:none;color:var(--violet);transition:color .15s;}
+    .scn-step-link:hover{color:#C49CFF;}
+    .scn-step-text{font-size:13px;font-weight:600;color:var(--text);}
+    .scn-step-note{font-size:11px;color:var(--muted);margin-top:1px;}
+    @media(max-width:680px){.scn-grid{grid-template-columns:1fr;}}
   </style>
   <script src="../platform.js"></script>
 </head>
@@ -281,6 +307,84 @@
           <span class="step-chip">→ Регулярные синки</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SCENARIOS -->
+  <section>
+    <div class="s-label">Сценарии использования</div>
+    <div class="s-title">Как работать с платформой</div>
+    <p class="s-sub">Пошаговые маршруты для типовых задач руководителя</p>
+    <div class="scn-grid">
+
+      <!-- Card 1: Portfolio Review -->
+      <div class="scn-card">
+        <div class="scn-head">
+          <span class="tag tag-v">CEO / CPO</span>
+          <span class="scn-freq">Еженедельно</span>
+        </div>
+        <div class="scn-title">Portfolio Review</div>
+        <p class="scn-desc">Быстрый обзор состояния портфеля: блокеры, приоритеты, готовность к Gate</p>
+        <ul class="scn-steps">
+          <li class="scn-step">
+            <span class="scn-step-n">1</span>
+            <div class="scn-step-body">
+              <a class="scn-step-link" href="../Проектный офис/RWB · Product OS - Трекер инициатив.html#tab=portfolio">Трекер → вкладка «Портфель»</a>
+              <span class="scn-step-note">Все инициативы по Gate-стадиям</span>
+            </div>
+          </li>
+          <li class="scn-step">
+            <span class="scn-step-n">2</span>
+            <div class="scn-step-body">
+              <span class="scn-step-text">Найти блокеры и High-priority инициативы</span>
+              <span class="scn-step-note">RICE &gt; 20 — приоритет к обсуждению</span>
+            </div>
+          </li>
+          <li class="scn-step">
+            <span class="scn-step-n">3</span>
+            <div class="scn-step-body">
+              <a class="scn-step-link" href="../Фреймворк/rwb-product-os-v3.html#orbit=3">Фреймворк → Gate 3 (Пилот)</a>
+              <span class="scn-step-note">Критерии перехода на стадию пилота</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Card 2: Gate-решение -->
+      <div class="scn-card">
+        <div class="scn-head">
+          <span class="tag tag-v">CTO / CPO</span>
+          <span class="scn-freq">По запросу</span>
+        </div>
+        <div class="scn-title">Gate-решение</div>
+        <p class="scn-desc">Принять обоснованное решение о переходе инициативы на следующий этап</p>
+        <ul class="scn-steps">
+          <li class="scn-step">
+            <span class="scn-step-n">1</span>
+            <div class="scn-step-body">
+              <a class="scn-step-link" href="../Хэндбук/rwb-product-os-v12.html#section=stages">Хэндбук → Gate-стадии</a>
+              <span class="scn-step-note">Критерии и артефакты каждого Gate</span>
+            </div>
+          </li>
+          <li class="scn-step">
+            <span class="scn-step-n">2</span>
+            <div class="scn-step-body">
+              <span class="scn-step-text">Изучить артефакты команды по чеклисту Gate</span>
+              <span class="scn-step-note">Проверить полноту и качество материалов</span>
+            </div>
+          </li>
+          <li class="scn-step">
+            <span class="scn-step-n">3</span>
+            <div class="scn-step-body">
+              <a class="scn-step-link" href="../Проектный офис/RWB · Product OS - Трекер инициатив.html#tab=portfolio">Зафиксировать решение в Трекере</a>
+              <span class="scn-step-note">Обновить статус инициативы</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </section>
 
