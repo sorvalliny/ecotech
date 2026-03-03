@@ -391,8 +391,8 @@ header.ecotech-orig{top:44px!important;height:57px!important;z-index:100;}
 /* onboarding overlay */
 .ob-overlay{position:fixed;inset:0;z-index:99000;pointer-events:none;}
 .ob-overlay.active{pointer-events:auto;}
-.ob-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(3px);}
-.ob-tooltip{position:absolute;background:rgba(22,22,50,0.98);border:1px solid rgba(123,47,255,0.35);border-radius:16px;padding:24px 28px;max-width:360px;box-shadow:0 16px 48px rgba(0,0,0,0.6);}
+.ob-backdrop{position:absolute;inset:0;z-index:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(3px);}
+.ob-tooltip{position:absolute;z-index:1;background:rgba(22,22,50,0.98);border:1px solid rgba(123,47,255,0.35);border-radius:16px;padding:24px 28px;max-width:360px;box-shadow:0 16px 48px rgba(0,0,0,0.6);}
 .ob-step{font-family:var(--font);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7B2FFF;margin-bottom:8px;}
 .ob-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.3;}
 .ob-body{font-size:13px;color:#7A7A9D;line-height:1.6;margin-bottom:20px;}
@@ -2558,7 +2558,7 @@ var OB_STEPS = [
   {
     title: 'Добро пожаловать в Трекер EcoTech!',
     body: 'Здесь отслеживается статус Gate для каждого продукта и инициативы. Все данные хранятся в вашем браузере.',
-    anchor: 'header'
+    anchor: null
   },
   {
     title: 'Вкладки навигации',
