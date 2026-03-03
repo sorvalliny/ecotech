@@ -790,3 +790,39 @@ body::before {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+
+/* ── EcoTech Icon System ─────────────────────────────────────────── */
+.ei {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* Corporate color modifiers */
+.ei-violet { color: #7B2FFF; }
+.ei-teal   { color: #00D4B4; }
+.ei-amber  { color: #FFB830; }
+.ei-pink   { color: #FF2D8A; }
+.ei-green  { color: #34D399; }
+.ei-blue   { color: #3B82F6; }
+.ei-red    { color: #EF4444; }
+.ei-muted  { color: #7A7A9D; }
+.ei-white  { color: #fff;    }
+
+/* Semantic status modifiers */
+.ei-done    { color: #34D399; }
+.ei-wip     { color: #FFB830; }
+.ei-planned { color: #3B82F6; }
+.ei-backlog { color: #7A7A9D; }
+
+/* Size modifiers */
+.ei-12 { width: 12px; height: 12px; }
+.ei-14 { width: 14px; height: 14px; }
+.ei-16 { width: 16px; height: 16px; }
+.ei-20 { width: 20px; height: 20px; }
+.ei-24 { width: 24px; height: 24px; }
+.ei-32 { width: 32px; height: 32px; }
+.ei-40 { width: 40px; height: 40px; }

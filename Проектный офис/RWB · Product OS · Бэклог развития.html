@@ -302,6 +302,7 @@ header{top:44px!important;}
 .layout{min-height:calc(100vh - 101px)!important;}
 .detail-panel{top:101px!important;}
 </style>
+  <script src="../icons.js"></script>
   <script src="../platform.js"></script>
 </head>
 <body>
@@ -327,6 +328,7 @@ header{top:44px!important;}
     <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук (G0–G5)</a>
     <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html" class="en-active">Трекер инициатив</a>
     <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
+    <a href="../Фреймворк/framework-lite.html">Framework Lite</a>
     <a href="../Продукту/strategy.html">Стратегическое планирование</a>
       </div>
     </div>
@@ -364,25 +366,25 @@ header{top:44px!important;}
       <span>Все категории</span> <span class="filter-count" id="fc-all">44</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;design&#39;,this)">
-      <span>🎨 Дизайн &amp; UX</span> <span class="filter-count" id="fc-design">6</span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-palette"/></svg> Дизайн &amp; UX</span> <span class="filter-count" id="fc-design">6</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;feature&#39;,this)">
-      <span>⚡ Новые фичи</span> <span class="filter-count" id="fc-feature">12</span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-zap"/></svg> Новые фичи</span> <span class="filter-count" id="fc-feature">12</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;tooling&#39;,this)">
-      <span>🔧 Инструменты</span> <span class="filter-count" id="fc-tooling">6</span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-wrench"/></svg> Инструменты</span> <span class="filter-count" id="fc-tooling">6</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;process&#39;,this)">
-      <span>📋 Процессы</span> <span class="filter-count" id="fc-process">6</span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clipboard"/></svg> Процессы</span> <span class="filter-count" id="fc-process">6</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;content&#39;,this)">
-      <span>📄 Контент</span> <span class="filter-count" id="fc-content">5</span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-file-text"/></svg> Контент</span> <span class="filter-count" id="fc-content">5</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;infra&#39;,this)">
-      <span>🏗 Инфраструктура</span> <span class="filter-count" id="fc-infra">3</span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-package"/></svg> Инфраструктура</span> <span class="filter-count" id="fc-infra">3</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;cat&#39;,&#39;project&#39;,this)">
-      <span>🗂 Проекты OS</span> <span class="filter-count" id="fc-project"></span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Проекты OS</span> <span class="filter-count" id="fc-project"></span>
     </button>
   </div>
 
@@ -394,16 +396,16 @@ header{top:44px!important;}
       <span>Все статусы</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;status&#39;,&#39;backlog&#39;,this)">
-      <span>📥 Бэклог</span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;status&#39;,&#39;planned&#39;,this)">
-      <span>📌 Запланировано</span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Запланировано</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;status&#39;,&#39;wip&#39;,this)">
-      <span>🔄 В работе</span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-refresh"/></svg> В работе</span>
     </button>
     <button class="filter-btn" onclick="setFilter(&#39;status&#39;,&#39;done&#39;,this)">
-      <span>✅ Готово</span>
+      <span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-check-circle"/></svg> Готово</span>
     </button>
   </div>
 
@@ -423,10 +425,10 @@ header{top:44px!important;}
   <div class="sidebar-section">
     <div class="sidebar-label">Аудитория</div>
     <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;all&#39;,this)">Все</button>
-    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;PM&#39;,this)">🎯 PM / PO</button>
-    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;UX&#39;,this)">🎨 UX / Design</button>
-    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;TL&#39;,this)">🔧 Tech Lead</button>
-    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;PMO&#39;,this)">📋 PMO</button>
+    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;PM&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> PM / PO</button>
+    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;UX&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-palette"/></svg> UX / Design</button>
+    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;TL&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-wrench"/></svg> Tech Lead</button>
+    <button class="filter-btn" onclick="setFilter(&#39;audience&#39;,&#39;PMO&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clipboard"/></svg> PMO</button>
   </div>
 </aside>
 
@@ -434,7 +436,7 @@ header{top:44px!important;}
 <main>
   <!-- SEARCH -->
   <div class="search-wrap">
-    <span class="search-icon">🔍</span>
+    <span class="search-icon"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg></span>
     <input class="search-input" id="search" type="text" placeholder="Поиск по названию или описанию..." oninput="renderItems()">
   </div>
 
@@ -442,23 +444,23 @@ header{top:44px!important;}
   <div class="summary-bar">
     <div class="sum-card" style="border-color:rgba(52,211,153,0.2)">
       <div class="sum-num" style="color:var(--green)" id="s-high">44</div>
-      <div class="sum-label">🟢 High priority</div>
+      <div class="sum-label"><svg class="ei ei-12" aria-hidden="true" style="color:var(--green)"><use href="#ic-check-circle"/></svg> High priority</div>
     </div>
     <div class="sum-card" style="border-color:rgba(255,184,48,0.2)">
       <div class="sum-num" style="color:var(--amber)" id="s-mid">0</div>
-      <div class="sum-label">🟡 Medium</div>
+      <div class="sum-label"><svg class="ei ei-12" aria-hidden="true" style="color:var(--amber)"><use href="#ic-alert-triangle"/></svg> Medium</div>
     </div>
     <div class="sum-card" style="border-color:rgba(239,68,68,0.2)">
       <div class="sum-num" style="color:var(--red)" id="s-low">0</div>
-      <div class="sum-label">🔴 Low priority</div>
+      <div class="sum-label"><svg class="ei ei-12" aria-hidden="true" style="color:var(--red)"><use href="#ic-x-circle"/></svg> Low priority</div>
     </div>
     <div class="sum-card">
       <div class="sum-num" style="color:var(--teal)" id="s-wip">3</div>
-      <div class="sum-label">🔄 В работе</div>
+      <div class="sum-label"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-refresh"/></svg> В работе</div>
     </div>
     <div class="sum-card">
       <div class="sum-num" style="color:var(--violet)" id="s-total">44</div>
-      <div class="sum-label">📋 Всего задач</div>
+      <div class="sum-label"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-clipboard"/></svg> Всего задач</div>
     </div>
   </div>
 
@@ -2189,7 +2191,7 @@ header{top:44px!important;}
     </div>
   </div></div>
   <div class="empty" id="empty-state" style="display:none">
-    <div class="empty-icon">🔍</div>
+    <div class="empty-icon"><svg class="ei ei-40" aria-hidden="true"><use href="#ic-search"/></svg></div>
     <div style="font-size:14px;font-weight:700;color:var(--gray2);margin-bottom:6px">Ничего не найдено</div>
     <div>Попробуй другой фильтр или поисковый запрос</div>
   </div>
@@ -2199,33 +2201,33 @@ header{top:44px!important;}
 
 <!-- EDIT PANEL -->
 <div class="edit-panel" id="edit-panel">
-  <button class="edit-close" onclick="closeEdit()">✕</button>
+  <button class="edit-close" onclick="closeEdit()"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-x"/></svg></button>
   <div class="edit-panel-title" id="ep-title">Принципы Product OS (раздел)</div>
 
   <div class="slider-group">
     <div class="slider-label">
-      <span class="slider-name">📡 Reach — охват пользователей</span>
+      <span class="slider-name"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-users"/></svg> Reach — охват пользователей</span>
       <span class="slider-num" id="ep-r-val">6</span>
     </div>
     <input type="range" min="1" max="10" value="5" id="ep-r" oninput="updateEditScore()">
   </div>
   <div class="slider-group">
     <div class="slider-label">
-      <span class="slider-name">💥 Impact — влияние на метрику</span>
+      <span class="slider-name"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-trending-up"/></svg> Impact — влияние на метрику</span>
       <span class="slider-num" id="ep-i-val">6</span>
     </div>
     <input type="range" min="1" max="10" value="5" id="ep-i" oninput="updateEditScore()">
   </div>
   <div class="slider-group">
     <div class="slider-label">
-      <span class="slider-name">🎯 Confidence — уверенность в оценке</span>
+      <span class="slider-name"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-target"/></svg> Confidence — уверенность в оценке</span>
       <span class="slider-num" id="ep-c-val">10</span>
     </div>
     <input type="range" min="1" max="10" value="5" id="ep-c" oninput="updateEditScore()">
   </div>
   <div class="slider-group">
     <div class="slider-label">
-      <span class="slider-name">⚙️ Effort — трудозатраты</span>
+      <span class="slider-name"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-settings"/></svg> Effort — трудозатраты</span>
       <span class="slider-num" id="ep-e-val">1</span>
     </div>
     <input type="range" min="1" max="10" value="5" id="ep-e" oninput="updateEditScore()">
@@ -2239,10 +2241,10 @@ header{top:44px!important;}
   <div class="edit-field">
     <label>Статус</label>
     <select id="ep-status">
-      <option value="backlog">📥 Бэклог</option>
-      <option value="planned">📌 Запланировано</option>
-      <option value="wip">🔄 В работе</option>
-      <option value="done">✅ Готово</option>
+      <option value="backlog">Бэклог</option>
+      <option value="planned">Запланировано</option>
+      <option value="wip">В работе</option>
+      <option value="done">Готово</option>
     </select>
   </div>
 
@@ -2261,7 +2263,7 @@ header{top:44px!important;}
     <textarea id="ep-notes" placeholder="Почему важно? Зависимости? Альтернативы?"></textarea>
   </div>
 
-  <button class="btn-save" onclick="saveEdit()">💾 Сохранить изменения</button>
+  <button class="btn-save" onclick="saveEdit()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить изменения</button>
 </div>
 
 <script>
@@ -2692,7 +2694,7 @@ let editingId = null;
 function getScore(item) { return (item.r * item.i * item.c) / item.e; }
 
 function scoreClass(s) { return s > 20 ? 'score-high' : s >= 10 ? 'score-mid' : 'score-low'; }
-function priorityLabel(s) { return s > 20 ? '🟢 High' : s >= 10 ? '🟡 Med' : '🔴 Low'; }
+function priorityLabel(s) { return s > 20 ? EI.svg('check-circle',12,'ei-green')+' High' : s >= 10 ? EI.svg('alert-triangle',12,'ei-amber')+' Med' : EI.svg('x-circle',12,'ei-red')+' Low'; }
 
 // ══════════════════════════════════════════
 // РЕНДЕР
@@ -2713,7 +2715,7 @@ function getFiltered() {
   });
 }
 
-const CAT_LABELS = { project:'🗂 Проекты OS', design:'🎨 Дизайн & UX', feature:'⚡ Новые фичи', tooling:'🔧 Инструменты', process:'📋 Процессы', content:'📄 Контент', infra:'🏗 Инфраструктура' };
+const CAT_LABELS = { project:EI.svg('folder',12)+' Проекты OS', design:EI.svg('palette',12)+' Дизайн & UX', feature:EI.svg('zap',12)+' Новые фичи', tooling:EI.svg('wrench',12)+' Инструменты', process:EI.svg('clipboard',12)+' Процессы', content:EI.svg('file-text',12)+' Контент', infra:EI.svg('package',12)+' Инфраструктура' };
 const STATUS_LABELS = { backlog:'Бэклог', planned:'Запланировано', wip:'В работе', done:'Готово' };
 const STATUS_CLASSES = { backlog:'st-backlog', planned:'st-planned', wip:'st-wip', done:'st-done' };
 const AUD_CLASSES = { PM:'imp-pm', UX:'imp-ux', TL:'imp-tl', PMO:'imp-pmo', all:'imp-all' };
@@ -2780,7 +2782,7 @@ function renderItem(item, rank) {
     </div>
     <div class="item-status-col">
       <span class="status-dot ${STATUS_CLASSES[item.status]}">${STATUS_LABELS[item.status]}</span>
-      ${item.notes ? `<span style="font-size:9px;color:var(--muted)" title="${item.notes}">📝</span>` : ''}
+      ${item.notes ? `<span style="font-size:9px;color:var(--muted)" title="${item.notes}">${EI.svg('file-text',12)}</span>` : ''}
     </div>
   </div>`;
 }
@@ -2896,8 +2898,8 @@ function saveEdit() {
   renderItems();
   // Flash feedback
   const btn = document.querySelector('.btn-save');
-  btn.textContent = '✅ Сохранено!';
-  setTimeout(() => btn.textContent = '💾 Сохранить изменения', 1500);
+  btn.innerHTML = EI.svg('check-circle',14)+' Сохранено!';
+  setTimeout(() => { btn.innerHTML = EI.svg('save',14)+' Сохранить изменения'; }, 1500);
 }
 
 // ══════════════════════════════════════════

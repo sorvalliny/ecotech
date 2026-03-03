@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Lite · RWB Product OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --violet:#7B2FFF;--violet-dim:rgba(123,47,255,0.12);--violet-border:rgba(123,47,255,0.35);
+  --pink:#FF2D8A;--pink-dim:rgba(255,45,138,0.10);--pink-border:rgba(255,45,138,0.3);
+  --teal:#00D4B4;--teal-dim:rgba(0,212,180,0.10);--teal-border:rgba(0,212,180,0.3);
+  --amber:#FFB830;--amber-dim:rgba(255,184,48,0.10);--amber-border:rgba(255,184,48,0.3);
+  --blue:#3B82F6;--blue-dim:rgba(59,130,246,0.10);--blue-border:rgba(59,130,246,0.3);
+  --dark:#08081A;--mid:#111128;--card:#161630;--surface2:#1A1A38;
+  --text:#E8E6FF;--muted:#7A7A9D;--gray:#8B8BAE;--gray2:#C4C4D8;
+  --border:rgba(255,255,255,0.07);--border-hi:rgba(255,255,255,0.14);
+  --font-head:'Unbounded',sans-serif;--font-body:'Golos Text',sans-serif;
+  --radius:14px;--radius-sm:8px;
+  /* stage colours */
+  --c0:#8B8BAE;--c0-dim:rgba(139,139,174,0.10);--c0-border:rgba(139,139,174,0.3);
+  --c1:#C49CFF;--c1-dim:rgba(123,47,255,0.12);--c1-border:rgba(123,47,255,0.35);
+  --c2:#00D4B4;--c2-dim:rgba(0,212,180,0.10);--c2-border:rgba(0,212,180,0.3);
+  --c3:#FF85C0;--c3-dim:rgba(255,45,138,0.10);--c3-border:rgba(255,45,138,0.3);
+  --c4:#93C5FD;--c4-dim:rgba(59,130,246,0.10);--c4-border:rgba(59,130,246,0.3);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.65;min-height:100vh;overflow-x:hidden;}
+
+/* ── ECOTECH NAV ── */
+.ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,0.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,0.15);display:flex;align-items:center;padding:0 24px;gap:0;}
+.en-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-0.5px;white-space:nowrap;flex-shrink:0;}
+.en-logo span{color:#7B2FFF;}
+.en-sep{width:1px;height:16px;background:rgba(123,47,255,0.2);margin:0 16px;flex-shrink:0;}
+.en-links{display:flex;gap:2px;align-items:center;}
+.en-drop{position:relative;}
+.en-drop-trigger{font-size:12px;font-weight:700;color:#7A7A9D;text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:flex;align-items:center;gap:3px;cursor:default;letter-spacing:.01em;}
+.en-drop-trigger::after{content:'▾';font-size:9px;opacity:0.45;margin-left:1px;}
+.en-drop.is-open .en-drop-trigger,.en-drop-trigger:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.en-drop.en-active .en-drop-trigger{color:#C49CFF;background:rgba(123,47,255,0.12);}
+.en-drop-menu{position:absolute;top:calc(100% + 4px);left:0;background:rgba(13,13,30,0.98);backdrop-filter:blur(20px);border:1px solid rgba(123,47,255,0.2);border-radius:11px;padding:6px;min-width:220px;display:flex;flex-direction:column;gap:1px;z-index:10000;box-shadow:0 8px 32px rgba(0,0,0,0.45);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .15s,transform .15s,visibility .15s;}
+.en-drop.is-open .en-drop-menu{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0);}
+.en-drop-menu a{font-size:12px;font-weight:500;color:#7A7A9D;text-decoration:none;padding:7px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:block;}
+.en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.en-drop-menu a.en-active{color:#C49CFF;background:rgba(123,47,255,0.12);}
+.en-drop-sep{height:1px;background:rgba(123,47,255,0.12);margin:4px 4px;}
+
+/* ── STAGE TABS ── */
+.stage-tabs{position:sticky;top:44px;z-index:900;background:rgba(8,8,26,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;}
+.stage-tabs-inner{display:flex;align-items:center;gap:2px;max-width:1100px;margin:0 auto;height:46px;overflow-x:auto;}
+.stage-tabs-inner::-webkit-scrollbar{height:2px;}
+.stage-tabs-inner::-webkit-scrollbar-thumb{background:var(--border-hi);}
+.stab{font-size:12px;font-weight:600;color:var(--muted);padding:5px 13px;border-radius:7px;border:none;background:transparent;cursor:pointer;white-space:nowrap;transition:color .15s,background .15s;font-family:var(--font-body);}
+.stab:hover{color:var(--text);background:rgba(255,255,255,0.05);}
+.stab.active{color:#fff;background:rgba(255,255,255,0.08);}
+.stab.s0.active{color:var(--c0);background:var(--c0-dim);}
+.stab.s1.active{color:var(--c1);background:var(--c1-dim);}
+.stab.s2.active{color:var(--c2);background:var(--c2-dim);}
+.stab.s3.active{color:var(--c3);background:var(--c3-dim);}
+.stab.s4.active{color:var(--c4);background:var(--c4-dim);}
+.stab-sep{width:1px;height:16px;background:var(--border);margin:0 6px;flex-shrink:0;}
+
+/* ── LAYOUT ── */
+.fw-wrap{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+.fw-section{display:none;animation:fadeIn .2s ease;}
+.fw-section.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── HERO ── */
+.fw-hero{margin-bottom:40px;}
+.fw-hero-eyebrow{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.fw-hero-title{font-family:var(--font-head);font-size:28px;font-weight:900;line-height:1.2;letter-spacing:-1px;color:#fff;margin-bottom:10px;}
+.fw-hero-title em{font-style:normal;background:linear-gradient(135deg,var(--violet),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.fw-hero-sub{font-size:14px;color:var(--muted);max-width:680px;line-height:1.65;margin-bottom:28px;}
+.fw-hero-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.fw-tag{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid;}
+.fw-tag-v{color:var(--c1);background:var(--c1-dim);border-color:var(--c1-border);}
+.fw-tag-t{color:var(--c2);background:var(--c2-dim);border-color:var(--c2-border);}
+.fw-tag-w{color:var(--gray2);background:rgba(255,255,255,0.04);border-color:var(--border-hi);}
+
+/* ── LIFECYCLE FLOW ── */
+.lc-flow{display:flex;align-items:stretch;gap:0;margin:32px 0 28px;overflow-x:auto;padding-bottom:4px;}
+.lc-step{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);padding:18px 16px;position:relative;cursor:pointer;transition:border-color .2s,background .2s;}
+.lc-step:first-child{border-radius:var(--radius) 0 0 var(--radius);}
+.lc-step:last-child{border-radius:0 var(--radius) var(--radius) 0;}
+.lc-step:not(:last-child){border-right:none;}
+.lc-step:not(:last-child)::after{content:'→';position:absolute;right:-12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--muted);z-index:2;background:var(--dark);padding:2px 2px;}
+.lc-step:hover{background:var(--surface2);}
+.lc-step.s0{border-top:2px solid var(--c0);}
+.lc-step.s1{border-top:2px solid var(--c1);}
+.lc-step.s2{border-top:2px solid var(--c2);}
+.lc-step.s3{border-top:2px solid var(--c3);}
+.lc-step.s4{border-top:2px solid var(--c4);}
+.lc-num{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.1em;margin-bottom:6px;}
+.lc-step.s0 .lc-num{color:var(--c0);}
+.lc-step.s1 .lc-num{color:var(--c1);}
+.lc-step.s2 .lc-num{color:var(--c2);}
+.lc-step.s3 .lc-num{color:var(--c3);}
+.lc-step.s4 .lc-num{color:var(--c4);}
+.lc-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;}
+.lc-tagline{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:10px;}
+.lc-dur{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-block;}
+.lc-step.s0 .lc-dur{background:var(--c0-dim);color:var(--c0);border:1px solid var(--c0-border);}
+.lc-step.s1 .lc-dur{background:var(--c1-dim);color:var(--c1);border:1px solid var(--c1-border);}
+.lc-step.s2 .lc-dur{background:var(--c2-dim);color:var(--c2);border:1px solid var(--c2-border);}
+.lc-step.s3 .lc-dur{background:var(--c3-dim);color:var(--c3);border:1px solid var(--c3-border);}
+.lc-step.s4 .lc-dur{background:var(--c4-dim);color:var(--c4);border:1px solid var(--c4-border);}
+
+/* ── KEY METRICS BAR ── */
+.kpi-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:32px;}
+.kpi-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;text-align:center;}
+.kpi-val{font-family:var(--font-head);font-size:20px;font-weight:900;color:#fff;margin-bottom:4px;}
+.kpi-label{font-size:11px;color:var(--muted);line-height:1.35;}
+
+/* ── HOW-TO CARD ── */
+.howto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:8px;}
+.howto-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;}
+.howto-num{font-family:var(--font-head);font-size:22px;font-weight:900;color:var(--border-hi);margin-bottom:8px;}
+.howto-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;}
+.howto-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* ── SECTION HEADER ── */
+.sec-header{margin-bottom:28px;}
+.sec-eyebrow{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.sec-title{font-family:var(--font-head);font-size:22px;font-weight:900;letter-spacing:-.5px;color:#fff;margin-bottom:8px;}
+.sec-sub{font-size:14px;color:var(--muted);max-width:680px;line-height:1.65;}
+
+/* ── STAGE HEADER ── */
+.stage-hdr{display:flex;align-items:center;gap:16px;padding:20px 24px;border-radius:var(--radius) var(--radius) 0 0;border:1px solid;border-bottom:none;margin-bottom:0;}
+.stage-hdr.s0{background:var(--c0-dim);border-color:var(--c0-border);}
+.stage-hdr.s1{background:var(--c1-dim);border-color:var(--c1-border);}
+.stage-hdr.s2{background:var(--c2-dim);border-color:var(--c2-border);}
+.stage-hdr.s3{background:var(--c3-dim);border-color:var(--c3-border);}
+.stage-hdr.s4{background:var(--c4-dim);border-color:var(--c4-border);}
+.stage-num{font-family:var(--font-head);font-size:28px;font-weight:900;line-height:1;flex-shrink:0;}
+.stage-hdr.s0 .stage-num{color:var(--c0);}
+.stage-hdr.s1 .stage-num{color:var(--c1);}
+.stage-hdr.s2 .stage-num{color:var(--c2);}
+.stage-hdr.s3 .stage-num{color:var(--c3);}
+.stage-hdr.s4 .stage-num{color:var(--c4);}
+.stage-hdr-info{}
+.stage-name{font-family:var(--font-head);font-size:16px;font-weight:700;color:#fff;margin-bottom:2px;}
+.stage-tagline{font-size:12px;color:var(--muted);}
+.stage-hdr-meta{margin-left:auto;display:flex;gap:10px;align-items:center;flex-shrink:0;}
+.stage-dur-badge{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid;}
+.stage-hdr.s0 .stage-dur-badge{color:var(--c0);background:var(--c0-dim);border-color:var(--c0-border);}
+.stage-hdr.s1 .stage-dur-badge{color:var(--c1);background:var(--c1-dim);border-color:var(--c1-border);}
+.stage-hdr.s2 .stage-dur-badge{color:var(--c2);background:var(--c2-dim);border-color:var(--c2-border);}
+.stage-hdr.s3 .stage-dur-badge{color:var(--c3);background:var(--c3-dim);border-color:var(--c3-border);}
+.stage-hdr.s4 .stage-dur-badge{color:var(--c4);background:var(--c4-dim);border-color:var(--c4-border);}
+.stage-body{border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:20px;margin-bottom:32px;}
+.stage-hdr.s0 ~ .stage-body{border-top:none;border-color:var(--c0-border);}
+.stage-hdr.s1 ~ .stage-body{border-color:var(--c1-border);}
+.stage-hdr.s2 ~ .stage-body{border-color:var(--c2-border);}
+.stage-hdr.s3 ~ .stage-body{border-color:var(--c3-border);}
+.stage-hdr.s4 ~ .stage-body{border-color:var(--c4-border);}
+
+/* ── STAGE GRID (3 cols) ── */
+.stage-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+.sg-card{background:var(--dark);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;}
+.sg-card-title{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.sg-card-title svg{opacity:.5;}
+.sg-list{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.sg-list li{font-size:12px;color:var(--text);display:flex;gap:8px;line-height:1.45;}
+.sg-list li .sg-marker{color:var(--muted);flex-shrink:0;font-size:10px;margin-top:2px;}
+.sg-list li strong{color:#fff;font-weight:600;}
+.sg-list.numbered{counter-reset:sg;}
+.sg-list.numbered li::before{counter-increment:sg;content:counter(sg);font-family:var(--font-head);font-size:9px;font-weight:700;flex-shrink:0;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.s0 .sg-list.numbered li::before{background:var(--c0-dim);color:var(--c0);border:1px solid var(--c0-border);}
+.s1 .sg-list.numbered li::before{background:var(--c1-dim);color:var(--c1);border:1px solid var(--c1-border);}
+.s2 .sg-list.numbered li::before{background:var(--c2-dim);color:var(--c2);border:1px solid var(--c2-border);}
+.s3 .sg-list.numbered li::before{background:var(--c3-dim);color:var(--c3);border:1px solid var(--c3-border);}
+.s4 .sg-list.numbered li::before{background:var(--c4-dim);color:var(--c4);border:1px solid var(--c4-border);}
+
+/* ── GATE CARD ── */
+.gate-card{border-radius:var(--radius-sm);padding:16px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start;}
+.gate-card.s0{background:var(--c0-dim);border:1px solid var(--c0-border);}
+.gate-card.s1{background:var(--c1-dim);border:1px solid var(--c1-border);}
+.gate-card.s2{background:var(--c2-dim);border:1px solid var(--c2-border);}
+.gate-card.s3{background:var(--c3-dim);border:1px solid var(--c3-border);}
+.gate-card.s4{background:var(--c4-dim);border:1px solid var(--c4-border);}
+.gate-label{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
+.gate-card.s0 .gate-label{color:var(--c0);}
+.gate-card.s1 .gate-label{color:var(--c1);}
+.gate-card.s2 .gate-label{color:var(--c2);}
+.gate-card.s3 .gate-label{color:var(--c3);}
+.gate-card.s4 .gate-label{color:var(--c4);}
+.gate-criteria-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.gate-criteria-list li{font-size:12px;color:var(--text);display:flex;gap:6px;line-height:1.4;}
+.gate-criteria-list li::before{content:'✓';font-size:10px;flex-shrink:0;margin-top:1px;}
+.gate-card.s0 .gate-criteria-list li::before{color:var(--c0);}
+.gate-card.s1 .gate-criteria-list li::before{color:var(--c1);}
+.gate-card.s2 .gate-criteria-list li::before{color:var(--c2);}
+.gate-card.s3 .gate-criteria-list li::before{color:var(--c3);}
+.gate-card.s4 .gate-criteria-list li::before{color:var(--c4);}
+.gate-meta-row{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;}
+.gate-meta-label{font-size:10px;color:var(--muted);font-weight:600;}
+.gate-meta-val{font-size:12px;color:#fff;font-weight:500;}
+
+/* ── TEMPLATES ── */
+.tmpl-filter{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+.tmpl-filter-btn{font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;font-family:var(--font-body);}
+.tmpl-filter-btn:hover{border-color:var(--border-hi);color:var(--text);}
+.tmpl-filter-btn.active{background:var(--violet-dim);border-color:var(--violet-border);color:var(--c1);}
+.tmpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.tmpl-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:border-color .2s,background .2s;display:flex;flex-direction:column;gap:10px;}
+.tmpl-card:hover{border-color:var(--border-hi);background:var(--surface2);}
+.tmpl-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.tmpl-card-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.tmpl-stage-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;border:1px solid;white-space:nowrap;}
+.tmpl-card-name{font-size:13px;font-weight:700;color:#fff;}
+.tmpl-card-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+.tmpl-open-btn{font-size:11px;font-weight:600;color:var(--violet);padding:6px 14px;border-radius:7px;border:1px solid var(--violet-border);background:var(--violet-dim);cursor:pointer;align-self:flex-start;transition:background .15s;font-family:var(--font-body);}
+.tmpl-open-btn:hover{background:rgba(123,47,255,0.2);}
+
+/* ── PILOT ── */
+.pilot-intro{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:28px;font-size:13px;color:var(--text);line-height:1.6;}
+.pilot-steps{display:flex;flex-direction:column;gap:16px;margin-bottom:32px;}
+.pilot-step{display:grid;grid-template-columns:48px 1fr;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;align-items:start;}
+.pilot-step-num{width:40px;height:40px;border-radius:50%;background:var(--violet-dim);border:1px solid var(--violet-border);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:14px;font-weight:900;color:var(--c1);}
+.pilot-step-body{}
+.pilot-step-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;}
+.pilot-step-desc{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:8px;}
+.pilot-step-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.pilot-step-tag{font-size:10px;font-weight:600;padding:2px 9px;border-radius:20px;background:rgba(255,255,255,0.05);border:1px solid var(--border-hi);color:var(--gray2);}
+.pilot-criteria-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px;}
+.pilot-criteria-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;}
+.pilot-criteria-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.pilot-criteria-title .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-green{background:#4ADE80;}
+.dot-amber{background:var(--amber);}
+.pilot-criteria-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.pilot-criteria-list li{font-size:12px;color:var(--text);display:flex;gap:8px;line-height:1.4;}
+.scale-block{background:linear-gradient(135deg,rgba(123,47,255,0.08),rgba(0,212,180,0.05));border:1px solid var(--violet-border);border-radius:var(--radius);padding:24px;margin-bottom:8px;}
+.scale-title{font-family:var(--font-head);font-size:14px;font-weight:700;color:#fff;margin-bottom:12px;}
+.scale-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.scale-step{text-align:center;}
+.scale-step-icon{font-size:22px;margin-bottom:6px;}
+.scale-step-label{font-size:11px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.scale-step-sub{font-size:10px;color:var(--muted);line-height:1.4;}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s;}
+.modal-overlay.open{opacity:1;pointer-events:auto;}
+.modal-box{background:var(--mid);border:1px solid var(--border-hi);border-radius:var(--radius);width:100%;max-width:680px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
+.modal-title{font-family:var(--font-head);font-size:14px;font-weight:700;color:#fff;}
+.modal-close{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:color .15s,background .15s;}
+.modal-close:hover{color:#fff;background:rgba(255,255,255,0.1);}
+.modal-body{overflow-y:auto;padding:20px;flex:1;}
+.modal-body::-webkit-scrollbar{width:4px;}
+.modal-body::-webkit-scrollbar-thumb{background:var(--border-hi);border-radius:2px;}
+.modal-pre{font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:var(--text);line-height:1.7;white-space:pre-wrap;word-break:break-word;background:var(--dark);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;}
+.modal-foot{padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;}
+.copy-btn{font-size:12px;font-weight:600;padding:7px 16px;border-radius:8px;background:var(--violet-dim);border:1px solid var(--violet-border);color:var(--c1);cursor:pointer;transition:background .15s;font-family:var(--font-body);}
+.copy-btn:hover{background:rgba(123,47,255,0.2);}
+.copy-toast{font-size:12px;color:var(--teal);display:none;}
+.copy-toast.show{display:block;}
+
+/* ── DIVIDER ── */
+.grad-line{height:1px;background:linear-gradient(90deg,transparent,rgba(123,47,255,0.3),transparent);margin:28px 0;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .stage-grid{grid-template-columns:1fr 1fr;}
+  .gate-card{grid-template-columns:1fr;}
+  .kpi-bar{grid-template-columns:repeat(3,1fr);}
+  .pilot-criteria-grid{grid-template-columns:1fr;}
+  .scale-steps{grid-template-columns:repeat(2,1fr);}
+  .lc-flow{gap:4px;}
+  .lc-step:not(:last-child)::after{display:none;}
+  .howto-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .fw-hero-title{font-size:20px;}
+  .stage-grid{grid-template-columns:1fr;}
+  .kpi-bar{grid-template-columns:repeat(2,1fr);}
+  .fw-wrap{padding:24px 16px 60px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ ECOTECH NAV ═══ -->
+<nav class="ecotech-nav">
+  <a class="en-logo" href="../index.html">EcoTech <span>Platform</span></a>
+  <div class="en-sep"></div>
+  <div class="en-links">
+    <div class="en-drop">
+      <a class="en-drop-trigger" href="../Бизнесу/index.html">Бизнесу</a>
+      <div class="en-drop-menu">
+        <a href="../Бизнесу/index.html">Обзор платформы</a>
+        <a href="../Витрина/EcoTech Platform — Витрина.html">Витрина</a>
+        <div class="en-drop-sep"></div>
+        <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html#tab=portfolio">Портфель продуктов</a>
+        <a href="../slides_temp/slide01.html">Слайды</a>
+      </div>
+    </div>
+    <div class="en-drop en-active">
+      <a class="en-drop-trigger" href="../Продукту/index.html">Продукту</a>
+      <div class="en-drop-menu">
+        <a href="../Продукту/index.html">С чего начать</a>
+        <div class="en-drop-sep"></div>
+        <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук (G0–G5)</a>
+        <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер инициатив</a>
+        <a href="rwb-product-os-v3.html">Фреймворк (полный)</a>
+        <a href="framework-lite.html" class="en-active">Framework Lite</a>
+        <a href="../Продукту/strategy.html">Стратегическое планирование</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>!function(){var ds=document.querySelectorAll('.en-drop');ds.forEach(function(d){var t;d.addEventListener('mouseenter',function(){clearTimeout(t);d.classList.add('is-open');});d.addEventListener('mouseleave',function(){t=setTimeout(function(){d.classList.remove('is-open');},120);});});}();</script>
+
+<!-- ═══ STAGE TABS ═══ -->
+<div class="stage-tabs">
+  <div class="stage-tabs-inner">
+    <button class="stab active" onclick="showSec('overview',this)">Обзор</button>
+    <button class="stab s0" onclick="showSec('s0',this)">О·0 &nbsp;Идея</button>
+    <button class="stab s1" onclick="showSec('s1',this)">О·1 &nbsp;Discovery</button>
+    <button class="stab s2" onclick="showSec('s2',this)">О·2 &nbsp;MVP</button>
+    <button class="stab s3" onclick="showSec('s3',this)">О·3 &nbsp;Рост</button>
+    <button class="stab s4" onclick="showSec('s4',this)">О·4 &nbsp;Масштаб</button>
+    <div class="stab-sep"></div>
+    <button class="stab" onclick="showSec('templates',this)">Шаблоны</button>
+    <button class="stab" onclick="showSec('pilot',this)">Пилот →</button>
+  </div>
+</div>
+
+<!-- ═══ MAIN ═══ -->
+<div class="fw-wrap">
+
+<!-- ══════════════════════════════════════════════ OVERVIEW -->
+<div class="fw-section active" id="sec-overview">
+  <div class="fw-hero">
+    <div class="fw-hero-eyebrow">RWB · Product OS · 2026</div>
+    <h1 class="fw-hero-title">Framework <em>Lite</em></h1>
+    <p class="fw-hero-sub">Практическое руководство по жизненному циклу продукта — от идеи до экосистемного масштаба. Один документ с процессом, артефактами, инструментами и шаблонами для каждой стадии. Создан для быстрого старта с пилотной командой и масштабирования на весь портфель.</p>
+    <div class="fw-hero-tags">
+      <span class="fw-tag fw-tag-v">5 стадий зрелости</span>
+      <span class="fw-tag fw-tag-t">8 готовых шаблонов</span>
+      <span class="fw-tag fw-tag-w">Для CPO · CTO · PM · TL</span>
+    </div>
+  </div>
+
+  <div class="lc-flow" id="lc-flow">
+    <div class="lc-step s0" onclick="showSec('s0',null)" title="Перейти к О·0">
+      <div class="lc-num">ОРБИТА 0</div>
+      <div class="lc-name">Идея</div>
+      <div class="lc-tagline">Бриф → Скрининг → Gate 0</div>
+      <span class="lc-dur">до 5 дней</span>
+    </div>
+    <div class="lc-step s1" onclick="showSec('s1',null)" title="Перейти к О·1">
+      <div class="lc-num">ОРБИТА 1</div>
+      <div class="lc-name">Discovery</div>
+      <div class="lc-tagline">Custdev → PSF → Gate 1</div>
+      <span class="lc-dur">3–6 нед</span>
+    </div>
+    <div class="lc-step s2" onclick="showSec('s2',null)" title="Перейти к О·2">
+      <div class="lc-num">ОРБИТА 2</div>
+      <div class="lc-name">MVP</div>
+      <div class="lc-tagline">PRD → Спринты → Gate 2</div>
+      <span class="lc-dur">6–12 нед</span>
+    </div>
+    <div class="lc-step s3" onclick="showSec('s3',null)" title="Перейти к О·3">
+      <div class="lc-num">ОРБИТА 3</div>
+      <div class="lc-name">Рост</div>
+      <div class="lc-tagline">Метрики → A/B → Gate 3</div>
+      <span class="lc-dur">3–6 мес</span>
+    </div>
+    <div class="lc-step s4" onclick="showSec('s4',null)" title="Перейти к О·4">
+      <div class="lc-num">ОРБИТА 4</div>
+      <div class="lc-name">Масштаб</div>
+      <div class="lc-tagline">Экосистема → Интеграция</div>
+      <span class="lc-dur">ongoing</span>
+    </div>
+  </div>
+
+  <div class="kpi-bar">
+    <div class="kpi-item"><div class="kpi-val">5</div><div class="kpi-label">Стадий зрелости (орбит)</div></div>
+    <div class="kpi-item"><div class="kpi-val">4</div><div class="kpi-label">Gate-условия перехода</div></div>
+    <div class="kpi-item"><div class="kpi-val">~14 нед</div><div class="kpi-label">Идея → MVP (среднее)</div></div>
+    <div class="kpi-item"><div class="kpi-val">8</div><div class="kpi-label">Готовых шаблонов документов</div></div>
+    <div class="kpi-item"><div class="kpi-val">12+</div><div class="kpi-label">Продуктов в контуре</div></div>
+  </div>
+
+  <div class="grad-line"></div>
+
+  <div class="sec-header">
+    <div class="sec-eyebrow">Как работать с этим документом</div>
+    <div class="sec-title">Три сценария использования</div>
+  </div>
+  <div class="howto-grid">
+    <div class="howto-card">
+      <div class="howto-num">01</div>
+      <div class="howto-title">Новая инициатива</div>
+      <div class="howto-desc">Выберите <strong>О·0 Идея</strong> → заполните Бриф → следуйте Gate-условиям. Каждая вкладка — самодостаточный гид для PM и TL на текущей стадии.</div>
+    </div>
+    <div class="howto-card">
+      <div class="howto-num">02</div>
+      <div class="howto-title">Ревью с руководством</div>
+      <div class="howto-desc">Откройте нужную стадию, покажите артефакты и Gate-критерии. Раздел <strong>Пилот</strong> — для согласования плана внедрения с CPO/CTO.</div>
+    </div>
+    <div class="howto-card">
+      <div class="howto-num">03</div>
+      <div class="howto-title">Работа с шаблонами</div>
+      <div class="howto-desc">Раздел <strong>Шаблоны</strong> содержит 8 готовых структур документов. Откройте любой → скопируйте текст → вставьте в Notion/Confluence.</div>
+    </div>
+  </div>
+</div>
+<!-- /overview -->
+
+<!-- ══════════════════════════════════════════════ ОРБИТА 0 -->
+<div class="fw-section" id="sec-s0">
+  <div class="stage-hdr s0">
+    <div class="stage-num">О·0</div>
+    <div class="stage-hdr-info">
+      <div class="stage-name">Идея — Предстарт</div>
+      <div class="stage-tagline">Заказчик формулирует проблему · PMO оценивает · Команда собирается</div>
+    </div>
+    <div class="stage-hdr-meta">
+      <span class="stage-dur-badge">до 5 рабочих дней</span>
+    </div>
+  </div>
+  <div class="stage-body">
+    <div class="stage-grid s0">
+      <div class="sg-card">
+        <div class="sg-card-title">Процесс</div>
+        <ol class="sg-list numbered">
+          <li>Заказчик заполняет <strong>Бриф инициативы</strong>: проблема, аудитория, ожидаемый эффект, связь с OKR</li>
+          <li>PMO проверяет полноту брифа, ищет дубли в реестре инициатив</li>
+          <li>Скоринг по матрице приоритетов (RICE / T-shirt size)</li>
+          <li>Поиск и согласование команды: PM, TL, дизайнер, DA</li>
+          <li>Калибровка на Продуктовом синке или Проектном комитете</li>
+          <li><strong>Gate 0</strong> — решение PMO за 5 рабочих дней</li>
+        </ol>
+      </div>
+      <div class="sg-card">
+        <div class="sg-card-title">Артефакты</div>
+        <ul class="sg-list">
+          <li><span class="sg-marker">·</span><span><strong>Бриф инициативы</strong> — заполненный заказчиком</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Матрица скоринга</strong> — RICE оценка PMO</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Карточка в реестре</strong> — статус, команда, ID</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Решение Gate 0</strong> — Go / No-Go / В бэклог</span></li>
+        </ul>
+      </div>
+      <div class="sg-card">
+        <div class="sg-card-title">Инструменты</div>
+        <ul class="sg-list">
+          <li><span class="sg-marker">→</span><span>Форма брифа (шаблон PMO)</span></li>
+          <li><span class="sg-marker">→</span><span>Реестр инициатив EcoTech Трекер</span></li>
+          <li><span class="sg-marker">→</span><span>Матрица RICE / ICE для скоринга</span></li>
+          <li><span class="sg-marker">→</span><span>Notion / Confluence для карточки</span></li>
+          <li><span class="sg-marker">→</span><span>WB Messenger / Почта для коммуникации</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="gate-card s0">
+      <div>
+        <div class="gate-label">Gate 0 → Орбита 1 · Критерии</div>
+        <ul class="gate-criteria-list">
+          <li>Проблема описана одним предложением и понятна заказчику</li>
+          <li>Целевая аудитория определена (сегмент + объём)</li>
+          <li>Связь с OKR компании или департамента подтверждена</li>
+          <li>Нет дублей в реестре инициатив</li>
+          <li>Команда найдена или путь к поиску согласован</li>
+        </ul>
+      </div>
+      <div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">PMO</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Срок ответа</div><div class="gate-meta-val">5 рабочих дней</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Варианты решения</div><div class="gate-meta-val">Go / No-Go / В бэклог</div></div>
+      </div>
+      <div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Выход (при Go)</div><div class="gate-meta-val">Старт Орбиты 1 — Discovery</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Шаблон для Gate</div><div class="gate-meta-val"><button class="tmpl-open-btn" onclick="openTmpl('brief')">Бриф инициативы →</button></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ ОРБИТА 1 -->
+<div class="fw-section" id="sec-s1">
+  <div class="stage-hdr s1">
+    <div class="stage-num">О·1</div>
+    <div class="stage-hdr-info">
+      <div class="stage-name">Discovery — Исследование</div>
+      <div class="stage-tagline">Подтвердить Problem-Solution Fit · Определить MVP scope · ADR</div>
+    </div>
+    <div class="stage-hdr-meta">
+      <span class="stage-dur-badge">3–6 недель</span>
+    </div>
+  </div>
+  <div class="stage-body">
+    <div class="stage-grid s1">
+      <div class="sg-card">
+        <div class="sg-card-title">Процесс</div>
+        <ol class="sg-list numbered">
+          <li>Kick-off: команда фиксирует цели Discovery и план исследования</li>
+          <li>Qualitative: custdev-интервью (мин. 7–10 носителей проблемы)</li>
+          <li>Quantitative: аналитика, бенчмарки, сегменты данных</li>
+          <li>Синтез: Jobs-to-be-Done, карта болей, концепция решения</li>
+          <li>Технический скоупинг: TL проводит оценку, пишет ADR при необходимости</li>
+          <li>Discovery Report + прототип/story map → Gate 1</li>
+        </ol>
+      </div>
+      <div class="sg-card">
+        <div class="sg-card-title">Артефакты</div>
+        <ul class="sg-list">
+          <li><span class="sg-marker">·</span><span><strong>Интервью-гид</strong> — скрипт для Custdev</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Синтез интервью</strong> — Jobs-to-be-Done, боли, цитаты</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Discovery Report</strong> — находки + рекомендация Go/No-Go</span></li>
+          <li><span class="sg-marker">·</span><span><strong>ADR</strong> — Architecture Decision Record</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Прототип / концепт</strong> — Figma, lo-fi или story map</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Скоупинг MVP</strong> — что входит / что нет (In/Out of scope)</span></li>
+        </ul>
+      </div>
+      <div class="sg-card">
+        <div class="sg-card-title">Инструменты</div>
+        <ul class="sg-list">
+          <li><span class="sg-marker">→</span><span>Miro — синтез, story map, карта гипотез</span></li>
+          <li><span class="sg-marker">→</span><span>Figma — прототип и lo-fi концепт</span></li>
+          <li><span class="sg-marker">→</span><span>Notion / Confluence — Discovery Report</span></li>
+          <li><span class="sg-marker">→</span><span>SQL / Metabase — продуктовая аналитика</span></li>
+          <li><span class="sg-marker">→</span><span>Calendly — рекрутинг респондентов</span></li>
+          <li><span class="sg-marker">→</span><span>EcoTech Трекер — статус Discovery для PMO</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="gate-card s1">
+      <div>
+        <div class="gate-label">Gate 1 → Орбита 2 · Критерии</div>
+        <ul class="gate-criteria-list">
+          <li>Problem-Solution Fit подтверждён данными (мин. 7 интервью)</li>
+          <li>Техническая реализуемость подтверждена (ADR написан)</li>
+          <li>Scope и сроки MVP зафиксированы и согласованы с TL</li>
+          <li>Бюджет предварительно согласован с Финансами</li>
+          <li>Discovery Report утверждён PM и TL</li>
+        </ul>
+      </div>
+      <div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">PMO + Инвест. директор</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Срок рассмотрения</div><div class="gate-meta-val">3 рабочих дня</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Формат</div><div class="gate-meta-val">Gate Review (20 мин + Q&A)</div></div>
+      </div>
+      <div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Выход (при Go)</div><div class="gate-meta-val">Старт Орбиты 2 — Delivery/MVP</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Шаблоны для Gate</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
+            <button class="tmpl-open-btn" onclick="openTmpl('custdev')">Интервью-гид →</button>
+            <button class="tmpl-open-btn" onclick="openTmpl('discovery')">Discovery Report →</button>
+            <button class="tmpl-open-btn" onclick="openTmpl('adr')">ADR →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ ОРБИТА 2 -->
+<div class="fw-section" id="sec-s2">
+  <div class="stage-hdr s2">
+    <div class="stage-num">О·2</div>
+    <div class="stage-hdr-info">
+      <div class="stage-name">MVP — Delivery</div>
+      <div class="stage-tagline">Разработать и запустить минимально жизнеспособный продукт</div>
+    </div>
+    <div class="stage-hdr-meta">
+      <span class="stage-dur-badge">6–12 недель</span>
+    </div>
+  </div>
+  <div class="stage-body">
+    <div class="stage-grid s2">
+      <div class="sg-card">
+        <div class="sg-card-title">Процесс</div>
+        <ol class="sg-list numbered">
+          <li>PRD — Product Requirements Document: требования, user stories, DoD</li>
+          <li>Sprint 0: инфраструктура, архитектура, CI/CD, настройка среды</li>
+          <li>Итеративная разработка (спринты 1–N): DoR → Dev → Review → DoD</li>
+          <li>UAT / Staging: тест с пилотными пользователями</li>
+          <li>Soft launch: ограниченный выкат (beta-группа или % трафика)</li>
+          <li><strong>Gate 2</strong> — метрики запуска + фидбек → решение о full launch</li>
+        </ol>
+      </div>
+      <div class="sg-card">
+        <div class="sg-card-title">Артефакты</div>
+        <ul class="sg-list">
+          <li><span class="sg-marker">·</span><span><strong>PRD / Спецификация</strong> — перед стартом разработки</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Sprint Goal + Backlog</strong> — каждый спринт</span></li>
+          <li><span class="sg-marker">·</span><span><strong>DoR / DoD чеклист</strong> — критерии готовности задач</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Release Notes</strong> — при каждом релизе</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Dashboard метрик</strong> — baseline после запуска</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Gate 2 Review</strong> — презентация для Комитета</span></li>
+        </ul>
+      </div>
+      <div class="sg-card">
+        <div class="sg-card-title">Инструменты</div>
+        <ul class="sg-list">
+          <li><span class="sg-marker">→</span><span>Jira / Linear — task management и спринты</span></li>
+          <li><span class="sg-marker">→</span><span>GitHub / GitLab — код, PR, CI/CD</span></li>
+          <li><span class="sg-marker">→</span><span>Figma — дизайн и developer handoff</span></li>
+          <li><span class="sg-marker">→</span><span>Sentry / DataDog — мониторинг и ошибки</span></li>
+          <li><span class="sg-marker">→</span><span>Metabase / Amplitude — аналитика запуска</span></li>
+          <li><span class="sg-marker">→</span><span>EcoTech Трекер — статус для PMO и стейкхолдеров</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="gate-card s2">
+      <div>
+        <div class="gate-label">Gate 2 → Орбита 3 · Критерии</div>
+        <ul class="gate-criteria-list">
+          <li>MVP запущен в production (stable, 0 критических P0/P1 багов)</li>
+          <li>Базовые метрики зафиксированы (есть baseline для сравнения)</li>
+          <li>Первичный фидбек получен (NPS / опрос / интервью с первыми юзерами)</li>
+          <li>Unit economics рассчитаны предварительно (CAC, LTV)</li>
+          <li>Команда сформирована для стадии Роста</li>
+        </ul>
+      </div>
+      <div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">Проектный комитет + CPO</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Срок рассмотрения</div><div class="gate-meta-val">5 рабочих дней</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Формат</div><div class="gate-meta-val">Gate Review + демо MVP</div></div>
+      </div>
+      <div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Выход (при Go)</div><div class="gate-meta-val">Старт Орбиты 3 — Рост</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Шаблоны для Gate</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
+            <button class="tmpl-open-btn" onclick="openTmpl('prd')">PRD / Спецификация →</button>
+            <button class="tmpl-open-btn" onclick="openTmpl('gate-review')">Gate Review →</button>
+            <button class="tmpl-open-btn" onclick="openTmpl('sprint')">Sprint Planning →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ ОРБИТА 3 -->
+<div class="fw-section" id="sec-s3">
+  <div class="stage-hdr s3">
+    <div class="stage-num">О·3</div>
+    <div class="stage-hdr-info">
+      <div class="stage-name">Рост — Growth</div>
+      <div class="stage-tagline">Достичь Product-Market Fit · Масштабировать аудиторию · Оптимизировать unit economics</div>
+    </div>
+    <div class="stage-hdr-meta">
+      <span class="stage-dur-badge">3–6 месяцев</span>
+    </div>
+  </div>
+  <div class="stage-body">
+    <div class="stage-grid s3">
+      <div class="sg-card">
+        <div class="sg-card-title">Процесс</div>
+        <ol class="sg-list numbered">
+          <li>Установка baseline: retention, DAU/MAU, NPS, funnel конверсии</li>
+          <li>Анализ воронки: где теряем пользователей, точки оттока</li>
+          <li>Формирование Growth Backlog: гипотезы роста (JTBD + данные)</li>
+          <li>A/B тестирование: 2–3 параллельных эксперимента</li>
+          <li>Итерации: Kill / Scale / Iterate по результатам тестов</li>
+          <li>Quarterly Review: метрики + roadmap → Gate 3</li>
+        </ol>
+      </div>
+      <div class="sg-card">
+        <div class="sg-card-title">Артефакты</div>
+        <ul class="sg-list">
+          <li><span class="sg-marker">·</span><span><strong>Growth Backlog</strong> — приоритизированные гипотезы</span></li>
+          <li><span class="sg-marker">·</span><span><strong>A/B тест-план</strong> — гипотеза, метрика, sample size, срок</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Metrics Dashboard</strong> — живой дашборд для стейкхолдеров</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Quarterly Metrics Review</strong> — ежеквартальный отчёт</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Roadmap развития</strong> — на следующий период</span></li>
+        </ul>
+      </div>
+      <div class="sg-card">
+        <div class="sg-card-title">Инструменты</div>
+        <ul class="sg-list">
+          <li><span class="sg-marker">→</span><span>Amplitude / Mixpanel — product analytics</span></li>
+          <li><span class="sg-marker">→</span><span>PostHog / VWO — A/B тесты и feature flags</span></li>
+          <li><span class="sg-marker">→</span><span>Looker / Metabase — дашборды и отчёты</span></li>
+          <li><span class="sg-marker">→</span><span>Notion — Growth Backlog, гипотезы</span></li>
+          <li><span class="sg-marker">→</span><span>EcoTech Трекер — бэклог и статус в портфеле</span></li>
+          <li><span class="sg-marker">→</span><span>EcoTech Стратегия — связь с OKR</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="gate-card s3">
+      <div>
+        <div class="gate-label">Gate 3 → Орбита 4 · Критерии</div>
+        <ul class="gate-criteria-list">
+          <li>PMF достигнут: Retention D30 ≥ бенчмарк, NPS ≥ целевого</li>
+          <li>Unit economics позитивны: CAC &lt; LTV, Payback Period &lt; 12 мес</li>
+          <li>Маркетинговые каналы определены, CAC измерен по каждому</li>
+          <li>Команда готова к масштабированию (найм, процессы)</li>
+          <li>Roadmap экосистемного развития согласован с CPO</li>
+        </ul>
+      </div>
+      <div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">CPO + CFO + CEO BU</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Формат</div><div class="gate-meta-val">Quarterly Review + Gate</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Периодичность проверки</div><div class="gate-meta-val">Ежеквартально</div></div>
+      </div>
+      <div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Выход (при Go)</div><div class="gate-meta-val">Старт Орбиты 4 — Масштаб</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Шаблоны для Gate</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
+            <button class="tmpl-open-btn" onclick="openTmpl('metrics')">Metrics Review →</button>
+            <button class="tmpl-open-btn" onclick="openTmpl('gate-review')">Gate Review →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ ОРБИТА 4 -->
+<div class="fw-section" id="sec-s4">
+  <div class="stage-hdr s4">
+    <div class="stage-num">О·4</div>
+    <div class="stage-hdr-info">
+      <div class="stage-name">Масштаб — Экосистема</div>
+      <div class="stage-tagline">Интеграция в экосистему WB · Платформизация · Cross-product синергии</div>
+    </div>
+    <div class="stage-hdr-meta">
+      <span class="stage-dur-badge">ongoing</span>
+    </div>
+  </div>
+  <div class="stage-body">
+    <div class="stage-grid s4">
+      <div class="sg-card">
+        <div class="sg-card-title">Процесс</div>
+        <ol class="sg-list numbered">
+          <li>Стратегический брифинг: как продукт встраивается в экосистему WB</li>
+          <li>Ecosystem Integration Plan: точки интеграции, shared data, API контракты</li>
+          <li>Platform features: что переходит в платформу, что остаётся продуктом</li>
+          <li>Cross-product adoption: другие продукты начинают использовать твой сервис</li>
+          <li>Внешнее позиционирование в экосистеме (маркетинг + PR)</li>
+          <li>Gate 4 на Инвест. Комитете: оценка экосистемного вклада</li>
+        </ol>
+      </div>
+      <div class="sg-card">
+        <div class="sg-card-title">Артефакты</div>
+        <ul class="sg-list">
+          <li><span class="sg-marker">·</span><span><strong>Ecosystem Integration Brief</strong> — план интеграции</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Platform PRD</strong> — для features, уходящих в платформу</span></li>
+          <li><span class="sg-marker">·</span><span><strong>API контракты</strong> — спецификация для cross-product</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Ecosystem Metrics Dashboard</strong> — вклад в экосистему</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Ecosystem Roadmap</strong> — план развития на 6–12 мес</span></li>
+        </ul>
+      </div>
+      <div class="sg-card">
+        <div class="sg-card-title">Инструменты</div>
+        <ul class="sg-list">
+          <li><span class="sg-marker">→</span><span>Platform APIs (WB ecosystem)</span></li>
+          <li><span class="sg-marker">→</span><span>API Gateway / Service Mesh</span></li>
+          <li><span class="sg-marker">→</span><span>Единый Data Layer (WB Data Platform)</span></li>
+          <li><span class="sg-marker">→</span><span>EcoTech Трекер — portfolio view</span></li>
+          <li><span class="sg-marker">→</span><span>EcoTech Стратегия — связь с экосистемными целями</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="gate-card s4">
+      <div>
+        <div class="gate-label">Gate 4 · Критерии экосистемной зрелости</div>
+        <ul class="gate-criteria-list">
+          <li>Экосистемная ценность подтверждена — синергии измерены количественно</li>
+          <li>Продукт интегрирован в 2+ других продукта экосистемы</li>
+          <li>Shared services переданы в платформу (нет дублирования)</li>
+          <li>Бизнес-кейс экосистемного масштабирования одобрен CFO</li>
+          <li>Команда платформы принята, roadmap согласован с CPO</li>
+        </ul>
+      </div>
+      <div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">CPO + Инвест. Комитет</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Формат</div><div class="gate-meta-val">Инвест. Комитет + демо интеграций</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Периодичность</div><div class="gate-meta-val">По готовности, минимум раз в полгода</div></div>
+      </div>
+      <div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Результат</div><div class="gate-meta-val">Продукт — системообразующая часть экосистемы WB</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Шаблон</div>
+          <div style="margin-top:4px;">
+            <button class="tmpl-open-btn" onclick="openTmpl('gate-review')">Gate Review →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ ШАБЛОНЫ -->
+<div class="fw-section" id="sec-templates">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Документация</div>
+    <div class="sec-title">8 рабочих шаблонов</div>
+    <div class="sec-sub">Готовые структуры для каждой стадии. Нажмите на карточку → скопируйте шаблон → вставьте в Notion или Confluence.</div>
+  </div>
+
+  <div class="tmpl-filter" id="tmpl-filter">
+    <button class="tmpl-filter-btn active" data-filter="all" onclick="filterTmpls('all',this)">Все</button>
+    <button class="tmpl-filter-btn" data-filter="s0" onclick="filterTmpls('s0',this)">О·0 Идея</button>
+    <button class="tmpl-filter-btn" data-filter="s1" onclick="filterTmpls('s1',this)">О·1 Discovery</button>
+    <button class="tmpl-filter-btn" data-filter="s2" onclick="filterTmpls('s2',this)">О·2 MVP</button>
+    <button class="tmpl-filter-btn" data-filter="s3" onclick="filterTmpls('s3',this)">О·3 Рост</button>
+    <button class="tmpl-filter-btn" data-filter="all-gates" onclick="filterTmpls('all-gates',this)">Все Gate</button>
+  </div>
+
+  <div class="tmpl-grid" id="tmpl-grid">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ ПИЛОТ -->
+<div class="fw-section" id="sec-pilot">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Внедрение</div>
+    <div class="sec-title">Пилотный запуск фреймворка</div>
+    <div class="sec-sub">Пошаговый план внедрения: от выбора пилотной инициативы до масштабирования на весь портфель продуктов.</div>
+  </div>
+
+  <div class="pilot-intro">
+    <strong>Цель пилота</strong> — пройти с одной инициативой через орбиты О·0 → О·1 → Gate 1, получить обратную связь команды и стейкхолдеров, выявить точки адаптации фреймворка под контекст компании. После успешного пилота — масштабирование на весь портфель.
+  </div>
+
+  <div class="pilot-steps">
+    <div class="pilot-step">
+      <div class="pilot-step-num">1</div>
+      <div class="pilot-step-body">
+        <div class="pilot-step-title">Выбор пилотной инициативы и команды</div>
+        <div class="pilot-step-desc">Выбираем 1–2 инициативы из бэклога с наибольшим потенциалом: чёткая проблема, мотивированная команда, умеренная сложность. Идеально — инициатива в фазе О·0 (ещё не стартовала в Discovery).</div>
+        <div class="pilot-step-tags">
+          <span class="pilot-step-tag">Критерий: мотивированный PM + TL</span>
+          <span class="pilot-step-tag">Срок выбора: 1 неделя</span>
+          <span class="pilot-step-tag">Ответственный: CPO + PMO</span>
+        </div>
+      </div>
+    </div>
+    <div class="pilot-step">
+      <div class="pilot-step-num">2</div>
+      <div class="pilot-step-body">
+        <div class="pilot-step-title">Установочная сессия (Kick-off)</div>
+        <div class="pilot-step-desc">2-часовая сессия с пилотной командой: знакомство с фреймворком, разбор каждой стадии на примере их инициативы, распределение ролей, фиксация вопросов и точек риска. Команда заполняет Бриф инициативы.</div>
+        <div class="pilot-step-tags">
+          <span class="pilot-step-tag">Артефакт: Бриф инициативы</span>
+          <span class="pilot-step-tag">Формат: воркшоп 2 ч</span>
+          <span class="pilot-step-tag">Участники: PM, TL, дизайнер, PMO</span>
+        </div>
+      </div>
+    </div>
+    <div class="pilot-step">
+      <div class="pilot-step-num">3</div>
+      <div class="pilot-step-body">
+        <div class="pilot-step-title">О·0 → О·1 → Gate 1: первый полный цикл</div>
+        <div class="pilot-step-desc">Команда проходит Орбиты 0 и 1 по фреймворку: бриф → скрининг PMO → Gate 0 → Discovery (custdev, синтез, Discovery Report, ADR) → Gate 1. PMO и CPO/CTO наблюдают, дают обратную связь на каждом Gate.</div>
+        <div class="pilot-step-tags">
+          <span class="pilot-step-tag">Длительность: 4–8 недель</span>
+          <span class="pilot-step-tag">Чекпоинты: Gate 0 + Gate 1</span>
+          <span class="pilot-step-tag">Сопровождение: еженедельный синк с PMO</span>
+        </div>
+      </div>
+    </div>
+    <div class="pilot-step">
+      <div class="pilot-step-num">4</div>
+      <div class="pilot-step-body">
+        <div class="pilot-step-title">Ретро пилота + решение о масштабировании</div>
+        <div class="pilot-step-desc">После Gate 1: ретроспектива с пилотной командой (что работает, что надо адаптировать), презентация выводов CPO/CTO. Фиксируем изменения в фреймворк, запускаем следующие 2–3 инициативы.</div>
+        <div class="pilot-step-tags">
+          <span class="pilot-step-tag">Артефакт: Отчёт пилота</span>
+          <span class="pilot-step-tag">Решение: масштабировать / доработать</span>
+          <span class="pilot-step-tag">Следующий шаг: +2–3 инициативы</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grad-line"></div>
+
+  <div class="sec-header">
+    <div class="sec-eyebrow">Критерии успеха</div>
+    <div class="sec-title">Когда пилот считается успешным</div>
+  </div>
+  <div class="pilot-criteria-grid">
+    <div class="pilot-criteria-card">
+      <div class="pilot-criteria-title"><span class="dot dot-green"></span>Процессные метрики</div>
+      <ul class="pilot-criteria-list">
+        <li><span style="color:#4ADE80">✓</span> Бриф заполнен без повторных доработок (с 1–2 итерации)</li>
+        <li><span style="color:#4ADE80">✓</span> Gate 0 пройден в срок (≤5 рабочих дней)</li>
+        <li><span style="color:#4ADE80">✓</span> Discovery завершён в плановые сроки (±20%)</li>
+        <li><span style="color:#4ADE80">✓</span> Discovery Report написан без помощи PMO (команда сама)</li>
+        <li><span style="color:#4ADE80">✓</span> Gate 1 проведён в формате Gate Review (20 мин + Q&A)</li>
+      </ul>
+    </div>
+    <div class="pilot-criteria-card">
+      <div class="pilot-criteria-title"><span class="dot dot-amber"></span>Качественные метрики</div>
+      <ul class="pilot-criteria-list">
+        <li><span style="color:var(--amber)">✓</span> Команда понимает разницу О·0 / О·1 / О·2 без объяснений</li>
+        <li><span style="color:var(--amber)">✓</span> Стейкхолдер видит прозрачность процесса (нет вопросов "а где мы?")</li>
+        <li><span style="color:var(--amber)">✓</span> PM знает какие артефакты нужны на каждой стадии</li>
+        <li><span style="color:var(--amber)">✓</span> TL заполнил ADR самостоятельно</li>
+        <li><span style="color:var(--amber)">✓</span> Шаблоны использованы (не созданы свои с нуля)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scale-block">
+    <div class="scale-title">Масштабирование после пилота</div>
+    <div class="scale-steps">
+      <div class="scale-step">
+        <div class="scale-step-icon">🚀</div>
+        <div class="scale-step-label">Волна 1</div>
+        <div class="scale-step-sub">2–3 инициативы<br>Те же PM + новые команды</div>
+      </div>
+      <div class="scale-step">
+        <div class="scale-step-icon">📋</div>
+        <div class="scale-step-label">Волна 2</div>
+        <div class="scale-step-sub">Все активные инициативы<br>Ретрофит текущих проектов</div>
+      </div>
+      <div class="scale-step">
+        <div class="scale-step-icon">🏢</div>
+        <div class="scale-step-label">Полный портфель</div>
+        <div class="scale-step-sub">12+ продуктов<br>Единый реестр в EcoTech</div>
+      </div>
+      <div class="scale-step">
+        <div class="scale-step-icon">🔄</div>
+        <div class="scale-step-label">Итерация v2</div>
+        <div class="scale-step-sub">Обновление фреймворка<br>по данным из портфеля</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;align-items:center;gap:16px;">
+    <div style="font-size:13px;color:var(--text);">Полная версия фреймворка с детальными процессами, ProductOps метриками и Gate-условиями для всего портфеля:</div>
+    <a href="rwb-product-os-v3.html" style="flex-shrink:0;font-size:12px;font-weight:600;padding:7px 16px;border-radius:8px;background:var(--violet-dim);border:1px solid var(--violet-border);color:var(--c1);text-decoration:none;">Фреймворк полный →</a>
+  </div>
+</div>
+
+</div><!-- /fw-wrap -->
+
+<!-- ═══ TEMPLATE MODAL ═══ -->
+<div class="modal-overlay" id="tmpl-modal" onclick="closeTmplModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-tmpl-title"></div>
+      <button class="modal-close" onclick="closeTmplModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <pre class="modal-pre" id="modal-tmpl-content"></pre>
+    </div>
+    <div class="modal-foot">
+      <button class="copy-btn" onclick="copyTmplContent()">Скопировать шаблон</button>
+      <span class="copy-toast" id="copy-toast">Скопировано ✓</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══ SECTION SWITCHING ══
+function showSec(id, btn) {
+  document.querySelectorAll('.fw-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  if (btn) {
+    document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  } else {
+    // called from lc-flow click
+    document.querySelectorAll('.stab').forEach(b => {
+      b.classList.remove('active');
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
+    });
+    // also update active state by matching data
+    document.querySelectorAll('.stab').forEach(b => {
+      const oc = b.getAttribute('onclick') || '';
+      if (oc.includes("'" + id + "'")) b.classList.add('active');
+    });
+    // scroll tabs into view if needed
+    const tabs = document.querySelector('.stage-tabs');
+    if (tabs) tabs.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  window.scrollTo({top: document.querySelector('.stage-tabs').getBoundingClientRect().top + window.pageYOffset - 50, behavior:'smooth'});
+}
+
+// ══ TEMPLATE DATA ══
+const TMPLS = {
+  brief: {
+    name: 'Бриф инициативы',
+    stage: 's0',
+    stageLabel: 'О·0 Идея',
+    icon: '📋',
+    desc: 'Стартовый документ заказчика — описание проблемы и ожидаемого эффекта.',
+    content: `БРИФ ИНИЦИАТИВЫ
+═══════════════════════════════════
+Дата: [ДД.ММ.ГГГГ]
+Заказчик: [Имя, должность]
+ID (присваивает PMO): INI-____
+
+1. ПРОБЛЕМА (одно предложение)
+[Что не так и для кого]
+
+2. ЦЕЛЕВАЯ АУДИТОРИЯ
+Сегмент: [Кто пострадал от проблемы]
+Объём: [Сколько пользователей / транзакций]
+
+3. КОНТЕКСТ
+[Почему сейчас? Что произошло, что
+ заставило поднять вопрос?]
+
+4. ОЖИДАЕМЫЙ ЭФФЕКТ
+Качественный: [что изменится]
+Количественный: [цифры, если есть]
+
+5. СВЯЗЬ С OKR
+Цель компании: [...]
+Цель департамента / BU: [...]
+
+6. ОГРАНИЧЕНИЯ
+Дедлайн заказчика: [...]
+Бюджетные ожидания: [...]
+Что нельзя делать: [...]
+
+7. КОНТАКТ
+[Имя, способ связи, доступность]
+───────────────────────────────────
+Заполняет PMO после скрининга:
+Скоринг RICE: R__ I__ C__ E__ = __
+Решение: [ ] Go  [ ] No-Go  [ ] Бэклог
+Дата решения: [ДД.ММ.ГГГГ]`
+  },
+  custdev: {
+    name: 'Интервью-гид Custdev',
+    stage: 's1',
+    stageLabel: 'О·1 Discovery',
+    icon: '🎤',
+    desc: 'Скрипт для custdev-интервью — проверка гипотезы проблемы с носителями боли.',
+    content: `CUSTDEV INTERVIEW GUIDE
+═══════════════════════════════════
+Продукт: [Название]
+Гипотеза: [Текст проверяемой гипотезы]
+Дата: [ДД.ММ.ГГГГ]   Интервьюер: [Имя]
+Респондент: [Сегмент / профиль]
+
+ВСТУПЛЕНИЕ (2 мин)
+"Мы исследуем проблему [контекст].
+Нас интересует ваш опыт, а не наши
+идеи. Нет правильных/неправильных
+ответов. Можно записывать?"
+
+БЛОК 1 — КОНТЕКСТ (5 мин)
+· Расскажите, как вы [действие/процесс]?
+· Как часто это происходит?
+· Кто ещё участвует в этом процессе?
+
+БЛОК 2 — ПРОБЛЕМА (10 мин)
+· Когда последний раз сталкивались
+  с [проблема]?
+· Что делали, чтобы решить?
+  Чем пользовались?
+· Что не устроило в этом решении?
+· Сколько времени/денег тратите
+  на это сейчас?
+
+БЛОК 3 — РЕШЕНИЕ (5 мин)
+· Если бы [решение] существовало,
+  как бы вы его использовали?
+· Что важнее всего в решении?
+· За что готовы платить?
+
+WRAP-UP
+· Что важно, о чём я не спросил?
+· Порекомендуете 2-3 коллег для беседы?
+
+───────────────────────────────────
+ЗАПОЛНИТЬ СРАЗУ ПОСЛЕ (5 мин):
+QUOTE: "[лучшая цитата]"
+PAIN: [боль одним предложением]
+INSIGHT: [что удивило]
+SIGNAL: Подтвердил / Опроверг / Нейтральный`
+  },
+  discovery: {
+    name: 'Discovery Report',
+    stage: 's1',
+    stageLabel: 'О·1 Discovery',
+    icon: '🔍',
+    desc: 'Итоговый документ Discovery-фазы — находки, PSF, рекомендация Go/No-Go.',
+    content: `DISCOVERY REPORT
+═══════════════════════════════════
+Продукт: [Название]
+Дата: [ДД.ММ.ГГГГ]   PM: [Имя]
+Статус: [ ] В работе  [x] Завершён
+
+1. РЕЗЮМЕ (TL;DR)
+[3-5 предложений: проблема → что нашли
+ → ключевой инсайт → рекомендация]
+
+2. ГИПОТЕЗА
+Исходная: [текст]
+Скорректированная: [если изменилась]
+Результат: [x] Подтверждена
+            [ ] Опровергнута
+            [ ] Частично
+
+3. ИССЛЕДОВАНИЕ
+Методы: интервью N чел., аналитика, конк. анализ
+Период: [даты]
+
+Ключевые находки:
+— [Находка 1] → данные: [...]
+— [Находка 2] → данные: [...]
+— [Находка 3] → данные: [...]
+
+Цитаты пользователей:
+"[Цитата 1]" — [тип пользователя]
+"[Цитата 2]" — [тип пользователя]
+
+4. РЕШЕНИЕ
+Концепция: [1-2 предложения]
+
+MVP scope (IN):
+— [Фича 1]
+— [Фича 2]
+
+Out of scope (NOT IN MVP):
+— [Что не делаем]
+
+5. ТЕХНИЧЕСКАЯ ОЦЕНКА (Tech Lead)
+Сложность: Низкая / Средняя / Высокая
+Зависимости: [внешние API, системы]
+Риски: [технические риски]
+ADR: [номер/ссылка]
+
+6. МЕТРИКИ УСПЕХА MVP
+KPI 1: [название] — база [X] → цель [Y] за [срок]
+KPI 2: [...]
+
+7. РЕКОМЕНДАЦИЯ
+[x] Go to Delivery
+[ ] Доработать Discovery: [что именно]
+[ ] No Go: [обоснование]
+
+Следующий шаг: [Gate 1 Review — дата]`
+  },
+  adr: {
+    name: 'ADR — Architecture Decision',
+    stage: 's1',
+    stageLabel: 'О·1 Discovery',
+    icon: '🏗️',
+    desc: 'Architecture Decision Record — фиксация ключевых технических решений.',
+    content: `ARCHITECTURE DECISION RECORD
+═══════════════════════════════════
+ADR-[номер]: [Заголовок решения]
+Статус: [ ] Proposed  [x] Accepted  [ ] Deprecated
+Дата: [ДД.ММ.ГГГГ]   Автор: [Tech Lead]
+Продукт: [Название]
+
+КОНТЕКСТ
+[Описание проблемы или требования,
+ которое нужно решить технически.
+ Какие ограничения и требования?]
+
+РАССМОТРЕННЫЕ ВАРИАНТЫ
+
+Вариант A: [Название]
+  Описание: [...]
+  + Плюсы: [...]
+  — Минусы: [...]
+
+Вариант B: [Название]
+  Описание: [...]
+  + Плюсы: [...]
+  — Минусы: [...]
+
+Вариант C (если есть): [Название]
+  [...]
+
+ПРИНЯТОЕ РЕШЕНИЕ
+Выбран вариант [A/B] потому что:
+[Обоснование выбора относительно
+ требований и ограничений]
+
+ПОСЛЕДСТВИЯ
+Положительные:
+— [...]
+Отрицательные / риски:
+— [...]
+Технический долг (если есть):
+— [...]
+
+АЛЬТЕРНАТИВЫ ОТКЛОНЕНЫ
+[Краткое обоснование почему
+ другие варианты не выбраны]
+
+Связанные ADR: [номера]
+Ревьюеры: [Имена]`
+  },
+  prd: {
+    name: 'PRD / Product Requirements',
+    stage: 's2',
+    stageLabel: 'О·2 MVP',
+    icon: '📄',
+    desc: 'Product Requirements Document — полное описание требований перед разработкой.',
+    content: `PRODUCT REQUIREMENTS DOCUMENT
+═══════════════════════════════════
+Продукт: [Название]
+Версия: 1.0   Дата: [ДД.ММ.ГГГГ]
+PM: [Имя]   Tech Lead: [Имя]
+Discovery Report: [ссылка]
+
+1. КОНТЕКСТ И ЦЕЛИ
+Что строим: [1-2 предложения]
+Связь с Discovery: [ссылка на отчёт]
+
+Цели MVP:
+— Цель 1: [метрика — цель — срок]
+— Цель 2: [метрика — цель — срок]
+
+Out of scope (что НЕ делаем в MVP):
+— [...]
+
+2. ПОЛЬЗОВАТЕЛИ
+Основная персона: [описание]
+Основной сценарий (happy path):
+[Краткое описание]
+
+3. ФУНКЦИОНАЛЬНЫЕ ТРЕБОВАНИЯ
+
+Epic 1: [Название]
+US-001: Как [роль], я хочу [действие],
+        чтобы [ценность]
+  DoD: [ ] Критерий 1  [ ] Критерий 2
+  AC:  [ ] Условие 1   [ ] Условие 2
+
+US-002: [...]
+
+Epic 2: [Название]
+[...]
+
+4. НЕФУНКЦИОНАЛЬНЫЕ ТРЕБОВАНИЯ
+— Производительность: p95 latency < 500ms
+— Доступность: Uptime ≥ 99.5%
+— Безопасность: [требования ИБ]
+— Масштабируемость: [нагрузка]
+
+5. ИНТЕГРАЦИИ
+| Система | Тип  | Описание     |
+|---------|------|--------------|
+| [API X] | REST | [зачем]      |
+
+6. МЕТРИКИ ЗАПУСКА
+— KPI 1: база [X] → цель [Y] → срок [Z]
+— KPI 2: [...]
+
+7. TIMELINE
+Gate 1: [дата]
+Sprint 0: [даты]
+Sprint 1-N: [даты]
+Gate 2 (MVP Release): [дата]`
+  },
+  'gate-review': {
+    name: 'Gate Review — презентация',
+    stage: 'all-gates',
+    stageLabel: 'Все Gate',
+    icon: '🚦',
+    desc: 'Структура презентации для Gate-условий — для Gate 0, 1, 2, 3, 4.',
+    content: `GATE REVIEW — СТРУКТУРА ПРЕЗЕНТАЦИИ
+═══════════════════════════════════
+Продукт: [Название]   Gate: [0/1/2/3/4]
+Дата: [ДД.ММ.ГГГГ]   Ведущий: [PM]
+Аудитория: [PMO / Комитет / CPO+CFO]
+
+СЛАЙД 1 — ПРОБЛЕМА (2 мин)
+· Проблема одним предложением
+· Кто страдает + масштаб (данные)
+· Почему решаем сейчас
+
+СЛАЙД 2 — РЕШЕНИЕ (3 мин)
+· Концепция решения (что делаем)
+· Ключевые функции MVP (топ-3)
+· Демо / прототип (если есть)
+
+СЛАЙД 3 — БИЗНЕС-КЕЙС (2 мин)
+· Ожидаемый эффект: метрики + цели
+· Связь с OKR компании
+· ROI / P&L (для Gate 1 и выше)
+
+СЛАЙД 4 — ПЛАН И РЕСУРСЫ (2 мин)
+· Сроки по стадиям (диаграмма)
+· Команда: роли, FTE
+· Бюджет (диапазон или точно)
+
+СЛАЙД 5 — РИСКИ (2 мин)
+· Топ-3 риска
+· Митигация по каждому
+· Что нужно от Комитета
+
+СЛАЙД 6 — ЗАПРОС (1 мин)
+· Что конкретно просим
+· Требуемое решение: Go / No-Go / Доработать
+
+Q&A (10 мин)
+───────────────────────────────────
+Итого: ~12 мин + 10 мин Q&A = 22 мин
+Регламент: строго соблюдать тайминг`
+  },
+  sprint: {
+    name: 'Sprint Planning',
+    stage: 's2',
+    stageLabel: 'О·2 MVP',
+    icon: '⚡',
+    desc: 'Шаблон повестки и артефактов для планирования спринта.',
+    content: `SPRINT PLANNING
+═══════════════════════════════════
+Дата: [ДД.ММ.ГГГГ]
+Продукт: [Название]
+Спринт №: [N]   Длительность: 2 нед
+Velocity (прошлый спринт): [N SP]
+Capacity (этот спринт): [N SP]
+
+1. ЦЕЛЬ СПРИНТА (Sprint Goal)
+[Одно предложение: что главное
+ должно быть готово к концу спринта]
+
+Критерий достижения: [Измеримо]
+
+2. ЗАДАЧИ В СПРИНТЕ
+| ID     | Название      | Эпик   | SP | Кто |
+|--------|---------------|--------|----|-----|
+| US-001 | [Заголовок]   | [Эпик] | 3  | Dev |
+| BUG-02 | [Баг]         | —      | 1  | Dev |
+| US-003 | [Заголовок]   | [Эпик] | 5  | Dev |
+
+Итого SP: [N]   Capacity: [N]
+
+3. DoR ПРОВЕРКА (до взятия в спринт)
+[ ] Задача понята командой
+[ ] Acceptance Criteria описаны
+[ ] Зависимости разблокированы
+[ ] Оценка проставлена
+[ ] Дизайн готов (если нужен)
+
+4. РИСКИ И БЛОКЕРЫ
+— [Риск 1] → митигация: [...]
+— [Блокер] → ответственный: [...]
+
+5. ДОГОВОРЁННОСТИ
+Ежедневный синк: [время]
+Демо: [дата, формат]
+Ретро: [дата, длительность]`
+  },
+  metrics: {
+    name: 'Metrics Review',
+    stage: 's3',
+    stageLabel: 'О·3 Рост',
+    icon: '📊',
+    desc: 'Квартальный отчёт по метрикам продукта — для Gate 3 и стейкхолдеров.',
+    content: `METRICS REVIEW
+═══════════════════════════════════
+Продукт: [Название]
+Период: [Квартал ГГГГ / Месяц]
+Дата: [ДД.ММ.ГГГГ]   PM: [Имя]
+
+1. КЛЮЧЕВЫЕ МЕТРИКИ
+| Метрика    | База  | Цель  | Факт  | ∆    | Статус |
+|------------|-------|-------|-------|------|--------|
+| [KPI 1]    | [X]   | [Y]   | [Z]   | [+%] | 🟢     |
+| [KPI 2]    | [X]   | [Y]   | [Z]   | [-%] | 🔴     |
+| [Retention]| [X]%  | [Y]%  | [Z]%  | [+%] | 🟡     |
+| [NPS]      | [X]   | [Y]   | [Z]   | [+]  | 🟢     |
+
+2. ЧТО СРАБОТАЛО
+— [Фича/изменение] → эффект: [+X% к метрике]
+— [A/B тест N] → победитель вариант [B]: [+X%]
+— [...]
+
+3. ЧТО НЕ СРАБОТАЛО
+— [Что пробовали] → результат: [почему не дало]
+— [A/B тест M] → нет значимого эффекта
+— [...]
+
+4. ИНСАЙТЫ ПОЛЬЗОВАТЕЛЕЙ
+[Ключевые находки из фидбека, NPS-комментариев,
+ UX-тестов, поддержки]
+
+5. ГИПОТЕЗЫ НА СЛЕДУЮЩИЙ ПЕРИОД
+| Гипотеза   | Метрика | Ожидание | Приоритет |
+|------------|---------|----------|-----------|
+| [Г1]       | [M]     | [+X%]    | P1        |
+| [Г2]       | [M]     | [+X%]    | P2        |
+
+6. GATE 3 ЧЕКЛИСТ
+[ ] PMF достигнут (Retention D30 ≥ [N]%)
+[ ] NPS ≥ [цель]
+[ ] CAC < LTV подтверждено
+[ ] Payback Period < 12 мес
+[ ] Команда роста сформирована`
+  }
+};
+
+// ══ RENDER TEMPLATES ══
+function renderTmpls(filter) {
+  const grid = document.getElementById('tmpl-grid');
+  grid.innerHTML = '';
+  Object.entries(TMPLS).forEach(([key, t]) => {
+    const show = filter === 'all' || t.stage === filter || (filter === 'all-gates' && t.stage === 'all-gates');
+    if (!show) return;
+    const stageCls = t.stage === 'all-gates' ? 's-gate' : t.stage;
+    const stageColors = {
+      s0: {c:'var(--c0)',b:'var(--c0-border)',bg:'var(--c0-dim)',icon:'rgba(139,139,174,0.15)'},
+      s1: {c:'var(--c1)',b:'var(--c1-border)',bg:'var(--c1-dim)',icon:'rgba(123,47,255,0.15)'},
+      s2: {c:'var(--c2)',b:'var(--c2-border)',bg:'var(--c2-dim)',icon:'rgba(0,212,180,0.12)'},
+      s3: {c:'var(--c3)',b:'var(--c3-border)',bg:'var(--c3-dim)',icon:'rgba(255,45,138,0.12)'},
+      's-gate': {c:'var(--amber)',b:'var(--amber-border)',bg:'var(--amber-dim)',icon:'rgba(255,184,48,0.12)'}
+    };
+    const sc = stageColors[stageCls] || stageColors['s1'];
+    grid.innerHTML += `
+      <div class="tmpl-card" onclick="openTmpl('${key}')">
+        <div class="tmpl-card-top">
+          <div class="tmpl-card-icon" style="background:${sc.icon};">${t.icon}</div>
+          <span class="tmpl-stage-badge" style="color:${sc.c};background:${sc.bg};border-color:${sc.b};">${t.stageLabel}</span>
+        </div>
+        <div class="tmpl-card-name">${t.name}</div>
+        <div class="tmpl-card-desc">${t.desc}</div>
+        <button class="tmpl-open-btn" onclick="event.stopPropagation();openTmpl('${key}')">Открыть шаблон →</button>
+      </div>`;
+  });
+}
+renderTmpls('all');
+
+function filterTmpls(filter, btn) {
+  document.querySelectorAll('.tmpl-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTmpls(filter);
+}
+
+// ══ TEMPLATE MODAL ══
+function openTmpl(key) {
+  const t = TMPLS[key];
+  if (!t) return;
+  document.getElementById('modal-tmpl-title').textContent = t.name;
+  document.getElementById('modal-tmpl-content').textContent = t.content;
+  document.getElementById('tmpl-modal').classList.add('open');
+  document.getElementById('copy-toast').classList.remove('show');
+}
+function closeTmplModal(e) {
+  if (!e || e.target === document.getElementById('tmpl-modal')) {
+    document.getElementById('tmpl-modal').classList.remove('open');
+  }
+}
+function copyTmplContent() {
+  const text = document.getElementById('modal-tmpl-content').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const t = document.getElementById('copy-toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  });
+}
+
+// ══ LIFECYCLE FLOW CLICK ══
+// lc-step clicks already wired via onclick in HTML
+</script>
+</body>
+</html>

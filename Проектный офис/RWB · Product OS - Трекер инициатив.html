@@ -387,6 +387,7 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 header.ecotech-orig{top:44px!important;}
 .app{height:calc(100vh - 96px)!important;}
 </style>
+  <script src="../icons.js"></script>
   <script src="../platform.js"></script>
 </head>
 <body>
@@ -412,6 +413,7 @@ header.ecotech-orig{top:44px!important;}
     <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук (G0–G5)</a>
     <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html" class="en-active">Трекер инициатив</a>
     <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
+    <a href="../Фреймворк/framework-lite.html">Framework Lite</a>
     <a href="../Продукту/strategy.html">Стратегическое планирование</a>
       </div>
     </div>
@@ -423,10 +425,10 @@ header.ecotech-orig{top:44px!important;}
   <div class="logo"><b>RWB</b> · Product OS</div>
   <div class="htitle">Реестр продуктов &amp; эпиков</div>
   <div class="tabs">
-    <button class="tab active" onclick="switchTab(&#39;portfolio&#39;,this)">🗂 Портфель</button>
-    <button class="tab" onclick="switchTab(&#39;backlog&#39;,this)">📋 Беклог</button>
-    <button class="tab" onclick="switchTab(&#39;tracker&#39;,this)">📊 Трекер</button>
-    <button class="tab" onclick="switchTab(&#39;goals&#39;,this)">🎯 Цели</button>
+    <button class="tab active" onclick="switchTab(&#39;portfolio&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Портфель</button>
+    <button class="tab" onclick="switchTab(&#39;backlog&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clipboard"/></svg> Беклог</button>
+    <button class="tab" onclick="switchTab(&#39;tracker&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-trending-up"/></svg> Трекер</button>
+    <button class="tab" onclick="switchTab(&#39;goals&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цели</button>
   </div>
 </header>
 
@@ -455,31 +457,31 @@ header.ecotech-orig{top:44px!important;}
     <div class="sdiv"></div>
     <div class="slabel">Тип эпика</div>
     <button class="fbtn active" onclick="setF(&#39;track&#39;,&#39;all&#39;,this)"><span>Все типы</span></button>
-    <button class="fbtn" onclick="setF(&#39;track&#39;,&#39;discovery&#39;,this)"><span>🔍 Discovery</span></button>
-    <button class="fbtn" onclick="setF(&#39;track&#39;,&#39;delivery&#39;,this)"><span>🚀 Delivery</span></button>
+    <button class="fbtn" onclick="setF(&#39;track&#39;,&#39;discovery&#39;,this)"><span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></button>
+    <button class="fbtn" onclick="setF(&#39;track&#39;,&#39;delivery&#39;,this)"><span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></button>
     <div class="sdiv"></div>
     <div class="slabel">Категория</div>
     <button class="fbtn active" onclick="setF(&#39;cat&#39;,&#39;all&#39;,this)"><span>Все</span><span class="fcount" id="fc-all"></span></button>
-    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;design&#39;,this)"><span>🎨 Дизайн &amp; UX</span><span class="fcount" id="fc-design"></span></button>
-    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;feature&#39;,this)"><span>⚡ Новые фичи</span><span class="fcount" id="fc-feature"></span></button>
-    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;tooling&#39;,this)"><span>🔧 Инструменты</span><span class="fcount" id="fc-tooling"></span></button>
-    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;process&#39;,this)"><span>📋 Процессы</span><span class="fcount" id="fc-process"></span></button>
-    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;content&#39;,this)"><span>📄 Контент</span><span class="fcount" id="fc-content"></span></button>
-    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;infra&#39;,this)"><span>🏗 Инфра</span><span class="fcount" id="fc-infra"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;design&#39;,this)"><span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-palette"/></svg> Дизайн &amp; UX</span><span class="fcount" id="fc-design"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;feature&#39;,this)"><span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-zap"/></svg> Новые фичи</span><span class="fcount" id="fc-feature"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;tooling&#39;,this)"><span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-wrench"/></svg> Инструменты</span><span class="fcount" id="fc-tooling"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;process&#39;,this)"><span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clipboard"/></svg> Процессы</span><span class="fcount" id="fc-process"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;content&#39;,this)"><span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-file-text"/></svg> Контент</span><span class="fcount" id="fc-content"></span></button>
+    <button class="fbtn" onclick="setF(&#39;cat&#39;,&#39;infra&#39;,this)"><span><svg class="ei ei-14" aria-hidden="true"><use href="#ic-package"/></svg> Инфра</span><span class="fcount" id="fc-infra"></span></button>
     <div class="sdiv"></div>
     <div class="slabel">Статус</div>
     <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;all&#39;,this)">Все</button>
-    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;backlog&#39;,this)">📥 Бэклог</button>
-    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;planned&#39;,this)">📌 Запланировано</button>
-    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;wip&#39;,this)">🔄 В работе</button>
-    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;done&#39;,this)">✅ Готово</button>
+    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;backlog&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</button>
+    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;planned&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Запланировано</button>
+    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;wip&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-refresh"/></svg> В работе</button>
+    <button class="fbtn" onclick="setF(&#39;status&#39;,&#39;done&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-check-circle"/></svg> Готово</button>
     <div class="sdiv"></div>
     <div class="slabel">Аудитория</div>
     <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;all&#39;,this)">Все</button>
-    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;PM&#39;,this)">🎯 PM / PO</button>
-    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;UX&#39;,this)">🎨 UX / Design</button>
-    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;TL&#39;,this)">🔧 Tech Lead</button>
-    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;PMO&#39;,this)">📋 PMO</button>
+    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;PM&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> PM / PO</button>
+    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;UX&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-palette"/></svg> UX / Design</button>
+    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;TL&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-wrench"/></svg> Tech Lead</button>
+    <button class="fbtn" onclick="setF(&#39;audience&#39;,&#39;PMO&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clipboard"/></svg> PMO</button>
     <div class="sdiv"></div>
     <div class="slabel">Сортировка</div>
     <div class="sort-row">
@@ -506,8 +508,8 @@ header.ecotech-orig{top:44px!important;}
       <div class="pcard-head" onclick="togglePC(&#39;PR01&#39;)">
         <div class="pmeta">
           <span class="pid">PR01</span>
-          <span class="sdot st-wip">🔄 В работе</span>
-          <span class="gbadge g4">🚀 G4 · Запуск</span>
+          <span class="sdot st-wip"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-refresh"/></svg> В работе</span>
+          <span class="gbadge g4"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> G4 · Запуск</span>
           <span class="player">Уровень 0 — Фундамент</span>
         </div>
         <div class="pname">Продуктовый фреймворк</div>
@@ -532,77 +534,77 @@ header.ecotech-orig{top:44px!important;}
         <div class="ilist"><div class="irow" onclick="goEdit(&#39;C04&#39;)">
         <div class="iid">C04</div>
         <div><div class="iname">Принципы Product OS</div><div class="isub">6 принципов: Ценность до кода, Скорость через ясност…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">360.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;C02&#39;)">
         <div class="iid">C02</div>
         <div><div class="iname">Release Notes шаблон</div><div class="isub">Интерактивный шаблон: версия, что изменилось, rollba…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">162.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;C01&#39;)">
         <div class="iid">C01</div>
         <div><div class="iname">Расширенный глоссарий (60+ терминов)</div><div class="isub">MoSCoW, JTBD, LTV, CAC, Churn, SaaS-метрики, DevOps …</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">150.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;C05&#39;)">
         <div class="iid">C05</div>
         <div><div class="iname">Роли и матрица RACI</div><div class="isub">Карточки ролей: PM, TL, Designer, DA, BA — обязаннос…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">147.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;C03&#39;)">
         <div class="iid">C03</div>
         <div><div class="iname">Расширенный Q&amp;A (20+ вопросов)</div><div class="isub">B2G-специфика, токсичный заказчик, когда пивотить, к…</div></div>
-        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><span class="track-d"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></div>
         <div><div class="iscore s-hi">112.5</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;P01&#39;)">
         <div class="iid">P01</div>
         <div><div class="iname">B2B/B2C/B2G ветки стадий</div><div class="isub">Специфика по сегменту на каждой стадии: B2G — юр. pr…</div></div>
-        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><span class="track-d"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></div>
         <div><div class="iscore s-hi">112.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;P05&#39;)">
         <div class="iid">P05</div>
         <div><div class="iname">Стек AS IS → TO BE (2026)</div><div class="isub">Визуализация миграции: YouTrack → собственный, Confl…</div></div>
-        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><span class="track-d"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></div>
         <div><div class="iscore s-hi">72.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;P04&#39;)">
         <div class="iid">P04</div>
         <div><div class="iname">Матрица доступов AS IS → TO BE</div><div class="isub">Интерактивная матрица доступов к инструментам по рол…</div></div>
-        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><span class="track-d"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></div>
         <div><div class="iscore s-hi">66.7</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;P03&#39;)">
         <div class="iid">P03</div>
         <div><div class="iname">Ретроспектива шаблон</div><div class="isub">Онлайн-ретро: Stop/Start/Continue + Action items с о…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">60.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;P02&#39;)">
         <div class="iid">P02</div>
         <div><div class="iname">DoR/DoD конструктор</div><div class="isub">Интерактивный редактор Definition of Ready/Done под …</div></div>
-        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><span class="track-d"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></div>
         <div><div class="iscore s-hi">58.8</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;P06&#39;)">
         <div class="iid">P06</div>
         <div><div class="iname">Kill-условия конфигуратор</div><div class="isub">Кастомные kill-условия под каждый продукт, пороги No…</div></div>
-        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><span class="track-d"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></div>
         <div><div class="iscore s-hi">58.8</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div></div>
       </div>
     </div><div class="pcard" id="pc-PR02">
       <div class="pcard-head" onclick="togglePC(&#39;PR02&#39;)">
         <div class="pmeta">
           <span class="pid">PR02</span>
-          <span class="sdot st-wip">🔄 В работе</span>
-          <span class="gbadge g3">⚙️ G3 · Разработка</span>
+          <span class="sdot st-wip"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-refresh"/></svg> В работе</span>
+          <span class="gbadge g3"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-settings"/></svg> G3 · Разработка</span>
           <span class="player">Уровень 1 — Команды</span>
         </div>
         <div class="pname">Хендбук для руководителей</div>
@@ -627,83 +629,83 @@ header.ecotech-orig{top:44px!important;}
         <div class="ilist"><div class="irow" onclick="goEdit(&#39;D02&#39;)">
         <div class="iid">D02</div>
         <div><div class="iname">Корпоративная дизайн-система RWB</div><div class="isub">Шрифты Unbounded+Golos Text, тёмная тема, корп. икон…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">129.6</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+        <div style="text-align:right"><span class="ist st-planned"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Запланировано</span></div>
       </div><div class="irow" onclick="goEdit(&#39;T02&#39;)">
         <div class="iid">T02</div>
         <div><div class="iname">PDF-экспорт корпоративный</div><div class="isub">A4 print-стили, корп. шапка/подвал, Product ID → PDF…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">110.3</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+        <div style="text-align:right"><span class="ist st-planned"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Запланировано</span></div>
       </div><div class="irow" onclick="goEdit(&#39;T06&#39;)">
         <div class="iid">T06</div>
         <div><div class="iname">Поиск по всему handbook</div><div class="isub">Полнотекстовый поиск по всем разделам. Ctrl+K / ⌘K б…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">94.5</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;F03&#39;)">
         <div class="iid">F03</div>
         <div><div class="iname">PnL шаблон и финансовая модель</div><div class="isub">Монетизация, прогноз доходов, расходы, auto-расчёт м…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">89.6</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+        <div style="text-align:right"><span class="ist st-planned"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Запланировано</span></div>
       </div><div class="irow" onclick="goEdit(&#39;T05&#39;)">
         <div class="iid">T05</div>
         <div><div class="iname">Мастер настройки нового продукта</div><div class="isub">Step-by-step онбординг: создать → бриф → команда → R…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">89.6</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;D05&#39;)">
         <div class="iid">D05</div>
         <div><div class="iname">Тёмная/светлая тема</div><div class="isub">Toggle с сохранением. Светлая — для печати, тёмная —…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">60.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;F08&#39;)">
         <div class="iid">F08</div>
         <div><div class="iname">CustDev трекер интервью</div><div class="isub">Карточки интервью, инсайты, гипотезы, статус подтвер…</div></div>
-        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><span class="track-d"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></div>
         <div><div class="iscore s-hi">58.8</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;D06&#39;)">
         <div class="iid">D06</div>
         <div><div class="iname">Анимации и микроинтеракции</div><div class="isub">Motion design: переходы между разделами, hover-анима…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">50.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;D04&#39;)">
         <div class="iid">D04</div>
         <div><div class="iname">Адаптивная мобильная версия</div><div class="isub">Bottom nav, swipe-жесты, читаемые карточки на 360px</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">48.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;F12&#39;)">
         <div class="iid">F12</div>
         <div><div class="iname">Сравнение конкурентов (матрица)</div><div class="isub">Интерактивная таблица: конкуренты, критерии, оценки,…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">42.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;F11&#39;)">
         <div class="iid">F11</div>
         <div><div class="iname">Роадмап продукта</div><div class="isub">Now/Next/Later, эпики, релизы, зависимости. Экспорт …</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">36.8</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;F10&#39;)">
         <div class="iid">F10</div>
         <div><div class="iname">A/B тест трекер</div><div class="isub">Гипотеза, метрика, аудитория, статус, результат. Инт…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">35.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div></div>
       </div>
     </div><div class="pcard" id="pc-PR03">
       <div class="pcard-head" onclick="togglePC(&#39;PR03&#39;)">
         <div class="pmeta">
           <span class="pid">PR03</span>
-          <span class="sdot st-wip">🔄 В работе</span>
-          <span class="gbadge g3">⚙️ G3 · Разработка</span>
+          <span class="sdot st-wip"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-refresh"/></svg> В работе</span>
+          <span class="gbadge g3"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-settings"/></svg> G3 · Разработка</span>
           <span class="player">Уровень 3 — Рост</span>
         </div>
         <div class="pname">Лендинг для бизнеса</div>
@@ -728,23 +730,23 @@ header.ecotech-orig{top:44px!important;}
         <div class="ilist"><div class="irow" onclick="goEdit(&#39;D01&#39;)">
         <div class="iid">D01</div>
         <div><div class="iname">Орбитальная визуализация стадий</div><div class="isub">Карта орбит: звезда WB в центре, продукты на орбитах…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">96.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+        <div style="text-align:right"><span class="ist st-planned"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Запланировано</span></div>
       </div><div class="irow" onclick="goEdit(&#39;D03&#39;)">
         <div class="iid">D03</div>
         <div><div class="iname">UX-кейсы и интерактивные сценарии</div><div class="isub">Интерактивные примеры как работает фреймворк на реал…</div></div>
-        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><span class="track-d"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></div>
         <div><div class="iscore s-hi">68.6</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div></div>
       </div>
     </div><div class="pcard" id="pc-PR04">
       <div class="pcard-head" onclick="togglePC(&#39;PR04&#39;)">
         <div class="pmeta">
           <span class="pid">PR04</span>
-          <span class="sdot st-planned">📌 Запланировано</span>
-          <span class="gbadge g1">🔍 G1 · Концепция</span>
+          <span class="sdot st-planned"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Запланировано</span>
+          <span class="gbadge g1"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> G1 · Концепция</span>
           <span class="player">Уровень 2 — Управление</span>
         </div>
         <div class="pname">Трекер инициатив (Shiva/WB)</div>
@@ -769,53 +771,53 @@ header.ecotech-orig{top:44px!important;}
         <div class="ilist"><div class="irow" onclick="goEdit(&#39;F06&#39;)">
         <div class="iid">F06</div>
         <div><div class="iname">Уведомления / Алерты по датам</div><div class="isub">Бейдж ⚠️ если дата комитета &lt; 3 дней. Напоминание о …</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">126.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;T04&#39;)">
         <div class="iid">T04</div>
         <div><div class="iname">Экспорт в Confluence / Wiki</div><div class="isub">Конвертация Product ID / Gate отчёта в Confluence-ра…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">68.6</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;I03&#39;)">
         <div class="iid">I03</div>
         <div><div class="iname">PWA — установка как приложение</div><div class="isub">Оффлайн-режим, установка на рабочий стол/телефон, pu…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">43.8</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;T01&#39;)">
         <div class="iid">T01</div>
         <div><div class="iname">Интеграция с YouTrack / трекерами</div><div class="isub">Маппинг статусов Gate поверх YouTrack, авто-обновлен…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">40.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;T03&#39;)">
         <div class="iid">T03</div>
         <div><div class="iname">Автосохранение в cloud</div><div class="isub">JSON API или Google Sheets. Синхронизация между поль…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">40.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;I01&#39;)">
         <div class="iid">I01</div>
         <div><div class="iname">Аутентификация и мульти-пользователь</div><div class="isub">SSO / корп. аккаунт, разные пространства для команд,…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">25.2</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;I02&#39;)">
         <div class="iid">I02</div>
         <div><div class="iname">API для интеграций (REST)</div><div class="isub">Чтение/запись: статусы Gate, метрики здоровья, реест…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">24.9</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div></div>
       </div>
     </div><div class="pcard" id="pc-PR05">
       <div class="pcard-head" onclick="togglePC(&#39;PR05&#39;)">
         <div class="pmeta">
           <span class="pid">PR05</span>
-          <span class="sdot st-planned">📌 Запланировано</span>
-          <span class="gbadge g1">🔍 G1 · Концепция</span>
+          <span class="sdot st-planned"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Запланировано</span>
+          <span class="gbadge g1"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> G1 · Концепция</span>
           <span class="player">Уровень 2 — Управление</span>
         </div>
         <div class="pname">Реестр целей и инициатив</div>
@@ -840,35 +842,35 @@ header.ecotech-orig{top:44px!important;}
         <div class="ilist"><div class="irow" onclick="goEdit(&#39;F02&#39;)">
         <div class="iid">F02</div>
         <div><div class="iname">PMO Реестр инициатив</div><div class="isub">Единый реестр: очередь на скрининг, R/ICE скоринг, с…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">108.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+        <div style="text-align:right"><span class="ist st-planned"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Запланировано</span></div>
       </div><div class="irow" onclick="goEdit(&#39;F05&#39;)">
         <div class="iid">F05</div>
         <div><div class="iname">Product Health Dashboard</div><div class="isub">Еженедельный дашборд для Комитета: North Star, Reten…</div></div>
-        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><span class="track-d"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></div>
         <div><div class="iscore s-hi">74.7</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;F04&#39;)">
         <div class="iid">F04</div>
         <div><div class="iname">OKR Планировщик</div><div class="isub">Дерево: Цели → Департамент → Инициативы → Продукты. …</div></div>
-        <div><span class="track-d">🔍 Discovery</span></div>
+        <div><span class="track-d"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</span></div>
         <div><div class="iscore s-hi">64.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;F09&#39;)">
         <div class="iid">F09</div>
         <div><div class="iname">Gate Timeline — дорожная карта</div><div class="isub">Шкала всех Gate по всем продуктам: кто, когда, какой…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">49.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div></div>
       </div>
     </div><div class="pcard" id="pc-PR06">
       <div class="pcard-head" onclick="togglePC(&#39;PR06&#39;)">
         <div class="pmeta">
           <span class="pid">PR06</span>
-          <span class="sdot st-backlog">📥 Бэклог</span>
-          <span class="gbadge g0">💡 G0 · Идея</span>
+          <span class="sdot st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span>
+          <span class="gbadge g0"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-lightbulb"/></svg> G0 · Идея</span>
           <span class="player">Уровень 3 — Рост</span>
         </div>
         <div class="pname">Корпоративный ProductHunt</div>
@@ -893,15 +895,15 @@ header.ecotech-orig{top:44px!important;}
         <div class="ilist"><div class="irow" onclick="goEdit(&#39;F01&#39;)">
         <div class="iid">F01</div>
         <div><div class="iname">ProductHunt витрина</div><div class="isub">Лендинги продуктов, апвоуты, рейтинг популярности, к…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">81.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-planned">📌 Запланировано</span></div>
+        <div style="text-align:right"><span class="ist st-planned"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Запланировано</span></div>
       </div><div class="irow" onclick="goEdit(&#39;F07&#39;)">
         <div class="iid">F07</div>
         <div><div class="iname">Профиль команды продукта</div><div class="isub">PM, TL, дизайнер, DA, контакты, аватары, роли. Клика…</div></div>
-        <div><span class="track-v">🚀 Delivery</span></div>
+        <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Delivery</span></div>
         <div><div class="iscore s-hi">72.0</div><div class="iscl">RICE</div></div>
-        <div style="text-align:right"><span class="ist st-backlog">📥 Бэклог</span></div>
+        <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div></div>
       </div>
     </div></div>
@@ -929,7 +931,7 @@ header.ecotech-orig{top:44px!important;}
       <div class="leg-dot" style="background:#EF4444"></div>PR06 · Корпоративный ProductHunt
     </div></div>
       <div class="bltop">
-        <input class="search-inp" id="bl-q" type="text" placeholder="🔍 Поиск…" oninput="renderBL()">
+        <input class="search-inp" id="bl-q" type="text" placeholder="Поиск…" oninput="renderBL()">
         <div style="margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted)" id="bl-cnt"></div>
       </div>
       <div class="summary" id="summary"></div>
@@ -940,7 +942,7 @@ header.ecotech-orig{top:44px!important;}
     <!-- GOALS -->
     <div id="pg-goals" style="display:none">
       <div class="goals-header">
-        <h2>🎯 Реестр целей</h2>
+        <h2><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Реестр целей</h2>
         <button class="btn-add-goal" onclick="addGoal()">+ Добавить цель</button>
       </div>
       <div id="goals-list"></div>
@@ -949,10 +951,10 @@ header.ecotech-orig{top:44px!important;}
     <!-- TRACKER -->
     <div id="pg-tracker" style="display:none">
       <div class="role-switcher">
-        <button class="rbtn active" onclick="switchRole(&#39;pm&#39;,this)">🎯 PM — Мои эпики</button>
-        <button class="rbtn" onclick="switchRole(&#39;pmo&#39;,this)">📋 PMO — Портфель</button>
-        <button class="rbtn" onclick="switchRole(&#39;cpo&#39;,this)">🔭 CPO — Стратегия</button>
-        <button class="rbtn" onclick="switchRole(&#39;ceo&#39;,this)">👤 CEO — Дашборд</button>
+        <button class="rbtn active" onclick="switchRole(&#39;pm&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> PM — Мои эпики</button>
+        <button class="rbtn" onclick="switchRole(&#39;pmo&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clipboard"/></svg> PMO — Портфель</button>
+        <button class="rbtn" onclick="switchRole(&#39;cpo&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-send"/></svg> CPO — Стратегия</button>
+        <button class="rbtn" onclick="switchRole(&#39;ceo&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-user"/></svg> CEO — Дашборд</button>
       </div>
       <div id="trk-content"></div>
     </div>
@@ -969,21 +971,21 @@ header.ecotech-orig{top:44px!important;}
         <button class="ep-tab active" id="ept-prd" onclick="switchEPTab('prd')">PRD</button>
         <button class="ep-tab" id="ept-rice" onclick="switchEPTab('rice')">RICE</button>
       </div>
-      <button class="ep-close" onclick="closeEP()">✕</button>
+      <button class="ep-close" onclick="closeEP()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
     </div>
 
     <!-- PRD Tab Panel -->
     <div class="ep-tab-panel active" id="ep-panel-prd">
       <div class="ep-body">
         <div class="ep-group">
-          <div class="ep-lbl">🎯 Цель</div>
+          <div class="ep-lbl"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цель</div>
           <select class="ep-select" id="ep-goal-sel" onchange="onGoalSelect()">
             <option value="">— Без цели —</option>
           </select>
           <div id="goal-preview" class="goal-preview" style="display:none"></div>
         </div>
         <div class="ep-group">
-          <div class="ep-lbl">🗺 Инициатива</div>
+          <div class="ep-lbl"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Инициатива</div>
           <select class="ep-select" id="ep-epic-sel">
             <option value="">— Без инициативы —</option>
           </select>
@@ -1027,14 +1029,14 @@ header.ecotech-orig{top:44px!important;}
           <div class="ep-lbl">Рекомендация</div>
           <select class="ep-select" id="prd-recommend">
             <option value="">—</option>
-            <option value="go">🟢 Go</option>
-            <option value="no-go">🔴 No-Go</option>
-            <option value="revise">🔁 На доработку</option>
+            <option value="go">Go</option>
+            <option value="no-go">No-Go</option>
+            <option value="revise">На доработку</option>
           </select>
         </div>
       </div>
       <div class="ep-foot">
-        <button class="btn-save" id="btn-save-prd" onclick="savePRD()">💾 Сохранить PRD</button>
+        <button class="btn-save" id="btn-save-prd" onclick="savePRD()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить PRD</button>
       </div>
     </div>
 
@@ -1046,13 +1048,13 @@ header.ecotech-orig{top:44px!important;}
           <div class="score-preview-lbl">(R × I × C) / E</div>
         </div>
         <div class="ep-group">
-          <div class="ep-lbl">📡 Reach — охват</div>
+          <div class="ep-lbl"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-send"/></svg> Reach — охват</div>
           <div class="ep-row"><span class="ep-key">R</span><input class="ep-slider" type="range" id="ep-r" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-r-v">5</span></div>
-          <div class="ep-lbl" style="margin-top:4px">💥 Impact — влияние</div>
+          <div class="ep-lbl" style="margin-top:4px"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-zap"/></svg> Impact — влияние</div>
           <div class="ep-row"><span class="ep-key">I</span><input class="ep-slider" type="range" id="ep-i" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-i-v">5</span></div>
-          <div class="ep-lbl" style="margin-top:4px">🎯 Confidence — уверенность</div>
+          <div class="ep-lbl" style="margin-top:4px"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-check-circle"/></svg> Confidence — уверенность</div>
           <div class="ep-row"><span class="ep-key">C</span><input class="ep-slider" type="range" id="ep-c" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-c-v">5</span></div>
-          <div class="ep-lbl" style="margin-top:4px">⚙️ Effort — трудозатраты</div>
+          <div class="ep-lbl" style="margin-top:4px"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-settings"/></svg> Effort — трудозатраты</div>
           <div class="ep-row"><span class="ep-key">E</span><input class="ep-slider" type="range" id="ep-e" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-e-v">5</span></div>
         </div>
         <div class="ep-group">
@@ -1062,17 +1064,17 @@ header.ecotech-orig{top:44px!important;}
         <div class="ep-group">
           <div class="ep-lbl">Тип эпика</div>
           <select class="ep-select" id="ep-track">
-            <option value="delivery">🚀 Delivery — разрабатываем</option>
-            <option value="discovery">🔍 Discovery — исследуем</option>
+            <option value="delivery">Delivery — разрабатываем</option>
+            <option value="discovery">Discovery — исследуем</option>
           </select>
         </div>
         <div class="ep-group">
           <div class="ep-lbl">Статус</div>
           <select class="ep-select" id="ep-status">
-            <option value="backlog">📥 Бэклог</option>
-            <option value="planned">📌 Запланировано</option>
-            <option value="wip">🔄 В работе</option>
-            <option value="done">✅ Готово</option>
+            <option value="backlog">Бэклог</option>
+            <option value="planned">Запланировано</option>
+            <option value="wip">В работе</option>
+            <option value="done">Готово</option>
           </select>
         </div>
         <div class="ep-group">
@@ -1090,7 +1092,7 @@ header.ecotech-orig{top:44px!important;}
         </div>
       </div>
       <div class="ep-foot">
-        <button class="btn-save" id="btn-save-rice" onclick="saveEP()">💾 Сохранить</button>
+        <button class="btn-save" id="btn-save-rice" onclick="saveEP()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить</button>
       </div>
     </div>
   </div>
@@ -1100,11 +1102,11 @@ header.ecotech-orig{top:44px!important;}
 <div id="pp" class="prod-prd-panel">
   <div class="pp-head">
     <span class="pp-back" id="pp-back">← PRD продукта</span>
-    <button class="ep-close" onclick="closeProductPRD()">✕</button>
+    <button class="ep-close" onclick="closeProductPRD()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
   </div>
   <div class="pp-body">
     <div class="pp-field">
-      <label>👤 Владелец</label>
+      <label><svg class="ei ei-14" aria-hidden="true"><use href="#ic-user"/></svg> Владелец</label>
       <input type="text" id="pp-owner" placeholder="PM / CPO">
     </div>
     <div class="pp-section-label">ПРОБЛЕМА</div>
@@ -1148,7 +1150,7 @@ header.ecotech-orig{top:44px!important;}
     </div>
   </div>
   <div class="pp-foot">
-    <button class="btn-save" onclick="saveProductPRD()">💾 Сохранить PRD продукта</button>
+    <button class="btn-save" onclick="saveProductPRD()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить PRD продукта</button>
   </div>
 </div>
 
@@ -1157,7 +1159,7 @@ header.ecotech-orig{top:44px!important;}
   <div id="goal-modal">
     <div class="gm-head">
       <div class="gm-htitle">Редактирование цели</div>
-      <button class="ep-close" onclick="closeGoalModal()">✕</button>
+      <button class="ep-close" onclick="closeGoalModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
     </div>
     <div class="gm-body">
       <div class="gm-field">
@@ -1197,10 +1199,10 @@ header.ecotech-orig{top:44px!important;}
       <button class="btn-add-kr" onclick="addKRRow()">+ Добавить KR</button>
     </div>
     <div class="gm-actions">
-      <button class="gm-del-btn" id="gm-del-btn" onclick="deleteGoalConfirm()">🗑 Удалить</button>
+      <button class="gm-del-btn" id="gm-del-btn" onclick="deleteGoalConfirm()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-trash"/></svg> Удалить</button>
       <div class="gm-spacer"></div>
       <button class="gm-cancel-btn" onclick="closeGoalModal()">Отмена</button>
-      <button class="gm-save-btn" onclick="saveGoalEdit()">💾 Сохранить</button>
+      <button class="gm-save-btn" onclick="saveGoalEdit()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить</button>
     </div>
   </div>
 </div>
@@ -1210,12 +1212,12 @@ header.ecotech-orig{top:44px!important;}
 // STAGE-GATE MODEL
 // ════════════════════════════════════════════
 const STAGES = [
-  { gate:0, emoji:'💡', name:'Идея',       color:'#7A7A9D', desc:'Скрининг: гипотеза попала в очередь на оценку R/ICE.' },
-  { gate:1, emoji:'🔍', name:'Концепция',  color:'#3B82F6', desc:'Discovery: CustDev проведён, аудитория и проблема подтверждены.' },
-  { gate:2, emoji:'🛠', name:'Прототип',   color:'#7B2FFF', desc:'MVP проверен на пользователях, PMF-гипотеза сформулирована.' },
-  { gate:3, emoji:'⚙️', name:'Разработка', color:'#FFB830', desc:'PnL утверждён, команда собрана, идёт активная разработка.' },
-  { gate:4, emoji:'🚀', name:'Запуск',     color:'#34D399', desc:'Продукт доступен пользователям, KPI и метрики мониторятся.' },
-  { gate:5, emoji:'📈', name:'Масштаб',    color:'#00D4B4', desc:'Устойчивый рост, PMF найден, CAC < LTV, расширение аудитории.' },
+  { gate:0, icon:'lightbulb',   name:'Идея',       color:'#7A7A9D', desc:'Скрининг: гипотеза попала в очередь на оценку R/ICE.' },
+  { gate:1, icon:'search',      name:'Концепция',  color:'#3B82F6', desc:'Discovery: CustDev проведён, аудитория и проблема подтверждены.' },
+  { gate:2, icon:'wrench',      name:'Прототип',   color:'#7B2FFF', desc:'MVP проверен на пользователях, PMF-гипотеза сформулирована.' },
+  { gate:3, icon:'settings',    name:'Разработка', color:'#FFB830', desc:'PnL утверждён, команда собрана, идёт активная разработка.' },
+  { gate:4, icon:'rocket',      name:'Запуск',     color:'#34D399', desc:'Продукт доступен пользователям, KPI и метрики мониторятся.' },
+  { gate:5, icon:'trending-up', name:'Масштаб',    color:'#00D4B4', desc:'Устойчивый рост, PMF найден, CAC < LTV, расширение аудитории.' },
 ];
 
 // ════════════════════════════════════════════
@@ -1349,14 +1351,26 @@ let curGoalId = null;  // current goal ID for modal
 function sc(item) { return (item.r * item.i * item.c) / item.e; }
 function scClass(s) { return s > 20 ? 's-hi' : s >= 10 ? 's-mi' : 's-lo'; }
 function chipCls(s)  { return s > 20 ? 'chip-h' : s >= 10 ? 'chip-m' : 'chip-l'; }
-function prioLbl(s)  { return s > 20 ? '🟢 High' : s >= 10 ? '🟡 Med' : '🔴 Low'; }
+function prioLbl(s)  { return s > 20 ? EI.svg('check-circle',10)+' High' : s >= 10 ? EI.svg('trending-up',10)+' Med' : EI.svg('x',10)+' Low'; }
 function gateColor(g){ return (STAGES[g]||STAGES[0]).color; }
 function stageName(g){ return (STAGES[g]||STAGES[0]).name; }
 function gateClass(g){ return 'g'+g; }
 
-const CAT_LBL = { design:'🎨 Дизайн & UX', feature:'⚡ Новые фичи', tooling:'🔧 Инструменты', process:'📋 Процессы', content:'📄 Контент', infra:'🏗 Инфра' };
+const CAT_LBL = {
+  design:  EI.svg('palette',12)+' Дизайн &amp; UX',
+  feature: EI.svg('zap',12)+' Новые фичи',
+  tooling: EI.svg('wrench',12)+' Инструменты',
+  process: EI.svg('clipboard',12)+' Процессы',
+  content: EI.svg('file-text',12)+' Контент',
+  infra:   EI.svg('package',12)+' Инфра'
+};
 const ST_LBL  = { backlog:'Бэклог', planned:'Запланировано', wip:'В работе', done:'Готово' };
-const ST_ICO  = { backlog:'📥', planned:'📌', wip:'🔄', done:'✅' };
+const ST_ICO  = {
+  backlog: EI.svg('inbox',12,'ei-backlog'),
+  planned: EI.svg('map-pin',12,'ei-planned'),
+  wip:     EI.svg('refresh',12,'ei-wip'),
+  done:    EI.svg('check-circle',12,'ei-done')
+};
 const ST_CLS  = { backlog:'st-backlog', planned:'st-planned', wip:'st-wip', done:'st-done' };
 
 // ════════════════════════════════════════════
@@ -1412,8 +1426,8 @@ function renderPortfolio() {
     const mkIRow = item => {
       const s = sc(item);
       const trackHtml = item.track === 'discovery'
-        ? `<span class="track-d">🔍 Discovery</span>`
-        : `<span class="track-v">🚀 Delivery</span>`;
+        ? `<span class="track-d">${EI.svg('search',12)} Discovery</span>`
+        : `<span class="track-v">${EI.svg('rocket',12)} Delivery</span>`;
       return `<div class="irow" onclick="openPRD('${item.id}')">
         <div class="iid">${item.id}</div>
         <div><div class="iname">${item.name}</div><div class="isub">${item.desc.substring(0,52)}${item.desc.length>52?'…':''}</div></div>
@@ -1441,7 +1455,7 @@ function renderPortfolio() {
         const stCls     = epicStatusCls[epic.status] || 'backlog';
         initRows += `<div class="epic-section">
           <div class="epic-header">
-            <span class="epic-icon">🗺</span>
+            <span class="epic-icon">${EI.svg('map-pin',13)}</span>
             <span class="epic-name">${epic.title}</span>
             <span class="sdot ${ST_CLS[stCls]}" style="font-size:9px;padding:2px 6px">${epic.status}</span>
             <span class="epic-meta">G${epic.gate}</span>
@@ -1455,7 +1469,7 @@ function renderPortfolio() {
       if (noEpic.length) {
         initRows += `<div class="epic-section">
           <div class="no-epic-header epic-header">
-            <span class="epic-icon">📋</span>
+            <span class="epic-icon">${EI.svg('clipboard',13)}</span>
             <span class="epic-name">Без инициативы</span>
             <span class="epic-meta">${noEpic.length}</span>
           </div>
@@ -1471,7 +1485,7 @@ function renderPortfolio() {
         <div class="pmeta">
           <span class="pid">${p.id}</span>
           <span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span>
-          <span class="gbadge ${gateClass(p.gate)}">${stage.emoji} G${p.gate} · ${stage.name}</span>
+          <span class="gbadge ${gateClass(p.gate)}">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</span>
           <span class="player">${p.layer}</span>
         </div>
         <div class="pname">${p.name}</div>
@@ -1487,7 +1501,7 @@ function renderPortfolio() {
         <div class="pfstat"><div class="pfnum">${avg}</div><div class="pflbl">avg RICE</div></div>
         <div class="pfdiv"></div>
         <div class="chips">${topChips}</div>
-        <button class="prd-btn" onclick="event.stopPropagation();openProductPRD('${p.id}',event)">📋 PRD</button>
+        <button class="prd-btn" onclick="event.stopPropagation();openProductPRD('${p.id}',event)">${EI.svg('clipboard',14)} PRD</button>
         <button class="exbtn" onclick="togglePC('${p.id}')">Открыть ↓</button>
       </div>
       <div class="ilist-wrap">
@@ -1579,12 +1593,12 @@ function renderBL() {
   const disc = items.filter(i=>i.track==='discovery').length;
   const delv = items.filter(i=>i.track==='delivery').length;
   document.getElementById('summary').innerHTML = `
-    <div class="sum-card"><div class="sum-n" style="color:var(--green)">${high}</div><div class="sum-l">🟢 High</div></div>
-    <div class="sum-card"><div class="sum-n" style="color:var(--amber)">${mid}</div><div class="sum-l">🟡 Medium</div></div>
-    <div class="sum-card"><div class="sum-n" style="color:#FCA5A5">${low}</div><div class="sum-l">🔴 Low</div></div>
-    <div class="sum-card"><div class="sum-n" style="color:var(--teal)">${wip}</div><div class="sum-l">🔄 В работе</div></div>
-    <div class="sum-card"><div class="sum-n" style="color:#93C5FD">${disc}</div><div class="sum-l">🔍 Discovery</div></div>
-    <div class="sum-card"><div class="sum-n" style="color:#6EE7B7">${delv}</div><div class="sum-l">🚀 Delivery</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:var(--green)">${high}</div><div class="sum-l">High</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:var(--amber)">${mid}</div><div class="sum-l">Medium</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:#FCA5A5">${low}</div><div class="sum-l">Low</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:var(--teal)">${wip}</div><div class="sum-l">${EI.svg('refresh',12)} В работе</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:#93C5FD">${disc}</div><div class="sum-l">${EI.svg('search',12)} Discovery</div></div>
+    <div class="sum-card"><div class="sum-n" style="color:#6EE7B7">${delv}</div><div class="sum-l">${EI.svg('rocket',12)} Delivery</div></div>
   `;
   if (!items.length) { list.innerHTML = ''; empty.style.display='block'; return; }
   empty.style.display = 'none';
@@ -1605,8 +1619,8 @@ function renderBL() {
 function renderItem(item, rank) {
   const s = sc(item);
   const trackTag = item.track === 'discovery'
-    ? `<span class="track-d">🔍 Discovery</span>`
-    : `<span class="track-v">🚀 Delivery</span>`;
+    ? `<span class="track-d">${EI.svg('search',12)} Discovery</span>`
+    : `<span class="track-v">${EI.svg('rocket',12)} Delivery</span>`;
   return `<div class="item${editId===item.id?' editing':''}" onclick="openPRD('${item.id}')">
     <div class="item-rank">#${rank}</div>
     <div class="item-main">
@@ -1634,7 +1648,7 @@ function renderItem(item, rank) {
     </div>
     <div class="status-col">
       <span class="sdot ${ST_CLS[item.status]}">${ST_ICO[item.status]} ${ST_LBL[item.status]}</span>
-      ${item.notes?`<span style="font-size:9px;color:var(--muted)" title="${item.notes}">📝</span>`:''}
+      ${item.notes?`<span style="font-size:9px;color:var(--muted)" title="${item.notes}">${EI.svg('file-text',12)}</span>`:''}
     </div>
   </div>`;
 }
@@ -1700,7 +1714,7 @@ function renderPM() {
   </select>`;
 
   const html = `
-    <div class="role-badge">🎯 Вид PM — Эпики продукта + Gate статус</div>
+    <div class="role-badge">${EI.svg('target',14)} Вид PM — Эпики продукта + Gate статус</div>
     <div class="pm-header">
       <div style="font-size:12px;color:var(--muted);font-weight:700">Выберите продукт:</div>
       ${projectSel}
@@ -1741,7 +1755,7 @@ function renderPMProject(pid) {
 
   body.innerHTML = `
     <div class="pm-gate-card" style="border-left:3px solid ${stage.color}">
-      <div class="pm-gate-icon">${stage.emoji}</div>
+      <div class="pm-gate-icon">${EI.svg(stage.icon,28)}</div>
       <div style="flex:1">
         <div class="pm-gate-name">${p.name}</div>
         <div style="display:flex;align-items:center;gap:8px;margin:6px 0">
@@ -1755,14 +1769,14 @@ function renderPMProject(pid) {
     <div class="pm-cols">
       <div class="trk-section">
         <div class="trk-section-head">
-          <span>🔍 Discovery (${disc.length})</span>
+          <span>${EI.svg('search',14)} Discovery (${disc.length})</span>
           <span style="color:#93C5FD">Исследование</span>
         </div>
         ${disc.length ? mkItems(disc) : '<div style="font-size:11px;color:var(--muted);padding:8px 0">Нет Discovery-эпиков</div>'}
       </div>
       <div class="trk-section">
         <div class="trk-section-head">
-          <span>🚀 Delivery (${delv.length})</span>
+          <span>${EI.svg('rocket',14)} Delivery (${delv.length})</span>
           <span style="color:#6EE7B7">Разработка</span>
         </div>
         ${delv.length ? mkItems(delv) : '<div style="font-size:11px;color:var(--muted);padding:8px 0">Нет Delivery-эпиков</div>'}
@@ -1795,7 +1809,7 @@ function renderPMO() {
           </div>
         </div>
       </td>
-      <td><a class="gbadge ${gateClass(p.gate)}" href="${window.PT ? PT.buildUrl('../Фреймворк/rwb-product-os-v3.html', {orbit:p.gate}) : '#'}" style="text-decoration:none;cursor:pointer" title="Открыть орбиту ${p.gate} во Фреймворке">${stage.emoji} G${p.gate} · ${stage.name}</a></td>
+      <td><a class="gbadge ${gateClass(p.gate)}" href="${window.PT ? PT.buildUrl('../Фреймворк/rwb-product-os-v3.html', {orbit:p.gate}) : '#'}" style="text-decoration:none;cursor:pointer" title="Открыть орбиту ${p.gate} во Фреймворке">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</a></td>
       <td><div class="pmo-gate-track">${gateDots}</div></td>
       <td style="text-align:center">
         <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--teal)">${wip}</div>
@@ -1820,7 +1834,7 @@ function renderPMO() {
   const totalDelv = backlog.filter(i=>i.track==='delivery').length;
 
   return `
-    <div class="role-badge">📋 Вид PMO — Portfolio Overview + Gate Progress</div>
+    <div class="role-badge">${EI.svg('clipboard',14)} Вид PMO — Portfolio Overview + Gate Progress</div>
     <div class="kpi-strip">
       <div class="kpi"><div class="kpi-n" style="color:#fff">${PROJECTS.length}</div><div class="kpi-l">Продуктов в портфеле</div></div>
       <div class="kpi"><div class="kpi-n" style="color:var(--teal)">${totalWip}</div><div class="kpi-l">В активной разработке</div></div>
@@ -1859,7 +1873,7 @@ function renderCPO() {
     return `<div class="funnel-stage">
       <div class="funnel-n" style="color:${s.color}">${cnt}</div>
       <div class="funnel-bar" style="height:${h}px;background:${s.color};opacity:${cnt?0.7:0.15}"></div>
-      <div class="funnel-lbl">${s.emoji} G${idx}<br>${s.name}</div>
+      <div class="funnel-lbl">${EI.svg(s.icon,14)} G${idx}<br>${s.name}</div>
     </div>`;
   }).join('');
 
@@ -1880,7 +1894,7 @@ function renderCPO() {
         <div style="flex:1">
           <div class="trk-item-name">${p.name}</div>
           <div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap">
-            <span class="gbadge ${gateClass(p.gate)}">${stage.emoji} G${p.gate} · ${stage.name}</span>
+            <span class="gbadge ${gateClass(p.gate)}">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</span>
             <span style="font-size:9px;color:var(--muted)">${highItems.length} high-priority</span>
           </div>
         </div>
@@ -1897,7 +1911,7 @@ function renderCPO() {
   const risks = earlyStage.map(p => {
     const disc = backlog.filter(i=>i.project===p.id&&i.track==='discovery').length;
     return `<div class="trk-item">
-      <div style="font-size:14px">${STAGES[p.gate].emoji}</div>
+      <div style="font-size:14px">${EI.svg(STAGES[p.gate].icon,14)}</div>
       <div style="flex:1">
         <div class="trk-item-name">${p.name}</div>
         <div style="font-size:10px;color:var(--muted);margin-top:2px">G${p.gate} · ${disc} Discovery-задач в беклоге</div>
@@ -1907,7 +1921,7 @@ function renderCPO() {
   }).join('');
 
   return `
-    <div class="role-badge">🔭 Вид CPO — Стратегическое состояние портфеля</div>
+    <div class="role-badge">${EI.svg('send',14)} Вид CPO — Стратегическое состояние портфеля</div>
     <div class="divlabel">Распределение продуктов по Gate</div>
     <div class="cpo-funnel">${funnelBars}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">
@@ -1960,7 +1974,7 @@ function renderCEO() {
       <div class="ceo-pid">${p.id}</div>
       <div class="ceo-name">${p.name}</div>
       <div class="ceo-meta">
-        <span class="gbadge ${gateClass(p.gate)}">${stage.emoji} G${p.gate} · ${stage.name}</span>
+        <span class="gbadge ${gateClass(p.gate)}">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</span>
         <span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span>
       </div>
       <div class="ceo-stats">
@@ -1973,7 +1987,7 @@ function renderCEO() {
   }).join('');
 
   return `
-    <div class="role-badge">👤 Вид CEO/Business — Executive Dashboard</div>
+    <div class="role-badge">${EI.svg('user',14)} Вид CEO/Business — Executive Dashboard</div>
     <div class="kpi-strip">
       <div class="kpi"><div class="kpi-n" style="color:var(--green)">${inMarket}</div><div class="kpi-l">Продуктов запущено (G4+)</div></div>
       <div class="kpi"><div class="kpi-n" style="color:var(--amber)">${inDev}</div><div class="kpi-l">В активной разработке (G3)</div></div>
@@ -1994,7 +2008,7 @@ function renderCEO() {
               <div style="flex:1"><div class="trk-item-name">${item.name}</div>
                 <div style="font-size:9px;color:var(--muted);margin-top:1px">${proj?proj.name:'—'} · ${item.release}</div>
               </div>
-              <span class="sdot st-planned" style="flex-shrink:0;font-size:9px">📌</span>
+              <span class="sdot st-planned" style="flex-shrink:0;font-size:9px">${EI.svg('map-pin',12)}</span>
             </div>`;
           }).join('')}
         </div>
@@ -2083,7 +2097,7 @@ function saveEP() {
   if (curTab === 'backlog') renderBL();
   renderPortfolio();
   const btn = document.getElementById('btn-save-rice');
-  if (btn) { btn.textContent='✅ Сохранено!'; setTimeout(()=>btn.textContent='💾 Сохранить', 1600); }
+  if (btn) { btn.innerHTML=EI.svg('check-circle',14)+' Сохранено!'; setTimeout(()=>btn.innerHTML=EI.svg('save',14)+' Сохранить', 1600); }
 }
 
 // ════════════════════════════════════════════
@@ -2174,8 +2188,8 @@ function savePRD() {
   renderPortfolio();
   if (curTab === 'backlog') renderBL();
   const btn = document.getElementById('btn-save-prd');
-  btn.textContent = '✅ PRD сохранён!';
-  setTimeout(() => btn.textContent = '💾 Сохранить PRD', 1600);
+  btn.innerHTML = EI.svg('check-circle',14)+' PRD сохранён!';
+  setTimeout(() => btn.innerHTML = EI.svg('save',14)+' Сохранить PRD', 1600);
 }
 
 // ════════════════════════════════════════════
@@ -2193,8 +2207,8 @@ function renderGoals() {
     const goalEpics  = epics.filter(e => e.goalId === goal.id);
     const typeCls    = goal.type === 'strategic' ? 'goal-type-strategic' : 'goal-type-product';
     const statusDot  = goal.status === 'active'
-      ? '<span class="sdot st-wip" style="font-size:9px;padding:2px 7px">🔄 Активна</span>'
-      : '<span class="sdot st-backlog" style="font-size:9px;padding:2px 7px">📥 Неактивна</span>';
+      ? `<span class="sdot st-wip" style="font-size:9px;padding:2px 7px">${EI.svg('refresh',12)} Активна</span>`
+      : `<span class="sdot st-backlog" style="font-size:9px;padding:2px 7px">${EI.svg('inbox',12)} Неактивна</span>`;
     const krRows = goal.keyResults.map(kr => {
       const pct = Math.min(100, kr.target > 0 ? Math.round(kr.current / kr.target * 100) : 0);
       return `<div class="kr-row">
@@ -2223,7 +2237,7 @@ function renderGoals() {
         <div class="goal-stat">Эпиков: <b>${goalInits.length}</b></div>
         <div class="goal-stat">Инициатив: <b>${goalEpics.length}</b></div>
         <div style="flex:1"></div>
-        <button class="exbtn" onclick="openGoalEditor('${goal.id}')">✏ Редактировать</button>
+        <button class="exbtn" onclick="openGoalEditor('${goal.id}')">${EI.svg('edit',14)} Редактировать</button>
       </div>
     </div>`;
   }).join('');
@@ -2321,7 +2335,7 @@ function saveProductPRD() {
   d.timeline     = document.getElementById('pp-timeline').value;
   if (window.PT) PT.save(PT.KEY_PRODUCTS_PRD, productsPRD);
   const btn = document.querySelector('#pp .btn-save');
-  if (btn) { btn.textContent = '\u2705 PRD \u0441\u043e\u0445\u0440\u0430\u043d\u0451\u043d!'; setTimeout(() => btn.textContent = '\uD83D\uDCBE \u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c PRD \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0430', 1600); }
+  if (btn) { btn.innerHTML = EI.svg('check-circle',14)+' PRD \u0441\u043e\u0445\u0440\u0430\u043d\u0451\u043d!'; setTimeout(() => btn.innerHTML = EI.svg('save',14)+' \u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c PRD \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0430', 1600); }
 }
 
 // ════════════════════════════════════════════

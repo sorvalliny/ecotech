@@ -274,6 +274,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .kr-add-btn:hover{border-color:var(--violet);color:#C4B5FD;background:var(--vdim)}
 @media(max-width:600px){.id-status-row,.id-bottom{grid-template-columns:1fr}.sp-page{padding:20px 16px 60px}}
 </style>
+<script src="../icons.js"></script>
 <script src="../platform.js"></script>
 </head>
 <body>
@@ -301,6 +302,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук (G0–G5)</a>
         <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер инициатив</a>
         <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
+        <a href="../Фреймворк/framework-lite.html">Framework Lite</a>
       </div>
     </div>
   </div>
@@ -349,11 +351,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           <div class="id-badge-slot" id="stage-badge-slot"></div>
           <select class="id-sel" id="id-stage" onchange="onIdentityChange()">
             <option value="">— Выбрать —</option>
-            <option value="idea">💡 Идея</option>
-            <option value="mvp">🛠 MVP</option>
-            <option value="launch">🚀 Запуск</option>
-            <option value="growth">📈 Рост</option>
-            <option value="mature">🏗 Зрелость</option>
+            <option value="idea">Идея</option>
+            <option value="mvp">MVP</option>
+            <option value="launch">Запуск</option>
+            <option value="growth">Рост</option>
+            <option value="mature">Зрелость</option>
           </select>
         </div>
         <div class="id-cell">
@@ -361,9 +363,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           <div class="id-badge-slot" id="phase-badge-slot"></div>
           <select class="id-sel" id="id-phase" onchange="onIdentityChange()">
             <option value="">— Выбрать —</option>
-            <option value="discovery">🔍 Discovery</option>
-            <option value="delivery">🚀 Delivery</option>
-            <option value="growth">📈 Growth</option>
+            <option value="discovery">Discovery</option>
+            <option value="delivery">Delivery</option>
+            <option value="growth">Growth</option>
           </select>
         </div>
         <div class="id-cell">
@@ -395,7 +397,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
       <div class="id-save-row">
         <span class="id-format-hint" id="id-format-hint"></span>
-        <button class="btn-save-sm" id="id-save-btn" onclick="saveIdentity()">💾 Сохранить</button>
+        <button class="btn-save-sm" id="id-save-btn" onclick="saveIdentity()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить</button>
       </div>
     </div>
   </section>
@@ -408,7 +410,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <span class="sp-sect-num">02</span>
       <span class="sp-sect-title">Годовые цели</span>
       <span class="sp-sect-badge" id="goals-badge">0</span>
-      <button class="sp-add-btn" onclick="openGoalModal(null)">+ Добавить цель</button>
+      <button class="sp-add-btn" onclick="openGoalModal(null)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-plus"/></svg> Добавить цель</button>
     </div>
     <table class="sp-table" id="goals-table">
       <thead>
@@ -437,7 +439,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         </div>
         <div class="init-list" id="init-list-h1"></div>
         <div class="half-add-row">
-          <button class="half-add-btn" onclick="openInitModal('h1', null)">+ Добавить инициативу</button>
+          <button class="half-add-btn" onclick="openInitModal('h1', null)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-plus"/></svg> Добавить инициативу</button>
         </div>
       </div>
       <div class="half-card">
@@ -447,7 +449,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         </div>
         <div class="init-list" id="init-list-h2"></div>
         <div class="half-add-row">
-          <button class="half-add-btn" onclick="openInitModal('h2', null)">+ Добавить инициативу</button>
+          <button class="half-add-btn" onclick="openInitModal('h2', null)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-plus"/></svg> Добавить инициативу</button>
         </div>
       </div>
     </div>
@@ -477,8 +479,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <span class="sp-sect-badge" id="prd-mode-badge">Ссылка</span>
     </div>
     <div class="prd-mode-row">
-      <button class="prd-mode-btn active" id="prd-mode-link" onclick="setPRDMode('link')">🔗 Ссылка на документ</button>
-      <button class="prd-mode-btn" id="prd-mode-inline" onclick="setPRDMode('inline')">📝 Встроенный</button>
+      <button class="prd-mode-btn active" id="prd-mode-link" onclick="setPRDMode('link')">Ссылка на документ</button>
+      <button class="prd-mode-btn" id="prd-mode-inline" onclick="setPRDMode('inline')"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-pen-line"/></svg> Встроенный</button>
     </div>
     <div id="prd-content"></div>
   </section>
@@ -503,7 +505,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <span class="sp-sect-num">07</span>
       <span class="sp-sect-title">Лог изменений</span>
       <span class="sp-sect-badge" id="cl-badge">0</span>
-      <button class="sp-add-btn" onclick="openCLModal()">+ Добавить запись</button>
+      <button class="sp-add-btn" onclick="openCLModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-plus"/></svg> Добавить запись</button>
     </div>
     <table class="sp-table" id="cl-table">
       <thead>
@@ -527,7 +529,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <div class="modal-box wide" id="goal-modal">
     <div class="mhead">
       <span class="mhead-title" id="goal-modal-title">Новая цель</span>
-      <button class="mclose" onclick="closeModal()">✕</button>
+      <button class="mclose" onclick="closeModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
     </div>
     <div class="mbody">
       <div class="mfield">
@@ -589,13 +591,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
       <div class="mdivider">KEY RESULTS</div>
       <div class="kr-list-m" id="gm-kr-list"></div>
-      <button class="kr-add-btn" onclick="addKRRowM()">+ Добавить KR</button>
+      <button class="kr-add-btn" onclick="addKRRowM()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-plus"/></svg> Добавить KR</button>
     </div>
     <div class="mfoot">
-      <button class="btn-danger" id="gm-del-btn" onclick="deleteGoal()" style="display:none">🗑 Удалить</button>
+      <button class="btn-danger" id="gm-del-btn" onclick="deleteGoal()" style="display:none"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-trash"/></svg> Удалить</button>
       <div class="mfoot-space"></div>
       <button class="btn-cancel" onclick="closeModal()">Отмена</button>
-      <button class="btn-primary" onclick="saveGoal()">💾 Сохранить</button>
+      <button class="btn-primary" onclick="saveGoal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить</button>
     </div>
   </div>
 
@@ -603,7 +605,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <div class="modal-box" id="init-modal">
     <div class="mhead">
       <span class="mhead-title" id="init-modal-title">Новая инициатива</span>
-      <button class="mclose" onclick="closeModal()">✕</button>
+      <button class="mclose" onclick="closeModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
     </div>
     <div class="mbody">
       <div class="mfield">
@@ -618,9 +620,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="mfield">
           <label>Этап фреймворка</label>
           <select id="im-phase">
-            <option value="discovery">🔍 Discovery</option>
-            <option value="delivery">🚀 Delivery</option>
-            <option value="growth">📈 Growth</option>
+            <option value="discovery">Discovery</option>
+            <option value="delivery">Delivery</option>
+            <option value="growth">Growth</option>
           </select>
         </div>
       </div>
@@ -655,10 +657,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
     <div class="mfoot">
-      <button class="btn-danger" id="im-del-btn" onclick="deleteInit()" style="display:none">🗑 Удалить</button>
+      <button class="btn-danger" id="im-del-btn" onclick="deleteInit()" style="display:none"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-trash"/></svg> Удалить</button>
       <div class="mfoot-space"></div>
       <button class="btn-cancel" onclick="closeModal()">Отмена</button>
-      <button class="btn-primary" onclick="saveInit()">💾 Сохранить</button>
+      <button class="btn-primary" onclick="saveInit()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить</button>
     </div>
   </div>
 
@@ -666,7 +668,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <div class="modal-box" id="epic-modal">
     <div class="mhead">
       <span class="mhead-title" id="epic-modal-title">Новый эпик</span>
-      <button class="mclose" onclick="closeModal()">✕</button>
+      <button class="mclose" onclick="closeModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
     </div>
     <div class="mbody">
       <div class="mfield">
@@ -681,9 +683,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="mfield">
           <label>Этап</label>
           <select id="em-phase">
-            <option value="discovery">🔍 Discovery</option>
-            <option value="delivery">🚀 Delivery</option>
-            <option value="growth">📈 Growth</option>
+            <option value="discovery">Discovery</option>
+            <option value="delivery">Delivery</option>
+            <option value="growth">Growth</option>
           </select>
         </div>
       </div>
@@ -718,10 +720,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
     <div class="mfoot">
-      <button class="btn-danger" id="em-del-btn" onclick="deleteEpic()" style="display:none">🗑 Удалить</button>
+      <button class="btn-danger" id="em-del-btn" onclick="deleteEpic()" style="display:none"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-trash"/></svg> Удалить</button>
       <div class="mfoot-space"></div>
       <button class="btn-cancel" onclick="closeModal()">Отмена</button>
-      <button class="btn-primary" onclick="saveEpic()">💾 Сохранить</button>
+      <button class="btn-primary" onclick="saveEpic()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить</button>
     </div>
   </div>
 
@@ -729,7 +731,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <div class="modal-box" id="bl-modal">
     <div class="mhead">
       <span class="mhead-title" id="bl-modal-title">Новый элемент беклога</span>
-      <button class="mclose" onclick="closeModal()">✕</button>
+      <button class="mclose" onclick="closeModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
     </div>
     <div class="mbody">
       <div class="mfield">
@@ -770,10 +772,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
     <div class="mfoot">
-      <button class="btn-danger" id="blm-del-btn" onclick="deleteBLItem()" style="display:none">🗑 Удалить</button>
+      <button class="btn-danger" id="blm-del-btn" onclick="deleteBLItem()" style="display:none"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-trash"/></svg> Удалить</button>
       <div class="mfoot-space"></div>
       <button class="btn-cancel" onclick="closeModal()">Отмена</button>
-      <button class="btn-primary" onclick="saveBLItem()">💾 Сохранить</button>
+      <button class="btn-primary" onclick="saveBLItem()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить</button>
     </div>
   </div>
 
@@ -781,7 +783,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <div class="modal-box" id="cl-modal">
     <div class="mhead">
       <span class="mhead-title">Новая запись в лог</span>
-      <button class="mclose" onclick="closeModal()">✕</button>
+      <button class="mclose" onclick="closeModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
     </div>
     <div class="mbody">
       <div class="mrow2">
@@ -823,7 +825,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <div class="mfoot">
       <div class="mfoot-space"></div>
       <button class="btn-cancel" onclick="closeModal()">Отмена</button>
-      <button class="btn-primary" onclick="saveCLEntry()">💾 Добавить</button>
+      <button class="btn-primary" onclick="saveCLEntry()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Добавить</button>
     </div>
   </div>
 
@@ -979,7 +981,7 @@ function onIdentityChange() {
   renderBadgeSlot('stage-badge-slot',  stage,  STAGE_LABELS,  'badge-');
   renderBadgeSlot('phase-badge-slot',  phase,  PHASE_LABELS,  phase === 'growth' ? 'badge-growth-phase' : 'badge-');
   renderBadgeSlot('status-badge-slot', status, STATUS_LABELS, 'badge-');
-  const fmt = (stage === 'growth' || stage === 'mature') ? '✅ Полный формат' : stage ? '⚡ Упрощённый формат' : '';
+  const fmt = (stage === 'growth' || stage === 'mature') ? 'Полный формат' : stage ? 'Упрощённый формат' : '';
   const hint = document.getElementById('id-format-hint');
   if (hint) hint.textContent = fmt;
 }
@@ -1012,8 +1014,8 @@ function renderIdentity() {
   else { fb.textContent='Упрощённый'; fb.className='format-badge format-lite'; }
   // Archived banner
   const banner = document.getElementById('archived-banner');
-  if (id.status === 'closed') { banner.classList.add('show'); banner.innerHTML='🔒 Продукт закрыт. Страница в режиме просмотра.'; }
-  else if (id.status === 'paused') { banner.classList.add('show'); banner.innerHTML='⏸ Продукт на паузе. Редактирование ограничено.'; }
+  if (id.status === 'closed') { banner.classList.add('show'); banner.innerHTML='Продукт закрыт. Страница в режиме просмотра.'; }
+  else if (id.status === 'paused') { banner.classList.add('show'); banner.innerHTML='Продукт на паузе. Редактирование ограничено.'; }
   else banner.classList.remove('show');
 }
 
@@ -1027,7 +1029,7 @@ function saveIdentity() {
   saveState();
   renderAll();
   const btn = document.getElementById('id-save-btn');
-  btn.textContent = '✅ Сохранено'; setTimeout(() => btn.textContent = '💾 Сохранить', 1600);
+  btn.textContent = 'Сохранено'; setTimeout(() => { btn.innerHTML = EI.svg('save', 14) + ' Сохранить'; }, 1600);
 }
 
 // ════════════════════════════════════════════
@@ -1037,7 +1039,7 @@ function renderGoals() {
   const tbody = document.getElementById('goals-tbody');
   document.getElementById('goals-badge').textContent = state.goals.length;
   if (!state.goals.length) {
-    tbody.innerHTML = `<tr class="empty-row"><td colspan="8"><span class="empty-icon">🎯</span>Нет целей — добавьте первую</td></tr>`;
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="8"><span class="empty-icon">${EI.svg('target', 20)}</span>Нет целей — добавьте первую</td></tr>`;
     return;
   }
   tbody.innerHTML = state.goals.map(g => {
@@ -1062,7 +1064,7 @@ function renderGoals() {
       <td style="font-family:var(--mono);font-size:11px">${g.target||'—'}</td>
       <td style="font-family:var(--mono);font-size:11px;color:var(--teal)">${g.actual||'—'}</td>
       <td><span class="sdot ${stCls[g.status]||'st-backlog'}">${GSTATUS_LABELS[g.status]||g.status}</span></td>
-      <td class="td-actions"><button class="tbl-del-btn" onclick="event.stopPropagation();confirmDeleteGoal('${g.id}')">✕</button></td>
+      <td class="td-actions"><button class="tbl-del-btn" onclick="event.stopPropagation();confirmDeleteGoal('${g.id}')">${EI.svg('x', 14)}</button></td>
     </tr>`;
   }).join('');
 }
@@ -1097,7 +1099,7 @@ function buildKRRowM(kr) {
     <input type="number" placeholder="0" value="${kr.current||0}" min="0" style="text-align:center">
     <input type="number" placeholder="10" value="${kr.target||10}" min="1" style="text-align:center">
     <input type="text" placeholder="ед." value="${u}">
-    <button class="kr-del" onclick="this.closest('.kr-row-m').remove()" title="Удалить">✕</button>
+    <button class="kr-del" onclick="this.closest('.kr-row-m').remove()" title="Удалить">${EI.svg('x', 14)}</button>
   </div>`;
 }
 
@@ -1234,7 +1236,7 @@ function renderFullQuarterly() {
       `<option${q===state.quarterly.quarter?' selected':''}>${q}</option>`).join('')}
   </select>`;
   document.getElementById('quarterly-head-extra').innerHTML =
-    `${qSel}<button class="sp-add-btn" onclick="openEpicModal(null)">+ Добавить эпик</button>`;
+    `${qSel}<button class="sp-add-btn" onclick="openEpicModal(null)">${EI.svg('plus', 14)} Добавить эпик</button>`;
   const sorted = [...items].sort((a,b) => (a.priority||99) - (b.priority||99));
   const tbody = sorted.length ? sorted.map(ep => {
     const init = [...(state.roadmap.h1||[]), ...(state.roadmap.h2||[])].find(i => i.id === ep.initiativeId);
@@ -1258,9 +1260,9 @@ function renderFullQuarterly() {
       <td style="text-align:center">
         <button class="check-btn${ep.dodDone?' done':''}" onclick="event.stopPropagation();toggleEpicCheck('${ep.id}','dod')" title="DoD">${ep.dodDone?'✓':'DoD'}</button>
       </td>
-      <td class="td-actions"><button class="tbl-del-btn" onclick="event.stopPropagation();confirmDeleteEpic('${ep.id}')">✕</button></td>
+      <td class="td-actions"><button class="tbl-del-btn" onclick="event.stopPropagation();confirmDeleteEpic('${ep.id}')">${EI.svg('x', 14)}</button></td>
     </tr>`;
-  }).join('') : `<tr class="empty-row"><td colspan="10"><span class="empty-icon">📅</span>Нет эпиков — добавьте первый</td></tr>`;
+  }).join('') : `<tr class="empty-row"><td colspan="10"><span class="empty-icon">${EI.svg('bar-chart', 20)}</span>Нет эпиков — добавьте первый</td></tr>`;
 
   document.getElementById('quarterly-content').innerHTML = `
     <table class="sp-table">
@@ -1280,7 +1282,7 @@ function renderSimplifiedBacklog() {
   const items = state.backlog || [];
   document.getElementById('quarterly-badge').textContent = items.length;
   document.getElementById('quarterly-head-extra').innerHTML =
-    `<button class="sp-add-btn" onclick="openBLModal(null)">+ Добавить</button>`;
+    `<button class="sp-add-btn" onclick="openBLModal(null)">${EI.svg('plus', 14)} Добавить</button>`;
   if (!items.length) {
     document.getElementById('quarterly-content').innerHTML =
       `<div class="bl-list"><div style="text-align:center;padding:32px;color:var(--muted);font-size:12px"><span style="font-size:28px;display:block;margin-bottom:8px;opacity:.5">📋</span>Беклог пуст — добавьте первый элемент</div></div>`;
@@ -1300,7 +1302,7 @@ function renderSimplifiedBacklog() {
         ${it.owner ? `<span style="font-size:10px;color:var(--muted)">${it.owner}</span>` : ''}
         <span class="sdot ${stCls[it.status]||'st-backlog'}" style="font-size:9px;padding:2px 6px">${ESTATUS_LABELS[it.status]||it.status}</span>
         ${it.trackerUrl ? `<a class="ep-link" href="${it.trackerUrl}" target="_blank" onclick="event.stopPropagation()">↗</a>` : ''}
-        <button class="tbl-del-btn" onclick="event.stopPropagation();confirmDeleteBL('${it.id}')">✕</button>
+        <button class="tbl-del-btn" onclick="event.stopPropagation();confirmDeleteBL('${it.id}')">${EI.svg('x', 14)}</button>
       </div>`).join('') + `</div>`;
 }
 
@@ -1410,7 +1412,7 @@ function renderPRD() {
       <input id="prd-url" type="url" placeholder="https://confluence/…" value="${state.prd.url||''}">
       <a class="prd-open-btn" id="prd-open-link" href="${state.prd.url||'#'}" target="_blank">Открыть ↗</a>
     </div>
-    <div style="margin-top:12px"><button class="btn-save-sm" onclick="savePRDLink()">💾 Сохранить</button></div>`;
+    <div style="margin-top:12px"><button class="btn-save-sm" onclick="savePRDLink()">${EI.svg('save', 14)} Сохранить</button></div>`;
   } else {
     c.innerHTML = renderPRDForm(full);
     fillPRDForm();
@@ -1429,7 +1431,7 @@ function renderPRDForm(full) {
       <div class="prd-field"><label>Что НЕ делаем</label>
         <input id="prd-outOfScope" placeholder="Out of scope…"></div>
     </div>
-    <div class="prd-save-row"><button class="btn-save-sm" onclick="savePRDInline()">💾 Сохранить PRD</button></div>
+    <div class="prd-save-row"><button class="btn-save-sm" onclick="savePRDInline()">${EI.svg('save', 14)} Сохранить PRD</button></div>
   </div>`;
 
   return `<div class="prd-form">
@@ -1465,7 +1467,7 @@ function renderPRDForm(full) {
           <option value="revise">🔁 На доработку</option>
         </select></div>
     </div>
-    <div class="prd-save-row"><button class="btn-save-sm" onclick="savePRDInline()">💾 Сохранить PRD</button></div>
+    <div class="prd-save-row"><button class="btn-save-sm" onclick="savePRDInline()">${EI.svg('save', 14)} Сохранить PRD</button></div>
   </div>`;
 }
 
@@ -1492,7 +1494,7 @@ function savePRDLink() {
   saveState();
   const link = document.getElementById('prd-open-link');
   if (link) link.href = state.prd.url || '#';
-  const btn = event.target; btn.textContent='✅ Сохранено'; setTimeout(()=>btn.textContent='💾 Сохранить',1600);
+  const btn = event.target; btn.textContent='Сохранено'; setTimeout(()=>{ btn.innerHTML=EI.svg('save',14)+' Сохранить'; },1600);
 }
 
 function savePRDInline() {
@@ -1506,7 +1508,7 @@ function savePRDInline() {
   });
   if (full) { const r = document.getElementById('prd-recommendation'); if (r) state.prd.recommendation = r.value; }
   saveState();
-  const btn = event.target; btn.textContent='✅ PRD сохранён'; setTimeout(()=>btn.textContent='💾 Сохранить PRD',1600);
+  const btn = event.target; btn.textContent='PRD сохранён'; setTimeout(()=>{ btn.innerHTML=EI.svg('save',14)+' Сохранить PRD'; },1600);
 }
 
 // ════════════════════════════════════════════
@@ -1591,8 +1593,8 @@ function renderChangelog() {
     <td style="font-size:12px;max-width:280px">${e.what||'—'}</td>
     <td><span class="cl-level ${e.level==='year'?'cl-year':e.level==='roadmap'?'cl-roadmap':'cl-quarter'}">${LEVEL_LABELS[e.level]||e.level}</span></td>
     <td style="font-size:11px;color:var(--muted)">${e.reason||'—'}</td>
-    <td>${e.approved ? '<span class="cl-yes">✅ Да</span>' : '<span class="cl-no">—</span>'}</td>
-    <td class="td-actions"><button class="tbl-del-btn" onclick="confirmDeleteCL('${e.id}')">✕</button></td>
+    <td>${e.approved ? `<span class="cl-yes">${EI.svg('check-circle',12)} Да</span>` : '<span class="cl-no">—</span>'}</td>
+    <td class="td-actions"><button class="tbl-del-btn" onclick="confirmDeleteCL('${e.id}')">${EI.svg('x', 14)}</button></td>
   </tr>`).join('');
 }
 

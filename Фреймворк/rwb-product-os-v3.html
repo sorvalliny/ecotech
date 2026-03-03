@@ -1509,6 +1509,7 @@ body.edit-mode .edit-mode-banner { display: block; }
 .en-drop-sep{height:1px;background:rgba(123,47,255,0.12);margin:4px 4px;}
 #sidebar{top:44px!important;}
 #topbar{top:44px!important;}</style>
+  <script src="../icons.js"></script>
   <script src="../platform.js"></script>
 </head>
 <body>
@@ -1559,7 +1560,7 @@ body.edit-mode .edit-mode-banner { display: block; }
 
   <nav class="sidebar-nav">
     <div class="edit-mode-banner">
-      ✏ Режим редактирования<br>
+      <svg class="ei" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-edit"/></svg> Режим редактирования<br>
       <span style="color:rgba(196,156,255,0.7);">Кликай на любой текст для правки.<br>Автосохранение каждые 0.8 сек.</span>
     </div>
     <div class="nav-group">
@@ -2075,14 +2076,14 @@ body.edit-mode .edit-mode-banner { display: block; }
           </div>
           <div class="chain-grid">
             <div class="chain-node"><div class="chain-dot c1">01</div><div class="chain-node-title"><span class="term" data-tip="Цели и ключевые результаты: что достигаем и как измеряем">OKR</span></div><div class="chain-node-body">Измеримая цель продукта на полугодие, привязанная к стратегии RWB. Согласует: CEO BU, Совет.</div><span class="chain-node-owner cv">CPO</span></div>
-            <div class="chain-node" style="background:rgba(0,212,180,0.05);border:1px solid rgba(0,212,180,0.2);border-radius:12px;padding:12px;"><div class="chain-dot c2" style="background:var(--teal);color:#000;">02</div><div class="chain-node-title" style="color:var(--teal);">⚡ Инициатива — ядро планирования</div><div class="chain-node-body" style="margin-top:6px;">
+            <div class="chain-node" style="background:rgba(0,212,180,0.05);border:1px solid rgba(0,212,180,0.2);border-radius:12px;padding:12px;"><div class="chain-dot c2" style="background:var(--teal);color:#000;">02</div><div class="chain-node-title" style="color:var(--teal);display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-zap"/></svg> Инициатива — ядро планирования</div><div class="chain-node-body" style="margin-top:6px;">
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;">
                 <div style="background:rgba(123,47,255,0.1);border:1px solid rgba(123,47,255,0.25);border-radius:8px;padding:8px;">
-                  <div style="font-size:10px;font-weight:700;color:#C49CFF;margin-bottom:4px;">📦 Продуктовая</div>
+                  <div style="font-size:10px;font-weight:700;color:#C49CFF;margin-bottom:4px;display:flex;align-items:center;gap:3px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-package"/></svg> Продуктовая</div>
                   <div style="font-size:10px;color:var(--gray2);line-height:1.4;">Фича, сценарий, новая аудитория, монетизация. Владелец: PM. Валидация через CustDev → Discovery.</div>
                 </div>
                 <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:8px;padding:8px;">
-                  <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:4px;">⚙ Техническая</div>
+                  <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:4px;display:flex;align-items:center;gap:3px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Техническая</div>
                   <div style="font-size:10px;color:var(--gray2);line-height:1.4;">Архитектура, техдолг, DevEx, безопасность. Владелец: TL. 20% слот спринта — без Discovery.</div>
                 </div>
               </div>
@@ -2208,7 +2209,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <!-- Orbit 0 Tools + Mandatory + Custom -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;">
           <div style="background:rgba(139,139,174,0.07);border:1px solid rgba(139,139,174,0.2);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">🛠 Стек инструментов</div>
+            <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-wrench"/></svg> Стек инструментов</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--gray)">→</span>Форма брифа (PPM / шаблон)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--gray)">→</span>Реестр инициатив PMO</li>
@@ -2227,7 +2228,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </ul>
           </div>
           <div style="background:rgba(0,212,180,0.05);border:1px dashed rgba(0,212,180,0.3);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">⚙ Кастомизация продукта</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Кастомизация продукта</div>
             <div style="font-size:11px;color:var(--gray2);line-height:1.6;margin-bottom:8px;">Команда может добавить вне регламента:</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Дополнительный скрининг партнёров</li>
@@ -2311,7 +2312,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <!-- Orbit 1 Tools + Mandatory + Custom -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;">
           <div style="background:rgba(123,47,255,0.07);border:1px solid rgba(123,47,255,0.2);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">🛠 Стек инструментов</div>
+            <div style="font-size:10px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-wrench"/></svg> Стек инструментов</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--violet)">→</span>Трекер (YouTrack / RWB Tracker)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--violet)">→</span>Figma (прототипы, wireframes)</li>
@@ -2332,7 +2333,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </ul>
           </div>
           <div style="background:rgba(0,212,180,0.05);border:1px dashed rgba(0,212,180,0.3);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">⚙ Кастомизация продукта</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Кастомизация продукта</div>
             <div style="font-size:11px;color:var(--gray2);line-height:1.6;margin-bottom:8px;">Может добавить вне регламента:</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Shadow-launch с пилотными юзерами</li>
@@ -2454,7 +2455,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;">
           <div style="background:rgba(0,212,180,0.07);border:1px solid rgba(0,212,180,0.2);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">🛠 Стек инструментов</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-wrench"/></svg> Стек инструментов</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">→</span>BI (дашборды Retention, Revenue)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">→</span>A/B-платформа (эксперименты)</li>
@@ -2474,7 +2475,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </ul>
           </div>
           <div style="background:rgba(0,212,180,0.05);border:1px dashed rgba(0,212,180,0.3);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">⚙ Кастомизация продукта</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Кастомизация продукта</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Свои метрики Health (NSM)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Growth-эксперименты вне OKR</li>
@@ -2557,7 +2558,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <!-- Orbit 3 Tools + Mandatory + Custom -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;">
           <div style="background:rgba(255,45,138,0.07);border:1px solid rgba(255,45,138,0.2);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">🛠 Стек инструментов</div>
+            <div style="font-size:10px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-wrench"/></svg> Стек инструментов</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--pink)">→</span>BI (P&amp;L, GMV-дашборды)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--pink)">→</span>Стратегическое планирование (H1/H2)</li>
@@ -2576,7 +2577,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </ul>
           </div>
           <div style="background:rgba(0,212,180,0.05);border:1px dashed rgba(0,212,180,0.3);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">⚙ Кастомизация продукта</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Кастомизация продукта</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Отдельная P&amp;L-модель под BU</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Выделенный SRE / Platform Team</li>
@@ -2658,7 +2659,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <!-- Orbit 4 Tools + Mandatory + Custom -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;">
           <div style="background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:#93C5FD;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">🛠 Стек инструментов</div>
+            <div style="font-size:10px;font-weight:700;color:#93C5FD;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-wrench"/></svg> Стек инструментов</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:#93C5FD">→</span>API Gateway + Developer Portal</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:#93C5FD">→</span>Platform Engineering Stack</li>
@@ -2676,7 +2677,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </ul>
           </div>
           <div style="background:rgba(0,212,180,0.05);border:1px dashed rgba(0,212,180,0.3);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">⚙ Кастомизация продукта</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Кастомизация продукта</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Отдельный Developer Ecosystem</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Spin-off / выделение в BU</li>
@@ -3337,7 +3338,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="width:28px;height:28px;border-radius:50%;background:rgba(0,212,180,0.18);border:1px solid rgba(0,212,180,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
             <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <div style="font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;">⚡ Fast-Track Gate — стратегические инициативы CEO / топ-менеджмента</div>
+          <div style="font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-zap"/></svg> Fast-Track Gate — стратегические инициативы CEO / топ-менеджмента</div>
         </div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
           <div>
@@ -3895,7 +3896,7 @@ body.edit-mode .edit-mode-banner { display: block; }
       <!-- ProductHunt MVP catalog plan -->
       <div style="background:rgba(123,47,255,0.06);border:1px solid rgba(123,47,255,0.25);border-radius:14px;padding:20px;">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:rgba(123,47,255,0.2);border:1px solid rgba(123,47,255,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;">🚀</div>
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(123,47,255,0.2);border:1px solid rgba(123,47,255,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#C49CFF;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-rocket"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:700;color:var(--text);">Corp. ProductHunt — Дорожная карта</div>
             <div style="font-size:11px;color:var(--gray2);">Каталог подкатов экосистемы, которые бизнес может использовать в интересах компании</div>
@@ -4056,7 +4057,7 @@ body.edit-mode .edit-mode-banner { display: block; }
   <div class="modal-box">
     <div class="modal-header">
       <div class="modal-title" id="modal-title"></div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal()"><svg class="ei ei-14" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-x"/></svg></button>
     </div>
     <div class="modal-body">
       <div class="tmpl-content" id="modal-content"></div>
@@ -5002,7 +5003,7 @@ function showOrbitDetail(n) {
   document.querySelectorAll('.oss-item').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.oss-' + n).forEach(s => s.classList.add('active'));
 
-  const killHtml = data.kill ? `<div class="odp-kill">⚠ ${data.kill}</div>` : '';
+  const killHtml = data.kill ? `<div class="odp-kill"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;flex-shrink:0;"><use href="#ic-alert-triangle"/></svg> ${data.kill}</div>` : '';
 
   panel.innerHTML = `<div class="odp-inner">
     <div class="odp-header">

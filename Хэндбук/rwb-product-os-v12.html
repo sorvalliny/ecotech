@@ -365,6 +365,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
 .en-drop-sep{height:1px;background:rgba(123,47,255,0.12);margin:4px 4px;}
 #sidebar{top:44px!important;}
 #topbar{top:44px!important;}</style>
+  <script src="../icons.js"></script>
   <script src="../platform.js"></script>
 </head>
 <body>
@@ -390,6 +391,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
     <a href="../Хэндбук/rwb-product-os-v12.html" class="en-active">Хэндбук (G0–G5)</a>
     <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер инициатив</a>
     <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
+    <a href="../Фреймворк/framework-lite.html">Framework Lite</a>
     <a href="../Продукту/strategy.html">Стратегическое планирование</a>
       </div>
     </div>
@@ -409,33 +411,33 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
   <nav>
     <div class="nav-group">
       <div class="nav-label">Обзор</div>
-      <button class="nav-item active" onclick="showSection('home',this)"><span class="nav-icon">🏠</span>Главная</button>
+      <button class="nav-item active" onclick="showSection('home',this)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-home"/></svg></span>Главная</button>
     </div>
     <div class="nav-group">
       <div class="nav-label">Стадии зрелости</div>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(0)"><span class="nav-icon">🌱</span>Идея</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(1)"><span class="nav-icon">🔍</span>Discovery</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(2)"><span class="nav-icon">🚀</span>Пилот</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(3)"><span class="nav-icon">📈</span>Запуск</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(4)"><span class="nav-icon">⚡</span>Масштаб</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(5)"><span class="nav-icon">💎</span>Зрелость</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(6)"><span class="nav-icon">📦</span>Консервация</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(0)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg></span>Идея</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(1)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg></span>Discovery</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(2)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg></span>Пилот</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(3)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg></span>Запуск</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(4)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg></span>Масштаб</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(5)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg></span>Зрелость</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(6)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg></span>Консервация</button>
     </div>
     <div class="nav-group">
       <div class="nav-label">Продукты</div>
-      <button class="nav-item" onclick="showSection('showcase',this)"><span class="nav-icon">🛍</span>Витрина продуктов</button>
-      <button class="nav-item" onclick="showSection('matrix',this)"><span class="nav-icon">📊</span>Матрица продуктов</button>
+      <button class="nav-item" onclick="showSection('showcase',this)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-clipboard"/></svg></span>Витрина продуктов</button>
+      <button class="nav-item" onclick="showSection('matrix',this)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-bar-chart"/></svg></span>Матрица продуктов</button>
     </div>
     <div class="nav-group">
       <div class="nav-label">Инструменты</div>
-      <button class="nav-item" onclick="showSection('rice',this)"><span class="nav-icon">🎯</span>R/ICE калькулятор</button>
-      <button class="nav-item" onclick="showSection('productid',this)"><span class="nav-icon">📄</span>Product ID шаблон</button>
+      <button class="nav-item" onclick="showSection('rice',this)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-target"/></svg></span>R/ICE калькулятор</button>
+      <button class="nav-item" onclick="showSection('productid',this)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-file-text"/></svg></span>Product ID шаблон</button>
     </div>
     <div class="nav-group">
       <div class="nav-label">Процессы</div>
-      <button class="nav-item" onclick="showSection('committees',this)"><span class="nav-icon">🏛</span>Комитеты</button>
-      <button class="nav-item" onclick="showSection('glossary',this)"><span class="nav-icon">📖</span>Справочник терминов</button>
-      <button class="nav-item" onclick="showSection('qa',this)"><span class="nav-icon">❓</span>Q&A</button>
+      <button class="nav-item" onclick="showSection('committees',this)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-settings"/></svg></span>Комитеты</button>
+      <button class="nav-item" onclick="showSection('glossary',this)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-book-open"/></svg></span>Справочник терминов</button>
+      <button class="nav-item" onclick="showSection('qa',this)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg></span>Q&A</button>
     </div>
   </nav>
 </aside>
@@ -447,7 +449,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
 <div id="topbar">
   <div class="topbar-title" id="topbar-title">Главная</div>
   <span class="topbar-badge">v12 MVP</span>
-  <button class="btn btn-outline btn-sm" onclick="window.print()">🖨 Печать</button>
+  <button class="btn btn-outline btn-sm" onclick="window.print()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-file-text"/></svg> Печать</button>
 </div>
 
 <!-- ════ CONTENT ════ -->
@@ -461,13 +463,13 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
 
   <!-- Прогресс стадий -->
   <div class="stage-bar mb-32">
-    <div class="stage-segment stage-s0" onclick="showSection('stages', null);showStage(0)" title="Идея">🌱<br>Идея</div>
-    <div class="stage-segment stage-s1" onclick="showSection('stages', null);showStage(1)" title="Discovery">🔍<br>Discovery</div>
-    <div class="stage-segment stage-s2" onclick="showSection('stages', null);showStage(2)" title="Пилот">🚀<br>Пилот</div>
-    <div class="stage-segment stage-s3" onclick="showSection('stages', null);showStage(3)" title="Запуск">📈<br>Запуск</div>
-    <div class="stage-segment stage-s4" onclick="showSection('stages', null);showStage(4)" title="Масштаб">⚡<br>Масштаб</div>
-    <div class="stage-segment stage-s5" onclick="showSection('stages', null);showStage(5)" title="Зрелость">💎<br>Зрелость</div>
-    <div class="stage-segment stage-s6" onclick="showSection('stages', null);showStage(6)" title="Консервация">📦<br>Консервация</div>
+    <div class="stage-segment stage-s0" onclick="showSection('stages', null);showStage(0)" title="Идея"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg><br>Идея</div>
+    <div class="stage-segment stage-s1" onclick="showSection('stages', null);showStage(1)" title="Discovery"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg><br>Discovery</div>
+    <div class="stage-segment stage-s2" onclick="showSection('stages', null);showStage(2)" title="Пилот"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg><br>Пилот</div>
+    <div class="stage-segment stage-s3" onclick="showSection('stages', null);showStage(3)" title="Запуск"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg><br>Запуск</div>
+    <div class="stage-segment stage-s4" onclick="showSection('stages', null);showStage(4)" title="Масштаб"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg><br>Масштаб</div>
+    <div class="stage-segment stage-s5" onclick="showSection('stages', null);showStage(5)" title="Зрелость"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg><br>Зрелость</div>
+    <div class="stage-segment stage-s6" onclick="showSection('stages', null);showStage(6)" title="Консервация"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg><br>Консервация</div>
   </div>
 
   <!-- Быстрый вход по роли -->
@@ -537,19 +539,19 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
 
   <!-- Навигация между стадиями -->
   <div class="stage-bar mb-24" id="stage-nav">
-    <div class="stage-segment stage-s0" onclick="showStage(0)">🌱 Идея</div>
-    <div class="stage-segment stage-s1" onclick="showStage(1)">🔍 Discovery</div>
-    <div class="stage-segment stage-s2" onclick="showStage(2)">🚀 Пилот</div>
-    <div class="stage-segment stage-s3" onclick="showStage(3)">📈 Запуск</div>
-    <div class="stage-segment stage-s4" onclick="showStage(4)">⚡ Масштаб</div>
-    <div class="stage-segment stage-s5" onclick="showStage(5)">💎 Зрелость</div>
-    <div class="stage-segment stage-s6" onclick="showStage(6)">📦 Консервация</div>
+    <div class="stage-segment stage-s0" onclick="showStage(0)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg> Идея</div>
+    <div class="stage-segment stage-s1" onclick="showStage(1)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</div>
+    <div class="stage-segment stage-s2" onclick="showStage(2)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg> Пилот</div>
+    <div class="stage-segment stage-s3" onclick="showStage(3)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg> Запуск</div>
+    <div class="stage-segment stage-s4" onclick="showStage(4)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg> Масштаб</div>
+    <div class="stage-segment stage-s5" onclick="showStage(5)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg> Зрелость</div>
+    <div class="stage-segment stage-s6" onclick="showStage(6)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg> Консервация</div>
   </div>
 
   <!-- ── ИДЕЯ ── -->
   <div class="stage-content" id="stage-0">
     <div class="stage-header">
-      <span class="stage-icon">🌱</span>
+      <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg></span>
       <div>
         <div class="stage-title" style="color:var(--stage-idea)">Идея</div>
         <div class="stage-goal">Проверяем, стоит ли тратить время на инициативу. Цель — быстро понять: «да, копаем» или «нет, не берём».</div>
@@ -559,13 +561,13 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
     <div class="grid-2 mb-24">
       <div>
         <div class="acc-item open">
-          <div class="acc-header" onclick="toggleAcc(this)">✅ Чек-лист задач <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Чек-лист задач <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul class="checklist" id="cl-idea"></ul>
           </div>
         </div>
         <div class="acc-item">
-          <div class="acc-header" onclick="toggleAcc(this)">📋 Обязательные артефакты <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-clipboard"/></svg> Обязательные артефакты <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <div style="display:flex;flex-direction:column;gap:8px;">
               <div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:13px;">
@@ -596,7 +598,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
           </div>
         </div>
         <div class="acc-item">
-          <div class="acc-header" onclick="toggleAcc(this)">💡 Лайфхаки RWB <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Лайфхаки RWB <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="font-size:13px;color:var(--gray2)">→ Бриф — проблема, а не решение. Заказчик хочет сказать «нам нужна кнопка» — переформулируй в боль.</li>
@@ -606,7 +608,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
           </div>
         </div>
         <div class="acc-item">
-          <div class="acc-header" onclick="toggleAcc(this)">💀 Типичные фейлы <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Типичные фейлы <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="font-size:13px;color:#FF6B6B">✗ Бриф = ТЗ с готовым решением</li>
@@ -623,7 +625,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
   <!-- ── DISCOVERY ── -->
   <div class="stage-content" id="stage-1">
     <div class="stage-header">
-      <span class="stage-icon">🔍</span>
+      <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg></span>
       <div>
         <div class="stage-title" style="color:var(--stage-discovery)">Discovery</div>
         <div class="stage-goal">Копаем в проблему. Делаем <span class="term" data-tooltip="Customer Development — серия интервью с потенциальными пользователями для проверки гипотез">CustDev</span>, ищем боли, формируем гипотезы решений. Выход — Product ID и решение по пилоту.</div>
@@ -633,13 +635,13 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
     <div class="grid-2 mb-24">
       <div>
         <div class="acc-item open">
-          <div class="acc-header" onclick="toggleAcc(this)">✅ Чек-лист задач <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Чек-лист задач <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul class="checklist" id="cl-discovery"></ul>
           </div>
         </div>
         <div class="acc-item">
-          <div class="acc-header" onclick="toggleAcc(this)">📋 Артефакты Discovery <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-clipboard"/></svg> Артефакты Discovery <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <div style="display:flex;flex-direction:column;gap:8px;">
               <div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:13px;">
@@ -674,7 +676,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
           </div>
         </div>
         <div class="acc-item">
-          <div class="acc-header" onclick="toggleAcc(this)">💡 Лайфхаки RWB <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Лайфхаки RWB <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="font-size:13px;color:var(--gray2)">→ 5 интервью — минимум. Правило: пока 3 из 5 называют одну боль — гипотеза подтверждена.</li>
@@ -684,7 +686,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
           </div>
         </div>
         <div class="acc-item">
-          <div class="acc-header" onclick="toggleAcc(this)">💀 Типичные фейлы <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Типичные фейлы <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="font-size:13px;color:#FF6B6B">✗ CustDev = «мы и так знаем» без интервью</li>
@@ -701,7 +703,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
   <!-- ── ПИЛОТ ── -->
   <div class="stage-content" id="stage-2">
     <div class="stage-header">
-      <span class="stage-icon">🚀</span>
+      <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg></span>
       <div>
         <div class="stage-title" style="color:var(--stage-pilot)">Пилот</div>
         <div class="stage-goal">Пилим <span class="term" data-tooltip="Minimum Viable Product — минимальная версия продукта с ключевой ценностью для первых пользователей">MVP</span>, катим на реальных пользователей. Доказываем: продукт решает боль и метрики растут.</div>
@@ -710,7 +712,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
     <div class="grid-2 mb-24">
       <div>
         <div class="acc-item open">
-          <div class="acc-header" onclick="toggleAcc(this)">✅ Чек-лист пилота <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Чек-лист пилота <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul class="checklist" id="cl-pilot"></ul>
           </div>
@@ -729,7 +731,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
           </div>
         </div>
         <div class="acc-item">
-          <div class="acc-header" onclick="toggleAcc(this)">💀 Типичные фейлы пилота <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Типичные фейлы пилота <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="font-size:13px;color:#FF6B6B">✗ Пилот без измеримых метрик</li>
@@ -746,7 +748,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
   <!-- ── ЗАПУСК ── -->
   <div class="stage-content" id="stage-3">
     <div class="stage-header">
-      <span class="stage-icon">📈</span>
+      <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg></span>
       <div>
         <div class="stage-title" style="color:var(--stage-launch)">Запуск</div>
         <div class="stage-goal">Катим в прод на всю аудиторию. <span class="term" data-tooltip="Go-To-Market — стратегия выхода на рынок: кому, как и через какие каналы">GTM</span> план, коммуникации, поддержка. Начинаем активно растить метрики.</div>
@@ -754,7 +756,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
     </div>
     <div class="grid-2 mb-24">
       <div class="acc-item open">
-        <div class="acc-header" onclick="toggleAcc(this)">✅ Чек-лист запуска <span class="acc-arrow">▼</span></div>
+        <div class="acc-header" onclick="toggleAcc(this)">Чек-лист запуска <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
         <div class="acc-body">
           <ul class="checklist" id="cl-launch"></ul>
         </div>
@@ -776,7 +778,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
   <!-- ── МАСШТАБ ── -->
   <div class="stage-content" id="stage-4">
     <div class="stage-header">
-      <span class="stage-icon">⚡</span>
+      <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg></span>
       <div>
         <div class="stage-title" style="color:var(--stage-scale)">Масштаб</div>
         <div class="stage-goal">Растим базу, оптимизируем <span class="term" data-tooltip="Retention — метрика удержания: % пользователей, которые вернулись через N дней">Retention</span>, снижаем <span class="term" data-tooltip="Churn — отток: % пользователей, которые перестали пользоваться продуктом">Churn</span>. Ищем новые сегменты и каналы роста.</div>
@@ -818,7 +820,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
   <!-- ── ЗРЕЛОСТЬ ── -->
   <div class="stage-content" id="stage-5">
     <div class="stage-header">
-      <span class="stage-icon">💎</span>
+      <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg></span>
       <div>
         <div class="stage-title" style="color:var(--stage-maturity)">Зрелость</div>
         <div class="stage-goal">Продукт на плато. Удерживаем пользователей, работаем над маржинальностью, готовим к следующему витку роста или консервации.</div>
@@ -848,7 +850,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
   <!-- ── КОНСЕРВАЦИЯ ── -->
   <div class="stage-content" id="stage-6">
     <div class="stage-header">
-      <span class="stage-icon">📦</span>
+      <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg></span>
       <div>
         <div class="stage-title" style="color:var(--stage-archive)">Консервация</div>
         <div class="stage-goal">Продукт завершает жизнь. Переводим пользователей, архивируем данные, освобождаем команду. Делаем всё без потери доверия.</div>
@@ -857,7 +859,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
     <div class="grid-2 mb-24">
       <div>
         <div class="acc-item open">
-          <div class="acc-header" onclick="toggleAcc(this)">✅ Чек-лист консервации <span class="acc-arrow">▼</span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Чек-лист консервации <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul class="checklist" id="cl-archive"></ul>
           </div>
@@ -998,14 +1000,14 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
   <div class="grid-2">
     <div>
       <div class="acc-item open">
-        <div class="acc-header" onclick="toggleAcc(this)">1. Elevator Pitch <span class="acc-arrow">▼</span></div>
+        <div class="acc-header" onclick="toggleAcc(this)">1. Elevator Pitch <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
         <div class="acc-body">
           <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Для [целевая аудитория], которая [боль/проблема], [название продукта] — это [категория], которая [ключевое УТП]. В отличие от [альтернатива], наш продукт [отличие].</div>
           <textarea class="form-textarea" placeholder="Заполни шаблон выше своими словами..."></textarea>
         </div>
       </div>
       <div class="acc-item">
-        <div class="acc-header" onclick="toggleAcc(this)">2. Целевая аудитория (Persona) <span class="acc-arrow">▼</span></div>
+        <div class="acc-header" onclick="toggleAcc(this)">2. Целевая аудитория (Persona) <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
         <div class="acc-body">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
             <div><label class="form-label">Сегмент</label><select class="form-select"><option>B2C</option><option>B2B</option><option>B2G</option></select></div>
@@ -1015,14 +1017,14 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
         </div>
       </div>
       <div class="acc-item">
-        <div class="acc-header" onclick="toggleAcc(this)">3. УТП и конкуренты <span class="acc-arrow">▼</span></div>
+        <div class="acc-header" onclick="toggleAcc(this)">3. УТП и конкуренты <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
         <div class="acc-body">
           <div><label class="form-label">Уникальное торговое предложение</label><textarea class="form-textarea" placeholder="Что мы умеем, чего нет у конкурентов?"></textarea></div>
           <div style="margin-top:8px;"><label class="form-label">Главные конкуренты / альтернативы</label><textarea class="form-textarea" placeholder="Назови 2-3 конкурента и чем мы лучше"></textarea></div>
         </div>
       </div>
       <div class="acc-item">
-        <div class="acc-header" onclick="toggleAcc(this)">4. CustDev — результаты интервью <span class="acc-arrow">▼</span></div>
+        <div class="acc-header" onclick="toggleAcc(this)">4. CustDev — результаты интервью <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
         <div class="acc-body">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
             <div><label class="form-label">Кол-во интервью</label><input class="form-input" type="number" placeholder="5" min="0"></div>
@@ -1034,14 +1036,14 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
     </div>
     <div>
       <div class="acc-item">
-        <div class="acc-header" onclick="toggleAcc(this)">5. North Star метрика <span class="acc-arrow">▼</span></div>
+        <div class="acc-header" onclick="toggleAcc(this)">5. North Star метрика <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
         <div class="acc-body">
           <div><label class="form-label">North Star</label><input class="form-input" placeholder="Пример: Кол-во успешных транзакций в неделю"></div>
           <div style="margin-top:8px;"><label class="form-label">Поддерживающие метрики</label><textarea class="form-textarea" placeholder="DAU, Retention D7, NPS..."></textarea></div>
         </div>
       </div>
       <div class="acc-item">
-        <div class="acc-header" onclick="toggleAcc(this)">6. Roadmap пилота <span class="acc-arrow">▼</span></div>
+        <div class="acc-header" onclick="toggleAcc(this)">6. Roadmap пилота <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
         <div class="acc-body">
           <div style="display:flex;flex-direction:column;gap:8px;">
             <div style="padding:10px;background:rgba(33,150,243,0.1);border-radius:8px;font-size:12px;">
@@ -1060,7 +1062,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
         </div>
       </div>
       <div class="acc-item">
-        <div class="acc-header" onclick="toggleAcc(this)">7. Риски <span class="acc-arrow">▼</span></div>
+        <div class="acc-header" onclick="toggleAcc(this)">7. Риски <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
         <div class="acc-body">
           <textarea class="form-textarea" placeholder="Перечисли ключевые риски: технические, бизнесовые, регуляторные..."></textarea>
         </div>
@@ -1090,7 +1092,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
       <div style="color:var(--muted)"><strong style="color:var(--gray2)">Формат</strong><br>30–60 мин, презентация + обсуждение, решение в тот же день</div>
     </div>
     <div class="acc-item">
-      <div class="acc-header" onclick="toggleAcc(this)">📋 Как готовиться к CEO <span class="acc-arrow">▼</span></div>
+      <div class="acc-header" onclick="toggleAcc(this)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-clipboard"/></svg> Как готовиться к CEO <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
       <div class="acc-body">
         <div style="margin-bottom:12px;font-size:13px;color:var(--gray2)"><strong>Обязательные материалы:</strong></div>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--gray2);margin-bottom:14px;">
@@ -1110,7 +1112,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
       </div>
     </div>
     <div class="acc-item">
-      <div class="acc-header" onclick="toggleAcc(this)">🔄 После комитета <span class="acc-arrow">▼</span></div>
+      <div class="acc-header" onclick="toggleAcc(this)">После комитета <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
       <div class="acc-body">
         <div class="grid-3">
           <div style="padding:12px;background:rgba(76,175,80,0.1);border-radius:8px;border:1px solid rgba(76,175,80,0.2);">
@@ -1784,7 +1786,7 @@ function renderQA() {
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
         <span>${i+1}. ${item.q}</span>
-        <span class="acc-arrow">▼</span>
+        <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span>
       </div>
       <div class="acc-body">${item.a}</div>
     </div>`).join('');
