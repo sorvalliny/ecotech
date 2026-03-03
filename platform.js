@@ -10,6 +10,8 @@
     KEY_BACKLOG:  'ECOTECH_BACKLOG',
     KEY_PRODUCTS: 'ECOTECH_PRODUCTS',
     KEY_UI:       'ECOTECH_UI',
+    KEY_GOALS:    'ECOTECH_GOALS',
+    KEY_EPICS:    'ECOTECH_EPICS',
 
     // ── Storage helpers ─────────────────────────────────────────────
     load: function(key) {

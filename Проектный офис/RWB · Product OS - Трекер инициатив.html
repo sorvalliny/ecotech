@@ -229,7 +229,7 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 .pm-col-head{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
 
 /* ── EDIT PANEL ── */
-.edit-panel{position:fixed;top:52px;right:0;bottom:0;width:320px;background:var(--card);border-left:1px solid var(--border);z-index:150;transform:translateX(100%);transition:transform .2s;overflow-y:auto;display:flex;flex-direction:column}
+.edit-panel{position:fixed;top:96px;right:0;bottom:0;width:520px;background:var(--card);border-left:1px solid var(--border);z-index:150;transform:translateX(100%);transition:transform .2s;overflow:hidden;display:flex;flex-direction:column}
 .edit-panel.open{transform:none;box-shadow:-8px 0 32px rgba(0,0,0,.5)}
 .ep-head{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px}
 .ep-title{font-size:13px;font-weight:800;color:#fff;line-height:1.35;flex:1}
@@ -253,16 +253,78 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 .btn-save{width:100%;padding:10px;background:var(--violet);border:none;border-radius:8px;color:#fff;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:background .15s}
 .btn-save:hover{background:#6D28D9}
 .empty{text-align:center;padding:48px 24px;color:var(--muted);font-size:13px}
+
+/* ── EP DRAWER TABS ── */
+.ep-tab-header{display:flex;align-items:center;gap:8px;padding:12px 18px;border-bottom:1px solid var(--border);background:rgba(0,0,0,.15);flex-shrink:0;min-height:52px}
+.ep-id-disp{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700;flex-shrink:0;background:rgba(255,255,255,.05);padding:2px 7px;border-radius:5px;border:1px solid var(--border)}
+.ep-name-disp{font-size:12px;font-weight:700;color:#fff;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:0 6px}
+.ep-tabs-row{display:flex;gap:2px;background:rgba(255,255,255,.04);border-radius:8px;padding:2px;flex-shrink:0}
+.ep-tab{padding:4px 12px;border:none;border-radius:6px;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;color:var(--muted);background:transparent;letter-spacing:.02em;white-space:nowrap;transition:all .15s}
+.ep-tab.active{background:var(--violet);color:#fff}
+.ep-tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.06)}
+.ep-tab-panel{display:none;flex:1;overflow:hidden;flex-direction:column}
+.ep-tab-panel.active{display:flex}
+.ep-tab-panel .ep-body{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.ep-tab-panel .ep-foot{padding:14px 18px;border-top:1px solid var(--border);flex-shrink:0}
+
+/* ── EPIC SECTIONS IN PORTFOLIO ── */
+.epic-section{margin-bottom:10px}
+.epic-header{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(123,47,255,.06);border:1px solid rgba(123,47,255,.2);border-radius:8px;margin-bottom:5px}
+.epic-icon{font-size:13px;flex-shrink:0}
+.epic-name{font-size:12px;font-weight:700;color:#C4B5FD;flex:1;min-width:0}
+.epic-meta{font-size:9px;color:var(--muted);font-family:var(--mono);white-space:nowrap}
+.epic-goal-tag{font-size:9px;color:var(--amber);font-weight:700;white-space:nowrap;padding:1px 5px;border-radius:4px;background:rgba(255,184,48,.1);border:1px solid rgba(255,184,48,.2)}
+.epic-inits{padding-left:10px}
+.no-epic-header{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;margin-bottom:5px}
+.no-epic-header .epic-name{color:var(--muted)}
+.add-init-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:7px 12px;border:1px dashed rgba(123,47,255,.3);border-radius:8px;background:none;color:var(--muted);font-size:11px;font-family:var(--font);font-weight:600;cursor:pointer;margin-top:8px;transition:all .15s}
+.add-init-btn:hover{border-color:var(--violet);color:#C4B5FD;background:var(--vdim)}
+
+/* ── GOAL CARDS ── */
+.goals-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.goals-header h2{font-size:16px;font-weight:800;color:#fff}
+.goal-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:12px;transition:border-color .15s}
+.goal-card:hover{border-color:var(--bhi)}
+.goal-card-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.goal-id-badge{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700;flex-shrink:0;padding-top:3px;min-width:36px}
+.goal-info{flex:1;min-width:0}
+.goal-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px;align-items:center}
+.goal-type{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;border:1px solid transparent}
+.goal-type-strategic{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+.goal-type-product{background:var(--bdim);color:#93C5FD;border-color:rgba(59,130,246,.3)}
+.goal-period{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.goal-owner{font-size:9px;font-weight:700;color:var(--muted);padding:2px 7px;background:rgba(255,255,255,.05);border-radius:10px;border:1px solid var(--border)}
+.goal-title{font-size:14px;font-weight:800;color:#fff;line-height:1.3}
+.kr-list{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.kr-row{display:flex;flex-direction:column;gap:4px}
+.kr-label{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;font-size:11px}
+.kr-text{color:#E8E8F0;font-weight:600;flex:1;min-width:0;line-height:1.4}
+.kr-progress{font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.kr-bar{height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin-top:2px}
+.kr-bar-fill{height:100%;border-radius:2px;background:var(--violet);transition:width .3s}
+.goal-stats{display:flex;gap:14px;padding-top:12px;border-top:1px solid var(--border);align-items:center;flex-wrap:wrap}
+.goal-stat{font-size:11px;color:var(--muted)}
+.goal-stat b{color:#E8E8F0;font-weight:700}
+.btn-add-goal{padding:8px 16px;background:var(--vdim);border:1px solid var(--vborder);border-radius:8px;color:#C4B5FD;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn-add-goal:hover{background:var(--violet);color:#fff}
 </style>
 <style>
 .ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,0.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,0.15);display:flex;align-items:center;padding:0 24px;gap:0;}
-.en-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-0.3px;white-space:nowrap;flex-shrink:0;}
+.en-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-0.5px;white-space:nowrap;flex-shrink:0;}
 .en-logo span{color:#7B2FFF;}
 .en-sep{width:1px;height:16px;background:rgba(123,47,255,0.2);margin:0 16px;flex-shrink:0;}
-.en-links{display:flex;gap:2px;align-items:center;overflow-x:auto;}
-.en-links a{font-size:12px;font-weight:600;color:#7A7A9D;text-decoration:none;padding:5px 10px;border-radius:7px;transition:color 0.15s,background 0.15s;white-space:nowrap;}
-.en-links a:hover{color:#fff;background:rgba(255,255,255,0.06);}
-.en-links a.en-active{color:#C49CFF;background:rgba(123,47,255,0.12);}
+.en-links{display:flex;gap:2px;align-items:center;}
+.en-drop{position:relative;}
+.en-drop-trigger{font-size:12px;font-weight:700;color:#7A7A9D;text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:flex;align-items:center;gap:3px;cursor:default;letter-spacing:.01em;}
+.en-drop-trigger::after{content:'▾';font-size:9px;opacity:0.45;margin-left:1px;}
+.en-drop.is-open .en-drop-trigger,.en-drop-trigger:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.en-drop.en-active .en-drop-trigger{color:#C49CFF;background:rgba(123,47,255,0.12);}
+.en-drop-menu{position:absolute;top:calc(100% + 4px);left:0;background:rgba(13,13,30,0.98);backdrop-filter:blur(20px);border:1px solid rgba(123,47,255,0.2);border-radius:11px;padding:6px;min-width:210px;display:flex;flex-direction:column;gap:1px;z-index:10000;box-shadow:0 8px 32px rgba(0,0,0,0.45);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .15s,transform .15s,visibility .15s;}
+.en-drop.is-open .en-drop-menu{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0);}
+.en-drop-menu a{font-size:12px;font-weight:500;color:#7A7A9D;text-decoration:none;padding:7px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:block;}
+.en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.en-drop-menu a.en-active{color:#C49CFF;background:rgba(123,47,255,0.12);}
+.en-drop-sep{height:1px;background:rgba(123,47,255,0.12);margin:4px 4px;}
 header.ecotech-orig{top:44px!important;}
 .app{height:calc(100vh - 96px)!important;}
 </style>
@@ -273,18 +335,29 @@ header.ecotech-orig{top:44px!important;}
   <a class="en-logo" href="../index.html">EcoTech <span>Platform</span></a>
   <div class="en-sep"></div>
   <div class="en-links">
-    <a href="../index.html">Навигация</a>
-    <a href="../Витрина/EcoTech Platform - главная страница.html">Главная</a>
+    <div class="en-drop">
+      <a class="en-drop-trigger" href="../Бизнесу/index.html">Бизнесу</a>
+      <div class="en-drop-menu">
+    <a href="../Бизнесу/index.html">Обзор платформы</a>
     <a href="../Витрина/EcoTech Platform — Витрина.html">Витрина</a>
-    <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
-    <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук</a>
-    <a href="../Бизнесу/index.html">Бизнесу</a>
-    <a href="../Продукту/index.html">Продукту</a>
-    <a href="RWB · Product OS - Трекер инициатив.html" class="en-active">Трекер</a>
-    <a href="RWB · Product OS · Бэклог развития.html">Бэклог</a>
+    <div class="en-drop-sep"></div>
+    <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html#tab=portfolio">Портфель продуктов</a>
     <a href="../slides_temp/slide01.html">Слайды</a>
+      </div>
+    </div>
+    <div class="en-drop en-active">
+      <a class="en-drop-trigger" href="../Продукту/index.html">Продукту</a>
+      <div class="en-drop-menu">
+    <a href="../Продукту/index.html">С чего начать</a>
+    <div class="en-drop-sep"></div>
+    <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук (G0–G5)</a>
+    <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html" class="en-active">Трекер инициатив</a>
+    <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
+      </div>
+    </div>
   </div>
 </nav>
+<script>!function(){var ds=document.querySelectorAll('.en-drop');ds.forEach(function(d){var t;d.addEventListener('mouseenter',function(){clearTimeout(t);d.classList.add('is-open');});d.addEventListener('mouseleave',function(){t=setTimeout(function(){d.classList.remove('is-open');},120);});});}();</script>
 
 <header class="ecotech-orig">
   <div class="logo"><b>RWB</b> · Product OS</div>
@@ -293,6 +366,7 @@ header.ecotech-orig{top:44px!important;}
     <button class="tab active" onclick="switchTab(&#39;portfolio&#39;,this)">🗂 Портфель</button>
     <button class="tab" onclick="switchTab(&#39;backlog&#39;,this)">📋 Беклог</button>
     <button class="tab" onclick="switchTab(&#39;tracker&#39;,this)">📊 Трекер</button>
+    <button class="tab" onclick="switchTab(&#39;goals&#39;,this)">🎯 Цели</button>
   </div>
 </header>
 
@@ -803,6 +877,15 @@ header.ecotech-orig{top:44px!important;}
       <div class="empty" id="empty" style="display:none">Ничего не найдено — попробуй другой фильтр</div>
     </div>
 
+    <!-- GOALS -->
+    <div id="pg-goals" style="display:none">
+      <div class="goals-header">
+        <h2>🎯 Реестр целей</h2>
+        <button class="btn-add-goal" onclick="addGoal()">+ Добавить цель</button>
+      </div>
+      <div id="goals-list"></div>
+    </div>
+
     <!-- TRACKER -->
     <div id="pg-tracker" style="display:none">
       <div class="role-switcher">
@@ -818,61 +901,120 @@ header.ecotech-orig{top:44px!important;}
 
   <!-- EDIT PANEL -->
   <div class="edit-panel" id="ep">
-    <div class="ep-head">
-      <div class="ep-title" id="ep-title">—</div>
+    <!-- Tab header -->
+    <div class="ep-tab-header">
+      <span class="ep-id-disp" id="ep-id-disp">—</span>
+      <span class="ep-name-disp" id="ep-title">—</span>
+      <div class="ep-tabs-row">
+        <button class="ep-tab active" id="ept-prd" onclick="switchEPTab('prd')">PRD</button>
+        <button class="ep-tab" id="ept-rice" onclick="switchEPTab('rice')">RICE</button>
+      </div>
       <button class="ep-close" onclick="closeEP()">✕</button>
     </div>
-    <div class="ep-body">
-      <div class="score-preview">
-        <div class="score-preview-val s-hi" id="ep-score">—</div>
-        <div class="score-preview-lbl">(R × I × C) / E</div>
+
+    <!-- PRD Tab Panel -->
+    <div class="ep-tab-panel active" id="ep-panel-prd">
+      <div class="ep-body">
+        <div class="ep-group">
+          <div class="ep-lbl">🎯 Цель</div>
+          <select class="ep-select" id="ep-goal-sel">
+            <option value="">— Без цели —</option>
+          </select>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">🗺 Эпик</div>
+          <select class="ep-select" id="ep-epic-sel">
+            <option value="">— Без эпика —</option>
+          </select>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Проблема *</div>
+          <textarea class="ep-textarea" id="prd-problem" placeholder="Какую проблему решаем?" rows="3"></textarea>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Гипотеза ценности</div>
+          <textarea class="ep-textarea" id="prd-hypothesis" placeholder="Мы верим, что…" rows="3"></textarea>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Целевая аудитория</div>
+          <input class="ep-select" type="text" id="prd-audience" placeholder="PM, UX, TL, PMO…" style="padding:8px 10px">
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Решение</div>
+          <textarea class="ep-textarea" id="prd-solution" placeholder="Описание решения…" rows="3"></textarea>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Метрики успеха</div>
+          <textarea class="ep-textarea" id="prd-metrics" placeholder="North Star, KPI…" rows="2"></textarea>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Таймлайн</div>
+          <input class="ep-select" type="text" id="prd-timeline" placeholder="Q1 2026, Sprint 3…" style="padding:8px 10px">
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Риски</div>
+          <textarea class="ep-textarea" id="prd-risks" placeholder="Ключевые риски и митигация…" rows="2"></textarea>
+        </div>
       </div>
-      <div class="ep-group">
-        <div class="ep-lbl">📡 Reach — охват</div>
-        <div class="ep-row"><span class="ep-key">R</span><input class="ep-slider" type="range" id="ep-r" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-r-v">5</span></div>
-        <div class="ep-lbl" style="margin-top:4px">💥 Impact — влияние</div>
-        <div class="ep-row"><span class="ep-key">I</span><input class="ep-slider" type="range" id="ep-i" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-i-v">5</span></div>
-        <div class="ep-lbl" style="margin-top:4px">🎯 Confidence — уверенность</div>
-        <div class="ep-row"><span class="ep-key">C</span><input class="ep-slider" type="range" id="ep-c" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-c-v">5</span></div>
-        <div class="ep-lbl" style="margin-top:4px">⚙️ Effort — трудозатраты</div>
-        <div class="ep-row"><span class="ep-key">E</span><input class="ep-slider" type="range" id="ep-e" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-e-v">5</span></div>
-      </div>
-      <div class="ep-group">
-        <div class="ep-lbl">Продукт</div>
-        <select class="ep-select" id="ep-proj"><option value="PR01">PR01 — Продуктовый фреймворк</option><option value="PR02">PR02 — Хендбук для руководителей</option><option value="PR03">PR03 — Лендинг для бизнеса</option><option value="PR04">PR04 — Трекер инициатив (Shiva/WB)</option><option value="PR05">PR05 — Реестр целей и инициатив</option><option value="PR06">PR06 — Корпоративный ProductHunt</option></select>
-      </div>
-      <div class="ep-group">
-        <div class="ep-lbl">Тип инициативы</div>
-        <select class="ep-select" id="ep-track">
-          <option value="delivery">🚀 Delivery — разрабатываем</option>
-          <option value="discovery">🔍 Discovery — исследуем</option>
-        </select>
-      </div>
-      <div class="ep-group">
-        <div class="ep-lbl">Статус</div>
-        <select class="ep-select" id="ep-status">
-          <option value="backlog">📥 Бэклог</option>
-          <option value="planned">📌 Запланировано</option>
-          <option value="wip">🔄 В работе</option>
-          <option value="done">✅ Готово</option>
-        </select>
-      </div>
-      <div class="ep-group">
-        <div class="ep-lbl">Целевой релиз</div>
-        <select class="ep-select" id="ep-release">
-          <option value="v13">v13</option>
-          <option value="v14">v14</option>
-          <option value="v15+">v15+</option>
-          <option value="backlog">Бэклог (без срока)</option>
-        </select>
-      </div>
-      <div class="ep-group">
-        <div class="ep-lbl">Заметки PM</div>
-        <textarea class="ep-textarea" id="ep-notes" placeholder="Контекст, блокеры, решения…"></textarea>
+      <div class="ep-foot">
+        <button class="btn-save" id="btn-save-prd" onclick="savePRD()">💾 Сохранить PRD</button>
       </div>
     </div>
-    <div class="ep-foot">
-      <button class="btn-save" onclick="saveEP()">💾 Сохранить изменения</button>
+
+    <!-- RICE Tab Panel -->
+    <div class="ep-tab-panel" id="ep-panel-rice">
+      <div class="ep-body">
+        <div class="score-preview">
+          <div class="score-preview-val s-hi" id="ep-score">—</div>
+          <div class="score-preview-lbl">(R × I × C) / E</div>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">📡 Reach — охват</div>
+          <div class="ep-row"><span class="ep-key">R</span><input class="ep-slider" type="range" id="ep-r" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-r-v">5</span></div>
+          <div class="ep-lbl" style="margin-top:4px">💥 Impact — влияние</div>
+          <div class="ep-row"><span class="ep-key">I</span><input class="ep-slider" type="range" id="ep-i" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-i-v">5</span></div>
+          <div class="ep-lbl" style="margin-top:4px">🎯 Confidence — уверенность</div>
+          <div class="ep-row"><span class="ep-key">C</span><input class="ep-slider" type="range" id="ep-c" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-c-v">5</span></div>
+          <div class="ep-lbl" style="margin-top:4px">⚙️ Effort — трудозатраты</div>
+          <div class="ep-row"><span class="ep-key">E</span><input class="ep-slider" type="range" id="ep-e" min="1" max="10" oninput="updEP()"><span class="ep-val" id="ep-e-v">5</span></div>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Продукт</div>
+          <select class="ep-select" id="ep-proj"><option value="PR01">PR01 — Продуктовый фреймворк</option><option value="PR02">PR02 — Хендбук для руководителей</option><option value="PR03">PR03 — Лендинг для бизнеса</option><option value="PR04">PR04 — Трекер инициатив (Shiva/WB)</option><option value="PR05">PR05 — Реестр целей и инициатив</option><option value="PR06">PR06 — Корпоративный ProductHunt</option></select>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Тип инициативы</div>
+          <select class="ep-select" id="ep-track">
+            <option value="delivery">🚀 Delivery — разрабатываем</option>
+            <option value="discovery">🔍 Discovery — исследуем</option>
+          </select>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Статус</div>
+          <select class="ep-select" id="ep-status">
+            <option value="backlog">📥 Бэклог</option>
+            <option value="planned">📌 Запланировано</option>
+            <option value="wip">🔄 В работе</option>
+            <option value="done">✅ Готово</option>
+          </select>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Целевой релиз</div>
+          <select class="ep-select" id="ep-release">
+            <option value="v13">v13</option>
+            <option value="v14">v14</option>
+            <option value="v15+">v15+</option>
+            <option value="backlog">Бэклог (без срока)</option>
+          </select>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Заметки PM</div>
+          <textarea class="ep-textarea" id="ep-notes" placeholder="Контекст, блокеры, решения…"></textarea>
+        </div>
+      </div>
+      <div class="ep-foot">
+        <button class="btn-save" id="btn-save-rice" onclick="saveEP()">💾 Сохранить</button>
+      </div>
     </div>
   </div>
 </div>
@@ -950,9 +1092,56 @@ const BACKLOG_DEFAULT = [
 ];
 
 // ════════════════════════════════════════════
+// GOALS & EPICS DATA
+// ════════════════════════════════════════════
+const GOALS_DEFAULT = [
+  { id:'G001', title:'Запустить Product OS v13', type:'strategic',
+    period:'Q1 2026', owner:'CPO', status:'active', description:'',
+    keyResults:[
+      { id:'KR1', text:'Подключить 5 команд к платформе', target:5, current:0, unit:'команды' },
+      { id:'KR2', text:'Провести Gate Review для всех продуктов', target:6, current:2, unit:'ревью' }
+    ]
+  },
+  { id:'G002', title:'Снизить время онбординга PM до 1 недели', type:'product',
+    period:'Q2 2026', owner:'PM', status:'active', description:'',
+    keyResults:[
+      { id:'KR1', text:'Сократить шаги онбординга с 7 до 3', target:4, current:0, unit:'шагов оптимизировано' }
+    ]
+  }
+];
+
+const EPICS_DEFAULT = [
+  { id:'E001', title:'Дизайн-система RWB',         projectId:'PR01', goalId:'G001', status:'planned', gate:2 },
+  { id:'E002', title:'Контентный план фреймворка',  projectId:'PR01', goalId:'G001', status:'active',  gate:3 },
+  { id:'E003', title:'PRD и шаблоны артефактов',    projectId:'PR02', goalId:'G002', status:'backlog', gate:1 },
+  { id:'E004', title:'Трекер инициатив v2',          projectId:'PR04', goalId:'G001', status:'planned', gate:2 },
+];
+
+// Epic assignments for existing BACKLOG items (used in migration)
+const EPIC_ASSIGNMENTS = {
+  D02:'E001', D04:'E001', D05:'E001', D06:'E001',
+  C01:'E002', C02:'E002', C03:'E002', C04:'E002', C05:'E002', P01:'E002',
+  F03:'E003', T02:'E003', T05:'E003', T06:'E003', F08:'E003',
+  F06:'E004', T01:'E004', T03:'E004', T04:'E004',
+};
+
+// ════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════
-let backlog = (window.PT ? PT.load(PT.KEY_BACKLOG) : JSON.parse(localStorage.getItem('rwb_os_backlog') || 'null')) || BACKLOG_DEFAULT;
+const _rawBL = (window.PT ? PT.load(PT.KEY_BACKLOG) : JSON.parse(localStorage.getItem('rwb_os_backlog') || 'null'));
+// Validate: data must have items with project field matching PROJECTS (PR01…PR06)
+const _blValid = _rawBL && _rawBL.length && _rawBL.some(i => PROJECTS.some(p => p.id === i.project));
+let backlog = (_blValid ? _rawBL : null) || BACKLOG_DEFAULT;
+// Migrate: ensure all items have epicId, goalId, prd fields
+backlog.forEach(item => {
+  if (!('epicId' in item)) item.epicId = EPIC_ASSIGNMENTS[item.id] || null;
+  if (!('goalId' in item)) item.goalId = null;
+  if (!item.prd) item.prd = { problem:'', hypothesis:'', audience:'', solution:'', metrics:'', risks:'', timeline:'' };
+});
+
+let goals = (window.PT ? PT.load(PT.KEY_GOALS) : null) || GOALS_DEFAULT;
+let epics = (window.PT ? PT.load(PT.KEY_EPICS) : null) || EPICS_DEFAULT;
+
 let filters = { cat:'all', status:'all', audience:'all', project:'all', track:'all' };
 let sortBy = 'score';
 let editId = null;
@@ -982,20 +1171,24 @@ function switchTab(tab, btn) {
   curTab = tab;
   if (window.PT) PT.setUIState({tracker_tab: tab});
   document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   document.getElementById('pg-portfolio').style.display = tab === 'portfolio' ? '' : 'none';
   document.getElementById('pg-backlog').style.display   = tab === 'backlog'   ? '' : 'none';
   document.getElementById('pg-tracker').style.display   = tab === 'tracker'   ? '' : 'none';
+  document.getElementById('pg-goals').style.display     = tab === 'goals'     ? '' : 'none';
   const sb = document.getElementById('sidebar');
   if (tab === 'backlog') { sb.classList.remove('hidden'); renderBL(); }
-  else { sb.classList.add('hidden'); closeEP(); }
+  else { sb.classList.add('hidden'); if (tab !== 'portfolio') closeEP(); }
   if (tab === 'tracker') renderTracker(curRole);
+  if (tab === 'goals')   renderGoals();
 }
 
 // ════════════════════════════════════════════
 // PORTFOLIO
 // ════════════════════════════════════════════
 function renderPortfolio() {
+  // Preserve open state before re-render
+  const wasOpen = new Set([...document.querySelectorAll('.pcard.open')].map(c => c.id));
   const stCnt = {wip:0,planned:0,backlog:0,done:0};
   PROJECTS.forEach(p => stCnt[p.status]++);
   document.getElementById('pstats').innerHTML = `
@@ -1020,19 +1213,64 @@ function renderPortfolio() {
       let cls = idx < p.gate ? 'done' : idx === p.gate ? 'current' : '';
       return `<div class="gate-step ${cls}" title="G${idx}: ${s.name}"></div>`;
     }).join('');
-    const initRows = sorted.map(item => {
+    // Build epic-grouped initiative rows
+    const mkIRow = item => {
       const s = sc(item);
       const trackHtml = item.track === 'discovery'
         ? `<span class="track-d">🔍 Discovery</span>`
         : `<span class="track-v">🚀 Delivery</span>`;
-      return `<div class="irow" onclick="goEdit('${item.id}')">
+      return `<div class="irow" onclick="openPRD('${item.id}')">
         <div class="iid">${item.id}</div>
         <div><div class="iname">${item.name}</div><div class="isub">${item.desc.substring(0,52)}${item.desc.length>52?'…':''}</div></div>
         <div>${trackHtml}</div>
         <div><div class="iscore ${scClass(s)}">${s.toFixed(1)}</div><div class="iscl">RICE</div></div>
         <div style="text-align:right"><span class="ist ${ST_CLS[item.status]}">${ST_ICO[item.status]} ${ST_LBL[item.status]}</span></div>
       </div>`;
-    }).join('');
+    };
+
+    const projectEpics = epics.filter(e => e.projectId === p.id);
+    let initRows = '';
+    if (projectEpics.length) {
+      // Group by epic
+      const byEpic = {};
+      const noEpic = [];
+      sorted.forEach(item => {
+        const eid = item.epicId && epics.find(e=>e.id===item.epicId&&e.projectId===p.id) ? item.epicId : null;
+        if (eid) { if (!byEpic[eid]) byEpic[eid]=[]; byEpic[eid].push(item); }
+        else noEpic.push(item);
+      });
+      const epicStatusCls = {planned:'planned', active:'wip', backlog:'backlog'};
+      projectEpics.forEach(epic => {
+        const epicItems = byEpic[epic.id] || [];
+        const epicGoal  = goals.find(g => g.id === epic.goalId);
+        const stCls     = epicStatusCls[epic.status] || 'backlog';
+        initRows += `<div class="epic-section">
+          <div class="epic-header">
+            <span class="epic-icon">🗺</span>
+            <span class="epic-name">${epic.title}</span>
+            <span class="sdot ${ST_CLS[stCls]}" style="font-size:9px;padding:2px 6px">${epic.status}</span>
+            <span class="epic-meta">G${epic.gate}</span>
+            ${epicGoal ? `<span class="epic-goal-tag">↗ ${epicGoal.id}</span>` : ''}
+          </div>
+          <div class="epic-inits">
+            ${epicItems.length ? epicItems.map(mkIRow).join('') : '<div style="font-size:11px;color:var(--muted);padding:5px 0 3px">Нет инициатив</div>'}
+          </div>
+        </div>`;
+      });
+      if (noEpic.length) {
+        initRows += `<div class="epic-section">
+          <div class="no-epic-header epic-header">
+            <span class="epic-icon">📋</span>
+            <span class="epic-name">Без эпика</span>
+            <span class="epic-meta">${noEpic.length}</span>
+          </div>
+          <div class="epic-inits">${noEpic.map(mkIRow).join('')}</div>
+        </div>`;
+      }
+    } else {
+      initRows = sorted.map(mkIRow).join('');
+    }
+
     return `<div class="pcard" id="pc-${p.id}">
       <div class="pcard-head" onclick="togglePC('${p.id}')">
         <div class="pmeta">
@@ -1061,9 +1299,19 @@ function renderPortfolio() {
           Инициативы (${items.length}) · по RICE score
         </div>
         <div class="ilist">${initRows}</div>
+        <button class="add-init-btn" onclick="event.stopPropagation();addInitiative('${p.id}')">+ Добавить инициативу</button>
       </div>
     </div>`;
   }).join('');
+  // Restore open cards
+  wasOpen.forEach(pcId => {
+    const card = document.getElementById(pcId);
+    if (card) {
+      card.classList.add('open');
+      const btn = card.querySelector('.exbtn');
+      if (btn) btn.textContent = 'Свернуть ↑';
+    }
+  });
 }
 
 function togglePC(id) {
@@ -1081,9 +1329,7 @@ function togglePC(id) {
 }
 
 function goEdit(id) {
-  const tabBtns = document.querySelectorAll('.tab');
-  switchTab('backlog', tabBtns[1]);
-  setTimeout(() => openEP(id), 120);
+  openPRD(id);
 }
 
 // ════════════════════════════════════════════
@@ -1165,7 +1411,7 @@ function renderItem(item, rank) {
   const trackTag = item.track === 'discovery'
     ? `<span class="track-d">🔍 Discovery</span>`
     : `<span class="track-v">🚀 Delivery</span>`;
-  return `<div class="item${editId===item.id?' editing':''}" onclick="openEP('${item.id}')">
+  return `<div class="item${editId===item.id?' editing':''}" onclick="openPRD('${item.id}')">
     <div class="item-rank">#${rank}</div>
     <div class="item-main">
       <div class="item-name">${item.name}</div>
@@ -1640,9 +1886,205 @@ function saveEP() {
   if (window.PT) PT.save(PT.KEY_BACKLOG, backlog); else localStorage.setItem('rwb_os_backlog', JSON.stringify(backlog));
   if (curTab === 'backlog') renderBL();
   renderPortfolio();
-  const btn=document.querySelector('.btn-save');
-  btn.textContent='✅ Сохранено!';
-  setTimeout(()=>btn.textContent='💾 Сохранить изменения',1600);
+  const btn = document.getElementById('btn-save-rice');
+  if (btn) { btn.textContent='✅ Сохранено!'; setTimeout(()=>btn.textContent='💾 Сохранить', 1600); }
+}
+
+// ════════════════════════════════════════════
+// PRD DRAWER
+// ════════════════════════════════════════════
+function openPRD(id) {
+  const item = backlog.find(i => i.id === id);
+  if (!item) return;
+  editId = id;
+  // Header
+  const idDisp = document.getElementById('ep-id-disp');
+  if (idDisp) idDisp.textContent = item.id;
+  document.getElementById('ep-title').textContent = item.name;
+  // RICE fields
+  document.getElementById('ep-r').value = item.r;
+  document.getElementById('ep-i').value = item.i;
+  document.getElementById('ep-c').value = item.c;
+  document.getElementById('ep-e').value = item.e;
+  document.getElementById('ep-r-v').textContent = item.r;
+  document.getElementById('ep-i-v').textContent = item.i;
+  document.getElementById('ep-c-v').textContent = item.c;
+  document.getElementById('ep-e-v').textContent = item.e;
+  document.getElementById('ep-proj').value = item.project || 'PR01';
+  document.getElementById('ep-track').value = item.track || 'delivery';
+  document.getElementById('ep-status').value = item.status;
+  document.getElementById('ep-release').value = item.release || 'backlog';
+  document.getElementById('ep-notes').value = item.notes || '';
+  updEP();
+  // PRD fields
+  const prd = item.prd || {};
+  document.getElementById('prd-problem').value = prd.problem || '';
+  document.getElementById('prd-hypothesis').value = prd.hypothesis || '';
+  document.getElementById('prd-audience').value = prd.audience || item.audience || '';
+  document.getElementById('prd-solution').value = prd.solution || '';
+  document.getElementById('prd-metrics').value = prd.metrics || '';
+  document.getElementById('prd-timeline').value = prd.timeline || '';
+  document.getElementById('prd-risks').value = prd.risks || '';
+  // Goal select
+  const goalSel = document.getElementById('ep-goal-sel');
+  if (goalSel) {
+    goalSel.innerHTML = '<option value="">— Без цели —</option>' +
+      goals.map(g => `<option value="${g.id}"${item.goalId===g.id?' selected':''}>${g.id} · ${g.title}</option>`).join('');
+  }
+  // Epic select (show all epics, mark current project's)
+  const epicSel = document.getElementById('ep-epic-sel');
+  if (epicSel) {
+    epicSel.innerHTML = '<option value="">— Без эпика —</option>' +
+      epics.map(e => {
+        const proj = e.projectId === item.project ? '' : ` (${e.projectId})`;
+        return `<option value="${e.id}"${item.epicId===e.id?' selected':''}>${e.id} · ${e.title}${proj}</option>`;
+      }).join('');
+  }
+  switchEPTab('prd');
+  document.getElementById('ep').classList.add('open');
+  if (curTab === 'backlog') renderBL();
+}
+
+function switchEPTab(tab) {
+  document.getElementById('ep-panel-prd').classList.toggle('active', tab === 'prd');
+  document.getElementById('ep-panel-rice').classList.toggle('active', tab === 'rice');
+  document.getElementById('ept-prd').classList.toggle('active', tab === 'prd');
+  document.getElementById('ept-rice').classList.toggle('active', tab === 'rice');
+}
+
+function savePRD() {
+  if (!editId) return;
+  const item = backlog.find(i => i.id === editId);
+  if (!item) return;
+  if (!item.prd) item.prd = {};
+  item.prd.problem    = document.getElementById('prd-problem').value;
+  item.prd.hypothesis = document.getElementById('prd-hypothesis').value;
+  item.prd.audience   = document.getElementById('prd-audience').value;
+  item.prd.solution   = document.getElementById('prd-solution').value;
+  item.prd.metrics    = document.getElementById('prd-metrics').value;
+  item.prd.timeline   = document.getElementById('prd-timeline').value;
+  item.prd.risks      = document.getElementById('prd-risks').value;
+  item.goalId = document.getElementById('ep-goal-sel').value || null;
+  item.epicId = document.getElementById('ep-epic-sel').value || null;
+  if (window.PT) PT.save(PT.KEY_BACKLOG, backlog);
+  else localStorage.setItem('rwb_os_backlog', JSON.stringify(backlog));
+  renderPortfolio();
+  if (curTab === 'backlog') renderBL();
+  const btn = document.getElementById('btn-save-prd');
+  btn.textContent = '✅ PRD сохранён!';
+  setTimeout(() => btn.textContent = '💾 Сохранить PRD', 1600);
+}
+
+// ════════════════════════════════════════════
+// GOALS
+// ════════════════════════════════════════════
+function renderGoals() {
+  const container = document.getElementById('goals-list');
+  if (!container) return;
+  if (!goals.length) {
+    container.innerHTML = '<div class="empty">Нет целей — нажмите [+ Добавить цель]</div>';
+    return;
+  }
+  container.innerHTML = goals.map(goal => {
+    const goalInits  = backlog.filter(i => i.goalId === goal.id);
+    const goalEpics  = epics.filter(e => e.goalId === goal.id);
+    const typeCls    = goal.type === 'strategic' ? 'goal-type-strategic' : 'goal-type-product';
+    const statusDot  = goal.status === 'active'
+      ? '<span class="sdot st-wip" style="font-size:9px;padding:2px 7px">🔄 Активна</span>'
+      : '<span class="sdot st-backlog" style="font-size:9px;padding:2px 7px">📥 Неактивна</span>';
+    const krRows = goal.keyResults.map(kr => {
+      const pct = Math.min(100, kr.target > 0 ? Math.round(kr.current / kr.target * 100) : 0);
+      return `<div class="kr-row">
+        <div class="kr-label">
+          <span class="kr-text">${kr.id}: ${kr.text}</span>
+          <span class="kr-progress">${kr.current}/${kr.target} ${kr.unit}</span>
+        </div>
+        <div class="kr-bar"><div class="kr-bar-fill" style="width:${pct}%"></div></div>
+      </div>`;
+    }).join('');
+    return `<div class="goal-card">
+      <div class="goal-card-head">
+        <span class="goal-id-badge">${goal.id}</span>
+        <div class="goal-info">
+          <div class="goal-meta">
+            <span class="goal-type ${typeCls}">${goal.type}</span>
+            <span class="goal-period">${goal.period}</span>
+            <span class="goal-owner">${goal.owner}</span>
+            ${statusDot}
+          </div>
+          <div class="goal-title">${goal.title}</div>
+        </div>
+      </div>
+      <div class="kr-list">${krRows}</div>
+      <div class="goal-stats">
+        <div class="goal-stat">Инициатив: <b>${goalInits.length}</b></div>
+        <div class="goal-stat">Эпиков: <b>${goalEpics.length}</b></div>
+        <div style="flex:1"></div>
+        <button class="exbtn" onclick="editGoal('${goal.id}')">✏ Редактировать</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function editGoal(goalId) {
+  const goal = goals.find(g => g.id === goalId);
+  if (!goal) return;
+  goal.keyResults.forEach(kr => {
+    const val = prompt(`${kr.id}: ${kr.text}\nТекущее значение (из ${kr.target} ${kr.unit}):`, kr.current);
+    if (val !== null && !isNaN(+val)) kr.current = Math.max(0, +val);
+  });
+  if (window.PT) PT.save(PT.KEY_GOALS, goals);
+  renderGoals();
+}
+
+function addGoal() {
+  const newGoal = {
+    id: 'G' + String(goals.length + 1).padStart(3, '0'),
+    title: 'Новая цель',
+    type: 'product',
+    period: 'Q2 2026',
+    owner: 'PM',
+    status: 'active',
+    description: '',
+    keyResults: [
+      { id:'KR1', text:'Ключевой результат', target:10, current:0, unit:'ед.' }
+    ]
+  };
+  goals.push(newGoal);
+  if (window.PT) PT.save(PT.KEY_GOALS, goals);
+  renderGoals();
+  editGoal(newGoal.id);
+}
+
+function addInitiative(projectId) {
+  const existingIds = backlog.map(i => i.id);
+  let newId = 'N01';
+  for (let n = 1; n <= 99; n++) {
+    const candidate = 'N' + String(n).padStart(2, '0');
+    if (!existingIds.includes(candidate)) { newId = candidate; break; }
+  }
+  const newItem = {
+    id: newId,
+    project: projectId,
+    track: 'discovery',
+    name: 'Новая инициатива',
+    desc: '',
+    cat: 'feature',
+    audience: 'PM',
+    r:5, i:5, c:5, e:5,
+    status: 'backlog',
+    release: 'backlog',
+    notes: '',
+    goalId: null,
+    epicId: null,
+    prd: { problem:'', hypothesis:'', audience:'', solution:'', metrics:'', risks:'', timeline:'' }
+  };
+  backlog.push(newItem);
+  if (window.PT) PT.save(PT.KEY_BACKLOG, backlog);
+  renderPortfolio();
+  const pc = document.getElementById('pc-' + projectId);
+  if (pc && !pc.classList.contains('open')) togglePC(projectId);
+  setTimeout(() => openPRD(newId), 150);
 }
 
 // ════════════════════════════════════════════
@@ -1657,7 +2099,7 @@ initSidebar();
   const _hash = window.PT ? PT.parseHash() : {};
   const _ui   = window.PT ? PT.getUIState() : {};
   const _tab  = _hash.tab || _ui.tracker_tab || 'portfolio';
-  const _tabIdx = ['portfolio','backlog','tracker'].indexOf(_tab);
+  const _tabIdx = ['portfolio','backlog','tracker','goals'].indexOf(_tab);
   if (_tabIdx >= 0 && tabBtns[_tabIdx]) {
     switchTab(_tab, tabBtns[_tabIdx]);
   }
