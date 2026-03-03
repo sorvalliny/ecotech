@@ -307,6 +307,65 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 .goal-stat b{color:#E8E8F0;font-weight:700}
 .btn-add-goal{padding:8px 16px;background:var(--vdim);border:1px solid var(--vborder);border-radius:8px;color:#C4B5FD;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
 .btn-add-goal:hover{background:var(--violet);color:#fff}
+
+/* ── PRODUCT PRD PANEL ── */
+.prod-prd-panel{position:fixed;top:96px;right:0;bottom:0;width:480px;background:var(--card);border-left:1px solid var(--border);z-index:140;transform:translateX(100%);transition:transform .2s;overflow:hidden;display:flex;flex-direction:column}
+.prod-prd-panel.open{transform:none;box-shadow:-8px 0 32px rgba(0,0,0,.5)}
+.pp-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.pp-back{font-size:12px;font-weight:700;color:#C4B5FD;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pp-body{padding:16px 18px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.pp-section-label{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;padding:8px 0 4px;border-top:1px solid var(--border);margin-top:4px}
+.pp-field{display:flex;flex-direction:column;gap:4px}
+.pp-field label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.pp-field input,.pp-field textarea{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:#fff;font-family:var(--font);font-size:12px;resize:vertical}
+.pp-field input:focus,.pp-field textarea:focus{outline:none;border-color:var(--vborder)}
+.pp-foot{padding:14px 18px;border-top:1px solid var(--border)}
+
+/* ── PRD BUTTON & DIVIDERS ── */
+.prd-btn{background:none;border:1px solid var(--border);border-radius:8px;color:var(--muted);padding:5px 10px;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--font);letter-spacing:.04em;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.prd-btn:hover{border-color:var(--vborder);color:#C4B5FD;background:var(--vdim)}
+.prd-divider{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;padding:4px 0 2px;border-top:1px solid var(--border);margin-top:2px}
+
+/* ── GOAL PREVIEW ── */
+.goal-preview{background:rgba(123,47,255,.06);border:1px solid rgba(123,47,255,.2);border-radius:8px;padding:10px 12px;flex-direction:column;gap:6px}
+.goal-preview-title{font-size:11px;font-weight:700;color:#C4B5FD;line-height:1.3}
+.goal-preview-kr{display:flex;flex-direction:column;gap:2px}
+.goal-preview-kr-label{display:flex;justify-content:space-between;align-items:center}
+.goal-preview-kr-text{color:#E8E8F0;font-size:10px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.goal-preview-kr-val{color:var(--muted);font-family:var(--mono);font-size:9px;flex-shrink:0;margin-left:6px}
+.goal-preview-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin-top:2px}
+.goal-preview-bar-fill{height:100%;border-radius:2px;background:var(--violet)}
+
+/* ── GOAL MODAL ── */
+.gm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;align-items:center;justify-content:center}
+.gm-overlay.open{display:flex}
+#goal-modal{background:var(--card);border:1px solid var(--border);border-radius:16px;width:580px;max-width:96vw;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.6)}
+.gm-head{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.gm-htitle{font-size:14px;font-weight:800;color:#fff;flex:1}
+.gm-body{padding:16px 20px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.gm-row4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+.gm-field{display:flex;flex-direction:column;gap:4px}
+.gm-field label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.gm-field input,.gm-field textarea,.gm-field select{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:#fff;font-family:var(--font);font-size:12px}
+.gm-field input:focus,.gm-field textarea:focus,.gm-field select:focus{outline:none;border-color:var(--vborder)}
+.gm-divider{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;padding:6px 0 2px;border-top:1px solid var(--border)}
+.gm-kr-list{display:flex;flex-direction:column;gap:6px}
+.gm-kr-row{display:grid;grid-template-columns:1fr 58px 58px 76px 30px;gap:6px;align-items:center;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.gm-kr-row input{width:100%;background:transparent;border:none;color:#fff;font-family:var(--font);font-size:12px;padding:0}
+.gm-kr-row input:focus{outline:none}
+.gm-kr-row input::placeholder{color:var(--muted)}
+.gm-kr-del{background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;padding:0;line-height:1;text-align:center}
+.gm-kr-del:hover{color:var(--red)}
+.btn-add-kr{padding:7px 12px;background:none;border:1px dashed rgba(123,47,255,.3);border-radius:8px;color:var(--muted);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;width:100%;text-align:center}
+.btn-add-kr:hover{border-color:var(--violet);color:#C4B5FD;background:var(--vdim)}
+.gm-actions{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center}
+.gm-del-btn{padding:8px 14px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;color:#FCA5A5;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.gm-del-btn:hover{background:rgba(239,68,68,.2);border-color:var(--red)}
+.gm-spacer{flex:1}
+.gm-cancel-btn{padding:8px 16px;background:none;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.gm-cancel-btn:hover{border-color:var(--bhi);color:#fff}
+.gm-save-btn{padding:8px 18px;background:var(--violet);border:none;border-radius:8px;color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:background .15s}
+.gm-save-btn:hover{background:#6D28D9}
 </style>
 <style>
 .ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,0.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,0.15);display:flex;align-items:center;padding:0 24px;gap:0;}
@@ -917,9 +976,10 @@ header.ecotech-orig{top:44px!important;}
       <div class="ep-body">
         <div class="ep-group">
           <div class="ep-lbl">🎯 Цель</div>
-          <select class="ep-select" id="ep-goal-sel">
+          <select class="ep-select" id="ep-goal-sel" onchange="onGoalSelect()">
             <option value="">— Без цели —</option>
           </select>
+          <div id="goal-preview" class="goal-preview" style="display:none"></div>
         </div>
         <div class="ep-group">
           <div class="ep-lbl">🗺 Инициатива</div>
@@ -927,10 +987,16 @@ header.ecotech-orig{top:44px!important;}
             <option value="">— Без инициативы —</option>
           </select>
         </div>
+        <div class="prd-divider">— КОНТЕКСТ —</div>
         <div class="ep-group">
           <div class="ep-lbl">Проблема *</div>
           <textarea class="ep-textarea" id="prd-problem" placeholder="Какую проблему решаем?" rows="3"></textarea>
         </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Бизнес-метрика</div>
+          <input class="ep-select" type="text" id="prd-biz-metric" placeholder="Метрика бизнеса (выручка, CAC, LTV…)" style="padding:8px 10px">
+        </div>
+        <div class="prd-divider">— РЕШЕНИЕ —</div>
         <div class="ep-group">
           <div class="ep-lbl">Гипотеза ценности</div>
           <textarea class="ep-textarea" id="prd-hypothesis" placeholder="Мы верим, что…" rows="3"></textarea>
@@ -943,6 +1009,7 @@ header.ecotech-orig{top:44px!important;}
           <div class="ep-lbl">Решение</div>
           <textarea class="ep-textarea" id="prd-solution" placeholder="Описание решения…" rows="3"></textarea>
         </div>
+        <div class="prd-divider">— МЕТРИКИ И РИСКИ —</div>
         <div class="ep-group">
           <div class="ep-lbl">Метрики успеха</div>
           <textarea class="ep-textarea" id="prd-metrics" placeholder="North Star, KPI…" rows="2"></textarea>
@@ -954,6 +1021,15 @@ header.ecotech-orig{top:44px!important;}
         <div class="ep-group">
           <div class="ep-lbl">Риски</div>
           <textarea class="ep-textarea" id="prd-risks" placeholder="Ключевые риски и митигация…" rows="2"></textarea>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Рекомендация</div>
+          <select class="ep-select" id="prd-recommend">
+            <option value="">—</option>
+            <option value="go">🟢 Go</option>
+            <option value="no-go">🔴 No-Go</option>
+            <option value="revise">🔁 На доработку</option>
+          </select>
         </div>
       </div>
       <div class="ep-foot">
@@ -1015,6 +1091,115 @@ header.ecotech-orig{top:44px!important;}
       <div class="ep-foot">
         <button class="btn-save" id="btn-save-rice" onclick="saveEP()">💾 Сохранить</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT PRD PANEL -->
+<div id="pp" class="prod-prd-panel">
+  <div class="pp-head">
+    <span class="pp-back" id="pp-back">← PRD продукта</span>
+    <button class="ep-close" onclick="closeProductPRD()">✕</button>
+  </div>
+  <div class="pp-body">
+    <div class="pp-field">
+      <label>👤 Владелец</label>
+      <input type="text" id="pp-owner" placeholder="PM / CPO">
+    </div>
+    <div class="pp-section-label">ПРОБЛЕМА</div>
+    <div class="pp-field">
+      <label>Проблема / Pain-point *</label>
+      <textarea id="pp-problem" rows="3" placeholder="Какую проблему решаем?"></textarea>
+    </div>
+    <div class="pp-field">
+      <label>Видение продукта</label>
+      <textarea id="pp-vision" rows="3" placeholder="Каким должен стать продукт?"></textarea>
+    </div>
+    <div class="pp-section-label">ПОЛЬЗОВАТЕЛИ</div>
+    <div class="pp-field">
+      <label>Целевая аудитория</label>
+      <textarea id="pp-audience" rows="2" placeholder="Персоны, сегменты…"></textarea>
+    </div>
+    <div class="pp-field">
+      <label>Бизнес-цель и эффект</label>
+      <textarea id="pp-business-goal" rows="2" placeholder="Ожидаемый бизнес-результат…"></textarea>
+    </div>
+    <div class="pp-section-label">МЕТРИКИ</div>
+    <div class="pp-field">
+      <label>North Star метрика *</label>
+      <input type="text" id="pp-north-star" placeholder="Главная метрика продукта">
+    </div>
+    <div class="pp-field">
+      <label>Метрики запуска / MVP</label>
+      <textarea id="pp-metrics" rows="2" placeholder="KPI для первого релиза…"></textarea>
+    </div>
+    <div class="pp-field">
+      <label>Out of Scope</label>
+      <textarea id="pp-out-of-scope" rows="2" placeholder="Что явно не делаем…"></textarea>
+    </div>
+    <div class="pp-field">
+      <label>Риски</label>
+      <textarea id="pp-risks" rows="2" placeholder="Ключевые риски…"></textarea>
+    </div>
+    <div class="pp-field">
+      <label>Таймлайн по Gates</label>
+      <input type="text" id="pp-timeline" placeholder="G1 → Q1, G2 → Q2…">
+    </div>
+  </div>
+  <div class="pp-foot">
+    <button class="btn-save" onclick="saveProductPRD()">💾 Сохранить PRD продукта</button>
+  </div>
+</div>
+
+<!-- GOAL MODAL -->
+<div id="gm-overlay" class="gm-overlay" onclick="if(event.target===this)closeGoalModal()">
+  <div id="goal-modal">
+    <div class="gm-head">
+      <div class="gm-htitle">Редактирование цели</div>
+      <button class="ep-close" onclick="closeGoalModal()">✕</button>
+    </div>
+    <div class="gm-body">
+      <div class="gm-field">
+        <label>Название *</label>
+        <input type="text" id="gm-title" placeholder="Название цели">
+      </div>
+      <div class="gm-row4">
+        <div class="gm-field">
+          <label>Тип</label>
+          <select id="gm-type">
+            <option value="strategic">strategic</option>
+            <option value="product">product</option>
+          </select>
+        </div>
+        <div class="gm-field">
+          <label>Период</label>
+          <input type="text" id="gm-period" placeholder="Q1 2026">
+        </div>
+        <div class="gm-field">
+          <label>Владелец</label>
+          <input type="text" id="gm-owner" placeholder="CPO">
+        </div>
+        <div class="gm-field">
+          <label>Статус</label>
+          <select id="gm-status">
+            <option value="active">active</option>
+            <option value="inactive">inactive</option>
+          </select>
+        </div>
+      </div>
+      <div class="gm-field">
+        <label>Описание</label>
+        <textarea id="gm-desc" rows="2" placeholder="Контекст цели…"></textarea>
+      </div>
+      <div class="gm-divider">KEY RESULTS</div>
+      <div class="gm-kr-list" id="gm-kr-list"></div>
+      <button class="btn-add-kr" onclick="addKRRow()">+ Добавить KR</button>
+    </div>
+    <div class="gm-actions">
+      <button class="gm-del-btn" id="gm-del-btn" onclick="deleteGoalConfirm()">🗑 Удалить</button>
+      <div class="gm-spacer"></div>
+      <button class="gm-cancel-btn" onclick="closeGoalModal()">Отмена</button>
+      <button class="gm-save-btn" onclick="saveGoalEdit()">💾 Сохранить</button>
     </div>
   </div>
 </div>
@@ -1141,12 +1326,21 @@ backlog.forEach(item => {
 
 let goals = (window.PT ? PT.load(PT.KEY_GOALS) : null) || GOALS_DEFAULT;
 let epics = (window.PT ? PT.load(PT.KEY_EPICS) : null) || EPICS_DEFAULT;
+let productsPRD = (window.PT ? PT.load(PT.KEY_PRODUCTS_PRD) : null) || {};
+
+// Migrate prd fields
+backlog.forEach(item => {
+  if (!('businessMetric' in item.prd)) item.prd.businessMetric = '';
+  if (!('recommendation' in item.prd)) item.prd.recommendation = '';
+});
 
 let filters = { cat:'all', status:'all', audience:'all', project:'all', track:'all' };
 let sortBy = 'score';
 let editId = null;
 let curTab = 'portfolio';
 let curRole = 'pm';
+let curPid = null;     // current product ID for #pp panel
+let curGoalId = null;  // current goal ID for modal
 
 // ════════════════════════════════════════════
 // HELPERS
@@ -1178,7 +1372,7 @@ function switchTab(tab, btn) {
   document.getElementById('pg-goals').style.display     = tab === 'goals'     ? '' : 'none';
   const sb = document.getElementById('sidebar');
   if (tab === 'backlog') { sb.classList.remove('hidden'); renderBL(); }
-  else { sb.classList.add('hidden'); if (tab !== 'portfolio') closeEP(); }
+  else { sb.classList.add('hidden'); if (tab !== 'portfolio') { closeEP(); closeProductPRD(); } }
   if (tab === 'tracker') renderTracker(curRole);
   if (tab === 'goals')   renderGoals();
 }
@@ -1292,6 +1486,7 @@ function renderPortfolio() {
         <div class="pfstat"><div class="pfnum">${avg}</div><div class="pflbl">avg RICE</div></div>
         <div class="pfdiv"></div>
         <div class="chips">${topChips}</div>
+        <button class="prd-btn" onclick="event.stopPropagation();openProductPRD('${p.id}',event)">📋 PRD</button>
         <button class="exbtn" onclick="togglePC('${p.id}')">Открыть ↓</button>
       </div>
       <div class="ilist-wrap">
@@ -1916,21 +2111,26 @@ function openPRD(id) {
   document.getElementById('ep-release').value = item.release || 'backlog';
   document.getElementById('ep-notes').value = item.notes || '';
   updEP();
+  // Close product PRD panel if open
+  closeProductPRD();
   // PRD fields
   const prd = item.prd || {};
-  document.getElementById('prd-problem').value = prd.problem || '';
-  document.getElementById('prd-hypothesis').value = prd.hypothesis || '';
-  document.getElementById('prd-audience').value = prd.audience || item.audience || '';
-  document.getElementById('prd-solution').value = prd.solution || '';
-  document.getElementById('prd-metrics').value = prd.metrics || '';
-  document.getElementById('prd-timeline').value = prd.timeline || '';
-  document.getElementById('prd-risks').value = prd.risks || '';
+  document.getElementById('prd-problem').value    = prd.problem      || '';
+  document.getElementById('prd-biz-metric').value = prd.businessMetric || '';
+  document.getElementById('prd-hypothesis').value = prd.hypothesis   || '';
+  document.getElementById('prd-audience').value   = prd.audience     || item.audience || '';
+  document.getElementById('prd-solution').value   = prd.solution     || '';
+  document.getElementById('prd-metrics').value    = prd.metrics      || '';
+  document.getElementById('prd-timeline').value   = prd.timeline     || '';
+  document.getElementById('prd-risks').value      = prd.risks        || '';
+  document.getElementById('prd-recommend').value  = prd.recommendation || '';
   // Goal select
   const goalSel = document.getElementById('ep-goal-sel');
   if (goalSel) {
     goalSel.innerHTML = '<option value="">— Без цели —</option>' +
       goals.map(g => `<option value="${g.id}"${item.goalId===g.id?' selected':''}>${g.id} · ${g.title}</option>`).join('');
   }
+  renderGoalPreview(item.goalId || '');
   // Epic select (show all epics, mark current project's)
   const epicSel = document.getElementById('ep-epic-sel');
   if (epicSel) {
@@ -1957,13 +2157,15 @@ function savePRD() {
   const item = backlog.find(i => i.id === editId);
   if (!item) return;
   if (!item.prd) item.prd = {};
-  item.prd.problem    = document.getElementById('prd-problem').value;
-  item.prd.hypothesis = document.getElementById('prd-hypothesis').value;
-  item.prd.audience   = document.getElementById('prd-audience').value;
-  item.prd.solution   = document.getElementById('prd-solution').value;
-  item.prd.metrics    = document.getElementById('prd-metrics').value;
-  item.prd.timeline   = document.getElementById('prd-timeline').value;
-  item.prd.risks      = document.getElementById('prd-risks').value;
+  item.prd.problem        = document.getElementById('prd-problem').value;
+  item.prd.businessMetric = document.getElementById('prd-biz-metric').value;
+  item.prd.hypothesis     = document.getElementById('prd-hypothesis').value;
+  item.prd.audience       = document.getElementById('prd-audience').value;
+  item.prd.solution       = document.getElementById('prd-solution').value;
+  item.prd.metrics        = document.getElementById('prd-metrics').value;
+  item.prd.timeline       = document.getElementById('prd-timeline').value;
+  item.prd.risks          = document.getElementById('prd-risks').value;
+  item.prd.recommendation = document.getElementById('prd-recommend').value;
   item.goalId = document.getElementById('ep-goal-sel').value || null;
   item.epicId = document.getElementById('ep-epic-sel').value || null;
   if (window.PT) PT.save(PT.KEY_BACKLOG, backlog);
@@ -2020,7 +2222,7 @@ function renderGoals() {
         <div class="goal-stat">Эпиков: <b>${goalInits.length}</b></div>
         <div class="goal-stat">Инициатив: <b>${goalEpics.length}</b></div>
         <div style="flex:1"></div>
-        <button class="exbtn" onclick="editGoal('${goal.id}')">✏ Редактировать</button>
+        <button class="exbtn" onclick="openGoalEditor('${goal.id}')">✏ Редактировать</button>
       </div>
     </div>`;
   }).join('');
@@ -2038,22 +2240,7 @@ function editGoal(goalId) {
 }
 
 function addGoal() {
-  const newGoal = {
-    id: 'G' + String(goals.length + 1).padStart(3, '0'),
-    title: 'Новая цель',
-    type: 'product',
-    period: 'Q2 2026',
-    owner: 'PM',
-    status: 'active',
-    description: '',
-    keyResults: [
-      { id:'KR1', text:'Ключевой результат', target:10, current:0, unit:'ед.' }
-    ]
-  };
-  goals.push(newGoal);
-  if (window.PT) PT.save(PT.KEY_GOALS, goals);
-  renderGoals();
-  editGoal(newGoal.id);
+  openGoalEditor(null);
 }
 
 function addInitiative(projectId) {
@@ -2085,6 +2272,190 @@ function addInitiative(projectId) {
   const pc = document.getElementById('pc-' + projectId);
   if (pc && !pc.classList.contains('open')) togglePC(projectId);
   setTimeout(() => openPRD(newId), 150);
+}
+
+// ════════════════════════════════════════════
+// PRODUCT PRD PANEL
+// ════════════════════════════════════════════
+function openProductPRD(pid, event) {
+  if (event) event.stopPropagation();
+  document.getElementById('ep').classList.remove('open');
+  editId = null;
+  curPid = pid;
+  const proj = PROJECTS.find(p => p.id === pid);
+  const back = document.getElementById('pp-back');
+  if (back) back.textContent = '\u2190 ' + pid + ' \u00B7 ' + (proj ? proj.name : pid);
+  const data = productsPRD[pid] || {};
+  document.getElementById('pp-owner').value         = data.owner        || '';
+  document.getElementById('pp-problem').value       = data.problem      || '';
+  document.getElementById('pp-vision').value        = data.vision       || '';
+  document.getElementById('pp-audience').value      = data.audience     || '';
+  document.getElementById('pp-business-goal').value = data.businessGoal || '';
+  document.getElementById('pp-north-star').value    = data.northStar    || '';
+  document.getElementById('pp-metrics').value       = data.metrics      || '';
+  document.getElementById('pp-out-of-scope').value  = data.outOfScope   || '';
+  document.getElementById('pp-risks').value         = data.risks        || '';
+  document.getElementById('pp-timeline').value      = data.timeline     || '';
+  document.getElementById('pp').classList.add('open');
+}
+
+function closeProductPRD() {
+  document.getElementById('pp').classList.remove('open');
+  curPid = null;
+}
+
+function saveProductPRD() {
+  if (!curPid) return;
+  if (!productsPRD[curPid]) productsPRD[curPid] = {};
+  const d = productsPRD[curPid];
+  d.owner        = document.getElementById('pp-owner').value;
+  d.problem      = document.getElementById('pp-problem').value;
+  d.vision       = document.getElementById('pp-vision').value;
+  d.audience     = document.getElementById('pp-audience').value;
+  d.businessGoal = document.getElementById('pp-business-goal').value;
+  d.northStar    = document.getElementById('pp-north-star').value;
+  d.metrics      = document.getElementById('pp-metrics').value;
+  d.outOfScope   = document.getElementById('pp-out-of-scope').value;
+  d.risks        = document.getElementById('pp-risks').value;
+  d.timeline     = document.getElementById('pp-timeline').value;
+  if (window.PT) PT.save(PT.KEY_PRODUCTS_PRD, productsPRD);
+  const btn = document.querySelector('#pp .btn-save');
+  if (btn) { btn.textContent = '\u2705 PRD \u0441\u043e\u0445\u0440\u0430\u043d\u0451\u043d!'; setTimeout(() => btn.textContent = '\uD83D\uDCBE \u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c PRD \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0430', 1600); }
+}
+
+// ════════════════════════════════════════════
+// GOAL PREVIEW IN DRAWER
+// ════════════════════════════════════════════
+function onGoalSelect() {
+  const val = document.getElementById('ep-goal-sel').value;
+  renderGoalPreview(val);
+}
+
+function renderGoalPreview(goalId) {
+  const container = document.getElementById('goal-preview');
+  if (!container) return;
+  if (!goalId) { container.style.display = 'none'; return; }
+  const goal = goals.find(g => g.id === goalId);
+  if (!goal) { container.style.display = 'none'; return; }
+  const krHtml = goal.keyResults.map(kr => {
+    const pct = Math.min(100, kr.target > 0 ? Math.round(kr.current / kr.target * 100) : 0);
+    return `<div class="goal-preview-kr">
+      <div class="goal-preview-kr-label">
+        <span class="goal-preview-kr-text">${kr.id}: ${kr.text}</span>
+        <span class="goal-preview-kr-val">${kr.current}/${kr.target}</span>
+      </div>
+      <div class="goal-preview-bar"><div class="goal-preview-bar-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+  container.innerHTML = `<div class="goal-preview-title">${goal.id} \u00B7 ${goal.title}</div>${krHtml}`;
+  container.style.display = 'flex';
+}
+
+// ════════════════════════════════════════════
+// GOAL MODAL
+// ════════════════════════════════════════════
+function buildKRRow(kr) {
+  const text = (kr.text || '').replace(/"/g, '&quot;');
+  const unit = (kr.unit || '').replace(/"/g, '&quot;');
+  return `<div class="gm-kr-row">
+    <input type="text" placeholder="KR описание…" value="${text}">
+    <input type="number" placeholder="0" value="${kr.current || 0}" min="0" style="text-align:center">
+    <input type="number" placeholder="10" value="${kr.target || 10}" min="1" style="text-align:center">
+    <input type="text" placeholder="ед." value="${unit}">
+    <button class="gm-kr-del" onclick="removeKRRow(this)" title="Удалить KR">\u2715</button>
+  </div>`;
+}
+
+function openGoalEditor(goalId) {
+  curGoalId = goalId;
+  const isNew = !goalId;
+  const goal = isNew ? null : goals.find(g => g.id === goalId);
+  document.getElementById('gm-title').value  = goal ? goal.title       : '';
+  document.getElementById('gm-type').value   = goal ? goal.type        : 'product';
+  document.getElementById('gm-period').value = goal ? goal.period      : 'Q2 2026';
+  document.getElementById('gm-owner').value  = goal ? goal.owner       : 'PM';
+  document.getElementById('gm-status').value = goal ? goal.status      : 'active';
+  document.getElementById('gm-desc').value   = goal ? (goal.description || '') : '';
+  const krList = document.getElementById('gm-kr-list');
+  if (goal && goal.keyResults && goal.keyResults.length) {
+    krList.innerHTML = goal.keyResults.map(kr => buildKRRow(kr)).join('');
+  } else {
+    krList.innerHTML = buildKRRow({ id:'KR1', text:'', current:0, target:10, unit:'\u0435\u0434.' });
+  }
+  document.getElementById('gm-del-btn').style.display = isNew ? 'none' : '';
+  document.getElementById('gm-overlay').classList.add('open');
+}
+
+function addKRRow() {
+  const list = document.getElementById('gm-kr-list');
+  const div = document.createElement('div');
+  div.innerHTML = buildKRRow({ text:'', current:0, target:10, unit:'\u0435\u0434.' });
+  list.appendChild(div.firstElementChild);
+}
+
+function removeKRRow(btn) {
+  btn.closest('.gm-kr-row').remove();
+}
+
+function closeGoalModal() {
+  document.getElementById('gm-overlay').classList.remove('open');
+  curGoalId = null;
+}
+
+function saveGoalEdit() {
+  const titleEl = document.getElementById('gm-title');
+  const title = titleEl.value.trim();
+  if (!title) { titleEl.focus(); return; }
+  const krRows = document.querySelectorAll('#gm-kr-list .gm-kr-row');
+  const keyResults = [];
+  let krIdx = 1;
+  krRows.forEach(row => {
+    const inputs = row.querySelectorAll('input');
+    const text = inputs[0].value.trim();
+    if (!text) return;
+    keyResults.push({
+      id: 'KR' + krIdx++,
+      text: text,
+      current: Math.max(0, parseFloat(inputs[1].value) || 0),
+      target: Math.max(1, parseFloat(inputs[2].value) || 10),
+      unit: inputs[3].value.trim() || '\u0435\u0434.'
+    });
+  });
+  if (curGoalId) {
+    const goal = goals.find(g => g.id === curGoalId);
+    if (goal) {
+      goal.title       = title;
+      goal.type        = document.getElementById('gm-type').value;
+      goal.period      = document.getElementById('gm-period').value;
+      goal.owner       = document.getElementById('gm-owner').value;
+      goal.status      = document.getElementById('gm-status').value;
+      goal.description = document.getElementById('gm-desc').value;
+      if (keyResults.length) goal.keyResults = keyResults;
+    }
+  } else {
+    goals.push({
+      id: 'G' + String(goals.length + 1).padStart(3, '0'),
+      title: title,
+      type: document.getElementById('gm-type').value,
+      period: document.getElementById('gm-period').value,
+      owner: document.getElementById('gm-owner').value,
+      status: document.getElementById('gm-status').value,
+      description: document.getElementById('gm-desc').value,
+      keyResults: keyResults.length ? keyResults : [{ id:'KR1', text:'\u041a\u043b\u044e\u0447\u0435\u0432\u043e\u0439 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442', target:10, current:0, unit:'\u0435\u0434.' }]
+    });
+  }
+  if (window.PT) PT.save(PT.KEY_GOALS, goals);
+  closeGoalModal();
+  renderGoals();
+}
+
+function deleteGoalConfirm() {
+  if (!curGoalId) return;
+  if (!confirm('\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0446\u0435\u043b\u044c? \u042d\u0442\u043e \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043d\u0435\u043b\u044c\u0437\u044f \u043e\u0442\u043c\u0435\u043d\u0438\u0442\u044c.')) return;
+  goals = goals.filter(g => g.id !== curGoalId);
+  if (window.PT) PT.save(PT.KEY_GOALS, goals);
+  closeGoalModal();
+  renderGoals();
 }
 
 // ════════════════════════════════════════════

@@ -12,6 +12,7 @@
     KEY_UI:       'ECOTECH_UI',
     KEY_GOALS:    'ECOTECH_GOALS',
     KEY_EPICS:    'ECOTECH_EPICS',
+    KEY_PRODUCTS_PRD: 'ECOTECH_PRODUCTS_PRD',
 
     // ── Storage helpers ─────────────────────────────────────────────
     load: function(key) {
