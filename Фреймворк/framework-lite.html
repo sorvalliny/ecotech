@@ -277,8 +277,36 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   .fw-hero-title{font-size:20px;}
   .stage-grid{grid-template-columns:1fr;}
   .kpi-bar{grid-template-columns:repeat(2,1fr);}
-  .fw-wrap{padding:24px 16px 60px;}
+  .fw-wrap{padding:24px 16px 80px;}
 }
+
+/* ── EDIT MODE ── */
+.fw-ed[contenteditable="true"]{outline:1px dashed rgba(123,47,255,0.35);border-radius:4px;cursor:text;min-height:1em;}
+.fw-ed[contenteditable="true"]:hover{outline-color:rgba(123,47,255,0.7);background:rgba(123,47,255,0.03);}
+.fw-ed[contenteditable="true"]:focus,.fw-ed[contenteditable="true"]:focus-within{outline:2px solid var(--violet);background:rgba(123,47,255,0.05);}
+.edit-active .tmpl-open-btn,.edit-active .stab,.edit-active .lc-step{pointer-events:none;opacity:0.55;}
+.edit-active .fw-ed[contenteditable="true"] .tmpl-open-btn{opacity:0;}
+.edit-active .lc-step{cursor:text;}
+/* Edit bar */
+.edit-bar{position:fixed;bottom:24px;right:24px;display:flex;gap:8px;z-index:9990;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.5));}
+.ebt{font-size:12px;font-weight:600;padding:9px 16px;border-radius:10px;border:1px solid;cursor:pointer;font-family:var(--font-body);transition:all .15s;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.ebt-primary{background:var(--violet);border-color:rgba(123,47,255,0.5);color:#fff;}
+.ebt-primary:hover{background:#6920e8;}
+.ebt-primary.on{background:var(--teal-dim);border-color:var(--teal-border);color:var(--teal);}
+.ebt-secondary{background:var(--card);border-color:var(--border-hi);color:var(--text);}
+.ebt-secondary:hover{background:var(--surface2);}
+.ebt-danger{background:rgba(255,107,107,0.1);border-color:rgba(255,107,107,0.3);color:#FF6B6B;}
+.ebt-danger:hover{background:rgba(255,107,107,0.18);}
+/* Edit badge */
+.edit-badge{position:fixed;top:54px;right:16px;background:rgba(123,47,255,0.18);border:1px solid var(--violet-border);color:var(--c1);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;z-index:9998;display:none;pointer-events:none;}
+.edit-badge.on{display:block;}
+/* Toast */
+.edit-toast-msg{position:fixed;bottom:76px;right:24px;background:var(--teal-dim);border:1px solid var(--teal-border);color:var(--teal);font-size:11px;font-weight:600;padding:6px 14px;border-radius:8px;z-index:9991;opacity:0;transition:opacity .3s;pointer-events:none;}
+.edit-toast-msg.show{opacity:1;}
+/* Template editor */
+.modal-pre-edit{font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:var(--text);line-height:1.7;white-space:pre-wrap;background:var(--dark);border:1px solid var(--violet-border);border-radius:var(--radius-sm);padding:16px;width:100%;min-height:320px;resize:vertical;outline:none;box-sizing:border-box;}
+.modal-pre-edit:focus{border-color:var(--violet);background:rgba(123,47,255,0.04);}
+.tmpl-edit-hint{font-size:11px;color:var(--muted);margin-bottom:8px;}
 </style>
 </head>
 <body>
@@ -943,14 +971,26 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
       <button class="modal-close" onclick="closeTmplModal()">✕</button>
     </div>
     <div class="modal-body">
-      <pre class="modal-pre" id="modal-tmpl-content"></pre>
+      <p class="tmpl-edit-hint" id="tmpl-edit-hint" style="display:none">✏ Режим редактирования — изменения сохранятся в шаблон</p>
+      <pre class="modal-pre" id="modal-tmpl-content" style="display:block"></pre>
+      <textarea class="modal-pre-edit" id="modal-tmpl-edit" style="display:none" oninput="onTmplEdit()" placeholder="Текст шаблона..."></textarea>
     </div>
     <div class="modal-foot">
-      <button class="copy-btn" onclick="copyTmplContent()">Скопировать шаблон</button>
+      <button class="copy-btn" id="tmpl-copy-btn" onclick="copyTmplContent()">Скопировать шаблон</button>
+      <button class="copy-btn" id="tmpl-save-btn" onclick="saveTmplEdit()" style="display:none;background:var(--teal-dim);border-color:var(--teal-border);color:var(--teal)">Сохранить шаблон ✓</button>
       <span class="copy-toast" id="copy-toast">Скопировано ✓</span>
     </div>
   </div>
 </div>
+
+<!-- ═══ EDIT BAR ═══ -->
+<div class="edit-badge" id="edit-badge">● Режим редактирования</div>
+<div class="edit-bar">
+  <button id="ebt-toggle" class="ebt ebt-primary" onclick="toggleEditMode()">✏ Редактировать</button>
+  <button id="ebt-dl" class="ebt ebt-secondary" onclick="downloadFWL()" style="display:none">↓ Скачать файл</button>
+  <button id="ebt-reset" class="ebt ebt-danger" onclick="resetEdits()" style="display:none">↩ Сбросить</button>
+</div>
+<div class="edit-toast-msg" id="edit-toast-msg"></div>
 
 <script>
 // ══ SECTION SWITCHING ══
@@ -1429,22 +1469,227 @@ function filterTmpls(filter, btn) {
   renderTmpls(filter);
 }
 
-// ══ TEMPLATE MODAL ══
-function openTmpl(key) {
-  const t = TMPLS[key];
-  if (!t) return;
-  document.getElementById('modal-tmpl-title').textContent = t.name;
-  document.getElementById('modal-tmpl-content').textContent = t.content;
-  document.getElementById('tmpl-modal').classList.add('open');
-  document.getElementById('copy-toast').classList.remove('show');
+// ══ LIFECYCLE FLOW CLICK ══
+// lc-step clicks already wired via onclick in HTML
+
+// ══════════════════════════════════════════ EDITOR
+const LS = 'FWL2_';
+let _em = false, _stimer = null, _curTmplKey = null;
+
+// Selectors for all editable containers
+const ED_SELS = [
+  '.fw-hero-title','.fw-hero-sub',
+  '.lc-step','.kpi-item','.howto-card',
+  '.stage-hdr-info','.stage-dur-badge',
+  '.sg-card','.gate-card',
+  '.pilot-intro','.pilot-step-body',
+  '.pilot-criteria-grid','.scale-block',
+  '.sec-header'
+];
+
+function initEditor() {
+  let n = 0;
+  ED_SELS.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      if (!el.dataset.eid) el.dataset.eid = 'e' + (++n);
+      el.classList.add('fw-ed');
+    });
+  });
+  loadEdits();
 }
+
+function loadEdits() {
+  document.querySelectorAll('.fw-ed[data-eid]').forEach(el => {
+    const v = localStorage.getItem(LS + el.dataset.eid);
+    if (v !== null) el.innerHTML = v;
+  });
+  // Template overrides
+  Object.keys(TMPLS).forEach(key => {
+    const v = localStorage.getItem(LS + 'tmpl_' + key);
+    if (v !== null) TMPLS[key].content = v;
+  });
+}
+
+function saveAllEdits() {
+  document.querySelectorAll('.fw-ed[data-eid]').forEach(el => {
+    localStorage.setItem(LS + el.dataset.eid, el.innerHTML);
+  });
+}
+
+function toggleEditMode() {
+  _em ? exitEdit() : enterEdit();
+}
+
+function enterEdit() {
+  _em = true;
+  document.body.classList.add('edit-active');
+  document.querySelectorAll('.fw-ed').forEach(el => {
+    el.contentEditable = 'true';
+    el.addEventListener('input', onEdInput);
+  });
+  const tb = document.getElementById('ebt-toggle');
+  tb.classList.add('on');
+  tb.innerHTML = '✓ Выйти из редактора';
+  document.getElementById('edit-badge').classList.add('on');
+  document.getElementById('ebt-dl').style.display = '';
+  document.getElementById('ebt-reset').style.display = '';
+}
+
+function exitEdit() {
+  _em = false;
+  document.body.classList.remove('edit-active');
+  saveAllEdits();
+  document.querySelectorAll('.fw-ed').forEach(el => {
+    el.contentEditable = 'false';
+    el.removeEventListener('input', onEdInput);
+  });
+  const tb = document.getElementById('ebt-toggle');
+  tb.classList.remove('on');
+  tb.innerHTML = '✏ Редактировать';
+  document.getElementById('edit-badge').classList.remove('on');
+  document.getElementById('ebt-dl').style.display = 'none';
+  document.getElementById('ebt-reset').style.display = 'none';
+  showToast('Сохранено в браузере ✓');
+}
+
+function onEdInput(e) {
+  clearTimeout(_stimer);
+  _stimer = setTimeout(() => {
+    const el = e.target.closest('[data-eid]');
+    if (el) localStorage.setItem(LS + el.dataset.eid, el.innerHTML);
+  }, 400);
+}
+
+function resetEdits() {
+  if (!confirm('Сбросить все изменения к исходному состоянию?\n\nВсе правки будут удалены.')) return;
+  Object.keys(localStorage).filter(k => k.startsWith(LS)).forEach(k => localStorage.removeItem(k));
+  location.reload();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('edit-toast-msg');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── DOWNLOAD ──
+function downloadFWL() {
+  saveAllEdits();
+
+  const clone = document.documentElement.cloneNode(true);
+
+  // Remove contenteditable
+  clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+  // Clean body classes
+  clone.querySelector('body').classList.remove('edit-active');
+  // Reset edit badge
+  clone.querySelector('#edit-badge').classList.remove('on');
+  // Reset edit button
+  const tb = clone.querySelector('#ebt-toggle');
+  if (tb) { tb.classList.remove('on'); tb.innerHTML = '✏ Редактировать'; }
+  // Hide dl/reset buttons
+  const dl = clone.querySelector('#ebt-dl');
+  const rs = clone.querySelector('#ebt-reset');
+  if (dl) dl.style.display = 'none';
+  if (rs) rs.style.display = 'none';
+  // Clear toast
+  const toast = clone.querySelector('#edit-toast-msg');
+  if (toast) { toast.classList.remove('show'); toast.textContent = ''; }
+
+  // Bake template overrides into the TMPLS JS object
+  const scripts = clone.querySelectorAll('script:not([src])');
+  scripts.forEach(s => {
+    if (s.textContent.includes('const TMPLS =')) {
+      let src = s.textContent;
+      Object.keys(TMPLS).forEach(key => {
+        // Escape template literal backticks in content
+        const escaped = TMPLS[key].content
+          .replace(/\\/g, '\\\\')
+          .replace(/`/g, '\\`')
+          .replace(/\$\{/g, '\\${');
+        // Replace content field in the JS source (between backticks after 'content: `')
+        const re = new RegExp('(id:\\s*[\'"]' + key + '[\'"][\\s\\S]*?content:\\s*`)([\\s\\S]*?)(`)', 'm');
+        if (re.test(src)) src = src.replace(re, '$1' + escaped + '$3');
+      });
+      s.textContent = src;
+    }
+  });
+
+  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'framework-lite.html';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Файл скачан — framework-lite.html ✓');
+}
+
+// ── TEMPLATE MODAL HELPERS ──
 function closeTmplModal(e) {
   if (!e || e.target === document.getElementById('tmpl-modal')) {
     document.getElementById('tmpl-modal').classList.remove('open');
+    _curTmplKey = null;
   }
 }
+
+// ── TEMPLATE EDIT MODE ──
+function openTmpl(key) {
+  const t = TMPLS[key];
+  if (!t) return;
+  _curTmplKey = key;
+  document.getElementById('modal-tmpl-title').textContent = t.name;
+
+  const pre = document.getElementById('modal-tmpl-content');
+  const ta  = document.getElementById('modal-tmpl-edit');
+  const hint = document.getElementById('tmpl-edit-hint');
+  const cpBtn = document.getElementById('tmpl-copy-btn');
+  const svBtn = document.getElementById('tmpl-save-btn');
+
+  if (_em) {
+    // Edit mode: show textarea
+    pre.style.display = 'none';
+    ta.style.display = 'block';
+    ta.value = t.content;
+    hint.style.display = 'block';
+    cpBtn.style.display = 'none';
+    svBtn.style.display = '';
+  } else {
+    // View mode: show pre
+    pre.style.display = 'block';
+    pre.textContent = t.content;
+    ta.style.display = 'none';
+    hint.style.display = 'none';
+    cpBtn.style.display = '';
+    svBtn.style.display = 'none';
+  }
+
+  document.getElementById('tmpl-modal').classList.add('open');
+  document.getElementById('copy-toast').classList.remove('show');
+}
+
+function onTmplEdit() {
+  // Live preview debounce (optional)
+}
+
+function saveTmplEdit() {
+  if (!_curTmplKey) return;
+  const val = document.getElementById('modal-tmpl-edit').value;
+  TMPLS[_curTmplKey].content = val;
+  localStorage.setItem(LS + 'tmpl_' + _curTmplKey, val);
+  showToast('Шаблон «' + TMPLS[_curTmplKey].name + '» сохранён ✓');
+  // Also update pre for view mode
+  document.getElementById('modal-tmpl-content').textContent = val;
+}
+
+// ── COPY (updated to handle both pre/textarea) ──
 function copyTmplContent() {
-  const text = document.getElementById('modal-tmpl-content').textContent;
+  const text = _em
+    ? document.getElementById('modal-tmpl-edit').value
+    : document.getElementById('modal-tmpl-content').textContent;
   navigator.clipboard.writeText(text).then(() => {
     const t = document.getElementById('copy-toast');
     t.classList.add('show');
@@ -1452,8 +1697,8 @@ function copyTmplContent() {
   });
 }
 
-// ══ LIFECYCLE FLOW CLICK ══
-// lc-step clicks already wired via onclick in HTML
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', initEditor);
 </script>
 </body>
 </html>
