@@ -2568,12 +2568,12 @@ var OB_STEPS = [
   {
     title: 'Карточки продуктов',
     body: 'Кликни на карточку продукта — откроется список инициатив. Можно редактировать статусы и Gate-прогресс прямо в карточке.',
-    anchor: '.pgrid'
+    anchor: '.pcard'
   },
   {
     title: 'Фильтрация',
     body: 'Фильтруй по продукту или статусу через сайдбар слева. Кнопка «☰» открывает/скрывает панель фильтров.',
-    anchor: '.sidebar'
+    anchor: null
   },
   {
     title: 'Это прототип 🚀',
@@ -2594,28 +2594,52 @@ function renderObDots() {
 function positionTooltip(anchor) {
   var tooltip = document.getElementById('ob-tooltip');
   if (!tooltip) return;
-  if (!anchor) {
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var tw = 380, th = 240;
+
+  function center() {
+    tooltip.style.transform = 'translate(-50%,-50%)';
     tooltip.style.top = '50%';
     tooltip.style.left = '50%';
-    tooltip.style.transform = 'translate(-50%,-50%)';
-    return;
   }
+
+  if (!anchor) { center(); return; }
+
   var el = typeof anchor === 'string' ? document.querySelector(anchor) : anchor;
-  if (!el) {
-    tooltip.style.top = '50%';
-    tooltip.style.left = '50%';
-    tooltip.style.transform = 'translate(-50%,-50%)';
-    return;
-  }
-  tooltip.style.transform = '';
+  if (!el) { center(); return; }
+
   var rect = el.getBoundingClientRect();
-  var tw = 360, th = 200;
-  var top = rect.bottom + 12;
-  var left = rect.left;
-  if (top + th > window.innerHeight - 20) top = rect.top - th - 12;
-  if (left + tw > window.innerWidth - 20) left = window.innerWidth - tw - 20;
-  if (left < 12) left = 12;
-  tooltip.style.top = top + 'px';
+
+  // If element is mostly outside viewport — fall back to center
+  var visibleH = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+  var visibleW = Math.min(rect.right, vw) - Math.max(rect.left, 0);
+  if (visibleH < 20 || visibleW < 20) { center(); return; }
+
+  tooltip.style.transform = '';
+
+  // Use visible bounds of element
+  var elVisTop    = Math.max(rect.top, 0);
+  var elVisBottom = Math.min(rect.bottom, vh);
+
+  var top, left;
+
+  // Try below, then above, then center
+  if (elVisBottom + 12 + th <= vh - 12) {
+    top = elVisBottom + 12;
+  } else if (elVisTop - 12 - th >= 12) {
+    top = elVisTop - th - 12;
+  } else {
+    top = Math.max(12, (vh - th) / 2);
+  }
+
+  // Horizontal: align to element left, clamp to viewport
+  left = Math.max(12, Math.min(rect.left, vw - tw - 12));
+
+  // Final clamp to always stay inside viewport
+  top  = Math.max(12, Math.min(top,  vh - th - 12));
+  left = Math.max(12, Math.min(left, vw - tw - 12));
+
+  tooltip.style.top  = top  + 'px';
   tooltip.style.left = left + 'px';
 }
 
