@@ -1849,5 +1849,60 @@ window.addEventListener('DOMContentLoaded', () => {
   showStage(_stage);
 });
 </script>
+
+<script src="../stages.js"></script>
+<script>
+// ══ SYNC STAGES FROM STAGES_DB ══
+// Синхронизирует названия и цвета стадий из единой базы STAGES_DB
+(function () {
+  var HB_KEYS = ['idea','discovery','pilot','launch','scale','maturity','archive'];
+
+  function syncHBStages() {
+    if (!window.STAGES_DB) return;
+    var stages = STAGES_DB.get();
+    stages.forEach(function (s, i) {
+      // Обновляем CSS-переменные --stage-idea, --stage-discovery, ...
+      document.documentElement.style.setProperty('--stage-' + HB_KEYS[i], s.color);
+
+      // Обновляем заголовок стадии в контентном блоке
+      var titleEl = document.querySelector('#stage-' + i + ' .stage-title');
+      if (titleEl) {
+        titleEl.textContent = s.name;
+        titleEl.style.color = s.color;
+      }
+
+      // Обновляем цель стадии (stage-goal)
+      // НЕ обновляем — это часть контента хэндбука, оставляем как есть
+
+      // Обновляем навигационные сегменты по классу .stage-sN
+      document.querySelectorAll('.stage-s' + i).forEach(function (seg) {
+        var svgEl = seg.querySelector('svg');
+        if (!svgEl) return;
+        var svgHtml = svgEl.outerHTML;
+        // Определяем разделитель: sidebar использует <br>, topbar — пробел
+        var hasBr = seg.innerHTML.indexOf('<br>') >= 0;
+        seg.innerHTML = hasBr
+          ? svgHtml + '<br>' + s.name
+          : svgHtml + '\u00a0' + s.name;
+        seg.style.color = s.color;
+      });
+    });
+  }
+
+  // Применяем при загрузке страницы
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncHBStages);
+  } else {
+    syncHBStages();
+  }
+
+  // Автосинхронизация при изменениях из другой вкладки (Framework Lite)
+  if (window.STAGES_DB) {
+    STAGES_DB.listen(function () {
+      syncHBStages();
+    });
+  }
+})();
+</script>
 </body>
 </html>
