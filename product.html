@@ -9,7 +9,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --dark:#08081A;--mid:#111128;--card:#161630;--surface2:#1A1A38;
-  --border:rgba(255,255,255,0.07);--border-h:rgba(255,255,255,0.14);
+  --border:rgba(255,255,255,0.07);--border-hi:rgba(255,255,255,0.14);
   --violet:#7B2FFF;--violet-dim:rgba(123,47,255,0.12);--violet-border:rgba(123,47,255,0.35);
   --pink:#FF2D8A;--teal:#00D4B4;--teal-dim:rgba(0,212,180,0.10);
   --amber:#FFB830;--green:#34D399;--green-dim:rgba(52,211,153,0.10);
@@ -112,6 +112,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   .modules-grid{grid-template-columns:1fr;}
 }
 </style>
+<script src="icons.js"></script>
 </head>
 <body>
 
@@ -164,7 +165,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="orbit-ring orbit-ring-1"></div>
       <div class="orbit-ring orbit-ring-2"></div>
       <div class="orbit-ring orbit-ring-3"></div>
-      <div class="orbit-center">👥</div>
+      <div class="orbit-center"><svg class="ei" width="26" height="26"><use href="#ic-users"/></svg></div>
       <!-- Inner orbit: Backlog -->
       <div class="orbit-planet p-backlog">
         <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#00D4B4,#3B82F6);">📊</div>

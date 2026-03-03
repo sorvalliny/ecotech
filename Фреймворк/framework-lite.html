@@ -370,9 +370,8 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 
 /* ── VISUAL-CYCLE ── */
 .visual-cycle-wrap{display:flex;align-items:center;gap:28px;margin:32px 0;padding:20px 24px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:14px;}
-.visual-cycle-svg{width:160px;height:160px;flex-shrink:0;animation:vc-spin 20s linear infinite;}
-@keyframes vc-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.visual-cycle-svg:hover{animation-play-state:paused;}
+.visual-cycle-svg{width:160px;height:160px;flex-shrink:0;}
+.visual-cycle-svg:hover .vc-sector{transform:scale(1.04);}
 .vc-sector{cursor:pointer;transition:transform .2s;transform-origin:80px 80px;}
 .vc-sector:hover{transform:scale(1.08);}
 .visual-cycle-legend{display:flex;flex-direction:column;gap:10px;}

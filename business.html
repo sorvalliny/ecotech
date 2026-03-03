@@ -9,7 +9,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --dark:#08081A;--mid:#111128;--card:#161630;--surface2:#1A1A38;
-  --border:rgba(255,255,255,0.07);--border-h:rgba(255,255,255,0.14);
+  --border:rgba(255,255,255,0.07);--border-hi:rgba(255,255,255,0.14);
   --violet:#7B2FFF;--violet-dim:rgba(123,47,255,0.12);--violet-border:rgba(123,47,255,0.35);
   --pink:#FF2D8A;--pink-dim:rgba(255,45,138,0.10);
   --teal:#00D4B4;--teal-dim:rgba(0,212,180,0.10);
@@ -90,7 +90,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── SLIDE DECK ── */
 .slides-section{padding:0 0 64px;}
 .slides-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
-.btn-pdf{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;background:rgba(255,255,255,0.05);border:1px solid var(--border-h);border-radius:9px;color:var(--gray2);font-size:11px;font-weight:700;font-family:var(--font-head);cursor:pointer;text-decoration:none;transition:background .15s,color .15s;}
+.btn-pdf{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;background:rgba(255,255,255,0.05);border:1px solid var(--border-hi);border-radius:9px;color:var(--gray2);font-size:11px;font-weight:700;font-family:var(--font-head);cursor:pointer;text-decoration:none;transition:background .15s,color .15s;}
 .btn-pdf:hover{background:rgba(255,255,255,0.09);color:#fff;}
 .slides-wrapper{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;min-height:360px;position:relative;}
 .slide{display:none;padding:52px 60px;min-height:360px;flex-direction:column;justify-content:center;}
@@ -121,7 +121,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .slide-step-body{font-size:12px;color:var(--muted);line-height:1.55;}
 .slide-nav{display:flex;align-items:center;gap:16px;padding:16px 24px;border-top:1px solid var(--border);background:rgba(255,255,255,0.02);}
 .slide-btn{width:36px;height:36px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .15s,border-color .15s,background .15s;}
-.slide-btn:hover{color:#fff;border-color:var(--border-h);background:rgba(255,255,255,0.06);}
+.slide-btn:hover{color:#fff;border-color:var(--border-hi);background:rgba(255,255,255,0.06);}
 .slide-counter{font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--muted);}
 .slide-dots{display:flex;gap:6px;align-items:center;margin-left:auto;}
 .slide-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:pointer;transition:background .15s,transform .15s;}
@@ -134,7 +134,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .products-sync-note{font-size:11px;color:var(--muted);margin-bottom:20px;font-style:italic;}
 .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .product-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:border-color .18s,transform .15s,box-shadow .18s;text-decoration:none;color:inherit;display:flex;flex-direction:column;}
-.product-card:hover{border-color:var(--border-h);transform:translateY(-2px);box-shadow:0 8px 32px rgba(123,47,255,0.12);}
+.product-card:hover{border-color:var(--border-hi);transform:translateY(-2px);box-shadow:0 8px 32px rgba(123,47,255,0.12);}
 .product-card-bar{height:3px;width:100%;}
 .product-card-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;}
 .product-card-tags{display:flex;gap:6px;margin-bottom:10px;}
@@ -202,6 +202,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   .slide-col,.slide-gate,.slide-role,.slide-step{background:#f5f5f5 !important;border-color:#ddd !important;}
 }
 </style>
+<script src="icons.js"></script>
 </head>
 <body>
 
@@ -257,7 +258,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="orbit-ring orbit-ring-1"></div>
       <div class="orbit-ring orbit-ring-2"></div>
       <div class="orbit-ring orbit-ring-3"></div>
-      <div class="orbit-center">🌐</div>
+      <div class="orbit-center"><svg class="ei" width="28" height="28"><use href="#ic-globe"/></svg></div>
       <!-- B2C -->
       <div class="orbit-planet p-b2c" title="B2C — потребительские продукты">
         <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#7B2FFF,#C49CFF);">B2C</div>
@@ -291,7 +292,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="sec-eyebrow">Презентация</div>
         <div class="sec-title" style="font-size:22px;margin-bottom:0;">EcoTech Platform — 10 слайдов</div>
       </div>
-      <button class="btn-pdf" onclick="window.print()">📥 Скачать PDF</button>
+      <button class="btn-pdf" onclick="window.print()"><svg class="ei" width="13" height="13"><use href="#ic-download"/></svg> Скачать PDF</button>
     </div>
 
     <div class="slides-wrapper">
