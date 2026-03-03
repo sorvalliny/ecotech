@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoTech Platform — Для продукта</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --dark:#08081A;--mid:#111128;--card:#161630;--surface2:#1A1A38;
+  --border:rgba(255,255,255,0.07);--border-h:rgba(255,255,255,0.14);
+  --violet:#7B2FFF;--violet-dim:rgba(123,47,255,0.12);--violet-border:rgba(123,47,255,0.35);
+  --pink:#FF2D8A;--teal:#00D4B4;--teal-dim:rgba(0,212,180,0.10);
+  --amber:#FFB830;--green:#34D399;--green-dim:rgba(52,211,153,0.10);
+  --blue:#3B82F6;--blue-dim:rgba(59,130,246,0.10);
+  --text:#E8E6FF;--muted:#7A7A9D;--gray2:#C4C4D8;--white:#FFFFFF;
+  --font-head:'Unbounded',sans-serif;--font-body:'Golos Text',sans-serif;
+  --radius:16px;--radius-sm:10px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--dark);color:var(--text);line-height:1.65;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.02;pointer-events:none;z-index:0;}
+
+/* ── ECOTECH NAV ── */
+.ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,0.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,0.15);display:flex;align-items:center;padding:0 24px;gap:0;}
+.en-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-0.5px;white-space:nowrap;flex-shrink:0;}
+.en-logo span{color:#7B2FFF;}
+.en-sep{width:1px;height:16px;background:rgba(123,47,255,0.2);margin:0 16px;flex-shrink:0;}
+.en-links{display:flex;gap:2px;align-items:center;}
+.en-drop{position:relative;}
+.en-drop-trigger{font-size:12px;font-weight:700;color:#7A7A9D;text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:flex;align-items:center;gap:3px;cursor:default;letter-spacing:.01em;}
+.en-drop-trigger::after{content:'▾';font-size:9px;opacity:0.45;margin-left:1px;}
+.en-drop.is-open .en-drop-trigger,.en-drop-trigger:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.en-drop.en-active .en-drop-trigger{color:#C49CFF;background:rgba(123,47,255,0.12);}
+.en-drop-menu{position:absolute;top:calc(100% + 4px);left:0;background:rgba(13,13,30,0.98);backdrop-filter:blur(20px);border:1px solid rgba(123,47,255,0.2);border-radius:11px;padding:6px;min-width:220px;display:flex;flex-direction:column;gap:1px;z-index:10000;box-shadow:0 8px 32px rgba(0,0,0,0.45);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .15s,transform .15s,visibility .15s;}
+.en-drop.is-open .en-drop-menu{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0);}
+.en-drop-menu a{font-size:12px;font-weight:500;color:#7A7A9D;text-decoration:none;padding:7px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:block;}
+.en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.en-drop-menu a.en-active{color:#C49CFF;background:rgba(123,47,255,0.12);}
+.en-drop-sep{height:1px;background:rgba(123,47,255,0.12);margin:4px 4px;}
+
+/* ── LAYOUT ── */
+.page-wrap{max-width:1060px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+
+/* ── HERO ── */
+.hero-section{padding:72px 0 56px;display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:center;}
+.hero-eyebrow{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.hero-eyebrow::before{content:'';width:24px;height:2px;background:var(--teal);border-radius:2px;}
+.hero-h1{font-family:var(--font-head);font-size:38px;font-weight:900;line-height:1.1;letter-spacing:-1.5px;color:var(--white);margin-bottom:18px;}
+.hero-h1 .grad{background:linear-gradient(135deg,var(--teal),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:28px;max-width:480px;}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;background:linear-gradient(135deg,var(--teal),var(--violet));border-radius:12px;color:#fff;font-family:var(--font-head);font-size:12px;font-weight:900;text-decoration:none;letter-spacing:0.02em;cursor:pointer;border:none;transition:opacity .15s,transform .15s;}
+.hero-cta:hover{opacity:0.88;transform:translateY(-1px);}
+
+/* ── ORBITAL VISUALIZATION B ── */
+.orbit-wrap{position:relative;width:340px;height:340px;flex-shrink:0;}
+.orbit-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:68px;background:linear-gradient(135deg,var(--teal),var(--violet));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 0 40px rgba(0,212,180,0.4);}
+.orbit-ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid rgba(0,212,180,0.1);transform:translate(-50%,-50%);}
+.orbit-ring-1{width:150px;height:150px;}
+.orbit-ring-2{width:230px;height:230px;}
+.orbit-ring-3{width:310px;height:310px;}
+.orbit-planet{position:absolute;top:50%;left:50%;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;}
+.orbit-planet-dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform .2s,box-shadow .2s;}
+.orbit-planet:hover .orbit-planet-dot{transform:scale(1.25);box-shadow:0 0 16px rgba(0,212,180,0.6);}
+.orbit-planet-label{font-size:9px;font-weight:700;font-family:var(--font-head);letter-spacing:0.05em;color:var(--gray2);white-space:nowrap;background:rgba(8,8,26,0.9);padding:2px 6px;border-radius:4px;}
+
+@keyframes orbit{
+  from{transform:translate(-50%,-50%) rotate(0deg) translateX(var(--r)) rotate(0deg);}
+  to{transform:translate(-50%,-50%) rotate(360deg) translateX(var(--r)) rotate(-360deg);}
+}
+.p-backlog{--r:75px;animation:orbit 9s linear infinite;}
+.p-fw{--r:115px;animation:orbit 13s linear infinite;animation-delay:-4s;}
+.p-tracker{--r:115px;animation:orbit 13s linear infinite;animation-delay:-8s;}
+.p-okr{--r:155px;animation:orbit 18s linear infinite;}
+.p-health{--r:155px;animation:orbit 18s linear infinite;animation-delay:-6s;}
+.p-custdev{--r:155px;animation:orbit 18s linear infinite;animation-delay:-12s;}
+.orbit-planet:hover{animation-play-state:paused;}
+
+/* ── DIVIDER ── */
+.section-divider{height:1px;background:linear-gradient(90deg,var(--teal),var(--violet),var(--pink),transparent);opacity:0.2;margin:56px 0;}
+
+/* ── MODULES SECTION ── */
+.modules-section{padding:0 0 80px;}
+.sec-eyebrow{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
+.sec-title{font-family:var(--font-head);font-size:26px;font-weight:900;color:var(--white);margin-bottom:8px;letter-spacing:-0.5px;line-height:1.2;}
+.sec-sub{font-size:14px;color:var(--muted);max-width:580px;line-height:1.65;margin-bottom:32px;}
+
+.modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.module-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;gap:10px;transition:border-color .18s,transform .15s,box-shadow .18s;text-decoration:none;color:inherit;}
+.module-card.active:hover{border-color:rgba(0,212,180,0.35);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,212,180,0.1);}
+.module-card.dev{opacity:0.38;cursor:not-allowed;pointer-events:none;}
+.module-icon{font-size:28px;line-height:1;}
+.module-name{font-family:var(--font-head);font-size:12px;font-weight:900;color:#fff;line-height:1.25;}
+.module-desc{font-size:12px;color:var(--muted);line-height:1.6;flex:1;}
+.module-badge{font-size:9px;font-weight:700;font-family:var(--font-head);padding:2px 8px;border-radius:4px;letter-spacing:0.06em;align-self:flex-start;}
+.badge-active{background:rgba(0,212,180,0.12);color:#00D4B4;border:1px solid rgba(0,212,180,0.25);}
+.badge-dev{background:rgba(255,255,255,0.05);color:#7A7A9D;border:1px solid rgba(255,255,255,0.08);}
+
+.modules-footer-note{font-size:12px;color:var(--muted);margin-top:20px;text-align:center;font-style:italic;}
+
+/* ── FOOTER ── */
+.page-footer{border-top:1px solid var(--border);padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);max-width:1060px;margin:0 auto;}
+.page-footer strong{color:rgba(255,255,255,0.3);}
+
+@media(max-width:900px){
+  .hero-section{grid-template-columns:1fr;padding:48px 0 40px;}
+  .orbit-wrap{width:280px;height:280px;margin:0 auto;}
+  .modules-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:520px){
+  .modules-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── ECOTECH NAV ── -->
+<nav class="ecotech-nav">
+  <a class="en-logo" href="index.html">EcoTech <span>Platform</span></a>
+  <div class="en-sep"></div>
+  <div class="en-links">
+    <div class="en-drop">
+      <a class="en-drop-trigger" href="business.html">Бизнесу</a>
+      <div class="en-drop-menu">
+        <a href="business.html">Для бизнеса</a>
+        <div class="en-drop-sep"></div>
+        <a href="Бизнесу/index.html">Полный обзор платформы</a>
+        <a href="Витрина/EcoTech Platform — Витрина.html">Витрина модулей</a>
+        <a href="Проектный офис/RWB · Product OS - Трекер инициатив.html#tab=portfolio">Портфель продуктов</a>
+      </div>
+    </div>
+    <div class="en-drop en-active">
+      <a class="en-drop-trigger" href="product.html">Продукту</a>
+      <div class="en-drop-menu">
+        <a href="product.html" class="en-active">Для продукта</a>
+        <div class="en-drop-sep"></div>
+        <a href="Хэндбук/rwb-product-os-v12.html">Хэндбук (G0–G5)</a>
+        <a href="Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер инициатив</a>
+        <a href="Фреймворк/framework-lite.html">Framework Lite</a>
+        <a href="Продукту/strategy.html">Стратегическое планирование</a>
+      </div>
+    </div>
+    <div class="en-drop">
+      <a class="en-drop-trigger" href="Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер ↗</a>
+    </div>
+  </div>
+</nav>
+<script>!function(){var ds=document.querySelectorAll('.en-drop');ds.forEach(function(d){var t;d.addEventListener('mouseenter',function(){clearTimeout(t);d.classList.add('is-open');});d.addEventListener('mouseleave',function(){t=setTimeout(function(){d.classList.remove('is-open');},120);});});}();</script>
+
+<div class="page-wrap">
+
+  <!-- ── HERO ── -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-eyebrow">EcoTech Platform · Для продукта</div>
+      <h1 class="hero-h1">Инструменты для создания<br><span class="grad">продукта мирового класса</span></h1>
+      <p class="hero-sub">EcoTech Platform — операционная система для 12 команд WB Экосистемы. Фреймворк, шаблоны, трекер и поддержка Проектного офиса на каждом этапе.</p>
+      <a class="hero-cta" href="Хэндбук/rwb-product-os-v12.html">Начать с Хэндбука →</a>
+    </div>
+
+    <!-- ORBITAL VISUALIZATION B -->
+    <div class="orbit-wrap">
+      <div class="orbit-ring orbit-ring-1"></div>
+      <div class="orbit-ring orbit-ring-2"></div>
+      <div class="orbit-ring orbit-ring-3"></div>
+      <div class="orbit-center">👥</div>
+      <!-- Inner orbit: Backlog -->
+      <div class="orbit-planet p-backlog">
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#00D4B4,#3B82F6);">📊</div>
+        <div class="orbit-planet-label">Backlog</div>
+      </div>
+      <!-- Middle orbit: Framework + Tracker -->
+      <div class="orbit-planet p-fw">
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#7B2FFF,#C49CFF);">🗺</div>
+        <div class="orbit-planet-label">Framework</div>
+      </div>
+      <div class="orbit-planet p-tracker">
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#FF2D8A,#FF85C0);">🎯</div>
+        <div class="orbit-planet-label">Трекер</div>
+      </div>
+      <!-- Outer orbit: OKR + Health + CustDev -->
+      <div class="orbit-planet p-okr">
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#34D399,#00D4B4);">🎯</div>
+        <div class="orbit-planet-label">OKR</div>
+      </div>
+      <div class="orbit-planet p-health">
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#FFB830,#FF9F43);">💚</div>
+        <div class="orbit-planet-label">Health</div>
+      </div>
+      <div class="orbit-planet p-custdev">
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#8B8BAE,#C4C4D8);">🎤</div>
+        <div class="orbit-planet-label">CustDev</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── MODULES ── -->
+  <section class="modules-section">
+    <div class="sec-eyebrow">Модули платформы</div>
+    <div class="sec-title">12 инструментов для<br>вашей команды</div>
+    <p class="sec-sub">Активные модули доступны прямо сейчас. Модули в разработке появятся в следующих релизах.</p>
+
+    <div class="modules-grid" id="modules-grid"></div>
+    <div class="modules-footer-note">Платформа на раннем этапе тестирования — Проектный офис EcoTech, 2026</div>
+  </section>
+
+</div><!-- /page-wrap -->
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="page-footer">
+    <div><strong>EcoTech Platform</strong> · Проектный офис · Для продукта</div>
+    <div>Март 2026 · v1.0</div>
+  </div>
+</footer>
+
+<script>
+var MODULES = [
+  { name:'Бэклог & RICE', icon:'📊', status:'active',
+    href:'Проектный офис/RWB · Product OS · Бэклог развития.html',
+    desc:'Приоритизация инициатив по RICE-скорингу. Kanban, Roadmap, паспорта.' },
+  { name:'Фреймворк', icon:'🗺', status:'active',
+    href:'Фреймворк/rwb-product-os-v3.html',
+    desc:'Полный жизненный цикл. Gate 0→5, чек-листы, шаблоны артефактов.' },
+  { name:'Framework Lite', icon:'⚡', status:'active',
+    href:'Фреймворк/framework-lite.html',
+    desc:'Упрощённый путь для быстрых гипотез. Discovery → Пилот → Запуск.' },
+  { name:'Трекер', icon:'🎯', status:'active',
+    href:'Проектный офис/RWB · Product OS - Трекер инициатив.html',
+    desc:'Трекинг статусов Gate по всем продуктам портфеля.' },
+  { name:'OKR Планировщик', icon:'🎯', status:'dev', href:'#',
+    desc:'Дерево целей: компания → департамент → продукт → инициативы.' },
+  { name:'Product Health', icon:'💚', status:'dev', href:'#',
+    desc:'Еженедельный дашборд метрик для Продуктового комитета.' },
+  { name:'CustDev Трекер', icon:'🎤', status:'dev', href:'#',
+    desc:'Управление интервью, инсайтами и гипотезами.' },
+  { name:'PMO Реестр', icon:'📋', status:'dev', href:'#',
+    desc:'Единый реестр всех инициатив с Gate-скринингом.' },
+  { name:'PnL Модель', icon:'💰', status:'dev', href:'#',
+    desc:'Финансовая модель: прогноз доходов, ROI, breakeven.' },
+  { name:'Хэндбук лидера', icon:'📖', status:'active',
+    href:'Хэндбук/rwb-product-os-v12.html',
+    desc:'Гайды, шаблоны и стандарты для PM и Tech Lead.' },
+  { name:'Корп. ProductHunt', icon:'🚀', status:'dev', href:'#',
+    desc:'Витрина внутренних продуктов с апвоутами и рейтингом.' },
+  { name:'Экспорт в Wiki', icon:'🔗', status:'dev', href:'#',
+    desc:'Выгрузка Product ID и Gate-отчётов в Confluence.' }
+];
+
+function renderModules() {
+  var grid = document.getElementById('modules-grid');
+  if (!grid) return;
+  grid.innerHTML = MODULES.map(function(m) {
+    var isActive = m.status === 'active';
+    var el = isActive ? 'a' : 'div';
+    var href = isActive ? ' href="' + m.href + '"' : '';
+    return '<' + el + ' class="module-card ' + m.status + '"' + href + '>' +
+      '<div class="module-icon">' + m.icon + '</div>' +
+      '<div class="module-name">' + m.name + '</div>' +
+      '<div class="module-desc">' + m.desc + '</div>' +
+      '<span class="module-badge badge-' + m.status + '">' + (isActive ? 'Активен' : 'В разработке') + '</span>' +
+    '</' + el + '>';
+  }).join('');
+}
+
+renderModules();
+</script>
+</body>
+</html>

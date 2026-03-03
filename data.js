@@ -36,7 +36,7 @@ window.ECOTECH_DATA = {
   ],
   "pilot": {
     "active": true,
-    "badge": "Пилот активен",
+    "badge": "Ранний этап тестирования",
     "title": "EdTech контур — первые команды в платформе",
     "description": "Образовательные продукты Экосистемы проходят пилотный цикл по Gate-модели. Цель — отработать фреймворк, инструменты и процесс Gate-review на реальных командах до масштабирования на весь портфель.",
     "current_gate": "G0→1"
@@ -273,92 +273,26 @@ window.ECOTECH_DATA = {
   ],
   "navigation": [
     {
-      "section": "Витрина",
-      "label": "Платформа и модули",
+      "section": "",
+      "label": "Войдите в платформу",
       "items": [
         {
-          "code": "Бизнесу",
+          "code": "🏢 Бизнесу",
           "title": "Для бизнеса",
           "desc": "Прозрачность портфеля, контроль рисков и основа для инвестиционных решений на каждом Gate-этапе.",
           "status_label": "Готово",
           "status_class": "st-green",
           "color": "linear-gradient(90deg, #5C7AFF, #A78BFA)",
-          "link": "Бизнесу/index.html"
+          "link": "business.html"
         },
         {
-          "code": "Продукту",
-          "title": "Для команды",
-          "desc": "Онбординг, фреймворк, шаблоны артефактов и поддержка Проектного офиса на всех этапах Gate-модели.",
+          "code": "⚡ Продукту",
+          "title": "Для продукта",
+          "desc": "Фреймворк, шаблоны артефактов, трекер и поддержка Проектного офиса на всех этапах Gate-модели.",
           "status_label": "Готово",
           "status_class": "st-green",
           "color": "linear-gradient(90deg, #34D399, #5C7AFF)",
-          "link": "Продукту/index.html"
-        },
-        {
-          "code": "PR01",
-          "title": "Фреймворк",
-          "desc": "Gate-модель G0–G5, критерии перехода, RICE-приоритизация и операционный справочник.",
-          "status_label": "Готов",
-          "status_class": "st-green",
-          "color": "linear-gradient(90deg, #34D399, #00D4B4)",
-          "link": "Фреймворк/rwb-product-os-v3.html"
-        },
-        {
-          "code": "PR02",
-          "title": "Хэндбук",
-          "desc": "Документация, гайды и шаблоны артефактов для команд на всех этапах Gate-модели.",
-          "status_label": "В работе",
-          "status_class": "st-green",
-          "color": "linear-gradient(90deg, #7B2FFF, #5C7AFF)",
-          "link": "Хэндбук/rwb-product-os-v12.html"
-        }
-      ]
-    },
-    {
-      "section": "Платформа",
-      "label": "Страницы платформы",
-      "items": [
-        {
-          "code": "PR03",
-          "title": "Главная страница",
-          "desc": "Лендинг EcoTech Platform — Gate-модель G0–G5, все 8 модулей, пилот EdTech, CTA для команд.",
-          "status_label": "В работе",
-          "status_class": "st-green",
-          "color": "linear-gradient(90deg, #5C7AFF, #34D399)",
-          "link": "Витрина/EcoTech Platform - главная страница.html"
-        },
-        {
-          "code": "Wiki",
-          "title": "Витрина модулей",
-          "desc": "Карточки всех модулей PR01–PR08, портфель продуктов и инициатив Экосистемы.",
-          "status_label": "В работе",
-          "status_class": "st-green",
-          "color": "linear-gradient(90deg, #34D399, #5C7AFF)",
-          "link": "Витрина/EcoTech Platform — Витрина.html"
-        }
-      ]
-    },
-    {
-      "section": "Проектный офис",
-      "label": "Инструменты управления",
-      "items": [
-        {
-          "code": "PR04",
-          "title": "Трекер инициатив",
-          "desc": "Product OS — карточки проектов, Gate-прогресс, фильтры по статусу. Живой статус портфеля.",
-          "status_label": "Проработка",
-          "status_class": "st-violet",
-          "color": "linear-gradient(90deg, #7C3AED, #3B82F6)",
-          "link": "Проектный офис/RWB · Product OS - Трекер инициатив.html"
-        },
-        {
-          "code": "Бэклог",
-          "title": "Бэклог развития",
-          "desc": "Список задач и инициатив в работе — фильтры, приоритеты, статусы исполнения.",
-          "status_label": "Архитектура",
-          "status_class": "st-blue",
-          "color": "linear-gradient(90deg, #3B82F6, #7C3AED)",
-          "link": "Проектный офис/RWB · Product OS · Бэклог развития.html"
+          "link": "product.html"
         }
       ]
     }

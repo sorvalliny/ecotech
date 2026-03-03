@@ -384,8 +384,40 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 .en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,0.06);}
 .en-drop-menu a.en-active{color:#C49CFF;background:rgba(123,47,255,0.12);}
 .en-drop-sep{height:1px;background:rgba(123,47,255,0.12);margin:4px 4px;}
-header.ecotech-orig{top:44px!important;}
-.app{height:calc(100vh - 96px)!important;}
+header.ecotech-orig{top:44px!important;height:57px!important;z-index:100;}
+.app{height:calc(100vh - 101px)!important;margin-top:0;}
+/* proto badge */
+.proto-badge{background:rgba(245,158,11,0.15);color:#FDE68A;border:1px solid rgba(245,158,11,0.3);font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.05em;flex-shrink:0;}
+/* onboarding overlay */
+.ob-overlay{position:fixed;inset:0;z-index:99000;pointer-events:none;}
+.ob-overlay.active{pointer-events:auto;}
+.ob-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(3px);}
+.ob-tooltip{position:absolute;background:rgba(22,22,50,0.98);border:1px solid rgba(123,47,255,0.35);border-radius:16px;padding:24px 28px;max-width:360px;box-shadow:0 16px 48px rgba(0,0,0,0.6);}
+.ob-step{font-family:'Manrope',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7B2FFF;margin-bottom:8px;}
+.ob-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.3;}
+.ob-body{font-size:13px;color:#7A7A9D;line-height:1.6;margin-bottom:20px;}
+.ob-actions{display:flex;gap:8px;align-items:center;}
+.ob-btn-next{padding:8px 20px;background:linear-gradient(135deg,#7B2FFF,#FF2D8A);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;letter-spacing:.03em;}
+.ob-btn-skip{padding:8px 12px;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#7A7A9D;font-size:12px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;transition:color .15s;}
+.ob-btn-skip:hover{color:#fff;}
+.ob-dots{display:flex;gap:5px;align-items:center;margin-left:auto;}
+.ob-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.15);}
+.ob-dot.active{background:#7B2FFF;}
+/* help button */
+.ob-help-btn{width:30px;height:30px;border-radius:50%;background:rgba(123,47,255,0.15);border:1px solid rgba(123,47,255,0.3);color:#C49CFF;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;}
+.ob-help-btn:hover{background:rgba(123,47,255,0.28);}
+/* visual-lifecycle */
+.visual-lifecycle{display:flex;align-items:center;gap:0;margin:16px 0 20px;padding:16px 20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:12px;overflow-x:auto;}
+.vl-item{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:56px;position:relative;}
+.vl-item::after{content:'';position:absolute;top:16px;left:calc(50% + 17px);right:calc(-50% + 17px);height:1px;background:rgba(255,255,255,0.08);}
+.vl-item:last-child::after{display:none;}
+.vl-dot{width:32px;height:32px;border-radius:50%;border:2px solid rgba(255,255,255,0.1);background:#111128;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#7A7A9D;transition:all .2s;position:relative;z-index:1;}
+.vl-item.active .vl-dot{border-color:#7B2FFF;background:rgba(123,47,255,0.12);color:#C49CFF;box-shadow:0 0 12px rgba(123,47,255,0.3);}
+.vl-item.active .vl-dot::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(123,47,255,0.18);animation:vl-pulse 2s infinite;}
+.vl-label{font-size:8px;font-weight:700;color:#7A7A9D;text-align:center;white-space:nowrap;letter-spacing:.03em;}
+.vl-item.active .vl-label{color:#C49CFF;}
+.vl-sublabel{font-size:7px;color:rgba(122,122,157,0.55);text-align:center;white-space:nowrap;}
+@keyframes vl-pulse{0%,100%{opacity:0.4;transform:scale(1);}50%{opacity:1;transform:scale(1.1);}}
 </style>
   <script src="../icons.js"></script>
   <script src="../platform.js"></script>
@@ -424,13 +456,30 @@ header.ecotech-orig{top:44px!important;}
 <header class="ecotech-orig">
   <div class="logo"><b>RWB</b> · Product OS</div>
   <div class="htitle">Реестр продуктов &amp; эпиков</div>
+  <span class="proto-badge">⚗️ ПРОТОТИП · Проектный офис</span>
   <div class="tabs">
     <button class="tab active" onclick="switchTab(&#39;portfolio&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Портфель</button>
     <button class="tab" onclick="switchTab(&#39;backlog&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clipboard"/></svg> Беклог</button>
     <button class="tab" onclick="switchTab(&#39;tracker&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-trending-up"/></svg> Трекер</button>
     <button class="tab" onclick="switchTab(&#39;goals&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цели</button>
   </div>
+  <button class="ob-help-btn" onclick="startOnboarding()" title="Справка / онбординг">?</button>
 </header>
+
+<!-- ── ONBOARDING OVERLAY ── -->
+<div class="ob-overlay" id="ob-overlay">
+  <div class="ob-backdrop" onclick="skipOnboarding()"></div>
+  <div class="ob-tooltip" id="ob-tooltip">
+    <div class="ob-step" id="ob-step-label">Шаг 1 / 5</div>
+    <div class="ob-title" id="ob-title">Добро пожаловать!</div>
+    <div class="ob-body" id="ob-body">Загрузка...</div>
+    <div class="ob-actions">
+      <button class="ob-btn-skip" onclick="skipOnboarding()">Пропустить</button>
+      <div class="ob-dots" id="ob-dots"></div>
+      <button class="ob-btn-next" id="ob-btn-next" onclick="nextOnboarding()">Далее →</button>
+    </div>
+  </div>
+</div>
 
 <div class="app">
   <aside class="sidebar hidden" id="sidebar">
@@ -503,6 +552,15 @@ header.ecotech-orig{top:44px!important;}
     <div class="pstat"><div class="pstat-num" style="color:var(--amber)">38</div><div class="pstat-lbl">Эпиков</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--green)">38</div><div class="pstat-lbl">High priority</div></div>
   </div>
+      <!-- Visual Lifecycle -->
+      <div class="visual-lifecycle">
+        <div class="vl-item"><div class="vl-dot">G0</div><div class="vl-label">Идея</div><div class="vl-sublabel">Скрининг</div></div>
+        <div class="vl-item"><div class="vl-dot">G1</div><div class="vl-label">Концепция</div><div class="vl-sublabel">PSF</div></div>
+        <div class="vl-item active"><div class="vl-dot">G2</div><div class="vl-label">Прототип</div><div class="vl-sublabel">MVP</div></div>
+        <div class="vl-item"><div class="vl-dot">G3</div><div class="vl-label">Разработка</div><div class="vl-sublabel">Dev</div></div>
+        <div class="vl-item"><div class="vl-dot">G4</div><div class="vl-label">Запуск</div><div class="vl-sublabel">GTM</div></div>
+        <div class="vl-item"><div class="vl-dot">G5</div><div class="vl-label">Масштаб</div><div class="vl-sublabel">Scale</div></div>
+      </div>
       <div class="divlabel">Продукты экосистемы — 6 продуктов, 38 эпиков</div>
       <div class="pgrid" id="pgrid"><div class="pcard" id="pc-PR01">
       <div class="pcard-head" onclick="togglePC(&#39;PR01&#39;)">
@@ -2494,6 +2552,114 @@ initSidebar();
     renderBL();
   }
 })();
+
+// ── ONBOARDING ──
+var OB_STEPS = [
+  {
+    title: 'Добро пожаловать в Трекер EcoTech!',
+    body: 'Здесь отслеживается статус Gate для каждого продукта и инициативы. Все данные хранятся в вашем браузере.',
+    anchor: 'header'
+  },
+  {
+    title: 'Вкладки навигации',
+    body: 'Используй вкладки: <strong>Портфель</strong> — продукты и эпики, <strong>Беклог</strong> — список инициатив, <strong>Трекер</strong> — Gate-прогресс, <strong>Цели</strong> — OKR.',
+    anchor: '.tabs'
+  },
+  {
+    title: 'Карточки продуктов',
+    body: 'Кликни на карточку продукта — откроется список инициатив. Можно редактировать статусы и Gate-прогресс прямо в карточке.',
+    anchor: '.pgrid'
+  },
+  {
+    title: 'Фильтрация',
+    body: 'Фильтруй по продукту или статусу через сайдбар слева. Кнопка «☰» открывает/скрывает панель фильтров.',
+    anchor: '.sidebar'
+  },
+  {
+    title: 'Это прототип 🚀',
+    body: 'Данные хранятся в браузере (localStorage). Ничего не теряется при перезагрузке. Удачи в работе с продуктовым портфелем!',
+    anchor: null
+  }
+];
+var obCurrent = 0;
+
+function renderObDots() {
+  var dotsEl = document.getElementById('ob-dots');
+  if (!dotsEl) return;
+  dotsEl.innerHTML = OB_STEPS.map(function(_, i) {
+    return '<div class="ob-dot' + (i === obCurrent ? ' active' : '') + '"></div>';
+  }).join('');
+}
+
+function positionTooltip(anchor) {
+  var tooltip = document.getElementById('ob-tooltip');
+  if (!tooltip) return;
+  if (!anchor) {
+    tooltip.style.top = '50%';
+    tooltip.style.left = '50%';
+    tooltip.style.transform = 'translate(-50%,-50%)';
+    return;
+  }
+  var el = typeof anchor === 'string' ? document.querySelector(anchor) : anchor;
+  if (!el) {
+    tooltip.style.top = '50%';
+    tooltip.style.left = '50%';
+    tooltip.style.transform = 'translate(-50%,-50%)';
+    return;
+  }
+  tooltip.style.transform = '';
+  var rect = el.getBoundingClientRect();
+  var tw = 360, th = 200;
+  var top = rect.bottom + 12;
+  var left = rect.left;
+  if (top + th > window.innerHeight - 20) top = rect.top - th - 12;
+  if (left + tw > window.innerWidth - 20) left = window.innerWidth - tw - 20;
+  if (left < 12) left = 12;
+  tooltip.style.top = top + 'px';
+  tooltip.style.left = left + 'px';
+}
+
+function showObStep(n) {
+  var step = OB_STEPS[n];
+  if (!step) return;
+  document.getElementById('ob-step-label').textContent = 'Шаг ' + (n + 1) + ' / ' + OB_STEPS.length;
+  document.getElementById('ob-title').textContent = step.title;
+  document.getElementById('ob-body').innerHTML = step.body;
+  var btn = document.getElementById('ob-btn-next');
+  btn.textContent = n === OB_STEPS.length - 1 ? 'Понятно ✓' : 'Далее →';
+  renderObDots();
+  positionTooltip(step.anchor);
+}
+
+function nextOnboarding() {
+  obCurrent++;
+  if (obCurrent >= OB_STEPS.length) {
+    finishOnboarding();
+  } else {
+    showObStep(obCurrent);
+  }
+}
+
+function finishOnboarding() {
+  localStorage.setItem('ecotech_onboarded', '1');
+  document.getElementById('ob-overlay').classList.remove('active');
+}
+
+function skipOnboarding() {
+  localStorage.setItem('ecotech_onboarded', '1');
+  document.getElementById('ob-overlay').classList.remove('active');
+}
+
+function startOnboarding() {
+  obCurrent = 0;
+  document.getElementById('ob-overlay').classList.add('active');
+  showObStep(0);
+}
+
+// Auto-show for new users
+if (!localStorage.getItem('ecotech_onboarded')) {
+  setTimeout(startOnboarding, 600);
+}
 </script>
 
 
