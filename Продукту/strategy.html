@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стратегическое планирование · EcoTech Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system.css">
+<style>
+/* ── TOKENS ── */
+:root{
+  --bg:#08081A;--card:#111128;--card2:#161630;--border:rgba(255,255,255,.07);
+  --bhi:rgba(255,255,255,.14);--muted:#7A7A9D;
+  --violet:#7B2FFF;--vdim:rgba(123,47,255,.14);--vborder:rgba(123,47,255,.4);
+  --teal:#00D4B4;--tdim:rgba(0,212,180,.12);--tborder:rgba(0,212,180,.35);
+  --amber:#FFB830;--adim:rgba(255,184,48,.12);--aborder:rgba(255,184,48,.35);
+  --green:#34D399;--gdim:rgba(52,211,153,.12);--gborder:rgba(52,211,153,.3);
+  --red:#EF4444;--rdim:rgba(239,68,68,.12);
+  --blue:#3B82F6;--bdim:rgba(59,130,246,.12);--bborder:rgba(59,130,246,.3);
+  --r:12px;--font:'Golos Text',system-ui,sans-serif;
+  --head:'Unbounded',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:#E8E8F0;font-family:var(--font);font-size:14px;line-height:1.55;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.02;pointer-events:none;z-index:0}
+
+/* ── ECOTECH NAV ── */
+.ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,.15);display:flex;align-items:center;padding:0 24px;gap:0}
+.en-logo{font-family:var(--head);font-size:13px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.5px;white-space:nowrap;flex-shrink:0}
+.en-logo span{color:#7B2FFF}
+.en-sep{width:1px;height:16px;background:rgba(123,47,255,.2);margin:0 16px;flex-shrink:0}
+.en-links{display:flex;gap:2px;align-items:center}
+.en-drop{position:relative}
+.en-drop-trigger{font-size:12px;font-weight:700;color:#7A7A9D;text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:flex;align-items:center;gap:3px;cursor:default;letter-spacing:.01em}
+.en-drop-trigger::after{content:'▾';font-size:9px;opacity:.45;margin-left:1px}
+.en-drop.is-open .en-drop-trigger,.en-drop-trigger:hover{color:#fff;background:rgba(255,255,255,.06)}
+.en-drop.en-active .en-drop-trigger{color:#C49CFF;background:rgba(123,47,255,.12)}
+.en-drop-menu{position:absolute;top:calc(100% + 4px);left:0;background:rgba(13,13,30,.98);backdrop-filter:blur(20px);border:1px solid rgba(123,47,255,.2);border-radius:11px;padding:6px;min-width:230px;display:flex;flex-direction:column;gap:1px;z-index:10000;box-shadow:0 8px 32px rgba(0,0,0,.45);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .15s,transform .15s,visibility .15s}
+.en-drop.is-open .en-drop-menu{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0)}
+.en-drop-menu a{font-size:12px;font-weight:500;color:#7A7A9D;text-decoration:none;padding:7px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:block}
+.en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.en-drop-menu a.en-active{color:#C49CFF;background:rgba(123,47,255,.12)}
+.en-drop-sep{height:1px;background:rgba(123,47,255,.12);margin:4px}
+
+/* ── SECTION NAV ── */
+.snav{position:sticky;top:44px;z-index:200;background:rgba(8,8,26,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;gap:0;overflow-x:auto;padding:0 24px}
+.snav::-webkit-scrollbar{display:none}
+.snav-btn{padding:10px 14px;border:none;border-bottom:2px solid transparent;background:none;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s;letter-spacing:.02em}
+.snav-btn:hover{color:#fff}
+.snav-btn.active{color:#C4B5FD;border-color:var(--violet)}
+
+/* ── LAYOUT ── */
+.sp-page{max-width:1100px;margin:0 auto;padding:32px 28px 80px;position:relative;z-index:1}
+.sp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.sp-header-left{}
+.sp-title{font-family:var(--head);font-size:22px;font-weight:900;color:#fff;letter-spacing:-.5px;line-height:1.2}
+.sp-title-product{font-size:14px;color:var(--muted);margin-top:3px;font-family:var(--font);font-weight:500}
+.sp-header-right{display:flex;align-items:center;gap:8px}
+.format-badge{padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em;white-space:nowrap;border:1px solid}
+.format-full{background:var(--gdim);color:var(--green);border-color:var(--gborder)}
+.format-lite{background:var(--bdim);color:#93C5FD;border-color:var(--bborder)}
+
+/* ── ARCHIVED BANNER ── */
+.archived-banner{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:11px 18px;font-size:13px;color:#FCA5A5;margin-bottom:20px;display:none;align-items:center;gap:10px}
+.archived-banner.show{display:flex}
+
+/* ── SECTION ── */
+.sp-section{margin-bottom:44px;scroll-margin-top:96px}
+.sp-sect-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sp-sect-num{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.05);padding:2px 7px;border-radius:5px;border:1px solid var(--border);flex-shrink:0}
+.sp-sect-title{font-size:15px;font-weight:800;color:#fff;flex:1}
+.sp-add-btn{padding:6px 14px;background:var(--vdim);border:1px solid var(--vborder);border-radius:8px;color:#C4B5FD;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
+.sp-add-btn:hover{background:var(--violet);color:#fff}
+.sp-sect-badge{padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border)}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid transparent;white-space:nowrap;gap:4px}
+.badge-idea{background:rgba(122,122,157,.12);color:#9494B8;border-color:rgba(122,122,157,.3)}
+.badge-mvp{background:var(--bdim);color:#93C5FD;border-color:var(--bborder)}
+.badge-launch{background:var(--adim);color:var(--amber);border-color:var(--aborder)}
+.badge-growth{background:var(--gdim);color:var(--green);border-color:var(--gborder)}
+.badge-mature{background:var(--tdim);color:var(--teal);border-color:var(--tborder)}
+.badge-discovery{background:var(--bdim);color:#93C5FD;border-color:var(--bborder)}
+.badge-delivery{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+.badge-growth-phase{background:var(--gdim);color:var(--green);border-color:var(--gborder)}
+.badge-planning{background:rgba(122,122,157,.1);color:var(--muted);border-color:rgba(122,122,157,.25)}
+.badge-active{background:var(--tdim);color:var(--teal);border-color:var(--tborder)}
+.badge-paused{background:var(--adim);color:var(--amber);border-color:var(--aborder)}
+.badge-launched{background:var(--gdim);color:var(--green);border-color:var(--gborder)}
+.badge-closed{background:var(--rdim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
+.badge-draft{background:rgba(255,255,255,.04);color:var(--muted);border-color:var(--border)}
+.badge-achieved{background:var(--gdim);color:var(--green);border-color:var(--gborder)}
+.badge-cancelled{background:rgba(255,255,255,.04);color:var(--muted);border-color:var(--border)}
+
+/* ── IDENTITY CARD ── */
+.id-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.id-status-row{display:grid;grid-template-columns:1fr 1fr 1fr}
+.id-cell{padding:18px 20px;border-right:1px solid var(--border)}
+.id-cell:last-child{border-right:none}
+.id-cell-lbl{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.id-badge-slot{min-height:28px;display:flex;align-items:center;margin-bottom:10px}
+.id-sel{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:#fff;font-family:var(--font);font-size:12px}
+.id-sel:focus{outline:none;border-color:var(--vborder)}
+.id-bottom{padding:16px 20px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.id-field{display:flex;flex-direction:column;gap:5px}
+.id-field label{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.id-field input{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:#fff;font-family:var(--font);font-size:13px;width:100%}
+.id-field input:focus{outline:none;border-color:var(--vborder)}
+.id-save-row{padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.1)}
+.id-format-hint{font-size:11px;color:var(--muted)}
+
+/* ── TABLES ── */
+.sp-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.sp-table th{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);background:rgba(0,0,0,.15)}
+.sp-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle;font-size:12px}
+.sp-table tr:last-child td{border-bottom:none}
+.sp-table tr.clickable:hover td{background:rgba(255,255,255,.015);cursor:pointer}
+.td-id{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700;white-space:nowrap}
+.td-name{font-size:13px;font-weight:700;color:#fff}
+.td-sub{font-size:10px;color:var(--muted);margin-top:2px;max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.td-actions{text-align:right;white-space:nowrap;width:1%}
+.tbl-edit-btn{background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-size:10px;font-weight:700;padding:3px 8px;font-family:var(--font);transition:all .15s}
+.tbl-edit-btn:hover{border-color:var(--bhi);color:#fff}
+.tbl-del-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px;padding:3px 6px;opacity:.5;transition:all .15s}
+.tbl-del-btn:hover{color:#FCA5A5;opacity:1}
+.empty-row td{text-align:center;padding:32px;color:var(--muted);font-size:12px}
+
+/* STATUS DOTS */
+.sdot{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;border:1px solid transparent}
+.st-planned,.st-draft{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+.st-active{background:var(--tdim);color:var(--teal);border-color:var(--tborder)}
+.st-done,.st-achieved{background:var(--gdim);color:var(--green);border-color:var(--gborder)}
+.st-cancelled,.st-backlog{background:rgba(122,122,157,.1);color:var(--muted);border-color:rgba(122,122,157,.25)}
+.st-paused{background:var(--adim);color:var(--amber);border-color:var(--aborder)}
+
+/* KR PROGRESS */
+.kr-mini{display:flex;flex-direction:column;gap:4px;margin-top:8px;max-width:320px}
+.kr-mini-row{display:flex;align-items:center;gap:8px}
+.kr-mini-text{font-size:10px;color:var(--muted);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kr-mini-val{font-family:var(--mono);font-size:9px;color:var(--muted);white-space:nowrap}
+.kr-mini-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;flex:1}
+.kr-mini-fill{height:100%;border-radius:2px;background:var(--violet);transition:width .3s}
+
+/* ── ROADMAP ── */
+.roadmap-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.roadmap-grid{grid-template-columns:1fr}}
+.half-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.half-head{padding:12px 16px;border-bottom:1px solid var(--border);background:rgba(0,0,0,.2);display:flex;align-items:center;gap:8px}
+.half-title{font-family:var(--head);font-size:11px;font-weight:900;color:#fff;flex:1;letter-spacing:.03em}
+.half-sub{font-size:10px;color:var(--muted)}
+.init-list{display:flex;flex-direction:column;padding:6px 8px;gap:1px;min-height:40px}
+.init-row{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;transition:background .12s}
+.init-row:hover{background:rgba(255,255,255,.04)}
+.phase-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.init-name{font-size:12px;font-weight:700;color:#E8E8F0;flex:1;line-height:1.3}
+.init-goal-tag{font-size:9px;color:var(--muted);white-space:nowrap;font-family:var(--mono)}
+.init-empty{padding:20px 16px;text-align:center;font-size:11px;color:var(--muted)}
+.half-add-row{padding:8px 12px;border-top:1px solid var(--border)}
+.half-add-btn{width:100%;padding:6px 10px;background:none;border:1px dashed rgba(123,47,255,.25);border-radius:7px;color:var(--muted);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;text-align:center;transition:all .15s}
+.half-add-btn:hover{border-color:var(--violet);color:#C4B5FD;background:var(--vdim)}
+
+/* ── QUARTERLY TABLE ── */
+.quarter-head-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.quarter-sel{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:#fff;font-family:var(--font);font-size:12px;font-weight:700}
+.quarter-sel:focus{outline:none;border-color:var(--vborder)}
+.check-btn{width:22px;height:22px;border-radius:5px;border:1px solid var(--border);background:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:10px;transition:all .15s;flex-shrink:0}
+.check-btn.done{background:var(--gdim);border-color:var(--gborder);color:var(--green)}
+.prio-cell{width:36px;text-align:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--muted)}
+.prio-1{color:#FCA5A5}.prio-2{color:var(--amber)}.prio-3{color:#93C5FD}
+.ep-link{color:#93C5FD;font-size:10px;font-family:var(--mono);text-decoration:none}
+.ep-link:hover{text-decoration:underline}
+
+/* ── BACKLOG (simplified) ── */
+.bl-list{display:flex;flex-direction:column;gap:8px}
+.bl-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:border-color .12s}
+.bl-item:hover{border-color:var(--bhi)}
+.bl-moscow{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
+.bl-must{background:var(--rdim);color:#FCA5A5;border:1px solid rgba(239,68,68,.25)}
+.bl-should{background:var(--adim);color:var(--amber);border:1px solid var(--aborder)}
+.bl-could{background:var(--bdim);color:#93C5FD;border:1px solid var(--bborder)}
+.bl-wont{background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border)}
+.bl-body{flex:1;min-width:0}
+.bl-name{font-size:13px;font-weight:700;color:#fff}
+.bl-hyp{font-size:11px;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── PRD ── */
+.prd-mode-row{display:flex;gap:8px;margin-bottom:16px}
+.prd-mode-btn{padding:6px 14px;border:1px solid var(--border);border-radius:8px;background:none;color:var(--muted);font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s}
+.prd-mode-btn.active{background:var(--vdim);border-color:var(--vborder);color:#C4B5FD}
+.prd-link-row{display:flex;align-items:center;gap:10px}
+.prd-link-row input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:#fff;font-family:var(--font);font-size:13px}
+.prd-link-row input:focus{outline:none;border-color:var(--vborder)}
+.prd-open-btn{padding:9px 18px;background:var(--bdim);border:1px solid var(--bborder);border-radius:8px;color:#93C5FD;font-size:12px;font-weight:700;font-family:var(--font);cursor:pointer;text-decoration:none;white-space:nowrap;display:inline-block}
+.prd-form{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px}
+.prd-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.prd-grid{grid-template-columns:1fr}}
+.prd-full{grid-column:1/-1}
+.prd-divider{grid-column:1/-1;font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;padding:6px 0 2px;border-top:1px solid var(--border)}
+.prd-field{display:flex;flex-direction:column;gap:5px}
+.prd-field label{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.prd-field input,.prd-field textarea,.prd-field select{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:#fff;font-family:var(--font);font-size:12px;resize:vertical;width:100%}
+.prd-field input:focus,.prd-field textarea:focus,.prd-field select:focus{outline:none;border-color:var(--vborder)}
+.prd-save-row{margin-top:16px;display:flex;justify-content:flex-end}
+
+/* ── DOR/DOD ── */
+.dordod-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.dordod-grid{grid-template-columns:1fr}}
+.dordod-group{display:flex;flex-direction:column;gap:10px}
+.dordod-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:2px 0 6px;border-bottom:1px solid var(--border);margin-bottom:4px}
+.dd-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.dd-head{padding:11px 15px;border-bottom:1px solid var(--border);background:rgba(0,0,0,.2);display:flex;align-items:center;gap:8px}
+.dd-head-label{font-family:var(--head);font-size:10px;font-weight:900;color:#fff;flex:1;letter-spacing:.04em}
+.dd-progress{font-size:9px;color:var(--muted);font-family:var(--mono);white-space:nowrap}
+.dd-bar{height:2px;background:rgba(255,255,255,.06)}
+.dd-bar-fill{height:100%;background:var(--violet);transition:width .3s}
+.dd-list{padding:6px 8px;display:flex;flex-direction:column;gap:1px}
+.dd-item{display:flex;align-items:flex-start;gap:10px;padding:8px 8px;border-radius:7px;cursor:pointer;user-select:none;transition:background .12s}
+.dd-item:hover{background:rgba(255,255,255,.04)}
+.dd-check{width:17px;height:17px;border-radius:4px;border:1px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:9px;transition:all .15s}
+.dd-check.on{background:var(--vdim);border-color:var(--vborder);color:#C4B5FD}
+.dd-text{font-size:11px;color:var(--muted);line-height:1.5;flex:1;transition:color .15s}
+.dd-item.on .dd-text{color:#E8E8F0}
+
+/* ── CHANGELOG ── */
+.cl-yes{background:var(--gdim);color:var(--green);border:1px solid var(--gborder);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700}
+.cl-no{background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700}
+.cl-level{padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;border:1px solid}
+.cl-year{background:var(--adim);color:var(--amber);border-color:var(--aborder)}
+.cl-roadmap{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+.cl-quarter{background:var(--bdim);color:#93C5FD;border-color:var(--bborder)}
+.cl-date{font-family:var(--mono);font-size:10px;color:var(--muted)}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:16px;width:560px;max-width:100%;max-height:90vh;display:none;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.6)}
+.modal-box.show{display:flex}
+.modal-box.wide{width:680px}
+.mhead{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.mhead-title{font-size:14px;font-weight:700;color:#fff;flex:1}
+.mclose{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;line-height:1}
+.mclose:hover{color:#fff}
+.mbody{padding:18px 20px;overflow-y:auto;display:flex;flex-direction:column;gap:13px;flex:1}
+.mrow2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mrow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.mrow4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+.mfield{display:flex;flex-direction:column;gap:5px}
+.mfield label{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.mfield input,.mfield select,.mfield textarea{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:#fff;font-family:var(--font);font-size:13px;width:100%}
+.mfield input:focus,.mfield select:focus,.mfield textarea:focus{outline:none;border-color:var(--vborder)}
+.mfield textarea{resize:vertical;min-height:60px}
+.mdivider{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;padding:2px 0;border-top:1px solid var(--border);margin-top:2px}
+.mfoot{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;flex-shrink:0}
+.mfoot-space{flex:1}
+.btn-primary{padding:8px 18px;background:var(--violet);border:none;border-radius:8px;color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:background .15s}
+.btn-primary:hover{background:#6D28D9}
+.btn-cancel{padding:8px 16px;background:none;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-cancel:hover{border-color:var(--bhi);color:#fff}
+.btn-danger{padding:8px 14px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;color:#FCA5A5;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-danger:hover{background:rgba(239,68,68,.2)}
+.btn-save-sm{padding:7px 18px;background:var(--violet);border:none;border-radius:8px;color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:background .15s}
+.btn-save-sm:hover{background:#6D28D9}
+
+/* KR ROWS IN MODAL */
+.kr-list-m{display:flex;flex-direction:column;gap:6px}
+.kr-row-m{display:grid;grid-template-columns:1fr 56px 56px 70px 28px;gap:5px;align-items:center;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:7px 10px}
+.kr-row-m input{background:transparent;border:none;color:#fff;font-family:var(--font);font-size:12px;padding:0;width:100%}
+.kr-row-m input:focus{outline:none}
+.kr-row-m input::placeholder{color:var(--muted)}
+.kr-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:0;line-height:1}
+.kr-del:hover{color:var(--red)}
+.kr-add-btn{padding:6px 10px;background:none;border:1px dashed rgba(123,47,255,.3);border-radius:8px;color:var(--muted);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;text-align:center;transition:all .15s}
+.kr-add-btn:hover{border-color:var(--violet);color:#C4B5FD;background:var(--vdim)}
+@media(max-width:600px){.id-status-row,.id-bottom{grid-template-columns:1fr}.sp-page{padding:20px 16px 60px}}
+</style>
+<script src="../platform.js"></script>
+</head>
+<body>
+
+<nav class="ecotech-nav">
+  <a class="en-logo" href="../index.html">EcoTech <span>Platform</span></a>
+  <div class="en-sep"></div>
+  <div class="en-links">
+    <div class="en-drop">
+      <a class="en-drop-trigger" href="../Бизнесу/index.html">Бизнесу</a>
+      <div class="en-drop-menu">
+        <a href="../Бизнесу/index.html">Обзор платформы</a>
+        <a href="../Витрина/EcoTech Platform — Витрина.html">Витрина</a>
+        <div class="en-drop-sep"></div>
+        <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html#tab=portfolio">Портфель продуктов</a>
+        <a href="../slides_temp/slide01.html">Слайды</a>
+      </div>
+    </div>
+    <div class="en-drop en-active">
+      <a class="en-drop-trigger" href="../Продукту/index.html">Продукту</a>
+      <div class="en-drop-menu">
+        <a href="../Продукту/index.html">С чего начать</a>
+        <a href="strategy.html" class="en-active">Стратегическое планирование</a>
+        <div class="en-drop-sep"></div>
+        <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук (G0–G5)</a>
+        <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер инициатив</a>
+        <a href="../Фреймворк/rwb-product-os-v3.html">Фреймворк</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>!function(){var ds=document.querySelectorAll('.en-drop');ds.forEach(function(d){var t;d.addEventListener('mouseenter',function(){clearTimeout(t);d.classList.add('is-open');});d.addEventListener('mouseleave',function(){t=setTimeout(function(){d.classList.remove('is-open');},120);});});}();</script>
+
+<!-- SECTION NAV -->
+<nav class="snav" id="snav">
+  <button class="snav-btn active" onclick="scrollTo('s-identity',this)">01 · Продукт</button>
+  <button class="snav-btn" onclick="scrollTo('s-goals',this)">02 · Цели</button>
+  <button class="snav-btn" onclick="scrollTo('s-roadmap',this)">03 · Дорожная карта</button>
+  <button class="snav-btn" onclick="scrollTo('s-quarterly',this)">04 · Квартал</button>
+  <button class="snav-btn" onclick="scrollTo('s-prd',this)">05 · PRD</button>
+  <button class="snav-btn" onclick="scrollTo('s-dordod',this)">06 · DoR / DoD</button>
+  <button class="snav-btn" onclick="scrollTo('s-changelog',this)">07 · Лог</button>
+</nav>
+
+<div class="sp-page">
+
+  <!-- PAGE HEADER -->
+  <div class="sp-header">
+    <div class="sp-header-left">
+      <div class="sp-title">Стратегическое планирование</div>
+      <div class="sp-title-product" id="sp-product-name">— продукт не выбран —</div>
+    </div>
+    <div class="sp-header-right">
+      <span class="format-badge format-lite" id="format-badge">Упрощённый</span>
+    </div>
+  </div>
+
+  <!-- ARCHIVED BANNER -->
+  <div class="archived-banner" id="archived-banner"></div>
+
+  <!-- ═══════════════════════════════════════════
+       БЛОК 1: ИДЕНТИФИКАЦИЯ ПРОДУКТА
+       ═══════════════════════════════════════════ -->
+  <section class="sp-section" id="s-identity">
+    <div class="sp-sect-head">
+      <span class="sp-sect-num">01</span>
+      <span class="sp-sect-title">Идентификация продукта</span>
+    </div>
+    <div class="id-card">
+      <div class="id-status-row">
+        <div class="id-cell">
+          <div class="id-cell-lbl">Стадия зрелости</div>
+          <div class="id-badge-slot" id="stage-badge-slot"></div>
+          <select class="id-sel" id="id-stage" onchange="onIdentityChange()">
+            <option value="">— Выбрать —</option>
+            <option value="idea">💡 Идея</option>
+            <option value="mvp">🛠 MVP</option>
+            <option value="launch">🚀 Запуск</option>
+            <option value="growth">📈 Рост</option>
+            <option value="mature">🏗 Зрелость</option>
+          </select>
+        </div>
+        <div class="id-cell">
+          <div class="id-cell-lbl">Этап фреймворка</div>
+          <div class="id-badge-slot" id="phase-badge-slot"></div>
+          <select class="id-sel" id="id-phase" onchange="onIdentityChange()">
+            <option value="">— Выбрать —</option>
+            <option value="discovery">🔍 Discovery</option>
+            <option value="delivery">🚀 Delivery</option>
+            <option value="growth">📈 Growth</option>
+          </select>
+        </div>
+        <div class="id-cell">
+          <div class="id-cell-lbl">Статус</div>
+          <div class="id-badge-slot" id="status-badge-slot"></div>
+          <select class="id-sel" id="id-status" onchange="onIdentityChange()">
+            <option value="">— Выбрать —</option>
+            <option value="planning">Планирование</option>
+            <option value="active">В работе</option>
+            <option value="paused">На паузе</option>
+            <option value="launched">Запущен</option>
+            <option value="closed">Закрыт</option>
+          </select>
+        </div>
+      </div>
+      <div class="id-bottom">
+        <div class="id-field">
+          <label>Название продукта</label>
+          <input id="id-name" placeholder="Введите название…">
+        </div>
+        <div class="id-field">
+          <label>PM / Владелец</label>
+          <input id="id-pm" placeholder="Имя и контакт…">
+        </div>
+        <div class="id-field">
+          <label>Ссылка на трекер</label>
+          <input id="id-tracker" type="url" placeholder="https://…">
+        </div>
+      </div>
+      <div class="id-save-row">
+        <span class="id-format-hint" id="id-format-hint"></span>
+        <button class="btn-save-sm" id="id-save-btn" onclick="saveIdentity()">💾 Сохранить</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       БЛОК 2: ГОДОВЫЕ ЦЕЛИ
+       ═══════════════════════════════════════════ -->
+  <section class="sp-section" id="s-goals">
+    <div class="sp-sect-head">
+      <span class="sp-sect-num">02</span>
+      <span class="sp-sect-title">Годовые цели</span>
+      <span class="sp-sect-badge" id="goals-badge">0</span>
+      <button class="sp-add-btn" onclick="openGoalModal(null)">+ Добавить цель</button>
+    </div>
+    <table class="sp-table" id="goals-table">
+      <thead>
+        <tr>
+          <th>ID</th><th>Цель</th><th>Продукты</th><th>Метрика</th>
+          <th>Target</th><th>Факт</th><th>Статус</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="goals-tbody"></tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       БЛОК 3: ДОРОЖНАЯ КАРТА
+       ═══════════════════════════════════════════ -->
+  <section class="sp-section" id="s-roadmap">
+    <div class="sp-sect-head">
+      <span class="sp-sect-num">03</span>
+      <span class="sp-sect-title">Дорожная карта</span>
+    </div>
+    <div class="roadmap-grid">
+      <div class="half-card">
+        <div class="half-head">
+          <span class="half-title">H1 · Q1–Q2</span>
+          <span class="half-sub" id="h1-count">0 инициатив</span>
+        </div>
+        <div class="init-list" id="init-list-h1"></div>
+        <div class="half-add-row">
+          <button class="half-add-btn" onclick="openInitModal('h1', null)">+ Добавить инициативу</button>
+        </div>
+      </div>
+      <div class="half-card">
+        <div class="half-head">
+          <span class="half-title">H2 · Q3–Q4</span>
+          <span class="half-sub" id="h2-count">0 инициатив</span>
+        </div>
+        <div class="init-list" id="init-list-h2"></div>
+        <div class="half-add-row">
+          <button class="half-add-btn" onclick="openInitModal('h2', null)">+ Добавить инициативу</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       БЛОК 4: КВАРТАЛЬНЫЙ ПЛАН
+       ═══════════════════════════════════════════ -->
+  <section class="sp-section" id="s-quarterly">
+    <div class="sp-sect-head">
+      <span class="sp-sect-num">04</span>
+      <span class="sp-sect-title" id="quarterly-title">Квартальный план</span>
+      <span class="sp-sect-badge" id="quarterly-badge">0</span>
+      <div style="flex:1"></div>
+      <div id="quarterly-head-extra"></div>
+    </div>
+    <div id="quarterly-content"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       БЛОК 5: PRD
+       ═══════════════════════════════════════════ -->
+  <section class="sp-section" id="s-prd">
+    <div class="sp-sect-head">
+      <span class="sp-sect-num">05</span>
+      <span class="sp-sect-title">PRD</span>
+      <span class="sp-sect-badge" id="prd-mode-badge">Ссылка</span>
+    </div>
+    <div class="prd-mode-row">
+      <button class="prd-mode-btn active" id="prd-mode-link" onclick="setPRDMode('link')">🔗 Ссылка на документ</button>
+      <button class="prd-mode-btn" id="prd-mode-inline" onclick="setPRDMode('inline')">📝 Встроенный</button>
+    </div>
+    <div id="prd-content"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       БЛОК 6: DoR / DoD
+       ═══════════════════════════════════════════ -->
+  <section class="sp-section" id="s-dordod">
+    <div class="sp-sect-head">
+      <span class="sp-sect-num">06</span>
+      <span class="sp-sect-title">DoR / DoD</span>
+      <span class="sp-sect-badge format-badge format-lite" id="dordod-format-badge" style="border-radius:4px"></span>
+    </div>
+    <div id="dordod-content"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       БЛОК 7: ЛОГ ИЗМЕНЕНИЙ
+       ═══════════════════════════════════════════ -->
+  <section class="sp-section" id="s-changelog">
+    <div class="sp-sect-head">
+      <span class="sp-sect-num">07</span>
+      <span class="sp-sect-title">Лог изменений</span>
+      <span class="sp-sect-badge" id="cl-badge">0</span>
+      <button class="sp-add-btn" onclick="openCLModal()">+ Добавить запись</button>
+    </div>
+    <table class="sp-table" id="cl-table">
+      <thead>
+        <tr>
+          <th>Дата</th><th>Кто</th><th>Что изменено</th><th>Уровень</th>
+          <th>Причина</th><th>Согл. с ПО</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="cl-tbody"></tbody>
+    </table>
+  </section>
+
+</div><!-- /sp-page -->
+
+<!-- ═══════════════════════════════════════════
+     MODALS
+     ═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+
+  <!-- GOAL MODAL -->
+  <div class="modal-box wide" id="goal-modal">
+    <div class="mhead">
+      <span class="mhead-title" id="goal-modal-title">Новая цель</span>
+      <button class="mclose" onclick="closeModal()">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="mfield">
+        <label>Название *</label>
+        <input id="gm-title" placeholder="Формулировка цели…">
+      </div>
+      <div class="mrow3">
+        <div class="mfield">
+          <label>Тип</label>
+          <select id="gm-type">
+            <option value="strategic">Стратегическая</option>
+            <option value="product">Продуктовая</option>
+            <option value="operational">Операционная</option>
+          </select>
+        </div>
+        <div class="mfield">
+          <label>Период</label>
+          <select id="gm-period">
+            <option value="year">Год</option>
+            <option value="h1">H1</option>
+            <option value="h2">H2</option>
+            <option value="q1">Q1</option><option value="q2">Q2</option>
+            <option value="q3">Q3</option><option value="q4">Q4</option>
+          </select>
+        </div>
+        <div class="mfield">
+          <label>Статус</label>
+          <select id="gm-status">
+            <option value="active">Активна</option>
+            <option value="draft">Черновик</option>
+            <option value="achieved">Достигнута</option>
+            <option value="cancelled">Отменена</option>
+          </select>
+        </div>
+      </div>
+      <div class="mrow2">
+        <div class="mfield">
+          <label>Метрика успеха (North Star)</label>
+          <input id="gm-metric" placeholder="NPS, Retention, Revenue…">
+        </div>
+        <div class="mfield">
+          <label>Владелец</label>
+          <input id="gm-owner" placeholder="Имя…">
+        </div>
+      </div>
+      <div class="mrow2">
+        <div class="mfield">
+          <label>Target</label>
+          <input id="gm-target" placeholder="70%">
+        </div>
+        <div class="mfield">
+          <label>Факт (текущее)</label>
+          <input id="gm-actual" placeholder="—">
+        </div>
+      </div>
+      <div class="mfield">
+        <label>Связанные продукты</label>
+        <input id="gm-products" placeholder="PR01, PR02…">
+      </div>
+      <div class="mdivider">KEY RESULTS</div>
+      <div class="kr-list-m" id="gm-kr-list"></div>
+      <button class="kr-add-btn" onclick="addKRRowM()">+ Добавить KR</button>
+    </div>
+    <div class="mfoot">
+      <button class="btn-danger" id="gm-del-btn" onclick="deleteGoal()" style="display:none">🗑 Удалить</button>
+      <div class="mfoot-space"></div>
+      <button class="btn-cancel" onclick="closeModal()">Отмена</button>
+      <button class="btn-primary" onclick="saveGoal()">💾 Сохранить</button>
+    </div>
+  </div>
+
+  <!-- INITIATIVE MODAL -->
+  <div class="modal-box" id="init-modal">
+    <div class="mhead">
+      <span class="mhead-title" id="init-modal-title">Новая инициатива</span>
+      <button class="mclose" onclick="closeModal()">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="mfield">
+        <label>Название *</label>
+        <input id="im-title" placeholder="Название инициативы…">
+      </div>
+      <div class="mrow2">
+        <div class="mfield">
+          <label>Привязанная цель</label>
+          <select id="im-goal"></select>
+        </div>
+        <div class="mfield">
+          <label>Этап фреймворка</label>
+          <select id="im-phase">
+            <option value="discovery">🔍 Discovery</option>
+            <option value="delivery">🚀 Delivery</option>
+            <option value="growth">📈 Growth</option>
+          </select>
+        </div>
+      </div>
+      <div class="mrow2">
+        <div class="mfield">
+          <label>Полугодие</label>
+          <select id="im-half">
+            <option value="h1">H1 (Q1–Q2)</option>
+            <option value="h2">H2 (Q3–Q4)</option>
+            <option value="backlog">Беклог</option>
+          </select>
+        </div>
+        <div class="mfield">
+          <label>Статус</label>
+          <select id="im-status">
+            <option value="planned">Запланировано</option>
+            <option value="active">В работе</option>
+            <option value="done">Готово</option>
+            <option value="cancelled">Отменено</option>
+          </select>
+        </div>
+      </div>
+      <div class="mrow2">
+        <div class="mfield">
+          <label>PM / Ответственный</label>
+          <input id="im-pm" placeholder="Имя…">
+        </div>
+        <div class="mfield">
+          <label>Ссылка на трекер</label>
+          <input id="im-tracker" type="url" placeholder="https://…">
+        </div>
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn-danger" id="im-del-btn" onclick="deleteInit()" style="display:none">🗑 Удалить</button>
+      <div class="mfoot-space"></div>
+      <button class="btn-cancel" onclick="closeModal()">Отмена</button>
+      <button class="btn-primary" onclick="saveInit()">💾 Сохранить</button>
+    </div>
+  </div>
+
+  <!-- EPIC MODAL (full format) -->
+  <div class="modal-box" id="epic-modal">
+    <div class="mhead">
+      <span class="mhead-title" id="epic-modal-title">Новый эпик</span>
+      <button class="mclose" onclick="closeModal()">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="mfield">
+        <label>Название *</label>
+        <input id="em-title" placeholder="Название эпика…">
+      </div>
+      <div class="mrow2">
+        <div class="mfield">
+          <label>Инициатива</label>
+          <select id="em-init"></select>
+        </div>
+        <div class="mfield">
+          <label>Этап</label>
+          <select id="em-phase">
+            <option value="discovery">🔍 Discovery</option>
+            <option value="delivery">🚀 Delivery</option>
+            <option value="growth">📈 Growth</option>
+          </select>
+        </div>
+      </div>
+      <div class="mrow3">
+        <div class="mfield">
+          <label>Приоритет</label>
+          <input id="em-priority" type="number" min="1" placeholder="1">
+        </div>
+        <div class="mfield">
+          <label>Статус</label>
+          <select id="em-status">
+            <option value="backlog">Беклог</option>
+            <option value="active">В работе</option>
+            <option value="done">Готово</option>
+            <option value="cancelled">Отменено</option>
+          </select>
+        </div>
+        <div class="mfield">
+          <label>Плановая дата</label>
+          <input id="em-date" type="date">
+        </div>
+      </div>
+      <div class="mrow2">
+        <div class="mfield">
+          <label>Ответственный</label>
+          <input id="em-owner" placeholder="Имя…">
+        </div>
+        <div class="mfield">
+          <label>Ссылка на трекер</label>
+          <input id="em-tracker" type="url" placeholder="https://…">
+        </div>
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn-danger" id="em-del-btn" onclick="deleteEpic()" style="display:none">🗑 Удалить</button>
+      <div class="mfoot-space"></div>
+      <button class="btn-cancel" onclick="closeModal()">Отмена</button>
+      <button class="btn-primary" onclick="saveEpic()">💾 Сохранить</button>
+    </div>
+  </div>
+
+  <!-- BACKLOG MODAL (simplified format) -->
+  <div class="modal-box" id="bl-modal">
+    <div class="mhead">
+      <span class="mhead-title" id="bl-modal-title">Новый элемент беклога</span>
+      <button class="mclose" onclick="closeModal()">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="mfield">
+        <label>Название *</label>
+        <input id="blm-title" placeholder="Задача / гипотеза…">
+      </div>
+      <div class="mfield">
+        <label>Гипотеза / описание</label>
+        <textarea id="blm-hyp" placeholder="Мы верим, что…" rows="3"></textarea>
+      </div>
+      <div class="mrow3">
+        <div class="mfield">
+          <label>MoSCoW</label>
+          <select id="blm-moscow">
+            <option value="must">Must</option>
+            <option value="should">Should</option>
+            <option value="could">Could</option>
+            <option value="wont">Won't</option>
+          </select>
+        </div>
+        <div class="mfield">
+          <label>Статус</label>
+          <select id="blm-status">
+            <option value="backlog">Беклог</option>
+            <option value="active">В работе</option>
+            <option value="done">Готово</option>
+            <option value="cancelled">Отменено</option>
+          </select>
+        </div>
+        <div class="mfield">
+          <label>Ответственный</label>
+          <input id="blm-owner" placeholder="Имя…">
+        </div>
+      </div>
+      <div class="mfield">
+        <label>Ссылка на трекер</label>
+        <input id="blm-tracker" type="url" placeholder="https://…">
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn-danger" id="blm-del-btn" onclick="deleteBLItem()" style="display:none">🗑 Удалить</button>
+      <div class="mfoot-space"></div>
+      <button class="btn-cancel" onclick="closeModal()">Отмена</button>
+      <button class="btn-primary" onclick="saveBLItem()">💾 Сохранить</button>
+    </div>
+  </div>
+
+  <!-- CHANGELOG MODAL -->
+  <div class="modal-box" id="cl-modal">
+    <div class="mhead">
+      <span class="mhead-title">Новая запись в лог</span>
+      <button class="mclose" onclick="closeModal()">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="mrow2">
+        <div class="mfield">
+          <label>Дата</label>
+          <input id="clm-date" type="date">
+        </div>
+        <div class="mfield">
+          <label>Кто</label>
+          <input id="clm-who" placeholder="Имя…">
+        </div>
+      </div>
+      <div class="mfield">
+        <label>Что изменено *</label>
+        <input id="clm-what" placeholder="Краткое описание изменения…">
+      </div>
+      <div class="mrow2">
+        <div class="mfield">
+          <label>Уровень</label>
+          <select id="clm-level">
+            <option value="year">Год (цели)</option>
+            <option value="roadmap">Дорожная карта</option>
+            <option value="quarter">Квартал</option>
+          </select>
+        </div>
+        <div class="mfield">
+          <label>Согласовано с ПО</label>
+          <select id="clm-approved">
+            <option value="0">Нет</option>
+            <option value="1">Да</option>
+          </select>
+        </div>
+      </div>
+      <div class="mfield">
+        <label>Причина</label>
+        <input id="clm-reason" placeholder="Контекст / блокер / решение…">
+      </div>
+    </div>
+    <div class="mfoot">
+      <div class="mfoot-space"></div>
+      <button class="btn-cancel" onclick="closeModal()">Отмена</button>
+      <button class="btn-primary" onclick="saveCLEntry()">💾 Добавить</button>
+    </div>
+  </div>
+
+</div><!-- /modal-overlay -->
+
+<script>
+// ════════════════════════════════════════════
+// CONSTANTS
+// ════════════════════════════════════════════
+const SP_KEY = 'ECOTECH_STRATEGY';
+
+const STAGE_LABELS  = { idea:'Идея', mvp:'MVP', launch:'Запуск', growth:'Рост', mature:'Зрелость' };
+const PHASE_LABELS  = { discovery:'Discovery', delivery:'Delivery', growth:'Growth' };
+const STATUS_LABELS = { planning:'Планирование', active:'В работе', paused:'На паузе', launched:'Запущен', closed:'Закрыт' };
+const GSTATUS_LABELS = { active:'Активна', draft:'Черновик', achieved:'Достигнута', cancelled:'Отменена' };
+const ISTATUS_LABELS = { planned:'Запланировано', active:'В работе', done:'Готово', cancelled:'Отменено' };
+const ESTATUS_LABELS = { backlog:'Беклог', active:'В работе', done:'Готово', cancelled:'Отменено' };
+const MOSCOW_LABELS  = { must:'Must', should:'Should', could:'Could', wont:"Won't" };
+const LEVEL_LABELS   = { year:'Год', roadmap:'Дорожная карта', quarter:'Квартал' };
+const PHASE_COLORS   = { discovery:'var(--blue)', delivery:'var(--violet)', growth:'var(--green)' };
+
+const DOR_INIT_FULL = [
+  'Цель сформулирована и привязана к годовому плану',
+  'PRD заполнен (все обязательные разделы)',
+  'Аудитория и персоны определены',
+  'North Star метрика зафиксирована',
+  'Риски оценены (минимум 3)',
+  'Эпики декомпозированы (минимум 1 уровень)',
+  'Ответственный PM назначен',
+  'Проект создан в трекере, ссылка добавлена',
+  'Согласовано с ПО (для квартального scope)'
+];
+const DOD_INIT_FULL = [
+  'Все эпики квартала переведены в статус «Готов»',
+  'North Star метрика достигнута или отклонение задокументировано',
+  'Ретроспектива проведена, action items зафиксированы',
+  'Документация обновлена (хэндбук / фреймворк)',
+  'Лог изменений актуален',
+  'Статус инициативы обновлён в трекере'
+];
+const DOR_EPIC_FULL = [
+  'Привязан к инициативе',
+  'Описание содержит acceptance criteria',
+  'Оценка (SP или T-shirt) проставлена',
+  'Зависимости выявлены',
+  'Ответственный назначен'
+];
+const DOD_EPIC_FULL = [
+  'Все задачи закрыты в трекере',
+  'Code review пройден (если применимо)',
+  'Тестирование завершено',
+  'Демо проведено / согласовано с PM',
+  'Метрика эпика зафиксирована'
+];
+const DOR_SIMPLE = [
+  'Гипотеза сформулирована',
+  'Аудитория определена (хотя бы один сегмент)',
+  'Минимальная метрика валидации зафиксирована',
+  'Задача создана в трекере'
+];
+const DOD_SIMPLE = [
+  'Гипотеза подтверждена или опровергнута',
+  'Результат задокументирован (даже «нет» — это результат)',
+  'Следующий шаг определён'
+];
+
+// ════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════
+let state = {};
+let editCtx = {};  // { type, id } for current modal
+
+function initState() {
+  const saved = window.PT ? PT.load(SP_KEY) : null;
+  state = {
+    identity: { name:'', stage:'', phase:'', status:'', pm:'', trackerUrl:'' },
+    goals: [],
+    roadmap: { h1:[], h2:[] },
+    quarterly: { quarter:'Q1 2026', items:[] },
+    backlog: [],
+    prd: { mode:'link', url:'', problem:'', audience:'', hypothesis:'', businessGoal:'',
+           solution:'', northStar:'', metrics:'', outOfScope:'', timeline:'', risks:'', recommendation:'' },
+    dorDod: {
+      dorInit:   new Array(DOR_INIT_FULL.length).fill(false),
+      dodInit:   new Array(DOD_INIT_FULL.length).fill(false),
+      dorEpic:   new Array(DOR_EPIC_FULL.length).fill(false),
+      dodEpic:   new Array(DOD_EPIC_FULL.length).fill(false),
+      dorSimple: new Array(DOR_SIMPLE.length).fill(false),
+      dodSimple: new Array(DOD_SIMPLE.length).fill(false)
+    },
+    changelog: []
+  };
+  if (saved) {
+    if (saved.identity) Object.assign(state.identity, saved.identity);
+    if (Array.isArray(saved.goals)) state.goals = saved.goals;
+    if (saved.roadmap) { state.roadmap.h1 = saved.roadmap.h1||[]; state.roadmap.h2 = saved.roadmap.h2||[]; }
+    if (saved.quarterly) {
+      state.quarterly.quarter = saved.quarterly.quarter || 'Q1 2026';
+      state.quarterly.items   = saved.quarterly.items   || [];
+    }
+    if (Array.isArray(saved.backlog))    state.backlog = saved.backlog;
+    if (saved.prd)    Object.assign(state.prd, saved.prd);
+    if (saved.dorDod) {
+      ['dorInit','dodInit','dorEpic','dodEpic','dorSimple','dodSimple'].forEach(k => {
+        if (Array.isArray(saved.dorDod[k])) state.dorDod[k] = saved.dorDod[k];
+      });
+    }
+    if (Array.isArray(saved.changelog)) state.changelog = saved.changelog;
+  }
+}
+
+function saveState() { if (window.PT) PT.save(SP_KEY, state); }
+function isFullFormat() { return state.identity.stage === 'growth' || state.identity.stage === 'mature'; }
+
+function nextId(prefix, arr) {
+  const ex = new Set((arr||[]).map(i => i.id));
+  for (let n=1; n<=999; n++) {
+    const id = prefix + String(n).padStart(3,'0');
+    if (!ex.has(id)) return id;
+  }
+}
+
+// ════════════════════════════════════════════
+// SECTION NAV
+// ════════════════════════════════════════════
+function scrollTo(sectionId, btn) {
+  document.querySelectorAll('.snav-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const el = document.getElementById(sectionId);
+  if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ════════════════════════════════════════════
+// RENDER ALL
+// ════════════════════════════════════════════
+function renderAll() {
+  renderIdentity();
+  renderGoals();
+  renderRoadmap();
+  renderQuarterly();
+  renderPRD();
+  renderDorDod();
+  renderChangelog();
+}
+
+// ════════════════════════════════════════════
+// BLOCK 1: IDENTITY
+// ════════════════════════════════════════════
+function onIdentityChange() {
+  const stage  = document.getElementById('id-stage').value;
+  const phase  = document.getElementById('id-phase').value;
+  const status = document.getElementById('id-status').value;
+  renderBadgeSlot('stage-badge-slot',  stage,  STAGE_LABELS,  'badge-');
+  renderBadgeSlot('phase-badge-slot',  phase,  PHASE_LABELS,  phase === 'growth' ? 'badge-growth-phase' : 'badge-');
+  renderBadgeSlot('status-badge-slot', status, STATUS_LABELS, 'badge-');
+  const fmt = (stage === 'growth' || stage === 'mature') ? '✅ Полный формат' : stage ? '⚡ Упрощённый формат' : '';
+  const hint = document.getElementById('id-format-hint');
+  if (hint) hint.textContent = fmt;
+}
+
+function renderBadgeSlot(slotId, val, labels, clsPrefix) {
+  const el = document.getElementById(slotId);
+  if (!el) return;
+  if (!val) { el.innerHTML = '<span style="color:var(--muted);font-size:11px">—</span>'; return; }
+  let cls = (clsPrefix.endsWith('-') ? clsPrefix + val : clsPrefix);
+  el.innerHTML = `<span class="badge ${cls}">${labels[val] || val}</span>`;
+}
+
+function renderIdentity() {
+  const id = state.identity;
+  const stageEl  = document.getElementById('id-stage');
+  const phaseEl  = document.getElementById('id-phase');
+  const statusEl = document.getElementById('id-status');
+  if (stageEl)  stageEl.value  = id.stage;
+  if (phaseEl)  phaseEl.value  = id.phase;
+  if (statusEl) statusEl.value = id.status;
+  document.getElementById('id-name').value    = id.name;
+  document.getElementById('id-pm').value      = id.pm;
+  document.getElementById('id-tracker').value = id.trackerUrl;
+  onIdentityChange();
+  // Page title
+  document.getElementById('sp-product-name').textContent = id.name || '— продукт не выбран —';
+  // Format badge
+  const fb = document.getElementById('format-badge');
+  if (isFullFormat()) { fb.textContent='Полный формат'; fb.className='format-badge format-full'; }
+  else { fb.textContent='Упрощённый'; fb.className='format-badge format-lite'; }
+  // Archived banner
+  const banner = document.getElementById('archived-banner');
+  if (id.status === 'closed') { banner.classList.add('show'); banner.innerHTML='🔒 Продукт закрыт. Страница в режиме просмотра.'; }
+  else if (id.status === 'paused') { banner.classList.add('show'); banner.innerHTML='⏸ Продукт на паузе. Редактирование ограничено.'; }
+  else banner.classList.remove('show');
+}
+
+function saveIdentity() {
+  state.identity.name       = document.getElementById('id-name').value.trim();
+  state.identity.stage      = document.getElementById('id-stage').value;
+  state.identity.phase      = document.getElementById('id-phase').value;
+  state.identity.status     = document.getElementById('id-status').value;
+  state.identity.pm         = document.getElementById('id-pm').value.trim();
+  state.identity.trackerUrl = document.getElementById('id-tracker').value.trim();
+  saveState();
+  renderAll();
+  const btn = document.getElementById('id-save-btn');
+  btn.textContent = '✅ Сохранено'; setTimeout(() => btn.textContent = '💾 Сохранить', 1600);
+}
+
+// ════════════════════════════════════════════
+// BLOCK 2: GOALS
+// ════════════════════════════════════════════
+function renderGoals() {
+  const tbody = document.getElementById('goals-tbody');
+  document.getElementById('goals-badge').textContent = state.goals.length;
+  if (!state.goals.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="8"><span class="empty-icon">🎯</span>Нет целей — добавьте первую</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = state.goals.map(g => {
+    const typeLbl = { strategic:'Стратегическая', product:'Продуктовая', operational:'Операционная' };
+    const stCls = { active:'st-active', draft:'st-draft', achieved:'st-done', cancelled:'st-cancelled' };
+    const krHtml = g.keyResults && g.keyResults.length ? `<div class="kr-mini">` +
+      g.keyResults.slice(0,2).map(kr => {
+        const pct = Math.min(100, kr.target > 0 ? Math.round(kr.current/kr.target*100) : 0);
+        return `<div class="kr-mini-row">
+          <div class="kr-mini-bar"><div class="kr-mini-fill" style="width:${pct}%"></div></div>
+          <span class="kr-mini-val">${kr.current}/${kr.target}</span>
+          <span class="kr-mini-text">${kr.text}</span>
+        </div>`;
+      }).join('') + `</div>` : '';
+    return `<tr class="clickable" onclick="openGoalModal('${g.id}')">
+      <td class="td-id">${g.id}</td>
+      <td><div class="td-name">${g.title}</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:2px">${typeLbl[g.type]||g.type} · ${g.period||''} · ${g.owner||''}</div>
+          ${krHtml}</td>
+      <td style="font-size:11px;color:var(--muted)">${g.products||'—'}</td>
+      <td class="td-metric">${g.metric||'—'}</td>
+      <td style="font-family:var(--mono);font-size:11px">${g.target||'—'}</td>
+      <td style="font-family:var(--mono);font-size:11px;color:var(--teal)">${g.actual||'—'}</td>
+      <td><span class="sdot ${stCls[g.status]||'st-backlog'}">${GSTATUS_LABELS[g.status]||g.status}</span></td>
+      <td class="td-actions"><button class="tbl-del-btn" onclick="event.stopPropagation();confirmDeleteGoal('${g.id}')">✕</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function openGoalModal(id) {
+  editCtx = { type:'goal', id };
+  const isNew = !id;
+  const g = isNew ? null : state.goals.find(x => x.id === id);
+  document.getElementById('goal-modal-title').textContent = isNew ? 'Новая цель' : 'Редактировать цель';
+  document.getElementById('gm-title').value    = g ? g.title    : '';
+  document.getElementById('gm-type').value     = g ? g.type     : 'product';
+  document.getElementById('gm-period').value   = g ? g.period   : 'year';
+  document.getElementById('gm-status').value   = g ? g.status   : 'active';
+  document.getElementById('gm-metric').value   = g ? g.metric   : '';
+  document.getElementById('gm-owner').value    = g ? g.owner    : '';
+  document.getElementById('gm-target').value   = g ? g.target   : '';
+  document.getElementById('gm-actual').value   = g ? g.actual   : '';
+  document.getElementById('gm-products').value = g ? g.products : '';
+  const krList = document.getElementById('gm-kr-list');
+  const krs = (g && g.keyResults && g.keyResults.length) ? g.keyResults
+    : [{ text:'', current:0, target:10, unit:'ед.' }];
+  krList.innerHTML = krs.map(kr => buildKRRowM(kr)).join('');
+  document.getElementById('gm-del-btn').style.display = isNew ? 'none' : '';
+  openModal('goal-modal');
+}
+
+function buildKRRowM(kr) {
+  const t = (kr.text||'').replace(/"/g,'&quot;');
+  const u = (kr.unit||'').replace(/"/g,'&quot;');
+  return `<div class="kr-row-m">
+    <input type="text" placeholder="KR описание…" value="${t}">
+    <input type="number" placeholder="0" value="${kr.current||0}" min="0" style="text-align:center">
+    <input type="number" placeholder="10" value="${kr.target||10}" min="1" style="text-align:center">
+    <input type="text" placeholder="ед." value="${u}">
+    <button class="kr-del" onclick="this.closest('.kr-row-m').remove()" title="Удалить">✕</button>
+  </div>`;
+}
+
+function addKRRowM() {
+  const list = document.getElementById('gm-kr-list');
+  const d = document.createElement('div'); d.innerHTML = buildKRRowM({ text:'', current:0, target:10, unit:'ед.' });
+  list.appendChild(d.firstElementChild);
+}
+
+function saveGoal() {
+  const title = document.getElementById('gm-title').value.trim();
+  if (!title) { document.getElementById('gm-title').focus(); return; }
+  const krRows = document.querySelectorAll('#gm-kr-list .kr-row-m');
+  const keyResults = [];
+  let ki = 1;
+  krRows.forEach(row => {
+    const inp = row.querySelectorAll('input');
+    const txt = inp[0].value.trim();
+    if (!txt) return;
+    keyResults.push({ id:'KR'+ki++, text:txt, current:parseFloat(inp[1].value)||0, target:parseFloat(inp[2].value)||10, unit:inp[3].value.trim()||'ед.' });
+  });
+  const data = {
+    title, type:document.getElementById('gm-type').value,
+    period:document.getElementById('gm-period').value, status:document.getElementById('gm-status').value,
+    metric:document.getElementById('gm-metric').value, owner:document.getElementById('gm-owner').value,
+    target:document.getElementById('gm-target').value, actual:document.getElementById('gm-actual').value,
+    products:document.getElementById('gm-products').value, keyResults
+  };
+  if (editCtx.id) { const g = state.goals.find(x => x.id === editCtx.id); if (g) Object.assign(g, data); }
+  else { state.goals.push({ id: nextId('G', state.goals), ...data }); }
+  saveState(); closeModal(); renderGoals();
+}
+
+function confirmDeleteGoal(id) {
+  if (!confirm('Удалить цель?')) return;
+  state.goals = state.goals.filter(g => g.id !== id);
+  saveState(); renderGoals();
+}
+function deleteGoal() { if (editCtx.id) { confirmDeleteGoal(editCtx.id); closeModal(); } }
+
+// ════════════════════════════════════════════
+// BLOCK 3: ROADMAP
+// ════════════════════════════════════════════
+function renderRoadmap() {
+  renderHalf('h1'); renderHalf('h2');
+}
+
+function renderHalf(half) {
+  const items = state.roadmap[half] || [];
+  document.getElementById(half+'-count').textContent = items.length + ' инициатив';
+  const list = document.getElementById('init-list-' + half);
+  if (!items.length) {
+    list.innerHTML = `<div class="init-empty">Нет инициатив — добавьте первую</div>`;
+    return;
+  }
+  list.innerHTML = items.map(it => {
+    const goal = state.goals.find(g => g.id === it.goalId);
+    const stCls = { planned:'st-planned', active:'st-active', done:'st-done', cancelled:'st-cancelled' };
+    return `<div class="init-row" onclick="openInitModal('${half}','${it.id}')">
+      <div class="phase-dot" style="background:${PHASE_COLORS[it.phase]||'var(--muted)'}"></div>
+      <div style="flex:1;min-width:0">
+        <div class="init-name">${it.title}</div>
+        ${it.pm ? `<div style="font-size:10px;color:var(--muted)">${it.pm}</div>` : ''}
+      </div>
+      ${goal ? `<span class="init-goal-tag">${goal.id}</span>` : ''}
+      <span class="sdot ${stCls[it.status]||'st-planned'}" style="font-size:9px;padding:2px 6px">${ISTATUS_LABELS[it.status]||it.status}</span>
+    </div>`;
+  }).join('');
+}
+
+function openInitModal(half, id) {
+  editCtx = { type:'init', id, half };
+  const isNew = !id;
+  const it = isNew ? null : [...(state.roadmap.h1||[]), ...(state.roadmap.h2||[])].find(x => x.id === id);
+  document.getElementById('init-modal-title').textContent = isNew ? 'Новая инициатива' : 'Редактировать инициативу';
+  document.getElementById('im-title').value   = it ? it.title   : '';
+  document.getElementById('im-phase').value   = it ? it.phase   : 'discovery';
+  document.getElementById('im-half').value    = it ? it.half    : half;
+  document.getElementById('im-status').value  = it ? it.status  : 'planned';
+  document.getElementById('im-pm').value      = it ? it.pm      : '';
+  document.getElementById('im-tracker').value = it ? it.trackerUrl : '';
+  // Populate goal select
+  const goalSel = document.getElementById('im-goal');
+  goalSel.innerHTML = '<option value="">— Без цели —</option>' +
+    state.goals.map(g => `<option value="${g.id}"${it&&it.goalId===g.id?' selected':''}>${g.id} · ${g.title}</option>`).join('');
+  document.getElementById('im-del-btn').style.display = isNew ? 'none' : '';
+  openModal('init-modal');
+}
+
+function saveInit() {
+  const title = document.getElementById('im-title').value.trim();
+  if (!title) { document.getElementById('im-title').focus(); return; }
+  const data = {
+    title, phase:document.getElementById('im-phase').value,
+    half:document.getElementById('im-half').value, status:document.getElementById('im-status').value,
+    goalId:document.getElementById('im-goal').value, pm:document.getElementById('im-pm').value,
+    trackerUrl:document.getElementById('im-tracker').value
+  };
+  if (editCtx.id) {
+    ['h1','h2'].forEach(h => {
+      const idx = state.roadmap[h].findIndex(x => x.id === editCtx.id);
+      if (idx >= 0) state.roadmap[h].splice(idx, 1);
+    });
+    const newHalf = data.half === 'backlog' ? 'h1' : data.half;
+    state.roadmap[newHalf].push({ id: editCtx.id, ...data });
+  } else {
+    const h = data.half === 'backlog' ? 'h1' : data.half;
+    const allInits = [...state.roadmap.h1, ...state.roadmap.h2];
+    state.roadmap[h].push({ id: nextId('I', allInits), ...data });
+  }
+  saveState(); closeModal(); renderRoadmap();
+}
+
+function deleteInit() {
+  if (!editCtx.id || !confirm('Удалить инициативу?')) return;
+  ['h1','h2'].forEach(h => { state.roadmap[h] = state.roadmap[h].filter(x => x.id !== editCtx.id); });
+  saveState(); closeModal(); renderRoadmap();
+}
+
+// ════════════════════════════════════════════
+// BLOCK 4: QUARTERLY PLAN
+// ════════════════════════════════════════════
+function renderQuarterly() {
+  const full = isFullFormat();
+  document.getElementById('quarterly-title').textContent = full ? 'Квартальный план' : 'Подвижный беклог';
+  if (full) renderFullQuarterly(); else renderSimplifiedBacklog();
+}
+
+function renderFullQuarterly() {
+  const items = state.quarterly.items || [];
+  document.getElementById('quarterly-badge').textContent = items.length;
+  const qSel = `<select class="quarter-sel" id="q-sel" onchange="state.quarterly.quarter=this.value;saveState()">
+    ${['Q1 2026','Q2 2026','Q3 2026','Q4 2026','Q1 2027'].map(q =>
+      `<option${q===state.quarterly.quarter?' selected':''}>${q}</option>`).join('')}
+  </select>`;
+  document.getElementById('quarterly-head-extra').innerHTML =
+    `${qSel}<button class="sp-add-btn" onclick="openEpicModal(null)">+ Добавить эпик</button>`;
+  const sorted = [...items].sort((a,b) => (a.priority||99) - (b.priority||99));
+  const tbody = sorted.length ? sorted.map(ep => {
+    const init = [...(state.roadmap.h1||[]), ...(state.roadmap.h2||[])].find(i => i.id === ep.initiativeId);
+    const stCls = { backlog:'st-backlog', active:'st-active', done:'st-done', cancelled:'st-cancelled' };
+    const prio = ep.priority;
+    const prioCls = prio===1?'prio-1':prio===2?'prio-2':prio===3?'prio-3':'';
+    return `<tr class="clickable" onclick="openEpicModal('${ep.id}')">
+      <td class="prio-cell ${prioCls}">${prio||'—'}</td>
+      <td>
+        <div class="td-name">${ep.title}</div>
+        <div class="td-sub">${init ? init.title : '—'}</div>
+      </td>
+      <td><span class="badge badge-${ep.phase === 'growth' ? 'growth-phase' : ep.phase}">${PHASE_LABELS[ep.phase]||ep.phase}</span></td>
+      <td><span class="sdot ${stCls[ep.status]||'st-backlog'}">${ESTATUS_LABELS[ep.status]||ep.status}</span></td>
+      <td style="font-size:12px">${ep.owner||'—'}</td>
+      <td>${ep.trackerUrl ? `<a class="ep-link" href="${ep.trackerUrl}" target="_blank" onclick="event.stopPropagation()">Открыть ↗</a>` : '—'}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--muted)">${ep.date||'—'}</td>
+      <td style="text-align:center">
+        <button class="check-btn${ep.dorDone?' done':''}" onclick="event.stopPropagation();toggleEpicCheck('${ep.id}','dor')" title="DoR">${ep.dorDone?'✓':'DoR'}</button>
+      </td>
+      <td style="text-align:center">
+        <button class="check-btn${ep.dodDone?' done':''}" onclick="event.stopPropagation();toggleEpicCheck('${ep.id}','dod')" title="DoD">${ep.dodDone?'✓':'DoD'}</button>
+      </td>
+      <td class="td-actions"><button class="tbl-del-btn" onclick="event.stopPropagation();confirmDeleteEpic('${ep.id}')">✕</button></td>
+    </tr>`;
+  }).join('') : `<tr class="empty-row"><td colspan="10"><span class="empty-icon">📅</span>Нет эпиков — добавьте первый</td></tr>`;
+
+  document.getElementById('quarterly-content').innerHTML = `
+    <table class="sp-table">
+      <thead><tr>
+        <th style="width:44px">Приор.</th><th>Эпик</th><th>Этап</th><th>Статус</th>
+        <th>Ответственный</th><th>Трекер</th><th>Дата</th>
+        <th style="width:50px">DoR</th><th style="width:50px">DoD</th><th></th>
+      </tr></thead>
+      <tbody>${tbody}</tbody>
+    </table>
+    <div style="margin-top:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:12px;color:var(--muted)">
+      ⚠️ <b style="color:#E8E8F0">Изменения scope квартала</b> согласуются с Проектным офисом и фиксируются в Блоке 7 — Лог изменений.
+    </div>`;
+}
+
+function renderSimplifiedBacklog() {
+  const items = state.backlog || [];
+  document.getElementById('quarterly-badge').textContent = items.length;
+  document.getElementById('quarterly-head-extra').innerHTML =
+    `<button class="sp-add-btn" onclick="openBLModal(null)">+ Добавить</button>`;
+  if (!items.length) {
+    document.getElementById('quarterly-content').innerHTML =
+      `<div class="bl-list"><div style="text-align:center;padding:32px;color:var(--muted);font-size:12px"><span style="font-size:28px;display:block;margin-bottom:8px;opacity:.5">📋</span>Беклог пуст — добавьте первый элемент</div></div>`;
+    return;
+  }
+  const order = { must:0, should:1, could:2, wont:3 };
+  const sorted = [...items].sort((a,b) => (order[a.moscow]||4) - (order[b.moscow]||4));
+  const stCls = { backlog:'st-backlog', active:'st-active', done:'st-done', cancelled:'st-cancelled' };
+  document.getElementById('quarterly-content').innerHTML =
+    `<div class="bl-list">` + sorted.map(it => `
+      <div class="bl-item" onclick="openBLModal('${it.id}')">
+        <div class="bl-moscow bl-${it.moscow}">${MOSCOW_LABELS[it.moscow]||it.moscow}</div>
+        <div class="bl-body">
+          <div class="bl-name">${it.title}</div>
+          ${it.hypothesis ? `<div class="bl-hyp">${it.hypothesis}</div>` : ''}
+        </div>
+        ${it.owner ? `<span style="font-size:10px;color:var(--muted)">${it.owner}</span>` : ''}
+        <span class="sdot ${stCls[it.status]||'st-backlog'}" style="font-size:9px;padding:2px 6px">${ESTATUS_LABELS[it.status]||it.status}</span>
+        ${it.trackerUrl ? `<a class="ep-link" href="${it.trackerUrl}" target="_blank" onclick="event.stopPropagation()">↗</a>` : ''}
+        <button class="tbl-del-btn" onclick="event.stopPropagation();confirmDeleteBL('${it.id}')">✕</button>
+      </div>`).join('') + `</div>`;
+}
+
+function openEpicModal(id) {
+  editCtx = { type:'epic', id };
+  const isNew = !id;
+  const ep = isNew ? null : state.quarterly.items.find(x => x.id === id);
+  document.getElementById('epic-modal-title').textContent = isNew ? 'Новый эпик' : 'Редактировать эпик';
+  document.getElementById('em-title').value    = ep ? ep.title    : '';
+  document.getElementById('em-phase').value    = ep ? ep.phase    : 'delivery';
+  document.getElementById('em-priority').value = ep ? ep.priority : '';
+  document.getElementById('em-status').value   = ep ? ep.status   : 'backlog';
+  document.getElementById('em-date').value     = ep ? ep.date     : '';
+  document.getElementById('em-owner').value    = ep ? ep.owner    : '';
+  document.getElementById('em-tracker').value  = ep ? ep.trackerUrl : '';
+  const allInits = [...(state.roadmap.h1||[]), ...(state.roadmap.h2||[])];
+  document.getElementById('em-init').innerHTML = '<option value="">— Без инициативы —</option>' +
+    allInits.map(i => `<option value="${i.id}"${ep&&ep.initiativeId===i.id?' selected':''}>${i.id} · ${i.title}</option>`).join('');
+  document.getElementById('em-del-btn').style.display = isNew ? 'none' : '';
+  openModal('epic-modal');
+}
+
+function saveEpic() {
+  const title = document.getElementById('em-title').value.trim();
+  if (!title) { document.getElementById('em-title').focus(); return; }
+  const data = {
+    title, phase:document.getElementById('em-phase').value,
+    priority:parseInt(document.getElementById('em-priority').value)||0,
+    status:document.getElementById('em-status').value, date:document.getElementById('em-date').value,
+    initiativeId:document.getElementById('em-init').value, owner:document.getElementById('em-owner').value,
+    trackerUrl:document.getElementById('em-tracker').value, dorDone:false, dodDone:false
+  };
+  if (editCtx.id) {
+    const ep = state.quarterly.items.find(x => x.id === editCtx.id);
+    if (ep) { data.dorDone = ep.dorDone; data.dodDone = ep.dodDone; Object.assign(ep, data); }
+  } else state.quarterly.items.push({ id: nextId('E', state.quarterly.items), ...data });
+  saveState(); closeModal(); renderQuarterly();
+}
+
+function toggleEpicCheck(id, type) {
+  const ep = state.quarterly.items.find(x => x.id === id);
+  if (!ep) return;
+  if (type === 'dor') ep.dorDone = !ep.dorDone;
+  else ep.dodDone = !ep.dodDone;
+  saveState(); renderQuarterly();
+}
+
+function confirmDeleteEpic(id) {
+  if (!confirm('Удалить эпик?')) return;
+  state.quarterly.items = state.quarterly.items.filter(x => x.id !== id);
+  saveState(); renderQuarterly();
+}
+function deleteEpic() { if (editCtx.id) { confirmDeleteEpic(editCtx.id); closeModal(); } }
+
+function openBLModal(id) {
+  editCtx = { type:'bl', id };
+  const isNew = !id;
+  const it = isNew ? null : state.backlog.find(x => x.id === id);
+  document.getElementById('bl-modal-title').textContent = isNew ? 'Новый элемент' : 'Редактировать';
+  document.getElementById('blm-title').value   = it ? it.title     : '';
+  document.getElementById('blm-hyp').value     = it ? it.hypothesis: '';
+  document.getElementById('blm-moscow').value  = it ? it.moscow    : 'must';
+  document.getElementById('blm-status').value  = it ? it.status    : 'backlog';
+  document.getElementById('blm-owner').value   = it ? it.owner     : '';
+  document.getElementById('blm-tracker').value = it ? it.trackerUrl: '';
+  document.getElementById('blm-del-btn').style.display = isNew ? 'none' : '';
+  openModal('bl-modal');
+}
+
+function saveBLItem() {
+  const title = document.getElementById('blm-title').value.trim();
+  if (!title) { document.getElementById('blm-title').focus(); return; }
+  const data = {
+    title, hypothesis:document.getElementById('blm-hyp').value,
+    moscow:document.getElementById('blm-moscow').value, status:document.getElementById('blm-status').value,
+    owner:document.getElementById('blm-owner').value, trackerUrl:document.getElementById('blm-tracker').value
+  };
+  if (editCtx.id) { const it = state.backlog.find(x => x.id === editCtx.id); if (it) Object.assign(it, data); }
+  else state.backlog.push({ id: nextId('B', state.backlog), ...data });
+  saveState(); closeModal(); renderSimplifiedBacklog();
+}
+
+function confirmDeleteBL(id) {
+  if (!confirm('Удалить?')) return;
+  state.backlog = state.backlog.filter(x => x.id !== id);
+  saveState(); renderSimplifiedBacklog();
+}
+function deleteBLItem() { if (editCtx.id) { confirmDeleteBL(editCtx.id); closeModal(); } }
+
+// ════════════════════════════════════════════
+// BLOCK 5: PRD
+// ════════════════════════════════════════════
+function setPRDMode(mode) {
+  state.prd.mode = mode;
+  saveState(); renderPRD();
+}
+
+function renderPRD() {
+  const mode = state.prd.mode || 'link';
+  const full = isFullFormat();
+  document.getElementById('prd-mode-link').classList.toggle('active', mode === 'link');
+  document.getElementById('prd-mode-inline').classList.toggle('active', mode === 'inline');
+  document.getElementById('prd-mode-badge').textContent = mode === 'link' ? 'Ссылка' : (full ? 'Полный' : 'Упрощённый');
+  const c = document.getElementById('prd-content');
+  if (mode === 'link') {
+    c.innerHTML = `<div class="prd-link-row">
+      <input id="prd-url" type="url" placeholder="https://confluence/…" value="${state.prd.url||''}">
+      <a class="prd-open-btn" id="prd-open-link" href="${state.prd.url||'#'}" target="_blank">Открыть ↗</a>
+    </div>
+    <div style="margin-top:12px"><button class="btn-save-sm" onclick="savePRDLink()">💾 Сохранить</button></div>`;
+  } else {
+    c.innerHTML = renderPRDForm(full);
+    fillPRDForm();
+  }
+}
+
+function renderPRDForm(full) {
+  if (!full) return `<div class="prd-form">
+    <div class="prd-grid">
+      <div class="prd-full prd-field"><label>Гипотеза (Проблема + Решение) *</label>
+        <textarea id="prd-hypothesis" rows="4" placeholder="Мы верим, что…"></textarea></div>
+      <div class="prd-full prd-field"><label>Аудитория</label>
+        <input id="prd-audience" placeholder="1–2 ключевых сегмента…"></div>
+      <div class="prd-field"><label>Минимальная метрика валидации</label>
+        <input id="prd-northStar" placeholder="KPI для подтверждения…"></div>
+      <div class="prd-field"><label>Что НЕ делаем</label>
+        <input id="prd-outOfScope" placeholder="Out of scope…"></div>
+    </div>
+    <div class="prd-save-row"><button class="btn-save-sm" onclick="savePRDInline()">💾 Сохранить PRD</button></div>
+  </div>`;
+
+  return `<div class="prd-form">
+    <div class="prd-grid">
+      <div class="prd-divider">ПРОБЛЕМА И АУДИТОРИЯ</div>
+      <div class="prd-full prd-field"><label>Проблема / Pain-point *</label>
+        <textarea id="prd-problem" rows="3" placeholder="Какую проблему решаем?"></textarea></div>
+      <div class="prd-field"><label>Аудитория и персоны</label>
+        <textarea id="prd-audience" rows="2" placeholder="Сегменты, персоны…"></textarea></div>
+      <div class="prd-field"><label>Бизнес-цель и эффект</label>
+        <textarea id="prd-businessGoal" rows="2" placeholder="Ожидаемый бизнес-результат…"></textarea></div>
+      <div class="prd-divider">РЕШЕНИЕ</div>
+      <div class="prd-full prd-field"><label>Гипотеза ценности</label>
+        <textarea id="prd-hypothesis" rows="2" placeholder="Мы верим, что…"></textarea></div>
+      <div class="prd-full prd-field"><label>Решение</label>
+        <textarea id="prd-solution" rows="3" placeholder="Описание решения…"></textarea></div>
+      <div class="prd-divider">МЕТРИКИ И РИСКИ</div>
+      <div class="prd-field"><label>North Star метрика *</label>
+        <input id="prd-northStar" placeholder="Главная метрика…"></div>
+      <div class="prd-field"><label>Метрики запуска / MVP</label>
+        <input id="prd-metrics" placeholder="KPI первого релиза…"></div>
+      <div class="prd-field"><label>Out of Scope</label>
+        <textarea id="prd-outOfScope" rows="2" placeholder="Явные исключения…"></textarea></div>
+      <div class="prd-field"><label>Риски</label>
+        <textarea id="prd-risks" rows="2" placeholder="Ключевые риски…"></textarea></div>
+      <div class="prd-field"><label>Таймлайн по Gates</label>
+        <input id="prd-timeline" placeholder="G1 → Q1, G2 → Q2…"></div>
+      <div class="prd-field"><label>Рекомендация</label>
+        <select id="prd-recommendation">
+          <option value="">—</option>
+          <option value="go">🟢 Go</option>
+          <option value="no-go">🔴 No-Go</option>
+          <option value="revise">🔁 На доработку</option>
+        </select></div>
+    </div>
+    <div class="prd-save-row"><button class="btn-save-sm" onclick="savePRDInline()">💾 Сохранить PRD</button></div>
+  </div>`;
+}
+
+function fillPRDForm() {
+  const p = state.prd;
+  const full = isFullFormat();
+  if (full) {
+    ['problem','audience','businessGoal','hypothesis','solution','northStar','metrics','outOfScope','risks','timeline'].forEach(f => {
+      const el = document.getElementById('prd-' + f);
+      if (el) el.value = p[f] || '';
+    });
+    const recEl = document.getElementById('prd-recommendation');
+    if (recEl) recEl.value = p.recommendation || '';
+  } else {
+    ['hypothesis','audience','northStar','outOfScope'].forEach(f => {
+      const el = document.getElementById('prd-' + f);
+      if (el) el.value = p[f] || '';
+    });
+  }
+}
+
+function savePRDLink() {
+  state.prd.url = document.getElementById('prd-url').value.trim();
+  saveState();
+  const link = document.getElementById('prd-open-link');
+  if (link) link.href = state.prd.url || '#';
+  const btn = event.target; btn.textContent='✅ Сохранено'; setTimeout(()=>btn.textContent='💾 Сохранить',1600);
+}
+
+function savePRDInline() {
+  const full = isFullFormat();
+  const fields = full
+    ? ['problem','audience','businessGoal','hypothesis','solution','northStar','metrics','outOfScope','risks','timeline']
+    : ['hypothesis','audience','northStar','outOfScope'];
+  fields.forEach(f => {
+    const el = document.getElementById('prd-' + f);
+    if (el) state.prd[f] = el.value;
+  });
+  if (full) { const r = document.getElementById('prd-recommendation'); if (r) state.prd.recommendation = r.value; }
+  saveState();
+  const btn = event.target; btn.textContent='✅ PRD сохранён'; setTimeout(()=>btn.textContent='💾 Сохранить PRD',1600);
+}
+
+// ════════════════════════════════════════════
+// BLOCK 6: DoR / DoD
+// ════════════════════════════════════════════
+function renderDorDod() {
+  const full = isFullFormat();
+  const badge = document.getElementById('dordod-format-badge');
+  if (full) { badge.textContent='Полный'; badge.className='format-badge format-full'; }
+  else { badge.textContent='Упрощённый'; badge.className='format-badge format-lite'; }
+
+  const c = document.getElementById('dordod-content');
+  if (full) {
+    c.innerHTML = `<div class="dordod-grid">
+      <div class="dordod-group">
+        <div class="dordod-label">Инициатива</div>
+        ${buildDDCard('DoR — Definition of Ready', 'dorInit', DOR_INIT_FULL)}
+        ${buildDDCard('DoD — Definition of Done', 'dodInit', DOD_INIT_FULL)}
+      </div>
+      <div class="dordod-group">
+        <div class="dordod-label">Эпик</div>
+        ${buildDDCard('DoR — Definition of Ready', 'dorEpic', DOR_EPIC_FULL)}
+        ${buildDDCard('DoD — Definition of Done', 'dodEpic', DOD_EPIC_FULL)}
+      </div>
+    </div>`;
+  } else {
+    c.innerHTML = `<div class="dordod-grid">
+      <div class="dordod-group">
+        ${buildDDCard('DoR — Ready to Start', 'dorSimple', DOR_SIMPLE)}
+      </div>
+      <div class="dordod-group">
+        ${buildDDCard('DoD — Done', 'dodSimple', DOD_SIMPLE)}
+      </div>
+    </div>`;
+  }
+}
+
+function buildDDCard(label, key, items) {
+  const arr = state.dorDod[key] || [];
+  const checked = arr.filter(Boolean).length;
+  const total = items.length;
+  const pct = total > 0 ? Math.round(checked/total*100) : 0;
+  const rows = items.map((txt, idx) => {
+    const on = arr[idx] || false;
+    return `<div class="dd-item${on?' on':''}" onclick="toggleDD('${key}',${idx})">
+      <div class="dd-check${on?' on':''}">✓</div>
+      <div class="dd-text">${txt}</div>
+    </div>`;
+  }).join('');
+  return `<div class="dd-card">
+    <div class="dd-head">
+      <span class="dd-head-label">${label}</span>
+      <span class="dd-progress">${checked}/${total}</span>
+    </div>
+    <div class="dd-bar"><div class="dd-bar-fill" style="width:${pct}%"></div></div>
+    <div class="dd-list">${rows}</div>
+  </div>`;
+}
+
+function toggleDD(key, idx) {
+  if (!state.dorDod[key]) state.dorDod[key] = [];
+  while (state.dorDod[key].length <= idx) state.dorDod[key].push(false);
+  state.dorDod[key][idx] = !state.dorDod[key][idx];
+  saveState(); renderDorDod();
+}
+
+// ════════════════════════════════════════════
+// BLOCK 7: CHANGELOG
+// ════════════════════════════════════════════
+function renderChangelog() {
+  const list = state.changelog || [];
+  document.getElementById('cl-badge').textContent = list.length;
+  const tbody = document.getElementById('cl-tbody');
+  if (!list.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="7"><span class="empty-icon">📋</span>Нет записей</td></tr>`;
+    return;
+  }
+  const levelCls = { year:'cl-year', roadmap:'cl-roadmap cl-level', quarter:'cl-quarter cl-level' };
+  tbody.innerHTML = [...list].reverse().map(e => `<tr>
+    <td class="cl-date">${e.date||'—'}</td>
+    <td style="font-size:12px">${e.who||'—'}</td>
+    <td style="font-size:12px;max-width:280px">${e.what||'—'}</td>
+    <td><span class="cl-level ${e.level==='year'?'cl-year':e.level==='roadmap'?'cl-roadmap':'cl-quarter'}">${LEVEL_LABELS[e.level]||e.level}</span></td>
+    <td style="font-size:11px;color:var(--muted)">${e.reason||'—'}</td>
+    <td>${e.approved ? '<span class="cl-yes">✅ Да</span>' : '<span class="cl-no">—</span>'}</td>
+    <td class="td-actions"><button class="tbl-del-btn" onclick="confirmDeleteCL('${e.id}')">✕</button></td>
+  </tr>`).join('');
+}
+
+function openCLModal() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('clm-date').value     = today;
+  document.getElementById('clm-who').value      = state.identity.pm || '';
+  document.getElementById('clm-what').value     = '';
+  document.getElementById('clm-level').value    = 'quarter';
+  document.getElementById('clm-approved').value = '0';
+  document.getElementById('clm-reason').value   = '';
+  openModal('cl-modal');
+}
+
+function saveCLEntry() {
+  const what = document.getElementById('clm-what').value.trim();
+  if (!what) { document.getElementById('clm-what').focus(); return; }
+  state.changelog.push({
+    id: nextId('CL', state.changelog),
+    date:     document.getElementById('clm-date').value,
+    who:      document.getElementById('clm-who').value,
+    what,
+    level:    document.getElementById('clm-level').value,
+    approved: document.getElementById('clm-approved').value === '1',
+    reason:   document.getElementById('clm-reason').value
+  });
+  saveState(); closeModal(); renderChangelog();
+}
+
+function confirmDeleteCL(id) {
+  if (!confirm('Удалить запись?')) return;
+  state.changelog = state.changelog.filter(x => x.id !== id);
+  saveState(); renderChangelog();
+}
+
+// ════════════════════════════════════════════
+// MODAL UTILS
+// ════════════════════════════════════════════
+function openModal(id) {
+  document.querySelectorAll('.modal-box').forEach(m => m.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  editCtx = {};
+}
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+initState();
+renderAll();
+</script>
+</body>
+</html>
