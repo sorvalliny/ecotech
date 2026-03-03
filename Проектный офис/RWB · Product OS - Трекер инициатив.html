@@ -361,7 +361,7 @@ header.ecotech-orig{top:44px!important;}
 
 <header class="ecotech-orig">
   <div class="logo"><b>RWB</b> · Product OS</div>
-  <div class="htitle">Реестр продуктов &amp; инициатив</div>
+  <div class="htitle">Реестр продуктов &amp; эпиков</div>
   <div class="tabs">
     <button class="tab active" onclick="switchTab(&#39;portfolio&#39;,this)">🗂 Портфель</button>
     <button class="tab" onclick="switchTab(&#39;backlog&#39;,this)">📋 Беклог</button>
@@ -393,7 +393,7 @@ header.ecotech-orig{top:44px!important;}
       <span class="fcount" id="fcp-PR06"></span>
     </button></div>
     <div class="sdiv"></div>
-    <div class="slabel">Тип инициативы</div>
+    <div class="slabel">Тип эпика</div>
     <button class="fbtn active" onclick="setF(&#39;track&#39;,&#39;all&#39;,this)"><span>Все типы</span></button>
     <button class="fbtn" onclick="setF(&#39;track&#39;,&#39;discovery&#39;,this)"><span>🔍 Discovery</span></button>
     <button class="fbtn" onclick="setF(&#39;track&#39;,&#39;delivery&#39;,this)"><span>🚀 Delivery</span></button>
@@ -438,10 +438,10 @@ header.ecotech-orig{top:44px!important;}
     <div class="pstat"><div class="pstat-num" style="color:var(--teal)">3</div><div class="pstat-lbl">В работе</div></div>
     <div class="pstat"><div class="pstat-num" style="color:#C4B5FD">2</div><div class="pstat-lbl">Запланировано</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--muted)">1</div><div class="pstat-lbl">Беклог</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:var(--amber)">38</div><div class="pstat-lbl">Инициатив</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:var(--amber)">38</div><div class="pstat-lbl">Эпиков</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--green)">38</div><div class="pstat-lbl">High priority</div></div>
   </div>
-      <div class="divlabel">Продукты экосистемы — 6 продуктов, 38 инициатив</div>
+      <div class="divlabel">Продукты экосистемы — 6 продуктов, 38 эпиков</div>
       <div class="pgrid" id="pgrid"><div class="pcard" id="pc-PR01">
       <div class="pcard-head" onclick="togglePC(&#39;PR01&#39;)">
         <div class="pmeta">
@@ -889,7 +889,7 @@ header.ecotech-orig{top:44px!important;}
     <!-- TRACKER -->
     <div id="pg-tracker" style="display:none">
       <div class="role-switcher">
-        <button class="rbtn active" onclick="switchRole(&#39;pm&#39;,this)">🎯 PM — Мои инициативы</button>
+        <button class="rbtn active" onclick="switchRole(&#39;pm&#39;,this)">🎯 PM — Мои эпики</button>
         <button class="rbtn" onclick="switchRole(&#39;pmo&#39;,this)">📋 PMO — Портфель</button>
         <button class="rbtn" onclick="switchRole(&#39;cpo&#39;,this)">🔭 CPO — Стратегия</button>
         <button class="rbtn" onclick="switchRole(&#39;ceo&#39;,this)">👤 CEO — Дашборд</button>
@@ -922,9 +922,9 @@ header.ecotech-orig{top:44px!important;}
           </select>
         </div>
         <div class="ep-group">
-          <div class="ep-lbl">🗺 Эпик</div>
+          <div class="ep-lbl">🗺 Инициатива</div>
           <select class="ep-select" id="ep-epic-sel">
-            <option value="">— Без эпика —</option>
+            <option value="">— Без инициативы —</option>
           </select>
         </div>
         <div class="ep-group">
@@ -983,7 +983,7 @@ header.ecotech-orig{top:44px!important;}
           <select class="ep-select" id="ep-proj"><option value="PR01">PR01 — Продуктовый фреймворк</option><option value="PR02">PR02 — Хендбук для руководителей</option><option value="PR03">PR03 — Лендинг для бизнеса</option><option value="PR04">PR04 — Трекер инициатив (Shiva/WB)</option><option value="PR05">PR05 — Реестр целей и инициатив</option><option value="PR06">PR06 — Корпоративный ProductHunt</option></select>
         </div>
         <div class="ep-group">
-          <div class="ep-lbl">Тип инициативы</div>
+          <div class="ep-lbl">Тип эпика</div>
           <select class="ep-select" id="ep-track">
             <option value="delivery">🚀 Delivery — разрабатываем</option>
             <option value="discovery">🔍 Discovery — исследуем</option>
@@ -1196,7 +1196,7 @@ function renderPortfolio() {
     <div class="pstat"><div class="pstat-num" style="color:var(--teal)">${stCnt.wip}</div><div class="pstat-lbl">В работе</div></div>
     <div class="pstat"><div class="pstat-num" style="color:#C4B5FD">${stCnt.planned}</div><div class="pstat-lbl">Запланировано</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--muted)">${stCnt.backlog}</div><div class="pstat-lbl">Беклог</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:var(--amber)">${backlog.length}</div><div class="pstat-lbl">Инициатив</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:var(--amber)">${backlog.length}</div><div class="pstat-lbl">Эпиков</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--green)">${backlog.filter(i=>sc(i)>20).length}</div><div class="pstat-lbl">High priority</div></div>
   `;
 
@@ -1253,7 +1253,7 @@ function renderPortfolio() {
             ${epicGoal ? `<span class="epic-goal-tag">↗ ${epicGoal.id}</span>` : ''}
           </div>
           <div class="epic-inits">
-            ${epicItems.length ? epicItems.map(mkIRow).join('') : '<div style="font-size:11px;color:var(--muted);padding:5px 0 3px">Нет инициатив</div>'}
+            ${epicItems.length ? epicItems.map(mkIRow).join('') : '<div style="font-size:11px;color:var(--muted);padding:5px 0 3px">Нет эпиков</div>'}
           </div>
         </div>`;
       });
@@ -1261,7 +1261,7 @@ function renderPortfolio() {
         initRows += `<div class="epic-section">
           <div class="no-epic-header epic-header">
             <span class="epic-icon">📋</span>
-            <span class="epic-name">Без эпика</span>
+            <span class="epic-name">Без инициативы</span>
             <span class="epic-meta">${noEpic.length}</span>
           </div>
           <div class="epic-inits">${noEpic.map(mkIRow).join('')}</div>
@@ -1287,7 +1287,7 @@ function renderPortfolio() {
         </div>
       </div>
       <div class="pfoot">
-        <div class="pfstat"><div class="pfnum">${items.length}</div><div class="pflbl">инициатив</div></div>
+        <div class="pfstat"><div class="pfnum">${items.length}</div><div class="pflbl">эпиков</div></div>
         <div class="pfdiv"></div>
         <div class="pfstat"><div class="pfnum">${avg}</div><div class="pflbl">avg RICE</div></div>
         <div class="pfdiv"></div>
@@ -1296,10 +1296,10 @@ function renderPortfolio() {
       </div>
       <div class="ilist-wrap">
         <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">
-          Инициативы (${items.length}) · по RICE score
+          Эпики (${items.length}) · по RICE score
         </div>
         <div class="ilist">${initRows}</div>
-        <button class="add-init-btn" onclick="event.stopPropagation();addInitiative('${p.id}')">+ Добавить инициативу</button>
+        <button class="add-init-btn" onclick="event.stopPropagation();addInitiative('${p.id}')">+ Добавить эпик</button>
       </div>
     </div>`;
   }).join('');
@@ -1504,7 +1504,7 @@ function renderPM() {
   </select>`;
 
   const html = `
-    <div class="role-badge">🎯 Вид PM — Инициативы продукта + Gate статус</div>
+    <div class="role-badge">🎯 Вид PM — Эпики продукта + Gate статус</div>
     <div class="pm-header">
       <div style="font-size:12px;color:var(--muted);font-weight:700">Выберите продукт:</div>
       ${projectSel}
@@ -1562,14 +1562,14 @@ function renderPMProject(pid) {
           <span>🔍 Discovery (${disc.length})</span>
           <span style="color:#93C5FD">Исследование</span>
         </div>
-        ${disc.length ? mkItems(disc) : '<div style="font-size:11px;color:var(--muted);padding:8px 0">Нет Discovery-инициатив</div>'}
+        ${disc.length ? mkItems(disc) : '<div style="font-size:11px;color:var(--muted);padding:8px 0">Нет Discovery-эпиков</div>'}
       </div>
       <div class="trk-section">
         <div class="trk-section-head">
           <span>🚀 Delivery (${delv.length})</span>
           <span style="color:#6EE7B7">Разработка</span>
         </div>
-        ${delv.length ? mkItems(delv) : '<div style="font-size:11px;color:var(--muted);padding:8px 0">Нет Delivery-инициатив</div>'}
+        ${delv.length ? mkItems(delv) : '<div style="font-size:11px;color:var(--muted);padding:8px 0">Нет Delivery-эпиков</div>'}
       </div>
     </div>
   `;
@@ -1628,8 +1628,8 @@ function renderPMO() {
     <div class="kpi-strip">
       <div class="kpi"><div class="kpi-n" style="color:#fff">${PROJECTS.length}</div><div class="kpi-l">Продуктов в портфеле</div></div>
       <div class="kpi"><div class="kpi-n" style="color:var(--teal)">${totalWip}</div><div class="kpi-l">В активной разработке</div></div>
-      <div class="kpi"><div class="kpi-n" style="color:#93C5FD">${totalDisc}</div><div class="kpi-l">Discovery инициатив</div></div>
-      <div class="kpi"><div class="kpi-n" style="color:#6EE7B7">${totalDelv}</div><div class="kpi-l">Delivery инициатив</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:#93C5FD">${totalDisc}</div><div class="kpi-l">Discovery эпиков</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:#6EE7B7">${totalDelv}</div><div class="kpi-l">Delivery эпиков</div></div>
       <div class="kpi"><div class="kpi-n" style="color:var(--amber)">${totalPlanned}</div><div class="kpi-l">Запланировано к запуску</div></div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
@@ -1722,7 +1722,7 @@ function renderCPO() {
       <div>
         <div class="divlabel">Стратегические риски (G0–G1)</div>
         ${earlyStage.length ? `<div class="trk-section">${risks}</div>` : '<div style="color:var(--muted);font-size:12px;padding:12px 0">Нет продуктов в ранних стадиях</div>'}
-        <div class="divlabel" style="margin-top:14px">Топ High-Priority инициатив</div>
+        <div class="divlabel" style="margin-top:14px">Топ High-Priority эпиков</div>
         <div class="trk-section">
           ${[...backlog].sort((a,b)=>sc(b)-sc(a)).slice(0,5).map(item => {
             const s = sc(item);
@@ -1768,7 +1768,7 @@ function renderCEO() {
         <span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span>
       </div>
       <div class="ceo-stats">
-        <div class="ceo-stat"><div class="ceo-stat-n">${items.length}</div><div class="ceo-stat-l">Инициатив</div></div>
+        <div class="ceo-stat"><div class="ceo-stat-n">${items.length}</div><div class="ceo-stat-l">Эпиков</div></div>
         <div class="ceo-stat"><div class="ceo-stat-n" style="color:var(--teal)">${wipCount}</div><div class="ceo-stat-l">В работе</div></div>
         <div class="ceo-stat"><div class="ceo-stat-n" style="color:#93C5FD">${discCount}</div><div class="ceo-stat-l">Discovery</div></div>
         <div class="ceo-stat"><div class="ceo-stat-n" style="color:#6EE7B7">${delivCount}</div><div class="ceo-stat-l">Delivery</div></div>
@@ -1783,7 +1783,7 @@ function renderCEO() {
       <div class="kpi"><div class="kpi-n" style="color:var(--amber)">${inDev}</div><div class="kpi-l">В активной разработке (G3)</div></div>
       <div class="kpi"><div class="kpi-n" style="color:#93C5FD">${inPipeline}</div><div class="kpi-l">В пайплайне (G0–G2)</div></div>
       <div class="kpi"><div class="kpi-n" style="color:var(--teal)">${totalWip}</div><div class="kpi-l">Задач в работе</div></div>
-      <div class="kpi"><div class="kpi-n" style="color:var(--green)">${totalHighPrio}</div><div class="kpi-l">High-Priority инициатив</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--green)">${totalHighPrio}</div><div class="kpi-l">High-Priority эпиков</div></div>
     </div>
     <div class="divlabel">6 продуктов экосистемы RWB</div>
     <div class="ceo-grid">${projCards}</div>
@@ -1934,7 +1934,7 @@ function openPRD(id) {
   // Epic select (show all epics, mark current project's)
   const epicSel = document.getElementById('ep-epic-sel');
   if (epicSel) {
-    epicSel.innerHTML = '<option value="">— Без эпика —</option>' +
+    epicSel.innerHTML = '<option value="">— Без инициативы —</option>' +
       epics.map(e => {
         const proj = e.projectId === item.project ? '' : ` (${e.projectId})`;
         return `<option value="${e.id}"${item.epicId===e.id?' selected':''}>${e.id} · ${e.title}${proj}</option>`;
@@ -2017,8 +2017,8 @@ function renderGoals() {
       </div>
       <div class="kr-list">${krRows}</div>
       <div class="goal-stats">
-        <div class="goal-stat">Инициатив: <b>${goalInits.length}</b></div>
-        <div class="goal-stat">Эпиков: <b>${goalEpics.length}</b></div>
+        <div class="goal-stat">Эпиков: <b>${goalInits.length}</b></div>
+        <div class="goal-stat">Инициатив: <b>${goalEpics.length}</b></div>
         <div style="flex:1"></div>
         <button class="exbtn" onclick="editGoal('${goal.id}')">✏ Редактировать</button>
       </div>
@@ -2067,7 +2067,7 @@ function addInitiative(projectId) {
     id: newId,
     project: projectId,
     track: 'discovery',
-    name: 'Новая инициатива',
+    name: 'Новый эпик',
     desc: '',
     cat: 'feature',
     audience: 'PM',
