@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
+<html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RWB · Product OS · Операционный справочник</title>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&amp;family=Golos+Text:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../design-system.css">
 <style>
 /* ═══════════════════════════════════════════════════════════ RESET & VARS */
@@ -1509,7 +1508,6 @@ body.edit-mode .edit-mode-banner { display: block; }
 .en-drop-sep{height:1px;background:rgba(123,47,255,0.12);margin:4px 4px;}
 #sidebar{top:44px!important;}
 #topbar{top:44px!important;}</style>
-  <script src="../icons.js"></script>
   <script src="../platform.js"></script>
 </head>
 <body>
@@ -1535,6 +1533,7 @@ body.edit-mode .edit-mode-banner { display: block; }
     <a href="../Хэндбук/rwb-product-os-v12.html">Хэндбук (G0–G5)</a>
     <a href="../Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер инициатив</a>
     <a href="../Фреймворк/rwb-product-os-v3.html" class="en-active">Фреймворк</a>
+    <a href="../Фреймворк/framework-lite.html">Framework Lite</a>
     <a href="../Продукту/strategy.html">Стратегическое планирование</a>
       </div>
     </div>
@@ -1546,7 +1545,7 @@ body.edit-mode .edit-mode-banner { display: block; }
 <div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
 <!-- EDIT TOAST -->
-<div class="edit-toast" id="edit-toast">Режим редактирования — изменения сохраняются автоматически</div>
+<div class="edit-toast show" id="edit-toast">Режим редактирования — изменения сохраняются автоматически</div>
 
 <!-- APP ROOT -->
 <div id="app">
@@ -1554,84 +1553,84 @@ body.edit-mode .edit-mode-banner { display: block; }
 <!-- ════════════════════ SIDEBAR ════════════════════ -->
 <aside id="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-mark" data-id="e001" data-editable contenteditable="false">RWB</div>
-    <div class="logo-sub" data-id="e002" data-editable contenteditable="false">Product OS · Операционный справочник</div>
+    <div class="logo-mark" data-id="e001" data-editable="">RWB</div>
+    <div class="logo-sub" data-id="e002" data-editable="">Product OS · Операционный справочник</div>
   </div>
 
   <nav class="sidebar-nav">
     <div class="edit-mode-banner">
-      <svg class="ei" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-edit"/></svg> Режим редактирования<br>
+      ✏ Режим редактирования<br>
       <span style="color:rgba(196,156,255,0.7);">Кликай на любой текст для правки.<br>Автосохранение каждые 0.8 сек.</span>
     </div>
     <div class="nav-group">
-      <div class="nav-group-label" data-id="e003" data-editable contenteditable="false">Введение</div>
-      <a class="nav-item active" href="#overview" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v4M8 11v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        <span class="nav-text" data-id="e004" data-editable contenteditable="false">О фреймворке</span>
+      <div class="nav-group-label" data-id="e003" data-editable="">Введение</div>
+      <a class="nav-item" href="#overview" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"></circle><path d="M8 5v4M8 11v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text" data-id="e004" data-editable="">О фреймворке</span>
       </a>
     </div>
     <div class="nav-group">
-      <div class="nav-group-label" data-id="e005" data-editable contenteditable="false">Жизненный цикл</div>
+      <div class="nav-group-label" data-id="e005" data-editable="">Жизненный цикл</div>
       <a class="nav-item" href="#orbits" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="8" rx="7" ry="4" stroke="currentColor" stroke-width="1.5"/><ellipse cx="8" cy="8" rx="7" ry="4" stroke="currentColor" stroke-width="1.5" transform="rotate(60 8 8)"/><ellipse cx="8" cy="8" rx="7" ry="4" stroke="currentColor" stroke-width="1.5" transform="rotate(120 8 8)"/></svg></span>
-        <span class="nav-text" data-id="e006" data-editable contenteditable="false">Карта орбит</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="8" rx="7" ry="4" stroke="currentColor" stroke-width="1.5"></ellipse><ellipse cx="8" cy="8" rx="7" ry="4" stroke="currentColor" stroke-width="1.5" transform="rotate(60 8 8)"></ellipse><ellipse cx="8" cy="8" rx="7" ry="4" stroke="currentColor" stroke-width="1.5" transform="rotate(120 8 8)"></ellipse></svg></span>
+        <span class="nav-text" data-id="e006" data-editable="">Карта орбит</span>
       </a>
       <a class="nav-item" href="#process" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        <span class="nav-text" data-id="e007" data-editable contenteditable="false">Как мы работаем</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text" data-id="e007" data-editable="">Как мы работаем</span>
       </a>
       <a class="nav-item" href="#initiative" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.8 3.6L14 6.6l-3 2.9.7 4.1L8 11.4l-3.7 2.2.7-4.1L2 6.6l4.2-.6L8 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
-        <span class="nav-text" data-id="e008" data-editable contenteditable="false">Инициатива</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.8 3.6L14 6.6l-3 2.9.7 4.1L8 11.4l-3.7 2.2.7-4.1L2 6.6l4.2-.6L8 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg></span>
+        <span class="nav-text" data-id="e008" data-editable="">Инициатива</span>
       </a>
       <a class="nav-item" href="#planning" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 1v4M11 1v4M2 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        <span class="nav-text" data-id="e009" data-editable contenteditable="false">Как планируем</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5"></rect><path d="M5 1v4M11 1v4M2 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text" data-id="e009" data-editable="">Как планируем</span>
       </a>
       <a class="nav-item" href="#gates" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M6 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span class="nav-text" data-id="e010" data-editable contenteditable="false">Gate-условия</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.5"></rect><path d="M6 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <span class="nav-text" data-id="e010" data-editable="">Gate-условия</span>
       </a>
       <a class="nav-item" href="#ux" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M9 9l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4 6h4M6 4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        <span class="nav-text" data-id="e011" data-editable contenteditable="false">UX-процесс</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle><path d="M9 9l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M4 6h4M6 4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text" data-id="e011" data-editable="">UX-процесс</span>
       </a>
       <a class="nav-item" href="#dor" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3h10M3 7h7M3 11h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="13" cy="11" r="2" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        <span class="nav-text" data-id="e012" data-editable contenteditable="false">DoR / DoD стандарт</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3h10M3 7h7M3 11h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><circle cx="13" cy="11" r="2" stroke="currentColor" stroke-width="1.5"></circle></svg></span>
+        <span class="nav-text" data-id="e012" data-editable="">DoR / DoD стандарт</span>
       </a>
     </div>
     <div class="nav-group">
-      <div class="nav-group-label" data-id="e013" data-editable contenteditable="false">Команда</div>
+      <div class="nav-group-label" data-id="e013" data-editable="">Команда</div>
       <a class="nav-item" href="#roles" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6" cy="5" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M1 13c0-2.76 2.24-5 5-5M11 10l2 2 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span class="nav-text" data-id="e014" data-editable contenteditable="false">Роли</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6" cy="5" r="2.5" stroke="currentColor" stroke-width="1.5"></circle><path d="M1 13c0-2.76 2.24-5 5-5M11 10l2 2 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <span class="nav-text" data-id="e014" data-editable="">Роли</span>
       </a>
       <a class="nav-item" href="#docs" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5"/><path d="M10 2v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        <span class="nav-text" data-id="e015" data-editable contenteditable="false">Документация</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text" data-id="e015" data-editable="">Документация</span>
       </a>
     </div>
     <div class="nav-group">
-      <div class="nav-group-label" data-id="e016" data-editable contenteditable="false">Инструменты</div>
+      <div class="nav-group-label" data-id="e016" data-editable="">Инструменты</div>
       <a class="nav-item" href="#conveyor" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span class="nav-text" data-id="e017" data-editable contenteditable="false">Product Conveyor</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <span class="nav-text" data-id="e017" data-editable="">Product Conveyor</span>
       </a>
-      <a class="nav-item" href="#productops" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span class="nav-text" data-id="e018" data-editable contenteditable="false">ProductOps метрики</span>
+      <a class="nav-item active" href="#productops" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <span class="nav-text" data-id="e018" data-editable="">ProductOps метрики</span>
       </a>
       <a class="nav-item" href="#templates" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="9" y="2" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="9" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="9" y="9" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        <span class="nav-text" data-id="e019" data-editable contenteditable="false">Шаблоны</span>
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"></rect><rect x="9" y="2" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"></rect><rect x="2" y="9" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"></rect><rect x="9" y="9" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"></rect></svg></span>
+        <span class="nav-text" data-id="e019" data-editable="">Шаблоны</span>
       </a>
     </div>
   </nav>
 
   <div class="sidebar-footer">
-    <div data-id="e020" data-editable contenteditable="false"><strong>Q2 2026</strong> · v3.1 — Handbook, Инициатива, Планирование, Сквозные функции</div>
-    <div style="margin-top:4px" data-id="e021" data-editable contenteditable="false">12 продуктов · B2C · B2B · B2G</div>
+    <div data-id="e020" data-editable=""><strong>Q2 2026</strong> · v3.1 — Handbook, Инициатива, Планирование, Сквозные функции</div>
+    <div style="margin-top:4px" data-id="e021" data-editable="">12 продуктов · B2C · B2B · B2G</div>
   </div>
 </aside>
 
@@ -1644,22 +1643,19 @@ body.edit-mode .edit-mode-banner { display: block; }
       <button id="hamburger" onclick="toggleSidebar()">
         <span></span><span></span><span></span>
       </button>
-      <div id="breadcrumb">RWB Product OS · <span id="active-section-label">О фреймворке</span></div>
+      <div id="breadcrumb">RWB Product OS · <span id="active-section-label">ProductOps метрики</span></div>
     </div>
     <div class="topbar-actions">
-      <span id="save-indicator" style="font-size:11px;color:var(--muted);cursor:default;padding:0 4px;" title="Статус сохранения"></span>
-      <button id="clear-btn" onclick="clearStorage()" style="display:none;background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2);color:rgba(239,68,68,0.7);" title="Сбросить все изменения">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M6 4V2h4v2M5 4v9h6V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span id="save-indicator" style="font-size: 11px; color: rgb(0, 212, 180); cursor: default; padding: 0px 4px; display: none;" title="Сохранено 15:46:49">✓</span>
+      <button id="clear-btn" onclick="clearStorage()" style="background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.2); color: rgba(239, 68, 68, 0.7); display: none;" title="Сбросить все изменения">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M6 4V2h4v2M5 4v9h6V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         Сбросить
       </button>
-      <button id="export-btn" onclick="exportHTML()">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1v10M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <button id="export-btn" onclick="exportHTML()" class="" style="display: none;">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1v10M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         Экспорт HTML
       </button>
-      <button id="edit-btn" onclick="toggleEditMode()">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M11 2l3 3-8 8H3v-3l8-8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Редактировать
-      </button>
+      <button id="edit-btn" onclick="toggleEditMode()" class="" style="display: none;"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M11 2l3 3-8 8H3v-3l8-8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg> Редактировать</button>
     </div>
   </div>
 
@@ -1673,31 +1669,29 @@ body.edit-mode .edit-mode-banner { display: block; }
           <span class="tag tag-v">PRODUCT OS</span>
           <span class="tag tag-w">RWB · 2026</span>
         </div>
-        <div class="hero-title" data-id="e022" data-editable contenteditable="false">
-          Единый фреймворк<br>управления продуктами <em>RWB</em>
-        </div>
-        <div class="hero-subtitle" data-id="e023" data-editable contenteditable="false">
-          Операционная система для 12 продуктов в контуре экосистемы — от инициативы бизнеса до роста метрик. Единый язык, единые правила, прозрачный процесс для заказчиков и команд.
+        <div class="hero-title" data-id="e022" data-editable="">Фреймворк развития экосистемы&nbsp;<span style="color: rgb(255, 45, 138);">RWB</span></div>
+        <div class="hero-subtitle" data-id="e023" data-editable="">
+          Операционная система для продуктов в контуре экосистемы и обучения — от инициативы бизнеса до роста метрик. Единый язык, единые правила, прозрачный процесс для заказчиков и команд.
         </div>
         <div class="hero-stats">
           <div class="stat-item">
-            <div class="stat-val" data-id="e024" data-editable contenteditable="false">12</div>
+            <div class="stat-val" data-id="e024" data-editable="">10+</div>
             <div class="stat-label">Продуктов в контуре</div>
           </div>
           <div class="stat-item">
-            <div class="stat-val" data-id="e025" data-editable contenteditable="false">3</div>
+            <div class="stat-val" data-id="e025" data-editable="">5</div>
             <div class="stat-label">Стадии жизненного цикла</div>
           </div>
           <div class="stat-item">
-            <div class="stat-val" data-id="e026" data-editable contenteditable="false">4</div>
+            <div class="stat-val" data-id="e026" data-editable="">6</div>
             <div class="stat-label">Gate-условия запуска</div>
           </div>
           <div class="stat-item">
-            <div class="stat-val" data-id="e027" data-editable contenteditable="false">14 нед</div>
+            <div class="stat-val" data-id="e027" data-editable="">14 нед</div>
             <div class="stat-label">Среднее время от идеи до MVP</div>
           </div>
           <div class="stat-item">
-            <div class="stat-val" data-id="e028" data-editable contenteditable="false">B2C B2B B2G</div>
+            <div class="stat-val" data-id="e028" data-editable="">B2C B2B B2G</div>
             <div class="stat-label">Направления</div>
           </div>
         </div>
@@ -1706,41 +1700,41 @@ body.edit-mode .edit-mode-banner { display: block; }
       <div class="grad-line"></div>
 
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e029" data-editable contenteditable="false">Принципы</div>
-        <div class="section-title" data-id="e030" data-editable contenteditable="false">Философия фреймворка</div>
-        <div class="section-desc" data-id="e031" data-editable contenteditable="false">Шесть опорных принципов, которые определяют как мы думаем о продуктах и принимаем решения.</div>
+        <div class="section-eyebrow" data-id="e029" data-editable="">Принципы</div>
+        <div class="section-title" data-id="e030" data-editable="">Философия фреймворка</div>
+        <div class="section-desc" data-id="e031" data-editable="">Шесть опорных принципов, которые определяют как мы думаем о продуктах и принимаем решения.</div>
       </div>
 
       <div class="principles-grid">
         <div class="principle-card">
           <div class="principle-num">01</div>
-          <div class="principle-title" data-id="e032" data-editable contenteditable="false">Проблема прежде решения</div>
-          <div class="principle-desc" data-id="e033" data-editable contenteditable="false">Ни одна разработка не стартует без подтверждённой проблемы. Ценность должна быть измеримой до первого спринта.</div>
+          <div class="principle-title" data-id="e032" data-editable="">Ценность измерима</div>
+          <div class="principle-desc" data-id="e033" data-editable=""><p class="p1" style="font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; color: rgb(255, 255, 255);">Каждая инициатива выходит на комитет с УТП: что даём пользователю, что получает RWB, как это измеряем. Без этого — не берём в роадмап</p></div>
         </div>
         <div class="principle-card">
           <div class="principle-num">02</div>
-          <div class="principle-title" data-id="e034" data-editable contenteditable="false">Скорость через ясность</div>
-          <div class="principle-desc" data-id="e035" data-editable contenteditable="false">Чёткие Gate-условия и роли убирают лишние согласования. Команда знает, что делать, без ежедневных эскалаций.</div>
+          <div class="principle-title" data-id="e034" data-editable="">Данные решают</div>
+          <div class="principle-desc" data-id="e035" data-editable=""><p class="p1" style="font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; color: rgb(255, 255, 255);">Приоритет инициативы определяет ICE-балл: влияние на метрику, уверенность в гипотезе, сложность реализации. Чем больше подтверждений — данные, CustDev, конкурентный анализ — тем выше балл</p></div>
         </div>
         <div class="principle-card">
           <div class="principle-num">03</div>
-          <div class="principle-title" data-id="e036" data-editable contenteditable="false">MVP — не «плохо», а «достаточно»</div>
-          <div class="principle-desc" data-id="e037" data-editable contenteditable="false">Минимально жизнеспособный продукт — инструмент проверки гипотезы, а не упрощённая версия финального решения.</div>
+          <div class="principle-title" data-id="e036" data-editable="">Скорость через SLA</div>
+          <div class="principle-desc" data-id="e037" data-editable=""><p class="p1" style="font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; color: rgb(255, 255, 255);">Каждая стадия — Discovery, Delivery, рост — имеет таймбокс и чёткие условия перехода. Согласования сокращаем, приоритеты фиксируем на входе</p></div>
         </div>
         <div class="principle-card">
           <div class="principle-num">04</div>
-          <div class="principle-title" data-id="e038" data-editable contenteditable="false">Данные управляют развитием</div>
-          <div class="principle-desc" data-id="e039" data-editable contenteditable="false">Крупные развороты только на основе метрик. Интуиция — хороший вход, данные — единственный выход.</div>
+          <div class="principle-title" data-id="e038" data-editable="">Гибкий беклог без техдолга</div>
+          <div class="principle-desc" data-id="e039" data-editable=""><p class="p1" style="font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; color: rgb(255, 255, 255);">Комитет меняет приоритеты — это норма. Инициативы не удаляем, а уточняем релизность в следующих итерациях. История решений сохраняется, технического долга не копим</p></div>
         </div>
         <div class="principle-card">
           <div class="principle-num">05</div>
-          <div class="principle-title" data-id="e040" data-editable contenteditable="false">Прозрачность без запросов</div>
-          <div class="principle-desc" data-id="e041" data-editable contenteditable="false">Статус, риски и метрики доступны в любой момент. Заказчик не должен просить обновление — он его видит.</div>
+          <div class="principle-title" data-id="e040" data-editable="">Прозрачность без запросов</div>
+          <div class="principle-desc" data-id="e041" data-editable=""><p class="p1" style="font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; color: rgb(255, 255, 255);">Роадмап, прогнозы релизов и PnL по инициативам видны в любой момент. Комитет видит планы и ожидания поставки без запросов к команде</p></div>
         </div>
         <div class="principle-card">
           <div class="principle-num">06</div>
-          <div class="principle-title" data-id="e042" data-editable contenteditable="false">Связь с целями компании</div>
-          <div class="principle-desc" data-id="e043" data-editable contenteditable="false">Каждая инициатива привязана к OKR компании и департамента. Без связи с целями — нет приоритета.</div>
+          <div class="principle-title" data-id="e042" data-editable="">Связь с целями</div>
+          <div class="principle-desc" data-id="e043" data-editable=""><p class="p1" style="font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; color: rgb(255, 255, 255);">Каждая инициатива привязана к целям продукта и экосистемы. Нет связи с OKR и метриками — нет места в квартальном плане или техдолг</p></div>
         </div>
       </div>
     </section>
@@ -1748,9 +1742,9 @@ body.edit-mode .edit-mode-banner { display: block; }
     <!-- ═══════════════ SECTION 2: LIFECYCLE V2 ═══════════════ -->
     <section class="section" id="orbits" data-label="Карта орбит">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e044" data-editable contenteditable="false">Жизненный цикл продукта</div>
-        <div class="section-title" data-id="e045" data-editable contenteditable="false">Орбиты и Полёт — два слоя продуктовой зрелости</div>
-        <div class="section-desc" data-id="e046" data-editable contenteditable="false">Слой А: где находится продукт (орбита). Слой Б: как он развивается внутри орбиты (витки Discovery → Delivery → Метрики).</div>
+        <div class="section-eyebrow" data-id="e044" data-editable="">Жизненный цикл продукта</div>
+        <div class="section-title" data-id="e045" data-editable="" data-listener-added_f2c3d0b6="true">Два слоя продуктовой зрелости</div>
+        <div class="section-desc" data-id="e046" data-editable="" data-listener-added_f2c3d0b6="true">Слой А: где находится продукт (орбита).&nbsp;<div>Слой Б: как он развивается внутри орбиты (витки Discovery → Delivery → Метрики).</div></div>
       </div>
       <div class="grad-line"></div>
 
@@ -1758,8 +1752,8 @@ body.edit-mode .edit-mode-banner { display: block; }
       <div class="v2-layer" id="layer-a">
         <div class="grad-bar-v2"></div>
         <div class="v2-section-label">Слой А</div>
-        <div class="v2-section-title" data-id="e047" data-editable contenteditable="false">Орбиты — стадии продуктовой зрелости</div>
-        <p class="v2-section-sub" data-id="e048" data-editable contenteditable="false">Каждая орбита — новый уровень зрелости продукта. Переход необратим.<br>Чем ближе к центру — тем сильнее притяжение Маркетплейса и тем больше возможностей для роста.</p>
+        <div class="v2-section-title" data-id="e047" data-editable="">Орбиты — стадии продуктовой зрелости</div>
+        <p class="v2-section-sub" data-id="e048" data-editable="">Каждая орбита — новый уровень зрелости продукта. Переход необратим.<br>Чем ближе к центру — тем сильнее притяжение Маркетплейса и тем больше возможностей для роста.</p>
 
         <!-- ═════════════════════════════════════════════
              RADIAL ORBIT SYSTEM — ЖПП VISUALIZATION
@@ -1772,82 +1766,82 @@ body.edit-mode .edit-mode-banner { display: block; }
               <defs>
                 <!-- Radial glow for WB center -->
                 <radialGradient id="wbGlow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#FF2DFF" stop-opacity="0.45"/>
-                  <stop offset="40%" stop-color="#CC00CC" stop-opacity="0.18"/>
-                  <stop offset="100%" stop-color="#2A1A3E" stop-opacity="0"/>
+                  <stop offset="0%" stop-color="#FF2DFF" stop-opacity="0.45"></stop>
+                  <stop offset="40%" stop-color="#CC00CC" stop-opacity="0.18"></stop>
+                  <stop offset="100%" stop-color="#2A1A3E" stop-opacity="0"></stop>
                 </radialGradient>
                 <!-- Orbit 4 glow -->
                 <radialGradient id="o4Glow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.15"/>
-                  <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+                  <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.15"></stop>
+                  <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"></stop>
                 </radialGradient>
                 <!-- Orbit 3 -->
                 <radialGradient id="o3Glow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#FF2D8A" stop-opacity="0.12"/>
-                  <stop offset="100%" stop-color="#FF2D8A" stop-opacity="0"/>
+                  <stop offset="0%" stop-color="#FF2D8A" stop-opacity="0.12"></stop>
+                  <stop offset="100%" stop-color="#FF2D8A" stop-opacity="0"></stop>
                 </radialGradient>
                 <!-- Planet glow filter -->
                 <filter id="planetGlow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="4" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  <feGaussianBlur stdDeviation="4" result="blur"></feGaussianBlur>
+                  <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
                 </filter>
                 <filter id="centerGlow" x="-60%" y="-60%" width="220%" height="220%">
-                  <feGaussianBlur stdDeviation="18" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  <feGaussianBlur stdDeviation="18" result="blur"></feGaussianBlur>
+                  <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
                 </filter>
                 <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feGaussianBlur stdDeviation="6" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  <feGaussianBlur stdDeviation="6" result="blur"></feGaussianBlur>
+                  <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
                 </filter>
                 <!-- Clip for orbit rings -->
                 <clipPath id="canvasClip">
-                  <rect width="700" height="700"/>
+                  <rect width="700" height="700"></rect>
                 </clipPath>
               </defs>
 
               <!-- Background atmosphere glow around WB -->
-              <circle cx="350" cy="350" r="280" fill="url(#wbGlow)" opacity="0.7"/>
-              <circle cx="350" cy="350" r="220" fill="url(#wbGlow)" opacity="0.5"/>
+              <circle cx="350" cy="350" r="280" fill="url(#wbGlow)" opacity="0.7"></circle>
+              <circle cx="350" cy="350" r="220" fill="url(#wbGlow)" opacity="0.5"></circle>
 
               <!-- ── ORBIT RINGS ── -->
               <!-- Orbit 4 — Экосистемный (outermost) -->
-              <circle cx="350" cy="350" r="290" stroke="#3B82F6" stroke-width="1.2" stroke-dasharray="8 5" fill="none" opacity="0.25" class="orbit-ring ring-4"/>
+              <circle cx="350" cy="350" r="290" stroke="#3B82F6" stroke-width="1.2" stroke-dasharray="8 5" fill="none" opacity="0.25" class="orbit-ring ring-4"></circle>
               <!-- Orbit 3 — Масштаб -->
-              <circle cx="350" cy="350" r="230" stroke="#FF2D8A" stroke-width="1.2" stroke-dasharray="8 5" fill="none" opacity="0.3" class="orbit-ring ring-3"/>
+              <circle cx="350" cy="350" r="230" stroke="#FF2D8A" stroke-width="1.2" stroke-dasharray="8 5" fill="none" opacity="0.3" class="orbit-ring ring-3"></circle>
               <!-- Orbit 2 — Рост -->
-              <circle cx="350" cy="350" r="170" stroke="#00D4B4" stroke-width="1.4" stroke-dasharray="6 4" fill="none" opacity="0.35" class="orbit-ring ring-2"/>
+              <circle cx="350" cy="350" r="170" stroke="#00D4B4" stroke-width="1.4" stroke-dasharray="6 4" fill="none" opacity="0.35" class="orbit-ring ring-2"></circle>
               <!-- Orbit 1 — Старт -->
-              <circle cx="350" cy="350" r="110" stroke="#7B2FFF" stroke-width="1.4" stroke-dasharray="5 4" fill="none" opacity="0.4" class="orbit-ring ring-1"/>
+              <circle cx="350" cy="350" r="110" stroke="#7B2FFF" stroke-width="1.4" stroke-dasharray="5 4" fill="none" opacity="0.4" class="orbit-ring ring-1"></circle>
               <!-- Orbit 0 — Идея (inner) -->
-              <circle cx="350" cy="350" r="58" stroke="#8B8BAE" stroke-width="1" stroke-dasharray="3 5" fill="none" opacity="0.3" class="orbit-ring ring-0"/>
+              <circle cx="350" cy="350" r="58" stroke="#8B8BAE" stroke-width="1" stroke-dasharray="3 5" fill="none" opacity="0.3" class="orbit-ring ring-0"></circle>
 
               <!-- ── ORBIT LABEL ARCS (text on path) ── -->
-              <path id="arc4" d="M 80,350 A 270,270 0 0,1 620,350" fill="none"/>
-              <path id="arc3" d="M 130,350 A 220,220 0 0,1 570,350" fill="none"/>
-              <path id="arc2" d="M 185,350 A 165,165 0 0,1 515,350" fill="none"/>
-              <path id="arc1" d="M 244,350 A 106,106 0 0,1 456,350" fill="none"/>
+              <path id="arc4" d="M 80,350 A 270,270 0 0,1 620,350" fill="none"></path>
+              <path id="arc3" d="M 130,350 A 220,220 0 0,1 570,350" fill="none"></path>
+              <path id="arc2" d="M 185,350 A 165,165 0 0,1 515,350" fill="none"></path>
+              <path id="arc1" d="M 244,350 A 106,106 0 0,1 456,350" fill="none"></path>
 
               <!-- ── WB MARKETPLACE CENTER ── -->
-              <circle cx="350" cy="350" r="50" fill="rgba(180,0,180,0.15)" filter="url(#centerGlow)"/>
-              <circle cx="350" cy="350" r="42" fill="rgba(220,0,220,0.25)"/>
-              <circle cx="350" cy="350" r="36" fill="#CC00DD" opacity="0.9"/>
-              <circle cx="350" cy="350" r="32" fill="#EE00EE" opacity="0.95" class="wb-center-pulse"/>
+              <circle cx="350" cy="350" r="50" fill="rgba(180,0,180,0.15)" filter="url(#centerGlow)"></circle>
+              <circle cx="350" cy="350" r="42" fill="rgba(220,0,220,0.25)"></circle>
+              <circle cx="350" cy="350" r="36" fill="#CC00DD" opacity="0.9"></circle>
+              <circle cx="350" cy="350" r="32" fill="#EE00EE" opacity="0.95" class="wb-center-pulse"></circle>
               <text x="350" y="344" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="14" fill="white" letter-spacing="1">WB</text>
               <text x="350" y="358" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="7" fill="rgba(255,255,255,0.7)" letter-spacing="0.5">МАРКЕТПЛЕЙС</text>
 
               <!-- ── ECOSYSTEM SATELLITES on Orbit 4 ── -->
               <!-- WB Streams — top right orbit 4 -->
               <g class="satellite" data-orbit="4" transform="translate(580, 175)">
-                <circle r="16" fill="#1A0A3E" stroke="#3B82F6" stroke-width="1.5" opacity="0.9"/>
-                <circle r="11" fill="#3B82F6" opacity="0.8" filter="url(#softGlow)"/>
+                <circle r="16" fill="#1A0A3E" stroke="#3B82F6" stroke-width="1.5" opacity="0.9"></circle>
+                <circle r="11" fill="#3B82F6" opacity="0.8" filter="url(#softGlow)"></circle>
                 <text y="3" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="7" fill="white">4</text>
                 <text y="28" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#93C5FD" letter-spacing="0.3">WB Streams</text>
               </g>
 
               <!-- WB ID — top left orbit 3/4 -->
               <g class="satellite" data-orbit="4" transform="translate(200, 115)">
-                <circle r="14" fill="#1A0A3E" stroke="#3B82F6" stroke-width="1.5" opacity="0.85"/>
-                <circle r="9" fill="#6366F1" opacity="0.8" filter="url(#softGlow)"/>
+                <circle r="14" fill="#1A0A3E" stroke="#3B82F6" stroke-width="1.5" opacity="0.85"></circle>
+                <circle r="9" fill="#6366F1" opacity="0.8" filter="url(#softGlow)"></circle>
                 <text y="3" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="7" fill="white">4</text>
                 <text y="26" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#A5B4FC" letter-spacing="0.3">WB ID</text>
               </g>
@@ -1856,64 +1850,64 @@ body.edit-mode .edit-mode-banner { display: block; }
 
               <!-- Orbit 0 planet — bottom-left of inner ring, small grey -->
               <g class="orbit-planet planet-0" data-orbit="0" transform="translate(310, 413)" style="cursor:pointer" onclick="showOrbitDetail(0)">
-                <circle r="18" fill="rgba(139,139,174,0.08)" />
-                <circle r="13" fill="#1E1832" stroke="#8B8BAE" stroke-width="1" opacity="0.6"/>
-                <circle r="9" fill="#2A2550" opacity="0.7"/>
+                <circle r="18" fill="rgba(139,139,174,0.08)"></circle>
+                <circle r="13" fill="#1E1832" stroke="#8B8BAE" stroke-width="1" opacity="0.6"></circle>
+                <circle r="9" fill="#2A2550" opacity="0.7"></circle>
                 <text y="3" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="8" fill="#8B8BAE">0</text>
               </g>
 
               <!-- Orbit 1 planet — bottom of orbit 1 ring -->
               <g class="orbit-planet planet-1" data-orbit="1" transform="translate(295, 460)" style="cursor:pointer" onclick="showOrbitDetail(1)">
-                <circle r="22" fill="rgba(123,47,255,0.08)" filter="url(#softGlow)"/>
-                <circle r="16" fill="#1E0A3E" stroke="#7B2FFF" stroke-width="1.5" opacity="0.8"/>
-                <circle r="11" fill="#3B0A8C" opacity="0.85" filter="url(#planetGlow)"/>
+                <circle r="22" fill="rgba(123,47,255,0.08)" filter="url(#softGlow)"></circle>
+                <circle r="16" fill="#1E0A3E" stroke="#7B2FFF" stroke-width="1.5" opacity="0.8"></circle>
+                <circle r="11" fill="#3B0A8C" opacity="0.85" filter="url(#planetGlow)"></circle>
                 <text y="3" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="9" fill="#C49CFF">1</text>
               </g>
 
               <!-- Orbit 2 planet — right of orbit 2 ring -->
               <g class="orbit-planet planet-2" data-orbit="2" transform="translate(350, 519)" style="cursor:pointer" onclick="showOrbitDetail(2)">
-                <circle r="26" fill="rgba(0,212,180,0.07)" filter="url(#softGlow)"/>
-                <circle r="19" fill="#001A18" stroke="#00D4B4" stroke-width="1.5" opacity="0.85"/>
-                <circle r="13" fill="#003D38" opacity="0.9" filter="url(#planetGlow)"/>
+                <circle r="26" fill="rgba(0,212,180,0.07)" filter="url(#softGlow)"></circle>
+                <circle r="19" fill="#001A18" stroke="#00D4B4" stroke-width="1.5" opacity="0.85"></circle>
+                <circle r="13" fill="#003D38" opacity="0.9" filter="url(#planetGlow)"></circle>
                 <text y="4" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="10" fill="#00D4B4">2</text>
               </g>
 
               <!-- Orbit 3 planet — bottom right orbit 3 -->
               <g class="orbit-planet planet-3" data-orbit="3" transform="translate(537, 487)" style="cursor:pointer" onclick="showOrbitDetail(3)">
-                <circle r="30" fill="rgba(255,45,138,0.07)" filter="url(#softGlow)"/>
-                <circle r="22" fill="#1A0010" stroke="#FF2D8A" stroke-width="1.5" opacity="0.85"/>
-                <circle r="15" fill="#500030" opacity="0.9" filter="url(#planetGlow)"/>
+                <circle r="30" fill="rgba(255,45,138,0.07)" filter="url(#softGlow)"></circle>
+                <circle r="22" fill="#1A0010" stroke="#FF2D8A" stroke-width="1.5" opacity="0.85"></circle>
+                <circle r="15" fill="#500030" opacity="0.9" filter="url(#planetGlow)"></circle>
                 <text y="4" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="11" fill="#FF6BAF">3</text>
               </g>
 
               <!-- Orbit 4 planet — bottom right outer -->
               <g class="orbit-planet planet-4" data-orbit="4" transform="translate(595, 440)" style="cursor:pointer" onclick="showOrbitDetail(4)">
-                <circle r="34" fill="rgba(59,130,246,0.08)" filter="url(#softGlow)"/>
-                <circle r="25" fill="#050A1A" stroke="#3B82F6" stroke-width="2" opacity="0.9"/>
-                <circle r="17" fill="#0A1A50" opacity="0.95" filter="url(#planetGlow)"/>
+                <circle r="34" fill="rgba(59,130,246,0.08)" filter="url(#softGlow)"></circle>
+                <circle r="25" fill="#050A1A" stroke="#3B82F6" stroke-width="2" opacity="0.9"></circle>
+                <circle r="17" fill="#0A1A50" opacity="0.95" filter="url(#planetGlow)"></circle>
                 <text y="5" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="12" fill="#93C5FD">4</text>
                 <!-- Saturn-like ring for orbit 4 -->
-                <ellipse rx="30" ry="7" fill="none" stroke="#3B82F6" stroke-width="1" opacity="0.35" transform="rotate(-20)"/>
+                <ellipse rx="30" ry="7" fill="none" stroke="#3B82F6" stroke-width="1" opacity="0.35" transform="rotate(-20)"></ellipse>
               </g>
 
               <!-- ── GRAVITATIONAL PULL LINES from planets to WB center ── -->
-              <line x1="310" y1="413" x2="350" y2="350" stroke="#8B8BAE" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.2"/>
-              <line x1="295" y1="460" x2="350" y2="350" stroke="#7B2FFF" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.25"/>
-              <line x1="350" y1="519" x2="350" y2="350" stroke="#00D4B4" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.25"/>
-              <line x1="537" y1="487" x2="350" y2="350" stroke="#FF2D8A" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.25"/>
-              <line x1="595" y1="440" x2="350" y2="350" stroke="#3B82F6" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.2"/>
+              <line x1="310" y1="413" x2="350" y2="350" stroke="#8B8BAE" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.2"></line>
+              <line x1="295" y1="460" x2="350" y2="350" stroke="#7B2FFF" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.25"></line>
+              <line x1="350" y1="519" x2="350" y2="350" stroke="#00D4B4" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.25"></line>
+              <line x1="537" y1="487" x2="350" y2="350" stroke="#FF2D8A" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.25"></line>
+              <line x1="595" y1="440" x2="350" y2="350" stroke="#3B82F6" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.2"></line>
 
               <!-- ── ORBIT HOVER GLOW RINGS (hidden by default, JS shows active) ── -->
-              <circle id="halo-0" cx="350" cy="350" r="58" stroke="#8B8BAE" stroke-width="4" fill="none" opacity="0" class="orbit-halo"/>
-              <circle id="halo-1" cx="350" cy="350" r="110" stroke="#7B2FFF" stroke-width="4" fill="none" opacity="0" class="orbit-halo"/>
-              <circle id="halo-2" cx="350" cy="350" r="170" stroke="#00D4B4" stroke-width="4" fill="none" opacity="0" class="orbit-halo"/>
-              <circle id="halo-3" cx="350" cy="350" r="230" stroke="#FF2D8A" stroke-width="4" fill="none" opacity="0" class="orbit-halo"/>
-              <circle id="halo-4" cx="350" cy="350" r="290" stroke="#3B82F6" stroke-width="4" fill="none" opacity="0" class="orbit-halo"/>
+              <circle id="halo-0" cx="350" cy="350" r="58" stroke="#8B8BAE" stroke-width="4" fill="none" opacity="0" class="orbit-halo"></circle>
+              <circle id="halo-1" cx="350" cy="350" r="110" stroke="#7B2FFF" stroke-width="4" fill="none" opacity="0" class="orbit-halo"></circle>
+              <circle id="halo-2" cx="350" cy="350" r="170" stroke="#00D4B4" stroke-width="4" fill="none" opacity="0" class="orbit-halo"></circle>
+              <circle id="halo-3" cx="350" cy="350" r="230" stroke="#FF2D8A" stroke-width="4" fill="none" opacity="0" class="orbit-halo"></circle>
+              <circle id="halo-4" cx="350" cy="350" r="290" stroke="#3B82F6" stroke-width="4" fill="none" opacity="0" class="orbit-halo"></circle>
 
               <!-- ── SPACECRAFT (team) traveling on orbit 2 ── -->
               <g class="spacecraft" transform="translate(180,350)">
-                <path d="M0,-5 C-2,-5 -4,-1 -4,2 L-1,3 L0,1 L1,3 L4,2 C4,-1 2,-5 0,-5z" fill="#00D4B4" opacity="0.85"/>
-                <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.5)"/>
+                <path d="M0,-5 C-2,-5 -4,-1 -4,2 L-1,3 L0,1 L1,3 L4,2 C4,-1 2,-5 0,-5z" fill="#00D4B4" opacity="0.85"></path>
+                <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.5)"></circle>
               </g>
 
             </svg>
@@ -1966,7 +1960,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             <div class="oss-item oss-3" onclick="showOrbitDetail(3)">
               <div class="oss-dot"></div>
               <div class="oss-stage">3. МАСШТАБ</div>
-              <div class="oss-desc">GMV · P&L · NPS</div>
+              <div class="oss-desc">GMV · P&amp;L · NPS</div>
             </div>
             <div class="oss-arrow">→</div>
             <div class="oss-item oss-4" onclick="showOrbitDetail(4)">
@@ -1991,7 +1985,7 @@ body.edit-mode .edit-mode-banner { display: block; }
       <div class="v2-layer" id="layer-b">
         <div class="grad-bar-v2" style="background:linear-gradient(90deg,var(--teal),var(--blue),var(--violet));"></div>
         <div class="v2-section-label">Слой Б</div>
-        <div class="v2-section-title" data-id="e049" data-editable contenteditable="false">Полёт — цикл развития внутри орбиты</div>
+        <div class="v2-section-title" data-id="e049" data-editable="">Полёт — цикл развития внутри орбиты</div>
 
         <!-- Zone 1 -->
         <div class="v2-section-label" style="margin-bottom:8px;">Как орбиты и полёт связаны</div>
@@ -2033,25 +2027,25 @@ body.edit-mode .edit-mode-banner { display: block; }
             <div class="sources-sub">Любая инициатива проходит Discovery-скрининг перед Delivery</div>
             <div class="source-row">
               <div class="source-icon" style="background:rgba(245,158,11,0.15);">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3.5" stroke="#F59E0B" stroke-width="1.5"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3.5" stroke="#F59E0B" stroke-width="1.5"></circle><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"></path></svg>
               </div>
               <div><div class="source-name">Спонсоры и бизнес-лидеры</div><div class="source-desc">CEO, Исполнительный директор — стратегические инициативы. Руководители направлений — задачи из практики.</div></div>
             </div>
             <div class="source-row">
               <div class="source-icon" style="background:rgba(123,47,255,0.15);">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="#C49CFF" stroke-width="1.5"/><circle cx="9" cy="9" r="4.5" stroke="#C49CFF" stroke-width="1.5" opacity="0.7"/><circle cx="9" cy="9" r="1.5" fill="#C49CFF"/></svg>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="#C49CFF" stroke-width="1.5"></circle><circle cx="9" cy="9" r="4.5" stroke="#C49CFF" stroke-width="1.5" opacity="0.7"></circle><circle cx="9" cy="9" r="1.5" fill="#C49CFF"></circle></svg>
               </div>
               <div><div class="source-name"><span class="term" data-tip="Цели и ключевые результаты: что достигаем и как измеряем">OKR</span> квартала</div><div class="source-desc">Инициативы, вытекающие из целей продукта и компании на текущий период.</div></div>
             </div>
             <div class="source-row">
               <div class="source-icon" style="background:rgba(0,212,180,0.12);">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="10" width="3" height="6" rx="1" fill="#00D4B4"/><rect x="7" y="6" width="3" height="10" rx="1" fill="#00D4B4" opacity="0.8"/><rect x="12" y="2" width="3" height="14" rx="1" fill="#00D4B4" opacity="0.6"/><line x1="1" y1="17" x2="17" y2="17" stroke="#00D4B4" stroke-width="1" opacity="0.4"/></svg>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="10" width="3" height="6" rx="1" fill="#00D4B4"></rect><rect x="7" y="6" width="3" height="10" rx="1" fill="#00D4B4" opacity="0.8"></rect><rect x="12" y="2" width="3" height="14" rx="1" fill="#00D4B4" opacity="0.6"></rect><line x1="1" y1="17" x2="17" y2="17" stroke="#00D4B4" stroke-width="1" opacity="0.4"></line></svg>
               </div>
               <div><div class="source-name">Данные и метрики</div><div class="source-desc">Аналитика показывает проблему — команда формирует инициативу с гипотезой.</div></div>
             </div>
             <div class="source-row">
               <div class="source-icon" style="background:rgba(59,130,246,0.12);">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" stroke="#93C5FD" stroke-width="1.5"/><path d="M9 1.5v2M9 14.5v2M1.5 9h2M14.5 9h2M3.7 3.7l1.4 1.4M12.9 12.9l1.4 1.4M14.3 3.7l-1.4 1.4M5.1 12.9l-1.4 1.4" stroke="#93C5FD" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" stroke="#93C5FD" stroke-width="1.5"></circle><path d="M9 1.5v2M9 14.5v2M1.5 9h2M14.5 9h2M3.7 3.7l1.4 1.4M12.9 12.9l1.4 1.4M14.3 3.7l-1.4 1.4M5.1 12.9l-1.4 1.4" stroke="#93C5FD" stroke-width="1.5" stroke-linecap="round"></path></svg>
               </div>
               <div><div class="source-name">Команда: техдолг и UX</div><div class="source-desc">Техдолг — планируется явно в 20% слоте спринта. UX-улучшения — по данным исследований.</div></div>
             </div>
@@ -2076,14 +2070,14 @@ body.edit-mode .edit-mode-banner { display: block; }
           </div>
           <div class="chain-grid">
             <div class="chain-node"><div class="chain-dot c1">01</div><div class="chain-node-title"><span class="term" data-tip="Цели и ключевые результаты: что достигаем и как измеряем">OKR</span></div><div class="chain-node-body">Измеримая цель продукта на полугодие, привязанная к стратегии RWB. Согласует: CEO BU, Совет.</div><span class="chain-node-owner cv">CPO</span></div>
-            <div class="chain-node" style="background:rgba(0,212,180,0.05);border:1px solid rgba(0,212,180,0.2);border-radius:12px;padding:12px;"><div class="chain-dot c2" style="background:var(--teal);color:#000;">02</div><div class="chain-node-title" style="color:var(--teal);display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-zap"/></svg> Инициатива — ядро планирования</div><div class="chain-node-body" style="margin-top:6px;">
+            <div class="chain-node" style="background:rgba(0,212,180,0.05);border:1px solid rgba(0,212,180,0.2);border-radius:12px;padding:12px;"><div class="chain-dot c2" style="background:var(--teal);color:#000;">02</div><div class="chain-node-title" style="color:var(--teal);">⚡ Инициатива — ядро планирования</div><div class="chain-node-body" style="margin-top:6px;">
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;">
                 <div style="background:rgba(123,47,255,0.1);border:1px solid rgba(123,47,255,0.25);border-radius:8px;padding:8px;">
-                  <div style="font-size:10px;font-weight:700;color:#C49CFF;margin-bottom:4px;display:flex;align-items:center;gap:3px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-package"/></svg> Продуктовая</div>
+                  <div style="font-size:10px;font-weight:700;color:#C49CFF;margin-bottom:4px;">📦 Продуктовая</div>
                   <div style="font-size:10px;color:var(--gray2);line-height:1.4;">Фича, сценарий, новая аудитория, монетизация. Владелец: PM. Валидация через CustDev → Discovery.</div>
                 </div>
                 <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:8px;padding:8px;">
-                  <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:4px;display:flex;align-items:center;gap:3px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Техническая</div>
+                  <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:4px;">⚙ Техническая</div>
                   <div style="font-size:10px;color:var(--gray2);line-height:1.4;">Архитектура, техдолг, DevEx, безопасность. Владелец: TL. 20% слот спринта — без Discovery.</div>
                 </div>
               </div>
@@ -2141,7 +2135,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <!-- KPI block -->
         <div class="kpi-block">
           <div class="kpi-title">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="6" width="3" height="7" rx="1" fill="#F59E0B"/><rect x="5.5" y="3" width="3" height="10" rx="1" fill="#F59E0B"/><rect x="10" y="0.5" width="3" height="12.5" rx="1" fill="#F59E0B"/></svg>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="6" width="3" height="7" rx="1" fill="#F59E0B"></rect><rect x="5.5" y="3" width="3" height="10" rx="1" fill="#F59E0B"></rect><rect x="10" y="0.5" width="3" height="12.5" rx="1" fill="#F59E0B"></rect></svg>
             Навигационная панель — метрики орбиты
           </div>
           <div class="kpi-body">KPI появляются с первой <span class="term" data-tip="Gate: Go — летим дальше, No-Go — останавливаемся или меняем курс">Точки манёвра</span> (Gate 1). До этого — только метрики MVP.</div>
@@ -2158,9 +2152,9 @@ body.edit-mode .edit-mode-banner { display: block; }
     <!-- ═══════════════ SECTION 3: PROCESS ═══════════════ -->
     <section class="section" id="process" data-label="Как мы работаем">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e050" data-editable contenteditable="false">Как мы работаем</div>
-        <div class="section-title" data-id="e051" data-editable contenteditable="false">Handbook по орбитам — самодостаточный гид для PM и TL</div>
-        <div class="section-desc" data-id="e052" data-editable contenteditable="false">Самодостаточный документ для продакта и техлида на каждой стадии зрелости. Открой нужную орбиту — получи полный контекст: фокус, цикл, правила, стек, сквозные функции, интеграции.</div>
+        <div class="section-eyebrow" data-id="e050" data-editable="">Как мы работаем</div>
+        <div class="section-title" data-id="e051" data-editable="" data-listener-added_f2c3d0b6="true">Handbook руководителя —&nbsp; гайд для PM и TL</div>
+        <div class="section-desc" data-id="e052" data-editable="">Самодостаточный документ для продакта и техлида на каждой стадии зрелости. Открой нужную орбиту — получи полный контекст: фокус, цикл, правила, стек, сквозные функции, интеграции.</div>
       </div>
       <div class="grad-line"></div>
 
@@ -2169,7 +2163,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="orbit-stage-header">
           <div class="orbit-num-badge o0">0</div>
           <div>
-            <div class="orbit-stage-title o0" data-id="e053" data-editable contenteditable="false">Орбита 0 — Видение / Идея</div>
+            <div class="orbit-stage-title o0" data-id="e053" data-editable="">Орбита 0 — Видение / Идея</div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px">Неоформленная инициатива · PMO оценивает стратегическое соответствие</div>
           </div>
           <div class="orbit-stage-sep"></div>
@@ -2179,37 +2173,37 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div class="card card-gray">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Фокус команды</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--gray)">·</span><span data-id="e054" data-editable contenteditable="false">Заказчик подаёт бриф: проблема, цель, аудитория, эффект</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--gray)">·</span><span data-id="e055" data-editable contenteditable="false">PMO: скрининг, стратегическое соответствие OKR, проверка дублей</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--gray)">·</span><span data-id="e056" data-editable contenteditable="false">Поиск и утверждение команды: PM, TL, дизайнер, DA</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--gray)">·</span><span data-id="e057" data-editable contenteditable="false">Калибровка с CEO / Проектный комитет / Продуктовый синк</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--gray)">·</span><span data-id="e054" data-editable="">Заказчик подаёт бриф: проблема, цель, аудитория, эффект</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--gray)">·</span><span data-id="e055" data-editable="" data-listener-added_f2c3d0b6="true">PMO: скрининг, стратегическое соответствие OKR, проверка дублей</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--gray)">·</span><span data-id="e056" data-editable="">Поиск и утверждение команды: PM, TL, дизайнер, DA</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--gray)">·</span><span data-id="e057" data-editable="" data-listener-added_f2c3d0b6="true">Калибровка с CEO / Проектный комитет / Продуктовый синк</span></li>
             </ul>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Цикл</div>
             <ol style="padding-left:16px;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text)" data-id="e058" data-editable contenteditable="false">Заказчик заполняет <strong>бриф инициативы</strong> (шаблон PMO)</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e059" data-editable contenteditable="false">PMO проверяет полноту, стратегическое соответствие, дубли</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e060" data-editable contenteditable="false">Скоринг по матрице ценности + T-shirt оценка</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e061" data-editable contenteditable="false"><strong>Поиск команды</strong>: подбор PM, TL, дизайнера, DA</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e062" data-editable contenteditable="false"><strong>Калибровка с CEO</strong> на Продуктовом синке / Проектном комитете</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e063" data-editable contenteditable="false">Gate 0: решение за 5 дней → Орбита 1</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e058" data-editable="">Заказчик заполняет <strong>бриф инициативы</strong> (шаблон PMO)</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e059" data-editable="">PMO проверяет полноту, стратегическое соответствие, дубли</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e060" data-editable="">Скоринг по матрице ценности + T-shirt оценка</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e061" data-editable=""><strong>Поиск команды</strong>: подбор PM, TL, дизайнера, DA</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e062" data-editable=""><strong>Калибровка с CEO</strong> на Продуктовом синке / Проектном комитете</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e063" data-editable="">Gate 0: решение за 5 дней → Орбита 1</li>
             </ol>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Правила</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e064" data-editable contenteditable="false">Проблема — до решения. Не принимать бриф с готовым ответом</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e065" data-editable contenteditable="false">Инициатива без привязки к OKR — в бэклог</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e066" data-editable contenteditable="false">Ответ PMO — не дольше 5 рабочих дней</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e067" data-editable contenteditable="false">Финансовая модель не нужна — только качественная оценка</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e064" data-editable="">Проблема — до решения. Не принимать бриф с готовым ответом</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e065" data-editable="">Инициатива без привязки к OKR — в бэклог</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e066" data-editable="">Ответ PMO — не дольше 5 рабочих дней</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e067" data-editable="">Финансовая модель не нужна — только качественная оценка</span></li>
             </ul>
           </div>
 
         <!-- Orbit 0 Tools + Mandatory + Custom -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;">
           <div style="background:rgba(139,139,174,0.07);border:1px solid rgba(139,139,174,0.2);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-wrench"/></svg> Стек инструментов</div>
+            <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">🛠 Стек инструментов</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--gray)">→</span>Форма брифа (PPM / шаблон)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--gray)">→</span>Реестр инициатив PMO</li>
@@ -2228,7 +2222,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </ul>
           </div>
           <div style="background:rgba(0,212,180,0.05);border:1px dashed rgba(0,212,180,0.3);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Кастомизация продукта</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">⚙ Кастомизация продукта</div>
             <div style="font-size:11px;color:var(--gray2);line-height:1.6;margin-bottom:8px;">Команда может добавить вне регламента:</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Дополнительный скрининг партнёров</li>
@@ -2248,11 +2242,11 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
             <div>
               <div style="font-size:10px;font-weight:700;color:#C49CFF;margin-bottom:6px;">PM — что делать прямо сейчас</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e068" data-editable contenteditable="false">1. Помоги заказчику заполнить бриф — не делай за него<br>2. Скоринг: Impact × Confidence ÷ Effort<br>3. Проверь по реестру — нет ли дубля<br>4. Назначь первую встречу с TL для T-shirt оценки<br>5. Зафикисруй в PMO-реестре со статусом «На скрининге»</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e068" data-editable="">1. Помоги заказчику заполнить бриф — не делай за него<br>2. Скоринг: Impact × Confidence ÷ Effort<br>3. Проверь по реестру — нет ли дубля<br>4. Назначь первую встречу с TL для T-shirt оценки<br>5. Зафикисруй в PMO-реестре со статусом «На скрининге»</div>
             </div>
             <div>
               <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — что делать прямо сейчас</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e069" data-editable contenteditable="false">1. Проведи экспресс T-shirt оценку (S/M/L/XL) по описанию<br>2. Укажи технические риски и зависимости уже сейчас<br>3. Проверь пересечения с текущим roadmap<br>4. Определи, нужна ли интеграция с экосистемой (WB ID и др.)<br>5. Подтверди доступность команды на горизонте старта</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e069" data-editable="">1. Проведи экспресс T-shirt оценку (S/M/L/XL) по описанию<br>2. Укажи технические риски и зависимости уже сейчас<br>3. Проверь пересечения с текущим roadmap<br>4. Определи, нужна ли интеграция с экосистемой (WB ID и др.)<br>5. Подтверди доступность команды на горизонте старта</div>
             </div>
           </div>
           <div style="border-top:1px solid var(--border);padding-top:12px;">
@@ -2272,7 +2266,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="orbit-stage-header">
           <div class="orbit-num-badge o1">1</div>
           <div>
-            <div class="orbit-stage-title o1" data-id="e070" data-editable contenteditable="false">Орбита 1 — Старт / Релиз минимального продукта</div>
+            <div class="orbit-stage-title o1" data-id="e070" data-editable="">Орбита 1 — Старт / Релиз минимального продукта</div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px">Один виток Discovery→Delivery · MVP в проде · без широкой аудитории</div>
           </div>
           <div class="orbit-stage-sep"></div>
@@ -2282,29 +2276,29 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div class="card card-violet">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Фокус команды</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--violet)">·</span><span data-id="e071" data-editable contenteditable="false">CustDev: валидируем Problem-Solution Fit</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--violet)">·</span><span data-id="e072" data-editable contenteditable="false">Tech spikes: оцениваем архитектурные риски</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--violet)">·</span><span data-id="e073" data-editable contenteditable="false">Строим минимальный scope: только то, что нужно для проверки</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--violet)">·</span><span data-id="e074" data-editable contenteditable="false">Первый деплой в прод с мониторингом и rollback</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--violet)">·</span><span data-id="e071" data-editable="">CustDev: валидируем Problem-Solution Fit</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--violet)">·</span><span data-id="e072" data-editable="">Tech spikes: оцениваем архитектурные риски</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--violet)">·</span><span data-id="e073" data-editable="">Строим минимальный scope: только то, что нужно для проверки</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--violet)">·</span><span data-id="e074" data-editable="">Первый деплой в прод с мониторингом и rollback</span></li>
             </ul>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Цикл (один виток)</div>
             <ol style="padding-left:16px;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text)" data-id="e075" data-editable contenteditable="false">CustDev + анализ рынка (2–3 нед)</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e076" data-editable contenteditable="false">Техническое исследование, ADR, архитектурный набросок</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e077" data-editable contenteditable="false">Концепция + бизнес-кейс → Gate 1 (Комитет)</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e078" data-editable contenteditable="false">Delivery: спринты с чёткими DoD, feature flags</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e079" data-editable contenteditable="false">MVP в прод → Gate 2 (Tech Lead + PM)</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e075" data-editable="">CustDev + анализ рынка (2–3 нед)</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e076" data-editable="">Техническое исследование, ADR, архитектурный набросок</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e077" data-editable="">Концепция + бизнес-кейс → Gate 1 (Комитет)</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e078" data-editable="">Delivery: спринты с чёткими DoD, feature flags</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e079" data-editable="">MVP в прод → Gate 2 (Tech Lead + PM)</li>
             </ol>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Правила</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e080" data-editable contenteditable="false">Не обещать сроки и scope до конца Discovery</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e081" data-editable contenteditable="false">Прототип ≠ продакшн-решение, не тащим в прод</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e082" data-editable contenteditable="false">Все ключевые риски задокументированы в ADR</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e083" data-editable contenteditable="false">MVP — не «плохо», MVP — «достаточно для проверки»</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e080" data-editable="">Не обещать сроки и scope до конца Discovery</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e081" data-editable="">Прототип ≠ продакшн-решение, не тащим в прод</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e082" data-editable="">Все ключевые риски задокументированы в ADR</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e083" data-editable="">MVP — не «плохо», MVP — «достаточно для проверки»</span></li>
             </ul>
           </div>
         </div>
@@ -2312,7 +2306,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <!-- Orbit 1 Tools + Mandatory + Custom -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;">
           <div style="background:rgba(123,47,255,0.07);border:1px solid rgba(123,47,255,0.2);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-wrench"/></svg> Стек инструментов</div>
+            <div style="font-size:10px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">🛠 Стек инструментов</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--violet)">→</span>Трекер (YouTrack / RWB Tracker)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--violet)">→</span>Figma (прототипы, wireframes)</li>
@@ -2333,7 +2327,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </ul>
           </div>
           <div style="background:rgba(0,212,180,0.05);border:1px dashed rgba(0,212,180,0.3);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Кастомизация продукта</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">⚙ Кастомизация продукта</div>
             <div style="font-size:11px;color:var(--gray2);line-height:1.6;margin-bottom:8px;">Может добавить вне регламента:</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Shadow-launch с пилотными юзерами</li>
@@ -2352,21 +2346,21 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
             <div>
               <div style="font-size:10px;font-weight:700;color:#C49CFF;margin-bottom:6px;">PM — Discovery (нед. 1–4)</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e084" data-editable contenteditable="false">1. CustDev-скрипт: 5–7 интервью, HMW-синтез с DA<br>2. Определи North Star Metric и Activation-метрику<br>3. Прототип в Figma → usability тест (5 чел.)<br>4. Напиши PRD: scope, acceptance criteria, OKD<br>5. Защита на Gate 1 → Delivery</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e084" data-editable="">1. CustDev-скрипт: 5–7 интервью, HMW-синтез с DA<br>2. Определи North Star Metric и Activation-метрику<br>3. Прототип в Figma → usability тест (5 чел.)<br>4. Напиши PRD: scope, acceptance criteria, OKD<br>5. Защита на Gate 1 → Delivery</div>
             </div>
             <div>
               <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — Discovery (нед. 1–4)</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e085" data-editable contenteditable="false">1. Tech spike: прощупай архитектурные риски (2–3 дня)<br>2. Напиши ADR: выбранный подход и отклонённые альтернативы<br>3. Оцени интеграции экосистемы: WB ID, SDK Video, Корзина<br>4. Настрой CI/CD skeleton и feature flags с первого дня<br>5. Определи SLO для MVP: uptime, latency, error rate</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e085" data-editable="">1. Tech spike: прощупай архитектурные риски (2–3 дня)<br>2. Напиши ADR: выбранный подход и отклонённые альтернативы<br>3. Оцени интеграции экосистемы: WB ID, SDK Video, Корзина<br>4. Настрой CI/CD skeleton и feature flags с первого дня<br>5. Определи SLO для MVP: uptime, latency, error rate</div>
             </div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
             <div>
               <div style="font-size:10px;font-weight:700;color:#C49CFF;margin-bottom:6px;">PM — Delivery (нед. 5–12)</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e086" data-editable contenteditable="false">1. Веди Backlog: User Stories с чёткими DoD<br>2. Спринт-ревью с заказчиком каждые 2 нед.<br>3. Мониторь Activation Rate с первого дня в проде<br>4. Не расширяй scope без Gate<br>5. Готовь данные для Gate 2</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e086" data-editable="">1. Веди Backlog: User Stories с чёткими DoD<br>2. Спринт-ревью с заказчиком каждые 2 нед.<br>3. Мониторь Activation Rate с первого дня в проде<br>4. Не расширяй scope без Gate<br>5. Готовь данные для Gate 2</div>
             </div>
             <div>
               <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — Delivery (нед. 5–12)</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e087" data-editable contenteditable="false">1. Code review 100% PR перед мержем в main<br>2. Runbook: деплой, откат, алерты — до выхода в прод<br>3. Security review с ИБ до Gate 2<br>4. DORA-метрики с первого спринта: deploy freq, MTTR<br>5. Постинцидентный анализ любого P0</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e087" data-editable="">1. Code review 100% PR перед мержем в main<br>2. Runbook: деплой, откат, алерты — до выхода в прод<br>3. Security review с ИБ до Gate 2<br>4. DORA-метрики с первого спринта: deploy freq, MTTR<br>5. Постинцидентный анализ любого P0</div>
             </div>
           </div>
           <div style="border-top:1px solid var(--border);padding-top:12px;">
@@ -2385,7 +2379,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="orbit-stage-header">
           <div class="orbit-num-badge o2">2</div>
           <div>
-            <div class="orbit-stage-title o2" data-id="e088" data-editable contenteditable="false">Орбита 2 — Развитие / Рост метрик</div>
+            <div class="orbit-stage-title o2" data-id="e088" data-editable="">Орбита 2 — Развитие / Рост метрик</div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px">Живая орбита · витки D→D повторяются · аудитория есть · данные управляют решениями</div>
           </div>
           <div class="orbit-stage-sep"></div>
@@ -2395,30 +2389,30 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div class="card card-teal">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Фокус команды</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e089" data-editable contenteditable="false">Повторные витки Discovery→Delivery (3–7 параллельно)</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e090" data-editable contenteditable="false">Рост Retention D7/D30, Activation Rate, Revenue</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e091" data-editable contenteditable="false">A/B-эксперименты как основной метод развития</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e092" data-editable contenteditable="false">Интеграция с Маркетплейсом для буста роста</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e093" data-editable contenteditable="false"><strong>Интеграция с продуктами экосистемы</strong> для усиления метрик</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e089" data-editable="">Повторные витки Discovery→Delivery (3–7 параллельно)</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e090" data-editable="">Рост Retention D7/D30, Activation Rate, Revenue</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e091" data-editable="">A/B-эксперименты как основной метод развития</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e092" data-editable="">Интеграция с Маркетплейсом для буста роста</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e093" data-editable=""><strong>Интеграция с продуктами экосистемы</strong> для усиления метрик</span></li>
             </ul>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Цикл витка (Growth)</div>
             <ol style="padding-left:16px;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text)" data-id="e094" data-editable contenteditable="false">Анализ метрик: Retention, Revenue, NPS, Activation</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e095" data-editable contenteditable="false">Формирование инициативы с гипотезой роста</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e096" data-editable contenteditable="false">Discovery-скрининг (даже если задачу ставит CEO)</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e097" data-editable contenteditable="false">Delivery → A/B → Результат → следующий виток</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e098" data-editable contenteditable="false">Квартальный Gate Review → Gate 3 (CPO + CFO)</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e094" data-editable="">Анализ метрик: Retention, Revenue, NPS, Activation</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e095" data-editable="">Формирование инициативы с гипотезой роста</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e096" data-editable="">Discovery-скрининг (даже если задачу ставит CEO)</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e097" data-editable="">Delivery → A/B → Результат → следующий виток</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e098" data-editable="">Квартальный Gate Review → Gate 3 (CPO + CFO)</li>
             </ol>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Правила</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e099" data-editable contenteditable="false">Крупные изменения — только через эксперименты и Gate</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e100" data-editable contenteditable="false">Pivot-решение требует данных за 3+ месяца</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e101" data-editable contenteditable="false">Техдолг 20% слот в каждом спринте — не копим</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e102" data-editable contenteditable="false">SLA и SLO понятны и соблюдаются командой</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e099" data-editable="">Крупные изменения — только через эксперименты и Gate</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e100" data-editable="">Pivot-решение требует данных за 3+ месяца</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e101" data-editable="">Техдолг 20% слот в каждом спринте — не копим</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e102" data-editable="">SLA и SLO понятны и соблюдаются командой</span></li>
             </ul>
           </div>
         </div>
@@ -2455,7 +2449,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;">
           <div style="background:rgba(0,212,180,0.07);border:1px solid rgba(0,212,180,0.2);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-wrench"/></svg> Стек инструментов</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">🛠 Стек инструментов</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">→</span>BI (дашборды Retention, Revenue)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">→</span>A/B-платформа (эксперименты)</li>
@@ -2475,7 +2469,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </ul>
           </div>
           <div style="background:rgba(0,212,180,0.05);border:1px dashed rgba(0,212,180,0.3);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Кастомизация продукта</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">⚙ Кастомизация продукта</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Свои метрики Health (NSM)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Growth-эксперименты вне OKR</li>
@@ -2494,11 +2488,11 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
             <div>
               <div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:6px;">PM — каждый виток роста</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e103" data-editable contenteditable="false">1. Дашборд Retention D7/D30, Activation, Revenue — твой ежедневник<br>2. Формулируй гипотезу: «Если Х → то Y, потому что Z»<br>3. Проводи Discovery-скрининг для каждой гипотезы<br>4. A/B-эксперимент: min sample size, доверительный интервал<br>5. Quarterly Gate Review: данные → решение Комитета</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e103" data-editable="">1. Дашборд Retention D7/D30, Activation, Revenue — твой ежедневник<br>2. Формулируй гипотезу: «Если Х → то Y, потому что Z»<br>3. Проводи Discovery-скрининг для каждой гипотезы<br>4. A/B-эксперимент: min sample size, доверительный интервал<br>5. Quarterly Gate Review: данные → решение Комитета</div>
             </div>
             <div>
               <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — стабильный Growth</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e104" data-editable contenteditable="false">1. DORA метрики: Deploy Freq ≥ 2/нед, MTTR ≤ 2ч<br>2. Техдолг ≤ 20% слота спринта — фиксируй в трекере<br>3. SLO ревью ежемесячно: uptime, p99-latency<br>4. Feature Flags: постепенный роллаут 5% → 25% → 100%<br>5. Готовь архитектуру к 10× росту нагрузки</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e104" data-editable="">1. DORA метрики: Deploy Freq ≥ 2/нед, MTTR ≤ 2ч<br>2. Техдолг ≤ 20% слота спринта — фиксируй в трекере<br>3. SLO ревью ежемесячно: uptime, p99-latency<br>4. Feature Flags: постепенный роллаут 5% → 25% → 100%<br>5. Готовь архитектуру к 10× росту нагрузки</div>
             </div>
           </div>
           <!-- Cross-functions Orbit 2 -->
@@ -2519,7 +2513,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="orbit-stage-header">
           <div class="orbit-num-badge o3">3</div>
           <div>
-            <div class="orbit-stage-title o3" data-id="e105" data-editable contenteditable="false">Орбита 3 — Зрелость / Рост GMV</div>
+            <div class="orbit-stage-title o3" data-id="e105" data-editable="">Орбита 3 — Зрелость / Рост GMV</div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px">Свой P&amp;L · зависимые продукты экосистемы · буст GMV через Маркетплейс</div>
           </div>
           <div class="orbit-stage-sep"></div>
@@ -2529,28 +2523,28 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div class="card card-pink">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Фокус команды</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--pink)">·</span><span data-id="e106" data-editable contenteditable="false">Масштабирование доказавших эффект решений</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--pink)">·</span><span data-id="e107" data-editable contenteditable="false">Стабильность и производительность при нагрузке</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--pink)">·</span><span data-id="e108" data-editable contenteditable="false">Управление P&amp;L: выручка, margin, EBITDA</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--pink)">·</span><span data-id="e109" data-editable contenteditable="false">Интеграция с Маркетплейсом для роста GMV</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--pink)">·</span><span data-id="e106" data-editable="">Масштабирование доказавших эффект решений</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--pink)">·</span><span data-id="e107" data-editable="">Стабильность и производительность при нагрузке</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--pink)">·</span><span data-id="e108" data-editable="">Управление P&amp;L: выручка, margin, EBITDA</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--pink)">·</span><span data-id="e109" data-editable="">Интеграция с Маркетплейсом для роста GMV</span></li>
             </ul>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Цикл (зрелый продукт)</div>
             <ol style="padding-left:16px;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text)" data-id="e110" data-editable contenteditable="false">Стратегическое планирование H1/H2 с CPO и CFO</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e111" data-editable contenteditable="false">OKR → Инициативы → Эпики → Спринты</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e112" data-editable contenteditable="false">Scaled Delivery: несколько потоков параллельно</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e113" data-editable contenteditable="false">Квартальный P&amp;L ревью + Gate 4 (CEO BU + CPO)</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e110" data-editable="">Стратегическое планирование H1/H2 с CPO и CFO</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e111" data-editable="">OKR → Инициативы → Эпики → Спринты</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e112" data-editable="">Scaled Delivery: несколько потоков параллельно</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e113" data-editable="">Квартальный P&amp;L ревью + Gate 4 (CEO BU + CPO)</li>
             </ol>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Правила</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e114" data-editable contenteditable="false">P&amp;L положительный 2 квартала — условие для Gate 4</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e115" data-editable contenteditable="false">≥2 продукта экосистемы зависят от ядра</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e116" data-editable contenteditable="false">NSM падает 3 квартала → план разворота или сход</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e117" data-editable contenteditable="false">Архитектура рассчитана на 10× нагрузку</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e114" data-editable="">P&amp;L положительный 2 квартала — условие для Gate 4</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e115" data-editable="">≥2 продукта экосистемы зависят от ядра</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e116" data-editable="">NSM падает 3 квартала → план разворота или сход</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e117" data-editable="">Архитектура рассчитана на 10× нагрузку</span></li>
             </ul>
           </div>
         </div>
@@ -2558,7 +2552,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <!-- Orbit 3 Tools + Mandatory + Custom -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;">
           <div style="background:rgba(255,45,138,0.07);border:1px solid rgba(255,45,138,0.2);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-wrench"/></svg> Стек инструментов</div>
+            <div style="font-size:10px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">🛠 Стек инструментов</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--pink)">→</span>BI (P&amp;L, GMV-дашборды)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--pink)">→</span>Стратегическое планирование (H1/H2)</li>
@@ -2577,7 +2571,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </ul>
           </div>
           <div style="background:rgba(0,212,180,0.05);border:1px dashed rgba(0,212,180,0.3);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Кастомизация продукта</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">⚙ Кастомизация продукта</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Отдельная P&amp;L-модель под BU</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Выделенный SRE / Platform Team</li>
@@ -2596,11 +2590,11 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
             <div>
               <div style="font-size:10px;font-weight:700;color:var(--pink);margin-bottom:6px;">PM — стратегическое управление</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e118" data-editable contenteditable="false">1. Стратегическое планирование H1/H2 с CPO и CEO BU<br>2. P&amp;L ревью ежеквартально: EBITDA → положительный<br>3. NPS: ежемесячные замеры → action plan при NPS &lt; 40<br>4. NSM рост 2 квартала подряд — условие для Gate 4<br>5. Roadmap интеграции с Маркетплейсом: GMV-план</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e118" data-editable="">1. Стратегическое планирование H1/H2 с CPO и CEO BU<br>2. P&amp;L ревью ежеквартально: EBITDA → положительный<br>3. NPS: ежемесячные замеры → action plan при NPS &lt; 40<br>4. NSM рост 2 квартала подряд — условие для Gate 4<br>5. Roadmap интеграции с Маркетплейсом: GMV-план</div>
             </div>
             <div>
               <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — масштабируемая архитектура</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e119" data-editable contenteditable="false">1. Архитектурный ревью на 10× нагрузку — готово ли?<br>2. SRE практики: SLA для партнёров, постинцидентный анализ<br>3. Platform-подход: выделяй переиспользуемые компоненты<br>4. Tech Strategy 1–2 года: согласована с CPO<br>5. Devex: время от коммита до прода ≤ 30 мин</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e119" data-editable="">1. Архитектурный ревью на 10× нагрузку — готово ли?<br>2. SRE практики: SLA для партнёров, постинцидентный анализ<br>3. Platform-подход: выделяй переиспользуемые компоненты<br>4. Tech Strategy 1–2 года: согласована с CPO<br>5. Devex: время от коммита до прода ≤ 30 мин</div>
             </div>
           </div>
           <!-- Cross-functions Orbit 3 -->
@@ -2620,7 +2614,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="orbit-stage-header">
           <div class="orbit-num-badge o4">4</div>
           <div>
-            <div class="orbit-stage-title o4" data-id="e120" data-editable contenteditable="false">Орбита 4 — Экосистемный / Продукт самодостаточен</div>
+            <div class="orbit-stage-title o4" data-id="e120" data-editable="">Орбита 4 — Экосистемный / Продукт самодостаточен</div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px">Три пути: Платформа (API) · P&amp;L-центр · Интеграция в Маркетплейс · Манёвр к Звезде</div>
           </div>
           <div class="orbit-stage-sep"></div>
@@ -2630,28 +2624,28 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div class="card card-blue">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Фокус команды</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:#93C5FD">·</span><span data-id="e121" data-editable contenteditable="false">API-платформа: другие продукты используют наше ядро</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:#93C5FD">·</span><span data-id="e122" data-editable contenteditable="false">Операционная независимость и SLA для партнёров</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:#93C5FD">·</span><span data-id="e123" data-editable contenteditable="false">Интеграция с сервисами CORE бизнеса экосистемы</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:#93C5FD">·</span><span data-id="e124" data-editable contenteditable="false">Подготовка к манёвру: выбор формы (Платформа / P&amp;L / Интеграция)</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:#93C5FD">·</span><span data-id="e121" data-editable="">API-платформа: другие продукты используют наше ядро</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:#93C5FD">·</span><span data-id="e122" data-editable="">Операционная независимость и SLA для партнёров</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:#93C5FD">·</span><span data-id="e123" data-editable="">Интеграция с сервисами CORE бизнеса экосистемы</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:#93C5FD">·</span><span data-id="e124" data-editable="">Подготовка к манёвру: выбор формы (Платформа / P&amp;L / Интеграция)</span></li>
             </ul>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Цикл (платформа)</div>
             <ol style="padding-left:16px;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text)" data-id="e125" data-editable contenteditable="false">Архитектурный ревью платформенного решения</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e126" data-editable contenteditable="false">API Design + Developer Experience для партнёров</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e127" data-editable contenteditable="false">Platform Delivery: стабильность, версионирование, SLA</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e128" data-editable contenteditable="false">Совет: решение о форме → Манёвр к Звезде (Маркетплейс)</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e125" data-editable="">Архитектурный ревью платформенного решения</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e126" data-editable="">API Design + Developer Experience для партнёров</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e127" data-editable="">Platform Delivery: стабильность, версионирование, SLA</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e128" data-editable="">Совет: решение о форме → Манёвр к Звезде (Маркетплейс)</li>
             </ol>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Правила</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e129" data-editable contenteditable="false">Форма продукта (А/Б/В) утверждается Советом</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e130" data-editable contenteditable="false">Platform breaking changes — только через мажорную версию</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e131" data-editable contenteditable="false">EBITDA отрицателен 2 квартала + нет стратегии → сход</span></li>
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e132" data-editable contenteditable="false">GMV-плато → инициировать стратегический ревью досрочно</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e129" data-editable="">Форма продукта (А/Б/В) утверждается Советом</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e130" data-editable="">Platform breaking changes — только через мажорную версию</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e131" data-editable="">EBITDA отрицателен 2 квартала + нет стратегии → сход</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e132" data-editable="">GMV-плато → инициировать стратегический ревью досрочно</span></li>
             </ul>
           </div>
         </div>
@@ -2659,7 +2653,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <!-- Orbit 4 Tools + Mandatory + Custom -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;">
           <div style="background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:#93C5FD;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-wrench"/></svg> Стек инструментов</div>
+            <div style="font-size:10px;font-weight:700;color:#93C5FD;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">🛠 Стек инструментов</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:#93C5FD">→</span>API Gateway + Developer Portal</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:#93C5FD">→</span>Platform Engineering Stack</li>
@@ -2677,7 +2671,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </ul>
           </div>
           <div style="background:rgba(0,212,180,0.05);border:1px dashed rgba(0,212,180,0.3);border-radius:12px;padding:16px;">
-            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-settings"/></svg> Кастомизация продукта</div>
+            <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">⚙ Кастомизация продукта</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Отдельный Developer Ecosystem</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--teal)">+</span>Spin-off / выделение в BU</li>
@@ -2695,11 +2689,11 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
             <div>
               <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">PM — платформенное управление</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e133" data-editable contenteditable="false">1. Определи форму: Платформа / Независимый P&amp;L / Интеграция в WB<br>2. Developer Experience: публичная документация API, changelog<br>3. SLA для внешних партнёров: прописан, юридически закреплён<br>4. Corp. ProductHunt: карточка продукта в каталоге экосистемы<br>5. Tech Strategy 1–3 года: согласована с Советом</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e133" data-editable="">1. Определи форму: Платформа / Независимый P&amp;L / Интеграция в WB<br>2. Developer Experience: публичная документация API, changelog<br>3. SLA для внешних партнёров: прописан, юридически закреплён<br>4. Corp. ProductHunt: карточка продукта в каталоге экосистемы<br>5. Tech Strategy 1–3 года: согласована с Советом</div>
             </div>
             <div>
               <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — экосистемная платформа</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e134" data-editable contenteditable="false">1. API Gateway: SemVer, rate limits, versioning policy<br>2. Multi-tenancy или federation: выбрана архитектурная стратегия<br>3. Платформа как продукт: внутренние потребители = внешние<br>4. Disaster Recovery: RPO ≤ 1ч, RTO ≤ 4ч (платформенный SLA)<br>5. FinOps: стоимость на транзакцию / на юзера — под контролем</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e134" data-editable="">1. API Gateway: SemVer, rate limits, versioning policy<br>2. Multi-tenancy или federation: выбрана архитектурная стратегия<br>3. Платформа как продукт: внутренние потребители = внешние<br>4. Disaster Recovery: RPO ≤ 1ч, RTO ≤ 4ч (платформенный SLA)<br>5. FinOps: стоимость на транзакцию / на юзера — под контролем</div>
             </div>
           </div>
           <!-- Cross-functions Orbit 4 -->
@@ -2718,9 +2712,9 @@ body.edit-mode .edit-mode-banner { display: block; }
       <!-- Corp processes -->
       <div class="section-header">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e135" data-editable contenteditable="false">Корпоративные процессы — обязательные шаги по орбитам</div>
-        <div class="section-title" data-id="e136" data-editable contenteditable="false">Взаимодействие с функциями</div>
-        <div class="section-desc" data-id="e137" data-editable contenteditable="false">Обязательные шаги при взаимодействии с поддерживающими функциями. Без согласования — нет деплоя.</div>
+        <div class="section-eyebrow" data-id="e135" data-editable="">Корпоративные процессы — обязательные шаги по орбитам</div>
+        <div class="section-title" data-id="e136" data-editable="">Взаимодействие с функциями</div>
+        <div class="section-desc" data-id="e137" data-editable="">Обязательные шаги при взаимодействии с поддерживающими функциями. Без согласования — нет деплоя.</div>
       </div>
 
       <div class="corp-grid">
@@ -2731,72 +2725,72 @@ body.edit-mode .edit-mode-banner { display: block; }
             <span style="font-size:9px;background:rgba(123,47,255,0.15);border:1px solid rgba(123,47,255,0.3);border-radius:4px;padding:2px 6px;color:#C49CFF;">Орб. 1</span>
             <span style="font-size:9px;background:rgba(0,212,180,0.15);border:1px solid rgba(0,212,180,0.3);border-radius:4px;padding:2px 6px;color:var(--teal);">Орб. 2+</span>
           </div>
-          <div class="corp-title" data-id="e138" data-editable contenteditable="false">Бюджетирование</div>
+          <div class="corp-title" data-id="e138" data-editable="">Бюджетирование</div>
           <ul class="corp-list">
-            <li data-id="e139" data-editable contenteditable="false">Бюджет на Discovery — до Gate 0 <span style="color:var(--gray);font-size:10px;">[Орб. 0]</span></li>
-            <li data-id="e140" data-editable contenteditable="false">Бюджет на Delivery — после Gate 1 <span style="color:var(--violet);font-size:10px;">[Орб. 1]</span></li>
-            <li data-id="e141" data-editable contenteditable="false">Квартальное переутверждение при >20% отклонении</li>
-            <li data-id="e142" data-editable contenteditable="false">P&L модель обязательна для Gate 2 <span style="color:var(--teal);font-size:10px;">[Орб. 2]</span></li>
+            <li data-id="e139" data-editable="" data-listener-added_f2c3d0b6="true">Бюджет на Discovery — до Gate 0 <span style="color:var(--gray);font-size:10px;"><br></span></li>
+            <li data-id="e140" data-editable="" data-listener-added_f2c3d0b6="true">Бюджет на Delivery — после Gate 1 <span style="color:var(--violet);font-size:10px;"><br></span></li>
+            <li data-id="e141" data-editable="" data-listener-added_f2c3d0b6="true">Квартальное переутверждение при отклонении&nbsp;</li>
+            <li data-id="e142" data-editable="" data-listener-added_f2c3d0b6="true">P&amp;L модель обязательна для Gate 2 <span style="color:var(--teal);font-size:10px;">[Орб. 2]</span></li>
           </ul>
         </div>
         <div class="corp-card">
           <div class="corp-dept">ИТ / Архитектура</div>
-          <div class="corp-title" data-id="e143" data-editable contenteditable="false">Инфраструктура и деплой</div>
+          <div class="corp-title" data-id="e143" data-editable="">Инфраструктура и деплой</div>
           <ul class="corp-list">
-            <li data-id="e144" data-editable contenteditable="false">Архитектурный ревью до старта Delivery</li>
-            <li data-id="e145" data-editable contenteditable="false">CI/CD pipeline по корп. стандарту</li>
-            <li data-id="e146" data-editable contenteditable="false">Разрешение на деплой в прод от ИТ-директора</li>
-            <li data-id="e147" data-editable contenteditable="false">Runbook + мониторинг перед релизом</li>
+            <li data-id="e144" data-editable="">Архитектурный ревью до старта Delivery</li>
+            <li data-id="e145" data-editable="">CI/CD pipeline по корп. стандарту</li>
+            <li data-id="e146" data-editable="">Разрешение на деплой в прод от ИТ-директора</li>
+            <li data-id="e147" data-editable="">Runbook + мониторинг перед релизом</li>
           </ul>
         </div>
         <div class="corp-card">
           <div class="corp-dept">ИБ</div>
-          <div class="corp-title" data-id="e148" data-editable contenteditable="false">Информационная безопасность</div>
+          <div class="corp-title" data-id="e148" data-editable="">Информационная безопасность</div>
           <ul class="corp-list">
-            <li data-id="e149" data-editable contenteditable="false">Security review обязателен перед Gate 2</li>
-            <li data-id="e150" data-editable contenteditable="false">DAST/SAST в CI/CD pipeline</li>
-            <li data-id="e151" data-editable contenteditable="false">Согласование работы с персональными данными</li>
-            <li data-id="e152" data-editable contenteditable="false">Матрица доступов согласуется с ИБ</li>
+            <li data-id="e149" data-editable="">Security review обязателен перед Gate 2</li>
+            <li data-id="e150" data-editable="">DAST/SAST в CI/CD pipeline</li>
+            <li data-id="e151" data-editable="">Согласование работы с персональными данными</li>
+            <li data-id="e152" data-editable="">Матрица доступов согласуется с ИБ</li>
           </ul>
         </div>
         <div class="corp-card">
           <div class="corp-dept">Дизайн / UX</div>
-          <div class="corp-title" data-id="e153" data-editable contenteditable="false">Design System</div>
+          <div class="corp-title" data-id="e153" data-editable="">Design System</div>
           <ul class="corp-list">
-            <li data-id="e154" data-editable contenteditable="false">Все UI-компоненты из RWB Design System</li>
-            <li data-id="e155" data-editable contenteditable="false">UX-ревью прототипа на Discovery</li>
-            <li data-id="e156" data-editable contenteditable="false">Дизайн-ревью перед каждым релизом</li>
+            <li data-id="e154" data-editable="">Все UI-компоненты из RWB Design System</li>
+            <li data-id="e155" data-editable="">UX-ревью прототипа на Discovery</li>
+            <li data-id="e156" data-editable="">Дизайн-ревью перед каждым релизом</li>
           </ul>
         </div>
         <div class="corp-card">
           <div class="corp-dept">Юридический</div>
-          <div class="corp-title" data-id="e157" data-editable contenteditable="false">Соответствие и договоры</div>
+          <div class="corp-title" data-id="e157" data-editable="">Соответствие и договоры</div>
           <ul class="corp-list">
-            <li data-id="e158" data-editable contenteditable="false">Юр. согласование при работе с контрагентами</li>
-            <li data-id="e159" data-editable contenteditable="false">Privacy policy / ToS перед публичным запуском</li>
-            <li data-id="e160" data-editable contenteditable="false">Лицензии Open Source проверяются до Delivery</li>
+            <li data-id="e158" data-editable="">Юр. согласование при работе с контрагентами</li>
+            <li data-id="e159" data-editable="">Privacy policy / ToS перед публичным запуском</li>
+            <li data-id="e160" data-editable="">Лицензии Open Source проверяются до Delivery</li>
           </ul>
         </div>
         <div class="corp-card">
           <div class="corp-dept">PMO</div>
-          <div class="corp-title" data-id="e161" data-editable contenteditable="false">Управление портфелем</div>
+          <div class="corp-title" data-id="e161" data-editable="">Управление портфелем</div>
           <ul class="corp-list">
-            <li data-id="e162" data-editable contenteditable="false">Ведёт реестр всех инициатив и проектов</li>
-            <li data-id="e163" data-editable contenteditable="false">Сопровождает на каждом Gate</li>
-            <li data-id="e164" data-editable contenteditable="false">Дашборды статусов для топ-менеджмента</li>
-            <li data-id="e165" data-editable contenteditable="false">Эскалация рисков и блокеров</li>
+            <li data-id="e162" data-editable="">Ведёт реестр всех инициатив и проектов</li>
+            <li data-id="e163" data-editable="">Сопровождает на каждом Gate</li>
+            <li data-id="e164" data-editable="">Дашборды статусов для топ-менеджмента</li>
+            <li data-id="e165" data-editable="">Эскалация рисков и блокеров</li>
           </ul>
         </div>
       </div>
-    </section>
+    </div></div></div></div></div></div></section>
 
 
     <!-- ═══════════════ SECTION: INITIATIVE ═══════════════ -->
     <section class="section" id="initiative" data-label="Инициатива">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e166" data-editable contenteditable="false">Жизненный цикл · Инициатива</div>
-        <div class="section-title" data-id="e167" data-editable contenteditable="false">Инициатива — центральная единица планирования</div>
-        <div class="section-desc" data-id="e168" data-editable contenteditable="false">Новая проектная идея, направленная на достижение одной или нескольких ключевых метрик бизнеса. Объединяет эпики, вехи и майлстоуны. Без данных — не запускается.</div>
+        <div class="section-eyebrow" data-id="e166" data-editable="">Жизненный цикл · Инициатива</div>
+        <div class="section-title" data-id="e167" data-editable="">Инициатива — центральная единица планирования</div>
+        <div class="section-desc" data-id="e168" data-editable="">Новая проектная идея, направленная на достижение одной или нескольких ключевых метрик бизнеса. Объединяет эпики, вехи и майлстоуны. Без данных — не запускается.</div>
       </div>
       <div class="grad-line"></div>
 
@@ -2849,9 +2843,9 @@ body.edit-mode .edit-mode-banner { display: block; }
 
       <!-- Initiative dimensions -->
       <div class="section-header" style="margin-top:0;">
-        <div class="section-eyebrow" data-id="e169" data-editable contenteditable="false">Размерности инициатив</div>
-        <div class="section-title" data-id="e170" data-editable contenteditable="false">От эпика до стратегического направления</div>
-        <div class="section-desc" data-id="e171" data-editable contenteditable="false">По аналогии с эпиками — инициативы бывают разных размеров. Кто отвечает за идентификацию зависит от уровня.</div>
+        <div class="section-eyebrow" data-id="e169" data-editable="">Размерности инициатив</div>
+        <div class="section-title" data-id="e170" data-editable="" data-listener-added_f2c3d0b6="true">От эпика до стратегического направления</div>
+        <div class="section-desc" data-id="e171" data-editable="">По аналогии с эпиками — инициативы бывают разных размеров. Кто отвечает за идентификацию зависит от уровня.</div>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;">
@@ -2887,8 +2881,8 @@ body.edit-mode .edit-mode-banner { display: block; }
 
       <!-- Initiative life path -->
       <div class="section-header" style="margin-top:0;">
-        <div class="section-eyebrow" data-id="e172" data-editable contenteditable="false">Жизненный путь инициативы</div>
-        <div class="section-title" data-id="e173" data-editable contenteditable="false">От идеи до результата — с данными на каждом шаге</div>
+        <div class="section-eyebrow" data-id="e172" data-editable="">Жизненный путь инициативы</div>
+        <div class="section-title" data-id="e173" data-editable="">От идеи до результата — с данными на каждом шаге</div>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-bottom:20px;position:relative;">
@@ -2997,9 +2991,9 @@ body.edit-mode .edit-mode-banner { display: block; }
     <!-- ═══════════════ SECTION: PLANNING ═══════════════ -->
     <section class="section" id="planning" data-label="Как планируем">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e174" data-editable contenteditable="false">Жизненный цикл · Планирование</div>
-        <div class="section-title" data-id="e175" data-editable contenteditable="false">Как планируем работу</div>
-        <div class="section-desc" data-id="e176" data-editable contenteditable="false">На продуктовое и проектное планирование выносим инициативы в соответствии с видением Топ-менеджмента RWB и влиянием на метрики экосистемы.</div>
+        <div class="section-eyebrow" data-id="e174" data-editable="">Жизненный цикл · Планирование</div>
+        <div class="section-title" data-id="e175" data-editable="">Как планируем работу</div>
+        <div class="section-desc" data-id="e176" data-editable="">На продуктовое и проектное планирование выносим инициативы в соответствии с видением Топ-менеджмента RWB и влиянием на метрики экосистемы.</div>
       </div>
       <div class="grad-line"></div>
 
@@ -3045,8 +3039,8 @@ body.edit-mode .edit-mode-banner { display: block; }
 
       <!-- 3 Horizons -->
       <div class="section-header" style="margin-top:0;">
-        <div class="section-eyebrow" data-id="e177" data-editable contenteditable="false">3 горизонта</div>
-        <div class="section-title" data-id="e178" data-editable contenteditable="false">Цели каскадируют до инициатив</div>
+        <div class="section-eyebrow" data-id="e177" data-editable="">3 горизонта</div>
+        <div class="section-title" data-id="e178" data-editable="">Цели каскадируют до инициатив</div>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;">
@@ -3138,9 +3132,9 @@ body.edit-mode .edit-mode-banner { display: block; }
     <!-- ═══════════════ SECTION 4: GATES ═══════════════ -->
     <section class="section" id="gates" data-label="Gate-условия">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e179" data-editable contenteditable="false">Gate-условия</div>
-        <div class="section-title" data-id="e180" data-editable contenteditable="false">5 контрольных точек — Gate 0 → 4</div>
-        <div class="section-desc" data-id="e181" data-editable contenteditable="false">Каждый Gate — решение о переходе на следующую орбиту. Без прохождения Gate продукт не двигается вперёд. Gate 0–1 принимает PMO и Инвест. директор. Gate 2–4 — Проектный комитет, CPO/CFO и CEO BU.</div>
+        <div class="section-eyebrow" data-id="e179" data-editable="">Gate-условия</div>
+        <div class="section-title" data-id="e180" data-editable="" data-listener-added_f2c3d0b6="true">5 контрольных точек — переход по стадиям (Gate 0 → 4)</div>
+        <div class="section-desc" data-id="e181" data-editable="" data-listener-added_f2c3d0b6="true">Каждый Gate — решение о переходе на следующую стадию (орбиту). Без прохождения Gate продукт не двигается вперёд. Gate 0–1 принимает PMO и Инвест. директор. Gate 2–4 — Проектный комитет, CPO/CFO и CEO BU.</div>
       </div>
       <div class="grad-line"></div>
 
@@ -3150,33 +3144,33 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="gate-card gate-0">
           <div>
             <div class="gate-num">GATE 0 → ОРБИТА 1</div>
-            <div class="gate-name" data-id="e182" data-editable contenteditable="false">Инициатива принята</div>
-            <div class="gate-trigger" data-id="e183" data-editable contenteditable="false">Триггер: бриф подан в PMO</div>
+            <div class="gate-name" data-id="e182" data-editable="" data-listener-added_f2c3d0b6="true">Инициатива принята</div>
+            <div class="gate-trigger" data-id="e183" data-editable="">Триггер: бриф подан в PMO</div>
           </div>
           <div class="gate-divider"></div>
           <div>
             <div class="gate-section-label">Критерии входа</div>
             <ul class="gate-criteria">
-              <li data-id="e184" data-editable contenteditable="false">Проблема описана и понятна заказчику</li>
-              <li data-id="e185" data-editable contenteditable="false">Целевая аудитория определена</li>
-              <li data-id="e186" data-editable contenteditable="false">Ожидаемый эффект хотя бы качественно</li>
-              <li data-id="e187" data-editable contenteditable="false">Нет дублей в реестре инициатив</li>
-              <li data-id="e188" data-editable contenteditable="false">Соответствие OKR компании / департамента</li>
-              <li data-id="e189" data-editable contenteditable="false">Бриф заполнен полностью</li>
+              <li data-id="e184" data-editable="">Проблема описана и понятна заказчику</li>
+              <li data-id="e185" data-editable="">Целевая аудитория определена</li>
+              <li data-id="e186" data-editable="">Ожидаемый эффект хотя бы качественно</li>
+              <li data-id="e187" data-editable="">Нет дублей в реестре инициатив</li>
+              <li data-id="e188" data-editable="">Соответствие OKR компании / департамента</li>
+              <li data-id="e189" data-editable="">Бриф заполнен полностью</li>
             </ul>
           </div>
           <div class="gate-meta">
             <div class="gate-meta-row">
               <span class="gate-meta-label">Кто решает</span>
-              <span class="gate-meta-val" data-id="e190" data-editable contenteditable="false">PMO</span>
+              <span class="gate-meta-val" data-id="e190" data-editable="">PMO</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Срок решения</span>
-              <span class="gate-meta-val" data-id="e191" data-editable contenteditable="false">5 рабочих дней</span>
+              <span class="gate-meta-val" data-id="e191" data-editable="">5 рабочих дней</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Выход</span>
-              <span class="gate-meta-val" data-id="e192" data-editable contenteditable="false">Старт Орбиты 1 — Discovery</span>
+              <span class="gate-meta-val" data-id="e192" data-editable="">Старт Орбиты 1 — Discovery</span>
             </div>
           </div>
         </div>
@@ -3185,33 +3179,33 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="gate-card gate-1">
           <div>
             <div class="gate-num">GATE 1 → DELIVERY</div>
-            <div class="gate-name" data-id="e193" data-editable contenteditable="false">Go to Delivery</div>
-            <div class="gate-trigger" data-id="e194" data-editable contenteditable="false">Триггер: завершение Discovery Орбиты 1</div>
+            <div class="gate-name" data-id="e193" data-editable="" data-listener-added_f2c3d0b6="true">Переход в Delivery</div>
+            <div class="gate-trigger" data-id="e194" data-editable="">Триггер: завершение Discovery Орбиты 1</div>
           </div>
           <div class="gate-divider"></div>
           <div>
             <div class="gate-section-label">Критерии входа</div>
             <ul class="gate-criteria">
-              <li data-id="e195" data-editable contenteditable="false">Problem-Solution Fit подтверждён данными CustDev</li>
-              <li data-id="e196" data-editable contenteditable="false">Техническая реализуемость подтверждена (ADR)</li>
-              <li data-id="e197" data-editable contenteditable="false">Scope и сроки MVP зафиксированы</li>
-              <li data-id="e198" data-editable contenteditable="false">Бюджет согласован с Финансами</li>
-              <li data-id="e199" data-editable contenteditable="false">Команда и Tech Lead назначены</li>
-              <li data-id="e200" data-editable contenteditable="false">Корп. риски задокументированы</li>
+              <li data-id="e195" data-editable="">Problem-Solution Fit подтверждён данными CustDev</li>
+              <li data-id="e196" data-editable="">Техническая реализуемость подтверждена (ADR)</li>
+              <li data-id="e197" data-editable="">Scope и сроки MVP зафиксированы</li>
+              <li data-id="e198" data-editable="">Бюджет согласован с Финансами</li>
+              <li data-id="e199" data-editable="">Команда и Tech Lead назначены</li>
+              <li data-id="e200" data-editable="">Корп. риски задокументированы</li>
             </ul>
           </div>
           <div class="gate-meta">
             <div class="gate-meta-row">
               <span class="gate-meta-label">Кто решает</span>
-              <span class="gate-meta-val" data-id="e201" data-editable contenteditable="false">Продуктовый комитет + Инвест. директор</span>
+              <span class="gate-meta-val" data-id="e201" data-editable="">Продуктовый комитет + Инвест. директор</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Срок решения</span>
-              <span class="gate-meta-val" data-id="e202" data-editable contenteditable="false">3 рабочих дня</span>
+              <span class="gate-meta-val" data-id="e202" data-editable="">3 рабочих дня</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Выход</span>
-              <span class="gate-meta-val" data-id="e203" data-editable contenteditable="false">Старт Delivery → MVP в прод</span>
+              <span class="gate-meta-val" data-id="e203" data-editable="">Старт Delivery → MVP в прод</span>
             </div>
           </div>
         </div>
@@ -3220,33 +3214,33 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="gate-card gate-2">
           <div>
             <div class="gate-num">GATE 2 → ОРБИТА 2</div>
-            <div class="gate-name" data-id="e204" data-editable contenteditable="false">Переход к Развитию</div>
-            <div class="gate-trigger" data-id="e205" data-editable contenteditable="false">Триггер: 4–8 нед в проде, Activation > 30%</div>
+            <div class="gate-name" data-id="e204" data-editable="" data-listener-added_f2c3d0b6="true">Переход к Развитию</div>
+            <div class="gate-trigger" data-id="e205" data-editable="">Триггер: 4–8 нед в проде, Activation &gt; 30%</div>
           </div>
           <div class="gate-divider"></div>
           <div>
             <div class="gate-section-label">Критерии входа</div>
             <ul class="gate-criteria">
-              <li data-id="e206" data-editable contenteditable="false">Activation Rate ≥ 30%</li>
-              <li data-id="e207" data-editable contenteditable="false">Business Case подтверждён реальными данными</li>
-              <li data-id="e208" data-editable contenteditable="false">MVP acceptance criteria выполнены</li>
-              <li data-id="e209" data-editable contenteditable="false">Security review пройден (ИБ)</li>
-              <li data-id="e210" data-editable contenteditable="false">Retention D7 измеряется и растёт</li>
-              <li data-id="e211" data-editable contenteditable="false">Roadmap Growth сформирован и согласован</li>
+              <li data-id="e206" data-editable="">Activation Rate ≥ 30%</li>
+              <li data-id="e207" data-editable="">Business Case подтверждён реальными данными</li>
+              <li data-id="e208" data-editable="">MVP acceptance criteria выполнены</li>
+              <li data-id="e209" data-editable="">Security review пройден (ИБ)</li>
+              <li data-id="e210" data-editable="">Retention D7 измеряется и растёт</li>
+              <li data-id="e211" data-editable="">Roadmap Growth сформирован и согласован</li>
             </ul>
           </div>
           <div class="gate-meta">
             <div class="gate-meta-row">
               <span class="gate-meta-label">Кто решает</span>
-              <span class="gate-meta-val" data-id="e212" data-editable contenteditable="false">Проектный комитет + Инвест. директор</span>
+              <span class="gate-meta-val" data-id="e212" data-editable="">Проектный комитет + Инвест. директор</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Срок решения</span>
-              <span class="gate-meta-val" data-id="e213" data-editable contenteditable="false">5 рабочих дней</span>
+              <span class="gate-meta-val" data-id="e213" data-editable="">5 рабочих дней</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Выход</span>
-              <span class="gate-meta-val" data-id="e214" data-editable contenteditable="false">Орбита 2 — повторные витки Growth</span>
+              <span class="gate-meta-val" data-id="e214" data-editable="">Орбита 2 — повторные витки Growth</span>
             </div>
           </div>
         </div>
@@ -3255,33 +3249,33 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="gate-card gate-3">
           <div>
             <div class="gate-num">GATE 3 → ОРБИТА 3</div>
-            <div class="gate-name" data-id="e215" data-editable contenteditable="false">Переход к Зрелости</div>
-            <div class="gate-trigger" data-id="e216" data-editable contenteditable="false">Триггер: EBITDA → 0, NPS > 40, команда 8+</div>
+            <div class="gate-name" data-id="e215" data-editable="" data-listener-added_f2c3d0b6="true">Переход к Зрелости</div>
+            <div class="gate-trigger" data-id="e216" data-editable="">Триггер: EBITDA → 0, NPS &gt; 40, команда 8+</div>
           </div>
           <div class="gate-divider"></div>
           <div>
             <div class="gate-section-label">Критерии входа</div>
             <ul class="gate-criteria">
-              <li data-id="e217" data-editable contenteditable="false">EBITDA стремится к нулю или положительный</li>
-              <li data-id="e218" data-editable contenteditable="false">NPS ≥ 40 по последнему замеру</li>
-              <li data-id="e219" data-editable contenteditable="false">Команда 8+ человек с выделенным P&amp;L</li>
-              <li data-id="e220" data-editable contenteditable="false">NSM растёт 2 квартала подряд</li>
-              <li data-id="e221" data-editable contenteditable="false">Архитектура масштабируется на 10× нагрузку</li>
-              <li data-id="e222" data-editable contenteditable="false">Стратегия интеграции с Маркетплейсом описана</li>
+              <li data-id="e217" data-editable="">EBITDA стремится к нулю или положительный</li>
+              <li data-id="e218" data-editable="">NPS ≥ 40 по последнему замеру</li>
+              <li data-id="e219" data-editable="">Команда 8+ человек с выделенным P&amp;L</li>
+              <li data-id="e220" data-editable="">NSM растёт 2 квартала подряд</li>
+              <li data-id="e221" data-editable="">Архитектура масштабируется на 10× нагрузку</li>
+              <li data-id="e222" data-editable="">Стратегия интеграции с Маркетплейсом описана</li>
             </ul>
           </div>
           <div class="gate-meta">
             <div class="gate-meta-row">
               <span class="gate-meta-label">Кто решает</span>
-              <span class="gate-meta-val" data-id="e223" data-editable contenteditable="false">CPO + CFO</span>
+              <span class="gate-meta-val" data-id="e223" data-editable="">CPO + CFO</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Срок решения</span>
-              <span class="gate-meta-val" data-id="e224" data-editable contenteditable="false">Ежеквартально</span>
+              <span class="gate-meta-val" data-id="e224" data-editable="">Ежеквартально</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Выход</span>
-              <span class="gate-meta-val" data-id="e225" data-editable contenteditable="false">Орбита 3 — свой P&amp;L, рост GMV</span>
+              <span class="gate-meta-val" data-id="e225" data-editable="">Орбита 3 — свой P&amp;L, рост GMV</span>
             </div>
           </div>
         </div>
@@ -3290,32 +3284,32 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="gate-card gate-4">
           <div>
             <div class="gate-num">GATE 4 → ОРБИТА 4 / ★</div>
-            <div class="gate-name" data-id="e226" data-editable contenteditable="false">Манёвр к Звезде</div>
-            <div class="gate-trigger" data-id="e227" data-editable contenteditable="false">Триггер: P&amp;L положительный, ≥2 зависимых продукта</div>
+            <div class="gate-name" data-id="e226" data-editable="" data-listener-added_f2c3d0b6="true">Переход в Core-продукт экосистемы</div>
+            <div class="gate-trigger" data-id="e227" data-editable="">Триггер: P&amp;L положительный, ≥2 зависимых продукта</div>
           </div>
           <div class="gate-divider"></div>
           <div>
             <div class="gate-section-label">Критерии входа</div>
             <ul class="gate-criteria">
-              <li data-id="e228" data-editable contenteditable="false">P&amp;L положительный 2 квартала подряд</li>
-              <li data-id="e229" data-editable contenteditable="false">≥2 продукта экосистемы зависят от ядра</li>
-              <li data-id="e230" data-editable contenteditable="false">GMV растёт или есть платформенный потенциал</li>
-              <li data-id="e231" data-editable contenteditable="false">Форма продукта выбрана: Платформа / P&amp;L / Интеграция</li>
-              <li data-id="e232" data-editable contenteditable="false">Финансовая модель манёвра утверждена Советом</li>
+              <li data-id="e228" data-editable="">P&amp;L положительный 2 квартала подряд</li>
+              <li data-id="e229" data-editable="">≥2 продукта экосистемы зависят от ядра</li>
+              <li data-id="e230" data-editable="">GMV растёт или есть платформенный потенциал</li>
+              <li data-id="e231" data-editable="">Форма продукта выбрана: Платформа / P&amp;L / Интеграция</li>
+              <li data-id="e232" data-editable="">Финансовая модель манёвра утверждена Советом</li>
             </ul>
           </div>
           <div class="gate-meta">
             <div class="gate-meta-row">
               <span class="gate-meta-label">Кто решает</span>
-              <span class="gate-meta-val" data-id="e233" data-editable contenteditable="false">CEO BU + CPO + Совет</span>
+              <span class="gate-meta-val" data-id="e233" data-editable="">CEO BU + CPO + Совет</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Срок решения</span>
-              <span class="gate-meta-val" data-id="e234" data-editable contenteditable="false">На усмотрение Совета</span>
+              <span class="gate-meta-val" data-id="e234" data-editable="">На усмотрение Совета</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Выход</span>
-              <span class="gate-meta-val" data-id="e235" data-editable contenteditable="false">Орбита 4 — экосистемный продукт / ★ WB</span>
+              <span class="gate-meta-val" data-id="e235" data-editable="">Орбита 4 — экосистемный продукт / ★ WB</span>
             </div>
           </div>
         </div>
@@ -3336,9 +3330,9 @@ body.edit-mode .edit-mode-banner { display: block; }
       <div style="margin-top:20px;padding:20px 24px;background:rgba(0,212,180,0.06);border:1px solid rgba(0,212,180,0.25);border-radius:12px;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
           <div style="width:28px;height:28px;border-radius:50%;background:rgba(0,212,180,0.18);border:1px solid rgba(0,212,180,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </div>
-          <div style="font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-zap"/></svg> Fast-Track Gate — стратегические инициативы CEO / топ-менеджмента</div>
+          <div style="font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;">⚡ Fast-Track Gate — стратегические инициативы CEO / топ-менеджмента</div>
         </div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
           <div>
@@ -3365,15 +3359,15 @@ body.edit-mode .edit-mode-banner { display: block; }
     <!-- ═══════════════ SECTION 5: ROLES ═══════════════ -->
     <section class="section" id="roles" data-label="Роли">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e236" data-editable contenteditable="false">Роли</div>
-        <div class="section-title" data-id="e237" data-editable contenteditable="false">Кто за что отвечает</div>
-        <div class="section-desc" data-id="e238" data-editable contenteditable="false">Чёткое разграничение ответственности — основа скорости. Каждая роль знает свои зоны и точки взаимодействия.</div>
+        <div class="section-eyebrow" data-id="e236" data-editable="">Роли</div>
+        <div class="section-title" data-id="e237" data-editable="">Кто за что отвечает</div>
+        <div class="section-desc" data-id="e238" data-editable="">Чёткое разграничение ответственности — основа скорости. Каждая роль знает свои зоны и точки взаимодействия.</div>
       </div>
       <div class="grad-line"></div>
 
       <div class="roles-matrix">
         <div class="roles-list" id="roles-list">
-          <div class="role-item active-role" onclick="showRole('pmo')">
+          <div class="role-item" onclick="showRole('pmo')">
             <div class="role-name">PMO</div>
             <div class="role-eng">Project Management Office</div>
           </div>
@@ -3389,7 +3383,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             <div class="role-name">Tech Lead</div>
             <div class="role-eng">Technical Lead</div>
           </div>
-          <div class="role-item" onclick="showRole('dev')">
+          <div class="role-item active-role" onclick="showRole('dev')">
             <div class="role-name">Dev Team</div>
             <div class="role-eng">Engineering Team</div>
           </div>
@@ -3404,67 +3398,85 @@ body.edit-mode .edit-mode-banner { display: block; }
         </div>
 
         <div class="role-detail" id="role-detail">
-          <!-- Populated by JS -->
-        </div>
+    <div class="role-detail-header">
+      <span class="tag" style="background:rgba(123,47,255,0.15);color:#C49CFF;border:1px solid rgba(123,47,255,0.3)">РОЛЬ</span>
+      <div class="role-detail-title">Dev Team</div>
+      <div class="role-detail-sub">Engineering Team</div>
+    </div>
+    <div class="role-detail-body">
+      <div>
+        <div class="role-block-title">Зоны ответственности</div>
+        <ul class="role-block-list">
+          <li>Разработка в рамках согласованного scope</li><li>Code review и юнит/интеграционные тесты</li><li>Участие в технических исследованиях (spikes)</li><li>Мониторинг и алерты в проде</li><li>Участие в A/B-экспериментах</li><li>Ведение задач с явными DoD</li><li>Ежедневный стендап и Sprint ceremonies</li>
+        </ul>
+      </div>
+      <div>
+        <div class="role-block-title">Ключевые метрики</div>
+        <ul class="role-block-list">
+          <li>Задачи завершены без возврата (%)</li><li>Скорость устранения P0/P1 багов</li><li>Автотесты: покрытие и зелёный pipeline</li><li>Участие в ретро и sprint review</li>
+        </ul>
+      </div>
+    </div>
+  </div>
       </div>
     </section>
 
     <!-- ═══════════════ SECTION 7: DOCS ═══════════════ -->
     <section class="section" id="docs" data-label="Документация">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e239" data-editable contenteditable="false">Документация</div>
-        <div class="section-title" data-id="e240" data-editable contenteditable="false">Артефакты по стадиям</div>
-        <div class="section-desc" data-id="e241" data-editable contenteditable="false">Обязательные документы и артефакты на каждой стадии жизненного цикла продукта. Ритуалы и процессы см. в разделах орбит.</div>
+        <div class="section-eyebrow" data-id="e239" data-editable="">Документация</div>
+        <div class="section-title" data-id="e240" data-editable="">Артефакты по стадиям</div>
+        <div class="section-desc" data-id="e241" data-editable="">Обязательные документы и артефакты на каждой стадии жизненного цикла продукта. Ритуалы и процессы см. в разделах орбит.</div>
       </div>
       <div class="grad-line"></div>
 
       <div class="doc-types mb-32">
         <div class="doc-card">
           <div class="doc-icon" style="background:rgba(123,47,255,0.15)">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 2h7l4 4v9a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#C49CFF" stroke-width="1.5"/><path d="M10 2v4h4" stroke="#C49CFF" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 2h7l4 4v9a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#C49CFF" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="#C49CFF" stroke-width="1.5" stroke-linecap="round"></path></svg>
           </div>
-          <div class="doc-title" data-id="e242" data-editable contenteditable="false">Бриф инициативы</div>
-          <div class="doc-desc" data-id="e243" data-editable contenteditable="false">Описание проблемы, цели, аудитории, ожидаемого эффекта и желаемых сроков от заказчика.</div>
+          <div class="doc-title" data-id="e242" data-editable="">Бриф инициативы</div>
+          <div class="doc-desc" data-id="e243" data-editable="">Описание проблемы, цели, аудитории, ожидаемого эффекта и желаемых сроков от заказчика.</div>
           <div class="doc-when"><span class="tag tag-v">Gate 0</span></div>
         </div>
         <div class="doc-card">
           <div class="doc-icon" style="background:rgba(255,45,138,0.12)">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#FF85C0" stroke-width="1.5"/><path d="M5.5 8l2 2 3-4" stroke="#FF85C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#FF85C0" stroke-width="1.5"></circle><path d="M5.5 8l2 2 3-4" stroke="#FF85C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </div>
-          <div class="doc-title" data-id="e244" data-editable contenteditable="false">Discovery Report</div>
-          <div class="doc-desc" data-id="e245" data-editable contenteditable="false">Результаты исследования: CustDev, рыночный анализ, технические ограничения, концепция решения.</div>
+          <div class="doc-title" data-id="e244" data-editable="">Discovery Report</div>
+          <div class="doc-desc" data-id="e245" data-editable="">Результаты исследования: CustDev, рыночный анализ, технические ограничения, концепция решения.</div>
           <div class="doc-when"><span class="tag tag-p">Gate 1</span></div>
         </div>
         <div class="doc-card">
           <div class="doc-icon" style="background:rgba(0,212,180,0.1)">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="var(--teal)" stroke-width="1.5"/><path d="M5 8h6M5 5h6M5 11h3" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="var(--teal)" stroke-width="1.5"></rect><path d="M5 8h6M5 5h6M5 11h3" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"></path></svg>
           </div>
-          <div class="doc-title" data-id="e246" data-editable contenteditable="false">PRD / Spec</div>
-          <div class="doc-desc" data-id="e247" data-editable contenteditable="false">Product Requirements Document — функциональные и нефункциональные требования, acceptance criteria.</div>
+          <div class="doc-title" data-id="e246" data-editable="">PRD / Spec</div>
+          <div class="doc-desc" data-id="e247" data-editable="">Product Requirements Document — функциональные и нефункциональные требования, acceptance criteria.</div>
           <div class="doc-when"><span class="tag tag-t">Delivery</span></div>
         </div>
         <div class="doc-card">
           <div class="doc-icon" style="background:rgba(255,184,48,0.12)">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round"></path></svg>
           </div>
-          <div class="doc-title" data-id="e248" data-editable contenteditable="false">ADR</div>
-          <div class="doc-desc" data-id="e249" data-editable contenteditable="false">Architecture Decision Record — ключевые технические решения, обоснование, отклонённые альтернативы.</div>
+          <div class="doc-title" data-id="e248" data-editable="">ADR</div>
+          <div class="doc-desc" data-id="e249" data-editable="">Architecture Decision Record — ключевые технические решения, обоснование, отклонённые альтернативы.</div>
           <div class="doc-when"><span class="tag tag-a">Discovery → Growth</span></div>
         </div>
         <div class="doc-card">
           <div class="doc-icon" style="background:rgba(123,47,255,0.15)">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12V6l4-4 4 4v6M6 12h4" stroke="#C49CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12V6l4-4 4 4v6M6 12h4" stroke="#C49CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </div>
-          <div class="doc-title" data-id="e250" data-editable contenteditable="false">Runbook</div>
-          <div class="doc-desc" data-id="e251" data-editable contenteditable="false">Операционная документация: деплой, откат, алерты, контакты дежурных. Обязателен перед Gate 2.</div>
+          <div class="doc-title" data-id="e250" data-editable="">Runbook</div>
+          <div class="doc-desc" data-id="e251" data-editable="">Операционная документация: деплой, откат, алерты, контакты дежурных. Обязателен перед Gate 2.</div>
           <div class="doc-when"><span class="tag tag-v">Gate 2</span></div>
         </div>
         <div class="doc-card">
           <div class="doc-icon" style="background:rgba(0,212,180,0.1)">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-7" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-7" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </div>
-          <div class="doc-title" data-id="e252" data-editable contenteditable="false">Growth Report</div>
-          <div class="doc-desc" data-id="e253" data-editable contenteditable="false">Квартальный отчёт о метриках здоровья продукта, выводах и планах масштабирования.</div>
+          <div class="doc-title" data-id="e252" data-editable="">Growth Report</div>
+          <div class="doc-desc" data-id="e253" data-editable="">Квартальный отчёт о метриках здоровья продукта, выводах и планах масштабирования.</div>
           <div class="doc-when"><span class="tag tag-t">Gate 3 / квартально</span></div>
         </div>
       </div>
@@ -3474,9 +3486,9 @@ body.edit-mode .edit-mode-banner { display: block; }
     <!-- ═══════════════ SECTION: UX PROCESS ═══════════════ -->
     <section class="section" id="ux" data-label="UX-процесс">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e254" data-editable contenteditable="false">UX-процесс · Discovery → Delivery</div>
-        <div class="section-title" data-id="e255" data-editable contenteditable="false">UX Research & Design в каждом цикле</div>
-        <div class="section-desc" data-id="e256" data-editable contenteditable="false">Обязательный UX-процесс для всех команд контура. Дизайнер участвует с первого дня Discovery — не после выдачи задачи. CustDev, прототипирование и тестирование — встроены в каждый цикл.</div>
+        <div class="section-eyebrow" data-id="e254" data-editable="">UX-процесс · Discovery → Delivery</div>
+        <div class="section-title" data-id="e255" data-editable="" data-listener-added_f2c3d0b6="true">UX-процесс в каждом цикле</div>
+        <div class="section-desc" data-id="e256" data-editable="">Обязательный UX-процесс для всех команд контура. Дизайнер участвует с первого дня Discovery — не после выдачи задачи. CustDev, прототипирование и тестирование — встроены в каждый цикл.</div>
       </div>
       <div class="grad-line"></div>
 
@@ -3485,7 +3497,7 @@ body.edit-mode .edit-mode-banner { display: block; }
 
         <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;">
           <div style="font-size:10px;font-weight:700;color:var(--violet);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">1 · Исследование</div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">CustDev & HMW</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">CustDev &amp; HMW</div>
           <div style="font-size:11px;color:var(--gray2);line-height:1.6;margin-bottom:12px;">Глубинные интервью с пользователями. Минимум 5 интервью для подтверждения гипотезы. Синтез — в формате HMW (How Might We).</div>
           <div style="display:flex;flex-direction:column;gap:5px;">
             <div style="font-size:10px;background:rgba(123,47,255,0.1);border:1px solid rgba(123,47,255,0.25);border-radius:6px;padding:4px 8px;color:#C49CFF;">CustDev скрипт</div>
@@ -3496,7 +3508,7 @@ body.edit-mode .edit-mode-banner { display: block; }
 
         <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;">
           <div style="font-size:10px;font-weight:700;color:var(--pink);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">2 · Концепция</div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">Wireframes & Flows</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">Wireframes &amp; Flows</div>
           <div style="font-size:11px;color:var(--gray2);line-height:1.6;margin-bottom:12px;">User flow → Low-fi wireframes → согласование с PM и Tech Lead до начала разработки. Решаем архитектуру сценария, не пикселей.</div>
           <div style="display:flex;flex-direction:column;gap:5px;">
             <div style="font-size:10px;background:rgba(255,45,138,0.1);border:1px solid rgba(255,45,138,0.25);border-radius:6px;padding:4px 8px;color:#FF85C0;">User Flow диаграмма</div>
@@ -3506,7 +3518,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         </div>
 
         <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;">
-          <div style="font-size:10px;font-weight:700;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">3 · Прототип & Тест</div>
+          <div style="font-size:10px;font-weight:700;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">3 · Прототип &amp; Тест</div>
           <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">Usability Testing</div>
           <div style="font-size:11px;color:var(--gray2);line-height:1.6;margin-bottom:12px;">Интерактивный прототип в Figma → тестирование с 5 пользователями (правило Нильсена). 85% задач — критерий перехода в hi-fi.</div>
           <div style="display:flex;flex-direction:column;gap:5px;">
@@ -3517,8 +3529,8 @@ body.edit-mode .edit-mode-banner { display: block; }
         </div>
 
         <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;">
-          <div style="font-size:10px;font-weight:700;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">4 · Handoff & Monitor</div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">Hi-fi & Dev Handoff</div>
+          <div style="font-size:10px;font-weight:700;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">4 · Handoff &amp; Monitor</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">Hi-fi &amp; Dev Handoff</div>
           <div style="font-size:11px;color:var(--gray2);line-height:1.6;margin-bottom:12px;">Hi-fi макеты из RWB Design System → Figma Dev Mode для разработчиков. Дизайнер остаётся в спринте до релиза.</div>
           <div style="display:flex;flex-direction:column;gap:5px;">
             <div style="font-size:10px;background:rgba(255,184,48,0.1);border:1px solid rgba(255,184,48,0.25);border-radius:6px;padding:4px 8px;color:var(--amber);">Design System компоненты</div>
@@ -3611,9 +3623,9 @@ body.edit-mode .edit-mode-banner { display: block; }
     <!-- ═══════════════ SECTION: DoR / DoD ═══════════════ -->
     <section class="section" id="dor" data-label="DoR / DoD стандарт">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e257" data-editable contenteditable="false">Корпоративный стандарт</div>
-        <div class="section-title" data-id="e258" data-editable contenteditable="false">Definition of Ready & Definition of Done</div>
-        <div class="section-desc" data-id="e259" data-editable contenteditable="false">Единый стандарт готовности задач для всех 12 команд. Работает поверх любого трекера (YouTrack, внутренний). Без DoR задача не берётся в спринт. Без DoD не считается выполненной.</div>
+        <div class="section-eyebrow" data-id="e257" data-editable="">Корпоративный стандарт</div>
+        <div class="section-title" data-id="e258" data-editable="" data-listener-added_f2c3d0b6="true">Документирование задач</div>
+        <div class="section-desc" data-id="e259" data-editable="" data-listener-added_f2c3d0b6="true">Единый стандарт готовности задач для всех 12 команд. Работает поверх любого трекера (Jira, YouTrack, WB Tracker или другой внутренний ресурс). Без DoR задача не берётся в спринт. Без DoD не считается выполненной.</div>
       </div>
       <div class="grad-line"></div>
 
@@ -3808,9 +3820,9 @@ body.edit-mode .edit-mode-banner { display: block; }
     <!-- ═══════════════ SECTION: PRODUCT CONVEYOR ═══════════════ -->
     <section class="section" id="conveyor" data-label="Product Conveyor">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e260" data-editable contenteditable="false">Product Conveyor & DevOps</div>
-        <div class="section-title" data-id="e261" data-editable contenteditable="false">Путь от кода до продакшна</div>
-        <div class="section-desc" data-id="e262" data-editable contenteditable="false">Корпоративный стандарт CI/CD и доставки фич. Каждый продукт в контуре обязан поддерживать этот конвейер. DORA-метрики — KPI DevOps-здоровья команды.</div>
+        <div class="section-eyebrow" data-id="e260" data-editable="">Product Conveyor &amp; DevOps</div>
+        <div class="section-title" data-id="e261" data-editable="">Путь от кода до продакшна</div>
+        <div class="section-desc" data-id="e262" data-editable="">Корпоративный стандарт CI/CD и доставки фич. Каждый продукт в контуре обязан поддерживать этот конвейер. DORA-метрики — KPI DevOps-здоровья команды.</div>
       </div>
       <div class="grad-line"></div>
 
@@ -3833,14 +3845,14 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="display:flex;align-items:center;padding:0 4px;color:var(--gray);font-size:14px;">→</div>
           <div style="flex:1;min-width:120px;background:rgba(0,212,180,0.07);border:1px solid rgba(0,212,180,0.2);padding:14px 12px;text-align:center;">
             <div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:6px;">3 · STAGING</div>
-            <div style="font-size:11px;color:var(--text);font-weight:600;margin-bottom:4px;">QA & UAT</div>
+            <div style="font-size:11px;color:var(--text);font-weight:600;margin-bottom:4px;">QA &amp; UAT</div>
             <div style="font-size:10px;color:var(--gray2);">Ручное QA, Integration tests. PM acceptance. UX review. E2E тесты.</div>
           </div>
           <div style="display:flex;align-items:center;padding:0 4px;color:var(--gray);font-size:14px;">→</div>
           <div style="flex:1;min-width:120px;background:rgba(255,184,48,0.07);border:1px solid rgba(255,184,48,0.2);padding:14px 12px;text-align:center;">
             <div style="font-size:10px;font-weight:700;color:var(--amber);margin-bottom:6px;">4 · CANARY</div>
             <div style="font-size:11px;color:var(--text);font-weight:600;margin-bottom:4px;">5% трафика</div>
-            <div style="font-size:10px;color:var(--gray2);">Мониторинг ошибок. Rollback за 5 мин если Error Rate > 1%.</div>
+            <div style="font-size:10px;color:var(--gray2);">Мониторинг ошибок. Rollback за 5 мин если Error Rate &gt; 1%.</div>
           </div>
           <div style="display:flex;align-items:center;padding:0 4px;color:var(--gray);font-size:14px;">→</div>
           <div style="flex:1;min-width:120px;background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.3);border-radius:0 10px 10px 0;padding:14px 12px;text-align:center;">
@@ -3896,7 +3908,7 @@ body.edit-mode .edit-mode-banner { display: block; }
       <!-- ProductHunt MVP catalog plan -->
       <div style="background:rgba(123,47,255,0.06);border:1px solid rgba(123,47,255,0.25);border-radius:14px;padding:20px;">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:rgba(123,47,255,0.2);border:1px solid rgba(123,47,255,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#C49CFF;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-rocket"/></svg></div>
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(123,47,255,0.2);border:1px solid rgba(123,47,255,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;">🚀</div>
           <div>
             <div style="font-size:13px;font-weight:700;color:var(--text);">Corp. ProductHunt — Дорожная карта</div>
             <div style="font-size:11px;color:var(--gray2);">Каталог подкатов экосистемы, которые бизнес может использовать в интересах компании</div>
@@ -3922,9 +3934,9 @@ body.edit-mode .edit-mode-banner { display: block; }
     <!-- ═══════════════ SECTION: PRODUCTOPS METRICS ═══════════════ -->
     <section class="section" id="productops" data-label="ProductOps метрики">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e263" data-editable contenteditable="false">ProductOps · Операционная эффективность</div>
-        <div class="section-title" data-id="e264" data-editable contenteditable="false">Как мы измеряем эффективность фреймворка</div>
-        <div class="section-desc" data-id="e265" data-editable contenteditable="false">Двухуровневая система метрик: операционные ProductOps KPI измеряют работу самого фреймворка, продуктовые метрики здоровья — результаты каждого продукта по орбитам.</div>
+        <div class="section-eyebrow" data-id="e263" data-editable="">ProductOps · Операционная эффективность</div>
+        <div class="section-title" data-id="e264" data-editable="">Как мы измеряем эффективность фреймворка</div>
+        <div class="section-desc" data-id="e265" data-editable="">Двухуровневая система метрик: операционные ProductOps KPI измеряют работу самого фреймворка, продуктовые метрики здоровья — результаты каждого продукта по орбитам.</div>
       </div>
       <div class="grad-line"></div>
 
@@ -4037,15 +4049,178 @@ body.edit-mode .edit-mode-banner { display: block; }
     <!-- ═══════════════ SECTION 9: TEMPLATES ═══════════════ -->
     <section class="section" id="templates" data-label="Шаблоны">
       <div class="section-header">
-        <div class="section-eyebrow" data-id="e266" data-editable contenteditable="false">Шаблоны</div>
-        <div class="section-title" data-id="e267" data-editable contenteditable="false">11 рабочих шаблонов</div>
-        <div class="section-desc" data-id="e268" data-editable contenteditable="false">Готовые структуры документов для каждого этапа. Нажмите на карточку — откроется шаблон с текстом.</div>
+        <div class="section-eyebrow" data-id="e266" data-editable="">Шаблоны</div>
+        <div class="section-title" data-id="e267" data-editable="">11 рабочих шаблонов</div>
+        <div class="section-desc" data-id="e268" data-editable="">Готовые структуры документов для каждого этапа. Нажмите на карточку — откроется шаблон с текстом.</div>
       </div>
       <div class="grad-line"></div>
 
       <div class="templates-grid" id="templates-grid">
-        <!-- Populated by JS -->
+    <div class="tmpl-card" onclick="openModal(1)">
+      <div class="tmpl-icon" style="background:rgba(123,47,255,0.15)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#C49CFF" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="#C49CFF" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="#C49CFF" stroke-width="1.5" stroke-linecap="round"></path></svg>
       </div>
+      <div>
+        <div class="tmpl-name">Бриф инициативы</div>
+        <div style="margin-top:4px"><span class="tag tag-v">Gate 0</span></div>
+      </div>
+      <div class="tmpl-desc">Стартовый документ для подачи новой инициативы в PMO. 15–30 минут заказчику.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  
+    <div class="tmpl-card" onclick="openModal(2)">
+      <div class="tmpl-icon" style="background:rgba(255,45,138,0.1)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#FF85C0" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="#FF85C0" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="#FF85C0" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="tmpl-name">Discovery Report</div>
+        <div style="margin-top:4px"><span class="tag tag-p">Gate 1</span></div>
+      </div>
+      <div class="tmpl-desc">Итоговый документ Discovery — результаты исследования для Gate 1.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  
+    <div class="tmpl-card" onclick="openModal(3)">
+      <div class="tmpl-icon" style="background:rgba(0,212,180,0.08)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="var(--teal)" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="tmpl-name">PRD / Specification</div>
+        <div style="margin-top:4px"><span class="tag tag-t">Delivery</span></div>
+      </div>
+      <div class="tmpl-desc">Product Requirements Document — требования к продукту перед Delivery.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  
+    <div class="tmpl-card" onclick="openModal(4)">
+      <div class="tmpl-icon" style="background:rgba(255,184,48,0.08)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="var(--amber)" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="tmpl-name">Gate Review</div>
+        <div style="margin-top:4px"><span class="tag tag-a">Все Gate</span></div>
+      </div>
+      <div class="tmpl-desc">Структура презентации на Gate-условиях для Комитета.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  
+    <div class="tmpl-card" onclick="openModal(5)">
+      <div class="tmpl-icon" style="background:rgba(123,47,255,0.1)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#C49CFF" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="#C49CFF" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="#C49CFF" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="tmpl-name">Sprint Planning</div>
+        <div style="margin-top:4px"><span class="tag tag-v">Delivery</span></div>
+      </div>
+      <div class="tmpl-desc">Шаблон повестки и артефактов для планирования спринта.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  
+    <div class="tmpl-card" onclick="openModal(6)">
+      <div class="tmpl-icon" style="background:rgba(0,212,180,0.07)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="var(--teal)" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="tmpl-name">Ретроспектива</div>
+        <div style="margin-top:4px"><span class="tag tag-t">Все стадии</span></div>
+      </div>
+      <div class="tmpl-desc">Структура ретро в формате Start / Stop / Continue + action items.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  
+    <div class="tmpl-card" onclick="openModal(7)">
+      <div class="tmpl-icon" style="background:rgba(255,45,138,0.08)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#FF85C0" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="#FF85C0" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="#FF85C0" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="tmpl-name">Метрики здоровья</div>
+        <div style="margin-top:4px"><span class="tag tag-p">Growth</span></div>
+      </div>
+      <div class="tmpl-desc">Шаблон дашборда метрик продукта для еженедельного/ежемесячного отчёта.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  
+    <div class="tmpl-card" onclick="openModal(9)">
+      <div class="tmpl-icon" style="background:rgba(0,212,180,0.08)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="var(--teal)" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="tmpl-name">DoR / DoD Чеклист</div>
+        <div style="margin-top:4px"><span class="tag tag-t">Все стадии</span></div>
+      </div>
+      <div class="tmpl-desc">Чеклист проверки готовности задачи к спринту и проверки завершённости.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  
+    <div class="tmpl-card" onclick="openModal(10)">
+      <div class="tmpl-icon" style="background:rgba(0,212,180,0.08)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="var(--teal)" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="tmpl-name">Fast-Track Бриф</div>
+        <div style="margin-top:4px"><span class="tag tag-t">Fast-Track</span></div>
+      </div>
+      <div class="tmpl-desc">Ускоренный бриф для стратегических инициатив CEO и топ-менеджмента. Срок скрининга — 24 часа.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  
+    <div class="tmpl-card" onclick="openModal(11)">
+      <div class="tmpl-icon" style="background:rgba(255,45,138,0.08)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#FF85C0" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="#FF85C0" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="#FF85C0" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="tmpl-name">CustDev Скрипт</div>
+        <div style="margin-top:4px"><span class="tag tag-p">Discovery</span></div>
+      </div>
+      <div class="tmpl-desc">Структура глубинного интервью с пользователем. 45–60 минут, 5+ интервью для валидации гипотезы.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  
+    <div class="tmpl-card" onclick="openModal(8)">
+      <div class="tmpl-icon" style="background:rgba(255,184,48,0.08)">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="var(--amber)" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round"></path><path d="M5 8h6M5 11h4" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="tmpl-name">Release Notes</div>
+        <div style="margin-top:4px"><span class="tag tag-a">Delivery / Growth</span></div>
+      </div>
+      <div class="tmpl-desc">Шаблон коммуникации о релизе для команды, заказчика и пользователей.</div>
+      <div class="tmpl-open">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 2h5v5M14 2L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Открыть шаблон
+      </div>
+    </div>
+  </div>
     </section>
 
   </div><!-- /content -->
@@ -4057,12 +4232,12 @@ body.edit-mode .edit-mode-banner { display: block; }
   <div class="modal-box">
     <div class="modal-header">
       <div class="modal-title" id="modal-title"></div>
-      <button class="modal-close" onclick="closeModal()"><svg class="ei ei-14" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#ic-x"/></svg></button>
+      <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body">
       <div class="tmpl-content" id="modal-content"></div>
       <button class="copy-btn" onclick="copyTemplate()">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="6" y="6" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 10H3a1 1 0 01-1-1V3a1 1 0 011-1h6a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.5"/></svg>
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="6" y="6" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"></rect><path d="M4 10H3a1 1 0 01-1-1V3a1 1 0 011-1h6a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.5"></path></svg>
         Скопировать шаблон
       </button>
     </div>
@@ -5003,7 +5178,7 @@ function showOrbitDetail(n) {
   document.querySelectorAll('.oss-item').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.oss-' + n).forEach(s => s.classList.add('active'));
 
-  const killHtml = data.kill ? `<div class="odp-kill"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;flex-shrink:0;"><use href="#ic-alert-triangle"/></svg> ${data.kill}</div>` : '';
+  const killHtml = data.kill ? `<div class="odp-kill">⚠ ${data.kill}</div>` : '';
 
   panel.innerHTML = `<div class="odp-inner">
     <div class="odp-header">
@@ -5223,5 +5398,6 @@ document.addEventListener('keydown', e => {
   }
 });
 </script>
-</body>
-</html>
+
+
+</body></html>
