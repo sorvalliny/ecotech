@@ -6,6 +6,7 @@
 <title>Стратегическое планирование · EcoTech Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../design-system.css">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 /* ── TOKENS ── */
 :root{
@@ -84,6 +85,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .badge-pilot{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
 .badge-scale{background:var(--gdim);color:var(--green);border-color:var(--gborder)}
 .badge-sunset{background:var(--rdim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
+/* ── EXPORT BUTTON ── */
+.btn-export-xl{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);border-radius:8px;color:#34D399;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-export-xl:hover{background:rgba(52,211,153,.2);border-color:rgba(52,211,153,.5)}
 /* ── TRACKER CTA ── */
 .tracker-cta{background:linear-gradient(135deg,rgba(123,47,255,.08),rgba(255,45,138,.05));border:1px solid rgba(123,47,255,.25);border-radius:16px;padding:28px 32px;margin-top:56px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 .tracker-cta-info{flex:1;min-width:200px}
@@ -343,6 +347,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="sp-title-product" id="sp-product-name">— продукт не выбран —</div>
     </div>
     <div class="sp-header-right">
+      <button class="btn-export-xl" onclick="exportToExcel()" title="Экспорт в Excel">
+        <svg class="ei" width="14" height="14"><use href="#ic-download"/></svg> Excel
+      </button>
       <span class="format-badge format-lite" id="format-badge">Упрощённый</span>
     </div>
   </div>
@@ -1660,6 +1667,110 @@ function confirmDeleteCL(id) {
   if (!confirm('Удалить запись?')) return;
   state.changelog = state.changelog.filter(x => x.id !== id);
   saveState(); renderChangelog();
+}
+
+// ════════════════════════════════════════════
+// EXCEL EXPORT
+// ════════════════════════════════════════════
+function xlSheet(data, cols) {
+  const ws = XLSX.utils.aoa_to_sheet(data);
+  if (cols) ws['!cols'] = cols.map(w => ({ wch: w }));
+  if (data.length > 1) ws['!freeze'] = { xSplit: 0, ySplit: 1 };
+  return ws;
+}
+
+function exportToExcel() {
+  if (typeof XLSX === 'undefined') { alert('Библиотека Excel не загружена. Проверьте интернет-соединение.'); return; }
+  const id     = state.identity;
+  const name   = id.name || 'Продукт';
+  const gate   = STAGE_TO_GATE[id.stage] ?? 0;
+  const pid    = id.trackerProductId || ('SP-' + Date.now().toString(36).toUpperCase());
+  const today  = new Date().toISOString().split('T')[0];
+
+  // ── Лист 1: Продукт ──────────────────────────────────────────
+  const shProduct = xlSheet([
+    ['Поле', 'Значение', 'Описание'],
+    ['ID',            pid,                                      'Идентификатор в трекере'],
+    ['Название',      id.name,                                  ''],
+    ['Стадия',        STAGE_LABELS[id.stage] || id.stage || '', 'О·0–О·6 по фреймворку'],
+    ['Gate (число)',  gate,                                     'Для импорта в трекер (0–5)'],
+    ['Статус',        STATUS_LABELS[id.status] || id.status || '',''],
+    ['PM',            id.pm,                                    ''],
+    ['Ссылка',        id.trackerUrl,                            ''],
+    ['Экспорт',       today,                                    ''],
+    ['Проблема',      state.prd.problem,                        'PRD'],
+    ['Аудитория',     state.prd.audience,                      'PRD'],
+    ['Гипотеза',      state.prd.hypothesis,                    'PRD'],
+    ['North Star',    state.prd.northStar,                      'PRD'],
+    ['Рекомендация',  state.prd.recommendation,                 'PRD'],
+    ['Решение',       state.prd.solution,                       'PRD'],
+    ['Метрики',       state.prd.metrics,                        'PRD'],
+  ], [22, 45, 30]);
+
+  // ── Лист 2: Цели + KR ────────────────────────────────────────
+  const goalsHeader = ['ID', 'Название', 'Тип', 'Период', 'Статус', 'North Star', 'Target', 'Факт', 'Владелец', 'Продукты', 'KR1', 'KR2', 'KR3', 'KR4'];
+  const goalsRows = (state.goals || []).map(g => {
+    const krs = (g.keyResults || []).map(kr => kr.text || kr);
+    return [g.id, g.title, g.type, g.period, g.status, g.metric, g.target, g.actual, g.owner, g.products, krs[0]||'', krs[1]||'', krs[2]||'', krs[3]||''];
+  });
+  const shGoals = xlSheet([goalsHeader, ...goalsRows], [8,32,14,10,12,28,12,12,16,14,30,30,30,30]);
+
+  // ── Лист 3: Роадмап ──────────────────────────────────────────
+  const rmHeader = ['Полугодие', 'ID', 'Название', 'Тип', 'Цвет', 'Дата начала', 'Дата конца', 'Примечание'];
+  const rmH1 = (state.roadmap.h1 || []).map(i => ['H1', i.id, i.name, i.type||'', i.color||'', i.start||'', i.end||'', i.notes||'']);
+  const rmH2 = (state.roadmap.h2 || []).map(i => ['H2', i.id, i.name, i.type||'', i.color||'', i.start||'', i.end||'', i.notes||'']);
+  const shRoadmap = xlSheet([rmHeader, ...rmH1, ...rmH2], [12,8,32,14,10,12,12,28]);
+
+  // ── Лист 4: Инициативы (формат импорта в трекер) ─────────────
+  const initHeader = ['project', 'track', 'name', 'desc', 'cat', 'audience', 'r', 'i', 'c', 'e', 'status', 'release', 'notes', '— Импорт в трекер: скопировать в ECOTECH_BACKLOG'];
+  const initSimple = (state.backlog || []).map(b => [
+    pid, b.track || 'delivery', b.name, b.desc||'', b.cat||'', b.audience||'',
+    b.r||5, b.i||5, b.c||8, b.e||3, b.status||'backlog', b.release||'', b.notes||'', ''
+  ]);
+  const initFull = isFullFormat() ? (state.quarterly.items || []).map(q => [
+    pid, 'delivery', q.name, q.desc||'', q.cat||'feature', q.audience||'',
+    q.r||5, q.i||5, q.c||8, q.e||3, q.status||'backlog', q.release||'', q.notes||'', ''
+  ]) : [];
+  const shInit = xlSheet([initHeader, ...initSimple, ...initFull],
+    [10,12,32,40,12,12,4,4,4,4,12,10,28,40]);
+
+  // ── Лист 5: DoR / DoD ────────────────────────────────────────
+  const checkHeader  = ['Категория', 'Критерий', 'Выполнено'];
+  const dorDodKey    = isFullFormat() ? ['dorInit','dodInit','dorEpic','dodEpic'] : ['dorSimple','dodSimple'];
+  const dorDodLabels = isFullFormat()
+    ? ['DoR · Инициатива','DoD · Инициатива','DoR · Эпик','DoD · Эпик']
+    : ['DoR · Упрощённый','DoD · Упрощённый'];
+  const DOR_DOD_LISTS = {
+    dorInit: DOR_INIT_FULL, dodInit: DOD_INIT_FULL,
+    dorEpic: DOR_EPIC_FULL, dodEpic: DOD_EPIC_FULL,
+    dorSimple: DOR_SIMPLE, dodSimple: DOD_SIMPLE
+  };
+  const checkRows = [];
+  dorDodKey.forEach((k, idx) => {
+    (DOR_DOD_LISTS[k] || []).forEach((txt, i) => {
+      checkRows.push([dorDodLabels[idx], txt, (state.dorDod[k] || [])[i] ? '✓' : '']);
+    });
+  });
+  const shCheck = xlSheet([checkHeader, ...checkRows], [20,52,10]);
+
+  // ── Лист 6: Лог изменений ────────────────────────────────────
+  const logHeader = ['Дата', 'Кто', 'Что изменено', 'Уровень', 'Причина', 'Согласовано'];
+  const logRows = (state.changelog || []).map(e => [
+    e.date, e.who, e.what, LEVEL_LABELS[e.level]||e.level, e.reason, e.approved ? 'Да' : 'Нет'
+  ]);
+  const shLog = xlSheet([logHeader, ...logRows], [12,16,40,16,32,12]);
+
+  // ── Сборка книги ─────────────────────────────────────────────
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, shProduct,  '01 Продукт');
+  XLSX.utils.book_append_sheet(wb, shGoals,    '02 Цели + KR');
+  XLSX.utils.book_append_sheet(wb, shRoadmap,  '03 Роадмап');
+  XLSX.utils.book_append_sheet(wb, shInit,     '04 Инициативы');
+  XLSX.utils.book_append_sheet(wb, shCheck,    '05 DoR-DoD');
+  XLSX.utils.book_append_sheet(wb, shLog,      '06 Лог');
+
+  const safeProductName = (id.name || 'product').replace(/[^a-zA-Zа-яА-Я0-9_-]/g, '_').slice(0, 30);
+  XLSX.writeFile(wb, `strategy_${safeProductName}_${today}.xlsx`);
 }
 
 // ════════════════════════════════════════════
