@@ -81,6 +81,20 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .badge-launch{background:var(--adim);color:var(--amber);border-color:var(--aborder)}
 .badge-growth{background:var(--gdim);color:var(--green);border-color:var(--gborder)}
 .badge-mature{background:var(--tdim);color:var(--teal);border-color:var(--tborder)}
+.badge-pilot{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+.badge-scale{background:var(--gdim);color:var(--green);border-color:var(--gborder)}
+.badge-sunset{background:var(--rdim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
+/* ── TRACKER CTA ── */
+.tracker-cta{background:linear-gradient(135deg,rgba(123,47,255,.08),rgba(255,45,138,.05));border:1px solid rgba(123,47,255,.25);border-radius:16px;padding:28px 32px;margin-top:56px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.tracker-cta-info{flex:1;min-width:200px}
+.tracker-cta-title{font-family:var(--head);font-size:15px;font-weight:900;color:#fff;margin-bottom:4px}
+.tracker-cta-sub{font-size:12px;color:var(--muted);line-height:1.6}
+.tracker-cta-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.btn-tracker-add{padding:10px 20px;background:var(--violet);border:none;border-radius:10px;color:#fff;font-family:var(--head);font-size:11px;font-weight:900;cursor:pointer;transition:opacity .15s}
+.btn-tracker-add:hover{opacity:.85}
+.btn-tracker-open{padding:10px 18px;background:var(--vdim);border:1px solid var(--vborder);border-radius:10px;color:#C4B5FD;font-family:var(--head);font-size:11px;font-weight:900;text-decoration:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:opacity .15s}
+.btn-tracker-open:hover{opacity:.85}
+.tracker-id-badge{font-family:var(--mono);font-size:11px;color:var(--muted);background:rgba(255,255,255,.04);padding:3px 8px;border-radius:5px;border:1px solid var(--border)}
 .badge-discovery{background:var(--bdim);color:#93C5FD;border-color:var(--bborder)}
 .badge-delivery{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
 .badge-growth-phase{background:var(--gdim);color:var(--green);border-color:var(--gborder)}
@@ -351,11 +365,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           <div class="id-badge-slot" id="stage-badge-slot"></div>
           <select class="id-sel" id="id-stage" onchange="onIdentityChange()">
             <option value="">— Выбрать —</option>
-            <option value="idea">Идея</option>
-            <option value="mvp">MVP</option>
-            <option value="launch">Запуск</option>
-            <option value="growth">Рост</option>
-            <option value="mature">Зрелость</option>
+            <option value="idea">О·0 Идея</option>
+            <option value="discovery">О·1 Discovery</option>
+            <option value="pilot">О·2 Пилот</option>
+            <option value="launch">О·3 Запуск</option>
+            <option value="scale">О·4 Масштаб</option>
+            <option value="mature">О·5 Зрелость</option>
+            <option value="sunset">О·6 Консервация</option>
           </select>
         </div>
         <div class="id-cell">
@@ -517,6 +533,19 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <tbody id="cl-tbody"></tbody>
     </table>
   </section>
+
+  <!-- ═══════════════════════════════════════════
+       TRACKER CTA
+       ═══════════════════════════════════════════ -->
+  <div class="tracker-cta" id="tracker-cta">
+    <div class="tracker-cta-info">
+      <div class="tracker-cta-title">Добавить продукт в портфель</div>
+      <div class="tracker-cta-sub" id="tracker-cta-sub">Добавьте продукт в трекер инициатив, чтобы отслеживать прогресс по Gate-стадиям вместе с командой</div>
+    </div>
+    <div class="tracker-cta-actions" id="tracker-cta-actions">
+      <button class="btn-tracker-add" onclick="addToTracker()">Добавить в трекер →</button>
+    </div>
+  </div>
 
 </div><!-- /sp-page -->
 
@@ -837,7 +866,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 // ════════════════════════════════════════════
 const SP_KEY = 'ECOTECH_STRATEGY';
 
-const STAGE_LABELS  = { idea:'Идея', mvp:'MVP', launch:'Запуск', growth:'Рост', mature:'Зрелость' };
+const STAGE_LABELS  = { idea:'О·0 Идея', discovery:'О·1 Discovery', pilot:'О·2 Пилот', launch:'О·3 Запуск', scale:'О·4 Масштаб', mature:'О·5 Зрелость', sunset:'О·6 Консервация' };
+const STAGE_TO_GATE = { idea:0, discovery:1, pilot:2, launch:3, scale:4, mature:5, sunset:5 };
+const STATUS_TO_TRACKER = { planning:'planned', active:'wip', paused:'planned', launched:'wip', closed:'backlog' };
 const PHASE_LABELS  = { discovery:'Discovery', delivery:'Delivery', growth:'Growth' };
 const STATUS_LABELS = { planning:'Планирование', active:'В работе', paused:'На паузе', launched:'Запущен', closed:'Закрыт' };
 const GSTATUS_LABELS = { active:'Активна', draft:'Черновик', achieved:'Достигнута', cancelled:'Отменена' };
@@ -901,7 +932,7 @@ let editCtx = {};  // { type, id } for current modal
 function initState() {
   const saved = window.PT ? PT.load(SP_KEY) : null;
   state = {
-    identity: { name:'', stage:'', phase:'', status:'', pm:'', trackerUrl:'' },
+    identity: { name:'', stage:'', phase:'', status:'', pm:'', trackerUrl:'', trackerProductId: null },
     goals: [],
     roadmap: { h1:[], h2:[] },
     quarterly: { quarter:'Q1 2026', items:[] },
@@ -938,7 +969,7 @@ function initState() {
 }
 
 function saveState() { if (window.PT) PT.save(SP_KEY, state); }
-function isFullFormat() { return state.identity.stage === 'growth' || state.identity.stage === 'mature'; }
+function isFullFormat() { return ['launch','scale','mature','sunset'].includes(state.identity.stage); }
 
 function nextId(prefix, arr) {
   const ex = new Set((arr||[]).map(i => i.id));
@@ -969,6 +1000,7 @@ function renderAll() {
   renderPRD();
   renderDorDod();
   renderChangelog();
+  renderTrackerCTA();
 }
 
 // ════════════════════════════════════════════
@@ -981,7 +1013,7 @@ function onIdentityChange() {
   renderBadgeSlot('stage-badge-slot',  stage,  STAGE_LABELS,  'badge-');
   renderBadgeSlot('phase-badge-slot',  phase,  PHASE_LABELS,  phase === 'growth' ? 'badge-growth-phase' : 'badge-');
   renderBadgeSlot('status-badge-slot', status, STATUS_LABELS, 'badge-');
-  const fmt = (stage === 'growth' || stage === 'mature') ? 'Полный формат' : stage ? 'Упрощённый формат' : '';
+  const fmt = ['launch','scale','mature','sunset'].includes(stage) ? 'Полный формат' : stage ? 'Упрощённый формат' : '';
   const hint = document.getElementById('id-format-hint');
   if (hint) hint.textContent = fmt;
 }
@@ -1628,6 +1660,67 @@ function confirmDeleteCL(id) {
   if (!confirm('Удалить запись?')) return;
   state.changelog = state.changelog.filter(x => x.id !== id);
   saveState(); renderChangelog();
+}
+
+// ════════════════════════════════════════════
+// TRACKER INTEGRATION
+// ════════════════════════════════════════════
+const TRACKER_PATH = '../Проектный офис/RWB · Product OS - Трекер инициатив.html';
+
+function addToTracker() {
+  if (!window.PT) { alert('platform.js не подключён'); return; }
+  const id = state.identity;
+  if (!id.name) { document.getElementById('id-name').focus(); alert('Укажите название продукта в блоке 01'); return; }
+  const products = PT.load(PT.KEY_PRODUCTS) || [];
+  const existingIds = new Set(products.map(p => p.id));
+  let newId;
+  for (let n = 1; n <= 99; n++) {
+    newId = 'SP' + String(n).padStart(2, '0');
+    if (!existingIds.has(newId)) break;
+  }
+  products.push({
+    id: newId,
+    name: id.name,
+    desc: state.prd && state.prd.problem ? state.prd.problem : '',
+    gate: STAGE_TO_GATE[id.stage] ?? 0,
+    status: STATUS_TO_TRACKER[id.status] || 'planned',
+    layer: 'B2C',
+    color: '#7B2FFF',
+    release: 'v14'
+  });
+  PT.save(PT.KEY_PRODUCTS, products);
+  state.identity.trackerProductId = newId;
+  saveState();
+  renderTrackerCTA();
+}
+
+function updateTrackerProduct() {
+  if (!window.PT || !state.identity.trackerProductId) return;
+  const products = PT.load(PT.KEY_PRODUCTS) || [];
+  const idx = products.findIndex(p => p.id === state.identity.trackerProductId);
+  if (idx < 0) { state.identity.trackerProductId = null; saveState(); renderTrackerCTA(); return; }
+  const id = state.identity;
+  products[idx].name   = id.name || products[idx].name;
+  products[idx].gate   = STAGE_TO_GATE[id.stage] ?? products[idx].gate;
+  products[idx].status = STATUS_TO_TRACKER[id.status] || products[idx].status;
+  if (state.prd && state.prd.problem) products[idx].desc = state.prd.problem;
+  PT.save(PT.KEY_PRODUCTS, products);
+  renderTrackerCTA();
+}
+
+function renderTrackerCTA() {
+  const sub  = document.getElementById('tracker-cta-sub');
+  const acts = document.getElementById('tracker-cta-actions');
+  if (!acts) return;
+  const pid = state.identity.trackerProductId;
+  if (pid) {
+    sub.innerHTML = `Продукт добавлен в портфель как <span class="tracker-id-badge">${pid}</span> — синхронизируйте Gate и статус с трекером`;
+    acts.innerHTML = `<button class="btn-tracker-open" onclick="updateTrackerProduct()">Синхронизировать ↻</button>
+      <a class="btn-tracker-open" href="${TRACKER_PATH}" target="_blank">Открыть трекер →</a>`;
+  } else {
+    sub.textContent = 'Добавьте продукт в трекер инициатив, чтобы отслеживать прогресс по Gate-стадиям вместе с командой';
+    acts.innerHTML = `<button class="btn-tracker-add" onclick="addToTracker()">Добавить в трекер →</button>`;
+  }
 }
 
 // ════════════════════════════════════════════

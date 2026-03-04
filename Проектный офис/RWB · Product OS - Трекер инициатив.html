@@ -1279,7 +1279,7 @@ const STAGES = [
 // ════════════════════════════════════════════
 // DATA
 // ════════════════════════════════════════════
-const PROJECTS = [
+const PROJECTS_DEFAULT = [
   { id:'PR01', layer:'Уровень 0 — Фундамент',  name:'Продуктовый фреймворк',       gate:4, desc:'Операционный справочник контура: регламенты, процессы, методологии, база знаний. Источник истины для лидов и команд.',         status:'wip',     release:'v13', color:'#00D4B4' },
   { id:'PR02', layer:'Уровень 1 — Команды',     name:'Хендбук для руководителей',   gate:3, desc:'Прикладные инструменты для продактов, проджектов и техлидов: шаблоны, чек-листы, приоритизация, планирование.',                status:'wip',     release:'v13', color:'#7B2FFF' },
   { id:'PR03', layer:'Уровень 3 — Рост',        name:'Лендинг для бизнеса',         gate:3, desc:'Как создать продукт в экосистеме RWB. Вход для новых команд и стартапов: путь от идеи до продукта.',                           status:'wip',     release:'v13', color:'#FFB830' },
@@ -1287,6 +1287,11 @@ const PROJECTS = [
   { id:'PR05', layer:'Уровень 2 — Управление',  name:'Реестр целей и инициатив',    gate:1, desc:'Корпоративный трекер для проектных комитетов и планирования. Бизнес видит актуальный статус продуктов 24/7.',                  status:'planned', release:'v14', color:'#FF2D8A' },
   { id:'PR06', layer:'Уровень 3 — Рост',        name:'Корпоративный ProductHunt',   gate:0, desc:'Витрина и блог продуктов экосистемы: подача идей, рассказы о продуктах, обмен экспертизой. Стартапы силами сотрудников.',      status:'backlog', release:'v15+', color:'#EF4444' },
 ];
+let PROJECTS = (() => {
+  const raw = window.PT ? PT.load(PT.KEY_PRODUCTS) : null;
+  return (raw && Array.isArray(raw) && raw.length) ? raw : [...PROJECTS_DEFAULT];
+})();
+function saveProjects() { if (window.PT) PT.save(PT.KEY_PRODUCTS, PROJECTS); }
 
 const BACKLOG_DEFAULT = [
   // ── PR01 Фреймворк ──
