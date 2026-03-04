@@ -1313,7 +1313,7 @@ function renderFullQuarterly() {
       <tbody>${tbody}</tbody>
     </table>
     <div style="margin-top:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:12px;color:var(--muted)">
-      ⚠️ <b style="color:#E8E8F0">Изменения scope квартала</b> согласуются с Проектным офисом и фиксируются в Блоке 7 — Лог изменений.
+      ${EI.svg('alert-triangle', 14)} <b style="color:#E8E8F0">Изменения scope квартала</b> согласуются с Проектным офисом и фиксируются в Блоке 7 — Лог изменений.
     </div>`;
 }
 
@@ -1324,7 +1324,7 @@ function renderSimplifiedBacklog() {
     `<button class="sp-add-btn" onclick="openBLModal(null)">${EI.svg('plus', 14)} Добавить</button>`;
   if (!items.length) {
     document.getElementById('quarterly-content').innerHTML =
-      `<div class="bl-list"><div style="text-align:center;padding:32px;color:var(--muted);font-size:12px"><span style="font-size:28px;display:block;margin-bottom:8px;opacity:.5">📋</span>Беклог пуст — добавьте первый элемент</div></div>`;
+      `<div class="bl-list"><div style="text-align:center;padding:32px;color:var(--muted);font-size:12px"><span class="empty-icon">${EI.svg('clipboard', 24)}</span>Беклог пуст — добавьте первый элемент</div></div>`;
     return;
   }
   const order = { must:0, should:1, could:2, wont:3 };
@@ -1622,7 +1622,7 @@ function renderChangelog() {
   document.getElementById('cl-badge').textContent = list.length;
   const tbody = document.getElementById('cl-tbody');
   if (!list.length) {
-    tbody.innerHTML = `<tr class="empty-row"><td colspan="7"><span class="empty-icon">📋</span>Нет записей</td></tr>`;
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="7"><span class="empty-icon">${EI.svg('clipboard', 20)}</span>Нет записей</td></tr>`;
     return;
   }
   const levelCls = { year:'cl-year', roadmap:'cl-roadmap cl-level', quarter:'cl-quarter cl-level' };
