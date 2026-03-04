@@ -66,7 +66,7 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 
 /* ── PROJECT CARDS ── */
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:12px}
-.pcard{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .15s;cursor:pointer}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .15s,opacity .25s;cursor:pointer}
 .pcard:hover{border-color:var(--bhi)}
 .pcard.open{border-color:var(--vborder)}
 .pcard-head{padding:16px 18px 12px}
@@ -408,15 +408,20 @@ header.ecotech-orig{top:44px!important;height:57px!important;z-index:100;}
 .ob-help-btn:hover{background:rgba(123,47,255,0.28);}
 /* visual-lifecycle */
 .visual-lifecycle{display:flex;align-items:center;gap:0;margin:16px 0 20px;padding:16px 20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:12px;overflow-x:auto;}
-.vl-item{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:56px;position:relative;}
+.vl-item{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:56px;position:relative;cursor:pointer;user-select:none;transition:opacity .2s;}
 .vl-item::after{content:'';position:absolute;top:16px;left:calc(50% + 17px);right:calc(-50% + 17px);height:1px;background:rgba(255,255,255,0.08);}
 .vl-item:last-child::after{display:none;}
 .vl-dot{width:32px;height:32px;border-radius:50%;border:2px solid rgba(255,255,255,0.1);background:#111128;display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:10px;font-weight:700;color:#7A7A9D;transition:all .2s;position:relative;z-index:1;}
-.vl-item.active .vl-dot{border-color:#7B2FFF;background:rgba(123,47,255,0.12);color:#C49CFF;box-shadow:0 0 12px rgba(123,47,255,0.3);}
-.vl-item.active .vl-dot::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(123,47,255,0.18);animation:vl-pulse 2s infinite;}
+.vl-item:hover .vl-dot{border-color:rgba(123,47,255,0.45);color:#C49CFF;}
+.vl-item.vl-selected .vl-dot{border-color:#7B2FFF;background:rgba(123,47,255,0.15);color:#C49CFF;box-shadow:0 0 16px rgba(123,47,255,0.35);}
+.vl-item.vl-selected .vl-dot::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(123,47,255,0.18);animation:vl-pulse 2s infinite;}
 .vl-label{font-size:8px;font-weight:700;color:#7A7A9D;text-align:center;white-space:nowrap;letter-spacing:.03em;}
-.vl-item.active .vl-label{color:#C49CFF;}
+.vl-item.vl-selected .vl-label{color:#C49CFF;}
 .vl-sublabel{font-size:7px;color:rgba(122,122,157,0.55);text-align:center;white-space:nowrap;}
+.vl-cnt{font-size:9px;font-weight:700;color:rgba(122,122,157,0.55);letter-spacing:.02em;line-height:1;}
+.vl-item.vl-selected .vl-cnt{color:rgba(196,156,255,0.8);}
+.vl-item.vl-empty{opacity:0.3;pointer-events:none;}
+.pcard.gf-dim{opacity:0.12;pointer-events:none;}
 @keyframes vl-pulse{0%,100%{opacity:0.4;transform:scale(1);}50%{opacity:1;transform:scale(1.1);}}
 </style>
   <script src="../icons.js"></script>
@@ -553,14 +558,7 @@ header.ecotech-orig{top:44px!important;height:57px!important;z-index:100;}
     <div class="pstat"><div class="pstat-num" style="color:var(--green)">38</div><div class="pstat-lbl">High priority</div></div>
   </div>
       <!-- Visual Lifecycle -->
-      <div class="visual-lifecycle">
-        <div class="vl-item"><div class="vl-dot">G0</div><div class="vl-label">Идея</div><div class="vl-sublabel">Скрининг</div></div>
-        <div class="vl-item"><div class="vl-dot">G1</div><div class="vl-label">Концепция</div><div class="vl-sublabel">PSF</div></div>
-        <div class="vl-item active"><div class="vl-dot">G2</div><div class="vl-label">Прототип</div><div class="vl-sublabel">MVP</div></div>
-        <div class="vl-item"><div class="vl-dot">G3</div><div class="vl-label">Разработка</div><div class="vl-sublabel">Dev</div></div>
-        <div class="vl-item"><div class="vl-dot">G4</div><div class="vl-label">Запуск</div><div class="vl-sublabel">GTM</div></div>
-        <div class="vl-item"><div class="vl-dot">G5</div><div class="vl-label">Масштаб</div><div class="vl-sublabel">Scale</div></div>
-      </div>
+      <div class="visual-lifecycle" id="visual-lifecycle"></div>
       <div class="divlabel">Продукты экосистемы — 6 продуктов, 38 эпиков</div>
       <div class="pgrid" id="pgrid"><div class="pcard" id="pc-PR01">
       <div class="pcard-head" onclick="togglePC(&#39;PR01&#39;)">
@@ -1396,6 +1394,7 @@ backlog.forEach(item => {
 });
 
 let filters = { cat:'all', status:'all', audience:'all', project:'all', track:'all' };
+let gateFilter = null; // null = all, 0-5 = filter by gate
 let sortBy = 'score';
 let editId = null;
 let curTab = 'portfolio';
@@ -1452,6 +1451,52 @@ function switchTab(tab, btn) {
 
 // ════════════════════════════════════════════
 // PORTFOLIO
+// ── GATE FILTER ──────────────────────────────
+function renderLifecycle() {
+  const el = document.getElementById('visual-lifecycle');
+  if (!el) return;
+  const gateCount = Array(6).fill(0);
+  PROJECTS.forEach(p => { if (p.gate >= 0 && p.gate < 6) gateCount[p.gate]++; });
+  el.innerHTML = STAGES.map((s, idx) => {
+    const cnt = gateCount[idx];
+    const isSel = gateFilter === idx;
+    const isEmpty = cnt === 0;
+    const tip = cnt === 0 ? `Нет продуктов на стадии ${s.name}` : `${cnt} продукт${cnt===1?'':cnt<5?'а':'ов'} · нажмите для фильтра`;
+    return `<div class="vl-item${isSel?' vl-selected':''}${isEmpty?' vl-empty':''}" onclick="setGateFilter(${idx})" title="${tip}">
+      <div class="vl-dot">G${idx}</div>
+      <div class="vl-label">${s.name}</div>
+      <div class="vl-cnt">${cnt > 0 ? '×'+cnt : '—'}</div>
+    </div>`;
+  }).join('');
+}
+
+function applyGateFilter() {
+  document.querySelectorAll('.pcard').forEach(card => {
+    const cg = parseInt(card.dataset.gate);
+    card.classList.toggle('gf-dim', gateFilter !== null && cg !== gateFilter);
+  });
+}
+
+function setGateFilter(g) {
+  gateFilter = (gateFilter === g) ? null : g;
+  renderLifecycle();
+  applyGateFilter();
+  const dl = document.querySelector('.divlabel');
+  if (dl) {
+    if (gateFilter === null) {
+      dl.textContent = `Продукты экосистемы — ${PROJECTS.length} продуктов, ${backlog.length} эпиков`;
+    } else {
+      const s = STAGES[gateFilter];
+      const cnt = PROJECTS.filter(p => p.gate === gateFilter).length;
+      dl.textContent = `Фильтр: G${gateFilter} · ${s.name} — ${cnt} продукт${cnt===1?'':cnt<5?'а':'ов'} · повтор. клик = сброс`;
+    }
+  }
+  if (gateFilter !== null) {
+    const first = document.querySelector('.pcard:not(.gf-dim)');
+    if (first) first.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+}
+
 // ════════════════════════════════════════════
 function renderPortfolio() {
   // Preserve open state before re-render
@@ -1538,7 +1583,7 @@ function renderPortfolio() {
       initRows = sorted.map(mkIRow).join('');
     }
 
-    return `<div class="pcard" id="pc-${p.id}">
+    return `<div class="pcard" id="pc-${p.id}" data-gate="${p.gate}">
       <div class="pcard-head" onclick="togglePC('${p.id}')">
         <div class="pmeta">
           <span class="pid">${p.id}</span>
@@ -1580,6 +1625,9 @@ function renderPortfolio() {
       if (btn) btn.textContent = 'Свернуть ↑';
     }
   });
+  // Render lifecycle bar and restore gate filter
+  renderLifecycle();
+  applyGateFilter();
 }
 
 function togglePC(id) {
