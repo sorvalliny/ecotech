@@ -74,43 +74,6 @@
     .en-drop-sep{height:1px;background:rgba(123,47,255,0.12);margin:4px 4px;}
 
     /* ── HEADER ── */
-    .header {
-      position: sticky;
-      top: 44px;
-      z-index: 90;
-      background: rgba(8,8,26,0.88);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 40px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      height: 52px;
-    }
-
-    .header-logo {
-      font-family: var(--font-head);
-      font-size: 14px;
-      font-weight: 900;
-      color: var(--white);
-      letter-spacing: -0.5px;
-      white-space: nowrap;
-    }
-    .header-logo span { color: var(--violet); }
-
-    .header-sep {
-      width: 1px;
-      height: 16px;
-      background: var(--border);
-      margin: 0 8px;
-    }
-
-    .header-label {
-      font-size: 11px;
-      color: var(--muted);
-      flex: 1;
-    }
-
     .header-badge {
       font-size: 10px;
       font-weight: 700;
@@ -381,7 +344,6 @@
 
     @media (max-width: 680px) {
       .main { padding: 32px 20px 48px; }
-      .header { padding: 0 20px; }
       .hero h1 { font-size: 26px; }
       .footer { padding: 14px 20px; }
     }
@@ -421,16 +383,9 @@
       <a class="en-drop-trigger" href="Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер ↗</a>
     </div>
   </div>
+  <div style="margin-left:auto;"><div class="header-badge">Пилот активен</div></div>
 </nav>
 <script>!function(){var ds=document.querySelectorAll('.en-drop');ds.forEach(function(d){var t;d.addEventListener('mouseenter',function(){clearTimeout(t);d.classList.add('is-open');});d.addEventListener('mouseleave',function(){t=setTimeout(function(){d.classList.remove('is-open');},120);});});}();</script>
-
-<!-- ── HEADER ── -->
-<header class="header">
-  <div class="header-logo">Eco<span>Tech</span> Platform</div>
-  <div class="header-sep"></div>
-  <div class="header-label">Проектный офис · WB Экосистема</div>
-  <div class="header-badge">Пилот активен</div>
-</header>
 
 <!-- ── MAIN ── -->
 <main class="main">
