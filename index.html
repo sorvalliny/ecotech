@@ -498,10 +498,10 @@
   var timeStr = now.getHours() + ':' + String(now.getMinutes()).padStart(2,'0');
   bar.innerHTML = [
     '<span style="font-size:11px;color:var(--muted);font-family:var(--font-mono,monospace)">Live·</span>',
-    '<span class="stat-pill" style="font-size:11px;padding:4px 10px">' + (window.EI ? EI.svg('refresh-cw','ei ei-14') : '') + ' WIP: <strong>' + s.wip + '</strong></span>',
-    '<span class="stat-pill" style="font-size:11px;padding:4px 10px">' + (window.EI ? EI.svg('check-circle','ei ei-14 ei-green') : '') + ' High: <strong>' + s.high + '</strong></span>',
-    '<span class="stat-pill" style="font-size:11px;padding:4px 10px">' + (window.EI ? EI.svg('clipboard','ei ei-14') : '') + ' Инициатив: <strong>' + s.backlog_total + '</strong></span>',
-    s.products > 0 ? '<span class="stat-pill" style="font-size:11px;padding:4px 10px">' + (window.EI ? EI.svg('package','ei ei-14') : '') + ' Продуктов: <strong>' + s.products + '</strong></span>' : '',
+    '<span class="stat-pill" style="font-size:11px;padding:4px 10px">WIP: <strong>' + s.wip + '</strong></span>',
+    '<span class="stat-pill" style="font-size:11px;padding:4px 10px">High: <strong>' + s.high + '</strong></span>',
+    '<span class="stat-pill" style="font-size:11px;padding:4px 10px">Инициатив: <strong>' + s.backlog_total + '</strong></span>',
+    s.products > 0 ? '<span class="stat-pill" style="font-size:11px;padding:4px 10px">Продуктов: <strong>' + s.products + '</strong></span>' : '',
     '<span style="font-size:10px;color:var(--muted);align-self:center">' + timeStr + '</span>'
   ].join('');
   bar.style.display = 'flex';
