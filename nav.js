@@ -20,10 +20,9 @@
   function has(s) { return p.indexOf(s.toLowerCase()) !== -1; }
 
   // ── active group detection ──────────────────────────────────
-  var bizActive  = (has('business') || has('бизнесу') || has('витрина') || has('slides_temp'))  ? ' en-active' : '';
+  var bizActive  = (has('business') || has('бизнесу')) ? ' en-active' : '';
   var pdktActive = (has('product')  || has('продукту') || has('хэндбук') || has('фреймворк')) ? ' en-active' : '';
-  var trkrActive = has('трекер инициатив') ? ' en-active' : '';
-  var bklgActive = has('бэклог')           ? ' en-active' : '';
+  var trkrActive = (has('трекер инициатив') || has('бэклог')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -47,13 +46,7 @@
     + '<div class="en-drop' + bizActive + '">'
     +   '<a class="en-drop-trigger">Бизнесу</a>'
     +   '<div class="en-drop-menu">'
-    +     a('business.html',                                        'Для бизнеса')
-    +     a('Бизнесу/index.html',                                   'Обзор платформы')
-    +     sep()
-    +     a('Витрина/EcoTech Platform - главная страница.html',    'Главная страница')
-    +     a('Витрина/EcoTech Platform — Витрина.html',             'Витрина модулей')
-    +     sep()
-    +     a('slides_temp/slide01.html',                             'Слайды')
+    +     a('business.html', 'Для бизнеса')
     +   '</div>'
     + '</div>'
 
@@ -65,14 +58,12 @@
     +     a('Продукту/strategy.html',                'Стратегическое планирование')
     +     sep()
     +     a('Хэндбук/rwb-product-os-v12.html',       'Хэндбук (G0–G5)')
-    +     a('Фреймворк/rwb-product-os-v3.html',       'Фреймворк')
     +     a('Фреймворк/framework-lite.html',           'Framework Lite')
     +   '</div>'
     + '</div>'
 
-    // ── Трекер / Бэклог (прямые ссылки) ──────
-    + '<a class="en-link' + trkrActive + '" href="' + base + 'Проектный офис/RWB · Product OS - Трекер инициатив.html">Трекер ↗</a>'
-    + '<a class="en-link' + bklgActive + '" href="' + base + 'Проектный офис/RWB · Product OS · Бэклог развития.html">Бэклог ↗</a>'
+    // ── Трекер (прямая ссылка) ────────────────
+    + '<a class="en-link' + trkrActive + '" href="' + base + 'Проектный офис/RWB · Product OS - Трекер инициатив.html">Проекты и инициативы ↗</a>'
 
     + '</div>'
     + '</nav>';
