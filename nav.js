@@ -21,7 +21,7 @@
 
   // ── active group detection ──────────────────────────────────
   var bizActive  = (has('business') || has('бизнесу')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('хэндбук') || has('фреймворк') || has('tools')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools')) ? ' en-active' : '';
   var trkrActive = (has('трекер инициатив') || has('бэклог')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
@@ -56,9 +56,6 @@
     +   '<div class="en-drop-menu">'
     +     a('product.html',                          'С чего начать')
     +     a('Продукту/tools.html',                   'Инструменты')
-    +     a('Продукту/strategy.html',                'Стратегическое планирование')
-    +     sep()
-    +     a('Фреймворк/framework-lite.html',           'Гайд по стадиям продукта')
     +   '</div>'
     + '</div>'
 
