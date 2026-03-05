@@ -100,7 +100,7 @@
     '.en-link.en-active{color:#C49CFF;background:rgba(123,47,255,.12)}'
   ].join('\n');
 
-  // ── inject CSS (once) ───────────────────────────────────────
+  // ── inject CSS into <head> immediately (head is available) ──
   if (!document.getElementById('en-styles')) {
     var st = document.createElement('style');
     st.id = 'en-styles';
@@ -108,13 +108,19 @@
     document.head.appendChild(st);
   }
 
-  // ── inject nav HTML at top of body ─────────────────────────
-  document.body.insertAdjacentHTML('afterbegin', nav);
+  // ── inject nav + init dropdowns (body must exist) ───────────
+  function inject() {
+    document.body.insertAdjacentHTML('afterbegin', nav);
+    [].forEach.call(document.querySelectorAll('.en-drop'), function (d) {
+      var t;
+      d.addEventListener('mouseenter', function () { clearTimeout(t); d.classList.add('is-open'); });
+      d.addEventListener('mouseleave', function () { t = setTimeout(function () { d.classList.remove('is-open'); }, 120); });
+    });
+  }
 
-  // ── dropdown hover behavior ─────────────────────────────────
-  [].forEach.call(document.querySelectorAll('.en-drop'), function (d) {
-    var t;
-    d.addEventListener('mouseenter', function () { clearTimeout(t); d.classList.add('is-open'); });
-    d.addEventListener('mouseleave', function () { t = setTimeout(function () { d.classList.remove('is-open'); }, 120); });
-  });
+  if (document.body) {
+    inject();                                          // script at end of body
+  } else {
+    document.addEventListener('DOMContentLoaded', inject); // script in <head>
+  }
 })();
