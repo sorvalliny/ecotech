@@ -61,6 +61,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .tc-foot{display:flex;align-items:center;gap:6px;margin-top:auto}
 .tc-link-badge{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);background:var(--surface2);padding:2px 8px;border-radius:5px;max-width:160px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .tc-custom-badge{font-size:9px;font-weight:700;letter-spacing:.05em;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:var(--head)}
+.tc-inactive{opacity:.38;cursor:default;pointer-events:none}
 
 /* ── CAT COLOR TOKENS ── */
 .cat-platform .tc-cat{background:var(--vdim);color:#C4B5FD}
@@ -264,21 +265,21 @@ var TOOLS_DEFAULT = [
     link:'./rice.html',
     access:'Открытый доступ — ссылка в навигации платформы.',
     rules:'Оценивай инициативу честно — занижай Confidence если данных мало. RICE Score влияет на приоритет в роадмапе.', custom:false },
-  { id:'P02', name:'Фреймворк',                    cat:'platform', icon:'map',       color:'violet',
+  { id:'P02', name:'Продуктовый фреймворк',         cat:'platform', icon:'map',       color:'violet',
     desc:'Операционный справочник контура. Gate 0→5, регламенты, чек-листы, шаблоны артефактов.',
     link:'../Фреймворк/rwb-product-os-v3.html',
     access:'Открытый доступ внутри платформы.',
     rules:'Регламенты обязательны для лидов на каждом Gate-переходе. Отклонения согласуй с PMO.', custom:false },
-  { id:'P03', name:'Framework Lite',               cat:'platform', icon:'zap',       color:'violet',
+  { id:'P03', name:'Гайд по стадиям продукта',     cat:'platform', icon:'zap',       color:'violet',
     desc:'Упрощённый путь для быстрых гипотез: Discovery → Пилот → Запуск.',
     link:'../Фреймворк/framework-lite.html',
     access:'Открытый доступ.',
     rules:'Используй для продуктов на стадии О·0–О·2. Переход в полный фреймворк согласуй с PMO.', custom:false },
   { id:'P04', name:'Хэндбук лидера',               cat:'platform', icon:'book-open', color:'amber',
     desc:'Гайды, шаблоны и стандарты для PM и Tech Lead. G0–G5.',
-    link:'../Хэндбук/rwb-product-os-v12.html',
-    access:'Открытый доступ.',
-    rules:'Хэндбук — источник истины для продуктовых практик. Сверяйся при оформлении артефактов.', custom:false },
+    link:'',
+    access:'',
+    rules:'', custom:false, inactive:true },
   { id:'P05', name:'Трекер проектов и инициатив',  cat:'platform', icon:'target',    color:'violet',
     desc:'Управление Gate-переходами, реестр продуктов, эпиков и целей.',
     link:'../Проектный офис/RWB · Product OS - Трекер инициатив.html',
@@ -389,12 +390,13 @@ function renderGrid() {
     return;
   }
   grid.innerHTML = list.map(function(t) {
-    var c = colorOf(t.color);
-    var isExternal = t.link && t.link !== '#' && t.link.indexOf('http') === 0;
     var hasLink = t.link && t.link !== '#';
-    return '<div class="tool-card cat-' + t.cat + (activeId===t.id?' active':'') + '" onclick="openDrawer(\'' + t.id + '\')">' +
+    var inactive = !!t.inactive;
+    var iconCls = inactive ? 'ic-muted' : 'ic-' + (t.color||'violet');
+    var cardCls = 'tool-card cat-' + t.cat + (activeId===t.id?' active':'') + (inactive?' tc-inactive':'');
+    return '<div class="' + cardCls + '" onclick="' + (inactive ? '' : 'openDrawer(\'' + t.id + '\')') + '">' +
       '<div class="tc-head">' +
-        '<div class="tc-icon ic-' + (t.color||'violet') + '">' + EI.svg(t.icon||'layers', 20) + '</div>' +
+        '<div class="tc-icon ' + iconCls + '">' + EI.svg(t.icon||'layers', 20) + '</div>' +
         '<div class="tc-meta">' +
           '<div class="tc-name">' + esc(t.name) + '</div>' +
           '<span class="tc-cat">' + (CAT_LABELS[t.cat]||t.cat) + '</span>' +
@@ -402,8 +404,9 @@ function renderGrid() {
       '</div>' +
       '<div class="tc-desc">' + esc(t.desc||'') + '</div>' +
       '<div class="tc-foot">' +
-        (hasLink ? '<div class="tc-link-badge">' + EI.svg('external-link',10) + ' ' + linkLabel(t.link) + '</div>' : '') +
-        (t.custom ? '<span class="tc-custom-badge">СВОЙ</span>' : '') +
+        (inactive ? '<span class="tc-custom-badge" style="color:#7A7A9D">Скоро</span>' :
+          (hasLink ? '<div class="tc-link-badge">' + EI.svg('external-link',10) + ' ' + linkLabel(t.link) + '</div>' : '')) +
+        (t.custom && !inactive ? '<span class="tc-custom-badge">СВОЙ</span>' : '') +
       '</div>' +
     '</div>';
   }).join('');

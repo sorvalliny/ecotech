@@ -58,8 +58,7 @@
     +     a('Продукту/tools.html',                   'Инструменты')
     +     a('Продукту/strategy.html',                'Стратегическое планирование')
     +     sep()
-    +     a('Хэндбук/rwb-product-os-v12.html',       'Хэндбук (G0–G5)')
-    +     a('Фреймворк/framework-lite.html',           'Framework Lite')
+    +     a('Фреймворк/framework-lite.html',           'Гайд по стадиям продукта')
     +   '</div>'
     + '</div>'
 

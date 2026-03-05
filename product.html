@@ -163,68 +163,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     </div>
   </section>
 
-  <div class="section-divider"></div>
-
-  <!-- ── MODULES ── -->
-  <section class="modules-section">
-    <div class="sec-eyebrow">Модули платформы</div>
-    <div class="sec-title">12 инструментов для<br>вашей команды</div>
-    <p class="sec-sub">Активные модули доступны прямо сейчас. Модули в разработке появятся в следующих релизах.</p>
-
-    <div class="modules-grid" id="modules-grid"></div>
-    <div class="modules-footer-note">Платформа на раннем этапе тестирования — Проектный офис EcoTech, 2026</div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- ── TOOLS ── -->
-  <section class="tools-section">
-    <div class="sec-eyebrow">Экосистема WB</div>
-    <div class="sec-title">Инструменты</div>
-    <p class="sec-sub">Быстрый доступ к внутренним сервисам и ресурсам экосистемы.</p>
-
-    <!-- Для разработчиков -->
-    <div class="tools-group">
-      <div class="tools-group-label">Для разработчиков</div>
-      <div class="tools-grid tools-grid-4">
-        <a class="tool-card" href="#" target="_blank" rel="noopener">
-          <div class="tool-icon-wrap" style="background:rgba(123,47,255,.15)"><svg class="ei" width="18" height="18" style="color:#C4B5FD"><use href="#ic-box"/></svg></div>
-          <div><div class="tool-name">Витрина решений и API</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
-        </a>
-        <a class="tool-card" href="#" target="_blank" rel="noopener">
-          <div class="tool-icon-wrap" style="background:rgba(0,212,180,.12)"><svg class="ei" width="18" height="18" style="color:#00D4B4"><use href="#ic-zap"/></svg></div>
-          <div><div class="tool-name">WB X</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
-        </a>
-        <a class="tool-card" href="#" target="_blank" rel="noopener">
-          <div class="tool-icon-wrap" style="background:rgba(59,130,246,.12)"><svg class="ei" width="18" height="18" style="color:#93C5FD"><use href="#ic-git-branch"/></svg></div>
-          <div><div class="tool-name">WB GitLab</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
-        </a>
-        <a class="tool-card" href="#" target="_blank" rel="noopener">
-          <div class="tool-icon-wrap" style="background:rgba(255,184,48,.12)"><svg class="ei" width="18" height="18" style="color:#FFB830"><use href="#ic-trending-up"/></svg></div>
-          <div><div class="tool-name">WB Grafana</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Общие -->
-    <div class="tools-group">
-      <div class="tools-group-label">Общие</div>
-      <div class="tools-grid tools-grid-3">
-        <a class="tool-card" href="#" target="_blank" rel="noopener">
-          <div class="tool-icon-wrap" style="background:rgba(52,211,153,.12)"><svg class="ei" width="18" height="18" style="color:#34D399"><use href="#ic-bar-chart"/></svg></div>
-          <div><div class="tool-name">WB BI</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
-        </a>
-        <a class="tool-card" href="#" target="_blank" rel="noopener">
-          <div class="tool-icon-wrap" style="background:rgba(255,255,255,.06)"><svg class="ei" width="18" height="18" style="color:#E8E6FF"><use href="#ic-book"/></svg></div>
-          <div><div class="tool-name">WB Wiki</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
-        </a>
-        <a class="tool-card" href="Проектный офис/RWB · Product OS - Трекер инициатив.html">
-          <div class="tool-icon-wrap" style="background:rgba(123,47,255,.15)"><svg class="ei" width="18" height="18" style="color:#C4B5FD"><use href="#ic-target"/></svg></div>
-          <div><div class="tool-name">Трекер проектов и инициатив</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-arrow-right"/></svg> EcoTech Platform</div></div>
-        </a>
-      </div>
-    </div>
-  </section>
 
 </div><!-- /page-wrap -->
 
@@ -236,56 +174,5 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   </div>
 </footer>
 
-<script>
-var MODULES = [
-  { name:'Бэклог & RICE', icon:'📊', status:'active',
-    href:'Проектный офис/RWB · Product OS · Бэклог развития.html',
-    desc:'Приоритизация инициатив по RICE-скорингу. Kanban, Roadmap, паспорта.' },
-  { name:'Фреймворк', icon:'🗺', status:'active',
-    href:'Фреймворк/rwb-product-os-v3.html',
-    desc:'Полный жизненный цикл. Gate 0→5, чек-листы, шаблоны артефактов.' },
-  { name:'Framework Lite', icon:'⚡', status:'active',
-    href:'Фреймворк/framework-lite.html',
-    desc:'Упрощённый путь для быстрых гипотез. Discovery → Пилот → Запуск.' },
-  { name:'Трекер', icon:'🎯', status:'active',
-    href:'Проектный офис/RWB · Product OS - Трекер инициатив.html',
-    desc:'Трекинг статусов Gate по всем продуктам портфеля.' },
-  { name:'OKR Планировщик', icon:'🎯', status:'dev', href:'#',
-    desc:'Дерево целей: компания → департамент → продукт → инициативы.' },
-  { name:'Product Health', icon:'💚', status:'dev', href:'#',
-    desc:'Еженедельный дашборд метрик для Продуктового комитета.' },
-  { name:'CustDev Трекер', icon:'🎤', status:'dev', href:'#',
-    desc:'Управление интервью, инсайтами и гипотезами.' },
-  { name:'PMO Реестр', icon:'📋', status:'dev', href:'#',
-    desc:'Единый реестр всех инициатив с Gate-скринингом.' },
-  { name:'PnL Модель', icon:'💰', status:'dev', href:'#',
-    desc:'Финансовая модель: прогноз доходов, ROI, breakeven.' },
-  { name:'Хэндбук лидера', icon:'📖', status:'active',
-    href:'Хэндбук/rwb-product-os-v12.html',
-    desc:'Гайды, шаблоны и стандарты для PM и Tech Lead.' },
-  { name:'Корп. ProductHunt', icon:'🚀', status:'dev', href:'#',
-    desc:'Витрина внутренних продуктов с апвоутами и рейтингом.' },
-  { name:'Экспорт в Wiki', icon:'🔗', status:'dev', href:'#',
-    desc:'Выгрузка Product ID и Gate-отчётов в Confluence.' }
-];
-
-function renderModules() {
-  var grid = document.getElementById('modules-grid');
-  if (!grid) return;
-  grid.innerHTML = MODULES.map(function(m) {
-    var isActive = m.status === 'active';
-    var el = isActive ? 'a' : 'div';
-    var href = isActive ? ' href="' + m.href + '"' : '';
-    return '<' + el + ' class="module-card ' + m.status + '"' + href + '>' +
-      '<div class="module-icon">' + m.icon + '</div>' +
-      '<div class="module-name">' + m.name + '</div>' +
-      '<div class="module-desc">' + m.desc + '</div>' +
-      '<span class="module-badge badge-' + m.status + '">' + (isActive ? 'Активен' : 'В разработке') + '</span>' +
-    '</' + el + '>';
-  }).join('');
-}
-
-renderModules();
-</script>
 </body>
 </html>
