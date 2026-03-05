@@ -21,8 +21,7 @@
 
   // ── active group detection ──────────────────────────────────
   var bizActive  = (has('business') || has('бизнесу')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools')) ? ' en-active' : '';
-  var trkrActive = (has('трекер инициатив') || has('бэклог')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -55,12 +54,11 @@
     +   '<a class="en-drop-trigger">Продукту</a>'
     +   '<div class="en-drop-menu">'
     +     a('product.html',                          'С чего начать')
+    +     sep()
+    +     a('Проектный офис/council.html',           'Управляющий совет')
     +     a('Продукту/tools.html',                   'Инструменты')
     +   '</div>'
     + '</div>'
-
-    // ── Трекер (прямая ссылка) ────────────────
-    + '<a class="en-link' + trkrActive + '" href="' + base + 'Проектный офис/RWB · Product OS - Трекер инициатив.html">Проекты и инициативы ↗</a>'
 
     + '</div>'
     + '</nav>';

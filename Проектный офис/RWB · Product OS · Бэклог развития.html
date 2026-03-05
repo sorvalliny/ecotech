@@ -191,6 +191,9 @@ main { padding: 24px 28px 80px; }
 .item-score-col { text-align: center; }
 .score-val { font-family: var(--mono); font-size: 22px; font-weight: 800; line-height: 1; }
 .score-label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-top: 1px; }
+.score-val.score-high + .score-label::before { content: '●'; color: var(--green); margin-right: 3px; }
+.score-val.score-mid + .score-label::before { content: '●'; color: var(--amber); margin-right: 3px; }
+.score-val.score-low + .score-label::before { content: '●'; color: var(--red); margin-right: 3px; }
 .score-high { color: var(--green); }
 .score-mid  { color: var(--amber); }
 .score-low  { color: var(--red); }
@@ -429,13 +432,13 @@ header{top:44px!important;}
   </div>
 
   <!-- ITEMS -->
-  <div class="items-list" id="items-list"><div class="group-label">📄 Контент</div><div class="item " onclick="openEdit(&#39;C04&#39;)">
+  <div class="items-list" id="items-list"><div class="group-label">Контент</div><div class="item " onclick="openEdit(&#39;C04&#39;)">
     <div class="item-rank">#1</div>
     <div class="item-main">
       <div class="item-name">Принципы Product OS (раздел)</div>
       <div class="item-desc">Восстановить из v11 раздел 6 принципов: Ценность до кода, Скорость через ясность, MVP не плохо а достаточно, Data-driven, Прозрачность, OKR-связь</div>
       <div class="item-meta">
-        <span class="tag tag-content">📄 Контент</span>
+        <span class="tag tag-content">Контент</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">C04</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -462,11 +465,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">360.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
-      <span style="font-size:9px;color:var(--muted)" title="Контент уже есть в v11, просто не перенесли в v12 MVP">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Контент уже есть в v11, просто не перенесли в v12 MVP">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;C02&#39;)">
     <div class="item-rank">#2</div>
@@ -474,7 +477,7 @@ header{top:44px!important;}
       <div class="item-name">Release Notes шаблон</div>
       <div class="item-desc">Интерактивный шаблон Release Notes: версия, что изменилось, rollback plan, коммуникация для заказчика и пользователей</div>
       <div class="item-meta">
-        <span class="tag tag-content">📄 Контент</span>
+        <span class="tag tag-content">Контент</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">C02</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -501,11 +504,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">162.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
-      <span style="font-size:9px;color:var(--muted)" title="Уже есть в v11 как текст — нужно перенести как интерактивный шаблон">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Уже есть в v11 как текст — нужно перенести как интерактивный шаблон">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;C01&#39;)">
     <div class="item-rank">#3</div>
@@ -513,7 +516,7 @@ header{top:44px!important;}
       <div class="item-name">Расширенный глоссарий (60+ терминов)</div>
       <div class="item-desc">Добавить 20+ терминов: MoSCoW, JTBD, Activation Rate, Churn Rate, LTV, CAC, Payback Period, SaaS-метрики, DevOps термины</div>
       <div class="item-meta">
-        <span class="tag tag-content">📄 Контент</span>
+        <span class="tag tag-content">Контент</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">C01</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -540,7 +543,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">150.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -552,7 +555,7 @@ header{top:44px!important;}
       <div class="item-name">Роли и матрица ответственности (RACI)</div>
       <div class="item-desc">Детальные карточки ролей из v11: PM, TL, Designer, DA, BA — обязанности, KPI, что делать на каждой стадии. RACI матрица.</div>
       <div class="item-meta">
-        <span class="tag tag-content">📄 Контент</span>
+        <span class="tag tag-content">Контент</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">C05</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -579,11 +582,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">147.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
-      <span style="font-size:9px;color:var(--muted)" title="Один из самых просматриваемых разделов v11">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Один из самых просматриваемых разделов v11">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;C03&#39;)">
     <div class="item-rank">#5</div>
@@ -591,7 +594,7 @@ header{top:44px!important;}
       <div class="item-name">Расширенный Q&amp;A (20+ вопросов)</div>
       <div class="item-desc">Добавить вопросы: B2G-специфика, работа с несколькими трекерами, как питчить CEO, когда пивотить, как работать с токсичным заказчиком</div>
       <div class="item-meta">
-        <span class="tag tag-content">📄 Контент</span>
+        <span class="tag tag-content">Контент</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">C03</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -618,19 +621,19 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">112.5</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
       
     </div>
-  </div><div class="group-label">🎨 Дизайн &amp; UX</div><div class="item " onclick="openEdit(&#39;D02&#39;)">
+  </div><div class="group-label">Дизайн &amp; UX</div><div class="item " onclick="openEdit(&#39;D02&#39;)">
     <div class="item-rank">#1</div>
     <div class="item-main">
       <div class="item-name">Корпоративная дизайн-система RWB</div>
       <div class="item-desc">Перевести весь handbook на корпоративный стиль: шрифты Unbounded+Golos Text, темная тема v11, корп. иконки (SVG не стоковые), токены цветов</div>
       <div class="item-meta">
-        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="tag tag-design">Дизайн &amp; UX</span>
         <span class="impact-badge imp-ux">UX</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D02</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -657,11 +660,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">129.6</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-planned">Запланировано</span>
-      <span style="font-size:9px;color:var(--muted)" title="v12 MVP использует стоковые иконки и дефолтные шрифты. Нужна полная перепаковка под RWB Brand.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="v12 MVP использует стоковые иконки и дефолтные шрифты. Нужна полная перепаковка под RWB Brand.">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;D01&#39;)">
     <div class="item-rank">#2</div>
@@ -669,7 +672,7 @@ header{top:44px!important;}
       <div class="item-name">Орбитальная визуализация стадий</div>
       <div class="item-desc">Восстановить/улучшить интерактивную карту орбит из v11: звезда WB в центре, продукты на орбитах, анимация переходов между стадиями зрелости</div>
       <div class="item-meta">
-        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="tag tag-design">Дизайн &amp; UX</span>
         <span class="impact-badge imp-ux">UX</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D01</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -696,11 +699,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">96.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-planned">Запланировано</span>
-      <span style="font-size:9px;color:var(--muted)" title="Была в v11, пропала в MVP. Ключевой UX-элемент для презентации заказчикам и CEO.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Была в v11, пропала в MVP. Ключевой UX-элемент для презентации заказчикам и CEO.">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;D03&#39;)">
     <div class="item-rank">#3</div>
@@ -708,7 +711,7 @@ header{top:44px!important;}
       <div class="item-name">UX-кейсы и интерактивные сценарии</div>
       <div class="item-desc">Восстановить UX-кейсы из v11: интерактивные примеры как работает фреймворк на реальных продуктах контура, анимированные процессы</div>
       <div class="item-meta">
-        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="tag tag-design">Дизайн &amp; UX</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D03</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -735,7 +738,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">68.6</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -747,7 +750,7 @@ header{top:44px!important;}
       <div class="item-name">Тёмная/светлая тема</div>
       <div class="item-desc">Toggle тёмная/светлая тема с сохранением в localStorage. Светлая — для печати и презентаций, тёмная — для ежедневной работы</div>
       <div class="item-meta">
-        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="tag tag-design">Дизайн &amp; UX</span>
         <span class="impact-badge imp-ux">UX</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D05</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
@@ -774,7 +777,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">60.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -786,7 +789,7 @@ header{top:44px!important;}
       <div class="item-name">Анимации переходов и микроинтеракции</div>
       <div class="item-desc">Добавить motion design: плавные переходы между разделами, hover-анимации на карточках, прогресс-индикаторы чек-листов</div>
       <div class="item-meta">
-        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="tag tag-design">Дизайн &amp; UX</span>
         <span class="impact-badge imp-ux">UX</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D06</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -813,7 +816,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">50.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -825,7 +828,7 @@ header{top:44px!important;}
       <div class="item-name">Адаптивная мобильная версия</div>
       <div class="item-desc">Полноценная мобильная версия: bottom nav, swipe-жесты, читаемые карточки на 360px, чек-листы на тач-устройствах</div>
       <div class="item-meta">
-        <span class="tag tag-design">🎨 Дизайн &amp; UX</span>
+        <span class="tag tag-design">Дизайн &amp; UX</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">D04</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -852,19 +855,19 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">48.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
       
     </div>
-  </div><div class="group-label">⚡ Новые фичи</div><div class="item " onclick="openEdit(&#39;F06&#39;)">
+  </div><div class="group-label">Новые фичи</div><div class="item " onclick="openEdit(&#39;F06&#39;)">
     <div class="item-rank">#1</div>
     <div class="item-main">
       <div class="item-name">Уведомления / Алерты по датам комитетов</div>
       <div class="item-desc">Бейдж ⚠️ в матрице если дата комитета &lt; 3 дней. Напоминание о не пройденных Gate. Опционально — браузерные push-уведомления</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F06</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -891,7 +894,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">126.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -903,7 +906,7 @@ header{top:44px!important;}
       <div class="item-name">PMO Реестр инициатив</div>
       <div class="item-desc">Единый реестр всех инициатив: очередь на скрининг, R/ICE скоринг, статус Gate 0, ответственный, дедлайн. CRUD + фильтры + экспорт</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pmo">PMO</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F02</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -930,11 +933,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">108.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-planned">Запланировано</span>
-      <span style="font-size:9px;color:var(--muted)" title="12 команд без общего реестра — первоочередная задача для PMO">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="12 команд без общего реестра — первоочередная задача для PMO">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;F03&#39;)">
     <div class="item-rank">#3</div>
@@ -942,7 +945,7 @@ header{top:44px!important;}
       <div class="item-name">PnL шаблон и финансовая модель</div>
       <div class="item-desc">Интерактивная PnL: монетизация, прогноз доходов по месяцам, расходы по категориям, auto-расчёт маржи / breakeven / ROI, график</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F03</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -969,11 +972,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">89.6</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-planned">Запланировано</span>
-      <span style="font-size:9px;color:var(--muted)" title="Блокирует Gate 3 для коммерческих продуктов. В v12 кнопка есть, модуль — нет.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Блокирует Gate 3 для коммерческих продуктов. В v12 кнопка есть, модуль — нет.">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;F01&#39;)">
     <div class="item-rank">#4</div>
@@ -981,7 +984,7 @@ header{top:44px!important;}
       <div class="item-name">Корпоративный ProductHunt витрина</div>
       <div class="item-desc">Переделать витрину в полноценный ProductHunt: лендинги продуктов, апвоуты, рейтинг популярности, подкаты API экосистемы по категориям (WB API, внутренние)</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F01</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -1008,11 +1011,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">81.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-planned">Запланировано</span>
-      <span style="font-size:9px;color:var(--muted)" title="Конечный артефакт по задаче — " корп.="" producthunt="" с="" подкатами="" экосистемы""="">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Конечный артефакт по задаче — " корп.="" producthunt="" с="" подкатами="" экосистемы""="">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;F05&#39;)">
     <div class="item-rank">#5</div>
@@ -1020,7 +1023,7 @@ header{top:44px!important;}
       <div class="item-name">Product Health Dashboard</div>
       <div class="item-desc">Еженедельный дашборд для Продуктового комитета: North Star, Retention, NPS, технические метрики, статус Red/Yellow/Green, тренды</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F05</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -1047,11 +1050,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">74.7</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
-      <span style="font-size:9px;color:var(--muted)" title="Шаблон уже есть в v11 как документ, нужен интерактивный модуль">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Шаблон уже есть в v11 как документ, нужен интерактивный модуль">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;F07&#39;)">
     <div class="item-rank">#6</div>
@@ -1059,7 +1062,7 @@ header{top:44px!important;}
       <div class="item-name">Профиль команды продукта</div>
       <div class="item-desc">Страница каждого продукта с командой: PM, TL, дизайнер, DA, контакты, аватары, роли. Кликабельный из матрицы и витрины</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F07</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1086,7 +1089,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">72.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1098,7 +1101,7 @@ header{top:44px!important;}
       <div class="item-name">OKR Планировщик</div>
       <div class="item-desc">Дерево целей: Цели компании → Департамент → Инициативы → Продукты. Привязка инициатив к OKR, трекинг прогресса по KR</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F04</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -1125,7 +1128,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">64.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1137,7 +1140,7 @@ header{top:44px!important;}
       <div class="item-name">CustDev трекер интервью</div>
       <div class="item-desc">Структурированная запись CustDev: карточки интервью, инсайты, гипотезы, статус подтверждения. Счётчик интервью на Gate 1.</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F08</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1164,7 +1167,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">58.8</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1176,7 +1179,7 @@ header{top:44px!important;}
       <div class="item-name">Gate Timeline — дорожная карта гейтов</div>
       <div class="item-desc">Временная шкала всех Gate по всем продуктам: кто, когда, какой Gate. Вид Gantt + Kanban. Планирование нагрузки на комитеты.</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pmo">PMO</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F09</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1203,7 +1206,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">49.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1215,7 +1218,7 @@ header{top:44px!important;}
       <div class="item-name">Сравнение конкурентов (интерактивная матрица)</div>
       <div class="item-desc">Интерактивная таблица конкурентного анализа: добавление конкурентов, критериев, оценок. Автоматическое УТП по разрывам.</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F12</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
@@ -1242,7 +1245,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">42.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1254,7 +1257,7 @@ header{top:44px!important;}
       <div class="item-name">Роадмап продукта (визуализация)</div>
       <div class="item-desc">Интерактивный roadmap: горизонты Now/Next/Later, эпики, релизы, зависимости. Экспорт в PNG/PDF для презентации CEO.</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F11</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1281,7 +1284,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">36.8</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1293,7 +1296,7 @@ header{top:44px!important;}
       <div class="item-name">A/B тест трекер</div>
       <div class="item-desc">Управление A/B экспериментами: гипотеза, метрика, аудитория, статус, результат. Интеграция с дашбордом здоровья продукта.</div>
       <div class="item-meta">
-        <span class="tag tag-feature">⚡ Новые фичи</span>
+        <span class="tag tag-feature">Новые фичи</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">F10</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
@@ -1320,19 +1323,19 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">35.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
       
     </div>
-  </div><div class="group-label">📋 Процессы</div><div class="item " onclick="openEdit(&#39;P01&#39;)">
+  </div><div class="group-label">Процессы</div><div class="item " onclick="openEdit(&#39;P01&#39;)">
     <div class="item-rank">#1</div>
     <div class="item-main">
       <div class="item-name">B2B/B2C/B2G ветки стадий</div>
       <div class="item-desc">Специфика по сегменту на каждой стадии: B2G — юр. pre-check и доп. недели, B2B — CustDev с ЛПР, B2C — массовый A/B. Хинты и отличия.</div>
       <div class="item-meta">
-        <span class="tag tag-process">📋 Процессы</span>
+        <span class="tag tag-process">Процессы</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P01</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -1359,7 +1362,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">112.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1371,7 +1374,7 @@ header{top:44px!important;}
       <div class="item-name">Стек AS IS → TO BE (инструменты 2026)</div>
       <div class="item-desc">Визуализация миграции инструментов: YouTrack → собственный трекер, Confluence → Wiki RWB, таблицы → реестр PMO. Статус и таймлайн.</div>
       <div class="item-meta">
-        <span class="tag tag-process">📋 Процессы</span>
+        <span class="tag tag-process">Процессы</span>
         <span class="impact-badge imp-pmo">PMO</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P05</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1398,7 +1401,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">72.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1410,7 +1413,7 @@ header{top:44px!important;}
       <div class="item-name">Матрица доступов (AS IS → TO BE)</div>
       <div class="item-desc">Интерактивная матрица доступов к инструментам по ролям. AS IS текущее состояние, TO BE целевое. Из v11.</div>
       <div class="item-meta">
-        <span class="tag tag-process">📋 Процессы</span>
+        <span class="tag tag-process">Процессы</span>
         <span class="impact-badge imp-pmo">PMO</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P04</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1437,7 +1440,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">66.7</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1449,7 +1452,7 @@ header{top:44px!important;}
       <div class="item-name">Ретроспектива шаблон (интерактивный)</div>
       <div class="item-desc">Онлайн-ретро прямо в handbook: Stop/Start/Continue + Action items с ответственными и дедлайнами. Архив ретро по продукту.</div>
       <div class="item-meta">
-        <span class="tag tag-process">📋 Процессы</span>
+        <span class="tag tag-process">Процессы</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P03</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1476,7 +1479,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">60.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1488,7 +1491,7 @@ header{top:44px!important;}
       <div class="item-name">DoR/DoD конструктор</div>
       <div class="item-desc">Интерактивный редактор Definition of Ready и Definition of Done: выбираешь тип задачи, стадию → получаешь чек-лист. Сохранение под продукт.</div>
       <div class="item-meta">
-        <span class="tag tag-process">📋 Процессы</span>
+        <span class="tag tag-process">Процессы</span>
         <span class="impact-badge imp-tl">TL</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P02</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1515,7 +1518,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">58.8</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1527,7 +1530,7 @@ header{top:44px!important;}
       <div class="item-name">Kill-условия конфигуратор</div>
       <div class="item-desc">Кастомные kill-условия под каждый продукт: PM задаёт пороги (North Star -N%, NPS &lt; N), система предупреждает при приближении.</div>
       <div class="item-meta">
-        <span class="tag tag-process">📋 Процессы</span>
+        <span class="tag tag-process">Процессы</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">P06</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
@@ -1554,19 +1557,19 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">58.8</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
       
     </div>
-  </div><div class="group-label">🔧 Инструменты</div><div class="item " onclick="openEdit(&#39;T02&#39;)">
+  </div><div class="group-label">Инструменты</div><div class="item " onclick="openEdit(&#39;T02&#39;)">
     <div class="item-rank">#1</div>
     <div class="item-main">
       <div class="item-name">PDF-экспорт с корпоративным форматом</div>
       <div class="item-desc">Нормальный PDF для A4: print-стили, постраничный layout, корп. шапка/подвал, Product ID → PDF для Gate-презентации</div>
       <div class="item-meta">
-        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="tag tag-tooling">Инструменты</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T02</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -1593,11 +1596,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">110.3</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-planned">Запланировано</span>
-      <span style="font-size:9px;color:var(--muted)" title="Сейчас window.print() без стилей — некрасиво. Нужен нормальный A4.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Сейчас window.print() без стилей — некрасиво. Нужен нормальный A4.">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;T06&#39;)">
     <div class="item-rank">#2</div>
@@ -1605,7 +1608,7 @@ header{top:44px!important;}
       <div class="item-name">Поиск по всему handbook</div>
       <div class="item-desc">Полнотекстовый поиск по всем разделам: чек-листы, глоссарий, Q&amp;A, шаблоны. Ctrl+K / ⌘K быстрый доступ.</div>
       <div class="item-meta">
-        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="tag tag-tooling">Инструменты</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T06</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -1632,7 +1635,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">94.5</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1644,7 +1647,7 @@ header{top:44px!important;}
       <div class="item-name">Мастер настройки нового продукта (Wizard)</div>
       <div class="item-desc">Step-by-step онбординг нового PM: создать продукт → заполнить бриф → назначить команду → запустить R/ICE. 5 шагов, 10 минут.</div>
       <div class="item-meta">
-        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="tag tag-tooling">Инструменты</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T05</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -1671,11 +1674,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">89.6</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
-      <span style="font-size:9px;color:var(--muted)" title="Y-combinator подход: быстрый старт без " читай="" документацию""="">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Y-combinator подход: быстрый старт без " читай="" документацию""="">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;T04&#39;)">
     <div class="item-rank">#4</div>
@@ -1683,7 +1686,7 @@ header{top:44px!important;}
       <div class="item-name">Экспорт в Confluence / Wiki</div>
       <div class="item-desc">Кнопка "Экспорт в Wiki": конвертация Product ID / Gate отчёта в Confluence-разметку или markdown для корп. Wiki</div>
       <div class="item-meta">
-        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="tag tag-tooling">Инструменты</span>
         <span class="impact-badge imp-pmo">PMO</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T04</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1710,7 +1713,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">68.6</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -1722,7 +1725,7 @@ header{top:44px!important;}
       <div class="item-name">Интеграция с YouTrack / трекерами</div>
       <div class="item-desc">Унификация статусов Gate поверх YouTrack и собственных трекеров: маппинг статусов, авто-обновление матрицы, webhooks</div>
       <div class="item-meta">
-        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="tag tag-tooling">Инструменты</span>
         <span class="impact-badge imp-tl">TL</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T01</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
@@ -1749,11 +1752,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">40.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
-      <span style="font-size:9px;color:var(--muted)" title="12 команд в разных трекерах — высокий effort, но стратегически важно">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="12 команд в разных трекерах — высокий effort, но стратегически важно">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;T03&#39;)">
     <div class="item-rank">#6</div>
@@ -1761,7 +1764,7 @@ header{top:44px!important;}
       <div class="item-name">Автосохранение в cloud (вместо localStorage)</div>
       <div class="item-desc">Данные продуктов, чек-листы, R/ICE в облаке (simple JSON API или Google Sheets). Синхронизация между пользователями.</div>
       <div class="item-meta">
-        <span class="tag tag-tooling">🔧 Инструменты</span>
+        <span class="tag tag-tooling">Инструменты</span>
         <span class="impact-badge imp-pmo">PMO</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">T03</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
@@ -1788,19 +1791,19 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">40.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
-      <span style="font-size:9px;color:var(--muted)" title="Пока localStorage — данные только в браузере одного пользователя">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Пока localStorage — данные только в браузере одного пользователя">·</span>
     </div>
-  </div><div class="group-label">🗂 Проекты OS</div><div class="item " onclick="openEdit(&#39;PR02&#39;)">
+  </div><div class="group-label">Проекты OS</div><div class="item " onclick="openEdit(&#39;PR02&#39;)">
     <div class="item-rank">#1</div>
     <div class="item-main">
       <div class="item-name">Хендбук для руководителей продукта</div>
       <div class="item-desc">Прикладной инструментарий для продактов, проджектов и техлидов. Приоритизация, планирование, чек-листы стадий, RACI, шаблоны — всё для ускорения работы в рамках фреймворка.</div>
       <div class="item-meta">
-        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="tag tag-project">Проекты OS</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR02</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -1827,11 +1830,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">104.1</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-wip">В работе</span>
-      <span style="font-size:9px;color:var(--muted)" title="В работе. Прикладная надстройка над фреймворком для команд.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="В работе. Прикладная надстройка над фреймворком для команд.">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;PR03&#39;)">
     <div class="item-rank">#2</div>
@@ -1839,7 +1842,7 @@ header{top:44px!important;}
       <div class="item-name">Лендинг-презентация для бизнеса</div>
       <div class="item-desc">Как создать продукт в экосистеме RWB. Вход для новых команд, стартапов и бизнес-заказчиков: путь от идеи до продукта, ценность экосистемы, первый шаг.</div>
       <div class="item-meta">
-        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="tag tag-project">Проекты OS</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR03</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -1866,11 +1869,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">100.8</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-wip">В работе</span>
-      <span style="font-size:9px;color:var(--muted)" title="В работе. Внешняя витрина для привлечения новых команд в экосистему.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="В работе. Внешняя витрина для привлечения новых команд в экосистему.">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;PR01&#39;)">
     <div class="item-rank">#3</div>
@@ -1878,7 +1881,7 @@ header{top:44px!important;}
       <div class="item-name">Продуктовый фреймворк</div>
       <div class="item-desc">Операционный справочник правил и работы контура продуктов экосистемы: регламенты, процессы, методологии, база знаний. Источник истины для лидов и команд RWB.</div>
       <div class="item-meta">
-        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="tag tag-project">Проекты OS</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR01</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v13</span>
@@ -1905,11 +1908,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">100.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-wip">В работе</span>
-      <span style="font-size:9px;color:var(--muted)" title="Фундамент всей системы. Питает все остальные проекты. В работе.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Фундамент всей системы. Питает все остальные проекты. В работе.">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;PR05&#39;)">
     <div class="item-rank">#4</div>
@@ -1917,7 +1920,7 @@ header{top:44px!important;}
       <div class="item-name">Реестр целей и инициатив экосистемы</div>
       <div class="item-desc">Корпоративный трекер: фронтенд для управления портфелем инициатив. Для проектных комитетов, планирования и прозрачности. Бизнес видит актуальный статус 24/7.</div>
       <div class="item-meta">
-        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="tag tag-project">Проекты OS</span>
         <span class="impact-badge imp-pmo">PMO</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR05</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1944,11 +1947,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">70.9</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-planned">Запланировано</span>
-      <span style="font-size:9px;color:var(--muted)" title="Ключевой инструмент для PMO и проектных комитетов. Нужна детализация концепции.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Ключевой инструмент для PMO и проектных комитетов. Нужна детализация концепции.">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;PR04&#39;)">
     <div class="item-rank">#5</div>
@@ -1956,7 +1959,7 @@ header{top:44px!important;}
       <div class="item-name">Трекер инициатив и проектов (Shiva/WB)</div>
       <div class="item-desc">Фронтенд для управления развитием продуктов внутри команд. ТЗ для команды разработки Shiva/WB: они оценивают и разрабатывают внутри своего продукта.</div>
       <div class="item-meta">
-        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="tag tag-project">Проекты OS</span>
         <span class="impact-badge imp-tl">TL</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR04</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v14</span>
@@ -1983,11 +1986,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">63.0</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-planned">Запланировано</span>
-      <span style="font-size:9px;color:var(--muted)" title="Следующий шаг — написать ТЗ. Разработка силами Shiva/WB после согласования.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Следующий шаг — написать ТЗ. Разработка силами Shiva/WB после согласования.">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;PR06&#39;)">
     <div class="item-rank">#6</div>
@@ -1995,7 +1998,7 @@ header{top:44px!important;}
       <div class="item-name">Корпоративный ProductHunt</div>
       <div class="item-desc">Витрина и блог о продуктах экосистемы: интеграция, развитие стартапов силами сотрудников, подача идей, рассказы о продуктах, обмен экспертизой внутри компании.</div>
       <div class="item-meta">
-        <span class="tag tag-project">🗂 Проекты OS</span>
+        <span class="tag tag-project">Проекты OS</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">PR06</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
@@ -2022,19 +2025,19 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">43.6</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
-      <span style="font-size:9px;color:var(--muted)" title="Долгосрочная цель. Требует аудитории и инфраструктуры из других проектов.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Долгосрочная цель. Требует аудитории и инфраструктуры из других проектов.">·</span>
     </div>
-  </div><div class="group-label">🏗 Инфраструктура</div><div class="item " onclick="openEdit(&#39;I03&#39;)">
+  </div><div class="group-label">Инфраструктура</div><div class="item " onclick="openEdit(&#39;I03&#39;)">
     <div class="item-rank">#1</div>
     <div class="item-main">
       <div class="item-name">PWA — установка как приложение</div>
       <div class="item-desc">Progressive Web App: оффлайн-режим, установка на рабочий стол/телефон, push-уведомления о дедлайнах Gate</div>
       <div class="item-meta">
-        <span class="tag tag-infra">🏗 Инфраструктура</span>
+        <span class="tag tag-infra">Инфраструктура</span>
         <span class="impact-badge imp-pm">PM</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">I03</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
@@ -2061,7 +2064,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">43.8</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
@@ -2073,7 +2076,7 @@ header{top:44px!important;}
       <div class="item-name">Аутентификация и мульти-пользовательский режим</div>
       <div class="item-desc">Базовая авторизация (SSO / корп. аккаунт), разные пространства для разных команд, история изменений, кто что редактировал</div>
       <div class="item-meta">
-        <span class="tag tag-infra">🏗 Инфраструктура</span>
+        <span class="tag tag-infra">Инфраструктура</span>
         <span class="impact-badge imp-pmo">PMO</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">I01</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
@@ -2100,11 +2103,11 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">25.2</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>
-      <span style="font-size:9px;color:var(--muted)" title="Большой epic. Нужен backend. Возможно — отдельный продукт.">📝</span>
+      <span style="font-size:9px;color:var(--muted)" title="Большой epic. Нужен backend. Возможно — отдельный продукт.">·</span>
     </div>
   </div><div class="item " onclick="openEdit(&#39;I02&#39;)">
     <div class="item-rank">#3</div>
@@ -2112,7 +2115,7 @@ header{top:44px!important;}
       <div class="item-name">API для интеграций (REST)</div>
       <div class="item-desc">REST API для чтения/записи данных продуктов: статусы Gate, метрики здоровья, реестр инициатив. Для интеграции с BI и трекерами.</div>
       <div class="item-meta">
-        <span class="tag tag-infra">🏗 Инфраструктура</span>
+        <span class="tag tag-infra">Инфраструктура</span>
         <span class="impact-badge imp-tl">TL</span>
         <span style="font-size:9px;color:var(--muted);font-family:var(--mono)">I02</span>
         <span style="font-size:9px;color:var(--muted);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:4px;">v15+</span>
@@ -2139,7 +2142,7 @@ header{top:44px!important;}
     </div>
     <div class="item-score-col">
       <div class="score-val score-high">24.9</div>
-      <div class="score-label">🟢 High</div>
+      <div class="score-label">High</div>
     </div>
     <div class="item-status-col">
       <span class="status-dot st-backlog">Бэклог</span>

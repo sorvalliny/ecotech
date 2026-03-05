@@ -43,7 +43,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .orbit-ring-2{width:230px;height:230px;}
 .orbit-ring-3{width:310px;height:310px;}
 .orbit-planet{position:absolute;top:50%;left:50%;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;}
-.orbit-planet-dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform .2s,box-shadow .2s;}
+.orbit-planet-dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;}
 .orbit-planet:hover .orbit-planet-dot{transform:scale(1.25);box-shadow:0 0 16px rgba(0,212,180,0.6);}
 .orbit-planet-label{font-size:9px;font-weight:700;font-family:var(--font-head);letter-spacing:0.05em;color:var(--gray2);white-space:nowrap;background:rgba(8,8,26,0.9);padding:2px 6px;border-radius:4px;}
 
@@ -135,25 +135,25 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="orbit-center"><svg class="ei" width="26" height="26"><use href="#ic-users"/></svg></div>
       <!-- Inner orbit: Backlog -->
       <div class="orbit-planet p-backlog">
-        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#00D4B4,#3B82F6);">📊</div>
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#00D4B4,#3B82F6);"></div>
         <div class="orbit-planet-label">Backlog</div>
       </div>
       <!-- Middle orbit: Framework + Tracker -->
       <div class="orbit-planet p-fw">
-        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#7B2FFF,#C49CFF);">🗺</div>
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#7B2FFF,#C49CFF);"></div>
         <div class="orbit-planet-label">Framework</div>
       </div>
       <div class="orbit-planet p-tracker">
-        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#FF2D8A,#FF85C0);">🎯</div>
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#FF2D8A,#FF85C0);"></div>
         <div class="orbit-planet-label">Трекер</div>
       </div>
       <!-- Outer orbit: OKR + Health + CustDev -->
       <div class="orbit-planet p-okr">
-        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#34D399,#00D4B4);">🎯</div>
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#34D399,#00D4B4);"></div>
         <div class="orbit-planet-label">OKR</div>
       </div>
       <div class="orbit-planet p-health">
-        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#FFB830,#FF9F43);">💚</div>
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#FFB830,#FF9F43);"></div>
         <div class="orbit-planet-label">Health</div>
       </div>
       <div class="orbit-planet p-custdev">
