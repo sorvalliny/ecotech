@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoTech — Калькулятор RICE</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#08081A;--mid:#111128;--card:#161630;--surface2:#1A1A38;
+  --border:rgba(255,255,255,.07);--border-hi:rgba(255,255,255,.14);
+  --violet:#7B2FFF;--vdim:rgba(123,47,255,.12);--vborder:rgba(123,47,255,.35);
+  --pink:#FF2D8A;--teal:#00D4B4;--tdim:rgba(0,212,180,.10);
+  --amber:#FFB830;--adim:rgba(255,184,48,.10);
+  --green:#34D399;--gdim:rgba(52,211,153,.10);--gborder:rgba(52,211,153,.3);
+  --text:#E8E6FF;--muted:#7A7A9D;--white:#fff;
+  --font:'Golos Text',sans-serif;--head:'Unbounded',sans-serif;--mono:monospace;
+  --nav-h:44px;
+}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--dark);color:var(--text);display:flex;flex-direction:column;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.02;pointer-events:none;z-index:0}
+
+/* ── LAYOUT ── */
+.app{display:flex;flex:1;overflow:hidden;position:relative;z-index:1}
+
+/* ── LEFT PANEL ── */
+.panel-left{width:340px;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid var(--border);background:var(--mid)}
+.pl-head{padding:16px 16px 12px;border-bottom:1px solid var(--border);flex-shrink:0}
+.pl-title{font-family:var(--head);font-size:13px;font-weight:900;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.proj-select{width:100%;background:var(--card);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:var(--font);font-size:12px;padding:8px 12px;outline:none;cursor:pointer;transition:border-color .15s}
+.proj-select:focus{border-color:var(--vborder)}
+.proj-select option{background:var(--card)}
+.pl-search{margin-top:8px;position:relative}
+.pl-search svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.pl-search input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:12px;padding:7px 10px 7px 30px;outline:none;transition:border-color .15s}
+.pl-search input:focus{border-color:rgba(123,47,255,.4)}
+.pl-search input::placeholder{color:var(--muted)}
+.pl-list{flex:1;overflow-y:auto;padding:8px}
+.pl-empty{padding:32px 12px;text-align:center;color:var(--muted);font-size:12px}
+.irow{padding:9px 11px;border-radius:9px;cursor:pointer;transition:background .13s;display:flex;flex-direction:column;gap:4px;border:1px solid transparent;margin-bottom:2px}
+.irow:hover{background:var(--surface2)}
+.irow.sel{background:var(--vdim);border-color:var(--vborder)}
+.irow-top{display:flex;align-items:center;gap:6px}
+.irow-id{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:.05em}
+.irow-score{margin-left:auto;font-family:var(--mono);font-size:11px;font-weight:700}
+.irow-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.35}
+.irow-meta{display:flex;gap:6px;align-items:center}
+.irow-proj{font-size:10px;color:var(--muted)}
+.ist-chip{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;letter-spacing:.03em;font-family:var(--head)}
+.ist-backlog{background:rgba(107,107,142,.15);color:var(--muted)}
+.ist-planned{background:var(--vdim);color:#C4B5FD}
+.ist-wip    {background:var(--tdim);color:#00D4B4}
+.ist-done   {background:var(--gdim);color:#34D399}
+.score-hi{color:#34D399}
+.score-mid{color:#FFB830}
+.score-lo{color:var(--muted)}
+
+/* ── RIGHT PANEL ── */
+.panel-right{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.calc-head{padding:16px 24px 14px;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;gap:12px}
+.calc-head-title{font-family:var(--head);font-size:13px;font-weight:900;color:#fff;flex:1}
+.back-link{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);text-decoration:none;transition:color .15s;flex-shrink:0}
+.back-link:hover{color:#fff}
+
+/* placeholder */
+.placeholder{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px;text-align:center}
+.placeholder-icon{width:64px;height:64px;border-radius:18px;background:var(--vdim);display:flex;align-items:center;justify-content:center;color:#C4B5FD}
+.placeholder-title{font-family:var(--head);font-size:14px;font-weight:900;color:#fff}
+.placeholder-sub{font-size:13px;color:var(--muted);max-width:320px;line-height:1.6}
+
+/* calc body */
+.calc-body{flex:1;overflow-y:auto;padding:24px;display:flex;gap:24px}
+.calc-left{flex:1;display:flex;flex-direction:column;gap:20px}
+.calc-right{width:220px;flex-shrink:0;display:flex;flex-direction:column;gap:16px}
+
+/* initiative info */
+.init-info{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}
+.init-info-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.init-id-badge{font-family:var(--mono);font-size:10px;color:var(--muted);background:var(--surface2);padding:2px 7px;border-radius:5px;flex-shrink:0;margin-top:2px}
+.init-name{font-family:var(--head);font-size:13px;font-weight:900;color:#fff;line-height:1.3}
+.init-desc{font-size:12px;color:var(--muted);line-height:1.55}
+.init-proj-tag{margin-top:10px;display:flex;gap:6px;align-items:center}
+.init-proj-lbl{font-size:10px;color:var(--muted)}
+.init-proj-val{font-size:11px;font-weight:700;color:#C4B5FD;font-family:var(--head)}
+
+/* sliders */
+.sliders-wrap{display:flex;flex-direction:column;gap:14px}
+.slider-row{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.slider-head{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.slider-label{font-family:var(--head);font-size:11px;font-weight:900;color:#fff}
+.slider-abbr{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--violet);line-height:1;margin-right:4px}
+.slider-hint{font-size:11px;color:var(--muted);flex:1}
+.slider-val{font-family:var(--mono);font-size:18px;font-weight:700;color:#fff;min-width:28px;text-align:right}
+.slider-track{position:relative;height:6px;background:var(--surface2);border-radius:3px;cursor:pointer}
+.slider-fill{height:100%;border-radius:3px;transition:width .1s}
+input[type=range]{position:absolute;inset:0;width:100%;opacity:0;cursor:pointer;height:6px;-webkit-appearance:none}
+.slider-marks{display:flex;justify-content:space-between;margin-top:4px}
+.slider-marks span{font-size:9px;color:var(--muted);font-family:var(--mono)}
+.slider-desc{margin-top:8px;font-size:11px;color:var(--muted);min-height:14px}
+
+/* score panel */
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.score-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-family:var(--head)}
+.score-val{font-family:var(--mono);font-size:48px;font-weight:700;line-height:1;transition:color .2s}
+.score-formula{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px}
+.score-tier{font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;letter-spacing:.06em;font-family:var(--head);margin-top:4px}
+.tier-hi {background:var(--gdim);color:#34D399;border:1px solid var(--gborder)}
+.tier-mid{background:var(--adim);color:#FFB830;border:1px solid rgba(255,184,48,.3)}
+.tier-lo {background:rgba(107,107,142,.12);color:var(--muted);border:1px solid var(--border)}
+
+.score-delta{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px;background:var(--surface2);border-radius:9px;width:100%}
+.score-delta-row{display:flex;align-items:center;gap:6px;font-size:11px;font-family:var(--mono)}
+.score-delta-row .lbl{color:var(--muted);font-size:10px}
+.score-delta-arrow{font-size:14px}
+
+.save-btn{width:100%;padding:11px;background:var(--violet);border:none;border-radius:10px;color:#fff;font-family:var(--head);font-size:11px;font-weight:700;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.save-btn:hover{opacity:.85}
+.save-btn:disabled{opacity:.4;cursor:not-allowed}
+.save-note{font-size:10px;color:var(--muted);text-align:center;line-height:1.45}
+
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(13,13,30,.96);border:1px solid var(--gborder);border-radius:10px;padding:10px 20px;font-size:12px;font-weight:700;color:#34D399;z-index:9999;opacity:0;transition:opacity .2s,transform .2s;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:720px){
+  .app{flex-direction:column}
+  .panel-left{width:100%;height:220px;border-right:none;border-bottom:1px solid var(--border)}
+  .calc-body{flex-direction:column}
+  .calc-right{width:100%}
+}
+</style>
+<script src="../icons.js"></script>
+<script src="../platform.js"></script>
+<script src="../nav.js"></script>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── LEFT: project + initiative selector ── -->
+  <div class="panel-left">
+    <div class="pl-head">
+      <div class="pl-title">
+        <svg class="ei" width="16" height="16" style="color:var(--violet)"><use href="#ic-target"/></svg>
+        Выбор инициативы
+      </div>
+      <select class="proj-select" id="proj-select" onchange="onProjChange()">
+        <option value="all">— Все проекты —</option>
+      </select>
+      <div class="pl-search">
+        <svg class="ei" width="13" height="13"><use href="#ic-search"/></svg>
+        <input type="text" id="init-search" placeholder="Поиск инициативы…" oninput="renderList()">
+      </div>
+    </div>
+    <div class="pl-list" id="init-list"></div>
+  </div>
+
+  <!-- ── RIGHT: calculator ── -->
+  <div class="panel-right">
+    <div class="calc-head">
+      <div class="calc-head-title">
+        <svg class="ei" width="16" height="16" style="color:var(--violet);margin-right:6px;vertical-align:middle"><use href="#ic-activity"/></svg>
+        Калькулятор RICE
+      </div>
+      <a class="back-link" href="tools.html">
+        <svg class="ei" width="12" height="12"><use href="#ic-arrow-left"/></svg> Инструменты
+      </a>
+    </div>
+
+    <!-- placeholder -->
+    <div class="placeholder" id="placeholder">
+      <div class="placeholder-icon"><svg class="ei" width="28" height="28"><use href="#ic-target"/></svg></div>
+      <div class="placeholder-title">Выбери инициативу</div>
+      <div class="placeholder-sub">Выбери проект и инициативу слева, чтобы оценить её по методологии RICE и обновить Score.</div>
+    </div>
+
+    <!-- calculator (hidden until initiative selected) -->
+    <div class="calc-body" id="calc-body" style="display:none">
+      <div class="calc-left">
+
+        <!-- initiative info -->
+        <div class="init-info" id="init-info"></div>
+
+        <!-- sliders -->
+        <div class="sliders-wrap">
+
+          <!-- R -->
+          <div class="slider-row">
+            <div class="slider-head">
+              <span class="slider-abbr">R</span>
+              <span class="slider-label">Reach · Охват</span>
+              <span class="slider-hint">Сколько пользователей затронет за квартал</span>
+              <span class="slider-val" id="val-r">5</span>
+            </div>
+            <div class="slider-track">
+              <div class="slider-fill" id="fill-r" style="background:linear-gradient(90deg,#7B2FFF,#C49CFF);width:40%"></div>
+              <input type="range" id="sl-r" min="1" max="10" value="5" oninput="onSlider()">
+            </div>
+            <div class="slider-marks"><span>1 — единицы</span><span>5 — сотни</span><span>10 — тысячи</span></div>
+            <div class="slider-desc" id="desc-r"></div>
+          </div>
+
+          <!-- I -->
+          <div class="slider-row">
+            <div class="slider-head">
+              <span class="slider-abbr">I</span>
+              <span class="slider-label">Impact · Влияние</span>
+              <span class="slider-hint">Насколько сильно изменится опыт каждого</span>
+              <span class="slider-val" id="val-i">5</span>
+            </div>
+            <div class="slider-track">
+              <div class="slider-fill" id="fill-i" style="background:linear-gradient(90deg,#FF2D8A,#FF85C0);width:40%"></div>
+              <input type="range" id="sl-i" min="1" max="10" value="5" oninput="onSlider()">
+            </div>
+            <div class="slider-marks"><span>1 — минимально</span><span>5 — заметно</span><span>10 — трансформирует</span></div>
+            <div class="slider-desc" id="desc-i"></div>
+          </div>
+
+          <!-- C -->
+          <div class="slider-row">
+            <div class="slider-head">
+              <span class="slider-abbr">C</span>
+              <span class="slider-label">Confidence · Уверенность</span>
+              <span class="slider-hint">Степень уверенности в оценке R и I</span>
+              <span class="slider-val" id="val-c">5</span>
+            </div>
+            <div class="slider-track">
+              <div class="slider-fill" id="fill-c" style="background:linear-gradient(90deg,#FFB830,#FDE68A);width:40%"></div>
+              <input type="range" id="sl-c" min="1" max="10" value="5" oninput="onSlider()">
+            </div>
+            <div class="slider-marks"><span>1 — догадка</span><span>5 — данные есть</span><span>10 — доказано</span></div>
+            <div class="slider-desc" id="desc-c"></div>
+          </div>
+
+          <!-- E -->
+          <div class="slider-row">
+            <div class="slider-head">
+              <span class="slider-abbr">E</span>
+              <span class="slider-label">Effort · Усилия</span>
+              <span class="slider-hint">Трудозатраты команды (чем меньше — тем выше Score)</span>
+              <span class="slider-val" id="val-e">5</span>
+            </div>
+            <div class="slider-track">
+              <div class="slider-fill" id="fill-e" style="background:linear-gradient(90deg,#00D4B4,#A7F3D0);width:40%"></div>
+              <input type="range" id="sl-e" min="1" max="10" value="5" oninput="onSlider()">
+            </div>
+            <div class="slider-marks"><span>1 — пара дней</span><span>5 — спринт</span><span>10 — квартал+</span></div>
+            <div class="slider-desc" id="desc-e"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── score sidebar ── -->
+      <div class="calc-right">
+        <div class="score-card">
+          <div class="score-label">RICE Score</div>
+          <div class="score-val" id="score-val">—</div>
+          <div class="score-formula" id="score-formula">R × I × C ÷ E</div>
+          <div class="score-tier" id="score-tier">—</div>
+        </div>
+
+        <div class="score-delta" id="score-delta" style="display:none">
+          <div class="score-delta-row"><span class="lbl">Было</span> <span id="delta-old">—</span></div>
+          <div class="score-delta-arrow" id="delta-arrow">→</div>
+          <div class="score-delta-row"><span class="lbl">Стало</span> <span id="delta-new">—</span></div>
+        </div>
+
+        <button class="save-btn" id="save-btn" onclick="saveScore()" disabled>
+          <svg class="ei" width="14" height="14"><use href="#ic-save"/></svg>
+          Обновить в инициативах
+        </button>
+        <div class="save-note">Результат сохранится в Инициативах и пересчитает рейтинг портфеля</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var BKEY = window.PT ? PT.KEY_BACKLOG  : 'ECOTECH_BACKLOG';
+var PKEY = window.PT ? PT.KEY_PRODUCTS : 'ECOTECH_PRODUCTS';
+
+var R_HINTS = ['', 'Единицы — узкоспециализированная функция','Десятки — небольшая группа пользователей',
+  'Небольшая часть аудитории','Заметная доля аудитории','Половина активных пользователей',
+  'Большинство пользователей затронуто','Широкий охват','Почти все пользователи',
+  'Практически вся аудитория','Вся аудитория продукта — массовое изменение'];
+var I_HINTS = ['', 'Почти незаметно — косметическая правка','Слабое влияние на UX',
+  'Небольшое улучшение опыта','Заметное улучшение для пользователя','Значимое изменение продукта',
+  'Ощутимо меняет поведение пользователя','Сильный эффект на ключевые метрики',
+  'Трансформирует процесс использования','Критичное изменение — пользователи ждут этого',
+  'Полностью меняет ценностное предложение'];
+var C_HINTS = ['', 'Нет данных — чистое предположение','Слабые косвенные признаки',
+  'Есть несколько наблюдений','Качественные данные (интервью, обратная связь)',
+  'Количественные данные по части аудитории','Данные подтверждены A/B или аналитикой',
+  'Высокая уверенность — повторяющийся паттерн','Очень высокая уверенность',
+  'Данные доказаны на похожем кейсе','Полная уверенность — проверено на практике'];
+var E_HINTS = ['', 'Пара часов — hotfix или текст','До нескольких дней — простая задача',
+  'Около недели','Одна-две недели (маленький спринт)','Полный спринт команды (2 недели)',
+  'Несколько спринтов','Месяц-полтора командной работы','Два месяца',
+  'Квартал (3 месяца)','Полгода и более — большой проект'];
+
+function sc(item){ return Math.round((item.r * item.i * item.c) / item.e * 10) / 10; }
+function tierOf(s){ return s >= 150 ? 'hi' : s >= 50 ? 'mid' : 'lo'; }
+function tierLabel(s){ return s >= 150 ? '🟢 Высокий' : s >= 50 ? '🟡 Средний' : '🔴 Низкий'; }
+function tierClass(s){ return 'score-tier tier-' + tierOf(s); }
+function scoreColor(s){ return s >= 150 ? '#34D399' : s >= 50 ? '#FFB830' : '#7A7A9D'; }
+
+/* ── data ── */
+var backlog  = [];
+var projects = [];
+var selId    = null;
+var origScore = null;
+
+function loadData(){
+  var rawBL = window.PT ? PT.load(BKEY) : JSON.parse(localStorage.getItem(BKEY)||'null');
+  var rawPR = window.PT ? PT.load(PKEY) : JSON.parse(localStorage.getItem(PKEY)||'null');
+  backlog  = Array.isArray(rawBL) && rawBL.length ? rawBL : [];
+  projects = Array.isArray(rawPR) && rawPR.length ? rawPR : [];
+
+  // fallback: build project list from backlog project IDs
+  if (!projects.length) {
+    var seen = {};
+    backlog.forEach(function(b){ if (!seen[b.project]){ seen[b.project]=1; projects.push({id:b.project,name:b.project}); }});
+  }
+}
+
+/* ── populate project select ── */
+function renderProjSelect(){
+  var sel = document.getElementById('proj-select');
+  var opt = '<option value="all">— Все проекты —</option>';
+  projects.forEach(function(p){
+    var cnt = backlog.filter(function(b){ return b.project===p.id; }).length;
+    opt += '<option value="' + p.id + '">' + esc(p.name) + ' (' + cnt + ')</option>';
+  });
+  sel.innerHTML = opt;
+}
+
+/* ── initiative list ── */
+function onProjChange(){ selId = null; renderList(); hideCal(); }
+
+function renderList(){
+  var proj = document.getElementById('proj-select').value;
+  var q    = document.getElementById('init-search').value.toLowerCase();
+  var list = backlog.filter(function(b){
+    if (proj !== 'all' && b.project !== proj) return false;
+    if (q && b.name.toLowerCase().indexOf(q)===-1) return false;
+    return true;
+  }).sort(function(a,b){ return sc(b)-sc(a); });
+
+  var el = document.getElementById('init-list');
+  if (!list.length){ el.innerHTML='<div class="pl-empty">Нет инициатив</div>'; return; }
+
+  el.innerHTML = list.map(function(b){
+    var s = sc(b);
+    var sc_cls = s>=150?'score-hi':s>=50?'score-mid':'score-lo';
+    return '<div class="irow' + (selId===b.id?' sel':'') + '" onclick="selectInit(\'' + b.id + '\')">' +
+      '<div class="irow-top">' +
+        '<span class="irow-id">' + b.id + '</span>' +
+        '<span class="irow-score ' + sc_cls + '">' + s.toFixed(1) + '</span>' +
+      '</div>' +
+      '<div class="irow-name">' + esc(b.name) + '</div>' +
+      '<div class="irow-meta">' +
+        '<span class="irow-proj">' + esc(getProjectName(b.project)) + '</span>' +
+        '<span class="ist-chip ist-' + (b.status||'backlog') + '">' + statusLabel(b.status) + '</span>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function getProjectName(pid){
+  var p = projects.find(function(x){ return x.id===pid; });
+  return p ? p.name : pid;
+}
+function statusLabel(s){
+  return {backlog:'Бэклог', planned:'Запланировано', wip:'В работе', done:'Готово'}[s]||s||'Бэклог';
+}
+
+/* ── select initiative ── */
+function selectInit(id){
+  selId = id;
+  var item = backlog.find(function(b){ return b.id===id; });
+  if (!item) return;
+  origScore = sc(item);
+  renderList();
+  showCal(item);
+}
+
+/* ── show calculator ── */
+function showCal(item){
+  document.getElementById('placeholder').style.display = 'none';
+  document.getElementById('calc-body').style.display   = 'flex';
+
+  // info card
+  document.getElementById('init-info').innerHTML =
+    '<div class="init-info-top">' +
+      '<span class="init-id-badge">' + item.id + '</span>' +
+      '<div class="init-name">' + esc(item.name) + '</div>' +
+    '</div>' +
+    (item.desc ? '<div class="init-desc">' + esc(item.desc) + '</div>' : '') +
+    '<div class="init-proj-tag">' +
+      '<span class="init-proj-lbl">Проект:</span>' +
+      '<span class="init-proj-val">' + esc(getProjectName(item.project)) + '</span>' +
+    '</div>';
+
+  // set sliders
+  setSlider('r', item.r||5);
+  setSlider('i', item.i||5);
+  setSlider('c', item.c||5);
+  setSlider('e', item.e||5);
+  onSlider();
+}
+
+function hideCal(){
+  document.getElementById('placeholder').style.display = '';
+  document.getElementById('calc-body').style.display   = 'none';
+  origScore = null;
+}
+
+/* ── sliders ── */
+function setSlider(id, val){
+  document.getElementById('sl-'+id).value = val;
+  document.getElementById('val-'+id).textContent = val;
+  document.getElementById('fill-'+id).style.width = ((val-1)/9*100)+'%';
+}
+
+function onSlider(){
+  ['r','i','c','e'].forEach(function(id){
+    var v = +document.getElementById('sl-'+id).value;
+    document.getElementById('val-'+id).textContent = v;
+    document.getElementById('fill-'+id).style.width = ((v-1)/9*100)+'%';
+    var hints = {r:R_HINTS, i:I_HINTS, c:C_HINTS, e:E_HINTS}[id];
+    document.getElementById('desc-'+id).textContent = hints[v]||'';
+  });
+  updateScore();
+}
+
+function updateScore(){
+  var r = +document.getElementById('sl-r').value;
+  var i = +document.getElementById('sl-i').value;
+  var c = +document.getElementById('sl-c').value;
+  var e = +document.getElementById('sl-e').value;
+  var s = Math.round(r*i*c/e*10)/10;
+
+  var col = scoreColor(s);
+  var sv = document.getElementById('score-val');
+  sv.textContent = s.toFixed(1);
+  sv.style.color = col;
+
+  document.getElementById('score-formula').textContent = r+'×'+i+'×'+c+'÷'+e+' = '+s.toFixed(1);
+
+  var tierEl = document.getElementById('score-tier');
+  tierEl.textContent  = tierLabel(s);
+  tierEl.className    = tierClass(s);
+
+  // delta
+  if (origScore !== null) {
+    var delta = document.getElementById('score-delta');
+    delta.style.display = '';
+    document.getElementById('delta-old').textContent = origScore.toFixed(1);
+    document.getElementById('delta-new').textContent = s.toFixed(1);
+    var arr = document.getElementById('delta-arrow');
+    if (s > origScore)       { arr.textContent='↑'; arr.style.color='#34D399'; }
+    else if (s < origScore)  { arr.textContent='↓'; arr.style.color='#FCA5A5'; }
+    else                     { arr.textContent='→'; arr.style.color='var(--muted)'; }
+    document.getElementById('save-btn').disabled = (s === origScore);
+  }
+}
+
+/* ── save ── */
+function saveScore(){
+  if (!selId) return;
+  var idx = backlog.findIndex(function(b){ return b.id===selId; });
+  if (idx < 0) return;
+  backlog[idx].r = +document.getElementById('sl-r').value;
+  backlog[idx].i = +document.getElementById('sl-i').value;
+  backlog[idx].c = +document.getElementById('sl-c').value;
+  backlog[idx].e = +document.getElementById('sl-e').value;
+
+  if (window.PT) PT.save(BKEY, backlog);
+  else localStorage.setItem(BKEY, JSON.stringify(backlog));
+
+  origScore = sc(backlog[idx]);
+  document.getElementById('save-btn').disabled = true;
+  renderList();
+  showToast('✓ Score обновлён → ' + origScore.toFixed(1) + ' · инициатива ' + selId);
+}
+
+/* ── toast ── */
+function showToast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 3000);
+}
+
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ── init ── */
+loadData();
+renderProjSelect();
+renderList();
+</script>
+</body>
+</html>

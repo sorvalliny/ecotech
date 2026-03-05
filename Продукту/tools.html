@@ -259,11 +259,11 @@ var KEY = window.PT ? PT.KEY_TOOLS || 'ECOTECH_TOOLS' : 'ECOTECH_TOOLS';
 
 /* ── default data ── */
 var TOOLS_DEFAULT = [
-  { id:'P01', name:'Бэклог & RICE',                cat:'platform', icon:'clipboard', color:'teal',
-    desc:'Приоритизация инициатив по RICE-скорингу. Kanban, Roadmap, паспорта инициатив.',
-    link:'../Проектный офис/RWB · Product OS · Бэклог развития.html',
+  { id:'P01', name:'Приоритизация (RICE)',           cat:'platform', icon:'activity', color:'teal',
+    desc:'Калькулятор RICE: выбери инициативу из проекта, оцени по R·I·C·E и обнови Score в инициативах.',
+    link:'./rice.html',
     access:'Открытый доступ — ссылка в навигации платформы.',
-    rules:'Добавляй инициативы с заполненным описанием и RICE-скором. Перед переносом в роадмап — валидация с лидом.', custom:false },
+    rules:'Оценивай инициативу честно — занижай Confidence если данных мало. RICE Score влияет на приоритет в роадмапе.', custom:false },
   { id:'P02', name:'Фреймворк',                    cat:'platform', icon:'map',       color:'violet',
     desc:'Операционный справочник контура. Gate 0→5, регламенты, чек-листы, шаблоны артефактов.',
     link:'../Фреймворк/rwb-product-os-v3.html',
