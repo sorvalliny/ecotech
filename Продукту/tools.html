@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoTech — Каталог инструментов</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#08081A;--mid:#111128;--card:#161630;--surface2:#1A1A38;
+  --border:rgba(255,255,255,.07);--border-hi:rgba(255,255,255,.14);
+  --violet:#7B2FFF;--vdim:rgba(123,47,255,.12);--vborder:rgba(123,47,255,.35);
+  --pink:#FF2D8A;--pdim:rgba(255,45,138,.10);
+  --teal:#00D4B4;--tdim:rgba(0,212,180,.10);--tborder:rgba(0,212,180,.35);
+  --amber:#FFB830;--adim:rgba(255,184,48,.10);
+  --green:#34D399;--gdim:rgba(52,211,153,.10);--gborder:rgba(52,211,153,.3);
+  --blue:#3B82F6;--bdim:rgba(59,130,246,.10);
+  --text:#E8E6FF;--muted:#7A7A9D;--white:#fff;
+  --font:'Golos Text',sans-serif;--head:'Unbounded',sans-serif;--mono:monospace;
+  --nav-h:44px;
+}
+html{height:100%}
+body{font-family:var(--font);background:var(--dark);color:var(--text);height:100%;display:flex;flex-direction:column;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.02;pointer-events:none;z-index:0}
+
+/* ── PAGE LAYOUT ── */
+.tl-wrap{display:flex;flex-direction:column;flex:1;overflow:hidden;position:relative;z-index:1}
+.tl-head{padding:20px 28px 0;flex-shrink:0;background:var(--dark)}
+.tl-title-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.tl-title{font-family:var(--head);font-size:20px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.tl-count{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface2);padding:2px 8px;border-radius:5px;letter-spacing:.05em}
+.btn-add{margin-left:auto;display:flex;align-items:center;gap:6px;padding:7px 15px;background:var(--violet);border:none;border-radius:9px;color:#fff;font-family:var(--head);font-size:11px;font-weight:700;cursor:pointer;transition:opacity .15s}
+.btn-add:hover{opacity:.85}
+.tl-controls{display:flex;align-items:center;gap:10px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.search-wrap{position:relative;flex-shrink:0}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.search-inp{background:var(--mid);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:var(--font);font-size:12px;padding:7px 12px 7px 32px;width:220px;outline:none;transition:border-color .15s}
+.search-inp:focus{border-color:rgba(123,47,255,.4)}
+.search-inp::placeholder{color:var(--muted)}
+.cat-tabs{display:flex;gap:4px;flex-wrap:wrap}
+.cat-btn{padding:5px 12px;border:1px solid var(--border);border-radius:7px;background:transparent;color:var(--muted);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.cat-btn:hover{color:#fff;border-color:var(--border-hi)}
+.cat-btn.active{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+
+/* ── GRID ── */
+.tl-body{flex:1;overflow-y:auto;padding:20px 28px 32px}
+.tl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.tl-empty{padding:60px 0;text-align:center;color:var(--muted);font-size:13px}
+
+/* ── TOOL CARD ── */
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:border-color .15s,transform .13s,box-shadow .15s;display:flex;flex-direction:column;gap:10px;position:relative}
+.tool-card:hover{border-color:rgba(123,47,255,.3);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.tool-card.active{border-color:var(--vborder);background:rgba(123,47,255,.06)}
+.tc-head{display:flex;align-items:flex-start;gap:10px}
+.tc-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tc-meta{flex:1;min-width:0}
+.tc-name{font-family:var(--head);font-size:12px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:4px}
+.tc-cat{font-size:10px;font-weight:700;padding:1px 7px;border-radius:4px;letter-spacing:.04em;font-family:var(--head)}
+.tc-desc{font-size:12px;color:var(--muted);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tc-foot{display:flex;align-items:center;gap:6px;margin-top:auto}
+.tc-link-badge{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);background:var(--surface2);padding:2px 8px;border-radius:5px;max-width:160px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.tc-custom-badge{font-size:9px;font-weight:700;letter-spacing:.05em;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:var(--head)}
+
+/* ── CAT COLOR TOKENS ── */
+.cat-platform .tc-cat{background:var(--vdim);color:#C4B5FD}
+.cat-dev      .tc-cat{background:var(--tdim);color:#00D4B4}
+.cat-common   .tc-cat{background:var(--adim);color:#FFB830}
+.cat-custom   .tc-cat{background:var(--pdim);color:#F9A8D4}
+
+/* ── ICON COLOR TOKENS ── */
+.ic-violet{background:rgba(123,47,255,.15);color:#C4B5FD}
+.ic-teal  {background:rgba(0,212,180,.12);color:#00D4B4}
+.ic-pink  {background:rgba(255,45,138,.12);color:#F9A8D4}
+.ic-amber {background:rgba(255,184,48,.12);color:#FFB830}
+.ic-green {background:rgba(52,211,153,.12);color:#34D399}
+.ic-blue  {background:rgba(59,130,246,.12);color:#93C5FD}
+.ic-muted {background:rgba(255,255,255,.06);color:#7A7A9D}
+
+/* ── DRAWER ── */
+.drawer{position:fixed;top:var(--nav-h);right:0;bottom:0;width:480px;background:rgba(13,13,30,.98);backdrop-filter:blur(20px);border-left:1px solid var(--border);display:flex;flex-direction:column;z-index:200;transform:translateX(100%);transition:transform .2s cubic-bezier(.22,1,.36,1)}
+.drawer.open{transform:translateX(0)}
+.dr-head{padding:20px 20px 16px;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;gap:12px;align-items:flex-start}
+.dr-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dr-meta{flex:1;min-width:0}
+.dr-name{font-family:var(--head);font-size:16px;font-weight:900;color:#fff;margin-bottom:6px;line-height:1.2}
+.dr-cat{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:.04em;font-family:var(--head)}
+.dr-close{width:30px;height:30px;border:1px solid var(--border);background:transparent;border-radius:8px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.dr-close:hover{background:rgba(255,255,255,.06);color:#fff}
+.dr-body{flex:1;overflow-y:auto;padding:20px}
+.dr-section{margin-bottom:20px}
+.dr-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-family:var(--head);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.dr-section-title svg{flex-shrink:0}
+.dr-text{font-size:13px;color:var(--text);line-height:1.65;white-space:pre-wrap}
+.dr-text.empty{color:var(--muted);font-style:italic}
+.dr-link-btn{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 16px;background:var(--vdim);border:1px solid var(--vborder);border-radius:10px;text-decoration:none;color:#C4B5FD;font-family:var(--head);font-size:11px;font-weight:700;transition:all .15s}
+.dr-link-btn:hover{background:rgba(123,47,255,.22);border-color:rgba(123,47,255,.6)}
+.dr-link-btn.external::after{content:'↗';font-size:14px}
+.dr-link-btn.internal::after{content:'→';font-size:14px}
+.dr-foot{padding:16px 20px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0}
+.dr-edit-btn{flex:1;padding:8px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.dr-edit-btn:hover{border-color:var(--border-hi);color:#fff}
+.dr-del-btn{padding:8px 14px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:9px;color:#FCA5A5;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.dr-del-btn:hover{background:rgba(239,68,68,.15)}
+
+/* ── MODAL ── */
+.mo-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:400;display:none;align-items:center;justify-content:center}
+.mo-overlay.open{display:flex}
+.mo-box{background:var(--card);border:1px solid var(--border);border-radius:16px;width:540px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden}
+.mo-head{padding:20px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.mo-title{font-family:var(--head);font-size:14px;font-weight:900;color:#fff;flex:1}
+.mo-close{width:28px;height:28px;border:1px solid var(--border);background:transparent;border-radius:7px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.mo-close:hover{background:rgba(255,255,255,.06);color:#fff}
+.mo-body{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.mo-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mo-field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-family:var(--head);margin-bottom:5px}
+.mo-field input,.mo-field select,.mo-field textarea{width:100%;background:var(--mid);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:13px;padding:8px 11px;outline:none;transition:border-color .15s;resize:vertical}
+.mo-field textarea{min-height:72px;line-height:1.55}
+.mo-field input:focus,.mo-field select:focus,.mo-field textarea:focus{border-color:rgba(123,47,255,.5)}
+.mo-field select option{background:var(--card)}
+/* Icon + color picker */
+.pick-row{display:flex;gap:8px;flex-wrap:wrap}
+.pick-icon,.pick-color{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:2px solid transparent;cursor:pointer;transition:all .13s}
+.pick-icon:hover,.pick-color:hover{border-color:rgba(255,255,255,.3)}
+.pick-icon.sel,.pick-color.sel{border-color:#fff}
+.mo-foot{padding:14px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;flex-shrink:0}
+.mo-cancel{padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:var(--font);font-size:12px;cursor:pointer;transition:all .15s}
+.mo-cancel:hover{border-color:var(--border-hi);color:#fff}
+.mo-save{padding:8px 20px;background:var(--violet);border:none;border-radius:8px;color:#fff;font-family:var(--head);font-size:11px;font-weight:700;cursor:pointer;transition:opacity .15s}
+.mo-save:hover{opacity:.85}
+
+@media(max-width:680px){
+  .drawer{width:100%}
+  .mo-box{width:calc(100% - 32px)}
+  .mo-row{grid-template-columns:1fr}
+}
+</style>
+<script src="../icons.js"></script>
+<script src="../platform.js"></script>
+<script src="../nav.js"></script>
+</head>
+<body>
+
+<div class="tl-wrap">
+  <!-- HEAD -->
+  <div class="tl-head">
+    <div class="tl-title-row">
+      <svg class="ei" width="20" height="20" style="color:var(--violet)"><use href="#ic-layers"/></svg>
+      <h1 class="tl-title">Инструменты</h1>
+      <span class="tl-count" id="tl-count">0</span>
+      <button class="btn-add" onclick="openModal(null)">
+        <svg class="ei" width="13" height="13"><use href="#ic-plus"/></svg> Добавить
+      </button>
+    </div>
+    <div class="tl-controls">
+      <div class="search-wrap">
+        <svg class="ei" width="14" height="14"><use href="#ic-search"/></svg>
+        <input class="search-inp" id="search-inp" type="text" placeholder="Поиск по названию…" oninput="renderGrid()">
+      </div>
+      <div class="cat-tabs" id="cat-tabs"></div>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="tl-body">
+    <div class="tl-grid" id="tl-grid"></div>
+  </div>
+</div>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="dr-head">
+    <div class="dr-icon" id="dr-icon"></div>
+    <div class="dr-meta">
+      <div class="dr-name" id="dr-name"></div>
+      <span class="dr-cat" id="dr-cat"></span>
+    </div>
+    <button class="dr-close" onclick="closeDrawer()">
+      <svg class="ei" width="14" height="14"><use href="#ic-x"/></svg>
+    </button>
+  </div>
+  <div class="dr-body">
+    <div class="dr-section" id="dr-link-sec"></div>
+    <div class="dr-section">
+      <div class="dr-section-title"><svg class="ei" width="12" height="12"><use href="#ic-file-text"/></svg> Описание</div>
+      <div class="dr-text" id="dr-desc"></div>
+    </div>
+    <div class="dr-section">
+      <div class="dr-section-title"><svg class="ei" width="12" height="12"><use href="#ic-lock"/></svg> Как получить доступ</div>
+      <div class="dr-text" id="dr-access"></div>
+    </div>
+    <div class="dr-section">
+      <div class="dr-section-title"><svg class="ei" width="12" height="12"><use href="#ic-list"/></svg> Правила работы</div>
+      <div class="dr-text" id="dr-rules"></div>
+    </div>
+  </div>
+  <div class="dr-foot" id="dr-foot"></div>
+</div>
+
+<!-- MODAL -->
+<div class="mo-overlay" id="mo-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="mo-box">
+    <div class="mo-head">
+      <div class="mo-title" id="mo-title">Добавить инструмент</div>
+      <button class="mo-close" onclick="closeModal()"><svg class="ei" width="14" height="14"><use href="#ic-x"/></svg></button>
+    </div>
+    <div class="mo-body">
+      <div class="mo-row">
+        <div class="mo-field" style="grid-column:1/-1">
+          <label>Название *</label>
+          <input id="mo-name" type="text" placeholder="Например: WB Confluence">
+        </div>
+      </div>
+      <div class="mo-row">
+        <div class="mo-field">
+          <label>Категория</label>
+          <select id="mo-cat">
+            <option value="platform">Платформа EcoTech</option>
+            <option value="dev">Для разработчиков</option>
+            <option value="common">Общие</option>
+            <option value="custom">Пользовательский</option>
+          </select>
+        </div>
+        <div class="mo-field">
+          <label>Ссылка на ресурс</label>
+          <input id="mo-link" type="url" placeholder="https://…">
+        </div>
+      </div>
+      <div class="mo-field">
+        <label>Описание</label>
+        <textarea id="mo-desc" placeholder="Коротко — для чего инструмент"></textarea>
+      </div>
+      <div class="mo-field">
+        <label>Иконка</label>
+        <div class="pick-row" id="pick-icons"></div>
+      </div>
+      <div class="mo-field">
+        <label>Цвет иконки</label>
+        <div class="pick-row" id="pick-colors"></div>
+      </div>
+      <div class="mo-field">
+        <label>Как получить доступ</label>
+        <textarea id="mo-access" placeholder="Опиши шаги для получения доступа…"></textarea>
+      </div>
+      <div class="mo-field">
+        <label>Правила работы</label>
+        <textarea id="mo-rules" placeholder="Регламенты, naming convention, ограничения…"></textarea>
+      </div>
+    </div>
+    <div class="mo-foot">
+      <button class="mo-cancel" onclick="closeModal()">Отмена</button>
+      <button class="mo-save" onclick="saveModal()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var KEY = window.PT ? PT.KEY_TOOLS || 'ECOTECH_TOOLS' : 'ECOTECH_TOOLS';
+
+/* ── default data ── */
+var TOOLS_DEFAULT = [
+  { id:'P01', name:'Бэклог & RICE',                cat:'platform', icon:'clipboard', color:'teal',
+    desc:'Приоритизация инициатив по RICE-скорингу. Kanban, Roadmap, паспорта инициатив.',
+    link:'../Проектный офис/RWB · Product OS · Бэклог развития.html',
+    access:'Открытый доступ — ссылка в навигации платформы.',
+    rules:'Добавляй инициативы с заполненным описанием и RICE-скором. Перед переносом в роадмап — валидация с лидом.', custom:false },
+  { id:'P02', name:'Фреймворк',                    cat:'platform', icon:'map',       color:'violet',
+    desc:'Операционный справочник контура. Gate 0→5, регламенты, чек-листы, шаблоны артефактов.',
+    link:'../Фреймворк/rwb-product-os-v3.html',
+    access:'Открытый доступ внутри платформы.',
+    rules:'Регламенты обязательны для лидов на каждом Gate-переходе. Отклонения согласуй с PMO.', custom:false },
+  { id:'P03', name:'Framework Lite',               cat:'platform', icon:'zap',       color:'violet',
+    desc:'Упрощённый путь для быстрых гипотез: Discovery → Пилот → Запуск.',
+    link:'../Фреймворк/framework-lite.html',
+    access:'Открытый доступ.',
+    rules:'Используй для продуктов на стадии О·0–О·2. Переход в полный фреймворк согласуй с PMO.', custom:false },
+  { id:'P04', name:'Хэндбук лидера',               cat:'platform', icon:'book-open', color:'amber',
+    desc:'Гайды, шаблоны и стандарты для PM и Tech Lead. G0–G5.',
+    link:'../Хэндбук/rwb-product-os-v12.html',
+    access:'Открытый доступ.',
+    rules:'Хэндбук — источник истины для продуктовых практик. Сверяйся при оформлении артефактов.', custom:false },
+  { id:'P05', name:'Трекер проектов и инициатив',  cat:'platform', icon:'target',    color:'violet',
+    desc:'Управление Gate-переходами, реестр продуктов, эпиков и целей.',
+    link:'../Проектный офис/RWB · Product OS - Трекер инициатив.html',
+    access:'Открытый доступ.',
+    rules:'Обновляй Gate-статус после каждого проектного комитета. Цели и инициативы ведёт лид продукта.', custom:false },
+  { id:'P06', name:'Стратегическое планирование',  cat:'platform', icon:'flag',      color:'pink',
+    desc:'Стратегия продукта: Identity, Goals, Roadmap, PRD, DoR/DoD.',
+    link:'./strategy.html',
+    access:'Открытый доступ.',
+    rules:'Заполняй стратегию до запуска Discovery. Синхронизируй продукт с трекером после сохранения.', custom:false },
+  { id:'D01', name:'Витрина решений и API',        cat:'dev',      icon:'globe',     color:'violet',
+    desc:'Каталог внутренних API и готовых решений экосистемы WB.',
+    link:'#',
+    access:'Заявка в ServiceDesk. Укажи название сервиса и цель интеграции.',
+    rules:'Ознакомься с документацией перед интеграцией. Все внешние зависимости — через архитектурный ревью команды.', custom:false },
+  { id:'D02', name:'WB X',                         cat:'dev',      icon:'zap',       color:'teal',
+    desc:'Внутренняя разработческая платформа экосистемы WB.',
+    link:'#',
+    access:'Заявка через ServiceDesk или TL вашей команды.',
+    rules:'Соблюдай регламент подключения новых сервисов. Внешние вызовы — только через API Gateway.', custom:false },
+  { id:'D03', name:'WB GitLab',                    cat:'dev',      icon:'cpu',       color:'blue',
+    desc:'Репозитории кода, CI/CD пайплайны, merge request ревью.',
+    link:'#',
+    access:'Запрос доступа у TL команды. Обязательна 2FA.',
+    rules:'Naming: feature/TICKET-desc. Ветки от develop. PR требует описания + тестов + code review.', custom:false },
+  { id:'D04', name:'WB Grafana',                   cat:'dev',      icon:'trending-up',color:'amber',
+    desc:'Дашборды мониторинга, метрики сервисов, алерты.',
+    link:'#',
+    access:'Заявка в ServiceDesk IT. Роль viewer — по умолчанию, editor — по согласованию.',
+    rules:'Создавай дашборды в папке своей команды. Алерты согласуй с on-call инженером до активации.', custom:false },
+  { id:'C01', name:'WB BI',                        cat:'common',   icon:'bar-chart', color:'green',
+    desc:'Аналитические отчёты, дашборды, выгрузки данных экосистемы.',
+    link:'#',
+    access:'Заявка в ServiceDesk BI. Срок исполнения — до 3 рабочих дней.',
+    rules:'Не выгружай персональные данные без согласования с DPO. Данные только для внутреннего использования.', custom:false },
+  { id:'C02', name:'WB Wiki',                      cat:'common',   icon:'book-open', color:'muted',
+    desc:'Корпоративная база знаний: регламенты, онбординг, гайды команд.',
+    link:'#',
+    access:'Доступ через корпоративный аккаунт WB. Страницу команды создаёт лид.',
+    rules:'Обновляй страницу команды при изменении регламентов. Указывай автора и дату редакции.', custom:false }
+];
+
+var CATS = [
+  { id:'all',      label:'Все' },
+  { id:'platform', label:'Платформа EcoTech' },
+  { id:'dev',      label:'Для разработчиков' },
+  { id:'common',   label:'Общие' },
+  { id:'custom',   label:'Пользовательские' }
+];
+
+var CAT_LABELS = { platform:'Платформа', dev:'Разработка', common:'Общие', custom:'Свой' };
+
+var ICON_LIST = ['layers','target','clipboard','folder','map','book-open','globe','cpu',
+  'trending-up','bar-chart','zap','rocket','flag','settings','link','users',
+  'file-text','package','wrench','award','activity','layout','grid','lock'];
+
+var COLOR_LIST = [
+  { key:'violet', bg:'rgba(123,47,255,.15)', fg:'#C4B5FD' },
+  { key:'teal',   bg:'rgba(0,212,180,.12)',  fg:'#00D4B4' },
+  { key:'pink',   bg:'rgba(255,45,138,.12)', fg:'#F9A8D4' },
+  { key:'amber',  bg:'rgba(255,184,48,.12)', fg:'#FFB830' },
+  { key:'green',  bg:'rgba(52,211,153,.12)', fg:'#34D399' },
+  { key:'blue',   bg:'rgba(59,130,246,.12)', fg:'#93C5FD' },
+  { key:'muted',  bg:'rgba(255,255,255,.06)',fg:'#7A7A9D' }
+];
+
+/* ── state ── */
+var tools = [];
+var activeCat = 'all';
+var activeId  = null;
+var editId    = null;
+var selIcon   = 'layers';
+var selColor  = 'violet';
+
+function load() {
+  var raw = window.PT ? PT.load(KEY) : JSON.parse(localStorage.getItem(KEY) || 'null');
+  tools = (raw && raw.length) ? raw : JSON.parse(JSON.stringify(TOOLS_DEFAULT));
+}
+function save() {
+  if (window.PT) PT.save(KEY, tools);
+  else localStorage.setItem(KEY, JSON.stringify(tools));
+}
+
+/* ── category tabs ── */
+function renderCatTabs() {
+  var el = document.getElementById('cat-tabs');
+  el.innerHTML = CATS.map(function(c) {
+    var cnt = c.id === 'all' ? tools.length : tools.filter(function(t){ return t.cat===c.id; }).length;
+    if (cnt === 0 && c.id !== 'all') return '';
+    return '<button class="cat-btn' + (activeCat===c.id?' active':'') + '" onclick="setCat(\'' + c.id + '\')">' +
+      c.label + (cnt>0 ? ' <span style="opacity:.5;font-size:10px">'+cnt+'</span>' : '') + '</button>';
+  }).join('');
+}
+function setCat(id) { activeCat = id; renderCatTabs(); renderGrid(); }
+
+/* ── grid ── */
+function renderGrid() {
+  var q = document.getElementById('search-inp').value.toLowerCase();
+  var list = tools.filter(function(t) {
+    if (activeCat !== 'all' && t.cat !== activeCat) return false;
+    if (q && t.name.toLowerCase().indexOf(q) === -1 && (t.desc||'').toLowerCase().indexOf(q) === -1) return false;
+    return true;
+  });
+  document.getElementById('tl-count').textContent = list.length;
+  var grid = document.getElementById('tl-grid');
+  if (!list.length) {
+    grid.innerHTML = '<div class="tl-empty">Ничего не найдено</div>';
+    return;
+  }
+  grid.innerHTML = list.map(function(t) {
+    var c = colorOf(t.color);
+    var isExternal = t.link && t.link !== '#' && t.link.indexOf('http') === 0;
+    var hasLink = t.link && t.link !== '#';
+    return '<div class="tool-card cat-' + t.cat + (activeId===t.id?' active':'') + '" onclick="openDrawer(\'' + t.id + '\')">' +
+      '<div class="tc-head">' +
+        '<div class="tc-icon ic-' + (t.color||'violet') + '">' + EI.svg(t.icon||'layers', 20) + '</div>' +
+        '<div class="tc-meta">' +
+          '<div class="tc-name">' + esc(t.name) + '</div>' +
+          '<span class="tc-cat">' + (CAT_LABELS[t.cat]||t.cat) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="tc-desc">' + esc(t.desc||'') + '</div>' +
+      '<div class="tc-foot">' +
+        (hasLink ? '<div class="tc-link-badge">' + EI.svg('external-link',10) + ' ' + linkLabel(t.link) + '</div>' : '') +
+        (t.custom ? '<span class="tc-custom-badge">СВОЙ</span>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function linkLabel(url) {
+  if (!url || url === '#') return 'Нет ссылки';
+  try { return new URL(url).hostname || url; } catch(e) { return url.split('/').pop() || url; }
+}
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function colorOf(key) { return COLOR_LIST.find(function(c){return c.key===key;}) || COLOR_LIST[0]; }
+
+/* ── drawer ── */
+function openDrawer(id) {
+  var t = tools.find(function(x){return x.id===id;});
+  if (!t) return;
+  activeId = id;
+  renderGrid();
+  var c = colorOf(t.color);
+  document.getElementById('dr-icon').className = 'dr-icon ic-' + (t.color||'violet');
+  document.getElementById('dr-icon').innerHTML = EI.svg(t.icon||'layers', 28);
+  document.getElementById('dr-name').textContent = t.name;
+  var catEl = document.getElementById('dr-cat');
+  catEl.textContent = CAT_LABELS[t.cat] || t.cat;
+  catEl.className = 'dr-cat';
+  catEl.style.cssText = 'background:' + c.bg + ';color:' + c.fg;
+  // link
+  var lsec = document.getElementById('dr-link-sec');
+  if (t.link && t.link !== '#') {
+    var isExt = t.link.indexOf('http') === 0;
+    lsec.innerHTML = '<a class="dr-link-btn ' + (isExt?'external':'internal') + '" href="' + t.link + '" ' + (isExt?'target="_blank" rel="noopener"':'') + '>Открыть ресурс</a>';
+  } else {
+    lsec.innerHTML = '<div style="font-size:12px;color:var(--muted);font-style:italic;padding:4px 0">Ссылка не указана — обратитесь к администратору.</div>';
+  }
+  setDrText('dr-desc',   t.desc);
+  setDrText('dr-access', t.access);
+  setDrText('dr-rules',  t.rules);
+  // footer
+  var foot = document.getElementById('dr-foot');
+  if (t.custom) {
+    foot.innerHTML =
+      '<button class="dr-edit-btn" onclick="openModal(\'' + t.id + '\')">' + EI.svg('edit',14) + ' Редактировать</button>' +
+      '<button class="dr-del-btn"  onclick="deleteTool(\'' + t.id + '\')">' + EI.svg('trash',14) + '</button>';
+  } else {
+    foot.innerHTML = '<div style="font-size:11px;color:var(--muted)">Встроенный инструмент — только просмотр</div>';
+  }
+  document.getElementById('drawer').classList.add('open');
+}
+function setDrText(id, val) {
+  var el = document.getElementById(id);
+  if (val && val.trim()) { el.textContent = val; el.className = 'dr-text'; }
+  else { el.textContent = 'Не указано'; el.className = 'dr-text empty'; }
+}
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  activeId = null;
+  renderGrid();
+}
+
+/* ── icon & color pickers ── */
+function renderPickers() {
+  // icons
+  document.getElementById('pick-icons').innerHTML = ICON_LIST.map(function(ic) {
+    var c = colorOf(selColor);
+    return '<div class="pick-icon ic-' + selColor + (selIcon===ic?' sel':'') + '" title="' + ic + '" onclick="pickIcon(\'' + ic + '\')">' +
+      EI.svg(ic,16) + '</div>';
+  }).join('');
+  // colors
+  document.getElementById('pick-colors').innerHTML = COLOR_LIST.map(function(c) {
+    return '<div class="pick-color' + (selColor===c.key?' sel':'') + '" style="background:' + c.bg + ';color:' + c.fg + '" onclick="pickColor(\'' + c.key + '\')">' +
+      EI.svg('layers',14) + '</div>';
+  }).join('');
+}
+function pickIcon(ic)  { selIcon  = ic;  renderPickers(); }
+function pickColor(ck) { selColor = ck;  renderPickers(); }
+
+/* ── modal ── */
+function openModal(id) {
+  closeDrawer();
+  editId = id;
+  var t = id ? tools.find(function(x){return x.id===id;}) : null;
+  document.getElementById('mo-title').textContent = t ? 'Редактировать инструмент' : 'Добавить инструмент';
+  document.getElementById('mo-name').value   = t ? t.name   : '';
+  document.getElementById('mo-cat').value    = t ? t.cat    : 'custom';
+  document.getElementById('mo-link').value   = t ? t.link   : '';
+  document.getElementById('mo-desc').value   = t ? t.desc   : '';
+  document.getElementById('mo-access').value = t ? t.access : '';
+  document.getElementById('mo-rules').value  = t ? t.rules  : '';
+  selIcon  = t ? (t.icon  || 'layers') : 'layers';
+  selColor = t ? (t.color || 'violet') : 'violet';
+  renderPickers();
+  document.getElementById('mo-overlay').classList.add('open');
+  setTimeout(function(){ document.getElementById('mo-name').focus(); }, 50);
+}
+function closeModal() {
+  document.getElementById('mo-overlay').classList.remove('open');
+  editId = null;
+}
+function saveModal() {
+  var name = document.getElementById('mo-name').value.trim();
+  if (!name) { document.getElementById('mo-name').focus(); return; }
+  var data = {
+    name:   name,
+    cat:    document.getElementById('mo-cat').value,
+    link:   document.getElementById('mo-link').value.trim(),
+    desc:   document.getElementById('mo-desc').value.trim(),
+    access: document.getElementById('mo-access').value.trim(),
+    rules:  document.getElementById('mo-rules').value.trim(),
+    icon:   selIcon,
+    color:  selColor,
+    custom: true
+  };
+  if (editId) {
+    var idx = tools.findIndex(function(x){return x.id===editId;});
+    Object.assign(tools[idx], data);
+  } else {
+    var existing = new Set(tools.map(function(t){return t.id;}));
+    var newId;
+    for (var n=1; n<=99; n++) {
+      newId = 'U' + String(n).padStart(2,'0');
+      if (!existing.has(newId)) break;
+    }
+    tools.push(Object.assign({ id: newId }, data));
+  }
+  save(); renderCatTabs(); renderGrid(); closeModal();
+}
+function deleteTool(id) {
+  var t = tools.find(function(x){return x.id===id;});
+  if (!t || !t.custom) return;
+  if (!confirm('Удалить инструмент «' + t.name + '»?')) return;
+  tools = tools.filter(function(x){return x.id!==id;});
+  save(); renderCatTabs(); renderGrid(); closeDrawer();
+}
+
+/* ── init ── */
+load();
+renderCatTabs();
+renderGrid();
+</script>
+</body>
+</html>
