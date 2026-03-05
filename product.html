@@ -81,6 +81,20 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 .modules-footer-note{font-size:12px;color:var(--muted);margin-top:20px;text-align:center;font-style:italic;}
 
+/* ── TOOLS SECTION ── */
+.tools-section{padding:0 0 80px;}
+.tools-group{margin-bottom:28px;}
+.tools-group-label{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.tools-group-label::before{content:'';width:16px;height:1px;background:var(--muted);}
+.tools-grid{display:grid;gap:10px;}
+.tools-grid-4{grid-template-columns:repeat(4,1fr);}
+.tools-grid-3{grid-template-columns:repeat(3,1fr);}
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 15px;display:flex;align-items:flex-start;gap:12px;text-decoration:none;color:inherit;transition:border-color .15s,transform .13s,box-shadow .15s;}
+.tool-card:hover{border-color:rgba(0,212,180,.3);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,212,180,.08);}
+.tool-icon-wrap{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tool-name{font-family:var(--font-head);font-size:11px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:3px;}
+.tool-ext{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:3px;}
+
 /* ── FOOTER ── */
 .page-footer{border-top:1px solid var(--border);padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);max-width:1060px;margin:0 auto;}
 .page-footer strong{color:rgba(255,255,255,0.3);}
@@ -89,9 +103,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   .hero-section{grid-template-columns:1fr;padding:48px 0 40px;}
   .orbit-wrap{width:280px;height:280px;margin:0 auto;}
   .modules-grid{grid-template-columns:repeat(2,1fr);}
+  .tools-grid-4{grid-template-columns:repeat(2,1fr);}
+  .tools-grid-3{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:520px){
   .modules-grid{grid-template-columns:1fr;}
+  .tools-grid-4,.tools-grid-3{grid-template-columns:1fr;}
 }
 </style>
 <script src="icons.js"></script>
@@ -156,6 +173,57 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
     <div class="modules-grid" id="modules-grid"></div>
     <div class="modules-footer-note">Платформа на раннем этапе тестирования — Проектный офис EcoTech, 2026</div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── TOOLS ── -->
+  <section class="tools-section">
+    <div class="sec-eyebrow">Экосистема WB</div>
+    <div class="sec-title">Инструменты</div>
+    <p class="sec-sub">Быстрый доступ к внутренним сервисам и ресурсам экосистемы.</p>
+
+    <!-- Для разработчиков -->
+    <div class="tools-group">
+      <div class="tools-group-label">Для разработчиков</div>
+      <div class="tools-grid tools-grid-4">
+        <a class="tool-card" href="#" target="_blank" rel="noopener">
+          <div class="tool-icon-wrap" style="background:rgba(123,47,255,.15)"><svg class="ei" width="18" height="18" style="color:#C4B5FD"><use href="#ic-box"/></svg></div>
+          <div><div class="tool-name">Витрина решений и API</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
+        </a>
+        <a class="tool-card" href="#" target="_blank" rel="noopener">
+          <div class="tool-icon-wrap" style="background:rgba(0,212,180,.12)"><svg class="ei" width="18" height="18" style="color:#00D4B4"><use href="#ic-zap"/></svg></div>
+          <div><div class="tool-name">WB X</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
+        </a>
+        <a class="tool-card" href="#" target="_blank" rel="noopener">
+          <div class="tool-icon-wrap" style="background:rgba(59,130,246,.12)"><svg class="ei" width="18" height="18" style="color:#93C5FD"><use href="#ic-git-branch"/></svg></div>
+          <div><div class="tool-name">WB GitLab</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
+        </a>
+        <a class="tool-card" href="#" target="_blank" rel="noopener">
+          <div class="tool-icon-wrap" style="background:rgba(255,184,48,.12)"><svg class="ei" width="18" height="18" style="color:#FFB830"><use href="#ic-trending-up"/></svg></div>
+          <div><div class="tool-name">WB Grafana</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Общие -->
+    <div class="tools-group">
+      <div class="tools-group-label">Общие</div>
+      <div class="tools-grid tools-grid-3">
+        <a class="tool-card" href="#" target="_blank" rel="noopener">
+          <div class="tool-icon-wrap" style="background:rgba(52,211,153,.12)"><svg class="ei" width="18" height="18" style="color:#34D399"><use href="#ic-bar-chart"/></svg></div>
+          <div><div class="tool-name">WB BI</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
+        </a>
+        <a class="tool-card" href="#" target="_blank" rel="noopener">
+          <div class="tool-icon-wrap" style="background:rgba(255,255,255,.06)"><svg class="ei" width="18" height="18" style="color:#E8E6FF"><use href="#ic-book"/></svg></div>
+          <div><div class="tool-name">WB Wiki</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg> Внутренний ресурс</div></div>
+        </a>
+        <a class="tool-card" href="Проектный офис/RWB · Product OS - Трекер инициатив.html">
+          <div class="tool-icon-wrap" style="background:rgba(123,47,255,.15)"><svg class="ei" width="18" height="18" style="color:#C4B5FD"><use href="#ic-target"/></svg></div>
+          <div><div class="tool-name">Трекер проектов и инициатив</div><div class="tool-ext"><svg class="ei" width="10" height="10"><use href="#ic-arrow-right"/></svg> EcoTech Platform</div></div>
+        </a>
+      </div>
+    </div>
   </section>
 
 </div><!-- /page-wrap -->
