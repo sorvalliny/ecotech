@@ -72,7 +72,20 @@ header{position:sticky;top:0;z-index:200;background:rgba(7,7,15,.95);backdrop-fi
 .pcard-head{padding:16px 18px 12px}
 .pmeta{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .pid{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.07em}
-.player{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-left:auto}
+.player{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.pcard-edit-btn{margin-left:auto;width:26px;height:26px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);border-radius:7px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;opacity:0;pointer-events:none;flex-shrink:0}
+.pcard:hover .pcard-edit-btn{opacity:1;pointer-events:auto}
+.pcard-edit-btn:hover{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+.epic-tracker-link{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#93C5FD;text-decoration:none;padding:1px 7px;border-radius:4px;border:1px solid rgba(59,130,246,.25);background:rgba(59,130,246,.06);transition:all .15s;white-space:nowrap}
+.epic-tracker-link:hover{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.5)}
+.epic-add-url{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--muted);padding:1px 7px;border-radius:4px;border:1px dashed rgba(255,255,255,.1);background:none;cursor:pointer;transition:all .15s;opacity:.35}
+.epic-add-url:hover{opacity:1;border-color:rgba(59,130,246,.3);color:#93C5FD}
+.btn-add-product{margin-left:auto;padding:6px 14px;background:var(--vdim);border:1px solid var(--vborder);border-radius:8px;color:#C4B5FD;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn-add-product:hover{background:var(--violet);color:#fff;border-color:var(--violet)}
+/* ── PRODUCT MODAL ── */
+#prodm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;align-items:center;justify-content:center}
+#prodm-overlay.open{display:flex}
+#prod-modal{background:var(--card);border:1px solid var(--border);border-radius:16px;width:540px;max-width:96vw;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.6)}
 .pname{font-size:15px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:5px}
 .pdesc{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:10px}
 .gate-bar{display:flex;gap:3px;align-items:center}
@@ -1263,6 +1276,80 @@ header.ecotech-orig{top:44px!important;height:57px!important;z-index:100;}
   </div>
 </div>
 
+<!-- ── PRODUCT MODAL ── -->
+<div id="prodm-overlay" onclick="if(event.target===this)closeProdModal()">
+  <div id="prod-modal">
+    <div class="gm-head">
+      <div class="gm-htitle" id="prodm-title">Новый продукт</div>
+      <button class="ep-close" onclick="closeProdModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
+    </div>
+    <div class="gm-body">
+      <div class="gm-field">
+        <label>Название *</label>
+        <input id="prodm-name" placeholder="Название продукта…">
+      </div>
+      <div class="gm-field">
+        <label>Описание</label>
+        <textarea id="prodm-desc" rows="2" placeholder="Краткое описание продукта…"></textarea>
+      </div>
+      <div class="gm-row4">
+        <div class="gm-field">
+          <label>Gate</label>
+          <select id="prodm-gate">
+            <option value="0">G0 · Идея</option>
+            <option value="1">G1 · Концепция</option>
+            <option value="2">G2 · Прототип</option>
+            <option value="3">G3 · Разработка</option>
+            <option value="4">G4 · Запуск</option>
+            <option value="5">G5 · Масштаб</option>
+          </select>
+        </div>
+        <div class="gm-field">
+          <label>Статус</label>
+          <select id="prodm-status">
+            <option value="backlog">Бэклог</option>
+            <option value="planned">Запланировано</option>
+            <option value="wip">В работе</option>
+            <option value="done">Готово</option>
+          </select>
+        </div>
+        <div class="gm-field">
+          <label>Слой</label>
+          <select id="prodm-layer">
+            <option value="B2C">B2C</option>
+            <option value="B2B">B2B</option>
+            <option value="B2G">B2G</option>
+            <option value="Уровень 0 — Фундамент">Уровень 0</option>
+            <option value="Уровень 1 — Команды">Уровень 1</option>
+            <option value="Уровень 2 — Управление">Уровень 2</option>
+            <option value="Уровень 3 — Рост">Уровень 3</option>
+          </select>
+        </div>
+        <div class="gm-field">
+          <label>Релиз</label>
+          <input id="prodm-release" placeholder="v14">
+        </div>
+      </div>
+      <div class="gm-row4">
+        <div class="gm-field" style="grid-column:span 1">
+          <label>Цвет</label>
+          <input id="prodm-color" type="color" value="#7B2FFF" style="height:36px;padding:3px 6px;cursor:pointer">
+        </div>
+        <div class="gm-field" style="grid-column:span 3">
+          <label>Ссылка на таск-трекер команды (Jira / YouTrack…)</label>
+          <input id="prodm-tracker" type="url" placeholder="https://…">
+        </div>
+      </div>
+    </div>
+    <div class="gm-actions">
+      <button class="gm-del-btn" id="prodm-del-btn" onclick="deleteProductConfirm()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-trash"/></svg> Удалить</button>
+      <div class="gm-spacer"></div>
+      <button class="gm-cancel-btn" onclick="closeProdModal()">Отмена</button>
+      <button class="gm-save-btn" onclick="saveProdModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ════════════════════════════════════════════
 // STAGE-GATE MODEL
@@ -1515,6 +1602,7 @@ function renderPortfolio() {
     <div class="pstat"><div class="pstat-num" style="color:var(--muted)">${stCnt.backlog}</div><div class="pstat-lbl">Беклог</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--amber)">${backlog.length}</div><div class="pstat-lbl">Эпиков</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--green)">${backlog.filter(i=>sc(i)>20).length}</div><div class="pstat-lbl">High priority</div></div>
+    <button class="btn-add-product" onclick="openProdModal(null)">${EI.svg('plus',14)} Добавить продукт</button>
   `;
 
   document.getElementById('pgrid').innerHTML = PROJECTS.map(p => {
@@ -1568,6 +1656,9 @@ function renderPortfolio() {
             <span class="sdot ${ST_CLS[stCls]}" style="font-size:9px;padding:2px 6px">${epic.status}</span>
             <span class="epic-meta">G${epic.gate}</span>
             ${epicGoal ? `<span class="epic-goal-tag">↗ ${epicGoal.id}</span>` : ''}
+            ${epic.trackerUrl
+              ? `<a class="epic-tracker-link" href="${epic.trackerUrl}" target="_blank" onclick="event.stopPropagation()">${EI.svg('external-link',10)} Трекер</a>`
+              : `<button class="epic-add-url" onclick="event.stopPropagation();editEpicUrl('${epic.id}')" title="Добавить ссылку на таск-трекер">${EI.svg('link',10)} Трекер</button>`}
           </div>
           <div class="epic-inits">
             ${epicItems.length ? epicItems.map(mkIRow).join('') : '<div style="font-size:11px;color:var(--muted);padding:5px 0 3px">Нет эпиков</div>'}
@@ -1595,6 +1686,7 @@ function renderPortfolio() {
           <span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span>
           <span class="gbadge ${gateClass(p.gate)}">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</span>
           <span class="player">${p.layer}</span>
+          <button class="pcard-edit-btn" onclick="event.stopPropagation();openProdModal('${p.id}')" title="Редактировать продукт">${EI.svg('edit',12)}</button>
         </div>
         <div class="pname">${p.name}</div>
         <div class="pdesc">${p.desc}</div>
@@ -2367,6 +2459,111 @@ function editGoal(goalId) {
 
 function addGoal() {
   openGoalEditor(null);
+}
+
+// ════════════════════════════════════════════
+// PRODUCT CRUD
+// ════════════════════════════════════════════
+let curEditPid = null;
+
+function openProdModal(pid) {
+  curEditPid = pid || null;
+  const titleEl = document.getElementById('prodm-title');
+  const delBtn  = document.getElementById('prodm-del-btn');
+  if (pid) {
+    const p = PROJECTS.find(x => x.id === pid);
+    if (!p) return;
+    titleEl.textContent = 'Редактировать продукт';
+    document.getElementById('prodm-name').value    = p.name;
+    document.getElementById('prodm-desc').value    = p.desc || '';
+    document.getElementById('prodm-gate').value    = String(p.gate);
+    document.getElementById('prodm-status').value  = p.status || 'backlog';
+    document.getElementById('prodm-layer').value   = p.layer || 'B2C';
+    document.getElementById('prodm-release').value = p.release || '';
+    document.getElementById('prodm-color').value   = p.color || '#7B2FFF';
+    document.getElementById('prodm-tracker').value = p.trackerUrl || '';
+    delBtn.style.display = '';
+  } else {
+    titleEl.textContent = 'Новый продукт';
+    document.getElementById('prodm-name').value    = '';
+    document.getElementById('prodm-desc').value    = '';
+    document.getElementById('prodm-gate').value    = '0';
+    document.getElementById('prodm-status').value  = 'backlog';
+    document.getElementById('prodm-layer').value   = 'B2C';
+    document.getElementById('prodm-release').value = '';
+    document.getElementById('prodm-color').value   = '#7B2FFF';
+    document.getElementById('prodm-tracker').value = '';
+    delBtn.style.display = 'none';
+  }
+  document.getElementById('prodm-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('prodm-name').focus(), 80);
+}
+
+function closeProdModal() {
+  document.getElementById('prodm-overlay').classList.remove('open');
+  curEditPid = null;
+}
+
+function saveProdModal() {
+  const name = document.getElementById('prodm-name').value.trim();
+  if (!name) { document.getElementById('prodm-name').focus(); return; }
+  if (curEditPid) {
+    const idx = PROJECTS.findIndex(p => p.id === curEditPid);
+    if (idx < 0) return;
+    Object.assign(PROJECTS[idx], {
+      name,
+      desc:       document.getElementById('prodm-desc').value.trim(),
+      gate:       +document.getElementById('prodm-gate').value,
+      status:     document.getElementById('prodm-status').value,
+      layer:      document.getElementById('prodm-layer').value,
+      release:    document.getElementById('prodm-release').value.trim(),
+      color:      document.getElementById('prodm-color').value,
+      trackerUrl: document.getElementById('prodm-tracker').value.trim()
+    });
+  } else {
+    const existingIds = new Set(PROJECTS.map(p => p.id));
+    let newId;
+    for (let n = 1; n <= 99; n++) {
+      newId = 'PR' + String(n).padStart(2, '0');
+      if (!existingIds.has(newId)) break;
+    }
+    PROJECTS.push({
+      id: newId, name,
+      desc:       document.getElementById('prodm-desc').value.trim(),
+      gate:       +document.getElementById('prodm-gate').value,
+      status:     document.getElementById('prodm-status').value,
+      layer:      document.getElementById('prodm-layer').value,
+      release:    document.getElementById('prodm-release').value.trim() || 'backlog',
+      color:      document.getElementById('prodm-color').value,
+      trackerUrl: document.getElementById('prodm-tracker').value.trim()
+    });
+  }
+  saveProjects();
+  renderPortfolio();
+  initSidebar();
+  closeProdModal();
+}
+
+function deleteProductConfirm() {
+  if (!curEditPid) return;
+  const p = PROJECTS.find(x => x.id === curEditPid);
+  if (!p) return;
+  if (!confirm(`Удалить продукт «${p.name}»?\n\nЭпики продукта останутся в бэклоге.`)) return;
+  PROJECTS.splice(PROJECTS.findIndex(x => x.id === curEditPid), 1);
+  saveProjects();
+  renderPortfolio();
+  initSidebar();
+  closeProdModal();
+}
+
+function editEpicUrl(epicId) {
+  const epic = epics.find(e => e.id === epicId);
+  if (!epic) return;
+  const url = prompt('Ссылка на таск-трекер команды (Jira, YouTrack…):', epic.trackerUrl || '');
+  if (url === null) return;
+  epic.trackerUrl = url.trim();
+  if (window.PT) PT.save(PT.KEY_EPICS, epics);
+  renderPortfolio();
 }
 
 function addInitiative(projectId) {
