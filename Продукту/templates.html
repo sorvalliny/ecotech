@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Платформа инноваций — Шаблоны</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#08081A;--mid:#111128;--card:#161630;--surface2:#1A1A38;
+  --border:rgba(255,255,255,.07);--border-hi:rgba(255,255,255,.14);
+  --violet:#7B2FFF;--vdim:rgba(123,47,255,.12);--vborder:rgba(123,47,255,.35);
+  --pink:#FF2D8A;--pdim:rgba(255,45,138,.10);
+  --teal:#00D4B4;--tdim:rgba(0,212,180,.10);
+  --amber:#FFB830;--adim:rgba(255,184,48,.10);
+  --green:#34D399;--gdim:rgba(52,211,153,.10);
+  --blue:#3B82F6;--bdim:rgba(59,130,246,.10);
+  --text:#E8E6FF;--muted:#7A7A9D;--white:#fff;
+  --font:'Golos Text',sans-serif;--head:'Unbounded',sans-serif;--mono:monospace;
+  --nav-h:48px;
+}
+html{height:100%}
+body{font-family:var(--font);background:var(--dark);color:var(--text);height:100%;display:flex;flex-direction:column;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.02;pointer-events:none;z-index:0}
+
+/* ── PAGE ── */
+.tl-wrap{display:flex;flex-direction:column;flex:1;overflow:hidden;position:relative;z-index:1}
+.tl-head{padding:18px 28px 0;flex-shrink:0;background:var(--dark)}
+.tl-title-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.tl-title{font-family:var(--head);font-size:20px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.tl-count{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface2);padding:2px 8px;border-radius:5px}
+.btn-add{margin-left:auto;display:flex;align-items:center;gap:6px;padding:7px 14px;background:var(--violet);border:none;border-radius:9px;color:#fff;font-family:var(--head);font-size:11px;font-weight:700;cursor:pointer;transition:opacity .15s}
+.btn-add:hover{opacity:.85}
+.btn-reset{padding:7px 12px;background:transparent;border:1px solid var(--border);border-radius:9px;color:var(--muted);font-family:var(--font);font-size:11px;cursor:pointer;transition:all .15s}
+.btn-reset:hover{border-color:var(--border-hi);color:var(--text)}
+
+/* ── CONTROLS ── */
+.tl-controls{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.search-wrap{position:relative;flex-shrink:0}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.search-inp{background:var(--mid);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:var(--font);font-size:12px;padding:7px 12px 7px 32px;width:200px;outline:none;transition:border-color .15s}
+.search-inp:focus{border-color:rgba(123,47,255,.4)}
+.search-inp::placeholder{color:var(--muted)}
+
+/* sort mode toggle */
+.sort-seg{display:flex;gap:2px;background:var(--mid);border:1px solid var(--border);border-radius:9px;padding:3px}
+.sort-btn{padding:4px 10px;border-radius:6px;background:transparent;border:none;color:var(--muted);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.sort-btn:hover{color:var(--text)}
+.sort-btn.active{background:var(--vdim);color:#C4B5FD;border:1px solid var(--vborder)}
+
+/* filter tabs */
+.filter-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-top:10px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.filter-btn{padding:4px 11px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--muted);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.filter-btn:hover{color:#fff;border-color:var(--border-hi)}
+.filter-btn.active{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+
+/* ── GRID ── */
+.tl-body{flex:1;overflow-y:auto;padding:18px 28px 32px}
+.tl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.tl-empty{padding:60px 0;text-align:center;color:var(--muted);font-size:13px}
+.tl-group-div{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:10px 0 4px;margin-top:4px}
+.tl-group-div-label{font-family:var(--head);font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.tl-group-div-line{flex:1;height:1px;background:var(--border)}
+
+/* ── CARD ── */
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:border-color .15s,transform .13s,box-shadow .15s;display:flex;flex-direction:column;gap:9px;position:relative}
+.tool-card:hover{border-color:rgba(123,47,255,.3);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.tool-card.active{border-color:var(--vborder);background:rgba(123,47,255,.06)}
+.tc-head{display:flex;align-items:flex-start;gap:10px}
+.tc-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tc-meta{flex:1;min-width:0}
+.tc-name{font-family:var(--head);font-size:11px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:4px}
+.tc-stage{font-size:9px;font-weight:700;padding:1px 7px;border-radius:4px;letter-spacing:.04em;font-family:var(--head);display:inline-block}
+.tc-desc{font-size:11px;color:var(--muted);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tc-foot{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:auto}
+.role-badge{font-size:9px;font-weight:700;font-family:var(--head);padding:1px 6px;border-radius:4px;letter-spacing:.03em;border:1px solid}
+.tc-custom-badge{font-size:9px;font-weight:700;letter-spacing:.05em;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:var(--head)}
+.tc-link-badge{display:flex;align-items:center;gap:3px;font-size:9px;color:var(--muted);background:var(--surface2);padding:1px 6px;border-radius:4px;max-width:130px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+/* color tokens */
+.ic-violet{background:rgba(123,47,255,.15);color:#C4B5FD}
+.ic-pink  {background:rgba(255,45,138,.12);color:#F9A8D4}
+.ic-teal  {background:rgba(0,212,180,.12);color:#00D4B4}
+.ic-amber {background:rgba(255,184,48,.12);color:#FFB830}
+.ic-green {background:rgba(52,211,153,.12);color:#34D399}
+.ic-blue  {background:rgba(59,130,246,.12);color:#93C5FD}
+.ic-muted {background:rgba(255,255,255,.06);color:#7A7A9D}
+.st-gate0    {background:rgba(123,47,255,.15);color:#C4B5FD;border-color:rgba(123,47,255,.3)}
+.st-discovery{background:rgba(255,45,138,.12);color:#F9A8D4;border-color:rgba(255,45,138,.3)}
+.st-delivery {background:rgba(0,212,180,.12);color:#00D4B4;border-color:rgba(0,212,180,.3)}
+.st-growth   {background:rgba(52,211,153,.12);color:#34D399;border-color:rgba(52,211,153,.3)}
+.st-all      {background:rgba(255,255,255,.06);color:#7A7A9D;border-color:rgba(255,255,255,.12)}
+.st-fast     {background:rgba(0,212,180,.12);color:#00D4B4;border-color:rgba(0,212,180,.3)}
+.rb-pm  {background:rgba(123,47,255,.12);color:#C4B5FD;border-color:rgba(123,47,255,.25)}
+.rb-tl  {background:rgba(59,130,246,.12);color:#93C5FD;border-color:rgba(59,130,246,.25)}
+.rb-ux  {background:rgba(255,45,138,.1);color:#F9A8D4;border-color:rgba(255,45,138,.25)}
+.rb-pmo {background:rgba(255,184,48,.1);color:#FFB830;border-color:rgba(255,184,48,.25)}
+.rb-ceo {background:rgba(52,211,153,.1);color:#34D399;border-color:rgba(52,211,153,.25)}
+.rb-dev {background:rgba(0,212,180,.1);color:#00D4B4;border-color:rgba(0,212,180,.25)}
+
+/* ── DRAWER ── */
+.drawer{position:fixed;top:var(--nav-h);right:0;bottom:0;width:520px;background:rgba(13,13,30,.98);backdrop-filter:blur(20px);border-left:1px solid var(--border);display:flex;flex-direction:column;z-index:200;transform:translateX(100%);transition:transform .2s cubic-bezier(.22,1,.36,1)}
+.drawer.open{transform:translateX(0)}
+.dr-head{padding:18px 18px 14px;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;gap:12px;align-items:flex-start}
+.dr-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dr-meta{flex:1;min-width:0}
+.dr-name{font-family:var(--head);font-size:15px;font-weight:900;color:#fff;margin-bottom:5px;line-height:1.2}
+.dr-tags{display:flex;gap:5px;flex-wrap:wrap}
+.dr-close{width:28px;height:28px;border:1px solid var(--border);background:transparent;border-radius:7px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.dr-close:hover{background:rgba(255,255,255,.06);color:#fff}
+.dr-body{flex:1;overflow-y:auto;padding:18px}
+.dr-section{margin-bottom:18px}
+.dr-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-family:var(--head);margin-bottom:8px}
+.dr-text{font-size:12px;color:var(--text);line-height:1.6;white-space:pre-wrap}
+.dr-text.empty{color:var(--muted);font-style:italic}
+.dr-link-btn{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 15px;background:var(--vdim);border:1px solid var(--vborder);border-radius:10px;text-decoration:none;color:#C4B5FD;font-family:var(--head);font-size:11px;font-weight:700;transition:all .15s;margin-bottom:8px}
+.dr-link-btn:hover{background:rgba(123,47,255,.22)}
+.dr-link-btn::after{content:'↗';font-size:13px}
+.tpl-content{font-size:12px;color:var(--text);line-height:1.7;white-space:pre-wrap;background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:8px;padding:14px;max-height:320px;overflow-y:auto}
+.tpl-content h3{font-family:var(--head);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#C4B5FD;margin:12px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.tpl-content h3:first-child{margin-top:0}
+.tpl-content strong{color:#fff}
+.tpl-content em{color:var(--muted);font-style:italic}
+.dr-foot{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap}
+.dr-btn{flex:1;padding:8px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px;min-width:80px}
+.dr-btn:hover{border-color:var(--border-hi);color:#fff}
+.dr-btn-copy{background:var(--vdim);border-color:var(--vborder);color:#C4B5FD}
+.dr-btn-copy:hover{background:rgba(123,47,255,.22)}
+.dr-del-btn{padding:8px 12px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:9px;color:#FCA5A5;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
+.dr-del-btn:hover{background:rgba(239,68,68,.15)}
+
+/* toast */
+.copy-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:rgba(123,47,255,.9);color:#fff;font-family:var(--head);font-size:11px;font-weight:700;padding:8px 18px;border-radius:20px;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999}
+.copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── MODAL ── */
+.mo-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:400;display:none;align-items:center;justify-content:center}
+.mo-overlay.open{display:flex}
+.mo-box{background:var(--card);border:1px solid var(--border);border-radius:16px;width:580px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden}
+.mo-head{padding:18px 18px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.mo-title{font-family:var(--head);font-size:13px;font-weight:900;color:#fff;flex:1}
+.mo-close{width:26px;height:26px;border:1px solid var(--border);background:transparent;border-radius:6px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.mo-close:hover{background:rgba(255,255,255,.06);color:#fff}
+.mo-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+.mo-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mo-field label{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-family:var(--head);margin-bottom:4px}
+.mo-field input,.mo-field select,.mo-field textarea{width:100%;background:var(--mid);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:12px;padding:8px 10px;outline:none;transition:border-color .15s;resize:vertical}
+.mo-field textarea{min-height:64px;line-height:1.55}
+.mo-field textarea.content-area{min-height:180px;font-family:var(--mono);font-size:11px}
+.mo-field input:focus,.mo-field select:focus,.mo-field textarea:focus{border-color:rgba(123,47,255,.5)}
+.mo-field select option{background:var(--card)}
+.mo-check-row{display:flex;align-items:center;gap:8px}
+.mo-check-row input[type=checkbox]{width:15px;height:15px;accent-color:var(--violet);cursor:pointer;flex-shrink:0}
+.mo-check-row label{font-size:12px;color:var(--text);cursor:pointer;margin:0}
+.mo-foot{padding:12px 18px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;flex-shrink:0}
+.mo-cancel{padding:7px 14px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:var(--font);font-size:12px;cursor:pointer;transition:all .15s}
+.mo-cancel:hover{border-color:var(--border-hi);color:#fff}
+.mo-save{padding:7px 18px;background:var(--violet);border:none;border-radius:8px;color:#fff;font-family:var(--head);font-size:11px;font-weight:700;cursor:pointer;transition:opacity .15s}
+.mo-save:hover{opacity:.85}
+
+@media(max-width:680px){
+  .drawer{width:100%}
+  .mo-box{width:calc(100% - 24px)}
+  .mo-row{grid-template-columns:1fr}
+}
+</style>
+<script src="../icons.js"></script>
+<script src="../platform.js"></script>
+<script src="../nav.js"></script>
+</head>
+<body>
+
+<div class="tl-wrap">
+  <div class="tl-head">
+    <div class="tl-title-row">
+      <svg class="ei" width="20" height="20" style="color:var(--violet)"><use href="#ic-file-text"/></svg>
+      <h1 class="tl-title">Шаблоны</h1>
+      <span class="tl-count" id="tl-count">0</span>
+      <button class="btn-reset" id="btn-reset" onclick="resetToDefault()" title="Сбросить к умолчаниям">↺</button>
+      <button class="btn-add" onclick="openModal(null)">
+        <svg class="ei" width="12" height="12"><use href="#ic-plus"/></svg> Добавить
+      </button>
+    </div>
+    <div class="tl-controls">
+      <div class="search-wrap">
+        <svg class="ei" width="14" height="14"><use href="#ic-search"/></svg>
+        <input class="search-inp" id="search-inp" type="text" placeholder="Поиск…" oninput="render()">
+      </div>
+      <div class="sort-seg">
+        <button class="sort-btn active" id="sb-stage"   onclick="setSortMode('stage')">По стадиям</button>
+        <button class="sort-btn"        id="sb-process" onclick="setSortMode('process')">По процессу</button>
+        <button class="sort-btn"        id="sb-role"    onclick="setSortMode('role')">По ролям</button>
+      </div>
+    </div>
+    <div class="filter-tabs" id="filter-tabs"></div>
+  </div>
+
+  <div class="tl-body">
+    <div class="tl-grid" id="tl-grid"></div>
+  </div>
+</div>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="dr-head">
+    <div class="dr-icon" id="dr-icon"></div>
+    <div class="dr-meta">
+      <div class="dr-name" id="dr-name"></div>
+      <div class="dr-tags" id="dr-tags"></div>
+    </div>
+    <button class="dr-close" onclick="closeDrawer()">
+      <svg class="ei" width="13" height="13"><use href="#ic-x"/></svg>
+    </button>
+  </div>
+  <div class="dr-body">
+    <div class="dr-section" id="dr-link-sec"></div>
+    <div class="dr-section">
+      <div class="dr-section-title">Описание</div>
+      <div class="dr-text" id="dr-desc"></div>
+    </div>
+    <div class="dr-section">
+      <div class="dr-section-title">Содержание шаблона</div>
+      <div id="dr-content"></div>
+    </div>
+  </div>
+  <div class="dr-foot" id="dr-foot"></div>
+</div>
+
+<!-- MODAL -->
+<div class="mo-overlay" id="mo-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="mo-box">
+    <div class="mo-head">
+      <div class="mo-title" id="mo-title">Добавить шаблон</div>
+      <button class="mo-close" onclick="closeModal()"><svg class="ei" width="13" height="13"><use href="#ic-x"/></svg></button>
+    </div>
+    <div class="mo-body">
+      <div class="mo-field" style="grid-column:1/-1">
+        <label>Название *</label>
+        <input id="mo-name" type="text" placeholder="Например: Бриф инициативы">
+      </div>
+      <div class="mo-row">
+        <div class="mo-field">
+          <label>Стадия</label>
+          <select id="mo-stage">
+            <option value="gate0">Gate 0 — Подача</option>
+            <option value="discovery">Gate 1 — Discovery</option>
+            <option value="delivery">Delivery</option>
+            <option value="growth">Growth</option>
+            <option value="all">Все стадии</option>
+            <option value="fast">Fast-Track</option>
+          </select>
+        </div>
+        <div class="mo-field">
+          <label>Процесс</label>
+          <select id="mo-process">
+            <option value="gate">Подача / Gate</option>
+            <option value="discovery">Discovery</option>
+            <option value="delivery">Delivery</option>
+            <option value="growth">Growth</option>
+          </select>
+        </div>
+      </div>
+      <div class="mo-field">
+        <label>Роли (через запятую: pm, tl, ux, pmo, ceo, dev)</label>
+        <input id="mo-roles" type="text" placeholder="pm, pmo">
+      </div>
+      <div class="mo-field">
+        <label>Ссылка на шаблон (Notion, Google Docs, Miro…)</label>
+        <input id="mo-link" type="url" placeholder="https://…">
+      </div>
+      <div class="mo-field">
+        <label>Краткое описание</label>
+        <textarea id="mo-desc" placeholder="Для чего шаблон и когда использовать"></textarea>
+      </div>
+      <div class="mo-field">
+        <label>Содержание шаблона</label>
+        <textarea id="mo-content" class="content-area" placeholder="Структура шаблона — разделы, поля, примеры..."></textarea>
+      </div>
+    </div>
+    <div class="mo-foot">
+      <button class="mo-cancel" onclick="closeModal()">Отмена</button>
+      <button class="mo-save" onclick="saveModal()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="copy-toast" id="copy-toast"></div>
+
+<script>
+var KEY = 'PI_TEMPLATES';
+
+/* ─────────────────── DEFAULT DATA ─────────────────── */
+var DEFAULTS = [
+  {
+    id:'T01', name:'Бриф инициативы', icon:'clipboard', color:'violet',
+    stage:'gate0', process:'gate', roles:['pm','pmo','ceo'],
+    link:'',
+    desc:'Стартовый документ для подачи новой инициативы в PMO. Заполняется заказчиком за 15–30 минут.',
+    content:'## Бриф инициативы\n\n**Название:** [Краткое описание инициативы]\n**Подразделение / Заказчик:** [Имя, должность, BU]\n**Дата подачи:** [ДД.ММ.ГГГГ]\n\n## Проблема\nОпишите проблему, которую нужно решить. Кто страдает? Насколько часто? Какие последствия?\n\nПример: «Продавцы не могут оперативно отслеживать заказы с мобильного — 68% обращений в поддержку связаны с этим.»\n\n## Целевая аудитория\nКто пользователь решения? Объём аудитории (пользователей/месяц)?\n\n## Цель и ожидаемый эффект\n**Бизнес-метрика:** [напр. снижение обращений на 30%]\n**Продуктовая метрика:** [напр. DAU мобильного кабинета 5000+]\n\n## Желаемые сроки\nКогда нужен MVP? Есть ли жёсткий дедлайн?\n\n## Бюджет\nЕсть ли предварительный бюджет? Какой?\n\n## Ограничения и зависимости\nИзвестные технические, юридические или бизнесовые ограничения.\n\n## Связь с OKR\nС каким OKR компании или департамента связана инициатива?\n\n---\nЗаполненный бриф отправить в PMO через форму в реестре.',
+    custom:false
+  },
+  {
+    id:'T02', name:'Discovery Report', icon:'users', color:'pink',
+    stage:'discovery', process:'discovery', roles:['pm','ux'],
+    link:'',
+    desc:'Итоговый документ Discovery — результаты исследования для прохождения Gate 1.',
+    content:'## Discovery Report\n\n**Продукт:** [Название]\n**Владелец:** [Product PM]\n**Период Discovery:** [ДД.ММ — ДД.ММ.ГГГГ]\n**Статус:** [ ] Go  [ ] No-Go  [ ] Нужны данные\n\n## 1. Проблема\nУточнённая формулировка проблемы после исследования.\n\n## 2. Исследование\n**CustDev:** Проведено N интервью. Ключевые инсайты:\n—\n—\n\n**Конкурентный анализ:** [Что делают другие? В чём наше преимущество?]\n\n**Данные / аналитика:** [Метрики, подтверждающие масштаб проблемы]\n\n## 3. Концепция решения\nОписание предлагаемого решения. Почему именно это?\n\n**Отклонённые альтернативы:**\n1. [Вариант] — отклонён, потому что [причина]\n\n## 4. Техническая реализуемость\nВывод Tech Lead: [реализуемо / частично / нереализуемо]\n\nКлючевые технические риски:\n—\n\n## 5. Оценка\n**Срок Discovery → MVP:** ~N недель\n**Команда:** [состав и FTE]\n**Бюджет:** [диапазон]\n\n## 6. Метрики успеха MVP\n— Метрика 1: цель\n— Метрика 2: цель\n\n## 7. Риски\n| Риск | Вероятность | Влияние | Митигация |\n|------|------------|---------|----------|\n| [Риск] | Высокая | Высокое | [Действие] |\n\n## 8. Рекомендация команды\n[Обоснование рекомендации Go / No-Go]',
+    custom:false
+  },
+  {
+    id:'T03', name:'PRD / Specification', icon:'file-text', color:'teal',
+    stage:'delivery', process:'delivery', roles:['pm','tl'],
+    link:'',
+    desc:'Product Requirements Document — требования к продукту перед стартом Delivery.',
+    content:'## Product Requirements Document\n\n**Продукт:** [Название]  **Версия:** 1.0  **Дата:** [ДД.ММ.ГГГГ]\n**Product PM:** [Имя]   **Tech Lead:** [Имя]\n\n## 1. Контекст и цели\nЧто мы строим и зачем. Связь с Discovery Report.\n\n**Цели MVP:**\n— Цель 1: метрика\n\n**Out of scope (что НЕ делаем в MVP):**\n—\n\n## 2. Пользователи\n**Основная персона:** [Описание]\n**Сценарий:** [Основной happy path]\n\n## 3. Функциональные требования\n**Epic 1: [Название]**\nUS-001: Как [роль], я хочу [действие], чтобы [ценность]\n  DoD: [ ] Критерий 1\n  AC: [ ] Условие 1\n\n## 4. Нефункциональные требования\n— Производительность: p95 < 500ms\n— Доступность: Uptime ≥ 99.5%\n— Безопасность: [требования ИБ]\n\n## 5. Интеграции\n| Система | Тип | Описание |\n|---------|-----|----------|\n| [API X] | REST | [Зачем] |\n\n## 6. Метрики запуска\n— KPI 1: базовое → цель → срок\n\n## 7. Timeline\nGate 1: [дата]\nSprint 1-N: [даты]\nGate 2 (MVP Release): [дата]',
+    custom:false
+  },
+  {
+    id:'T04', name:'Gate Review', icon:'flag', color:'amber',
+    stage:'all', process:'gate', roles:['pm','pmo','ceo'],
+    link:'',
+    desc:'Структура презентации на Gate-прохождении для Управляющего совета / Комитета.',
+    content:'## Gate Review — Структура презентации\nДля Gate 0, 1, 2, 3 — адаптировать под стадию\n\n**Продукт:** [Название]  **Gate:** [0/1/2/3]\n**Дата:** [ДД.ММ.ГГГГ]  **Ведущий:** [Product PM]\n\n## Слайд 1: Проблема (2 мин)\n— Проблема одним предложением\n— Кто страдает + масштаб (данные)\n— Почему сейчас\n\n## Слайд 2: Решение (3 мин)\n— Концепция решения\n— Ключевые функции MVP (топ 3)\n— Демо / прототип (если есть)\n\n## Слайд 3: Бизнес-кейс (2 мин)\n— Ожидаемый эффект: метрики\n— Связь с OKR компании\n— ROI / P&L (для Gate 1+)\n\n## Слайд 4: План и ресурсы (2 мин)\n— Сроки по стадиям\n— Команда (роли, FTE)\n— Бюджет\n\n## Слайд 5: Риски (2 мин)\n— Топ 3 риска + митигация\n\n## Слайд 6: Запрос (1 мин)\n— Что просим у Комитета\n— Решение: Go / No-Go / На доработку\n\n## Q&A (10 мин)\n\n---\nИтого: ~12 мин презентация + 10 мин Q&A = 22 мин на слот',
+    custom:false
+  },
+  {
+    id:'T05', name:'Sprint Planning', icon:'target', color:'violet',
+    stage:'delivery', process:'delivery', roles:['pm','tl','dev'],
+    link:'',
+    desc:'Шаблон повестки и артефактов для планирования спринта.',
+    content:'## Sprint Planning\n\n**Дата:** [ДД.ММ.ГГГГ]\n**Продукт:** [Название]\n**Спринт №:** [N]  **Длительность:** 2 недели\n**Velocity (пред.):** [N story points]\n\n## 1. Цель спринта (Sprint Goal)\n[Одно предложение: что главное должно быть готово к концу спринта]\n\n**Критерий достижения:** [Измеримо и конкретно]\n\n## 2. Backlog items\n| ID | Название | Эпик | SP | Ответственный |\n|----|----------|------|----|---------------|\n| US-001 | [Заголовок] | [Эпик] | [3] | [Dev] |\n\n**Итого SP:** [N]\n\n## 3. Definition of Done\n[ ] Код прошёл code review (≥1 ревьюер)\n[ ] Все AC выполнены и проверены PM\n[ ] Задеплоено на staging, регрессия пройдена\n[ ] Задача закрыта в трекере\n\n## 4. Риски и зависимости\n—\n\n## 5. Мощность команды\n| Разработчик | Доступность | Отпуск |\n|-------------|-------------|--------|\n| [Имя] | 10 дней | — |',
+    custom:false
+  },
+  {
+    id:'T06', name:'Ретроспектива', icon:'activity', color:'teal',
+    stage:'all', process:'delivery', roles:['pm','tl','dev'],
+    link:'',
+    desc:'Структура ретро в формате Start / Stop / Continue + action items.',
+    content:'## Ретроспектива спринта\n\n**Дата:** [ДД.ММ.ГГГГ]\n**Продукт:** [Название]  **Спринт №:** [N]\n**Фасилитатор:** [Имя]  **Участники:** [список]\n\n## 1. Check-in (5 мин)\nКаждый: «В одном слове — как прошёл этот спринт?»\n\n## 2. Данные (5 мин)\n— Выполнено SP: [N] из [N запланировано]\n— Цель достигнута: [ ] Да / [ ] Нет\n— Дата релиза: [ ] По плану / [ ] Задержка на [N дней]\n\n## 3. Start — что начать делать (10 мин)\n1.\n2.\n3.\n\n## 4. Stop — что прекратить (10 мин)\n1.\n2.\n3.\n\n## 5. Continue — что продолжать (10 мин)\n1.\n2.\n3.\n\n## 6. Action Items (10 мин)\n| Действие | Ответственный | Срок |\n|----------|---------------|------|\n| [Действие] | [Имя] | [Дата] |\n\n## 7. Check-out (5 мин)\nКаждый: «Одно слово о том, с чем уходишь.»\n\n---\nРезультаты → Wiki. Action items → трекер.',
+    custom:false
+  },
+  {
+    id:'T07', name:'Метрики здоровья', icon:'bar-chart', color:'pink',
+    stage:'growth', process:'growth', roles:['pm'],
+    link:'',
+    desc:'Шаблон дашборда метрик продукта для еженедельного / ежемесячного отчёта PMO.',
+    content:'## Product Health Dashboard\n\n**Продукт:** [Название]\n**Стадия:** [ ] Discovery  [ ] Delivery  [ ] Growth\n**Период:** [Неделя / Месяц / Квартал]\n**Ответственный:** [Product PM]\n\n## Статус\n[ ] Зелёный — всё по плану\n[ ] Жёлтый — есть риски, митигация на месте\n[ ] Красный — требуется эскалация\n\n## Бизнес-метрики\n| Метрика | Цель | Факт | Тренд |\n|---------|------|------|-------|\n| Revenue / GMV | [N] | [N] | [↑/↓/→] |\n\n## Продуктовые метрики\n| Метрика | Цель | Факт | Тренд |\n|---------|------|------|-------|\n| DAU | [N] | [N] | [↑] |\n| Retention D7 | ≥40% | [N%] | [→] |\n| NPS | ≥50 | [N] | [↑] |\n\n## Технические метрики\n| Метрика | Цель | Факт | Тренд |\n|---------|------|------|-------|\n| Uptime | ≥99.5% | [%] | [→] |\n| p95 Latency | <500ms | [ms] | [↑] |\n\n## Ключевые события\n—\n\n## Блокеры и риски\n— [Описание] → [Действие] → [Ответственный]',
+    custom:false
+  },
+  {
+    id:'T08', name:'Release Notes', icon:'zap', color:'amber',
+    stage:'delivery', process:'delivery', roles:['pm','tl','dev'],
+    link:'',
+    desc:'Шаблон коммуникации о релизе для команды, заказчика и пользователей.',
+    content:'## Release Notes\n\n**Продукт:** [Название]  **Версия:** [vX.Y.Z]\n**Дата:** [ДД.ММ.ГГГГ ЧЧ:ММ МСК]\n**Команда:** [Название]  **Ответственный за деплой:** [Имя]\n\n## Что изменилось\n**Новые возможности:**\n— [Функция 1]: описание для пользователя\n\n**Улучшения:**\n— [Улучшение 1]: что стало лучше\n\n**Исправления:**\n— BUG-XXX: [Описание]\n\n## Технические изменения\n— [Миграция данных / изменение схемы]\n— [Новые зависимости]\n\n## Rollback plan\n1. [Шаг 1: переключить feature flag]\n2. [Шаг 2: откатить деплой]\n3. [Шаг 3: уведомить команду и заказчика]\n\n**Время на rollback:** ~[N минут]\n\n## Мониторинг\n— Дашборд: [ссылка]\n— Алерты настроены: [ ] Да\n— Дежурный: [Имя + контакт]\n\n---\nСообщение о релизе: #releases + заказчику напрямую.',
+    custom:false
+  },
+  {
+    id:'T09', name:'DoR / DoD Чеклист', icon:'grid', color:'teal',
+    stage:'all', process:'delivery', roles:['pm','tl','dev'],
+    link:'',
+    desc:'Чеклист готовности задачи к спринту и проверки завершённости.',
+    content:'## DoR / DoD Чеклист задачи\n\n**Задача:** [ID] [Название]\n**Sprint:** [N]  **Дата:** [ДД.ММ.ГГГГ]\n**PM:** [Имя]  **Разработчик:** [Имя]\n\n## ✅ Definition of Ready — задача готова к спринту?\n\n**Обязательно:**\n[ ] User Story: «Как [роль], хочу [действие], чтобы [ценность]»\n[ ] Acceptance Criteria сформулированы\n[ ] Приоритет выставлен PM (Must / Should / Could)\n[ ] Зависимости указаны\n[ ] Задача выполнима за 1 спринт (≤ 8 SP)\n\n**Полный уровень:**\n[ ] Wireframe одобрен командой\n[ ] Story Points оценены (Planning Poker)\n[ ] NFR указаны\n[ ] Сценарий тестирования согласован\n\n## ✅ Definition of Done — задача завершена?\n\n**Обязательно:**\n[ ] Код прошёл Code Review (≥1 ревьюер)\n[ ] Все AC выполнены и проверены PM\n[ ] Задеплоено на Staging, регрессия пройдена\n[ ] Задача закрыта в трекере\n[ ] Нет открытых блокирующих багов\n\n**Полный уровень:**\n[ ] Unit тесты (coverage ≥ 80%)\n[ ] Документация обновлена\n[ ] Алерты и мониторинг настроены\n[ ] Дизайн-ревью пройдён',
+    custom:false
+  },
+  {
+    id:'T10', name:'Fast-Track Бриф', icon:'zap', color:'teal',
+    stage:'fast', process:'gate', roles:['pmo','ceo'],
+    link:'',
+    desc:'Ускоренный бриф для стратегических инициатив. Срок скрининга PMO — 24 часа.',
+    content:'## ⚡ Fast-Track Бриф\nДля стратегических инициатив с жёстким дедлайном. Срок ответа PMO — 24 часа.\n\n**Инициатива:** [Краткое название]\n**Инициатор:** [Имя, должность]\n**Дата подачи:** [ДД.ММ.ГГГГ ЧЧ:ММ]\n\n## 1. Проблема (1 предложение)\n[Что случится, если не сделать это прямо сейчас?]\n\n## 2. Почему Fast-Track\n[ ] Директивный приоритет CEO / Совета\n[ ] Жёсткий внешний дедлайн: [дата]\n[ ] Регуляторное требование: [документ]\n[ ] Конкурентная угроза: [описание]\n\n## 3. Желаемый результат\n**Что нужно:** [Артефакт — MVP, исследование, интеграция]\n**Когда нужно:** [Дата]\n**KPI успеха:** [Измеримый критерий]\n\n## 4. Ресурсы\n**Бюджет:** [ ] Есть: [сумма] / [ ] Требует согласования\n**Команда:** [ ] Выделена / [ ] Нужна помощь PMO\n\n## 5. Ограничения\n[Технические, юридические, организационные ограничения]\n\n---\nКонтакт PMO: pmo@rwb.ru · Срок ответа: 24 ч · Мини-комитет: 3 рабочих дня',
+    custom:false
+  },
+  {
+    id:'T11', name:'CustDev Скрипт', icon:'users', color:'pink',
+    stage:'discovery', process:'discovery', roles:['pm','ux'],
+    link:'',
+    desc:'Структура глубинного интервью с пользователем. 45–60 минут, 5+ интервью на гипотезу.',
+    content:'## CustDev Скрипт — глубинное интервью\n\n**Гипотеза:** [Формулировка]\n**Интервьюер:** [Имя]  **Дата:** [ДД.ММ.ГГГГ]\n**Респондент:** [Роль / сегмент]  **Интервью №:** [N]\n\n## Разогрев (5 мин)\n— Расскажите о себе / вашей роли?\n— Как давно работаете в [область]?\n— Как обычно выглядит ваш рабочий день?\n\nЦель: установить контакт, понять контекст.\n\n## Проблема и контекст (15 мин)\n— Как вы сейчас решаете [задача]? Расскажите о последнем разе.\n— Что было самым неудобным в этом процессе?\n— Как часто это происходит?\n— Что уже пробовали для решения? Почему не подошло?\n\nПринцип: не задаём наводящих вопросов. Слушаем, не продаём.\n\n## Текущие решения (10 мин)\n— Какие инструменты используете сейчас?\n— Что нравится? Что раздражает?\n— Если бы могли изменить одно — что?\n\n## Реакция на концепцию (15 мин)\n(Показываем прототип ТОЛЬКО если есть. Не описывать словами.)\n— Что это, как вам кажется?\n— Где это может быть полезно вам?\n— Что непонятно? Что бы не использовали?\n\n## Закрытие (5 мин)\n— Есть что-то важное, о чём не поговорили?\n— Кого порекомендуете поговорить на эту тему?\n\n## Инсайты после интервью\n**Ключевая боль:**\n**Цитата (дословно):**\n**Сюрприз / неожиданное:**\n**HMW:** Как мы могли бы...\n\n---\nЗапись → Wiki. Инсайты → Affinity Map.',
+    custom:false
+  }
+];
+
+/* ─────────────────── LOOKUPS ─────────────────── */
+var STAGE_META = {
+  gate0:     { label:'Gate 0',      cls:'st-gate0' },
+  discovery: { label:'Discovery',   cls:'st-discovery' },
+  delivery:  { label:'Delivery',    cls:'st-delivery' },
+  growth:    { label:'Growth',      cls:'st-growth' },
+  all:       { label:'Все стадии', cls:'st-all' },
+  fast:      { label:'Fast-Track',  cls:'st-fast' }
+};
+var PROCESS_META = {
+  gate:      { label:'Подача / Gate' },
+  discovery: { label:'Discovery' },
+  delivery:  { label:'Delivery' },
+  growth:    { label:'Growth' }
+};
+var ROLE_META = {
+  pm:  { label:'PM',       cls:'rb-pm' },
+  tl:  { label:'Tech Lead',cls:'rb-tl' },
+  ux:  { label:'UX',       cls:'rb-ux' },
+  pmo: { label:'PMO',      cls:'rb-pmo' },
+  ceo: { label:'CEO/CPO',  cls:'rb-ceo' },
+  dev: { label:'Dev',      cls:'rb-dev' }
+};
+var SORT_FILTERS = {
+  stage:   ['all','gate0','discovery','delivery','growth','fast'],
+  process: ['all','gate','discovery','delivery','growth'],
+  role:    ['all','pm','tl','ux','pmo','ceo','dev']
+};
+var SORT_LABELS = {
+  stage:   { all:'Все стадии', gate0:'Gate 0', discovery:'Discovery', delivery:'Delivery', growth:'Growth', fast:'Fast-Track' },
+  process: { all:'Все процессы', gate:'Подача / Gate', discovery:'Discovery', delivery:'Delivery', growth:'Growth' },
+  role:    { all:'Все роли', pm:'PM', tl:'Tech Lead', ux:'UX', pmo:'PMO', ceo:'CEO/CPO', dev:'Dev' }
+};
+var ICON_CLR = { violet:'ic-violet', pink:'ic-pink', teal:'ic-teal', amber:'ic-amber', green:'ic-green', blue:'ic-blue', muted:'ic-muted' };
+
+/* ─────────────────── STATE ─────────────────── */
+var templates = [];
+var sortMode  = 'stage';
+var activeFilter = 'all';
+var activeId  = null;
+var editId    = null;
+
+/* ─────────────────── STORAGE ─────────────────── */
+function load() {
+  var raw = window.PT ? PT.load(KEY) : JSON.parse(localStorage.getItem(KEY) || 'null');
+  templates = (raw && raw.length) ? raw : JSON.parse(JSON.stringify(DEFAULTS));
+}
+function save() {
+  if (window.PT) PT.save(KEY, templates);
+  else localStorage.setItem(KEY, JSON.stringify(templates));
+}
+function resetToDefault() {
+  if (!confirm('Сбросить все шаблоны к умолчаниям? Пользовательские шаблоны будут удалены.')) return;
+  templates = JSON.parse(JSON.stringify(DEFAULTS));
+  save(); render(); closeDrawer();
+}
+
+/* ─────────────────── FILTER TABS ─────────────────── */
+function renderFilterTabs() {
+  ['sb-stage','sb-process','sb-role'].forEach(function(id) {
+    document.getElementById(id).className = 'sort-btn' + (id === 'sb-' + sortMode ? ' active' : '');
+  });
+  var filters = SORT_FILTERS[sortMode];
+  var labels  = SORT_LABELS[sortMode];
+  var counts  = {};
+  filters.forEach(function(f) {
+    if (f === 'all') { counts[f] = templates.length; return; }
+    counts[f] = templates.filter(function(t) { return matchFilter(t, f); }).length;
+  });
+  document.getElementById('filter-tabs').innerHTML = filters.map(function(f) {
+    var n = counts[f];
+    if (n === 0 && f !== 'all') return '';
+    return '<button class="filter-btn' + (activeFilter === f ? ' active' : '') + '" onclick="setFilter(\'' + f + '\')">'
+      + labels[f] + (f !== 'all' && n > 0 ? ' <span style="opacity:.5;font-size:10px">' + n + '</span>' : '') + '</button>';
+  }).join('');
+}
+function setSortMode(mode) {
+  sortMode = mode; activeFilter = 'all';
+  renderFilterTabs(); render();
+}
+function setFilter(f) {
+  activeFilter = f; renderFilterTabs(); render();
+}
+function matchFilter(t, f) {
+  if (sortMode === 'stage')   return t.stage === f;
+  if (sortMode === 'process') return t.process === f;
+  if (sortMode === 'role')    return (t.roles || []).indexOf(f) !== -1;
+  return true;
+}
+
+/* ─────────────────── GRID ─────────────────── */
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderCard(t) {
+  var sm = STAGE_META[t.stage] || STAGE_META.all;
+  var icCls = ICON_CLR[t.color] || 'ic-violet';
+  var cardCls = 'tool-card' + (activeId === t.id ? ' active' : '');
+  var rolesBadges = (t.roles || []).map(function(r) {
+    var rm = ROLE_META[r]; if (!rm) return '';
+    return '<span class="role-badge ' + rm.cls + '">' + rm.label + '</span>';
+  }).join('');
+  return '<div class="' + cardCls + '" onclick="openDrawer(\'' + t.id + '\')">'
+    + '<div class="tc-head">'
+      + '<div class="tc-icon ' + icCls + '">' + EI.svg(t.icon || 'file-text', 18) + '</div>'
+      + '<div class="tc-meta">'
+        + '<div class="tc-name">' + esc(t.name) + '</div>'
+        + '<span class="tc-stage ' + sm.cls + '">' + sm.label + '</span>'
+      + '</div>'
+    + '</div>'
+    + '<div class="tc-desc">' + esc(t.desc || '') + '</div>'
+    + '<div class="tc-foot">'
+      + rolesBadges
+      + (t.custom ? '<span class="tc-custom-badge" style="margin-left:auto">СВОЙ</span>' : '')
+    + '</div>'
+  + '</div>';
+}
+
+function divider(label) {
+  return '<div class="tl-group-div"><div class="tl-group-div-label">' + label + '</div><div class="tl-group-div-line"></div></div>';
+}
+
+function render() {
+  var q = document.getElementById('search-inp').value.toLowerCase();
+  var list = templates.filter(function(t) {
+    if (activeFilter !== 'all' && !matchFilter(t, activeFilter)) return false;
+    if (q && t.name.toLowerCase().indexOf(q) === -1 && (t.desc||'').toLowerCase().indexOf(q) === -1) return false;
+    return true;
+  });
+  document.getElementById('tl-count').textContent = list.length;
+  var grid = document.getElementById('tl-grid');
+  if (!list.length) { grid.innerHTML = '<div class="tl-empty">Ничего не найдено</div>'; return; }
+
+  var html = '';
+  if (activeFilter === 'all') {
+    // show grouped with dividers
+    var filters = SORT_FILTERS[sortMode].slice(1); // skip 'all'
+    var labels  = SORT_LABELS[sortMode];
+    var shown = {};
+    filters.forEach(function(f) {
+      var group = list.filter(function(t) { return matchFilter(t, f) && !shown[t.id]; });
+      if (!group.length) return;
+      html += divider(labels[f]);
+      group.forEach(function(t) { shown[t.id] = true; html += renderCard(t); });
+    });
+    // leftover (custom or unmatched)
+    var leftover = list.filter(function(t) { return !shown[t.id]; });
+    if (leftover.length) {
+      html += divider('Прочие');
+      leftover.forEach(function(t) { html += renderCard(t); });
+    }
+  } else {
+    html = list.map(renderCard).join('');
+  }
+  grid.innerHTML = html;
+}
+
+/* ─────────────────── DRAWER ─────────────────── */
+function openDrawer(id) {
+  var t = templates.find(function(x) { return x.id === id; });
+  if (!t) return;
+  activeId = id; render();
+  var sm = STAGE_META[t.stage] || STAGE_META.all;
+  var icCls = ICON_CLR[t.color] || 'ic-violet';
+  document.getElementById('dr-icon').className = 'dr-icon ' + icCls;
+  document.getElementById('dr-icon').innerHTML = EI.svg(t.icon || 'file-text', 24);
+  document.getElementById('dr-name').textContent = t.name;
+
+  // tags
+  var rolesBadges = (t.roles || []).map(function(r) {
+    var rm = ROLE_META[r]; if (!rm) return '';
+    return '<span class="role-badge ' + rm.cls + '">' + rm.label + '</span>';
+  }).join('');
+  document.getElementById('dr-tags').innerHTML =
+    '<span class="tc-stage ' + sm.cls + '" style="font-size:10px;padding:2px 8px">' + sm.label + '</span> ' + rolesBadges;
+
+  // link section
+  var lsec = document.getElementById('dr-link-sec');
+  if (t.link) {
+    lsec.innerHTML = '<a class="dr-link-btn" href="' + esc(t.link) + '" target="_blank" rel="noopener">Открыть шаблон</a>';
+  } else {
+    lsec.innerHTML = '';
+  }
+
+  // desc
+  var descEl = document.getElementById('dr-desc');
+  if (t.desc) { descEl.textContent = t.desc; descEl.className = 'dr-text'; }
+  else { descEl.textContent = 'Описание не указано'; descEl.className = 'dr-text empty'; }
+
+  // content
+  var cEl = document.getElementById('dr-content');
+  if (t.content) {
+    // render plain text with ## headings styled
+    var html = esc(t.content)
+      .replace(/^## (.+)$/gm, '<div style="font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C4B5FD;margin:12px 0 5px;padding-bottom:3px;border-bottom:1px solid var(--border)">$1</div>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#fff">$1</strong>')
+      .replace(/`(.+?)`/g, '<code style="background:rgba(255,255,255,.08);padding:1px 5px;border-radius:4px;font-family:var(--mono)">$1</code>');
+    cEl.innerHTML = '<div class="tpl-content">' + html + '</div>';
+  } else {
+    cEl.innerHTML = '<div class="dr-text empty">Содержание не добавлено</div>';
+  }
+
+  // footer
+  var foot = document.getElementById('dr-foot');
+  foot.innerHTML =
+    '<button class="dr-btn" onclick="openModal(\'' + t.id + '\')">' + EI.svg('edit',12) + ' Редактировать</button>'
+    + '<button class="dr-btn dr-btn-copy" onclick="copyLink(\'' + t.id + '\')">' + EI.svg('link',12) + ' Скопировать ссылку</button>'
+    + (t.custom ? '<button class="dr-del-btn" onclick="deleteTpl(\'' + t.id + '\')">' + EI.svg('trash',13) + '</button>' : '');
+
+  document.getElementById('drawer').classList.add('open');
+}
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  activeId = null; render();
+}
+
+/* ─────────────────── SHARE LINK ─────────────────── */
+function copyLink(id) {
+  var url = location.href.split('?')[0] + '?t=' + id;
+  navigator.clipboard ? navigator.clipboard.writeText(url).then(function() { showToast('Ссылка скопирована!'); })
+    : (function() { var ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showToast('Ссылка скопирована!'); })();
+}
+function showToast(msg) {
+  var el = document.getElementById('copy-toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); }, 2200);
+}
+
+/* ─────────────────── MODAL ─────────────────── */
+function openModal(id) {
+  closeDrawer();
+  editId = id;
+  var t = id ? templates.find(function(x) { return x.id === id; }) : null;
+  document.getElementById('mo-title').textContent = t ? 'Редактировать шаблон' : 'Добавить шаблон';
+  document.getElementById('mo-name').value    = t ? t.name    : '';
+  document.getElementById('mo-stage').value   = t ? t.stage   : 'gate0';
+  document.getElementById('mo-process').value = t ? t.process : 'gate';
+  document.getElementById('mo-roles').value   = t ? (t.roles || []).join(', ') : '';
+  document.getElementById('mo-link').value    = t ? (t.link || '') : '';
+  document.getElementById('mo-desc').value    = t ? (t.desc || '') : '';
+  document.getElementById('mo-content').value = t ? (t.content || '') : '';
+  document.getElementById('mo-overlay').classList.add('open');
+  setTimeout(function() { document.getElementById('mo-name').focus(); }, 50);
+}
+function closeModal() {
+  document.getElementById('mo-overlay').classList.remove('open');
+  editId = null;
+}
+function saveModal() {
+  var name = document.getElementById('mo-name').value.trim();
+  if (!name) { document.getElementById('mo-name').focus(); return; }
+  var rolesRaw = document.getElementById('mo-roles').value.split(',').map(function(r) { return r.trim(); }).filter(Boolean);
+  var data = {
+    name:    name,
+    stage:   document.getElementById('mo-stage').value,
+    process: document.getElementById('mo-process').value,
+    roles:   rolesRaw,
+    link:    document.getElementById('mo-link').value.trim(),
+    desc:    document.getElementById('mo-desc').value.trim(),
+    content: document.getElementById('mo-content').value.trim()
+  };
+  if (editId) {
+    var idx = templates.findIndex(function(x) { return x.id === editId; });
+    data.id     = templates[idx].id;
+    data.icon   = templates[idx].icon;
+    data.color  = templates[idx].color;
+    data.custom = templates[idx].custom;
+    Object.assign(templates[idx], data);
+  } else {
+    data.custom = true;
+    data.icon   = 'file-text';
+    data.color  = 'violet';
+    var existing = new Set(templates.map(function(t) { return t.id; }));
+    var newId;
+    for (var n = 1; n <= 99; n++) {
+      newId = 'U' + String(n).padStart(2,'0');
+      if (!existing.has(newId)) break;
+    }
+    data.id = newId;
+    templates.push(data);
+  }
+  save(); render(); closeModal();
+  // open drawer for the saved template
+  setTimeout(function() { openDrawer(data.id); }, 80);
+}
+function deleteTpl(id) {
+  var t = templates.find(function(x) { return x.id === id; });
+  if (!t || !t.custom) return;
+  if (!confirm('Удалить шаблон «' + t.name + '»?')) return;
+  templates = templates.filter(function(x) { return x.id !== id; });
+  save(); render(); closeDrawer();
+}
+
+/* ─────────────────── INIT ─────────────────── */
+load();
+renderFilterTabs();
+render();
+
+// auto-open from URL ?t=ID
+(function() {
+  var urlParams = new URLSearchParams(location.search);
+  var tid = urlParams.get('t');
+  if (tid) setTimeout(function() { openDrawer(tid); }, 150);
+})();
+</script>
+</body>
+</html>

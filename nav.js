@@ -21,7 +21,7 @@
 
   // ── active group detection ──────────────────────────────────
   var bizActive  = (has('business') || has('бизнесу')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('strategy') || has('хэндбук') || has('handbook') || has('artifacts')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -34,6 +34,11 @@
 
   function sep() { return '<div class="en-drop-sep"></div>'; }
   function grp(label) { return '<div class="en-drop-grp">' + label + '</div>'; }
+
+  // ── RWB logo SVG (right side of nav) ────────────────────────
+  var RWB_SVG = '<svg width="62" height="21" viewBox="0 0 83 28" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    + '<path fill="rgba(255,255,255,.7)" d="M23.514 27.096h-5.318l-3.34-5.88H0v-4.222h16.722c1.925 0 3.485-1.545 3.485-3.451s-1.56-3.452-3.485-3.452H0V5.88h17.36c4.276 0 7.743 3.433 7.743 7.668 0 3.339-2.159 6.171-5.167 7.224zm23.306-5.88h-2.707l-4.227-7.47-4.23 7.47H32.95L24.266 5.88h5.314l4.723 8.335 4.722-8.335h1.72l4.722 8.334 4.722-8.334h5.314zm27.478 0h-17.36v-4.222H73.66c1.925 0 3.486-1.545 3.486-3.451s-1.56-3.451-3.486-3.451H56.938V0h5.183v5.88h12.177c4.276 0 7.743 3.433 7.743 7.668s-3.467 7.668-7.743 7.668"/>'
+    + '</svg>';
 
   // ── logo icon SVG (hexagon network hub) ─────────────────────
   var MARK_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
@@ -73,7 +78,7 @@
     +     a('Фреймворк/framework-lite.html',             'Гайд по стадиям зрелости')
     +     a('Продукту/strategy.html',                   'Стратегическое планирование')
     +     a('Проектный офис/council.html',              'Управляющий совет')
-    +     a('Фреймворк/artifacts.html',                 'Артефакты (шаблоны)')
+    +     a('Продукту/templates.html',                  'Шаблоны')
     +     sep()
     +     grp('Инструменты и сервисы')
     +     a('Продукту/tools.html',                      'Инструменты')
@@ -81,6 +86,7 @@
     + '</div>'
 
     + '</div>'
+    + '<a class="en-rwb" href="https://rwb.ru" target="_blank" rel="noopener">' + RWB_SVG + '</a>'
     + '</nav>';
 
   // ── CSS ─────────────────────────────────────────────────────
@@ -111,7 +117,10 @@
     ".en-drop-grp{font-family:'Unbounded',sans-serif;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(160,100,255,.7);padding:6px 11px 3px;pointer-events:none}",
     '.en-link{font-size:12px;font-weight:700;color:rgba(220,210,255,.6);text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}',
     '.en-link:hover{color:#fff;background:rgba(255,255,255,.1)}',
-    '.en-link.en-active{color:#fff;background:rgba(255,255,255,.14)}'
+    '.en-link.en-active{color:#fff;background:rgba(255,255,255,.14)}',
+    /* RWB logo — right side */
+    '.en-rwb{margin-left:auto;display:flex;align-items:center;opacity:.7;transition:opacity .15s;flex-shrink:0}',
+    '.en-rwb:hover{opacity:1}'
   ].join('\n');
 
   // ── inject CSS into <head> immediately (head is available) ──
