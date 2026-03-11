@@ -21,7 +21,7 @@
 
   // ── active group detection ──────────────────────────────────
   var bizActive  = (has('business') || has('бизнесу')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('strategy') || has('хэндбук') || has('handbook')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -33,6 +33,7 @@
   }
 
   function sep() { return '<div class="en-drop-sep"></div>'; }
+  function grp(label) { return '<div class="en-drop-grp">' + label + '</div>'; }
 
   // ── nav HTML ────────────────────────────────────────────────
   var nav = '<nav class="ecotech-nav">'
@@ -53,10 +54,16 @@
     + '<div class="en-drop' + pdktActive + '">'
     +   '<a class="en-drop-trigger">Продукту</a>'
     +   '<div class="en-drop-menu">'
-    +     a('product.html',                          'С чего начать')
+    +     a('product.html',                              'С чего начать')
     +     sep()
-    +     a('Проектный офис/council.html',           'Управляющий совет')
-    +     a('Продукту/tools.html',                   'Инструменты')
+    +     grp('Процессы и артефакты')
+    +     a('Фреймворк/rwb-product-os-v3.html',         'Продуктовый фреймворк')
+    +     a('Хэндбук/rwb-product-os-v12.html',          'Гайд по стадиям зрелости')
+    +     a('Продукту/strategy.html',                   'Стратегическое планирование')
+    +     a('Проектный офис/council.html',              'Управляющий совет')
+    +     sep()
+    +     grp('Инструменты и сервисы')
+    +     a('Продукту/tools.html',                      'Инструменты')
     +   '</div>'
     + '</div>'
 
@@ -81,6 +88,7 @@
     '.en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,.06)}',
     '.en-drop-menu a.en-active{color:#C49CFF;background:rgba(123,47,255,.12)}',
     '.en-drop-sep{height:1px;background:rgba(123,47,255,.12);margin:4px}',
+    ".en-drop-grp{font-family:'Unbounded',sans-serif;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(123,47,255,.6);padding:6px 11px 3px;pointer-events:none;}",
     '.en-link{font-size:12px;font-weight:700;color:#7A7A9D;text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}',
     '.en-link:hover{color:#fff;background:rgba(255,255,255,.06)}',
     '.en-link.en-active{color:#C49CFF;background:rgba(123,47,255,.12)}'
