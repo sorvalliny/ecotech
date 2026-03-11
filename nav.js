@@ -35,10 +35,22 @@
   function sep() { return '<div class="en-drop-sep"></div>'; }
   function grp(label) { return '<div class="en-drop-grp">' + label + '</div>'; }
 
+  // ── logo icon SVG (hexagon network hub) ─────────────────────
+  var MARK_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    + '<polygon points="12,2.5 20.2,7.25 20.2,16.75 12,21.5 3.8,16.75 3.8,7.25" stroke="rgba(255,255,255,.5)" stroke-width="1.3" fill="rgba(255,255,255,.07)"/>'
+    + '<line x1="12" y1="11.5" x2="12" y2="4" stroke="rgba(255,255,255,.65)" stroke-width="1.2"/>'
+    + '<line x1="12" y1="11.5" x2="18.8" y2="16.1" stroke="rgba(255,255,255,.65)" stroke-width="1.2"/>'
+    + '<line x1="12" y1="11.5" x2="5.2" y2="16.1" stroke="rgba(255,255,255,.65)" stroke-width="1.2"/>'
+    + '<circle cx="12" cy="12" r="2.4" fill="white"/>'
+    + '<circle cx="12" cy="2.5" r="1.55" fill="rgba(255,255,255,.88)"/>'
+    + '<circle cx="20.2" cy="16.75" r="1.55" fill="rgba(255,255,255,.88)"/>'
+    + '<circle cx="3.8" cy="16.75" r="1.55" fill="rgba(255,255,255,.88)"/>'
+    + '</svg>';
+
   // ── nav HTML ────────────────────────────────────────────────
   var nav = '<nav class="ecotech-nav">'
 
-    + '<a class="en-logo" href="' + base + 'index.html"><span class="en-logo-mark">ПИ</span>Платформа <span>инноваций</span></a>'
+    + '<a class="en-logo" href="' + base + 'index.html"><span class="en-logo-mark">' + MARK_SVG + '</span>Платформа <span>инноваций</span></a>'
     + '<div class="en-sep"></div>'
     + '<div class="en-links">'
 
@@ -76,7 +88,7 @@
     '.ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,.15);display:flex;align-items:center;padding:0 24px;gap:0}',
     ".en-logo{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:7px}",
     '.en-logo span{color:#C49CFF}',
-    '.en-logo-mark{width:22px;height:22px;background:linear-gradient(135deg,#7B2FFF,#FF2D8A);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;letter-spacing:-.5px;flex-shrink:0}',
+    '.en-logo-mark{width:22px;height:22px;background:linear-gradient(135deg,#7B2FFF,#FF2D8A);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}',
     '.en-sep{width:1px;height:16px;background:rgba(123,47,255,.2);margin:0 16px;flex-shrink:0}',
     '.en-links{display:flex;gap:2px;align-items:center}',
     '.en-drop{position:relative}',

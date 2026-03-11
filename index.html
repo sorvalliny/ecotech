@@ -8,86 +8,90 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F7F6FF;--surface:#FFFFFF;--surface2:#F0EEFF;
+  --bg:#F7F6FF;--surface:#FFFFFF;
   --border:rgba(0,0,0,.07);--border-hi:rgba(0,0,0,.12);
   --text:#0D0C1F;--muted:#6B6B8A;--muted2:#9898B4;
-  --violet:#7B2FFF;--violet-dim:rgba(123,47,255,.08);--violet-mid:rgba(123,47,255,.15);
-  --pink:#FF2D8A;--pink-dim:rgba(255,45,138,.08);
-  --teal:#00B89E;--teal-dim:rgba(0,184,158,.08);--teal-mid:rgba(0,184,158,.18);
+  --violet:#7B2FFF;--violet-dim:rgba(123,47,255,.08);
+  --pink:#FF2D8A;
+  --teal:#00B89E;--teal-dim:rgba(0,184,158,.08);
   --amber:#F59E0B;
   --head:'Unbounded',sans-serif;--body:'Golos Text',sans-serif;
-  --r:14px;--r-sm:9px;
   --shadow-sm:0 1px 4px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.04);
   --shadow:0 4px 20px rgba(0,0,0,.07),0 0 0 1px rgba(0,0,0,.05);
   --shadow-lg:0 12px 48px rgba(0,0,0,.1),0 0 0 1px rgba(0,0,0,.05);
 }
-html{scroll-behavior:smooth;height:100%}
+html{height:100%}
 body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:100%;display:flex;flex-direction:column;overflow-x:hidden}
-
-/* ── NOISE TEXTURE ── */
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.018;pointer-events:none;z-index:0}
 
 /* ── LAYOUT ── */
 .wrap{max-width:960px;margin:0 auto;padding:0 28px;position:relative;z-index:1;width:100%}
 
-/* ── TOP BAR ── */
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.topbar-inner{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 28px;max-width:960px;margin:0 auto}
-.tb-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.tb-mark{width:28px;height:28px;background:linear-gradient(135deg,#7B2FFF,#FF2D8A);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:9px;font-weight:900;color:#fff;letter-spacing:-.5px;flex-shrink:0}
-.tb-name{font-family:var(--head);font-size:12px;font-weight:900;color:var(--text);letter-spacing:-.3px;line-height:1.1}
-.tb-name span{color:var(--violet)}
-.tb-badge{font-family:var(--head);font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
-.tb-links{display:flex;gap:4px}
-.tb-link{font-size:12px;font-weight:600;color:var(--muted);text-decoration:none;padding:5px 12px;border-radius:7px;transition:color .15s,background .15s}
-.tb-link:hover{color:var(--text);background:rgba(0,0,0,.04)}
-
 /* ── HERO ── */
-.hero{padding:72px 0 56px;text-align:center;display:flex;flex-direction:column;align-items:center}
-.hero-mark{width:80px;height:80px;background:linear-gradient(135deg,#7B2FFF 0%,#FF2D8A 100%);border-radius:22px;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:28px;font-weight:900;color:#fff;letter-spacing:-1px;margin-bottom:28px;box-shadow:0 8px 40px rgba(123,47,255,.25),0 2px 8px rgba(0,0,0,.08);position:relative}
-.hero-mark::after{content:'';position:absolute;inset:-8px;border-radius:28px;border:1px solid rgba(123,47,255,.2);pointer-events:none}
-.hero-eyebrow{font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';height:1px;width:24px;background:var(--violet);opacity:.4}
-.hero-h1{font-family:var(--head);font-size:44px;font-weight:900;line-height:1.05;letter-spacing:-2px;color:var(--text);margin-bottom:18px}
+.hero{padding:64px 0 48px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero-mark{
+  width:88px;height:88px;
+  background:linear-gradient(135deg,#7B2FFF 0%,#FF2D8A 100%);
+  border-radius:24px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:32px;
+  box-shadow:0 8px 40px rgba(123,47,255,.3),0 2px 8px rgba(0,0,0,.1);
+  position:relative;
+  animation:hero-pulse 4s ease-in-out infinite;
+}
+.hero-mark::after{
+  content:'';position:absolute;inset:-10px;border-radius:30px;
+  border:1px solid rgba(123,47,255,.18);pointer-events:none;
+}
+@keyframes hero-pulse{
+  0%,100%{box-shadow:0 8px 40px rgba(123,47,255,.3),0 2px 8px rgba(0,0,0,.1)}
+  50%{box-shadow:0 8px 56px rgba(123,47,255,.45),0 2px 12px rgba(0,0,0,.12)}
+}
+.hero-eyebrow{
+  font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--violet);margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';height:1px;width:20px;background:var(--violet);opacity:.35}
+.hero-h1{font-family:var(--head);font-size:46px;font-weight:900;line-height:1.04;letter-spacing:-2px;color:var(--text);margin-bottom:16px}
 .hero-h1 .accent{background:linear-gradient(135deg,#7B2FFF,#FF2D8A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:16px;color:var(--muted);max-width:480px;line-height:1.7;margin-bottom:10px}
+.hero-sub{font-size:16px;color:var(--muted);max-width:460px;line-height:1.7}
 
-/* ── CHOOSE LABEL ── */
-.choose-label{display:flex;align-items:center;gap:16px;margin:48px 0 32px;color:var(--muted2);font-size:12px;font-weight:600;letter-spacing:.04em;width:100%}
+/* ── DIVIDER ── */
+.choose-label{display:flex;align-items:center;gap:16px;margin:52px 0 28px;color:var(--muted2);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;width:100%}
 .choose-label::before,.choose-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* ── ROLE CARDS ── */
-.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;margin-bottom:48px}
-.role-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
-.role-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.role-card-top{padding:40px 36px 32px;display:flex;flex-direction:column;gap:16px;flex:1}
-.role-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:4px;flex-shrink:0}
-.role-title{font-family:var(--head);font-size:28px;font-weight:900;line-height:1.05;letter-spacing:-1px}
-.role-who{font-size:13px;color:var(--muted);font-weight:500;margin-top:-4px}
-.role-desc{font-size:14px;color:var(--muted);line-height:1.65;flex:1}
-.role-features{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:4px}
-.role-features li{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);line-height:1.4}
-.role-features li::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.role-card-foot{padding:20px 36px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.role-cta{font-family:var(--head);font-size:12px;font-weight:900;letter-spacing:.01em;padding:10px 20px;border-radius:10px;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s,transform .15s}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;margin-bottom:52px}
+.role-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column}
+.role-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.role-card-top{padding:36px 32px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
+.role-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;flex-shrink:0}
+.role-title{font-family:var(--head);font-size:26px;font-weight:900;line-height:1.05;letter-spacing:-0.8px}
+.role-who{font-size:13px;color:var(--muted);font-weight:500;margin-top:-6px}
+.role-features{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:2px}
+.role-features li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--muted);line-height:1.45}
+.role-features li::before{content:'';min-width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.role-card-foot{padding:18px 32px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.role-cta{font-family:var(--head);font-size:11px;font-weight:900;letter-spacing:.01em;padding:9px 18px;border-radius:9px;display:inline-flex;align-items:center;gap:7px;transition:opacity .15s,transform .15s;white-space:nowrap}
 .role-cta:hover{opacity:.85;transform:translateX(2px)}
-.role-cta-hint{font-size:11px;color:var(--muted2)}
+.role-cta-hint{font-size:11px;color:var(--muted2);white-space:nowrap}
 
-/* ── Бизнесу card ── */
-.card-biz .role-icon{background:rgba(0,184,158,.12);color:var(--teal)}
+/* ── Бизнесу ── */
+.card-biz .role-icon{background:rgba(0,184,158,.1);color:var(--teal)}
 .card-biz .role-title{color:var(--text)}
 .card-biz .role-features li::before{background:var(--teal)}
 .card-biz .role-cta{background:linear-gradient(135deg,#00B89E,#00D4B4);color:#fff}
-.card-biz:hover{border-color:rgba(0,184,158,.3)}
-.card-biz .role-card-top{background:linear-gradient(160deg,rgba(0,184,158,.05) 0%,var(--surface) 60%)}
+.card-biz:hover{border-color:rgba(0,184,158,.28)}
+.card-biz .role-card-top{background:linear-gradient(155deg,rgba(0,184,158,.06) 0%,var(--surface) 55%)}
 
-/* ── Продукту card ── */
+/* ── Продукту ── */
 .card-prod .role-icon{background:var(--violet-dim);color:var(--violet)}
 .card-prod .role-title{background:linear-gradient(135deg,#7B2FFF,#FF2D8A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .card-prod .role-features li::before{background:var(--violet)}
 .card-prod .role-cta{background:linear-gradient(135deg,#7B2FFF,#FF2D8A);color:#fff}
-.card-prod:hover{border-color:rgba(123,47,255,.3)}
-.card-prod .role-card-top{background:linear-gradient(160deg,rgba(123,47,255,.05) 0%,var(--surface) 60%)}
+.card-prod:hover{border-color:rgba(123,47,255,.28)}
+.card-prod .role-card-top{background:linear-gradient(155deg,rgba(123,47,255,.06) 0%,var(--surface) 55%)}
 
 /* ── STATS ── */
 .stats-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:56px}
@@ -96,50 +100,45 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── FOOTER ── */
 footer{margin-top:auto;border-top:1px solid var(--border);background:var(--surface)}
-.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:18px 28px;max-width:960px;margin:0 auto;font-size:11px;color:var(--muted)}
-.foot-inner strong{color:rgba(0,0,0,.35)}
-.foot-mark{display:inline-flex;align-items:center;gap:6px}
-.foot-mark-logo{width:16px;height:16px;background:linear-gradient(135deg,#7B2FFF,#FF2D8A);border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--head);font-size:6px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:16px 28px;max-width:960px;margin:0 auto;font-size:11px;color:var(--muted)}
+.foot-inner strong{color:rgba(0,0,0,.4)}
+.foot-brand{display:inline-flex;align-items:center;gap:7px}
+.foot-logo{width:18px;height:18px;background:linear-gradient(135deg,#7B2FFF,#FF2D8A);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
 
-@media(max-width:680px){
-  .hero{padding:48px 0 36px}
-  .hero-h1{font-size:30px;letter-spacing:-1px}
-  .hero-mark{width:64px;height:64px;border-radius:18px;font-size:22px}
+@media(max-width:700px){
+  .hero{padding:44px 0 36px}
+  .hero-h1{font-size:32px;letter-spacing:-1.2px}
+  .hero-mark{width:72px;height:72px;border-radius:20px}
   .role-grid{grid-template-columns:1fr}
-  .topbar-inner{padding:0 20px}
-  .tb-links{display:none}
-  .role-card-top{padding:28px 24px 24px}
+  .role-card-top{padding:28px 24px 22px}
   .role-card-foot{padding:16px 24px}
   .role-title{font-size:22px}
+  .wrap{padding:0 20px}
 }
 </style>
+<script src="icons.js"></script>
+<script src="nav.js"></script>
 </head>
 <body>
-
-<!-- ── TOP BAR ── -->
-<header class="topbar">
-  <div class="topbar-inner">
-    <a class="tb-logo" href="index.html">
-      <div class="tb-mark">ПИ</div>
-      <div class="tb-name">Платформа <span>инноваций</span></div>
-    </a>
-    <div style="display:flex;align-items:center;gap:12px">
-      <span class="tb-badge">Beta · 2026</span>
-      <nav class="tb-links">
-        <a class="tb-link" href="business.html">Бизнесу</a>
-        <a class="tb-link" href="product.html">Продукту</a>
-        <a class="tb-link" href="Проектный офис/council.html">Совет</a>
-      </nav>
-    </div>
-  </div>
-</header>
 
 <main style="flex:1;position:relative;z-index:1">
 <div class="wrap">
 
   <!-- ── HERO ── -->
   <section class="hero">
-    <div class="hero-mark">ПИ</div>
+    <div class="hero-mark">
+      <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="12,2.5 20.2,7.25 20.2,16.75 12,21.5 3.8,16.75 3.8,7.25"
+                 stroke="rgba(255,255,255,.45)" stroke-width="1.2" fill="rgba(255,255,255,.08)"/>
+        <line x1="12" y1="11.5" x2="12" y2="4.1"   stroke="rgba(255,255,255,.6)" stroke-width="1.1"/>
+        <line x1="12" y1="11.5" x2="18.9" y2="16.1" stroke="rgba(255,255,255,.6)" stroke-width="1.1"/>
+        <line x1="12" y1="11.5" x2="5.1"  y2="16.1" stroke="rgba(255,255,255,.6)" stroke-width="1.1"/>
+        <circle cx="12"   cy="12"    r="2.6" fill="white"/>
+        <circle cx="12"   cy="2.5"   r="1.6" fill="rgba(255,255,255,.88)"/>
+        <circle cx="20.2" cy="16.75" r="1.6" fill="rgba(255,255,255,.88)"/>
+        <circle cx="3.8"  cy="16.75" r="1.6" fill="rgba(255,255,255,.88)"/>
+      </svg>
+    </div>
     <div class="hero-eyebrow">RWB Экосистема · Проектный офис</div>
     <h1 class="hero-h1">Платформа<br><span class="accent">инноваций</span></h1>
     <p class="hero-sub">Единая операционная система для управления продуктовым портфелем, командами и стратегией экосистемы</p>
@@ -154,8 +153,11 @@ footer{margin-top:auto;border-top:1px solid var(--border);background:var(--surfa
     <a class="role-card card-biz" href="business.html">
       <div class="role-card-top">
         <div class="role-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+            <line x1="12" y1="12" x2="12" y2="16"/>
+            <line x1="10" y1="14" x2="14" y2="14"/>
           </svg>
         </div>
         <div>
@@ -163,8 +165,8 @@ footer{margin-top:auto;border-top:1px solid var(--border);background:var(--surfa
           <div class="role-who">Для топ-менеджмента и заказчиков</div>
         </div>
         <ul class="role-features">
-          <li>Портфель продуктов в проде и разработке</li>
-          <li>Статусы, метрики и прогнозы P&L</li>
+          <li>Портфель продуктов — что в проде и что строится</li>
+          <li>Метрики, статусы и прогнозы P&amp;L</li>
           <li>Управляющий совет и инвест-комитет</li>
         </ul>
       </div>
@@ -178,8 +180,10 @@ footer{margin-top:auto;border-top:1px solid var(--border);background:var(--surfa
     <a class="role-card card-prod" href="product.html">
       <div class="role-card-top">
         <div class="role-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
           </svg>
         </div>
         <div>
@@ -188,8 +192,8 @@ footer{margin-top:auto;border-top:1px solid var(--border);background:var(--surfa
         </div>
         <ul class="role-features">
           <li>Продуктовый фреймворк Gate 0 → 5</li>
-          <li>Инструменты: RICE, трекер, стратегия</li>
-          <li>Артефакты, шаблоны и стандарты</li>
+          <li>Инструменты: RICE, трекер, стратегия, артефакты</li>
+          <li>Шаблоны и стандарты для каждой стадии</li>
         </ul>
       </div>
       <div class="role-card-foot">
@@ -198,24 +202,32 @@ footer{margin-top:auto;border-top:1px solid var(--border);background:var(--surfa
       </div>
     </a>
 
-  </div><!-- /role-grid -->
-
-  <!-- ── STATS ── -->
-  <div class="stats-row" id="stats-row">
-    <div class="stat-pill"><strong>Gate 0→5</strong> Единый фреймворк</div>
-    <div class="stat-pill"><strong>6+</strong> продуктов в портфеле</div>
-    <div class="stat-pill"><strong>11</strong> шаблонов и артефактов</div>
-    <div class="stat-pill"><strong>PMO</strong> Проектный офис</div>
   </div>
 
-</div><!-- /wrap -->
+  <!-- ── STATS ── -->
+  <div class="stats-row">
+    <div class="stat-pill"><strong>Gate 0→5</strong>&nbsp;Единый фреймворк</div>
+    <div class="stat-pill"><strong>6+</strong>&nbsp;продуктов в портфеле</div>
+    <div class="stat-pill"><strong>11</strong>&nbsp;шаблонов и артефактов</div>
+    <div class="stat-pill"><strong>PMO</strong>&nbsp;Проектный офис</div>
+  </div>
+
+</div>
 </main>
 
 <!-- ── FOOTER ── -->
 <footer>
   <div class="foot-inner">
-    <span class="foot-mark">
-      <span class="foot-mark-logo">ПИ</span>
+    <span class="foot-brand">
+      <span class="foot-logo">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+          <polygon points="12,2.5 20.2,7.25 20.2,16.75 12,21.5 3.8,16.75 3.8,7.25" stroke="rgba(255,255,255,.55)" stroke-width="1.5" fill="rgba(255,255,255,.1)"/>
+          <circle cx="12" cy="12" r="2.8" fill="white"/>
+          <circle cx="12" cy="2.5" r="1.7" fill="rgba(255,255,255,.85)"/>
+          <circle cx="20.2" cy="16.75" r="1.7" fill="rgba(255,255,255,.85)"/>
+          <circle cx="3.8" cy="16.75" r="1.7" fill="rgba(255,255,255,.85)"/>
+        </svg>
+      </span>
       <strong>Платформа инноваций</strong> · Проектный офис RWB
     </span>
     <span>Март 2026 · v1.0</span>
