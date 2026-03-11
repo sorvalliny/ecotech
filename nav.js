@@ -1,5 +1,5 @@
 /**
- * EcoTech Platform — Universal Navigation
+ * Платформа инноваций — Universal Navigation
  * Single source of truth for all pages.
  * Load as <script src="nav.js"></script> (root) or
  *         <script src="../nav.js"></script> (subdir).
@@ -38,7 +38,7 @@
   // ── nav HTML ────────────────────────────────────────────────
   var nav = '<nav class="ecotech-nav">'
 
-    + '<a class="en-logo" href="' + base + 'index.html">EcoTech <span>Platform</span></a>'
+    + '<a class="en-logo" href="' + base + 'index.html"><span class="en-logo-mark">ПИ</span>Платформа <span>инноваций</span></a>'
     + '<div class="en-sep"></div>'
     + '<div class="en-links">'
 
@@ -74,8 +74,9 @@
   // ── CSS ─────────────────────────────────────────────────────
   var CSS = [
     '.ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,.15);display:flex;align-items:center;padding:0 24px;gap:0}',
-    ".en-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.5px;white-space:nowrap;flex-shrink:0}",
-    '.en-logo span{color:#7B2FFF}',
+    ".en-logo{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:7px}",
+    '.en-logo span{color:#C49CFF}',
+    '.en-logo-mark{width:22px;height:22px;background:linear-gradient(135deg,#7B2FFF,#FF2D8A);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;letter-spacing:-.5px;flex-shrink:0}',
     '.en-sep{width:1px;height:16px;background:rgba(123,47,255,.2);margin:0 16px;flex-shrink:0}',
     '.en-links{display:flex;gap:2px;align-items:center}',
     '.en-drop{position:relative}',
