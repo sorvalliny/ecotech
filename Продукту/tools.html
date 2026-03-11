@@ -47,6 +47,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .tl-body{flex:1;overflow-y:auto;padding:20px 28px 32px}
 .tl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
 .tl-empty{padding:60px 0;text-align:center;color:var(--muted);font-size:13px}
+.tl-section-divider{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:8px 0 4px;margin-top:8px}
+.tl-section-divider-label{font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.tl-section-divider-line{flex:1;height:1px;background:var(--border)}
 
 /* ── TOOL CARD ── */
 .tool-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:border-color .15s,transform .13s,box-shadow .15s;display:flex;flex-direction:column;gap:10px;position:relative}
@@ -61,7 +64,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .tc-foot{display:flex;align-items:center;gap:6px;margin-top:auto}
 .tc-link-badge{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);background:var(--surface2);padding:2px 8px;border-radius:5px;max-width:160px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .tc-custom-badge{font-size:9px;font-weight:700;letter-spacing:.05em;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:var(--head)}
-.tc-inactive{opacity:.38;cursor:default;pointer-events:none}
+.tc-inactive{opacity:.45;cursor:pointer}
 
 /* ── CAT COLOR TOKENS ── */
 .cat-platform .tc-cat{background:var(--vdim);color:#C4B5FD}
@@ -103,6 +106,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .dr-edit-btn:hover{border-color:var(--border-hi);color:#fff}
 .dr-del-btn{padding:8px 14px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:9px;color:#FCA5A5;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
 .dr-del-btn:hover{background:rgba(239,68,68,.15)}
+.dr-toggle-btn{padding:8px 12px;background:rgba(255,184,48,.07);border:1px solid rgba(255,184,48,.2);border-radius:9px;color:#FFB830;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.dr-toggle-btn:hover{background:rgba(255,184,48,.14)}
+.dr-toggle-btn.activate{background:rgba(0,212,180,.07);border-color:rgba(0,212,180,.25);color:#00D4B4}
+.dr-toggle-btn.activate:hover{background:rgba(0,212,180,.14)}
 
 /* ── MODAL ── */
 .mo-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:400;display:none;align-items:center;justify-content:center}
@@ -246,6 +253,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="mo-field">
         <label>Правила работы</label>
         <textarea id="mo-rules" placeholder="Регламенты, naming convention, ограничения…"></textarea>
+      </div>
+      <div class="mo-field" style="display:flex;align-items:center;gap:10px;padding:8px 0">
+        <input id="mo-inactive" type="checkbox" style="width:16px;height:16px;accent-color:var(--amber);cursor:pointer;flex-shrink:0">
+        <label for="mo-inactive" style="font-size:13px;font-weight:500;color:var(--text);cursor:pointer;text-transform:none;letter-spacing:0;margin-bottom:0">Деактивировать (показывать как «Скоро», без перехода)</label>
       </div>
     </div>
     <div class="mo-foot">
@@ -450,12 +461,12 @@ function renderGrid() {
     grid.innerHTML = '<div class="tl-empty">Ничего не найдено</div>';
     return;
   }
-  grid.innerHTML = list.map(function(t) {
+  function renderCard(t) {
     var hasLink = t.link && t.link !== '#';
     var inactive = !!t.inactive;
     var iconCls = inactive ? 'ic-muted' : 'ic-' + (t.color||'violet');
     var cardCls = 'tool-card cat-' + t.cat + (activeId===t.id?' active':'') + (inactive?' tc-inactive':'');
-    return '<div class="' + cardCls + '" onclick="' + (inactive ? '' : 'openDrawer(\'' + t.id + '\')') + '">' +
+    return '<div class="' + cardCls + '" onclick="openDrawer(\'' + t.id + '\')">' +
       '<div class="tc-head">' +
         '<div class="tc-icon ' + iconCls + '">' + EI.svg(t.icon||'layers', 20) + '</div>' +
         '<div class="tc-meta">' +
@@ -470,7 +481,18 @@ function renderGrid() {
         (t.custom && !inactive ? '<span class="tc-custom-badge">СВОЙ</span>' : '') +
       '</div>' +
     '</div>';
-  }).join('');
+  }
+  function divider(label) {
+    return '<div class="tl-section-divider"><div class="tl-section-divider-label">' + label + '</div><div class="tl-section-divider-line"></div></div>';
+  }
+  // Split into two groups: tools (platform/pm/dev/custom) and services (common)
+  var toolsList    = list.filter(function(t){ return t.cat !== 'common'; });
+  var servicesList = list.filter(function(t){ return t.cat === 'common'; });
+  var html = '';
+  if (toolsList.length) html += toolsList.map(renderCard).join('');
+  if (toolsList.length && servicesList.length) html += divider('Сервисы');
+  if (servicesList.length) html += servicesList.map(renderCard).join('');
+  grid.innerHTML = html;
 }
 
 function linkLabel(url) {
@@ -507,13 +529,12 @@ function openDrawer(id) {
   setDrText('dr-rules',  t.rules);
   // footer
   var foot = document.getElementById('dr-foot');
-  if (t.custom) {
-    foot.innerHTML =
-      '<button class="dr-edit-btn" onclick="openModal(\'' + t.id + '\')">' + EI.svg('edit',14) + ' Редактировать</button>' +
-      '<button class="dr-del-btn"  onclick="deleteTool(\'' + t.id + '\')">' + EI.svg('trash',14) + '</button>';
-  } else {
-    foot.innerHTML = '<div style="font-size:11px;color:var(--muted)">Встроенный инструмент — только просмотр</div>';
-  }
+  var toggleCls = t.inactive ? 'dr-toggle-btn activate' : 'dr-toggle-btn';
+  var toggleLbl = t.inactive ? 'Активировать' : 'Деактивировать';
+  foot.innerHTML =
+    '<button class="dr-edit-btn" onclick="openModal(\'' + t.id + '\')">' + EI.svg('edit',14) + ' Редактировать</button>' +
+    '<button class="' + toggleCls + '" onclick="toggleInactive(\'' + t.id + '\')">' + toggleLbl + '</button>' +
+    (t.custom ? '<button class="dr-del-btn" onclick="deleteTool(\'' + t.id + '\')">' + EI.svg('trash',14) + '</button>' : '');
   document.getElementById('drawer').classList.add('open');
 }
 function setDrText(id, val) {
@@ -554,8 +575,9 @@ function openModal(id) {
   document.getElementById('mo-cat').value    = t ? t.cat    : 'custom';
   document.getElementById('mo-link').value   = t ? t.link   : '';
   document.getElementById('mo-desc').value   = t ? t.desc   : '';
-  document.getElementById('mo-access').value = t ? t.access : '';
-  document.getElementById('mo-rules').value  = t ? t.rules  : '';
+  document.getElementById('mo-access').value   = t ? t.access    : '';
+  document.getElementById('mo-rules').value    = t ? t.rules     : '';
+  document.getElementById('mo-inactive').checked = t ? !!t.inactive : false;
   selIcon  = t ? (t.icon  || 'layers') : 'layers';
   selColor = t ? (t.color || 'violet') : 'violet';
   renderPickers();
@@ -569,21 +591,26 @@ function closeModal() {
 function saveModal() {
   var name = document.getElementById('mo-name').value.trim();
   if (!name) { document.getElementById('mo-name').focus(); return; }
+  var isInactive = document.getElementById('mo-inactive').checked;
   var data = {
-    name:   name,
-    cat:    document.getElementById('mo-cat').value,
-    link:   document.getElementById('mo-link').value.trim(),
-    desc:   document.getElementById('mo-desc').value.trim(),
-    access: document.getElementById('mo-access').value.trim(),
-    rules:  document.getElementById('mo-rules').value.trim(),
-    icon:   selIcon,
-    color:  selColor,
-    custom: true
+    name:     name,
+    cat:      document.getElementById('mo-cat').value,
+    link:     document.getElementById('mo-link').value.trim(),
+    desc:     document.getElementById('mo-desc').value.trim(),
+    access:   document.getElementById('mo-access').value.trim(),
+    rules:    document.getElementById('mo-rules').value.trim(),
+    icon:     selIcon,
+    color:    selColor,
+    inactive: isInactive
   };
   if (editId) {
     var idx = tools.findIndex(function(x){return x.id===editId;});
+    // preserve id and custom flag
+    data.id     = tools[idx].id;
+    data.custom = tools[idx].custom;
     Object.assign(tools[idx], data);
   } else {
+    data.custom = true;
     var existing = new Set(tools.map(function(t){return t.id;}));
     var newId;
     for (var n=1; n<=99; n++) {
@@ -599,6 +626,13 @@ function deleteTool(id) {
   if (!t || !t.custom) return;
   if (!confirm('Удалить инструмент «' + t.name + '»?')) return;
   tools = tools.filter(function(x){return x.id!==id;});
+  save(); renderCatTabs(); renderGrid(); closeDrawer();
+}
+
+function toggleInactive(id) {
+  var idx = tools.findIndex(function(x){return x.id===id;});
+  if (idx === -1) return;
+  tools[idx].inactive = !tools[idx].inactive;
   save(); renderCatTabs(); renderGrid(); closeDrawer();
 }
 
