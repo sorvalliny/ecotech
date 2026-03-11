@@ -68,7 +68,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .role-card-top{padding:36px 32px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
 .role-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;flex-shrink:0}
 .role-title{font-family:var(--head);font-size:26px;font-weight:900;line-height:1.05;letter-spacing:-0.8px}
-.role-who{font-size:13px;color:var(--muted);font-weight:500;margin-top:-6px}
+.role-who{font-size:13px;color:var(--muted);font-weight:500;margin-top:2px}
 .role-features{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:2px}
 .role-features li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--muted);line-height:1.45}
 .role-features li::before{content:'';min-width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
@@ -78,12 +78,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .role-cta-hint{font-size:11px;color:var(--muted2);white-space:nowrap}
 
 /* ── Бизнесу ── */
-.card-biz .role-icon{background:rgba(0,184,158,.1);color:var(--teal)}
+.card-biz .role-icon{background:rgba(123,47,255,.08);color:#5720C8}
 .card-biz .role-title{color:var(--text)}
-.card-biz .role-features li::before{background:var(--teal)}
-.card-biz .role-cta{background:linear-gradient(135deg,#00B89E,#00D4B4);color:#fff}
-.card-biz:hover{border-color:rgba(0,184,158,.28)}
-.card-biz .role-card-top{background:linear-gradient(155deg,rgba(0,184,158,.06) 0%,var(--surface) 55%)}
+.card-biz .role-features li::before{background:#9040FF}
+.card-biz .role-cta{background:linear-gradient(135deg,#5720C8,#7B2FFF);color:#fff}
+.card-biz:hover{border-color:rgba(123,47,255,.28)}
+.card-biz .role-card-top{background:linear-gradient(155deg,rgba(87,32,200,.06) 0%,var(--surface) 55%)}
 
 /* ── Продукту ── */
 .card-prod .role-icon{background:var(--violet-dim);color:var(--violet)}
@@ -92,11 +92,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .card-prod .role-cta{background:linear-gradient(135deg,#7B2FFF,#FF2D8A);color:#fff}
 .card-prod:hover{border-color:rgba(123,47,255,.28)}
 .card-prod .role-card-top{background:linear-gradient(155deg,rgba(123,47,255,.06) 0%,var(--surface) 55%)}
-
-/* ── STATS ── */
-.stats-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:56px}
-.stat-pill{display:flex;align-items:center;gap:8px;padding:7px 16px;border:1px solid var(--border);border-radius:50px;background:var(--surface);font-size:12px;color:var(--muted);box-shadow:var(--shadow-sm)}
-.stat-pill strong{font-family:var(--head);font-size:13px;font-weight:900;color:var(--text)}
 
 /* ── FOOTER ── */
 footer{margin-top:auto;border-top:1px solid var(--border);background:var(--surface)}
@@ -204,13 +199,6 @@ footer{margin-top:auto;border-top:1px solid var(--border);background:var(--surfa
 
   </div>
 
-  <!-- ── STATS ── -->
-  <div class="stats-row">
-    <div class="stat-pill"><strong>Gate 0→5</strong>&nbsp;Единый фреймворк</div>
-    <div class="stat-pill"><strong>6+</strong>&nbsp;продуктов в портфеле</div>
-    <div class="stat-pill"><strong>11</strong>&nbsp;шаблонов и артефактов</div>
-    <div class="stat-pill"><strong>PMO</strong>&nbsp;Проектный офис</div>
-  </div>
 
 </div>
 </main>
