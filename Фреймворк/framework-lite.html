@@ -423,7 +423,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <button class="stab s5" onclick="showSec('s5',this)" id="stab-s5">О·5 &nbsp;Зрелость</button>
     <button class="stab s6" onclick="showSec('s6',this)" id="stab-s6">О·6 &nbsp;Консервация</button>
     <div class="stab-sep"></div>
-    <button class="stab" onclick="showSec('templates',this)">Шаблоны</button>
+    <button class="stab" onclick="window.location.href='../Продукту/templates.html'">Шаблоны →</button>
     <button class="stab" onclick="showSec('pilot',this)">Пилот →</button>
     <button class="stab" onclick="showSec('stages-editor',this)">Стадии</button>
   </div>
@@ -440,7 +440,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <p class="fw-hero-sub">Практическое руководство по жизненному циклу продукта — от идеи до экосистемного масштаба. Один документ с процессом, артефактами, инструментами и шаблонами для каждой стадии. Создан для быстрого старта с пилотной командой и масштабирования на весь портфель.</p>
     <div class="fw-hero-tags">
       <span class="fw-tag fw-tag-v">7 стадий зрелости</span>
-      <span class="fw-tag fw-tag-t">8 готовых шаблонов</span>
+      <span class="fw-tag fw-tag-t">12 готовых шаблонов</span>
       <span class="fw-tag fw-tag-w">Для CPO · CTO · PM · TL</span>
     </div>
   </div>
@@ -494,7 +494,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="kpi-item"><div class="kpi-val">7</div><div class="kpi-label">Стадий зрелости (орбит)</div></div>
     <div class="kpi-item"><div class="kpi-val">4</div><div class="kpi-label">Gate-условия перехода</div></div>
     <div class="kpi-item"><div class="kpi-val">~14 нед</div><div class="kpi-label">Идея → MVP (среднее)</div></div>
-    <div class="kpi-item"><div class="kpi-val">8</div><div class="kpi-label">Готовых шаблонов документов</div></div>
+    <div class="kpi-item"><div class="kpi-val">12</div><div class="kpi-label">Готовых шаблонов документов</div></div>
     <div class="kpi-item"><div class="kpi-val">12+</div><div class="kpi-label">Продуктов в контуре</div></div>
   </div>
 
@@ -603,7 +603,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="howto-card">
       <div class="howto-num">03</div>
       <div class="howto-title">Работа с шаблонами</div>
-      <div class="howto-desc">Раздел <strong>Шаблоны</strong> содержит 8 готовых структур документов. Откройте любой → скопируйте текст → вставьте в Notion/Confluence.</div>
+      <div class="howto-desc">Раздел <a href="../Продукту/templates.html" style="color:var(--c1);text-decoration:underline">Шаблоны</a> содержит 12+ готовых структур документов. Откройте нужный → скопируйте текст → вставьте в Notion/Confluence.</div>
     </div>
   </div>
 </div>
@@ -1127,26 +1127,14 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════ ШАБЛОНЫ -->
+<!-- ══════════════════════════════════════════════ ШАБЛОНЫ (redirect) -->
 <div class="fw-section" id="sec-templates">
   <div class="sec-header">
     <div class="sec-eyebrow">Документация</div>
-    <div class="sec-title">8 рабочих шаблонов</div>
-    <div class="sec-sub">Готовые структуры для каждой стадии. Нажмите на карточку → скопируйте шаблон → вставьте в Notion или Confluence.</div>
+    <div class="sec-title">Шаблоны документов</div>
+    <div class="sec-sub">Каталог шаблонов вынесен в отдельный раздел — с фильтрацией по стадиям, процессам и ролям.</div>
   </div>
-
-  <div class="tmpl-filter" id="tmpl-filter">
-    <button class="tmpl-filter-btn active" data-filter="all" onclick="filterTmpls('all',this)">Все</button>
-    <button class="tmpl-filter-btn" data-filter="s0" onclick="filterTmpls('s0',this)">О·0 Идея</button>
-    <button class="tmpl-filter-btn" data-filter="s1" onclick="filterTmpls('s1',this)">О·1 Discovery</button>
-    <button class="tmpl-filter-btn" data-filter="s2" onclick="filterTmpls('s2',this)">О·2 MVP</button>
-    <button class="tmpl-filter-btn" data-filter="s3" onclick="filterTmpls('s3',this)">О·3 Рост</button>
-    <button class="tmpl-filter-btn" data-filter="all-gates" onclick="filterTmpls('all-gates',this)">Все Gate</button>
-  </div>
-
-  <div class="tmpl-grid" id="tmpl-grid">
-    <!-- filled by JS -->
-  </div>
+  <a href="../Продукту/templates.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--violet-dim);border:1px solid var(--violet-border);border-radius:10px;color:var(--c1);font-size:14px;font-weight:700;text-decoration:none;transition:background .15s;font-family:var(--font-body);">Открыть каталог шаблонов →</a>
 </div>
 
 <!-- ══════════════════════════════════════════════ ПИЛОТ -->
@@ -1968,37 +1956,10 @@ function closeTmplModal(e) {
 
 // ── TEMPLATE EDIT MODE ──
 function openTmpl(key) {
-  const t = TMPLS[key];
-  if (!t) return;
-  _curTmplKey = key;
-  document.getElementById('modal-tmpl-title').textContent = t.name;
-
-  const pre = document.getElementById('modal-tmpl-content');
-  const ta  = document.getElementById('modal-tmpl-edit');
-  const hint = document.getElementById('tmpl-edit-hint');
-  const cpBtn = document.getElementById('tmpl-copy-btn');
-  const svBtn = document.getElementById('tmpl-save-btn');
-
-  if (_em) {
-    // Edit mode: show textarea
-    pre.style.display = 'none';
-    ta.style.display = 'block';
-    ta.value = t.content;
-    hint.style.display = 'block';
-    cpBtn.style.display = 'none';
-    svBtn.style.display = '';
-  } else {
-    // View mode: show pre
-    pre.style.display = 'block';
-    pre.textContent = t.content;
-    ta.style.display = 'none';
-    hint.style.display = 'none';
-    cpBtn.style.display = '';
-    svBtn.style.display = 'none';
-  }
-
-  document.getElementById('tmpl-modal').classList.add('open');
-  document.getElementById('copy-toast').classList.remove('show');
+  // Map framework-lite template keys to templates.html IDs
+  var map = {brief:'T01', custdev:'T11', discovery:'T02', adr:'T12', prd:'T03', 'gate-review':'T04', sprint:'T05', metrics:'T07'};
+  var id = map[key] || key;
+  window.location.href = '../Продукту/templates.html?t=' + id;
 }
 
 function onTmplEdit() {
