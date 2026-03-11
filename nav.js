@@ -36,15 +36,15 @@
   function grp(label) { return '<div class="en-drop-grp">' + label + '</div>'; }
 
   // ── logo icon SVG (hexagon network hub) ─────────────────────
-  var MARK_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
-    + '<polygon points="12,2.5 20.2,7.25 20.2,16.75 12,21.5 3.8,16.75 3.8,7.25" stroke="rgba(255,255,255,.5)" stroke-width="1.3" fill="rgba(255,255,255,.07)"/>'
-    + '<line x1="12" y1="11.5" x2="12" y2="4" stroke="rgba(255,255,255,.65)" stroke-width="1.2"/>'
-    + '<line x1="12" y1="11.5" x2="18.8" y2="16.1" stroke="rgba(255,255,255,.65)" stroke-width="1.2"/>'
-    + '<line x1="12" y1="11.5" x2="5.2" y2="16.1" stroke="rgba(255,255,255,.65)" stroke-width="1.2"/>'
-    + '<circle cx="12" cy="12" r="2.4" fill="white"/>'
-    + '<circle cx="12" cy="2.5" r="1.55" fill="rgba(255,255,255,.88)"/>'
-    + '<circle cx="20.2" cy="16.75" r="1.55" fill="rgba(255,255,255,.88)"/>'
-    + '<circle cx="3.8" cy="16.75" r="1.55" fill="rgba(255,255,255,.88)"/>'
+  var MARK_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    + '<polygon points="12,2.5 20.2,7.25 20.2,16.75 12,21.5 3.8,16.75 3.8,7.25" stroke="rgba(255,255,255,.52)" stroke-width="1.2" fill="rgba(255,255,255,.07)"/>'
+    + '<line x1="12" y1="11.5" x2="12" y2="4.1"   stroke="rgba(255,255,255,.7)" stroke-width="1.1"/>'
+    + '<line x1="12" y1="11.5" x2="18.9" y2="16.1" stroke="rgba(255,255,255,.7)" stroke-width="1.1"/>'
+    + '<line x1="12" y1="11.5" x2="5.1"  y2="16.1" stroke="rgba(255,255,255,.7)" stroke-width="1.1"/>'
+    + '<circle cx="12"   cy="12"    r="2.5" fill="white"/>'
+    + '<circle cx="12"   cy="2.5"   r="1.6" fill="rgba(255,255,255,.9)"/>'
+    + '<circle cx="20.2" cy="16.75" r="1.6" fill="rgba(255,255,255,.9)"/>'
+    + '<circle cx="3.8"  cy="16.75" r="1.6" fill="rgba(255,255,255,.9)"/>'
     + '</svg>';
 
   // ── nav HTML ────────────────────────────────────────────────
@@ -85,27 +85,33 @@
 
   // ── CSS ─────────────────────────────────────────────────────
   var CSS = [
-    '.ecotech-nav{position:sticky;top:0;z-index:9999;height:44px;background:rgba(8,8,26,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(123,47,255,.15);display:flex;align-items:center;padding:0 24px;gap:0}',
-    ".en-logo{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:7px}",
-    '.en-logo span{color:#C49CFF}',
-    '.en-logo-mark{width:22px;height:22px;background:linear-gradient(135deg,#7B2FFF,#FF2D8A);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}',
-    '.en-sep{width:1px;height:16px;background:rgba(123,47,255,.2);margin:0 16px;flex-shrink:0}',
+    /* nav bar — asymmetric violet gradient, stands out on light + dark pages */
+    '.ecotech-nav{position:sticky;top:0;z-index:9999;height:48px;background:linear-gradient(105deg,#0D0030 0%,#2A0878 36%,#5720C8 62%,#7B2FFF 82%,#9040FF 100%);backdrop-filter:blur(24px);border-bottom:1px solid rgba(180,90,255,.22);display:flex;align-items:center;padding:0 24px;gap:0;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 2px 20px rgba(80,0,160,.35)}',
+    /* logo */
+    ".en-logo{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:8px}",
+    '.en-logo span{color:rgba(220,190,255,.85)}',
+    /* frosted-glass logo mark */
+    '.en-logo-mark{width:28px;height:28px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;backdrop-filter:blur(8px)}',
+    /* separator */
+    '.en-sep{width:1px;height:18px;background:rgba(255,255,255,.15);margin:0 16px;flex-shrink:0}',
     '.en-links{display:flex;gap:2px;align-items:center}',
     '.en-drop{position:relative}',
-    '.en-drop-trigger{font-size:12px;font-weight:700;color:#7A7A9D;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:flex;align-items:center;gap:3px;cursor:default;letter-spacing:.01em;text-decoration:none}',
-    ".en-drop-trigger::after{content:'▾';font-size:9px;opacity:.45;margin-left:1px}",
-    '.en-drop.is-open .en-drop-trigger,.en-drop-trigger:hover{color:#fff;background:rgba(255,255,255,.06)}',
-    '.en-drop.en-active .en-drop-trigger{color:#C49CFF;background:rgba(123,47,255,.12)}',
-    '.en-drop-menu{position:absolute;top:calc(100% + 4px);left:0;background:rgba(13,13,30,.98);backdrop-filter:blur(20px);border:1px solid rgba(123,47,255,.2);border-radius:11px;padding:6px;min-width:230px;display:flex;flex-direction:column;gap:1px;z-index:10000;box-shadow:0 8px 32px rgba(0,0,0,.45);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .15s,transform .15s,visibility .15s}',
+    /* nav items — lighter text for contrast on violet */
+    '.en-drop-trigger{font-size:12px;font-weight:700;color:rgba(220,210,255,.6);padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:flex;align-items:center;gap:3px;cursor:default;letter-spacing:.01em;text-decoration:none}',
+    ".en-drop-trigger::after{content:'▾';font-size:9px;opacity:.5;margin-left:1px}",
+    '.en-drop.is-open .en-drop-trigger,.en-drop-trigger:hover{color:#fff;background:rgba(255,255,255,.1)}',
+    '.en-drop.en-active .en-drop-trigger{color:#fff;background:rgba(255,255,255,.14)}',
+    /* dropdown panel */
+    '.en-drop-menu{position:absolute;top:calc(100% + 6px);left:0;background:rgba(10,3,28,.97);backdrop-filter:blur(24px);border:1px solid rgba(140,60,255,.25);border-radius:12px;padding:6px;min-width:240px;display:flex;flex-direction:column;gap:1px;z-index:10000;box-shadow:0 12px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-5px);transition:opacity .15s,transform .15s,visibility .15s}',
     '.en-drop.is-open .en-drop-menu{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0)}',
-    '.en-drop-menu a{font-size:12px;font-weight:500;color:#7A7A9D;text-decoration:none;padding:7px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:block}',
-    '.en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,.06)}',
-    '.en-drop-menu a.en-active{color:#C49CFF;background:rgba(123,47,255,.12)}',
-    '.en-drop-sep{height:1px;background:rgba(123,47,255,.12);margin:4px}',
-    ".en-drop-grp{font-family:'Unbounded',sans-serif;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(123,47,255,.6);padding:6px 11px 3px;pointer-events:none;}",
-    '.en-link{font-size:12px;font-weight:700;color:#7A7A9D;text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}',
-    '.en-link:hover{color:#fff;background:rgba(255,255,255,.06)}',
-    '.en-link.en-active{color:#C49CFF;background:rgba(123,47,255,.12)}'
+    '.en-drop-menu a{font-size:12px;font-weight:500;color:#9090B8;text-decoration:none;padding:7px 11px;border-radius:8px;transition:color .15s,background .15s;white-space:nowrap;display:block}',
+    '.en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,.07)}',
+    '.en-drop-menu a.en-active{color:#D4AAFF;background:rgba(123,47,255,.18)}',
+    '.en-drop-sep{height:1px;background:rgba(140,60,255,.15);margin:4px 6px}',
+    ".en-drop-grp{font-family:'Unbounded',sans-serif;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(160,100,255,.7);padding:6px 11px 3px;pointer-events:none}",
+    '.en-link{font-size:12px;font-weight:700;color:rgba(220,210,255,.6);text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}',
+    '.en-link:hover{color:#fff;background:rgba(255,255,255,.1)}',
+    '.en-link.en-active{color:#fff;background:rgba(255,255,255,.14)}'
   ].join('\n');
 
   // ── inject CSS into <head> immediately (head is available) ──
