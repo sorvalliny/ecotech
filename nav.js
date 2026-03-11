@@ -21,7 +21,7 @@
 
   // ── active group detection ──────────────────────────────────
   var bizActive  = (has('business') || has('бизнесу')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('strategy') || has('хэндбук') || has('handbook')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('strategy') || has('хэндбук') || has('handbook') || has('artifacts')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -61,6 +61,7 @@
     +     a('Хэндбук/rwb-product-os-v12.html',          'Гайд по стадиям зрелости')
     +     a('Продукту/strategy.html',                   'Стратегическое планирование')
     +     a('Проектный офис/council.html',              'Управляющий совет')
+    +     a('Фреймворк/artifacts.html',                 'Артефакты (шаблоны)')
     +     sep()
     +     grp('Инструменты и сервисы')
     +     a('Продукту/tools.html',                      'Инструменты')
