@@ -18,6 +18,12 @@
     lk.href = base + 'design-system/tokens.css';
     document.head.appendChild(lk);
   }
+  if (!document.getElementById('en-theme-vars-css')) {
+    var tv = document.createElement('link');
+    tv.id = 'en-theme-vars-css'; tv.rel = 'stylesheet';
+    tv.href = base + 'css/theme-vars.css';
+    document.head.appendChild(tv);
+  }
   if (!document.getElementById('en-theme-js')) {
     var ts = document.createElement('script');
     ts.id = 'en-theme-js'; ts.src = base + 'js/theme.js';

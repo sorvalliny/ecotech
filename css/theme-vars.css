@@ -1,0 +1,296 @@
+/* ═══════════════════════════════════════════════════════════
+   Theme Variables Override
+   Maps ALL page-level CSS custom properties to light/dark.
+   Loaded via nav.js — applies to every page automatically.
+
+   Pages use their own variable names (--dark, --card, --text…).
+   This file overrides them when data-theme changes so the
+   theme toggle works everywhere.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── LIGHT THEME ───────────────────────────────────────────
+   Applied when user selects light mode.
+   Covers variables used by ALL pages in the project.        */
+
+[data-theme="light"] {
+  /* ── backgrounds ── */
+  --bg:       #F7F6FF;
+  --dark:     #FAF9FF;
+  --mid:      #F3F0FF;
+  --card:     #FFFFFF;
+  --card2:    #F3F0FF;
+  --surface:  #FFFFFF;
+  --surface2: #EDE8FF;
+  --surface3: #E8E4F8;
+
+  /* ── borders ── */
+  --border:       rgba(123,47,255,0.10);
+  --border-hi:    rgba(123,47,255,0.20);
+  --bhi:          rgba(123,47,255,0.20);
+
+  /* ── text ── */
+  --text:   #1A1040;
+  --muted:  #7A7A9D;
+  --muted2: #9898B4;
+  --gray:   #6B6B8A;
+  --gray2:  #4A4A6A;
+  --white:  #FFFFFF;
+
+  /* ── brand colors (stay the same, only dim/border change) ── */
+  --violet:        #7B2FFF;
+  --violet-dim:    rgba(123,47,255,0.08);
+  --violet-border: rgba(123,47,255,0.25);
+  --vdim:          rgba(123,47,255,0.08);
+  --vborder:       rgba(123,47,255,0.25);
+
+  --pink:          #FF2D8A;
+  --pink-dim:      rgba(255,45,138,0.07);
+  --pink-border:   rgba(255,45,138,0.20);
+  --pdim:          rgba(255,45,138,0.07);
+
+  --teal:          #00B89E;
+  --teal-dim:      rgba(0,184,158,0.08);
+  --teal-border:   rgba(0,184,158,0.20);
+  --tdim:          rgba(0,184,158,0.08);
+
+  --amber:         #F59E0B;
+  --amber-dim:     rgba(245,158,11,0.08);
+  --amber-border:  rgba(245,158,11,0.20);
+  --adim:          rgba(245,158,11,0.08);
+
+  --green:         #059669;
+  --green-dim:     rgba(5,150,105,0.08);
+  --gdim:          rgba(5,150,105,0.08);
+
+  --blue:          #3B82F6;
+  --blue-dim:      rgba(59,130,246,0.08);
+  --blue-border:   rgba(59,130,246,0.20);
+  --bdim:          rgba(59,130,246,0.08);
+  --bborder:       rgba(59,130,246,0.20);
+
+  --red:           #EF4444;
+  --rdim:          rgba(239,68,68,0.08);
+
+  /* ── shadows ── */
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+  --shadow:    0 4px 20px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.05);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.05);
+
+  /* ── framework-lite stage colours ── */
+  --c0:        #6B6B8A; --c0-dim: rgba(107,107,138,0.10); --c0-border: rgba(107,107,138,0.25);
+  --c1:        #7B2FFF; --c1-dim: rgba(123,47,255,0.08);  --c1-border: rgba(123,47,255,0.25);
+  --c2:        #00B89E; --c2-dim: rgba(0,184,158,0.08);   --c2-border: rgba(0,184,158,0.25);
+  --c3:        #FF2D8A; --c3-dim: rgba(255,45,138,0.07);  --c3-border: rgba(255,45,138,0.20);
+  --c4:        #059669; --c4-dim: rgba(5,150,105,0.08);   --c4-border: rgba(5,150,105,0.25);
+  --c5:        #FF85C0; --c5-dim: rgba(255,133,192,0.08); --c5-border: rgba(255,133,192,0.25);
+  --c6:        #6B6B8A; --c6-dim: rgba(107,107,138,0.08); --c6-border: rgba(107,107,138,0.25);
+
+  /* ── strategy page tokens ── */
+  --gborder:  rgba(5,150,105,0.20);
+  --tborder:  rgba(0,184,158,0.20);
+  --aborder:  rgba(245,158,11,0.20);
+
+  /* ── misc page-level overrides ── */
+  color-scheme: light;
+}
+
+/* ── Force light background on body noise overlay ── */
+[data-theme="light"] body::before {
+  opacity: 0.015;
+}
+
+
+/* ── DARK THEME ────────────────────────────────────────────
+   Applied when user selects dark mode.
+   Restores the original dark palette for pages that
+   default to light (index.html, business.html).            */
+
+[data-theme="dark"] {
+  /* ── backgrounds ── */
+  --bg:       #08081A;
+  --dark:     #08081A;
+  --mid:      #111128;
+  --card:     #161630;
+  --card2:    #161630;
+  --surface:  #161630;
+  --surface2: #1A1A38;
+  --surface3: #222240;
+
+  /* ── borders ── */
+  --border:       rgba(255,255,255,0.07);
+  --border-hi:    rgba(255,255,255,0.14);
+  --bhi:          rgba(255,255,255,0.14);
+
+  /* ── text ── */
+  --text:   #E8E6FF;
+  --muted:  #7A7A9D;
+  --muted2: #5A5A7A;
+  --gray:   #8B8BAE;
+  --gray2:  #C4C4D8;
+  --white:  #FFFFFF;
+
+  /* ── brand colors ── */
+  --violet:        #7B2FFF;
+  --violet-dim:    rgba(123,47,255,0.12);
+  --violet-border: rgba(123,47,255,0.35);
+  --vdim:          rgba(123,47,255,0.12);
+  --vborder:       rgba(123,47,255,0.35);
+
+  --pink:          #FF2D8A;
+  --pink-dim:      rgba(255,45,138,0.10);
+  --pink-border:   rgba(255,45,138,0.30);
+  --pdim:          rgba(255,45,138,0.10);
+
+  --teal:          #00D4B4;
+  --teal-dim:      rgba(0,212,180,0.10);
+  --teal-border:   rgba(0,212,180,0.35);
+  --tdim:          rgba(0,212,180,0.10);
+
+  --amber:         #FFB830;
+  --amber-dim:     rgba(255,184,48,0.10);
+  --amber-border:  rgba(255,184,48,0.35);
+  --adim:          rgba(255,184,48,0.10);
+
+  --green:         #34D399;
+  --green-dim:     rgba(52,211,153,0.10);
+  --gdim:          rgba(52,211,153,0.10);
+
+  --blue:          #3B82F6;
+  --blue-dim:      rgba(59,130,246,0.10);
+  --blue-border:   rgba(59,130,246,0.35);
+  --bdim:          rgba(59,130,246,0.10);
+  --bborder:       rgba(59,130,246,0.30);
+
+  --red:           #EF4444;
+  --rdim:          rgba(239,68,68,0.12);
+
+  /* ── shadows ── */
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.04);
+  --shadow:    0 4px 20px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.04);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+
+  /* ── framework-lite stage colours ── */
+  --c0:        #8B8BAE; --c0-dim: rgba(139,139,174,0.10); --c0-border: rgba(139,139,174,0.30);
+  --c1:        #C49CFF; --c1-dim: rgba(123,47,255,0.12);  --c1-border: rgba(123,47,255,0.35);
+  --c2:        #00D4B4; --c2-dim: rgba(0,212,180,0.10);   --c2-border: rgba(0,212,180,0.30);
+  --c3:        #FF85C0; --c3-dim: rgba(255,45,138,0.10);  --c3-border: rgba(255,45,138,0.30);
+  --c4:        #34D399; --c4-dim: rgba(52,211,153,0.12);  --c4-border: rgba(52,211,153,0.35);
+  --c5:        #FF85C0; --c5-dim: rgba(255,133,192,0.12); --c5-border: rgba(255,133,192,0.35);
+  --c6:        #8B8BAE; --c6-dim: rgba(139,139,174,0.12); --c6-border: rgba(139,139,174,0.35);
+
+  /* ── strategy page tokens ── */
+  --gborder:  rgba(52,211,153,0.30);
+  --tborder:  rgba(0,212,180,0.35);
+  --aborder:  rgba(255,184,48,0.35);
+
+  /* ── misc ── */
+  color-scheme: dark;
+}
+
+[data-theme="dark"] body::before {
+  opacity: 0.02;
+}
+
+
+/* ── Hero section overrides ────────────────────────────── */
+[data-theme="dark"] .hero-section {
+  background: linear-gradient(135deg, #0D0030 0%, #1A0A48 60%, #220E5A 100%) !important;
+}
+[data-theme="light"] .hero-section {
+  background: linear-gradient(135deg, #FAF9FF 0%, #F0EBFF 60%, #EDE4FF 100%) !important;
+}
+
+/* ── Orbit center glow adapts ─────────────────────────── */
+[data-theme="light"] .orbit-center {
+  box-shadow: 0 0 40px rgba(123,47,255,0.25);
+}
+[data-theme="dark"] .orbit-center {
+  box-shadow: 0 0 40px rgba(123,47,255,0.45);
+}
+
+/* ── Orbit ring visibility ─────────────────────────────── */
+[data-theme="light"] .orbit-ring {
+  border-color: rgba(123,47,255,0.08);
+}
+[data-theme="dark"] .orbit-ring {
+  border-color: rgba(123,47,255,0.12);
+}
+
+/* ── Planet labels ─────────────────────────────────────── */
+[data-theme="light"] .orbit-planet-label {
+  background: rgba(255,255,255,0.92);
+  color: var(--text);
+  box-shadow: 0 1px 4px rgba(123,47,255,0.10);
+}
+[data-theme="dark"] .orbit-planet-label {
+  background: rgba(22,22,48,0.92);
+  color: #E8E6FF;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* ── Slide deck ────────────────────────────────────────── */
+[data-theme="dark"] .slide-col,
+[data-theme="dark"] .slide-gate,
+[data-theme="dark"] .slide-role,
+[data-theme="dark"] .slide-step-box {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.07);
+}
+[data-theme="light"] .slide-col,
+[data-theme="light"] .slide-gate,
+[data-theme="light"] .slide-role,
+[data-theme="light"] .slide-step-box {
+  background: rgba(123,47,255,0.04);
+  border-color: rgba(123,47,255,0.10);
+}
+
+/* ── Cards adapt on pages that use .card class ─────────── */
+[data-theme="light"] .card,
+[data-theme="light"] .tool-card,
+[data-theme="light"] .tmpl-card {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+/* ── Sidebar (framework pages) ─────────────────────────── */
+[data-theme="light"] #sidebar,
+[data-theme="light"] .sidebar {
+  background: var(--mid);
+  border-color: var(--border);
+}
+[data-theme="light"] #sidebar a,
+[data-theme="light"] .sidebar a {
+  color: var(--muted);
+}
+[data-theme="light"] #sidebar a:hover,
+[data-theme="light"] .sidebar a:hover {
+  color: var(--text);
+}
+
+/* ── Tags / filter buttons ─────────────────────────────── */
+[data-theme="light"] .pf-tab,
+[data-theme="light"] .stage-btn,
+[data-theme="light"] .filter-btn {
+  color: var(--muted);
+  border-color: var(--border);
+}
+
+/* ── Footer ────────────────────────────────────────────── */
+[data-theme="light"] footer,
+[data-theme="light"] .page-footer {
+  color: var(--muted);
+  border-color: var(--border);
+}
+
+/* ── Smooth transition on theme switch ─────────────────── */
+html[data-theme] body {
+  transition: background 0.25s ease, color 0.25s ease;
+}
+html[data-theme] .hero-section,
+html[data-theme] .page-wrap,
+html[data-theme] .slide,
+html[data-theme] .modal,
+html[data-theme] .orbit-center {
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
