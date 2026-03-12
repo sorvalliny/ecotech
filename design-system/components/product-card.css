@@ -1,0 +1,307 @@
+/* ═══════════════════════════════════════════════════════════
+   Product Card Component
+   Usage: ProductCard.html(data) → HTML string
+          ProductCard.render(container, dataArray)
+   Requires: tokens.css, status-badge.css
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Grid ──────────────────────────────────────────────── */
+.pc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 900px)  { .pc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .pc-grid { grid-template-columns: 1fr; } }
+
+/* ── Card base ─────────────────────────────────────────── */
+.pc {
+  background: var(--color-bg-card, #FFFFFF);
+  border: 1px solid var(--color-border, rgba(123,47,255,0.10));
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+  position: relative;
+}
+
+/* ── Hover state (+4px elevation) ──────────────────────── */
+.pc:hover {
+  border-color: var(--color-border-hi, rgba(123,47,255,0.20));
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(123,47,255,0.14);
+}
+
+/* ── At-risk state (red left border) ───────────────────── */
+.pc--at-risk {
+  border-left: 3px solid #EF4444;
+}
+
+/* ── Done state (green header bar) ─────────────────────── */
+.pc--done .pc__bar {
+  background: linear-gradient(90deg, #34D399, #10B981) !important;
+}
+.pc--done {
+  border-color: rgba(52,211,153,0.25);
+}
+
+/* ── Color bar (top) ───────────────────────────────────── */
+.pc__bar {
+  height: 3px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* ── Card body ─────────────────────────────────────────── */
+.pc__body {
+  padding: 18px 20px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Status row (badges) ───────────────────────────────── */
+.pc__status {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* ── Name ──────────────────────────────────────────────── */
+.pc__name {
+  font-family: 'Unbounded', var(--font-head, sans-serif);
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--color-text-primary, #1A1040);
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+/* ── Description (2-line ellipsis) ─────────────────────── */
+.pc__desc {
+  font-size: 12px;
+  color: var(--color-text-muted, #7A7A9D);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+/* ── Gate Progress Bar (6 steps) ───────────────────────── */
+.pc__gate-bar {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 14px;
+}
+.pc__gate-step {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-border, rgba(123,47,255,0.10));
+  transition: background 0.2s;
+}
+.pc__gate-step--active {
+  background: linear-gradient(90deg, #3B82F6, #7B2FFF);
+}
+.pc__gate-step--done {
+  background: #34D399;
+}
+.pc__gate-label {
+  font-family: 'Unbounded', var(--font-head, sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-text-muted, #7A7A9D);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+/* ── KPI metrics row ───────────────────────────────────── */
+.pc__kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.pc__kpi {
+  text-align: center;
+  padding: 8px 4px;
+  background: var(--color-bg-mid, #F3F0FF);
+  border-radius: 8px;
+  border: 1px solid var(--color-border, rgba(123,47,255,0.10));
+}
+.pc__kpi-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2px;
+  color: var(--color-text-muted, #7A7A9D);
+}
+.pc__kpi-icon svg {
+  width: 14px;
+  height: 14px;
+}
+.pc__kpi-val {
+  font-family: 'Unbounded', var(--font-head, sans-serif);
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--color-text-primary, #1A1040);
+  line-height: 1.3;
+}
+.pc__kpi-label {
+  font-size: 9px;
+  color: var(--color-text-muted, #7A7A9D);
+  letter-spacing: 0.04em;
+}
+
+/* ── Footer (owner + date) ─────────────────────────────── */
+.pc__footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border, rgba(123,47,255,0.10));
+}
+.pc__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7B2FFF, #C49CFF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Unbounded', var(--font-head, sans-serif);
+  font-size: 9px;
+  font-weight: 900;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+.pc__owner {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-primary, #1A1040);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pc__date {
+  font-size: 10px;
+  color: var(--color-text-muted, #7A7A9D);
+  white-space: nowrap;
+}
+
+/* ── Loading skeleton ──────────────────────────────────── */
+@keyframes pc-shimmer {
+  0%   { background-position: -200px 0; }
+  100% { background-position: 400px 0; }
+}
+.pc--loading .pc__bar,
+.pc--loading .pc__name,
+.pc--loading .pc__desc,
+.pc--loading .pc__gate-bar,
+.pc--loading .pc__kpi,
+.pc--loading .pc__avatar,
+.pc--loading .pc__owner,
+.pc--loading .pc__date {
+  color: transparent !important;
+  background: linear-gradient(90deg, #F0EFF5 25%, #E8E6EF 50%, #F0EFF5 75%);
+  background-size: 400px 100%;
+  animation: pc-shimmer 1.4s ease-in-out infinite;
+  border-color: transparent !important;
+  border-radius: 6px;
+  pointer-events: none;
+}
+.pc--loading .pc__bar { height: 3px; }
+.pc--loading .pc__name { height: 16px; width: 70%; }
+.pc--loading .pc__desc { height: 32px; }
+.pc--loading .pc__kpi { height: 52px; }
+.pc--loading .pc__avatar { background: linear-gradient(90deg, #F0EFF5 25%, #E8E6EF 50%, #F0EFF5 75%); background-size: 400px 100%; animation: pc-shimmer 1.4s ease-in-out infinite; }
+.pc--loading .pc__status,
+.pc--loading .pc__kpi-icon,
+.pc--loading .pc__kpi-val,
+.pc--loading .pc__kpi-label,
+.pc--loading .pc__gate-label,
+.pc--loading .pc__gate-step,
+.pc--loading .pc__footer { visibility: hidden; }
+
+/* ── Add card (admin) ──────────────────────────────────── */
+.pc--add {
+  background: transparent;
+  border: 1px dashed var(--color-border-hi, rgba(123,47,255,0.20));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  gap: 8px;
+  transition: border-color 0.18s, background 0.18s;
+}
+.pc--add:hover {
+  border-color: #7B2FFF;
+  background: rgba(123,47,255,0.06);
+  transform: none;
+  box-shadow: none;
+}
+.pc--add-icon {
+  font-size: 28px;
+  opacity: 0.5;
+}
+.pc--add-text {
+  font-family: 'Unbounded', var(--font-head, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  color: #7B2FFF;
+}
+
+/* ── Empty state ───────────────────────────────────────── */
+.pc-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--color-text-muted, #7A7A9D);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* ── Dark theme ────────────────────────────────────────── */
+[data-theme="dark"] .pc {
+  background: var(--color-bg-card, #1E1B2E);
+  border-color: var(--color-border, rgba(255,255,255,0.08));
+}
+[data-theme="dark"] .pc:hover {
+  border-color: rgba(123,47,255,0.40);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+[data-theme="dark"] .pc--at-risk {
+  border-left-color: #EF4444;
+}
+[data-theme="dark"] .pc--done {
+  border-color: rgba(52,211,153,0.30);
+}
+[data-theme="dark"] .pc__kpi {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.06);
+}
+[data-theme="dark"] .pc__footer {
+  border-top-color: rgba(255,255,255,0.06);
+}
+[data-theme="dark"] .pc--loading .pc__bar,
+[data-theme="dark"] .pc--loading .pc__name,
+[data-theme="dark"] .pc--loading .pc__desc,
+[data-theme="dark"] .pc--loading .pc__gate-bar,
+[data-theme="dark"] .pc--loading .pc__kpi,
+[data-theme="dark"] .pc--loading .pc__avatar,
+[data-theme="dark"] .pc--loading .pc__owner,
+[data-theme="dark"] .pc--loading .pc__date {
+  background: linear-gradient(90deg, #2A2740 25%, #35324A 50%, #2A2740 75%);
+  background-size: 400px 100%;
+  animation: pc-shimmer 1.4s ease-in-out infinite;
+}
