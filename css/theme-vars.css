@@ -283,6 +283,244 @@
   border-color: var(--border);
 }
 
+/* ═══════════════════════════════════════════════════════════
+   LIGHT-MODE TEXT OVERRIDES
+   Fixes hardcoded white/light text across all dark-default pages.
+   Grouped by page for clarity.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Global: any element using color:#fff that should be dark ── */
+[data-theme="light"] .section-title,
+[data-theme="light"] .module-name,
+[data-theme="light"] .tool-name,
+[data-theme="light"] .calc-head-title,
+[data-theme="light"] .placeholder-title,
+[data-theme="light"] .init-name,
+[data-theme="light"] .slider-label,
+[data-theme="light"] .slider-val,
+[data-theme="light"] .gc-title,
+[data-theme="light"] .gc-stat-val,
+[data-theme="light"] .comm-name,
+[data-theme="light"] .comm-meta-val,
+[data-theme="light"] .p-role,
+[data-theme="light"] .fw-hero-title,
+[data-theme="light"] .lc-name,
+[data-theme="light"] .kpi-val,
+[data-theme="light"] .howto-title,
+[data-theme="light"] .sec-title,
+[data-theme="light"] .stage-name,
+[data-theme="light"] .gate-meta-val,
+[data-theme="light"] .tmpl-card-name,
+[data-theme="light"] .pilot-step-title,
+[data-theme="light"] .pilot-criteria-title,
+[data-theme="light"] .scale-title,
+[data-theme="light"] .modal-title,
+[data-theme="light"] .vc-legend-label,
+[data-theme="light"] .tl-title,
+[data-theme="light"] .tc-name,
+[data-theme="light"] .dr-name,
+[data-theme="light"] .mo-title,
+[data-theme="light"] .pl-title,
+[data-theme="light"] .sp-title,
+[data-theme="light"] .sp-sect-title,
+[data-theme="light"] .tracker-cta-title,
+[data-theme="light"] .td-name,
+[data-theme="light"] .half-title,
+[data-theme="light"] .bl-name,
+[data-theme="light"] .dd-head-label,
+[data-theme="light"] .mhead-title,
+[data-theme="light"] .quarter-sel,
+[data-theme="light"] .id-sel {
+  color: #1A1040 !important;
+}
+
+/* ── Buttons that use color:#fff — keep white on colored bg ── */
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .hero-cta,
+[data-theme="light"] .btn-add,
+[data-theme="light"] .mo-save,
+[data-theme="light"] .se-btn-save,
+[data-theme="light"] .ebt-primary,
+[data-theme="light"] .btn-tracker-add,
+[data-theme="light"] .btn-save-sm,
+[data-theme="light"] .copy-toast {
+  color: #fff !important;
+}
+
+/* ── Elements using color:#C4B5FD — use violet in light mode ── */
+[data-theme="light"] .ic-violet,
+[data-theme="light"] .dr-link-btn,
+[data-theme="light"] .cat-btn.active,
+[data-theme="light"] .sort-btn.active,
+[data-theme="light"] .filter-btn.active,
+[data-theme="light"] .snav-btn.active,
+[data-theme="light"] .sp-add-btn,
+[data-theme="light"] .btn-tracker-open,
+[data-theme="light"] .badge-pilot,
+[data-theme="light"] .badge-delivery,
+[data-theme="light"] .st-planned,
+[data-theme="light"] .st-draft,
+[data-theme="light"] .ist-planned,
+[data-theme="light"] .placeholder-icon,
+[data-theme="light"] .init-proj-val,
+[data-theme="light"] .dd-check.on,
+[data-theme="light"] .cl-roadmap,
+[data-theme="light"] .prd-mode-btn.active,
+[data-theme="light"] .half-add-btn:hover,
+[data-theme="light"] .kr-add-btn:hover,
+[data-theme="light"] .rb-pm,
+[data-theme="light"] .dr-btn-copy,
+[data-theme="light"] .tpl-content h3 {
+  color: #7B2FFF !important;
+}
+
+/* ── Elements using color:#E8E8F0 or #E8E6FF — dark text ── */
+[data-theme="light"] .dd-item.on .dd-text,
+[data-theme="light"] .tpl-content strong {
+  color: #1A1040 !important;
+}
+
+/* ── Hover states that go to #fff — go to dark ── */
+[data-theme="light"] .modal-close:hover,
+[data-theme="light"] .dr-close:hover,
+[data-theme="light"] .mo-close:hover,
+[data-theme="light"] .mclose:hover,
+[data-theme="light"] .back-link:hover,
+[data-theme="light"] .snav-btn:hover,
+[data-theme="light"] .sp-add-btn:hover,
+[data-theme="light"] .cat-btn:hover,
+[data-theme="light"] .filter-btn:hover,
+[data-theme="light"] .dr-edit-btn:hover,
+[data-theme="light"] .dr-btn:hover,
+[data-theme="light"] .btn-cancel:hover,
+[data-theme="light"] .tbl-edit-btn:hover,
+[data-theme="light"] .mo-cancel:hover {
+  color: #1A1040 !important;
+}
+
+/* ── .ic-pink, .ic-muted — adjust for light bg ── */
+[data-theme="light"] .ic-pink { color: #DB2777 !important; }
+[data-theme="light"] .ic-muted { color: #6B6B8A !important; }
+
+/* ── Input fields on dark pages — dark text in light mode ── */
+[data-theme="light"] .id-field input,
+[data-theme="light"] .prd-field input,
+[data-theme="light"] .prd-field textarea,
+[data-theme="light"] .prd-field select,
+[data-theme="light"] .prd-link-row input,
+[data-theme="light"] .mfield input,
+[data-theme="light"] .mfield select,
+[data-theme="light"] .mfield textarea,
+[data-theme="light"] .kr-row-m input {
+  color: #1A1040 !important;
+  background: #FFFFFF !important;
+  border-color: rgba(123,47,255,0.15) !important;
+}
+
+/* ── .sg-list li strong (framework-lite) ── */
+[data-theme="light"] .sg-list li strong {
+  color: #1A1040 !important;
+}
+
+/* ── .stab.active (framework-lite) ── */
+[data-theme="light"] .stab.active {
+  color: #fff !important;
+}
+
+/* ── Page footer adjust ── */
+[data-theme="light"] .page-footer strong {
+  color: rgba(0,0,0,0.3) !important;
+}
+
+/* ── Selection border (.pick-icon.sel, .pick-color.sel) ── */
+[data-theme="light"] .pick-icon.sel,
+[data-theme="light"] .pick-color.sel {
+  border-color: #7B2FFF !important;
+}
+
+/* ── Topbar & sidebar on framework page ── */
+[data-theme="light"] #topbar {
+  background: rgba(247,246,255,0.9) !important;
+  border-bottom-color: var(--border) !important;
+}
+[data-theme="light"] #breadcrumb {
+  color: var(--muted) !important;
+}
+[data-theme="light"] #breadcrumb span {
+  color: var(--text) !important;
+}
+[data-theme="light"] .sidebar-footer strong {
+  color: rgba(0,0,0,0.5) !important;
+}
+
+/* ── Hero banner on framework page ── */
+[data-theme="light"] .hero-banner {
+  background: linear-gradient(135deg, #F0EBFF 0%, #E8E0FF 100%) !important;
+}
+
+/* ── Dark card backgrounds in light mode ── */
+[data-theme="light"] .card-violet { background: rgba(123,47,255,0.06) !important; }
+[data-theme="light"] .card-pink   { background: rgba(255,45,138,0.05) !important; }
+[data-theme="light"] .card-teal   { background: rgba(0,184,158,0.05) !important; }
+[data-theme="light"] .card-amber  { background: rgba(245,158,11,0.05) !important; }
+
+
+/* ═══════════════════════════════════════════════════════════
+   FRAMEWORK SIDEBAR — HIDE
+   The old sidebar is replaced by the platform nav (nav.js).
+   ═══════════════════════════════════════════════════════════ */
+#sidebar,
+#sidebar-overlay,
+#topbar {
+  display: none !important;
+}
+#main {
+  margin-left: 0 !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   BREADCRUMBS — THEME RESPONSE
+   ═══════════════════════════════════════════════════════════ */
+[data-theme="light"] .bc-bar {
+  background: #F3F0FF;
+  border-bottom-color: rgba(123,47,255,0.10);
+}
+[data-theme="light"] .bc-link {
+  color: #7A7A9D;
+}
+[data-theme="light"] .bc-link:hover {
+  color: #1A1040;
+  background: rgba(123,47,255,0.06);
+}
+[data-theme="light"] .bc-current {
+  color: #1A1040;
+}
+[data-theme="light"] .bc-chevron,
+[data-theme="light"] .bc-ellipsis {
+  color: #B0B0C8;
+}
+
+[data-theme="dark"] .bc-bar {
+  background: #111128;
+  border-bottom-color: rgba(255,255,255,0.06);
+}
+[data-theme="dark"] .bc-link {
+  color: #7A7A9D;
+}
+[data-theme="dark"] .bc-link:hover {
+  color: #F0ECFF;
+  background: rgba(255,255,255,0.06);
+}
+[data-theme="dark"] .bc-current {
+  color: #E8E6FF;
+}
+[data-theme="dark"] .bc-chevron,
+[data-theme="dark"] .bc-ellipsis {
+  color: #5A5A7A;
+}
+
+
 /* ── Smooth transition on theme switch ─────────────────── */
 html[data-theme] body {
   transition: background 0.25s ease, color 0.25s ease;
@@ -291,6 +529,7 @@ html[data-theme] .hero-section,
 html[data-theme] .page-wrap,
 html[data-theme] .slide,
 html[data-theme] .modal,
-html[data-theme] .orbit-center {
+html[data-theme] .orbit-center,
+html[data-theme] .bc-bar {
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
