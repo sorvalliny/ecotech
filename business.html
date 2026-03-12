@@ -239,9 +239,11 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
 }
 </style>
 <link rel="stylesheet" href="design-system/components/status-badge.css">
+<link rel="stylesheet" href="design-system/components/product-card.css">
 <script src="icons.js"></script>
 <script src="platform.js"></script>
 <script src="design-system/components/badge.js"></script>
+<script src="design-system/components/card.js"></script>
 <script src="nav.js"></script>
 </head>
 <body>
@@ -456,18 +458,15 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
     <div class="sec-title">Активные продукты<br>и инициативы</div>
     <p class="sec-sub">Цифровые решения, которые мы создаём для бизнес-направлений экосистемы WB.</p>
 
-    <div class="admin-bar">
-      <strong>⚙️ Режим администратора</strong> — редактируйте витрину напрямую. Изменения сохраняются локально.
-      <button class="admin-exit-btn" onclick="exitAdmin()">Выйти</button>
-    </div>
-
     <div class="products-filters">
       <button class="pf-tab active" onclick="pfFilter('all',this)">Все</button>
-      <button class="pf-tab" onclick="pfFilter('prod',this)">В проде</button>
-      <button class="pf-tab" onclick="pfFilter('dev',this)">В разработке</button>
+      <button class="pf-tab" onclick="pfFilter('on-track',this)">On Track</button>
+      <button class="pf-tab" onclick="pfFilter('at-risk',this)">At Risk</button>
+      <button class="pf-tab" onclick="pfFilter('paused',this)">Paused</button>
+      <button class="pf-tab" onclick="pfFilter('done',this)">Done</button>
     </div>
 
-    <div class="products-grid" id="products-grid"></div>
+    <div class="pc-grid" id="products-grid"></div>
   </section>
 
 </div><!-- /page-wrap -->
@@ -480,71 +479,6 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
   </div>
 </div>
 
-<!-- ── ADMIN MODAL ── -->
-<div class="admin-modal-overlay" id="admin-modal" onclick="closeAdminModal(event)">
-  <div class="admin-modal">
-    <button class="admin-modal-close" onclick="closeAdminModal()">&times;</button>
-    <h3 id="am-title">Редактировать продукт</h3>
-    <input type="hidden" id="am-id">
-
-    <div class="af-row">
-      <div class="af"><label>Название</label><input type="text" id="am-name" placeholder="WB Example"></div>
-      <div class="af"><label>Категория</label>
-        <select id="am-cat">
-          <option value="b2c">B2C</option>
-          <option value="b2b">B2B</option>
-          <option value="b2g">B2G</option>
-          <option value="int">Internal</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="af"><label>Описание</label><textarea id="am-desc" placeholder="Краткое описание продукта..."></textarea></div>
-
-    <div class="af-row">
-      <div class="af"><label>Статус</label>
-        <select id="am-status" onchange="amToggleForecast()">
-          <option value="prod">В проде</option>
-          <option value="dev">В разработке</option>
-        </select>
-      </div>
-      <div class="af"><label>Gate</label>
-        <select id="am-gate">
-          <option value="0">G0 — Идея</option>
-          <option value="1">G1 — Концепция</option>
-          <option value="2">G2 — Прототип</option>
-          <option value="3">G3 — Разработка</option>
-          <option value="4">G4 — Запуск</option>
-          <option value="5">G5 — Масштаб</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="af-row">
-      <div class="af" id="am-forecast-field"><label>Прогноз релиза</label><input type="text" id="am-forecast" placeholder="Q3 2026"></div>
-      <div class="af"><label>Метрика (прод)</label><input type="text" id="am-metrics" placeholder="12K MAU"></div>
-    </div>
-
-    <div class="af-row">
-      <div class="af"><label>Инициативы (через запятую)</label><input type="text" id="am-initiatives" placeholder="Фича 1, Фича 2"></div>
-      <div class="af"><label>Цвет полосы</label>
-        <select id="am-color">
-          <option value="linear-gradient(90deg,#7B2FFF,#C49CFF)">Фиолетовый</option>
-          <option value="linear-gradient(90deg,#00D4B4,#3B82F6)">Teal → Синий</option>
-          <option value="linear-gradient(90deg,#FFB830,#FF9F43)">Янтарный</option>
-          <option value="linear-gradient(90deg,#FF2D8A,#FF85C0)">Розовый</option>
-          <option value="linear-gradient(90deg,#34D399,#3B82F6)">Зелёный → Синий</option>
-          <option value="linear-gradient(90deg,#C49CFF,#FF85C0)">Лаванда → Розовый</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="admin-modal-actions">
-      <button class="am-cancel" onclick="closeAdminModal()">Отмена</button>
-      <button class="am-save" onclick="saveAdminProduct()">Сохранить</button>
-    </div>
-  </div>
-</div>
 
 <!-- ── FOOTER ── -->
 <footer>
@@ -606,107 +540,35 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
 });
 
-// ── PRODUCTS ──
-var PRODUCTS_KEY = 'ecotech_biz_products';
-
-var PRODUCTS_DEFAULT = [
-  { id:'P01', name:'WB Seller Portal', stage:'Gate 4', cat:'b2b', catLabel:'B2B',
-    status:'prod', metrics:'42K MAU', forecast:'',
-    desc:'Личный кабинет продавца. Аналитика, управление товарами, финансы.',
-    color:'linear-gradient(90deg,#00D4B4,#3B82F6)',
-    initiatives:['Редизайн дашборда','Новые отчёты','API интеграция'] },
-  { id:'P02', name:'WB Pay', stage:'Gate 3', cat:'b2c', catLabel:'B2C',
-    status:'prod', metrics:'18K MAU', forecast:'',
-    desc:'Платёжный сервис экосистемы. Карта, кешбэк, переводы.',
-    color:'linear-gradient(90deg,#7B2FFF,#C49CFF)',
-    initiatives:['NFC оплата','Программа лояльности'] },
-  { id:'P03', name:'WB Logistics B2B', stage:'Gate 3', cat:'b2b', catLabel:'B2B',
-    status:'dev', metrics:'', forecast:'Q2 2026',
-    desc:'Платформа фулфилмента и логистики для партнёров.',
-    color:'linear-gradient(90deg,#00D4B4,#34D399)',
-    initiatives:['Автораспределение складов','SLA-трекер'] },
-  { id:'P04', name:'WB Gov Procurement', stage:'Gate 1', cat:'b2g', catLabel:'B2G',
-    status:'dev', metrics:'', forecast:'Q4 2026',
-    desc:'Платформа для государственных закупок. ФЗ-44/223.',
-    color:'linear-gradient(90deg,#FFB830,#FF9F43)',
-    initiatives:['Интеграция с ЕИС','Электронная подпись'] },
-  { id:'P05', name:'WB Analytics Pro', stage:'Gate 2', cat:'b2b', catLabel:'B2B',
-    status:'dev', metrics:'', forecast:'Q3 2026',
-    desc:'BI-платформа для аналитики продаж и поведения покупателей.',
-    color:'linear-gradient(90deg,#3B82F6,#7B2FFF)',
-    initiatives:['Когортный анализ','Дашборд для CEO'] },
-  { id:'P06', name:'WB Academy', stage:'Gate 4', cat:'b2c', catLabel:'B2C',
-    status:'prod', metrics:'8K MAU', forecast:'',
-    desc:'Образовательная платформа: курсы для продавцов и партнёров.',
-    color:'linear-gradient(90deg,#C49CFF,#FF85C0)',
-    initiatives:['Мобильное приложение','Сертификация'] }
-];
-
-var LAYER_COLORS = {
-  b2c:'linear-gradient(90deg,#7B2FFF,#C49CFF)',
-  b2b:'linear-gradient(90deg,#00D4B4,#3B82F6)',
-  b2g:'linear-gradient(90deg,#FFB830,#FF9F43)',
-  int:'linear-gradient(90deg,#FF2D8A,#FF85C0)',
-  internal:'linear-gradient(90deg,#FF2D8A,#FF85C0)'
-};
-
-function detectLayer(layerStr) {
-  if (!layerStr) return {cat:'', label:''};
-  var l = layerStr.toLowerCase();
-  if (l.indexOf('b2c') !== -1) return {cat:'b2c', label:'B2C'};
-  if (l.indexOf('b2b') !== -1) return {cat:'b2b', label:'B2B'};
-  if (l.indexOf('b2g') !== -1) return {cat:'b2g', label:'B2G'};
-  if (l.indexOf('internal') !== -1 || l.indexOf('внутр') !== -1) return {cat:'int', label:'Internal'};
-  // Уровень N — Name → extract short name
-  var m = layerStr.match(/— (.+)$/);
-  return {cat:'', label: m ? m[1] : layerStr};
-}
-
-function buildProducts() {
-  if (!window.PT) return null;
-  var raw = PT.load(PT.KEY_PRODUCTS);
-  if (!raw || raw.length === 0) return null;
-  var backlog = PT.load(PT.KEY_BACKLOG) || [];
-  return raw.map(function(p) {
-    var li = detectLayer(p.layer || '');
-    var barColor = p.color ? p.color : (LAYER_COLORS[li.cat] || 'linear-gradient(90deg,#7B2FFF,#C49CFF)');
-    var initiatives = backlog
-      .filter(function(i){ return i.project === p.id; })
-      .slice(0, 3)
-      .map(function(i){ return i.name; });
-    return {
-      id: p.id,
-      name: p.name,
-      stage: 'Gate ' + (p.gate !== undefined ? p.gate : '?'),
-      cat: li.cat,
-      catLabel: li.label,
-      desc: p.desc || '',
-      color: barColor,
-      initiatives: initiatives
-    };
-  });
-}
-
-function productTagHtml(p) {
-  var label = p.catLabel || p.cat || '';
-  if (!label) return '';
-  var cls = p.cat ? 'product-tag tag-' + p.cat : 'product-tag tag-layer';
-  return '<span class="' + cls + '">' + label + '</span>';
-}
-
-// ── STORAGE ──
+// ── PRODUCTS (fetch from portfolio.json) ──
 var ACTIVE_PRODUCTS = [];
 var currentFilter = 'all';
 
-function loadStoredProducts() {
-  try {
-    var raw = localStorage.getItem(PRODUCTS_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
-  return null;
-}
-function storeProducts(list) {
-  try { localStorage.setItem(PRODUCTS_KEY, JSON.stringify(list)); } catch(e) {}
+// Show skeleton while loading
+(function() {
+  var grid = document.getElementById('products-grid');
+  if (!grid || !window.ProductCard) return;
+  var skeletons = '';
+  for (var i = 0; i < 6; i++) skeletons += ProductCard.skeleton();
+  grid.innerHTML = skeletons;
+})();
+
+// Fetch portfolio data
+function loadPortfolio() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'data/portfolio.json', true);
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      try {
+        ACTIVE_PRODUCTS = JSON.parse(xhr.responseText);
+      } catch(e) {
+        ACTIVE_PRODUCTS = [];
+      }
+    }
+    renderProducts();
+  };
+  xhr.onerror = function() { renderProducts(); };
+  xhr.send();
 }
 
 // ── FILTER ──
@@ -722,85 +584,51 @@ function renderProducts() {
   var grid = document.getElementById('products-grid');
   if (!grid) return;
 
-  var base = loadStoredProducts() || buildProducts() || PRODUCTS_DEFAULT;
-  ACTIVE_PRODUCTS = base;
-
-  var list = currentFilter === 'all' ? base : base.filter(function(p){ return p.status === currentFilter; });
+  var list = currentFilter === 'all'
+    ? ACTIVE_PRODUCTS
+    : ACTIVE_PRODUCTS.filter(function(p){ return p.status === currentFilter; });
 
   if (list.length === 0) {
-    grid.innerHTML = '<div class="product-card-empty">Нет продуктов в этой категории.</div>' +
-      '<div class="product-card product-card-add product-card-add-wrap" onclick="openAdminModal()">' +
-        '<div class="product-card-add-icon">+</div>' +
-        '<div class="product-card-add-text">Добавить продукт</div>' +
-      '</div>';
+    grid.innerHTML = '<div class="pc-empty">Нет продуктов в этой категории.</div>';
     return;
   }
 
-  var html = list.map(function(p, idx) {
-    var realIdx = base.indexOf(p);
-    // Extract gate number from stage string
-    var gateNum = parseInt((p.stage || '').replace(/\D/g, ''), 10);
-    if (isNaN(gateNum)) gateNum = 0;
-    var gateBadge = window.Badge ? Badge.html('gate', gateNum) : '<span class="product-card-stage">' + p.stage + '</span>';
-    // Map status to risk badge
-    var riskType = p.status === 'prod' ? 'on-track' : 'at-risk';
-    if (p.status === 'done') riskType = 'done';
-    if (p.status === 'paused') riskType = 'paused';
-    var riskLabel = p.status === 'prod' ? 'В проде' : 'В разработке';
-    if (p.status === 'done') riskLabel = 'Завершён';
-    if (p.status === 'paused') riskLabel = 'На паузе';
-    var riskBadge = window.Badge ? Badge.html('risk', riskType, riskLabel) : '<span class="ps-badge">' + riskLabel + '</span>';
-    var extra = '';
-    if (p.status === 'dev' && p.forecast) extra = '<div class="product-forecast">🗓 Релиз: ' + p.forecast + '</div>';
-    if (p.status === 'prod' && p.metrics) extra = '<div class="product-metrics">📈 ' + p.metrics + '</div>';
-
-    return '<div class="product-card" onclick="openProductModal(' + realIdx + ')">' +
-      '<div class="product-card-bar" style="background:' + p.color + ';"></div>' +
-      '<div class="product-card-body">' +
-        '<div class="product-status-row">' + riskBadge + productTagHtml(p) + '</div>' +
-        '<div class="product-card-name">' + p.name + '</div>' +
-        '<div style="margin-bottom:10px">' + gateBadge + '</div>' +
-        '<div class="product-card-desc">' + p.desc + '</div>' +
-        (p.initiatives && p.initiatives.length ? '<div class="product-card-initiatives">' +
-          p.initiatives.map(function(i){ return '<span class="initiative-tag">' + i + '</span>'; }).join('') +
-        '</div>' : '') +
-        extra +
-        '<div class="prod-admin-btns">' +
-          '<button class="prod-edit-btn" onclick="event.stopPropagation();openAdminModal(' + realIdx + ')">✏ Редактировать</button>' +
-          '<button class="prod-del-btn" onclick="event.stopPropagation();deleteProduct(' + realIdx + ')">✕ Удалить</button>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
-  }).join('');
-
-  html += '<div class="product-card product-card-add product-card-add-wrap" onclick="openAdminModal()">' +
-    '<div class="product-card-add-icon">+</div>' +
-    '<div class="product-card-add-text">Добавить продукт</div>' +
-  '</div>';
-
-  grid.innerHTML = html;
+  if (window.ProductCard) {
+    ProductCard.render(grid, list, function(idx, product) {
+      openProductModal(ACTIVE_PRODUCTS.indexOf(product));
+    });
+  }
 }
 
 function openProductModal(idx) {
   var p = ACTIVE_PRODUCTS[idx];
   if (!p) return;
-  var gateNum = parseInt((p.stage || '').replace(/\D/g, ''), 10);
-  if (isNaN(gateNum)) gateNum = 0;
-  var riskType = p.status === 'prod' ? 'on-track' : 'at-risk';
-  if (p.status === 'done') riskType = 'done';
-  if (p.status === 'paused') riskType = 'paused';
-  var riskLabel = p.status === 'prod' ? 'В проде' : 'В разработке';
-  if (p.status === 'prod' && p.metrics) riskLabel += ' · ' + p.metrics;
-  if (p.status === 'dev' && p.forecast) riskLabel += ' · релиз ' + p.forecast;
-  var modalBadges = (window.Badge ? Badge.html('risk', riskType, riskLabel) : '') + ' '
-    + (window.Badge ? Badge.html('gate', gateNum) : '<span>' + p.stage + '</span>');
+  var gate = parseInt(p.gate, 10) || 0;
+  var modalBadges = '';
+  if (window.Badge) {
+    modalBadges = Badge.html('risk', p.status) + ' ' + Badge.html('gate', gate);
+  }
+  var catTag = p.catLabel ? '<span class="badge" style="background:rgba(123,47,255,0.08);color:#7B2FFF;border-color:rgba(123,47,255,0.20);font-size:10px;padding:3px 8px;display:inline-flex;align-items:center;border:1px solid;border-radius:20px;font-weight:700;">' + p.catLabel + '</span>' : '';
+  var kpiHtml = '';
+  if (p.kpi && p.kpi.length) {
+    kpiHtml = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0;">';
+    p.kpi.forEach(function(k) {
+      kpiHtml += '<div style="text-align:center;padding:12px 8px;background:rgba(123,47,255,0.04);border:1px solid var(--border);border-radius:10px;">' +
+        '<div style="font-family:var(--font-head);font-size:16px;font-weight:900;color:var(--text);">' + k.value + '</div>' +
+        '<div style="font-size:11px;color:var(--muted);">' + k.label + '</div>' +
+      '</div>';
+    });
+    kpiHtml += '</div>';
+  }
   document.getElementById('modal-body').innerHTML =
     '<div class="modal-header">' +
-      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">' + modalBadges + '</div>' +
-      '<div class="product-card-tags" style="margin-bottom:10px;">' + productTagHtml(p) + '</div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">' + modalBadges + ' ' + catTag + '</div>' +
       '<div class="modal-title">' + p.name + '</div>' +
       '<div class="modal-sub">' + p.desc + '</div>' +
     '</div>' +
+    kpiHtml +
+    (p.owner ? '<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Владелец: <strong style="color:var(--text)">' + p.owner + '</strong></div>' : '') +
+    (p.updated ? '<div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Обновлено: ' + p.updated + '</div>' : '') +
     (p.initiatives && p.initiatives.length ?
       '<div style="font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;">Активные инициативы</div>' +
       '<ul class="modal-initiatives-list">' +
@@ -842,81 +670,6 @@ function closeModal(e) {
   document.getElementById('modal-overlay').classList.remove('open');
 }
 
-// ── DELETE ──
-function deleteProduct(idx) {
-  if (!confirm('Удалить продукт «' + ACTIVE_PRODUCTS[idx].name + '»?')) return;
-  var list = loadStoredProducts() || PRODUCTS_DEFAULT.map(function(p){ return Object.assign({},p); });
-  list.splice(idx, 1);
-  storeProducts(list);
-  renderProducts();
-}
-
-// ── ADMIN MODAL ──
-var editingIdx = null;
-
-function openAdminModal(idx) {
-  editingIdx = (idx !== undefined) ? idx : null;
-  var p = (idx !== undefined) ? ACTIVE_PRODUCTS[idx] : null;
-  document.getElementById('am-title').textContent = p ? 'Редактировать продукт' : 'Добавить продукт';
-  document.getElementById('am-id').value = p ? p.id : '';
-  document.getElementById('am-name').value = p ? p.name : '';
-  document.getElementById('am-cat').value = p ? (p.cat || 'b2c') : 'b2c';
-  document.getElementById('am-desc').value = p ? p.desc : '';
-  document.getElementById('am-status').value = p ? (p.status || 'dev') : 'dev';
-  document.getElementById('am-gate').value = p ? (p.stage || 'Gate 1').replace('Gate ','') : '1';
-  document.getElementById('am-forecast').value = p ? (p.forecast || '') : '';
-  document.getElementById('am-metrics').value = p ? (p.metrics || '') : '';
-  document.getElementById('am-initiatives').value = p && p.initiatives ? p.initiatives.join(', ') : '';
-  document.getElementById('am-color').value = p ? (p.color || 'linear-gradient(90deg,#7B2FFF,#C49CFF)') : 'linear-gradient(90deg,#7B2FFF,#C49CFF)';
-  amToggleForecast();
-  document.getElementById('admin-modal').classList.add('open');
-}
-
-function closeAdminModal(e) {
-  if (e && e.target !== document.getElementById('admin-modal')) return;
-  document.getElementById('admin-modal').classList.remove('open');
-}
-
-function amToggleForecast() {
-  var isDev = document.getElementById('am-status').value === 'dev';
-  document.getElementById('am-forecast-field').style.opacity = isDev ? '1' : '0.4';
-}
-
-var CAT_LABELS = {b2c:'B2C', b2b:'B2B', b2g:'B2G', int:'Internal'};
-
-function saveAdminProduct() {
-  var name = document.getElementById('am-name').value.trim();
-  if (!name) { alert('Укажите название'); return; }
-  var cat = document.getElementById('am-cat').value;
-  var gateNum = document.getElementById('am-gate').value;
-  var initsRaw = document.getElementById('am-initiatives').value;
-  var inits = initsRaw ? initsRaw.split(',').map(function(s){ return s.trim(); }).filter(Boolean) : [];
-
-  var product = {
-    id: document.getElementById('am-id').value || ('P' + Date.now()),
-    name: name,
-    cat: cat,
-    catLabel: CAT_LABELS[cat] || cat.toUpperCase(),
-    desc: document.getElementById('am-desc').value.trim(),
-    status: document.getElementById('am-status').value,
-    stage: 'Gate ' + gateNum,
-    forecast: document.getElementById('am-forecast').value.trim(),
-    metrics: document.getElementById('am-metrics').value.trim(),
-    initiatives: inits,
-    color: document.getElementById('am-color').value,
-  };
-
-  var list = loadStoredProducts() || ACTIVE_PRODUCTS.map(function(p){ return Object.assign({},p); });
-  if (editingIdx !== null && editingIdx !== undefined) {
-    list[editingIdx] = product;
-  } else {
-    list.push(product);
-  }
-  storeProducts(list);
-  closeAdminModal();
-  renderProducts();
-}
-
 // ── ADMIN TOGGLE ──
 var _adminClicks = 0, _adminTimer;
 function adminClick() {
@@ -934,12 +687,11 @@ function exitAdmin() { document.body.classList.remove('admin-mode'); }
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     document.getElementById('modal-overlay').classList.remove('open');
-    document.getElementById('admin-modal').classList.remove('open');
   }
 });
 
-// Init
-renderProducts();
+// Init — load from portfolio.json
+loadPortfolio();
 </script>
 </body>
 </html>
