@@ -11,6 +11,19 @@
   // e.g. '' for root pages, '../' for subdirectory pages
   var base = src.replace(/[^/\\]*$/, '').replace(/^\.\//, '');
 
+  // ── load tokens.css + theme.js ────────────────────────────
+  if (!document.getElementById('en-tokens-css')) {
+    var lk = document.createElement('link');
+    lk.id = 'en-tokens-css'; lk.rel = 'stylesheet';
+    lk.href = base + 'design-system/tokens.css';
+    document.head.appendChild(lk);
+  }
+  if (!document.getElementById('en-theme-js')) {
+    var ts = document.createElement('script');
+    ts.id = 'en-theme-js'; ts.src = base + 'js/theme.js';
+    document.head.appendChild(ts);
+  }
+
   // ── current page detection (handles Cyrillic file:// paths) ──
   var p;
   try { p = decodeURIComponent(window.location.pathname).toLowerCase().replace(/\\/g, '/'); }
@@ -86,6 +99,7 @@
     + '</div>'
 
     + '</div>'
+    + '<button id="en-theme-btn" class="en-theme-btn" onclick="EcoTheme.toggle()" title="Переключить тему"></button>'
     + '<a class="en-rwb" href="https://rwb.ru" target="_blank" rel="noopener">' + RWB_SVG + '</a>'
     + '</nav>';
 
@@ -118,8 +132,11 @@
     '.en-link{font-size:12px;font-weight:700;color:rgba(220,210,255,.6);text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}',
     '.en-link:hover{color:#fff;background:rgba(255,255,255,.1)}',
     '.en-link.en-active{color:#fff;background:rgba(255,255,255,.14)}',
+    /* theme toggle */
+    '.en-theme-btn{margin-left:auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(220,210,255,.7);transition:color .15s,background .15s,border-color .15s;flex-shrink:0;padding:0}',
+    '.en-theme-btn:hover{color:#fff;background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25)}',
     /* RWB logo — right side */
-    '.en-rwb{margin-left:auto;display:flex;align-items:center;opacity:.7;transition:opacity .15s;flex-shrink:0}',
+    '.en-rwb{margin-left:12px;display:flex;align-items:center;opacity:.7;transition:opacity .15s;flex-shrink:0}',
     '.en-rwb:hover{opacity:1}'
   ].join('\n');
 
@@ -139,6 +156,12 @@
       d.addEventListener('mouseenter', function () { clearTimeout(t); d.classList.add('is-open'); });
       d.addEventListener('mouseleave', function () { t = setTimeout(function () { d.classList.remove('is-open'); }, 120); });
     });
+    // populate theme button icon once theme.js has loaded
+    function initThemeBtn() {
+      if (window.EcoTheme) { EcoTheme.apply(EcoTheme.get()); }
+      else { setTimeout(initThemeBtn, 50); }
+    }
+    initThemeBtn();
   }
 
   if (document.body) {

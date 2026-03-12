@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Tokens — Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:var(--font-body);
+  background:var(--color-bg-page);
+  color:var(--color-text-primary);
+  line-height:var(--leading-relaxed);
+  padding:0 0 80px;
+}
+.wrap{max-width:var(--max-width);margin:0 auto;padding:0 var(--space-7)}
+
+/* ── HEADER ── */
+.preview-hdr{
+  background:var(--gradient-nav);
+  color:#fff;
+  padding:var(--space-10) var(--space-7);
+  margin-bottom:var(--space-10);
+}
+.preview-hdr h1{font-family:var(--font-head);font-size:var(--text-3xl);font-weight:var(--weight-black);letter-spacing:var(--tracking-snug);margin-bottom:var(--space-2)}
+.preview-hdr p{font-size:var(--text-lg);opacity:.7}
+.preview-hdr .controls{margin-top:var(--space-5);display:flex;gap:var(--space-2)}
+.theme-btn{
+  font-family:var(--font-body);font-size:var(--text-base);font-weight:var(--weight-semi);
+  padding:var(--space-2) var(--space-4);border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.1);color:#fff;cursor:pointer;transition:background var(--ease-fast);
+}
+.theme-btn:hover{background:rgba(255,255,255,.2)}
+.theme-btn.active{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.5)}
+
+/* ── SECTION ── */
+.section{margin-bottom:var(--space-12)}
+.section-title{
+  font-family:var(--font-head);font-size:var(--text-xs);font-weight:var(--weight-bold);
+  letter-spacing:var(--tracking-wide);text-transform:uppercase;
+  color:var(--color-text-muted);margin-bottom:var(--space-5);
+  padding-bottom:var(--space-3);border-bottom:1px solid var(--color-border);
+}
+
+/* ── COLOR SWATCHES ── */
+.color-group{margin-bottom:var(--space-7)}
+.color-group-title{font-size:var(--text-md);font-weight:var(--weight-bold);margin-bottom:var(--space-3);color:var(--color-text-body)}
+.swatches{display:flex;gap:var(--space-1);flex-wrap:wrap}
+.swatch{
+  width:72px;display:flex;flex-direction:column;align-items:center;gap:var(--space-1);
+}
+.swatch-box{
+  width:64px;height:44px;border-radius:var(--radius-sm);border:1px solid var(--color-border);
+  transition:transform var(--ease-fast);cursor:pointer;position:relative;
+}
+.swatch-box:hover{transform:scale(1.08)}
+.swatch-box::after{
+  content:attr(data-hex);position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);
+  font-size:8px;color:var(--color-text-muted);white-space:nowrap;opacity:0;transition:opacity var(--ease-fast);pointer-events:none;
+}
+.swatch-box:hover::after{opacity:1}
+.swatch-label{font-size:8px;color:var(--color-text-muted);text-align:center;line-height:1.2;margin-top:2px}
+
+/* wide swatch for gradients */
+.swatch-wide{width:180px}
+.swatch-wide .swatch-box{width:180px;height:40px}
+
+/* ── TYPOGRAPHY ── */
+.type-row{display:flex;align-items:baseline;gap:var(--space-6);padding:var(--space-3) 0;border-bottom:1px solid var(--color-border)}
+.type-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);min-width:100px;flex-shrink:0}
+.type-size{font-size:var(--text-xs);color:var(--color-text-dimmed);min-width:50px;flex-shrink:0}
+.type-sample{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ── SPACING ── */
+.spacing-row{display:flex;align-items:center;gap:var(--space-4);padding:var(--space-1) 0}
+.spacing-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);min-width:90px}
+.spacing-val{font-size:var(--text-xs);color:var(--color-text-dimmed);min-width:40px}
+.spacing-bar{height:12px;border-radius:var(--radius-xs);background:var(--color-primary-dim);border:1px solid var(--color-primary-border)}
+
+/* ── RADIUS ── */
+.radius-grid{display:flex;gap:var(--space-4);flex-wrap:wrap}
+.radius-item{display:flex;flex-direction:column;align-items:center;gap:var(--space-2)}
+.radius-box{
+  width:64px;height:64px;background:var(--color-primary-dim);border:2px solid var(--color-primary-400);
+}
+.radius-label{font-family:var(--font-mono);font-size:9px;color:var(--color-text-muted)}
+
+/* ── SHADOWS ── */
+.shadow-grid{display:flex;gap:var(--space-6);flex-wrap:wrap}
+.shadow-item{display:flex;flex-direction:column;align-items:center;gap:var(--space-3)}
+.shadow-box{
+  width:120px;height:80px;background:var(--color-bg-card);border-radius:var(--radius-lg);
+  display:flex;align-items:center;justify-content:center;
+}
+.shadow-label{font-family:var(--font-mono);font-size:9px;color:var(--color-text-muted)}
+
+/* ── FONT FAMILY ── */
+.font-row{padding:var(--space-4) 0;border-bottom:1px solid var(--color-border)}
+.font-name{font-size:var(--text-md);font-weight:var(--weight-bold);margin-bottom:var(--space-1)}
+.font-var{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-2)}
+.font-sample{font-size:var(--text-2xl);letter-spacing:var(--tracking-snug)}
+
+/* ── Z-INDEX ── */
+.z-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:var(--space-3)}
+.z-item{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-1)}
+.z-val{font-family:var(--font-head);font-size:var(--text-2xl);font-weight:var(--weight-black);color:var(--color-primary-400)}
+.z-name{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted)}
+
+/* ── TRANSITIONS ── */
+.ease-grid{display:flex;gap:var(--space-4);flex-wrap:wrap}
+.ease-item{display:flex;flex-direction:column;align-items:center;gap:var(--space-2)}
+.ease-box{
+  width:80px;height:48px;background:var(--color-primary-dim);border:1px solid var(--color-primary-border);
+  border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:9px;color:var(--color-primary-400);
+}
+.ease-box:hover{background:var(--color-primary-400);color:#fff}
+.ease-label{font-family:var(--font-mono);font-size:9px;color:var(--color-text-muted)}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="preview-hdr">
+  <div class="wrap">
+    <h1>Design Tokens</h1>
+    <p>Платформа инноваций — визуальный каталог всех токенов</p>
+    <div class="controls">
+      <button class="theme-btn active" onclick="setTheme('light',this)">Light</button>
+      <button class="theme-btn" onclick="setTheme('dark',this)">Dark</button>
+      <button class="theme-btn" onclick="setTheme('system',this)">System</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════ COLORS ══ -->
+<div class="section" id="colors">
+  <div class="section-title">Colors</div>
+
+  <!-- Primary -->
+  <div class="color-group">
+    <div class="color-group-title">Primary (Violet)</div>
+    <div class="swatches" id="sw-primary"></div>
+  </div>
+
+  <!-- Accent -->
+  <div class="color-group">
+    <div class="color-group-title">Accent (Pink)</div>
+    <div class="swatches" id="sw-accent"></div>
+  </div>
+
+  <!-- Teal -->
+  <div class="color-group">
+    <div class="color-group-title">Teal</div>
+    <div class="swatches" id="sw-teal"></div>
+  </div>
+
+  <!-- Amber -->
+  <div class="color-group">
+    <div class="color-group-title">Amber</div>
+    <div class="swatches" id="sw-amber"></div>
+  </div>
+
+  <!-- Semantic -->
+  <div class="color-group">
+    <div class="color-group-title">Semantic</div>
+    <div class="swatches" id="sw-semantic"></div>
+  </div>
+
+  <!-- Neutral -->
+  <div class="color-group">
+    <div class="color-group-title">Neutral</div>
+    <div class="swatches" id="sw-neutral"></div>
+  </div>
+
+  <!-- Backgrounds -->
+  <div class="color-group">
+    <div class="color-group-title">Backgrounds</div>
+    <div class="swatches" id="sw-bg"></div>
+  </div>
+
+  <!-- Text -->
+  <div class="color-group">
+    <div class="color-group-title">Text</div>
+    <div class="swatches" id="sw-text"></div>
+  </div>
+
+  <!-- Gradients -->
+  <div class="color-group">
+    <div class="color-group-title">Gradients</div>
+    <div class="swatches" id="sw-gradients"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ TYPOGRAPHY ══ -->
+<div class="section" id="typography">
+  <div class="section-title">Typography</div>
+
+  <!-- Families -->
+  <div style="margin-bottom:var(--space-8)">
+    <div class="font-row">
+      <div class="font-name" style="font-family:var(--font-head)">Unbounded</div>
+      <div class="font-var">--font-head</div>
+      <div class="font-sample" style="font-family:var(--font-head);font-weight:900">Платформа инноваций</div>
+    </div>
+    <div class="font-row">
+      <div class="font-name" style="font-family:var(--font-body)">Golos Text</div>
+      <div class="font-var">--font-body</div>
+      <div class="font-sample" style="font-family:var(--font-body)">Единая операционная система для управления продуктовым портфелем</div>
+    </div>
+    <div class="font-row">
+      <div class="font-name" style="font-family:monospace">JetBrains Mono</div>
+      <div class="font-var">--font-mono</div>
+      <div class="font-sample" style="font-family:var(--font-mono);font-size:var(--text-lg)">RICE = (R × I × C) / E</div>
+    </div>
+  </div>
+
+  <!-- Scale -->
+  <div id="type-scale"></div>
+</div>
+
+<!-- ══════════════════════════════════ SPACING ══ -->
+<div class="section" id="spacing">
+  <div class="section-title">Spacing</div>
+  <div id="spacing-list"></div>
+</div>
+
+<!-- ══════════════════════════════════ RADIUS ══ -->
+<div class="section" id="radius">
+  <div class="section-title">Border Radius</div>
+  <div class="radius-grid" id="radius-grid"></div>
+</div>
+
+<!-- ══════════════════════════════════ SHADOWS ══ -->
+<div class="section" id="shadows">
+  <div class="section-title">Shadows</div>
+  <div class="shadow-grid" id="shadow-grid"></div>
+</div>
+
+<!-- ══════════════════════════════════ Z-INDEX ══ -->
+<div class="section" id="z-index">
+  <div class="section-title">Z-Index</div>
+  <div class="z-grid" id="z-grid"></div>
+</div>
+
+<!-- ══════════════════════════════════ TRANSITIONS ══ -->
+<div class="section" id="transitions">
+  <div class="section-title">Transitions</div>
+  <div class="ease-grid" id="ease-grid"></div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ── Theme switcher ──
+function setTheme(t, btn) {
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (t === 'system') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', t);
+}
+
+// ── Swatch builder ──
+function sw(container, items) {
+  var el = document.getElementById(container);
+  el.innerHTML = items.map(function(i) {
+    var wide = i.gradient ? ' swatch-wide' : '';
+    var bg = i.gradient
+      ? 'background:' + i.gradient
+      : 'background:var(' + i.v + ')';
+    return '<div class="swatch' + wide + '">'
+      + '<div class="swatch-box" style="' + bg + '" data-hex="' + (i.hex || i.v) + '" title="' + i.v + '" onclick="navigator.clipboard.writeText(\'' + i.v + '\')"></div>'
+      + '<div class="swatch-label">' + i.label + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+// ── Colors ──
+sw('sw-primary', [
+  {v:'--color-primary-50', label:'50',   hex:'#F3EEFF'},
+  {v:'--color-primary-100',label:'100',  hex:'#E0D0FF'},
+  {v:'--color-primary-200',label:'200',  hex:'#C49CFF'},
+  {v:'--color-primary-300',label:'300',  hex:'#9B5FFF'},
+  {v:'--color-primary-400',label:'400',  hex:'#7B2FFF'},
+  {v:'--color-primary-500',label:'500',  hex:'#6920E8'},
+  {v:'--color-primary-600',label:'600',  hex:'#5720C8'},
+  {v:'--color-primary-700',label:'700',  hex:'#4518A0'},
+  {v:'--color-primary-800',label:'800',  hex:'#2A0878'},
+  {v:'--color-primary-900',label:'900',  hex:'#0D0030'}
+]);
+sw('sw-accent', [
+  {v:'--color-accent-light',label:'light',hex:'#FF85C0'},
+  {v:'--color-accent',      label:'default',hex:'#FF2D8A'},
+  {v:'--color-accent-dark', label:'dark', hex:'#CC1A6E'}
+]);
+sw('sw-teal', [
+  {v:'--color-teal-light',label:'light',hex:'#5FFFEA'},
+  {v:'--color-teal',      label:'default',hex:'#00D4B4'},
+  {v:'--color-teal-dark', label:'dark', hex:'#00B89E'}
+]);
+sw('sw-amber', [
+  {v:'--color-amber-light',label:'light',hex:'#FDE68A'},
+  {v:'--color-amber',      label:'default',hex:'#FFB830'},
+  {v:'--color-amber-dark', label:'dark', hex:'#F59E0B'}
+]);
+sw('sw-semantic', [
+  {v:'--color-success-light',label:'success\nlight',hex:'#A7F3D0'},
+  {v:'--color-success',      label:'success',hex:'#34D399'},
+  {v:'--color-success-dark', label:'success\ndark',hex:'#10B981'},
+  {v:'--color-warning-light',label:'warning\nlight',hex:'#FDE68A'},
+  {v:'--color-warning',      label:'warning',hex:'#FFB830'},
+  {v:'--color-warning-dark', label:'warning\ndark',hex:'#F59E0B'},
+  {v:'--color-error-light',  label:'error\nlight',hex:'#FCA5A5'},
+  {v:'--color-error',        label:'error',hex:'#FF6B6B'},
+  {v:'--color-error-dark',   label:'error\ndark',hex:'#DC2626'},
+  {v:'--color-info-light',   label:'info\nlight',hex:'#93C5FD'},
+  {v:'--color-info',         label:'info',hex:'#3B82F6'},
+  {v:'--color-info-dark',    label:'info\ndark',hex:'#2563EB'}
+]);
+sw('sw-neutral', [
+  {v:'--color-neutral-50', label:'50', hex:'#F7F6FF'},
+  {v:'--color-neutral-100',label:'100',hex:'#EDE8FF'},
+  {v:'--color-neutral-200',label:'200',hex:'#C4C4D8'},
+  {v:'--color-neutral-300',label:'300',hex:'#9898B4'},
+  {v:'--color-neutral-400',label:'400',hex:'#8B8BAE'},
+  {v:'--color-neutral-500',label:'500',hex:'#7A7A9D'},
+  {v:'--color-neutral-600',label:'600',hex:'#6B6B8A'},
+  {v:'--color-neutral-700',label:'700',hex:'#4A4A6A'},
+  {v:'--color-neutral-800',label:'800',hex:'#1A1A38'},
+  {v:'--color-neutral-900',label:'900',hex:'#08081A'}
+]);
+sw('sw-bg', [
+  {v:'--color-bg-page',   label:'page'},
+  {v:'--color-bg-mid',    label:'mid'},
+  {v:'--color-bg-card',   label:'card'},
+  {v:'--color-bg-surface',label:'surface'}
+]);
+sw('sw-text', [
+  {v:'--color-text-primary',label:'primary'},
+  {v:'--color-text-body',   label:'body'},
+  {v:'--color-text-muted',  label:'muted'},
+  {v:'--color-text-dimmed', label:'dimmed'},
+  {v:'--color-text-inverse',label:'inverse'},
+  {v:'--color-text-white',  label:'white'}
+]);
+sw('sw-gradients', [
+  {gradient:'var(--gradient-brand)', v:'--gradient-brand',  label:'brand'},
+  {gradient:'var(--gradient-nav)',   v:'--gradient-nav',    label:'nav'},
+  {gradient:'var(--gradient-teal)',  v:'--gradient-teal',   label:'teal'},
+  {gradient:'var(--gradient-violet)',v:'--gradient-violet',  label:'violet'},
+  {gradient:'var(--gradient-amber)', v:'--gradient-amber',  label:'amber'}
+]);
+
+// ── Typography scale ──
+var sizes = [
+  {v:'--text-2xs', px:'9px',  sample:'EYEBROW · UPPERCASE LABEL'},
+  {v:'--text-xs',  px:'10px', sample:'Tag · Tooltip · Micro badge'},
+  {v:'--text-sm',  px:'11px', sample:'Button small · Label · Nav item'},
+  {v:'--text-base',px:'12px', sample:'Body small · Card text · Badge'},
+  {v:'--text-md',  px:'13px', sample:'Body default · Component text'},
+  {v:'--text-lg',  px:'14px', sample:'Section description · Body large'},
+  {v:'--text-xl',  px:'16px', sample:'Hero subtitle · Lead paragraph'},
+  {v:'--text-2xl', px:'22px', sample:'Section title'},
+  {v:'--text-3xl', px:'28px', sample:'Display medium'},
+  {v:'--text-4xl', px:'38px', sample:'Display large'},
+  {v:'--text-5xl', px:'46px', sample:'Hero headline'}
+];
+var tsc = document.getElementById('type-scale');
+tsc.innerHTML = sizes.map(function(s) {
+  return '<div class="type-row">'
+    + '<div class="type-label">' + s.v + '</div>'
+    + '<div class="type-size">' + s.px + '</div>'
+    + '<div class="type-sample" style="font-size:var(' + s.v + ');font-family:var(--font-body)">' + s.sample + '</div>'
+    + '</div>';
+}).join('');
+
+// ── Spacing ──
+var spaces = [
+  {v:'--space-1', px:'4px'},  {v:'--space-2', px:'8px'},
+  {v:'--space-3', px:'12px'}, {v:'--space-4', px:'16px'},
+  {v:'--space-5', px:'20px'}, {v:'--space-6', px:'24px'},
+  {v:'--space-7', px:'28px'}, {v:'--space-8', px:'32px'},
+  {v:'--space-9', px:'36px'}, {v:'--space-10',px:'40px'},
+  {v:'--space-12',px:'48px'}, {v:'--space-14',px:'56px'},
+  {v:'--space-16',px:'64px'}, {v:'--space-20',px:'80px'}
+];
+var spl = document.getElementById('spacing-list');
+spl.innerHTML = spaces.map(function(s) {
+  return '<div class="spacing-row">'
+    + '<div class="spacing-label">' + s.v + '</div>'
+    + '<div class="spacing-val">' + s.px + '</div>'
+    + '<div class="spacing-bar" style="width:var(' + s.v + ')"></div>'
+    + '</div>';
+}).join('');
+
+// ── Radius ──
+var radii = [
+  {v:'--radius-xs',  label:'xs · 4px'},
+  {v:'--radius-sm',  label:'sm · 8px'},
+  {v:'--radius-md',  label:'md · 12px'},
+  {v:'--radius-lg',  label:'lg · 16px'},
+  {v:'--radius-xl',  label:'xl · 20px'},
+  {v:'--radius-2xl', label:'2xl · 24px'},
+  {v:'--radius-pill', label:'pill · 50px'},
+  {v:'--radius-full', label:'full'}
+];
+var rg = document.getElementById('radius-grid');
+rg.innerHTML = radii.map(function(r) {
+  return '<div class="radius-item">'
+    + '<div class="radius-box" style="border-radius:var(' + r.v + ')"></div>'
+    + '<div class="radius-label">' + r.label + '</div>'
+    + '</div>';
+}).join('');
+
+// ── Shadows ──
+var shadows = [
+  {v:'--shadow-xs',  label:'xs'},
+  {v:'--shadow-sm',  label:'sm'},
+  {v:'--shadow-md',  label:'md'},
+  {v:'--shadow-lg',  label:'lg'},
+  {v:'--shadow-xl',  label:'xl'},
+  {v:'--shadow-glow-violet', label:'glow-violet'},
+  {v:'--shadow-glow-teal',   label:'glow-teal'}
+];
+var sg = document.getElementById('shadow-grid');
+sg.innerHTML = shadows.map(function(s) {
+  return '<div class="shadow-item">'
+    + '<div class="shadow-box" style="box-shadow:var(' + s.v + ')">'
+    + '<span style="font-family:var(--font-mono);font-size:9px;color:var(--color-text-muted)">' + s.label + '</span>'
+    + '</div>'
+    + '<div class="shadow-label">' + s.v + '</div>'
+    + '</div>';
+}).join('');
+
+// ── Z-Index ──
+var zs = [
+  {v:'--z-dropdown', val:'100'},
+  {v:'--z-sticky',   val:'900'},
+  {v:'--z-overlay',  val:'9000'},
+  {v:'--z-nav',      val:'9999'},
+  {v:'--z-modal',    val:'10000'}
+];
+var zg = document.getElementById('z-grid');
+zg.innerHTML = zs.map(function(z) {
+  return '<div class="z-item">'
+    + '<div class="z-val">' + z.val + '</div>'
+    + '<div class="z-name">' + z.v + '</div>'
+    + '</div>';
+}).join('');
+
+// ── Transitions ──
+var eases = [
+  {v:'--ease-fast',   label:'fast · 0.15s'},
+  {v:'--ease',        label:'ease · 0.2s'},
+  {v:'--ease-slow',   label:'slow · 0.3s'},
+  {v:'--ease-spring', label:'spring · 0.3s'}
+];
+var eg = document.getElementById('ease-grid');
+eg.innerHTML = eases.map(function(e) {
+  return '<div class="ease-item">'
+    + '<div class="ease-box" style="transition:all var(' + e.v + ')">hover me</div>'
+    + '<div class="ease-label">' + e.label + '</div>'
+    + '</div>';
+}).join('');
+</script>
+</body>
+</html>
