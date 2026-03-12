@@ -1,5 +1,5 @@
 /**
- * Платформа инноваций — Badge Component
+ * ОРБИТА — Badge Component
  * Creates status badges with inline Heroicons SVG.
  *
  * Usage:

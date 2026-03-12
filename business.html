@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Платформа инноваций — Для бизнеса</title>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>ОРБИТА — Для бизнеса</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --dark:#FAF9FF;--mid:#F3F0FF;--card:#FFFFFF;--surface2:#EDE8FF;
-  --border:rgba(123,47,255,0.10);--border-hi:rgba(123,47,255,0.20);
-  --violet:#7B2FFF;--violet-dim:rgba(123,47,255,0.08);--violet-border:rgba(123,47,255,0.35);
+  --border:rgba(79,195,247,0.10);--border-hi:rgba(79,195,247,0.20);
+  --violet:#4FC3F7;--violet-dim:rgba(79,195,247,0.08);--violet-border:rgba(79,195,247,0.35);
   --pink:#FF2D8A;--pink-dim:rgba(255,45,138,0.07);
   --teal:#00D4B4;--teal-dim:rgba(0,212,180,0.08);
   --amber:#FFB830;--amber-dim:rgba(255,184,48,0.08);
   --green:#34D399;--green-dim:rgba(52,211,153,0.08);
   --blue:#3B82F6;--blue-dim:rgba(59,130,246,0.08);
   --text:#1A1040;--muted:#7A7A9D;--gray2:#4A4A6A;--white:#FFFFFF;
-  --font-head:'Unbounded',sans-serif;--font-body:'Golos Text',sans-serif;
+  --font-head:'Orbitron',sans-serif;--font-body:'Exo 2',sans-serif;
   --radius:16px;--radius-sm:10px;
 }
 html{scroll-behavior:smooth;}
@@ -40,8 +40,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── ORBITAL VISUALIZATION ── */
 .orbit-wrap{position:relative;width:360px;height:360px;flex-shrink:0;}
-.orbit-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;background:linear-gradient(135deg,var(--violet),var(--pink));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 0 40px rgba(123,47,255,0.3);}
-.orbit-ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid rgba(123,47,255,0.10);transform:translate(-50%,-50%);}
+.orbit-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;background:linear-gradient(135deg,var(--violet),var(--pink));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 0 40px rgba(79,195,247,0.3);}
+.orbit-ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid rgba(79,195,247,0.10);transform:translate(-50%,-50%);}
 .orbit-ring-1{width:168px;height:168px;}
 .orbit-ring-2{width:250px;height:250px;}
 .orbit-ring-3{width:330px;height:330px;}
@@ -49,7 +49,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .orbit-planet{position:absolute;top:50%;left:50%;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;}
 .orbit-planet-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:var(--font-head);color:#fff;transition:transform .2s,box-shadow .2s;}
 .orbit-planet:hover .orbit-planet-dot{transform:scale(1.2);box-shadow:0 0 20px currentColor;}
-.orbit-planet-label{font-size:9px;font-weight:700;font-family:var(--font-head);letter-spacing:0.05em;color:var(--text);white-space:nowrap;background:rgba(250,249,255,0.92);padding:2px 6px;border-radius:4px;box-shadow:0 1px 4px rgba(123,47,255,0.12);}
+.orbit-planet-label{font-size:9px;font-weight:700;font-family:var(--font-head);letter-spacing:0.05em;color:var(--text);white-space:nowrap;background:rgba(250,249,255,0.92);padding:2px 6px;border-radius:4px;box-shadow:0 1px 4px rgba(79,195,247,0.12);}
 
 @keyframes orbit{
   from{transform:translate(-50%,-50%) rotate(0deg) translateX(var(--r)) rotate(0deg);}
@@ -83,15 +83,15 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .slide-body{font-size:15px;color:var(--muted);line-height:1.75;max-width:640px;}
 .slide-body strong{color:var(--text);}
 .slide-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px;}
-.slide-col{background:rgba(123,47,255,0.04);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.slide-col{background:rgba(79,195,247,0.04);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
 .slide-col-label{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:0.1em;margin-bottom:8px;}
 .slide-col-body{font-size:13px;color:var(--muted);line-height:1.6;}
 .slide-gate-row{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;}
-.slide-gate{padding:8px 14px;border-radius:8px;background:rgba(123,47,255,0.04);border:1px solid var(--border);font-size:12px;color:var(--text);}
+.slide-gate{padding:8px 14px;border-radius:8px;background:rgba(79,195,247,0.04);border:1px solid var(--border);font-size:12px;color:var(--text);}
 .slide-gate strong{display:block;font-family:var(--font-head);font-size:10px;margin-bottom:2px;}
 .slide-role-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;}
-.slide-role{padding:14px 16px;border-radius:10px;background:rgba(123,47,255,0.04);border:1px solid var(--border);}
-.slide-role-icon{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:0;}
+.slide-role{padding:14px 16px;border-radius:10px;background:rgba(79,195,247,0.04);border:1px solid var(--border);}
+.slide-role-icon{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:0;}
 .slide-role-name{font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;}
 .slide-role-desc{font-size:12px;color:var(--muted);}
 .slide-steps{display:flex;gap:12px;margin-top:24px;align-items:flex-start;}
@@ -103,7 +103,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .slide-step-body{font-size:12px;color:var(--muted);line-height:1.55;}
 .slide-nav{display:flex;align-items:center;gap:16px;padding:16px 24px;border-top:1px solid var(--border);background:rgba(0,0,0,0.02);}
 .slide-btn{width:36px;height:36px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .15s,border-color .15s,background .15s;}
-.slide-btn:hover{color:var(--text);border-color:var(--border-hi);background:rgba(123,47,255,0.06);}
+.slide-btn:hover{color:var(--text);border-color:var(--border-hi);background:rgba(79,195,247,0.06);}
 .slide-counter{font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--muted);}
 .slide-dots{display:flex;gap:6px;align-items:center;margin-left:auto;}
 .slide-dot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,0.15);cursor:pointer;transition:background .15s,transform .15s;}
@@ -116,15 +116,15 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .products-sync-note{font-size:11px;color:var(--muted);margin-bottom:20px;font-style:italic;}
 .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .product-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:border-color .18s,transform .15s,box-shadow .18s;text-decoration:none;color:inherit;display:flex;flex-direction:column;}
-.product-card:hover{border-color:var(--border-hi);transform:translateY(-2px);box-shadow:0 8px 32px rgba(123,47,255,0.12);}
+.product-card:hover{border-color:var(--border-hi);transform:translateY(-2px);box-shadow:0 8px 32px rgba(79,195,247,0.12);}
 .product-card-bar{height:3px;width:100%;}
 .product-card-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;}
 .product-card-tags{display:flex;gap:6px;margin-bottom:10px;}
 .product-tag{font-size:9px;font-weight:700;font-family:var(--font-head);padding:2px 8px;border-radius:4px;letter-spacing:0.06em;}
-.tag-b2c{background:rgba(123,47,255,0.08);color:var(--violet);border:1px solid rgba(123,47,255,0.2);}
+.tag-b2c{background:rgba(79,195,247,0.08);color:var(--violet);border:1px solid rgba(79,195,247,0.2);}
 .tag-b2b{background:rgba(0,212,180,0.08);color:#008870;border:1px solid rgba(0,212,180,0.2);}
 .tag-b2g{background:rgba(255,184,48,0.08);color:#A06800;border:1px solid rgba(255,184,48,0.2);}
-.tag-layer{background:rgba(123,47,255,0.06);color:var(--violet);border:1px solid rgba(123,47,255,0.15);}
+.tag-layer{background:rgba(79,195,247,0.06);color:var(--violet);border:1px solid rgba(79,195,247,0.15);}
 .product-card-name{font-family:var(--font-head);font-size:13px;font-weight:900;color:var(--text);margin-bottom:6px;line-height:1.25;}
 .product-card-stage{font-family:var(--font-head);font-size:9px;font-weight:700;color:var(--teal);letter-spacing:0.08em;margin-bottom:10px;}
 .product-card-desc{font-size:12px;color:var(--muted);line-height:1.6;flex:1;}
@@ -141,7 +141,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(15,5,50,0.45);backdrop-filter:blur(8px);z-index:5000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s;}
 .modal-overlay.open{opacity:1;pointer-events:auto;}
-.modal{background:var(--card);border:1px solid rgba(123,47,255,0.25);border-radius:20px;padding:36px 40px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;transform:translateY(16px);transition:transform .2s;}
+.modal{background:var(--card);border:1px solid rgba(79,195,247,0.25);border-radius:20px;padding:36px 40px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;transform:translateY(16px);transition:transform .2s;}
 .modal-overlay.open .modal{transform:translateY(0);}
 .modal-close{position:absolute;top:16px;right:20px;background:transparent;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1;}
 .modal-close:hover{color:var(--text);}
@@ -150,20 +150,20 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .modal-sub{font-size:13px;color:var(--muted);}
 .modal-form label{display:block;font-size:12px;font-weight:600;color:var(--gray2);margin-bottom:6px;margin-top:16px;}
 .modal-form input,.modal-form select,.modal-form textarea{width:100%;background:var(--mid);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:border-color .15s;}
-.modal-form input:focus,.modal-form select:focus,.modal-form textarea:focus{border-color:rgba(123,47,255,0.4);}
+.modal-form input:focus,.modal-form select:focus,.modal-form textarea:focus{border-color:rgba(79,195,247,0.4);}
 .modal-form textarea{resize:vertical;min-height:80px;}
 .modal-form select{cursor:pointer;}
 .modal-form select option{background:var(--mid);}
 .modal-submit{margin-top:24px;width:100%;padding:12px;background:linear-gradient(135deg,var(--violet),var(--pink));border:none;border-radius:10px;color:#fff;font-family:var(--font-head);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:0.04em;transition:opacity .15s;}
 .modal-submit:hover{opacity:0.88;}
 .modal-initiatives-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:12px;}
-.modal-initiatives-list li{padding:8px 12px;background:rgba(123,47,255,0.04);border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--muted);}
+.modal-initiatives-list li{padding:8px 12px;background:rgba(79,195,247,0.04);border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--muted);}
 
 /* ── PRODUCT STATUS & FILTERS ── */
 .products-filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
 .pf-tab{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.06em;padding:6px 16px;border-radius:50px;border:1px solid var(--border-hi);background:none;color:var(--muted);cursor:pointer;transition:all .15s;}
-.pf-tab:hover{border-color:rgba(123,47,255,0.3);color:var(--text);}
-.pf-tab.active{background:rgba(123,47,255,0.08);border-color:rgba(123,47,255,0.35);color:var(--violet);}
+.pf-tab:hover{border-color:rgba(79,195,247,0.3);color:var(--text);}
+.pf-tab.active{background:rgba(79,195,247,0.08);border-color:rgba(79,195,247,0.35);color:var(--violet);}
 .product-status-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;}
 .ps-badge{font-size:9px;font-weight:700;font-family:var(--font-head);padding:2px 8px;border-radius:4px;letter-spacing:.05em;white-space:nowrap;}
 .ps-prod{background:rgba(52,211,153,0.1);color:#059669;border:1px solid rgba(52,211,153,0.25);}
@@ -181,7 +181,7 @@ body.admin-mode .admin-bar{display:flex;}
 body.admin-mode .prod-admin-btns{display:flex;}
 .prod-edit-btn,.prod-del-btn{flex:1;padding:5px 10px;border-radius:6px;border:1px solid var(--border-hi);background:none;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .15s;}
 .prod-edit-btn{color:var(--violet);}
-.prod-edit-btn:hover{background:rgba(123,47,255,0.08);border-color:rgba(123,47,255,0.35);}
+.prod-edit-btn:hover{background:rgba(79,195,247,0.08);border-color:rgba(79,195,247,0.35);}
 .prod-del-btn{color:#DC2626;}
 .prod-del-btn:hover{background:rgba(220,38,38,0.06);border-color:rgba(220,38,38,0.3);}
 .product-card-add-wrap{display:none;}
@@ -193,7 +193,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
 /* ── ADMIN MODAL ── */
 .admin-modal-overlay{position:fixed;inset:0;background:rgba(15,5,50,0.5);backdrop-filter:blur(8px);z-index:6000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s;}
 .admin-modal-overlay.open{opacity:1;pointer-events:auto;}
-.admin-modal{background:var(--card);border:1px solid rgba(123,47,255,0.25);border-radius:20px;padding:32px 36px;max-width:500px;width:100%;max-height:88vh;overflow-y:auto;position:relative;transform:translateY(12px);transition:transform .2s;}
+.admin-modal{background:var(--card);border:1px solid rgba(79,195,247,0.25);border-radius:20px;padding:32px 36px;max-width:500px;width:100%;max-height:88vh;overflow-y:auto;position:relative;transform:translateY(12px);transition:transform .2s;}
 .admin-modal-overlay.open .admin-modal{transform:translateY(0);}
 .admin-modal h3{font-family:var(--font-head);font-size:16px;font-weight:900;color:var(--text);margin-bottom:22px;}
 .admin-modal-close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1;}
@@ -201,7 +201,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
 .af{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
 .af label{font-size:11px;font-weight:700;color:var(--gray2);text-transform:uppercase;letter-spacing:.07em;}
 .af input,.af select,.af textarea{background:var(--mid);border:1px solid var(--border-hi);border-radius:8px;padding:9px 12px;color:var(--text);font-family:var(--font-body);font-size:13px;outline:none;width:100%;transition:border-color .15s;}
-.af input:focus,.af select:focus,.af textarea:focus{border-color:rgba(123,47,255,0.4);}
+.af input:focus,.af select:focus,.af textarea:focus{border-color:rgba(79,195,247,0.4);}
 .af textarea{min-height:70px;resize:vertical;}
 .af-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .admin-modal-actions{display:flex;gap:10px;margin-top:20px;}
@@ -253,7 +253,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
   <!-- ── HERO ── -->
   <section class="hero-section">
     <div class="hero-content">
-      <div class="hero-eyebrow">Платформа инноваций · Для бизнеса</div>
+      <div class="hero-eyebrow">ОРБИТА · Для бизнеса</div>
       <h1 class="hero-h1">Мы разрабатываем<br><span class="grad">цифровые решения:</span><br>платформы, продукты,<br>сервисы для RWB и рынка</h1>
       <p class="hero-sub">Являемся инхаус-инкубатором стартапов экосистемы WB — доводим от идеи до зрелости и интеграции. Работаем в сегментах B2C, B2B, B2G.</p>
       <a class="hero-cta" href="https://forms.wb.ru/form" target="_blank" rel="noopener">
@@ -270,7 +270,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
       <div class="orbit-center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
       <!-- B2C -->
       <div class="orbit-planet p-b2c" title="B2C — потребительские продукты">
-        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#7B2FFF,#C49CFF);"><svg class="ei" width="18" height="18"><use href="#ic-shopping-bag"/></svg></div>
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#4FC3F7,#B3E5FC);"><svg class="ei" width="18" height="18"><use href="#ic-shopping-bag"/></svg></div>
         <div class="orbit-planet-label">B2C</div>
       </div>
       <!-- B2B -->
@@ -308,7 +308,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
       <!-- SLIDE 1: Обложка -->
       <div class="slide active" data-slide="1">
         <div class="slide-num-badge">01 / 10 · Обложка</div>
-        <div class="slide-title">Платформа инноваций<br><span class="acc">Инхаус-инкубатор</span><br>WB Экосистемы</div>
+        <div class="slide-title">ОРБИТА<br><span class="acc">Инхаус-инкубатор</span><br>WB Экосистемы</div>
         <div class="slide-body">Проектный офис · WB Экосистема · Март 2026<br><strong>Версия v1.0 · Ранний этап тестирования</strong></div>
       </div>
 
@@ -318,7 +318,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
         <div class="slide-title">Зачем Product OS<br>нужен <span class="acc">экосистеме</span></div>
         <div class="slide-body">
           <strong>Проблема:</strong> продукты запускаются без единой методологии — нет прозрачности, нет Gate-критериев, решения дублируются.<br><br>
-          <strong>Решение:</strong> Платформа инноваций — операционная система для управления продуктовым портфелем. Единый фреймворк от идеи до зрелости, инструменты для команд, прозрачность для бизнеса.
+          <strong>Решение:</strong> ОРБИТА — операционная система для управления продуктовым портфелем. Единый фреймворк от идеи до зрелости, инструменты для команд, прозрачность для бизнеса.
         </div>
       </div>
 
@@ -328,7 +328,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
         <div class="slide-title">Цифровые продукты<br>в трёх <span class="acc">сегментах</span></div>
         <div class="slide-cols">
           <div class="slide-col">
-            <div class="slide-col-label" style="color:#C49CFF;">B2C</div>
+            <div class="slide-col-label" style="color:#B3E5FC;">B2C</div>
             <div class="slide-col-body">Потребительские продукты и сервисы для физических лиц. WB Pay, WB Academy, WB Kids.</div>
           </div>
           <div class="slide-col">
@@ -348,7 +348,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
         <div class="slide-title">От идеи<br>до <span class="acc">зрелости</span></div>
         <div class="slide-body">Единый цикл разработки продукта в четыре фазы:</div>
         <div class="slide-cols">
-          <div class="slide-col"><div class="slide-col-label" style="color:#7B2FFF;">Discovery</div><div class="slide-col-body">Валидация проблемы, CustDev, PSF</div></div>
+          <div class="slide-col"><div class="slide-col-label" style="color:#4FC3F7;">Discovery</div><div class="slide-col-body">Валидация проблемы, CustDev, PSF</div></div>
           <div class="slide-col"><div class="slide-col-label" style="color:#00D4B4;">Delivery</div><div class="slide-col-body">MVP, спринты, Gate-review</div></div>
           <div class="slide-col"><div class="slide-col-label" style="color:#34D399;">Launch</div><div class="slide-col-body">GTM, метрики, масштабирование</div></div>
         </div>
@@ -361,7 +361,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
         <div class="slide-body">Каждый Gate — чёткие критерии перехода и состав артефактов:</div>
         <div class="slide-gate-row">
           <div class="slide-gate"><strong style="color:#8B8BAE;">G0</strong>Идея · Скрининг</div>
-          <div class="slide-gate"><strong style="color:#C49CFF;">G1</strong>Концепция · PSF</div>
+          <div class="slide-gate"><strong style="color:#B3E5FC;">G1</strong>Концепция · PSF</div>
           <div class="slide-gate"><strong style="color:#3B82F6;">G2</strong>Прототип · MVP</div>
           <div class="slide-gate"><strong style="color:#FFB830;">G3</strong>Разработка</div>
           <div class="slide-gate"><strong style="color:#FF2D8A;">G4</strong>Запуск · GTM</div>
@@ -375,11 +375,11 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
         <div class="slide-title">Текущие продукты<br><span class="acc">в портфеле</span></div>
         <div class="slide-gate-row">
           <div class="slide-gate"><strong style="color:#00D4B4;">WB Seller Portal</strong>Gate 4 · B2B</div>
-          <div class="slide-gate"><strong style="color:#C49CFF;">WB Pay</strong>Gate 3 · B2C</div>
+          <div class="slide-gate"><strong style="color:#B3E5FC;">WB Pay</strong>Gate 3 · B2C</div>
           <div class="slide-gate"><strong style="color:#00D4B4;">WB Logistics B2B</strong>Gate 2 · B2B</div>
           <div class="slide-gate"><strong style="color:#FFB830;">WB Gov Procurement</strong>Gate 1 · B2G</div>
           <div class="slide-gate"><strong style="color:#00D4B4;">WB Analytics Pro</strong>Gate 2 · B2B</div>
-          <div class="slide-gate"><strong style="color:#C49CFF;">WB Academy</strong>Gate 1 · B2C</div>
+          <div class="slide-gate"><strong style="color:#B3E5FC;">WB Academy</strong>Gate 1 · B2C</div>
         </div>
       </div>
 
@@ -388,7 +388,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
         <div class="slide-num-badge">07 / 10 · Метрики</div>
         <div class="slide-title">Метрики<br>и <span class="acc">здоровье продукта</span></div>
         <div class="slide-cols">
-          <div class="slide-col"><div class="slide-col-label" style="color:#7B2FFF;">North Star</div><div class="slide-col-body">Главная метрика: ценность, которую продукт создаёт для пользователя</div></div>
+          <div class="slide-col"><div class="slide-col-label" style="color:#4FC3F7;">North Star</div><div class="slide-col-body">Главная метрика: ценность, которую продукт создаёт для пользователя</div></div>
           <div class="slide-col"><div class="slide-col-label" style="color:#34D399;">NPS</div><div class="slide-col-body">Net Promoter Score — готовность рекомендовать. Цель ≥ 40</div></div>
           <div class="slide-col"><div class="slide-col-label" style="color:#00D4B4;">Retention</div><div class="slide-col-body">D30 удержание. Здоровый продукт: ≥ 30% через 30 дней</div></div>
         </div>
@@ -434,7 +434,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
         <div class="slide-num-badge">10 / 10 · Контакты</div>
         <div class="slide-title">Давайте создадим<br><span class="acc">продукт вместе</span></div>
         <div class="slide-body">
-          <strong>Платформа инноваций</strong> · Проектный офис · WB Экосистема<br><br>
+          <strong>ОРБИТА</strong> · Проектный офис · WB Экосистема<br><br>
           Написать: <strong>IKoval@rwb.ru</strong>
         </div>
       </div>
@@ -483,7 +483,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
 <!-- ── FOOTER ── -->
 <footer>
   <div class="page-footer">
-    <div><strong>Платформа инноваций</strong> · Проектный офис · Для бизнеса</div>
+    <div><strong>ОРБИТА</strong> · Проектный офис · Для бизнеса</div>
     <div style="display:flex;align-items:center;gap:10px;">
       <span>Март 2026 · v1.0</span>
       <span class="footer-admin-btn" id="admin-toggle" onclick="adminClick()" title="admin">⚙</span>
@@ -608,12 +608,12 @@ function openProductModal(idx) {
   if (window.Badge) {
     modalBadges = Badge.html('risk', p.status) + ' ' + Badge.html('gate', gate);
   }
-  var catTag = p.catLabel ? '<span class="badge" style="background:rgba(123,47,255,0.08);color:#7B2FFF;border-color:rgba(123,47,255,0.20);font-size:10px;padding:3px 8px;display:inline-flex;align-items:center;border:1px solid;border-radius:20px;font-weight:700;">' + p.catLabel + '</span>' : '';
+  var catTag = p.catLabel ? '<span class="badge" style="background:rgba(79,195,247,0.08);color:#4FC3F7;border-color:rgba(79,195,247,0.20);font-size:10px;padding:3px 8px;display:inline-flex;align-items:center;border:1px solid;border-radius:20px;font-weight:700;">' + p.catLabel + '</span>' : '';
   var kpiHtml = '';
   if (p.kpi && p.kpi.length) {
     kpiHtml = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0;">';
     p.kpi.forEach(function(k) {
-      kpiHtml += '<div style="text-align:center;padding:12px 8px;background:rgba(123,47,255,0.04);border:1px solid var(--border);border-radius:10px;">' +
+      kpiHtml += '<div style="text-align:center;padding:12px 8px;background:rgba(79,195,247,0.04);border:1px solid var(--border);border-radius:10px;">' +
         '<div style="font-family:var(--font-head);font-size:16px;font-weight:900;color:var(--text);">' + k.value + '</div>' +
         '<div style="font-size:11px;color:var(--muted);">' + k.label + '</div>' +
       '</div>';

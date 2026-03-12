@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Платформа инноваций — Для команды</title>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>ОРБИТА — Для команды</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../design-system.css">
 <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --dark:         #08081A;
-      --mid:          #111128;
-      --card:         #161630;
-      --surface2:     #1A1A38;
+      --dark:         #03080F;
+      --mid:          #040f1a;
+      --card:         #061525;
+      --surface2:     #0d2a40;
       --border:       rgba(255,255,255,0.07);
       --border-h:     rgba(255,255,255,0.14);
-      --violet:       #7B2FFF;
-      --violet-dim:   rgba(123,47,255,0.12);
-      --violet-border:rgba(123,47,255,0.35);
+      --violet:       #4FC3F7;
+      --violet-dim:   rgba(79,195,247,0.12);
+      --violet-border:rgba(79,195,247,0.35);
       --pink:         #FF2D8A;
       --teal:         #00D4B4;
       --teal-dim:     rgba(0,212,180,0.10);
@@ -31,8 +31,8 @@
       --muted:        #7A7A9D;
       --gray2:        #C4C4D8;
       --white:        #FFFFFF;
-      --font-head:    'Unbounded', sans-serif;
-      --font-body:    'Golos Text', sans-serif;
+      --font-head:    'Orbitron', sans-serif;
+      --font-body:    'Exo 2', sans-serif;
       --radius:       16px;
       --radius-sm:    10px;
     }
@@ -58,7 +58,7 @@
     .hero-tags { display:flex;gap:8px;flex-wrap:wrap;margin-top:28px;position:relative; }
     .tag { font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:0.06em;padding:3px 10px;border-radius:50px;border:1px solid; }
     .tag-t { color:var(--teal);  border-color:var(--teal-border);  background:var(--teal-dim); }
-    .tag-v { color:#C49CFF;      border-color:var(--violet-border); background:var(--violet-dim); }
+    .tag-v { color:#B3E5FC;      border-color:var(--violet-border); background:var(--violet-dim); }
     .tag-a { color:var(--amber); border-color:rgba(255,184,48,0.3); background:var(--amber-dim); }
 
     /* DIVIDER */
@@ -83,14 +83,14 @@
     /* MODULE CARDS */
     .mod-grid { display:flex;flex-direction:column;gap:8px; }
     .mod-row { display:flex;align-items:center;gap:14px;padding:14px 18px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--card);text-decoration:none;color:inherit;transition:border-color .18s,box-shadow .18s; }
-    .mod-row:hover { border-color:var(--border-h);box-shadow:0 2px 16px rgba(123,47,255,0.1); }
+    .mod-row:hover { border-color:var(--border-h);box-shadow:0 2px 16px rgba(79,195,247,0.1); }
     .mod-code { font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;min-width:36px; }
     .mod-name { font-size:14px;font-weight:600;color:var(--white);flex:1; }
     .mod-desc { font-size:12px;color:var(--muted);flex:2; }
     .mod-badge { font-family:var(--font-head);font-size:10px;font-weight:700;padding:3px 10px;border-radius:50px;white-space:nowrap;border:1px solid; }
     .st-green  { background:rgba(52,211,153,0.1);color:#34D399;border-color:rgba(52,211,153,0.25); }
     .st-blue   { background:rgba(59,130,246,0.1);color:#60A5FA;border-color:rgba(59,130,246,0.25); }
-    .st-violet { background:var(--violet-dim);color:#C49CFF;border-color:var(--violet-border); }
+    .st-violet { background:var(--violet-dim);color:#B3E5FC;border-color:var(--violet-border); }
     @media(max-width:600px){ .mod-desc{display:none;} }
 
     /* GATE CARDS */
@@ -115,14 +115,14 @@
     .check-note { font-size:11px;color:var(--muted);margin-top:3px; }
 
     /* CTA */
-    .cta { background:linear-gradient(135deg,rgba(0,212,180,0.08) 0%,rgba(123,47,255,0.1) 50%,rgba(255,45,138,0.06) 100%);border:1px solid rgba(0,212,180,0.25);border-radius:20px;padding:44px 40px;text-align:center;position:relative;overflow:hidden; }
+    .cta { background:linear-gradient(135deg,rgba(0,212,180,0.08) 0%,rgba(79,195,247,0.1) 50%,rgba(255,45,138,0.06) 100%);border:1px solid rgba(0,212,180,0.25);border-radius:20px;padding:44px 40px;text-align:center;position:relative;overflow:hidden; }
     .cta::before { content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:400px;height:200px;background:radial-gradient(ellipse,rgba(0,212,180,0.07) 0%,transparent 70%);pointer-events:none; }
     .cta h2 { font-family:var(--font-head);font-size:22px;font-weight:900;color:var(--white);margin-bottom:10px;position:relative; }
     .cta p { font-size:14px;color:var(--muted);margin-bottom:28px;max-width:440px;margin-left:auto;margin-right:auto;position:relative; }
     .cta-btns { display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative; }
     .btn { display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-size:13px;font-weight:700;padding:11px 24px;border-radius:var(--radius-sm);text-decoration:none;transition:all .18s;border:1px solid transparent; }
     .btn-primary { background:var(--violet);color:#fff;border-color:var(--violet-border); }
-    .btn-primary:hover { background:#9147FF;box-shadow:0 0 24px rgba(123,47,255,.4);transform:translateY(-1px); }
+    .btn-primary:hover { background:#81D4FA;box-shadow:0 0 24px rgba(79,195,247,.4);transform:translateY(-1px); }
     .btn-teal { background:var(--teal-dim);color:var(--teal);border-color:var(--teal-border); }
     .btn-teal:hover { background:rgba(0,212,180,0.18);transform:translateY(-1px); }
     .btn-ghost { background:rgba(255,255,255,.04);color:var(--text);border-color:var(--border-h); }
@@ -171,7 +171,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="eyebrow">Для команды</div>
-    <h1>Платформа инноваций<br><span class="glow">для команды</span></h1>
+    <h1>ОРБИТА<br><span class="glow">для команды</span></h1>
     <p class="hero-sub">Фреймворк, инструменты и поддержка — чтобы строить продукт правильно с первого дня</p>
     <p class="hero-desc">Подключись к платформе — получи ясный маршрут от идеи до масштаба, готовые шаблоны артефактов и поддержку Проектного офиса на каждом Gate-этапе.</p>
     <div class="hero-tags">
@@ -232,7 +232,7 @@
         <div class="mod-desc">Документация, гайды и шаблоны артефактов для команд</div>
         <span class="mod-badge st-green">В работе</span>
       </a>
-      <a class="mod-row" href="../Витрина/Платформа инноваций - главная страница.html">
+      <a class="mod-row" href="../Витрина/ОРБИТА - главная страница.html">
         <div class="mod-code" style="color:#34D399;">PR03</div>
         <div class="mod-name">Лендинг</div>
         <div class="mod-desc">Витрина платформы — точка входа для команд</div>
@@ -487,7 +487,7 @@
   </section>
 
   <footer class="footer">
-    <div><strong>Платформа инноваций</strong> · Для команды · Март 2026 · v1.0</div>
+    <div><strong>ОРБИТА</strong> · Для команды · Март 2026 · v1.0</div>
     <div>Проектный офис RWB</div>
   </footer>
 

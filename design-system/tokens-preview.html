@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Design Tokens — Preview</title>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -126,7 +126,7 @@ body{
 <div class="preview-hdr">
   <div class="wrap">
     <h1>Design Tokens</h1>
-    <p>Платформа инноваций — визуальный каталог всех токенов</p>
+    <p>ОРБИТА — визуальный каталог всех токенов</p>
     <div class="controls">
       <button class="theme-btn active" onclick="setTheme('light',this)">Light</button>
       <button class="theme-btn" onclick="setTheme('dark',this)">Dark</button>
@@ -203,12 +203,12 @@ body{
   <!-- Families -->
   <div style="margin-bottom:var(--space-8)">
     <div class="font-row">
-      <div class="font-name" style="font-family:var(--font-head)">Unbounded</div>
+      <div class="font-name" style="font-family:var(--font-head)">Orbitron</div>
       <div class="font-var">--font-head</div>
-      <div class="font-sample" style="font-family:var(--font-head);font-weight:900">Платформа инноваций</div>
+      <div class="font-sample" style="font-family:var(--font-head);font-weight:900">ОРБИТА</div>
     </div>
     <div class="font-row">
-      <div class="font-name" style="font-family:var(--font-body)">Golos Text</div>
+      <div class="font-name" style="font-family:var(--font-body)">Exo 2</div>
       <div class="font-var">--font-body</div>
       <div class="font-sample" style="font-family:var(--font-body)">Единая операционная система для управления продуктовым портфелем</div>
     </div>
@@ -284,9 +284,9 @@ function sw(container, items) {
 sw('sw-primary', [
   {v:'--color-primary-50', label:'50',   hex:'#F3EEFF'},
   {v:'--color-primary-100',label:'100',  hex:'#E0D0FF'},
-  {v:'--color-primary-200',label:'200',  hex:'#C49CFF'},
+  {v:'--color-primary-200',label:'200',  hex:'#B3E5FC'},
   {v:'--color-primary-300',label:'300',  hex:'#9B5FFF'},
-  {v:'--color-primary-400',label:'400',  hex:'#7B2FFF'},
+  {v:'--color-primary-400',label:'400',  hex:'#4FC3F7'},
   {v:'--color-primary-500',label:'500',  hex:'#6920E8'},
   {v:'--color-primary-600',label:'600',  hex:'#5720C8'},
   {v:'--color-primary-700',label:'700',  hex:'#4518A0'},
@@ -331,8 +331,8 @@ sw('sw-neutral', [
   {v:'--color-neutral-500',label:'500',hex:'#7A7A9D'},
   {v:'--color-neutral-600',label:'600',hex:'#6B6B8A'},
   {v:'--color-neutral-700',label:'700',hex:'#4A4A6A'},
-  {v:'--color-neutral-800',label:'800',hex:'#1A1A38'},
-  {v:'--color-neutral-900',label:'900',hex:'#08081A'}
+  {v:'--color-neutral-800',label:'800',hex:'#0d2a40'},
+  {v:'--color-neutral-900',label:'900',hex:'#03080F'}
 ]);
 sw('sw-bg', [
   {v:'--color-bg-page',   label:'page'},

@@ -1,9 +1,9 @@
 /*
  * ╔══════════════════════════════════════════════════════════╗
- * ║  EcoTech · RWB Design System                             ║
+ * ║  ОРБИТА · RWB Design System                               ║
  * ║  Единая дизайн-система корпоративного стиля WB           ║
  * ║  Основа: Фреймворк (rwb-product-os-v3)                   ║
- * ║  Обновлено: 2026-03-02                                    ║
+ * ║  Обновлено: 2026-03-13                                    ║
  * ╚══════════════════════════════════════════════════════════╝
  *
  * ПРАВИЛО: Иконки и визуал — строго по дизайн-системе.
@@ -16,7 +16,7 @@
  *   (поправь путь — ../  или  ./ в зависимости от глубины папки)
  *
  * Шрифты (добавь в <head> перед этим файлом):
- *   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+ *   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
  */
 
 /* ═══════════════════════════════════════════════════════════ RESET */
@@ -25,10 +25,10 @@
 /* ═══════════════════════════════════════════════════════════ TOKENS */
 :root {
   /* ── Brand colors ── */
-  --violet:         #7B2FFF;
-  --violet-dim:     rgba(123,47,255,0.12);
-  --violet-dimmer:  rgba(123,47,255,0.09);
-  --violet-border:  rgba(123,47,255,0.35);
+  --violet:         #4FC3F7;
+  --violet-dim:     rgba(79,195,247,0.12);
+  --violet-dimmer:  rgba(79,195,247,0.09);
+  --violet-border:  rgba(79,195,247,0.35);
 
   --pink:           #FF2D8A;
   --pink-dim:       rgba(255,45,138,0.12);
@@ -54,12 +54,12 @@
   --red-dim:        rgba(255,107,107,0.12);
 
   /* ── Neutral palette ── */
-  --dark:           #08081A;
-  --mid:            #111128;
-  --card:           #161630;
-  --surface:        #161630;
-  --surface2:       #1A1A38;
-  --surface3:       #222240;
+  --dark:           #03080F;
+  --mid:            #040f1a;
+  --card:           #061525;
+  --surface:        #061525;
+  --surface2:       #0d2a40;
+  --surface3:       #153550;
 
   /* ── Text ── */
   --text:           #E8E6FF;
@@ -74,18 +74,18 @@
 
   /* ── Gradients ── */
   --grad-brand:     linear-gradient(90deg, var(--violet), var(--pink), var(--teal));
-  --grad-hero:      linear-gradient(135deg, rgba(123,47,255,0.2) 0%, rgba(255,45,138,0.12) 50%, rgba(0,212,180,0.08) 100%);
-  --grad-logo:      linear-gradient(135deg, var(--violet), var(--pink));
+  --grad-hero:      linear-gradient(135deg, rgba(79,195,247,0.2) 0%, rgba(2,136,209,0.12) 50%, rgba(0,212,180,0.08) 100%);
+  --grad-logo:      linear-gradient(135deg, var(--violet), var(--teal));
 
   /* ── Typography ── */
-  --font-display:   'Unbounded', sans-serif;
-  --font-head:      'Unbounded', sans-serif;
-  --font-body:      'Golos Text', sans-serif;
+  --font-display:   'Orbitron', sans-serif;
+  --font-head:      'Orbitron', sans-serif;
+  --font-body:      'Exo 2', sans-serif;
 
   /* ── Spacing & layout ── */
   --sidebar-w:      256px;
   --topbar-h:       52px;
-  --nav-h:          44px;          /* EcoTech global nav */
+  --nav-h:          44px;          /* ОРБИТА global nav */
   --content-max:    1100px;
 
   /* ── Border radii ── */
@@ -155,7 +155,7 @@ body::before {
 #topbar {
   position: sticky;
   top: 0;
-  background: rgba(8,8,26,0.85);
+  background: rgba(3,8,15,0.85);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   padding: 0 32px;
@@ -335,7 +335,7 @@ body::before {
 /* ═══════════════════════════════════════════════════════════ HERO */
 .hero-banner {
   background: var(--grad-hero);
-  border: 1px solid rgba(123,47,255,0.3);
+  border: 1px solid rgba(79,195,247,0.3);
   border-radius: 20px;
   padding: 40px 48px;
   position: relative;
@@ -409,7 +409,7 @@ body::before {
 .card-sm:hover { border-color: var(--border-hi); }
 
 /* ── Color card variants ── */
-.card-violet { background: rgba(123,47,255,0.09); border-color: rgba(123,47,255,0.25); }
+.card-violet { background: rgba(79,195,247,0.09); border-color: rgba(79,195,247,0.25); }
 .card-pink   { background: rgba(255,45,138,0.07); border-color: rgba(255,45,138,0.22); }
 .card-teal   { background: rgba(0,212,180,0.06);  border-color: rgba(0,212,180,0.2); }
 .card-amber  { background: rgba(255,184,48,0.07); border-color: rgba(255,184,48,0.2); }
@@ -458,7 +458,7 @@ body::before {
   letter-spacing: 0.06em;
   white-space: nowrap;
 }
-.tag-v { background: rgba(123,47,255,0.2);  color: #C49CFF; border: 1px solid rgba(123,47,255,0.4); }
+.tag-v { background: rgba(79,195,247,0.2);  color: #B3E5FC; border: 1px solid rgba(79,195,247,0.4); }
 .tag-p { background: rgba(255,45,138,0.18); color: #FF85C0; border: 1px solid rgba(255,45,138,0.35); }
 .tag-t { background: rgba(0,212,180,0.13);  color: var(--teal);  border: 1px solid rgba(0,212,180,0.28); }
 .tag-a { background: rgba(255,184,48,0.15); color: var(--amber); border: 1px solid rgba(255,184,48,0.3); }
@@ -484,7 +484,7 @@ body::before {
 }
 .st-green  { color: #34D399; background: rgba(52,211,153,0.1);  border: 1px solid rgba(52,211,153,0.25); }
 .st-blue   { color: #60A5FA; background: rgba(96,165,250,0.1);  border: 1px solid rgba(96,165,250,0.25); }
-.st-violet { color: #C49CFF; background: rgba(123,47,255,0.12); border: 1px solid rgba(123,47,255,0.3); }
+.st-violet { color: #B3E5FC; background: rgba(79,195,247,0.12); border: 1px solid rgba(79,195,247,0.3); }
 .st-amber  { color: var(--amber); background: var(--amber-dim); border: 1px solid var(--amber-border); }
 .st-gray   { color: var(--muted); background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
 
@@ -509,7 +509,7 @@ body::before {
   background: var(--violet);
   color: #fff;
 }
-.btn-primary:hover { background: #9147FF; box-shadow: 0 0 24px rgba(123,47,255,0.35); }
+.btn-primary:hover { background: #81D4FA; box-shadow: 0 0 24px rgba(79,195,247,0.35); }
 
 .btn-outline {
   background: transparent;
@@ -796,7 +796,7 @@ body::before {
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
 
-/* ── EcoTech Icon System ─────────────────────────────────────────── */
+/* ── ОРБИТА Icon System ──────────────────────────────────────────── */
 .ei {
   display: inline-flex;
   align-items: center;
@@ -807,7 +807,7 @@ body::before {
 }
 
 /* Corporate color modifiers */
-.ei-violet { color: #7B2FFF; }
+.ei-violet { color: #4FC3F7; }
 .ei-teal   { color: #00D4B4; }
 .ei-amber  { color: #FFB830; }
 .ei-pink   { color: #FF2D8A; }

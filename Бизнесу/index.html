@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Платформа инноваций — Бизнесу</title>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>ОРБИТА — Бизнесу</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../design-system.css">
 <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --dark:         #08081A;
-      --mid:          #111128;
-      --card:         #161630;
-      --surface2:     #1A1A38;
+      --dark:         #03080F;
+      --mid:          #040f1a;
+      --card:         #061525;
+      --surface2:     #0d2a40;
       --border:       rgba(255,255,255,0.07);
       --border-h:     rgba(255,255,255,0.14);
-      --violet:       #7B2FFF;
-      --violet-dim:   rgba(123,47,255,0.12);
-      --violet-border:rgba(123,47,255,0.35);
+      --violet:       #4FC3F7;
+      --violet-dim:   rgba(79,195,247,0.12);
+      --violet-border:rgba(79,195,247,0.35);
       --pink:         #FF2D8A;
       --pink-dim:     rgba(255,45,138,0.12);
       --teal:         #00D4B4;
@@ -29,8 +29,8 @@
       --muted:        #7A7A9D;
       --gray2:        #C4C4D8;
       --white:        #FFFFFF;
-      --font-head:    'Unbounded', sans-serif;
-      --font-body:    'Golos Text', sans-serif;
+      --font-head:    'Orbitron', sans-serif;
+      --font-body:    'Exo 2', sans-serif;
       --radius:       16px;
       --radius-sm:    10px;
     }
@@ -47,7 +47,7 @@
 
     /* HERO */
     .hero { padding: 56px 0 48px; position: relative; overflow: hidden; }
-    .hero::before { content:'';position:absolute;top:-60px;right:-100px;width:480px;height:480px;background:radial-gradient(circle,rgba(123,47,255,0.06) 0%,transparent 65%);border-radius:50%;pointer-events:none; }
+    .hero::before { content:'';position:absolute;top:-60px;right:-100px;width:480px;height:480px;background:radial-gradient(circle,rgba(79,195,247,0.06) 0%,transparent 65%);border-radius:50%;pointer-events:none; }
     .eyebrow { display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.14em;color:var(--violet);text-transform:uppercase;margin-bottom:16px; }
     .hero h1 { font-family:var(--font-head);font-size:40px;font-weight:900;color:var(--white);line-height:1.1;letter-spacing:-1px;margin-bottom:16px; }
     .hero h1 .glow { background:linear-gradient(135deg,var(--violet),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
@@ -55,7 +55,7 @@
     .hero-desc { font-size:14px;color:var(--muted);max-width:540px;line-height:1.75; }
     .hero-tags { display:flex;gap:8px;flex-wrap:wrap;margin-top:28px; }
     .tag { font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:0.06em;padding:3px 10px;border-radius:50px;border:1px solid; }
-    .tag-v  { color:#C49CFF;border-color:rgba(123,47,255,0.4); background:rgba(123,47,255,0.18); }
+    .tag-v  { color:#B3E5FC;border-color:rgba(79,195,247,0.4); background:rgba(79,195,247,0.18); }
     .tag-t  { color:var(--teal); border-color:rgba(0,212,180,0.3);   background:rgba(0,212,180,0.1); }
     .tag-a  { color:var(--amber);border-color:rgba(255,184,48,0.3);  background:rgba(255,184,48,0.1); }
 
@@ -88,7 +88,7 @@
     .gc-label { display:flex;flex-direction:column;gap:5px;justify-content:center; }
     .gc { font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:0.06em;padding:3px 8px;border-radius:6px;width:fit-content; }
     .gc0 { color:#8B8BAE;background:rgba(139,139,174,0.12); }
-    .gc1 { color:#C49CFF;background:rgba(123,47,255,0.12); }
+    .gc1 { color:#B3E5FC;background:rgba(79,195,247,0.12); }
     .gc2 { color:#FF85C0;background:rgba(255,45,138,0.12); }
     .gc3 { color:var(--teal);background:rgba(0,212,180,0.1); }
     .gc4 { color:var(--amber);background:rgba(255,184,48,0.1); }
@@ -102,22 +102,22 @@
     .steps { display:flex;flex-direction:column; }
     .step { display:flex;gap:22px;padding:28px 0;border-bottom:1px solid var(--border); }
     .step:last-child { border-bottom:none; }
-    .step-n { width:40px;height:40px;border-radius:50%;background:var(--violet-dim);border:1px solid var(--violet-border);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:13px;font-weight:900;color:#C49CFF;flex-shrink:0;margin-top:2px; }
+    .step-n { width:40px;height:40px;border-radius:50%;background:var(--violet-dim);border:1px solid var(--violet-border);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:13px;font-weight:900;color:#B3E5FC;flex-shrink:0;margin-top:2px; }
     .step-body { flex:1; }
     .step-title { font-family:var(--font-head);font-size:15px;font-weight:900;color:var(--white);margin-bottom:6px; }
     .step-desc { font-size:13px;color:var(--muted);line-height:1.65;max-width:520px; }
-    .step-chip { display:inline-flex;align-items:center;margin-top:12px;font-size:11px;font-weight:600;color:#C49CFF;background:var(--violet-dim);border:1px solid var(--violet-border);padding:4px 12px;border-radius:50px;text-decoration:none;transition:background .15s; }
-    .step-chip:hover { background:rgba(123,47,255,0.2); }
+    .step-chip { display:inline-flex;align-items:center;margin-top:12px;font-size:11px;font-weight:600;color:#B3E5FC;background:var(--violet-dim);border:1px solid var(--violet-border);padding:4px 12px;border-radius:50px;text-decoration:none;transition:background .15s; }
+    .step-chip:hover { background:rgba(79,195,247,0.2); }
 
     /* CTA */
-    .cta { background:linear-gradient(135deg,rgba(123,47,255,0.15) 0%,rgba(255,45,138,0.08) 50%,rgba(0,212,180,0.06) 100%);border:1px solid rgba(123,47,255,0.3);border-radius:20px;padding:44px 40px;text-align:center;position:relative;overflow:hidden; }
-    .cta::before { content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:400px;height:200px;background:radial-gradient(ellipse,rgba(123,47,255,0.1) 0%,transparent 70%);pointer-events:none; }
+    .cta { background:linear-gradient(135deg,rgba(79,195,247,0.15) 0%,rgba(255,45,138,0.08) 50%,rgba(0,212,180,0.06) 100%);border:1px solid rgba(79,195,247,0.3);border-radius:20px;padding:44px 40px;text-align:center;position:relative;overflow:hidden; }
+    .cta::before { content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:400px;height:200px;background:radial-gradient(ellipse,rgba(79,195,247,0.1) 0%,transparent 70%);pointer-events:none; }
     .cta h2 { font-family:var(--font-head);font-size:22px;font-weight:900;color:var(--white);margin-bottom:10px;position:relative; }
     .cta p { font-size:14px;color:var(--muted);margin-bottom:28px;max-width:440px;margin-left:auto;margin-right:auto;position:relative; }
     .cta-btns { display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative; }
     .btn { display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-size:13px;font-weight:700;padding:11px 24px;border-radius:var(--radius-sm);text-decoration:none;transition:all .18s;border:1px solid transparent; }
     .btn-primary { background:var(--violet);color:#fff;border-color:var(--violet-border); }
-    .btn-primary:hover { background:#9147FF;box-shadow:0 0 24px rgba(123,47,255,.4);transform:translateY(-1px); }
+    .btn-primary:hover { background:#81D4FA;box-shadow:0 0 24px rgba(79,195,247,.4);transform:translateY(-1px); }
     .btn-ghost { background:rgba(255,255,255,.04);color:var(--text);border-color:var(--border-h); }
     .btn-ghost:hover { background:rgba(255,255,255,.08);border-color:var(--border-h);color:var(--white);transform:translateY(-1px); }
 
@@ -148,7 +148,7 @@
       flex-shrink:0;margin-top:2px;background:var(--violet-dim);color:var(--violet);}
     .scn-step-body{display:flex;flex-direction:column;gap:2px;flex:1;}
     .scn-step-link{font-size:13px;font-weight:600;text-decoration:none;color:var(--violet);transition:color .15s;}
-    .scn-step-link:hover{color:#C49CFF;}
+    .scn-step-link:hover{color:#B3E5FC;}
     .scn-step-text{font-size:13px;font-weight:600;color:var(--text);}
     .scn-step-note{font-size:11px;color:var(--muted);margin-top:1px;}
     @media(max-width:680px){.scn-grid{grid-template-columns:1fr;}}
@@ -164,7 +164,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="eyebrow">Для бизнеса</div>
-    <h1>Платформа инноваций<br><span class="glow">для бизнеса</span></h1>
+    <h1>ОРБИТА<br><span class="glow">для бизнеса</span></h1>
     <p class="hero-sub">Прозрачность, контроль и уверенность на каждом этапе развития продукта</p>
     <p class="hero-desc">Единый стандарт оценки зрелости продуктов — от первой идеи до масштабирования. Платформа даёт руководителям полную картину портфеля, снижает риски ранних инвестиций и делает Gate-решения обоснованными и предсказуемыми.</p>
     <div class="hero-tags">
@@ -378,7 +378,7 @@
   </section>
 
   <footer class="footer">
-    <div><strong>Платформа инноваций</strong> · Для бизнеса · Март 2026 · v1.0</div>
+    <div><strong>ОРБИТА</strong> · Для бизнеса · Март 2026 · v1.0</div>
     <div>Проектный офис RWB</div>
   </footer>
 

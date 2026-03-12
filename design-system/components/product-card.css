@@ -17,7 +17,7 @@
 /* ── Card base ─────────────────────────────────────────── */
 .pc {
   background: var(--color-bg-card, #FFFFFF);
-  border: 1px solid var(--color-border, rgba(123,47,255,0.10));
+  border: 1px solid var(--color-border, rgba(79,195,247,0.10));
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
@@ -29,9 +29,9 @@
 
 /* ── Hover state (+4px elevation) ──────────────────────── */
 .pc:hover {
-  border-color: var(--color-border-hi, rgba(123,47,255,0.20));
+  border-color: var(--color-border-hi, rgba(79,195,247,0.20));
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(123,47,255,0.14);
+  box-shadow: 0 12px 40px rgba(79,195,247,0.14);
 }
 
 /* ── At-risk state (red left border) ───────────────────── */
@@ -74,7 +74,7 @@
 
 /* ── Name ──────────────────────────────────────────────── */
 .pc__name {
-  font-family: 'Unbounded', var(--font-head, sans-serif);
+  font-family: 'Orbitron', var(--font-head, sans-serif);
   font-size: 13px;
   font-weight: 900;
   color: var(--color-text-primary, #1A1040);
@@ -104,17 +104,17 @@
   flex: 1;
   height: 4px;
   border-radius: 2px;
-  background: var(--color-border, rgba(123,47,255,0.10));
+  background: var(--color-border, rgba(79,195,247,0.10));
   transition: background 0.2s;
 }
 .pc__gate-step--active {
-  background: linear-gradient(90deg, #3B82F6, #7B2FFF);
+  background: linear-gradient(90deg, #3B82F6, #4FC3F7);
 }
 .pc__gate-step--done {
   background: #34D399;
 }
 .pc__gate-label {
-  font-family: 'Unbounded', var(--font-head, sans-serif);
+  font-family: 'Orbitron', var(--font-head, sans-serif);
   font-size: 9px;
   font-weight: 700;
   color: var(--color-text-muted, #7A7A9D);
@@ -134,7 +134,7 @@
   padding: 8px 4px;
   background: var(--color-bg-mid, #F3F0FF);
   border-radius: 8px;
-  border: 1px solid var(--color-border, rgba(123,47,255,0.10));
+  border: 1px solid var(--color-border, rgba(79,195,247,0.10));
 }
 .pc__kpi-icon {
   display: flex;
@@ -147,7 +147,7 @@
   height: 14px;
 }
 .pc__kpi-val {
-  font-family: 'Unbounded', var(--font-head, sans-serif);
+  font-family: 'Orbitron', var(--font-head, sans-serif);
   font-size: 12px;
   font-weight: 900;
   color: var(--color-text-primary, #1A1040);
@@ -166,17 +166,17 @@
   gap: 8px;
   margin-top: auto;
   padding-top: 12px;
-  border-top: 1px solid var(--color-border, rgba(123,47,255,0.10));
+  border-top: 1px solid var(--color-border, rgba(79,195,247,0.10));
 }
 .pc__avatar {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #7B2FFF, #C49CFF);
+  background: linear-gradient(135deg, #4FC3F7, #B3E5FC);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Unbounded', var(--font-head, sans-serif);
+  font-family: 'Orbitron', var(--font-head, sans-serif);
   font-size: 9px;
   font-weight: 900;
   color: #fff;
@@ -235,7 +235,7 @@
 /* ── Add card (admin) ──────────────────────────────────── */
 .pc--add {
   background: transparent;
-  border: 1px dashed var(--color-border-hi, rgba(123,47,255,0.20));
+  border: 1px dashed var(--color-border-hi, rgba(79,195,247,0.20));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -245,8 +245,8 @@
   transition: border-color 0.18s, background 0.18s;
 }
 .pc--add:hover {
-  border-color: #7B2FFF;
-  background: rgba(123,47,255,0.06);
+  border-color: #4FC3F7;
+  background: rgba(79,195,247,0.06);
   transform: none;
   box-shadow: none;
 }
@@ -255,10 +255,10 @@
   opacity: 0.5;
 }
 .pc--add-text {
-  font-family: 'Unbounded', var(--font-head, sans-serif);
+  font-family: 'Orbitron', var(--font-head, sans-serif);
   font-size: 11px;
   font-weight: 700;
-  color: #7B2FFF;
+  color: #4FC3F7;
 }
 
 /* ── Empty state ───────────────────────────────────────── */
@@ -277,7 +277,7 @@
   border-color: var(--color-border, rgba(255,255,255,0.08));
 }
 [data-theme="dark"] .pc:hover {
-  border-color: rgba(123,47,255,0.40);
+  border-color: rgba(79,195,247,0.40);
   box-shadow: 0 12px 40px rgba(0,0,0,0.3);
 }
 [data-theme="dark"] .pc--at-risk {

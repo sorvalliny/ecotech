@@ -25,7 +25,7 @@
     "status": "on-track",
     "cat": "b2c",
     "catLabel": "B2C",
-    "color": "linear-gradient(90deg,#7B2FFF,#C49CFF)",
+    "color": "linear-gradient(90deg,#4FC3F7,#B3E5FC)",
     "owner": "Мария К.",
     "updated": "2026-03-08",
     "kpi": [
@@ -79,7 +79,7 @@
     "status": "on-track",
     "cat": "b2b",
     "catLabel": "B2B",
-    "color": "linear-gradient(90deg,#3B82F6,#7B2FFF)",
+    "color": "linear-gradient(90deg,#3B82F6,#4FC3F7)",
     "owner": "Игорь Л.",
     "updated": "2026-03-09",
     "kpi": [
@@ -97,7 +97,7 @@
     "status": "done",
     "cat": "b2c",
     "catLabel": "B2C",
-    "color": "linear-gradient(90deg,#C49CFF,#FF85C0)",
+    "color": "linear-gradient(90deg,#B3E5FC,#FF85C0)",
     "owner": "Анна М.",
     "updated": "2026-03-05",
     "kpi": [
@@ -115,7 +115,7 @@
     "status": "on-track",
     "cat": "b2b",
     "catLabel": "B2B",
-    "color": "linear-gradient(90deg,#00D4B4,#7B2FFF)",
+    "color": "linear-gradient(90deg,#00D4B4,#4FC3F7)",
     "owner": "Кирилл Н.",
     "updated": "2026-03-12",
     "kpi": [

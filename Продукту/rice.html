@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Платформа инноваций — Калькулятор RICE</title>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>ОРБИТА — Калькулятор RICE</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --dark:#08081A;--mid:#111128;--card:#161630;--surface2:#1A1A38;
+  --dark:#03080F;--mid:#040f1a;--card:#061525;--surface2:#0d2a40;
   --border:rgba(255,255,255,.07);--border-hi:rgba(255,255,255,.14);
-  --violet:#7B2FFF;--vdim:rgba(123,47,255,.12);--vborder:rgba(123,47,255,.35);
+  --violet:#4FC3F7;--vdim:rgba(79,195,247,.12);--vborder:rgba(79,195,247,.35);
   --pink:#FF2D8A;--teal:#00D4B4;--tdim:rgba(0,212,180,.10);
   --amber:#FFB830;--adim:rgba(255,184,48,.10);
   --green:#34D399;--gdim:rgba(52,211,153,.10);--gborder:rgba(52,211,153,.3);
   --text:#E8E6FF;--muted:#7A7A9D;--white:#fff;
-  --font:'Golos Text',sans-serif;--head:'Unbounded',sans-serif;--mono:monospace;
+  --font:'Exo 2',sans-serif;--head:'Orbitron',sans-serif;--mono:monospace;
   --nav-h:44px;
 }
 html,body{height:100%}
@@ -35,7 +35,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pl-search{margin-top:8px;position:relative}
 .pl-search svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
 .pl-search input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:12px;padding:7px 10px 7px 30px;outline:none;transition:border-color .15s}
-.pl-search input:focus{border-color:rgba(123,47,255,.4)}
+.pl-search input:focus{border-color:rgba(79,195,247,.4)}
 .pl-search input::placeholder{color:var(--muted)}
 .pl-list{flex:1;overflow-y:auto;padding:8px}
 .pl-empty{padding:32px 12px;text-align:center;color:var(--muted);font-size:12px}
@@ -195,7 +195,7 @@ input[type=range]{position:absolute;inset:0;width:100%;opacity:0;cursor:pointer;
               <span class="slider-val" id="val-r">5</span>
             </div>
             <div class="slider-track">
-              <div class="slider-fill" id="fill-r" style="background:linear-gradient(90deg,#7B2FFF,#C49CFF);width:40%"></div>
+              <div class="slider-fill" id="fill-r" style="background:linear-gradient(90deg,#4FC3F7,#B3E5FC);width:40%"></div>
               <input type="range" id="sl-r" min="1" max="10" value="5" oninput="onSlider()">
             </div>
             <div class="slider-marks"><span>1 — единицы</span><span>5 — сотни</span><span>10 — тысячи</span></div>

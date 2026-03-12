@@ -6,10 +6,10 @@ window.ECOTECH_DATA = {
   "_meta": {
     "version": "1.0",
     "updated": "2026-03-02",
-    "description": "EcoTech Platform — единый источник данных. Редактируй этот файл, затем открой index.html."
+    "description": "ОРБИТА — единый источник данных. Редактируй этот файл, затем открой index.html."
   },
   "platform": {
-    "name": "EcoTech Platform",
+    "name": "ОРБИТА",
     "org": "Проектный офис · WB Экосистема",
     "tagline": "Система роста для продуктов и инициатив",
     "description": "Единый фреймворк, инструменты и стандарты — чтобы строить продукты предсказуемо, масштабируемо и с поддержкой на каждом этапе.",
@@ -70,7 +70,7 @@ window.ECOTECH_DATA = {
       "status_label": "В работе",
       "color": "#34D399",
       "color_class": "green",
-      "link": "Витрина/EcoTech Platform - главная страница.html"
+      "link": "Витрина/ОРБИТА - главная страница.html"
     },
     {
       "code": "PR04",
@@ -164,7 +164,7 @@ window.ECOTECH_DATA = {
   "portfolio": [
     {
       "code": "EDU-0",
-      "name": "EcoTech Platform",
+      "name": "ОРБИТА",
       "meta": "Платформа развития Экосистемы",
       "type": "platform",
       "pilot": false

@@ -1,5 +1,5 @@
 /**
- * Платформа инноваций — Global Search (Cmd+K / Ctrl+K)
+ * ОРБИТА — Global Search (Cmd+K / Ctrl+K)
  * Fuzzy search via Fuse.js, grouped results, keyboard navigation.
  *
  * Auto-loads: css/search.css, Fuse.js CDN, data/search-index.json

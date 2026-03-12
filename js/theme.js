@@ -1,5 +1,5 @@
 /**
- * Платформа инноваций — Theme Switcher
+ * ОРБИТА — Theme Switcher
  * Toggles data-theme="light" / "dark" on <html>.
  * Persists choice in localStorage key "theme".
  * Loaded by nav.js — button injected into .ecotech-nav.

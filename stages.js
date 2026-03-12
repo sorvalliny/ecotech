@@ -1,5 +1,5 @@
 /**
- * EcoTech Platform — Единая база стадий зрелости продукта
+ * ОРБИТА — Единая база стадий зрелости продукта
  * Синхронизирует Framework Lite и Хэндбук через localStorage + storage event
  * Ключ хранилища: 'ECOTECH_STAGES'
  */
@@ -27,9 +27,9 @@
       tagline: 'Custdev → PSF → Gate 1',
       goal: 'Подтвердить Problem-Solution Fit. Понять кто страдает и как сильно.',
       duration: '3–6 нед',
-      color: '#C49CFF',
-      colorDim: 'rgba(123,47,255,0.12)',
-      colorBorder: 'rgba(123,47,255,0.35)',
+      color: '#B3E5FC',
+      colorDim: 'rgba(79,195,247,0.12)',
+      colorBorder: 'rgba(79,195,247,0.35)',
       hbKey: 'discovery'
     },
     {

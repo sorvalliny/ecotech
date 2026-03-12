@@ -1,5 +1,5 @@
 /**
- * EcoTech Platform — shared bridge utility
+ * ОРБИТА — shared bridge utility
  * Подключается на всех страницах: window.PT
  */
 (function() {

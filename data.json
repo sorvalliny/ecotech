@@ -2,10 +2,10 @@
   "_meta": {
     "version": "1.0",
     "updated": "2026-03-02",
-    "description": "EcoTech Platform — единый источник данных. Редактируй этот файл, затем открой index.html."
+    "description": "ОРБИТА — единый источник данных. Редактируй этот файл, затем открой index.html."
   },
   "platform": {
-    "name": "EcoTech Platform",
+    "name": "ОРБИТА",
     "org": "Проектный офис · WB Экосистема",
     "tagline": "Система роста для продуктов и инициатив",
     "description": "Единый фреймворк, инструменты и стандарты — чтобы строить продукты предсказуемо, масштабируемо и с поддержкой на каждом этапе.",
@@ -66,7 +66,7 @@
       "status_label": "В работе",
       "color": "#34D399",
       "color_class": "green",
-      "link": "Витрина/EcoTech Platform - главная страница.html"
+      "link": "Витрина/ОРБИТА - главная страница.html"
     },
     {
       "code": "PR04",
@@ -160,7 +160,7 @@
   "portfolio": [
     {
       "code": "EDU-0",
-      "name": "EcoTech Platform",
+      "name": "ОРБИТА",
       "meta": "Платформа развития Экосистемы",
       "type": "platform",
       "pilot": false
@@ -305,7 +305,7 @@
           "desc": "Документация, гайды и шаблоны артефактов для команд на всех этапах Gate-модели.",
           "status_label": "В работе",
           "status_class": "st-green",
-          "color": "linear-gradient(90deg, #7B2FFF, #5C7AFF)",
+          "color": "linear-gradient(90deg, #4FC3F7, #5C7AFF)",
           "link": "Хэндбук/rwb-product-os-v12.html"
         }
       ]
@@ -317,11 +317,11 @@
         {
           "code": "PR03",
           "title": "Главная страница",
-          "desc": "Лендинг EcoTech Platform — Gate-модель G0–G5, все 8 модулей, пилот EdTech, CTA для команд.",
+          "desc": "Лендинг ОРБИТА — Gate-модель G0–G5, все 8 модулей, пилот EdTech, CTA для команд.",
           "status_label": "В работе",
           "status_class": "st-green",
           "color": "linear-gradient(90deg, #5C7AFF, #34D399)",
-          "link": "Витрина/EcoTech Platform - главная страница.html"
+          "link": "Витрина/ОРБИТА - главная страница.html"
         },
         {
           "code": "Wiki",
@@ -330,7 +330,7 @@
           "status_label": "В работе",
           "status_class": "st-green",
           "color": "linear-gradient(90deg, #34D399, #5C7AFF)",
-          "link": "Витрина/EcoTech Platform — Витрина.html"
+          "link": "Витрина/ОРБИТА — Витрина.html"
         }
       ]
     },

@@ -1,5 +1,5 @@
 /**
- * EcoTech Icon System (icons.js)
+ * ОРБИТА Icon System (icons.js)
  * Lucide-style outline SVG sprite + window.EI helper
  * 24×24 viewBox, 1.5px stroke, currentColor
  */

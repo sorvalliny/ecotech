@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   Theme Variables Override
+   ОРБИТА — Theme Variables Override
    Maps ALL page-level CSS custom properties to light/dark.
    Loaded via nav.js — applies to every page automatically.
 
@@ -14,39 +14,39 @@
 
 [data-theme="light"] {
   /* ── backgrounds ── */
-  --bg:       #F7F6FF;
-  --dark:     #FAF9FF;
-  --mid:      #F3F0FF;
+  --bg:       #F0F7FC;
+  --dark:     #F5FAFD;
+  --mid:      #E4EFF8;
   --card:     #FFFFFF;
-  --card2:    #F3F0FF;
+  --card2:    #E4EFF8;
   --surface:  #FFFFFF;
-  --surface2: #EDE8FF;
-  --surface3: #E8E4F8;
+  --surface2: #D8E8F4;
+  --surface3: #CCDEED;
 
   /* ── borders ── */
-  --border:       rgba(123,47,255,0.10);
-  --border-hi:    rgba(123,47,255,0.20);
-  --bhi:          rgba(123,47,255,0.20);
+  --border:       rgba(2,136,209,0.10);
+  --border-hi:    rgba(2,136,209,0.20);
+  --bhi:          rgba(2,136,209,0.20);
 
   /* ── text ── */
-  --text:   #1A1040;
-  --muted:  #7A7A9D;
-  --muted2: #9898B4;
-  --gray:   #6B6B8A;
-  --gray2:  #4A4A6A;
+  --text:   #0A1929;
+  --muted:  #4A7A9B;
+  --muted2: #6A98B4;
+  --gray:   #3A6A8A;
+  --gray2:  #1A3A54;
   --white:  #FFFFFF;
 
   /* ── brand colors (stay the same, only dim/border change) ── */
-  --violet:        #7B2FFF;
-  --violet-dim:    rgba(123,47,255,0.08);
-  --violet-border: rgba(123,47,255,0.25);
-  --vdim:          rgba(123,47,255,0.08);
-  --vborder:       rgba(123,47,255,0.25);
+  --violet:        #4FC3F7;
+  --violet-dim:    rgba(79,195,247,0.08);
+  --violet-border: rgba(79,195,247,0.25);
+  --vdim:          rgba(79,195,247,0.08);
+  --vborder:       rgba(79,195,247,0.25);
 
-  --pink:          #FF2D8A;
-  --pink-dim:      rgba(255,45,138,0.07);
-  --pink-border:   rgba(255,45,138,0.20);
-  --pdim:          rgba(255,45,138,0.07);
+  --pink:          #CE93D8;
+  --pink-dim:      rgba(206,147,216,0.07);
+  --pink-border:   rgba(206,147,216,0.20);
+  --pdim:          rgba(206,147,216,0.07);
 
   --teal:          #00B89E;
   --teal-dim:      rgba(0,184,158,0.08);
@@ -62,11 +62,11 @@
   --green-dim:     rgba(5,150,105,0.08);
   --gdim:          rgba(5,150,105,0.08);
 
-  --blue:          #3B82F6;
-  --blue-dim:      rgba(59,130,246,0.08);
-  --blue-border:   rgba(59,130,246,0.20);
-  --bdim:          rgba(59,130,246,0.08);
-  --bborder:       rgba(59,130,246,0.20);
+  --blue:          #0288D1;
+  --blue-dim:      rgba(2,136,209,0.08);
+  --blue-border:   rgba(2,136,209,0.20);
+  --bdim:          rgba(2,136,209,0.08);
+  --bborder:       rgba(2,136,209,0.20);
 
   --red:           #EF4444;
   --rdim:          rgba(239,68,68,0.08);
@@ -77,13 +77,13 @@
   --shadow-lg: 0 12px 48px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.05);
 
   /* ── framework-lite stage colours ── */
-  --c0:        #6B6B8A; --c0-dim: rgba(107,107,138,0.10); --c0-border: rgba(107,107,138,0.25);
-  --c1:        #7B2FFF; --c1-dim: rgba(123,47,255,0.08);  --c1-border: rgba(123,47,255,0.25);
+  --c0:        #3A6A8A; --c0-dim: rgba(58,106,138,0.10); --c0-border: rgba(58,106,138,0.25);
+  --c1:        #0288D1; --c1-dim: rgba(2,136,209,0.08);  --c1-border: rgba(2,136,209,0.25);
   --c2:        #00B89E; --c2-dim: rgba(0,184,158,0.08);   --c2-border: rgba(0,184,158,0.25);
-  --c3:        #FF2D8A; --c3-dim: rgba(255,45,138,0.07);  --c3-border: rgba(255,45,138,0.20);
+  --c3:        #CE93D8; --c3-dim: rgba(206,147,216,0.07); --c3-border: rgba(206,147,216,0.20);
   --c4:        #059669; --c4-dim: rgba(5,150,105,0.08);   --c4-border: rgba(5,150,105,0.25);
-  --c5:        #FF85C0; --c5-dim: rgba(255,133,192,0.08); --c5-border: rgba(255,133,192,0.25);
-  --c6:        #6B6B8A; --c6-dim: rgba(107,107,138,0.08); --c6-border: rgba(107,107,138,0.25);
+  --c5:        #4FC3F7; --c5-dim: rgba(79,195,247,0.08);  --c5-border: rgba(79,195,247,0.25);
+  --c6:        #3A6A8A; --c6-dim: rgba(58,106,138,0.08);  --c6-border: rgba(58,106,138,0.25);
 
   /* ── strategy page tokens ── */
   --gborder:  rgba(5,150,105,0.20);
@@ -107,14 +107,14 @@
 
 [data-theme="dark"] {
   /* ── backgrounds ── */
-  --bg:       #08081A;
-  --dark:     #08081A;
-  --mid:      #111128;
-  --card:     #161630;
-  --card2:    #161630;
-  --surface:  #161630;
-  --surface2: #1A1A38;
-  --surface3: #222240;
+  --bg:       #03080F;
+  --dark:     #03080F;
+  --mid:      #040f1a;
+  --card:     #061525;
+  --card2:    #061525;
+  --surface:  #061525;
+  --surface2: #0d2a40;
+  --surface3: #122d45;
 
   /* ── borders ── */
   --border:       rgba(255,255,255,0.07);
@@ -122,24 +122,24 @@
   --bhi:          rgba(255,255,255,0.14);
 
   /* ── text ── */
-  --text:   #E8E6FF;
-  --muted:  #7A7A9D;
-  --muted2: #5A5A7A;
-  --gray:   #8B8BAE;
-  --gray2:  #C4C4D8;
+  --text:   #E8F4FD;
+  --muted:  #4A7A9B;
+  --muted2: #2A5A7A;
+  --gray:   #6A98B4;
+  --gray2:  #9EC8E0;
   --white:  #FFFFFF;
 
   /* ── brand colors ── */
-  --violet:        #7B2FFF;
-  --violet-dim:    rgba(123,47,255,0.12);
-  --violet-border: rgba(123,47,255,0.35);
-  --vdim:          rgba(123,47,255,0.12);
-  --vborder:       rgba(123,47,255,0.35);
+  --violet:        #4FC3F7;
+  --violet-dim:    rgba(79,195,247,0.12);
+  --violet-border: rgba(79,195,247,0.35);
+  --vdim:          rgba(79,195,247,0.12);
+  --vborder:       rgba(79,195,247,0.35);
 
-  --pink:          #FF2D8A;
-  --pink-dim:      rgba(255,45,138,0.10);
-  --pink-border:   rgba(255,45,138,0.30);
-  --pdim:          rgba(255,45,138,0.10);
+  --pink:          #CE93D8;
+  --pink-dim:      rgba(206,147,216,0.10);
+  --pink-border:   rgba(206,147,216,0.30);
+  --pdim:          rgba(206,147,216,0.10);
 
   --teal:          #00D4B4;
   --teal-dim:      rgba(0,212,180,0.10);
@@ -155,11 +155,11 @@
   --green-dim:     rgba(52,211,153,0.10);
   --gdim:          rgba(52,211,153,0.10);
 
-  --blue:          #3B82F6;
-  --blue-dim:      rgba(59,130,246,0.10);
-  --blue-border:   rgba(59,130,246,0.35);
-  --bdim:          rgba(59,130,246,0.10);
-  --bborder:       rgba(59,130,246,0.30);
+  --blue:          #4FC3F7;
+  --blue-dim:      rgba(79,195,247,0.10);
+  --blue-border:   rgba(79,195,247,0.35);
+  --bdim:          rgba(79,195,247,0.10);
+  --bborder:       rgba(79,195,247,0.30);
 
   --red:           #EF4444;
   --rdim:          rgba(239,68,68,0.12);
@@ -170,13 +170,13 @@
   --shadow-lg: 0 12px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
 
   /* ── framework-lite stage colours ── */
-  --c0:        #8B8BAE; --c0-dim: rgba(139,139,174,0.10); --c0-border: rgba(139,139,174,0.30);
-  --c1:        #C49CFF; --c1-dim: rgba(123,47,255,0.12);  --c1-border: rgba(123,47,255,0.35);
+  --c0:        #6A98B4; --c0-dim: rgba(106,152,180,0.10); --c0-border: rgba(106,152,180,0.30);
+  --c1:        #4FC3F7; --c1-dim: rgba(79,195,247,0.12);  --c1-border: rgba(79,195,247,0.35);
   --c2:        #00D4B4; --c2-dim: rgba(0,212,180,0.10);   --c2-border: rgba(0,212,180,0.30);
-  --c3:        #FF85C0; --c3-dim: rgba(255,45,138,0.10);  --c3-border: rgba(255,45,138,0.30);
+  --c3:        #CE93D8; --c3-dim: rgba(206,147,216,0.10);  --c3-border: rgba(206,147,216,0.30);
   --c4:        #34D399; --c4-dim: rgba(52,211,153,0.12);  --c4-border: rgba(52,211,153,0.35);
-  --c5:        #FF85C0; --c5-dim: rgba(255,133,192,0.12); --c5-border: rgba(255,133,192,0.35);
-  --c6:        #8B8BAE; --c6-dim: rgba(139,139,174,0.12); --c6-border: rgba(139,139,174,0.35);
+  --c5:        #4FC3F7; --c5-dim: rgba(79,195,247,0.12);  --c5-border: rgba(79,195,247,0.35);
+  --c6:        #6A98B4; --c6-dim: rgba(106,152,180,0.12); --c6-border: rgba(106,152,180,0.35);
 
   /* ── strategy page tokens ── */
   --gborder:  rgba(52,211,153,0.30);
@@ -194,37 +194,37 @@
 
 /* ── Hero section overrides ────────────────────────────── */
 [data-theme="dark"] .hero-section {
-  background: linear-gradient(135deg, #0D0030 0%, #1A0A48 60%, #220E5A 100%) !important;
+  background: linear-gradient(135deg, #020810 0%, #041830 60%, #0a3560 100%) !important;
 }
 [data-theme="light"] .hero-section {
-  background: linear-gradient(135deg, #FAF9FF 0%, #F0EBFF 60%, #EDE4FF 100%) !important;
+  background: linear-gradient(135deg, #F5FAFD 0%, #E4EFF8 60%, #D8E8F4 100%) !important;
 }
 
 /* ── Orbit center glow adapts ─────────────────────────── */
 [data-theme="light"] .orbit-center {
-  box-shadow: 0 0 40px rgba(123,47,255,0.25);
+  box-shadow: 0 0 40px rgba(2,136,209,0.25);
 }
 [data-theme="dark"] .orbit-center {
-  box-shadow: 0 0 40px rgba(123,47,255,0.45);
+  box-shadow: 0 0 40px rgba(79,195,247,0.45);
 }
 
 /* ── Orbit ring visibility ─────────────────────────────── */
 [data-theme="light"] .orbit-ring {
-  border-color: rgba(123,47,255,0.08);
+  border-color: rgba(2,136,209,0.08);
 }
 [data-theme="dark"] .orbit-ring {
-  border-color: rgba(123,47,255,0.12);
+  border-color: rgba(79,195,247,0.12);
 }
 
 /* ── Planet labels ─────────────────────────────────────── */
 [data-theme="light"] .orbit-planet-label {
   background: rgba(255,255,255,0.92);
   color: var(--text);
-  box-shadow: 0 1px 4px rgba(123,47,255,0.10);
+  box-shadow: 0 1px 4px rgba(2,136,209,0.10);
 }
 [data-theme="dark"] .orbit-planet-label {
-  background: rgba(22,22,48,0.92);
-  color: #E8E6FF;
+  background: rgba(6,21,37,0.92);
+  color: #E8F4FD;
   box-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
@@ -240,8 +240,8 @@
 [data-theme="light"] .slide-gate,
 [data-theme="light"] .slide-role,
 [data-theme="light"] .slide-step-box {
-  background: rgba(123,47,255,0.04);
-  border-color: rgba(123,47,255,0.10);
+  background: rgba(2,136,209,0.04);
+  border-color: rgba(2,136,209,0.10);
 }
 
 /* ── Cards adapt on pages that use .card class ─────────── */
@@ -345,14 +345,14 @@
 [data-theme="light"] .init-step-name,
 [data-theme="light"] .doc-title,
 [data-theme="light"] .tmpl-name {
-  color: #1A1040 !important;
+  color: #0A1929 !important;
 }
 
 /* ── product.html: headings use var(--white), force dark ── */
 
 /* ── Framework page: stat gradient text fix ── */
 [data-theme="light"] .stat-val {
-  background: linear-gradient(135deg, #1A1040, #7A7A9D) !important;
+  background: linear-gradient(135deg, #0A1929, #4A7A9B) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
@@ -377,24 +377,24 @@
 [data-theme="light"] .rituals-table th,
 [data-theme="light"] .stack-table th,
 [data-theme="light"] .access-matrix th {
-  background: #F3F0FF !important;
-  color: #1A1040 !important;
+  background: #E4EFF8 !important;
+  color: #0A1929 !important;
 }
 [data-theme="light"] .sla-table tr:hover td,
 [data-theme="light"] .rituals-table tr:hover td,
 [data-theme="light"] .stack-table tr:hover td {
-  background: rgba(123,47,255,0.04) !important;
+  background: rgba(2,136,209,0.04) !important;
 }
 
 /* ── Framework page: tag-w (white tags) ── */
 [data-theme="light"] .tag-w {
-  background: rgba(123,47,255,0.06) !important;
-  color: #4A4A6A !important;
+  background: rgba(2,136,209,0.06) !important;
+  color: #1A3A54 !important;
 }
 
 /* ── Framework page: muted principle numbers ── */
 [data-theme="light"] .principle-num {
-  color: rgba(123,47,255,0.08) !important;
+  color: rgba(2,136,209,0.08) !important;
 }
 
 /* ── Framework page: modal ── */
@@ -402,7 +402,7 @@
   background: #FFFFFF !important;
 }
 [data-theme="light"] .modal-header {
-  background: #F3F0FF !important;
+  background: #E4EFF8 !important;
 }
 [data-theme="light"] .modal-close {
   background: rgba(0,0,0,0.04) !important;
@@ -429,7 +429,7 @@
   color: #fff !important;
 }
 
-/* ── Elements using color:#C4B5FD — use violet in light mode ── */
+/* ── Elements using color:#C4B5FD — use cosmic blue in light mode ── */
 [data-theme="light"] .ic-violet,
 [data-theme="light"] .dr-link-btn,
 [data-theme="light"] .cat-btn.active,
@@ -453,13 +453,13 @@
 [data-theme="light"] .rb-pm,
 [data-theme="light"] .dr-btn-copy,
 [data-theme="light"] .tpl-content h3 {
-  color: #7B2FFF !important;
+  color: #0288D1 !important;
 }
 
 /* ── Elements using color:#E8E8F0 or #E8E6FF — dark text ── */
 [data-theme="light"] .dd-item.on .dd-text,
 [data-theme="light"] .tpl-content strong {
-  color: #1A1040 !important;
+  color: #0A1929 !important;
 }
 
 /* ── Hover states that go to #fff — go to dark ── */
@@ -477,12 +477,12 @@
 [data-theme="light"] .btn-cancel:hover,
 [data-theme="light"] .tbl-edit-btn:hover,
 [data-theme="light"] .mo-cancel:hover {
-  color: #1A1040 !important;
+  color: #0A1929 !important;
 }
 
 /* ── .ic-pink, .ic-muted — adjust for light bg ── */
-[data-theme="light"] .ic-pink { color: #DB2777 !important; }
-[data-theme="light"] .ic-muted { color: #6B6B8A !important; }
+[data-theme="light"] .ic-pink { color: #AB47BC !important; }
+[data-theme="light"] .ic-muted { color: #3A6A8A !important; }
 
 /* ── Input fields on dark pages — dark text in light mode ── */
 [data-theme="light"] .id-field input,
@@ -494,14 +494,14 @@
 [data-theme="light"] .mfield select,
 [data-theme="light"] .mfield textarea,
 [data-theme="light"] .kr-row-m input {
-  color: #1A1040 !important;
+  color: #0A1929 !important;
   background: #FFFFFF !important;
-  border-color: rgba(123,47,255,0.15) !important;
+  border-color: rgba(2,136,209,0.15) !important;
 }
 
 /* ── .sg-list li strong (framework-lite) ── */
 [data-theme="light"] .sg-list li strong {
-  color: #1A1040 !important;
+  color: #0A1929 !important;
 }
 
 /* ── .stab.active (framework-lite) ── */
@@ -517,12 +517,12 @@
 /* ── Selection border (.pick-icon.sel, .pick-color.sel) ── */
 [data-theme="light"] .pick-icon.sel,
 [data-theme="light"] .pick-color.sel {
-  border-color: #7B2FFF !important;
+  border-color: #0288D1 !important;
 }
 
 /* ── Topbar & sidebar on framework page ── */
 [data-theme="light"] #topbar {
-  background: rgba(247,246,255,0.9) !important;
+  background: rgba(240,247,252,0.9) !important;
   border-bottom-color: var(--border) !important;
 }
 [data-theme="light"] #breadcrumb {
@@ -537,12 +537,12 @@
 
 /* ── Hero banner on framework page ── */
 [data-theme="light"] .hero-banner {
-  background: linear-gradient(135deg, #F0EBFF 0%, #E8E0FF 100%) !important;
+  background: linear-gradient(135deg, #E4EFF8 0%, #D8E8F4 100%) !important;
 }
 
 /* ── Dark card backgrounds in light mode ── */
-[data-theme="light"] .card-violet { background: rgba(123,47,255,0.06) !important; }
-[data-theme="light"] .card-pink   { background: rgba(255,45,138,0.05) !important; }
+[data-theme="light"] .card-violet { background: rgba(2,136,209,0.06) !important; }
+[data-theme="light"] .card-pink   { background: rgba(206,147,216,0.05) !important; }
 [data-theme="light"] .card-teal   { background: rgba(0,184,158,0.05) !important; }
 [data-theme="light"] .card-amber  { background: rgba(245,158,11,0.05) !important; }
 
@@ -565,41 +565,41 @@
    BREADCRUMBS — THEME RESPONSE
    ═══════════════════════════════════════════════════════════ */
 [data-theme="light"] .bc-bar {
-  background: #F3F0FF;
-  border-bottom-color: rgba(123,47,255,0.10);
+  background: #E4EFF8;
+  border-bottom-color: rgba(2,136,209,0.10);
 }
 [data-theme="light"] .bc-link {
-  color: #7A7A9D;
+  color: #4A7A9B;
 }
 [data-theme="light"] .bc-link:hover {
-  color: #1A1040;
-  background: rgba(123,47,255,0.06);
+  color: #0A1929;
+  background: rgba(2,136,209,0.06);
 }
 [data-theme="light"] .bc-current {
-  color: #1A1040;
+  color: #0A1929;
 }
 [data-theme="light"] .bc-chevron,
 [data-theme="light"] .bc-ellipsis {
-  color: #B0B0C8;
+  color: #8AB4CC;
 }
 
 [data-theme="dark"] .bc-bar {
-  background: #111128;
+  background: #040f1a;
   border-bottom-color: rgba(255,255,255,0.06);
 }
 [data-theme="dark"] .bc-link {
-  color: #7A7A9D;
+  color: #4A7A9B;
 }
 [data-theme="dark"] .bc-link:hover {
-  color: #F0ECFF;
+  color: #E8F4FD;
   background: rgba(255,255,255,0.06);
 }
 [data-theme="dark"] .bc-current {
-  color: #E8E6FF;
+  color: #E8F4FD;
 }
 [data-theme="dark"] .bc-chevron,
 [data-theme="dark"] .bc-ellipsis {
-  color: #5A5A7A;
+  color: #2A5A7A;
 }
 
 

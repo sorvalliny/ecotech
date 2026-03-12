@@ -1,5 +1,5 @@
 /**
- * Платформа инноваций — Universal Navigation
+ * ОРБИТА — Universal Navigation
  * Single source of truth for all pages.
  * Load as <script src="nav.js"></script> (root) or
  *         <script src="../nav.js"></script> (subdir).
@@ -10,6 +10,14 @@
   var src = me ? (me.getAttribute('src') || 'nav.js') : 'nav.js';
   // e.g. '' for root pages, '../' for subdirectory pages
   var base = src.replace(/[^/\\]*$/, '').replace(/^\.\//, '');
+
+  // ── load Google Fonts (Orbitron + Exo 2) ────────────────────
+  if (!document.getElementById('en-google-fonts')) {
+    var gf = document.createElement('link');
+    gf.id = 'en-google-fonts'; gf.rel = 'stylesheet';
+    gf.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@400;500;600;700&display=swap';
+    document.head.appendChild(gf);
+  }
 
   // ── load tokens.css + theme.js ────────────────────────────
   if (!document.getElementById('en-tokens-css')) {
@@ -90,7 +98,7 @@
   // ── nav HTML ────────────────────────────────────────────────
   var nav = '<nav class="ecotech-nav">'
 
-    + '<a class="en-logo" href="' + base + 'index.html"><span class="en-logo-mark">' + MARK_SVG + '</span>Платформа <span>инноваций</span></a>'
+    + '<a class="en-logo" href="' + base + 'index.html"><span class="en-logo-mark">' + MARK_SVG + '</span>ОРБИТА</a>'
     + '<div class="en-sep"></div>'
     + '<div class="en-links">'
 
@@ -117,6 +125,9 @@
     +     sep()
     +     grp('Инструменты и сервисы')
     +     a('Продукту/tools.html',                      'Инструменты')
+    +     sep()
+    +     grp('Справочник')
+    +     a('terminology.html',                         'Глоссарий терминов')
     +   '</div>'
     + '</div>'
 
@@ -128,35 +139,35 @@
 
   // ── CSS ─────────────────────────────────────────────────────
   var CSS = [
-    /* nav bar — asymmetric violet gradient, stands out on light + dark pages */
-    '.ecotech-nav{position:sticky;top:0;z-index:9999;height:48px;background:linear-gradient(105deg,#0D0030 0%,#2A0878 36%,#5720C8 62%,#7B2FFF 82%,#9040FF 100%);backdrop-filter:blur(24px);border-bottom:1px solid rgba(180,90,255,.22);display:flex;align-items:center;padding:0 24px;gap:0;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 2px 20px rgba(80,0,160,.35)}',
+    /* nav bar — asymmetric cosmic blue gradient, stands out on light + dark pages */
+    '.ecotech-nav{position:sticky;top:0;z-index:9999;height:48px;background:linear-gradient(105deg,#020810 0%,#041830 36%,#0a3560 62%,#0d5090 82%,#4FC3F7 100%);backdrop-filter:blur(24px);border-bottom:1px solid rgba(79,195,247,.22);display:flex;align-items:center;padding:0 24px;gap:0;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 2px 20px rgba(2,136,209,.35)}',
     /* logo */
-    ".en-logo{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:8px}",
-    '.en-logo span{color:rgba(220,190,255,.85)}',
+    ".en-logo{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:8px}",
+    '.en-logo span{color:rgba(180,225,255,.85)}',
     /* frosted-glass logo mark */
     '.en-logo-mark{width:28px;height:28px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;backdrop-filter:blur(8px)}',
     /* separator */
     '.en-sep{width:1px;height:18px;background:rgba(255,255,255,.15);margin:0 16px;flex-shrink:0}',
     '.en-links{display:flex;gap:2px;align-items:center}',
     '.en-drop{position:relative}',
-    /* nav items — lighter text for contrast on violet */
-    '.en-drop-trigger{font-size:12px;font-weight:700;color:rgba(220,210,255,.6);padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:flex;align-items:center;gap:3px;cursor:default;letter-spacing:.01em;text-decoration:none}',
+    /* nav items — lighter text for contrast on cosmic blue */
+    '.en-drop-trigger{font-size:12px;font-weight:700;color:rgba(180,220,255,.6);padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:flex;align-items:center;gap:3px;cursor:default;letter-spacing:.01em;text-decoration:none}',
     ".en-drop-trigger::after{content:'▾';font-size:9px;opacity:.5;margin-left:1px}",
     '.en-drop.is-open .en-drop-trigger,.en-drop-trigger:hover{color:#fff;background:rgba(255,255,255,.1)}',
     '.en-drop.en-active .en-drop-trigger{color:#fff;background:rgba(255,255,255,.14)}',
     /* dropdown panel */
-    '.en-drop-menu{position:absolute;top:calc(100% + 6px);left:0;background:rgba(10,3,28,.97);backdrop-filter:blur(24px);border:1px solid rgba(140,60,255,.25);border-radius:12px;padding:6px;min-width:240px;display:flex;flex-direction:column;gap:1px;z-index:10000;box-shadow:0 12px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-5px);transition:opacity .15s,transform .15s,visibility .15s}',
+    '.en-drop-menu{position:absolute;top:calc(100% + 6px);left:0;background:rgba(2,8,16,.97);backdrop-filter:blur(24px);border:1px solid rgba(79,195,247,.25);border-radius:12px;padding:6px;min-width:240px;display:flex;flex-direction:column;gap:1px;z-index:10000;box-shadow:0 12px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-5px);transition:opacity .15s,transform .15s,visibility .15s}',
     '.en-drop.is-open .en-drop-menu{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0)}',
     '.en-drop-menu a{font-size:12px;font-weight:500;color:#9090B8;text-decoration:none;padding:7px 11px;border-radius:8px;transition:color .15s,background .15s;white-space:nowrap;display:block}',
     '.en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,.07)}',
-    '.en-drop-menu a.en-active{color:#D4AAFF;background:rgba(123,47,255,.18)}',
-    '.en-drop-sep{height:1px;background:rgba(140,60,255,.15);margin:4px 6px}',
-    ".en-drop-grp{font-family:'Unbounded',sans-serif;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(160,100,255,.7);padding:6px 11px 3px;pointer-events:none}",
-    '.en-link{font-size:12px;font-weight:700;color:rgba(220,210,255,.6);text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}',
+    '.en-drop-menu a.en-active{color:#81D4FA;background:rgba(79,195,247,.18)}',
+    '.en-drop-sep{height:1px;background:rgba(79,195,247,.15);margin:4px 6px}',
+    ".en-drop-grp{font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(79,195,247,.7);padding:6px 11px 3px;pointer-events:none}",
+    '.en-link{font-size:12px;font-weight:700;color:rgba(180,220,255,.6);text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}',
     '.en-link:hover{color:#fff;background:rgba(255,255,255,.1)}',
     '.en-link.en-active{color:#fff;background:rgba(255,255,255,.14)}',
     /* theme toggle */
-    '.en-theme-btn{margin-left:auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(220,210,255,.7);transition:color .15s,background .15s,border-color .15s;flex-shrink:0;padding:0}',
+    '.en-theme-btn{margin-left:auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(180,220,255,.7);transition:color .15s,background .15s,border-color .15s;flex-shrink:0;padding:0}',
     '.en-theme-btn:hover{color:#fff;background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25)}',
     /* RWB logo — right side */
     '.en-rwb{margin-left:12px;display:flex;align-items:center;opacity:.7;transition:opacity .15s;flex-shrink:0}',

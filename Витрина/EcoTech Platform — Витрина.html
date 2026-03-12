@@ -3,23 +3,23 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoTech Platform — Витрина</title>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../design-system.css">
 <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       /* Backgrounds */
-      --bg:          #08081A;
-      --surface:     #111128;
-      --card:        #161630;
-      --surface2:    #1A1A38;
+      --bg:          #03080F;
+      --surface:     #040f1a;
+      --card:        #061525;
+      --surface2:    #0d2a40;
       --border:      rgba(255,255,255,0.07);
       --border-h:    rgba(255,255,255,0.14);
       /* Brand colors */
-      --violet:      #7B2FFF;
-      --violet-dim:  rgba(123,47,255,0.12);
-      --violet-border: rgba(123,47,255,0.35);
+      --violet:      #4FC3F7;
+      --violet-dim:  rgba(79,195,247,0.12);
+      --violet-border: rgba(79,195,247,0.35);
       --pink:        #FF2D8A;
       --pink-dim:    rgba(255,45,138,0.12);
       --pink-border: rgba(255,45,138,0.35);
@@ -33,7 +33,7 @@
       --blue:        #3B82F6;
       --blue-dim:    rgba(59,130,246,0.12);
       /* Stage colors */
-      --stage-g1:    #C49CFF;
+      --stage-g1:    #B3E5FC;
       --stage-g2:    #FF85C0;
       --stage-g0:    #8B8BAE;
       /* Text */
@@ -42,8 +42,8 @@
       --gray2:       #C4C4D8;
       --white:       #FFFFFF;
       /* Typography */
-      --font-head:   'Unbounded', sans-serif;
-      --font-body:   'Golos Text', sans-serif;
+      --font-head:   'Orbitron', sans-serif;
+      --font-body:   'Exo 2', sans-serif;
       /* Layout */
       --radius:      16px;
       --radius-sm:   10px;
@@ -99,7 +99,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      filter: drop-shadow(0 0 18px rgba(123,47,255,0.5));
+      filter: drop-shadow(0 0 18px rgba(79,195,247,0.5));
     }
 
     .hero-sub {
@@ -124,7 +124,7 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 180px; height: 180px;
-      background: radial-gradient(circle, rgba(123,47,255,0.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(79,195,247,0.12) 0%, transparent 70%);
       border-radius: 50%;
       pointer-events: none;
     }
@@ -149,7 +149,7 @@
     }
     .orb-ring-2 {
       width: 230px; height: 230px;
-      border-color: rgba(123,47,255,0.14);
+      border-color: rgba(79,195,247,0.14);
     }
     /* Subtle outer glow ring */
     .orb-ring-2::after {
@@ -157,7 +157,7 @@
       position: absolute;
       inset: -4px;
       border-radius: 50%;
-      border: 1px solid rgba(123,47,255,0.05);
+      border: 1px solid rgba(79,195,247,0.05);
     }
 
     /* Center element */
@@ -177,8 +177,8 @@
       animation: center-pulse 3.5s ease-in-out infinite;
     }
     @keyframes center-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(123,47,255,0.25), 0 0 18px rgba(123,47,255,0.18); }
-      50%       { box-shadow: 0 0 0 7px rgba(123,47,255,0), 0 0 28px rgba(123,47,255,0.3); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(79,195,247,0.25), 0 0 18px rgba(79,195,247,0.18); }
+      50%       { box-shadow: 0 0 0 7px rgba(79,195,247,0), 0 0 28px rgba(79,195,247,0.3); }
     }
     .orb-center-a {
       font-family: var(--font-head);
@@ -288,7 +288,7 @@
     }
     .module-card:hover {
       border-color: var(--violet-border);
-      box-shadow: 0 4px 24px rgba(123,47,255,0.12), 0 0 0 1px rgba(123,47,255,0.1);
+      box-shadow: 0 4px 24px rgba(79,195,247,0.12), 0 0 0 1px rgba(79,195,247,0.1);
       transform: translateY(-2px);
     }
 
@@ -410,7 +410,7 @@
     }
     .portfolio-card.platform {
       border-color: var(--violet-border);
-      box-shadow: 0 0 14px rgba(123,47,255,0.08);
+      box-shadow: 0 0 14px rgba(79,195,247,0.08);
     }
 
     .portfolio-code {

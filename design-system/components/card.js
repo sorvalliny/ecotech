@@ -1,5 +1,5 @@
 /**
- * Платформа инноваций — ProductCard Component
+ * ОРБИТА — ProductCard Component
  * Renders product cards with Gate progress, KPI metrics, status badges.
  *
  * Usage:
@@ -101,7 +101,7 @@
     // Badges
     var gateBadge = window.Badge ? Badge.html('gate', gate) : '<span>' + GATE_LABELS[gate] + '</span>';
     var riskBadge = window.Badge ? Badge.html('risk', status) : '<span>' + (STATUS_MAP[status] || status) + '</span>';
-    var catTag = p.catLabel ? '<span class="badge" style="background:rgba(123,47,255,0.08);color:#7B2FFF;border-color:rgba(123,47,255,0.20);font-size:10px;padding:3px 8px;">' + esc(p.catLabel) + '</span>' : '';
+    var catTag = p.catLabel ? '<span class="badge" style="background:rgba(79,195,247,0.08);color:#4FC3F7;border-color:rgba(79,195,247,0.20);font-size:10px;padding:3px 8px;">' + esc(p.catLabel) + '</span>' : '';
 
     // KPIs
     var kpisHtml = '';
@@ -127,7 +127,7 @@
     var dataIdx = (idx !== undefined) ? ' data-idx="' + idx + '"' : '';
 
     return '<div class="pc' + stateClass + '"' + dataIdx + '>' +
-      '<div class="pc__bar" style="background:' + (p.color || 'linear-gradient(90deg,#7B2FFF,#C49CFF)') + '"></div>' +
+      '<div class="pc__bar" style="background:' + (p.color || 'linear-gradient(90deg,#4FC3F7,#B3E5FC)') + '"></div>' +
       '<div class="pc__body">' +
         '<div class="pc__status">' + riskBadge + ' ' + gateBadge + ' ' + catTag + '</div>' +
         '<div class="pc__name">' + esc(p.name) + '</div>' +

@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RWB · Product OS · Хэндбук</title>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../design-system.css">
 <style>
 /* ═══ ПЕРЕМЕННЫЕ ═══ */
 :root {
   /* Brand colors — aligned to design-system */
-  --violet:        #7B2FFF;
-  --violet-dim:    rgba(123,47,255,0.12);
-  --violet-border: rgba(123,47,255,0.35);
+  --violet:        #4FC3F7;
+  --violet-dim:    rgba(79,195,247,0.12);
+  --violet-border: rgba(79,195,247,0.35);
   --pink:          #FF2D8A;
   --pink-dim:      rgba(255,45,138,0.12);
   --pink-border:   rgba(255,45,138,0.35);
@@ -27,21 +27,21 @@
   --red:           #FF6B6B;
   /* Gate stage colors mapped to design system */
   --stage-g0:      #8B8BAE;
-  --stage-g1:      #C49CFF;
+  --stage-g1:      #B3E5FC;
   --stage-g2:      #FF85C0;
   --stage-g3:      #00D4B4;
   --stage-g4:      #FFB830;
   --stage-g5:      #34D399;
   /* Neutrals */
-  --primary:       #7B2FFF;
-  --primary-dim:   rgba(123,47,255,0.12);
+  --primary:       #4FC3F7;
+  --primary-dim:   rgba(79,195,247,0.12);
   --danger:        #FF6B6B;
   --success:       #34D399;
   --warning:       #FFB830;
-  --dark:          #08081A;
-  --mid:           #111128;
-  --card:          #161630;
-  --surface2:      #1A1A38;
+  --dark:          #03080F;
+  --mid:           #040f1a;
+  --card:          #061525;
+  --surface2:      #0d2a40;
   --surface3:      #222240;
   --border:        rgba(255,255,255,0.07);
   --border-hi:     rgba(255,255,255,0.14);
@@ -50,9 +50,9 @@
   --gray2:         #C4C4D8;
   --white:         #FFFFFF;
   /* Typography */
-  --font-display:  'Unbounded', sans-serif;
-  --font-head:     'Unbounded', sans-serif;
-  --font-body:     'Golos Text', sans-serif;
+  --font-display:  'Orbitron', sans-serif;
+  --font-head:     'Orbitron', sans-serif;
+  --font-body:     'Exo 2', sans-serif;
   /* Layout */
   --sidebar-w:     256px;
   --radius:        16px;
@@ -99,7 +99,7 @@ body::before { content:'';position:fixed;inset:0;background-image:url("data:imag
   transition: all 0.15s; border-left: 2px solid transparent;
 }
 .nav-item:hover { color: #fff; background: rgba(255,255,255,0.04); }
-.nav-item.active { color: #fff; background: rgba(123,47,255,0.12); border-left-color: var(--primary); }
+.nav-item.active { color: #fff; background: rgba(79,195,247,0.12); border-left-color: var(--primary); }
 .nav-icon { font-size: 13px; width: 16px; text-align: center; flex-shrink: 0; }
 
 /* ═══ MAIN ═══ */
@@ -158,8 +158,8 @@ h3 { font-size: 14px; font-weight: 700; color: var(--gray2); margin-bottom: 12px
 
 /* ═══ BUTTONS ═══ */
 .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; font-family: var(--font-head); }
-.btn-primary { background: var(--violet); color: #fff; box-shadow: 0 4px 16px rgba(123,47,255,0.3); }
-.btn-primary:hover { background: #9147FF; box-shadow: 0 6px 24px rgba(123,47,255,0.45); }
+.btn-primary { background: var(--violet); color: #fff; box-shadow: 0 4px 16px rgba(79,195,247,0.3); }
+.btn-primary:hover { background: #81D4FA; box-shadow: 0 6px 24px rgba(79,195,247,0.45); }
 .btn-outline { background: transparent; color: var(--teal); border: 1px solid var(--teal-border); }
 .btn-outline:hover { background: var(--teal-dim); }
 .btn-sm { padding: 5px 10px; font-size: 11px; }
@@ -205,7 +205,7 @@ h3 { font-size: 14px; font-weight: 700; color: var(--gray2); margin-bottom: 12px
 
 /* ═══ ROLE CARDS ═══ */
 .role-card { padding: 16px 20px; }
-.role-icon { width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;color:var(--muted);margin-bottom:10px;letter-spacing:0; }
+.role-icon { width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;color:var(--muted);margin-bottom:10px;letter-spacing:0; }
 .role-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
 .role-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
 
