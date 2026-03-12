@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Badge Component — Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="status-badge.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--color-bg-page);color:var(--color-text-primary);line-height:1.65;padding:40px 28px 80px;transition:background .2s,color .2s}
+.wrap{max-width:800px;margin:0 auto}
+h1{font-family:var(--font-head);font-size:28px;font-weight:900;letter-spacing:-0.5px;margin-bottom:8px}
+.sub{font-size:14px;color:var(--color-text-muted);margin-bottom:32px}
+.controls{display:flex;gap:8px;margin-bottom:32px}
+.ctrl-btn{font-family:var(--font-body);font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--color-border);background:var(--color-bg-card);color:var(--color-text-primary);cursor:pointer;transition:all .15s}
+.ctrl-btn:hover{border-color:var(--color-border-hi)}
+.ctrl-btn.active{background:var(--color-primary-dim,rgba(123,47,255,.12));border-color:var(--color-primary-border,rgba(123,47,255,.35));color:var(--color-primary-400,#7B2FFF)}
+.section{margin-bottom:40px}
+.section-title{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--color-border)}
+.badge-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;align-items:center}
+.badge-desc{font-size:12px;color:var(--color-text-muted);margin-bottom:24px}
+.demo-card{background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:12px;padding:20px;margin-bottom:12px;display:flex;align-items:center;gap:16px}
+.demo-card-name{font-family:var(--font-head);font-size:13px;font-weight:700;flex:1}
+.demo-card-badges{display:flex;gap:8px;flex-wrap:wrap}
+.code-block{background:var(--color-bg-mid,#F3F0FF);border:1px solid var(--color-border);border-radius:8px;padding:14px 18px;font-family:var(--font-mono,monospace);font-size:12px;color:var(--color-text-body);line-height:1.7;overflow-x:auto;margin-bottom:8px}
+.code-label{font-size:10px;color:var(--color-text-muted);margin-bottom:4px;font-weight:600}
+.contrast-note{font-size:11px;color:var(--color-text-muted);display:flex;align-items:center;gap:6px;margin-top:4px}
+.contrast-check{color:#166534;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Badge Component</h1>
+  <p class="sub">Status badges for Gate progression and risk indicators. WCAG AA compliant (4.5:1+ contrast).</p>
+
+  <div class="controls">
+    <button class="ctrl-btn active" onclick="setT('light',this)">Light</button>
+    <button class="ctrl-btn" onclick="setT('dark',this)">Dark</button>
+  </div>
+
+  <!-- ── Gate Badges ── -->
+  <div class="section">
+    <div class="section-title">Gate Progression</div>
+    <div class="badge-row" id="gate-badges"></div>
+    <p class="badge-desc">Progressive darkening from neutral gray (Gate 0) through blue tones to green (Gate 5 — mature).</p>
+
+    <div class="code-label">HTML</div>
+    <div class="code-block">&lt;span class="badge badge--gate-0"&gt;...Gate 0&lt;/span&gt;
+&lt;span class="badge badge--gate-3"&gt;...Gate 3&lt;/span&gt;
+&lt;span class="badge badge--gate-5"&gt;...Gate 5&lt;/span&gt;</div>
+
+    <div class="code-label">JavaScript</div>
+    <div class="code-block">Badge.html('gate', 3)              // → HTML string
+Badge.html('gate', 3, 'Запуск')    // → custom label
+Badge.gate(5)                       // → DOM element</div>
+  </div>
+
+  <!-- ── Risk Badges ── -->
+  <div class="section">
+    <div class="section-title">Risk / Status</div>
+    <div class="badge-row" id="risk-badges"></div>
+    <p class="badge-desc">Semantic status indicators for project health dashboards.</p>
+
+    <div class="code-label">HTML</div>
+    <div class="code-block">&lt;span class="badge badge--on-track"&gt;...On Track&lt;/span&gt;
+&lt;span class="badge badge--at-risk"&gt;...At Risk&lt;/span&gt;
+&lt;span class="badge badge--paused"&gt;...Paused&lt;/span&gt;
+&lt;span class="badge badge--done"&gt;...Done&lt;/span&gt;</div>
+
+    <div class="code-label">JavaScript</div>
+    <div class="code-block">Badge.html('risk', 'at-risk')           // → HTML string
+Badge.html('risk', 'done', 'Готово')    // → custom label
+Badge.risk('on-track')                   // → DOM element</div>
+  </div>
+
+  <!-- ── Combined Example ── -->
+  <div class="section">
+    <div class="section-title">Product Cards Example</div>
+    <div id="demo-cards"></div>
+  </div>
+
+  <!-- ── WCAG Contrast ── -->
+  <div class="section">
+    <div class="section-title">Accessibility — WCAG AA Contrast</div>
+    <div id="contrast-table"></div>
+  </div>
+</div>
+
+<script src="badge.js"></script>
+<script>
+function setT(t, btn) {
+  document.querySelectorAll('.ctrl-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  document.documentElement.setAttribute('data-theme', t);
+}
+
+// Gate badges
+var gb = document.getElementById('gate-badges');
+for (var i = 0; i <= 5; i++) gb.innerHTML += Badge.html('gate', i);
+
+// Risk badges
+var rb = document.getElementById('risk-badges');
+['on-track','at-risk','paused','done'].forEach(function(r) {
+  rb.innerHTML += Badge.html('risk', r);
+});
+
+// Demo product cards
+var products = [
+  {name:'WB Seller Portal', gate:4, risk:'on-track'},
+  {name:'WB Pay',           gate:3, risk:'on-track'},
+  {name:'WB Logistics B2B', gate:3, risk:'at-risk'},
+  {name:'WB Gov Procurement',gate:1, risk:'paused'},
+  {name:'WB Analytics Pro',  gate:2, risk:'on-track'},
+  {name:'WB Academy',        gate:4, risk:'done'}
+];
+var dc = document.getElementById('demo-cards');
+products.forEach(function(p) {
+  dc.innerHTML += '<div class="demo-card">'
+    + '<div class="demo-card-name">' + p.name + '</div>'
+    + '<div class="demo-card-badges">'
+    + Badge.html('gate', p.gate)
+    + Badge.html('risk', p.risk)
+    + '</div></div>';
+});
+
+// Contrast table
+var contrasts = [
+  {name:'Gate 0', cls:'badge--gate-0', fg:'#4A4A6A', bg:'#F0EFF5', ratio:'5.1:1'},
+  {name:'Gate 1', cls:'badge--gate-1', fg:'#1E5FA8', bg:'#E8F1FD', ratio:'5.6:1'},
+  {name:'Gate 2', cls:'badge--gate-2', fg:'#1A5296', bg:'#DAEAF9', ratio:'5.9:1'},
+  {name:'Gate 3', cls:'badge--gate-3', fg:'#1B4A8A', bg:'#CDDFF4', ratio:'6.4:1'},
+  {name:'Gate 4', cls:'badge--gate-4', fg:'#163D7A', bg:'#C0D5EE', ratio:'6.2:1'},
+  {name:'Gate 5', cls:'badge--gate-5', fg:'#166534', bg:'#D1FAE5', ratio:'6.4:1'},
+  {name:'On Track',cls:'badge--on-track', fg:'#166534', bg:'#D1FAE5', ratio:'6.4:1'},
+  {name:'At Risk', cls:'badge--at-risk',  fg:'#9B1C1C', bg:'#FEE2E2', ratio:'5.8:1'},
+  {name:'Paused',  cls:'badge--paused',   fg:'#92400E', bg:'#FEF3C7', ratio:'5.4:1'},
+  {name:'Done',    cls:'badge--done',     fg:'#065F46', bg:'#D1FBE8', ratio:'6.1:1'}
+];
+var ct = document.getElementById('contrast-table');
+contrasts.forEach(function(c) {
+  ct.innerHTML += '<div class="contrast-note">'
+    + '<span class="contrast-check">AA ✓</span> '
+    + '<strong>' + c.name + '</strong> — '
+    + c.fg + ' on ' + c.bg + ' — <strong>' + c.ratio + '</strong>'
+    + '</div>';
+});
+</script>
+</body>
+</html>

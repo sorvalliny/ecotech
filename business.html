@@ -238,8 +238,10 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
   .slide-col,.slide-gate,.slide-role,.slide-step{background:#f5f5f5 !important;border-color:#ddd !important;}
 }
 </style>
+<link rel="stylesheet" href="design-system/components/status-badge.css">
 <script src="icons.js"></script>
 <script src="platform.js"></script>
+<script src="design-system/components/badge.js"></script>
 <script src="nav.js"></script>
 </head>
 <body>
@@ -736,9 +738,18 @@ function renderProducts() {
 
   var html = list.map(function(p, idx) {
     var realIdx = base.indexOf(p);
-    var statusBadge = p.status === 'prod'
-      ? '<span class="ps-badge ps-prod">● В проде</span>'
-      : '<span class="ps-badge ps-dev">◐ В разработке</span>';
+    // Extract gate number from stage string
+    var gateNum = parseInt((p.stage || '').replace(/\D/g, ''), 10);
+    if (isNaN(gateNum)) gateNum = 0;
+    var gateBadge = window.Badge ? Badge.html('gate', gateNum) : '<span class="product-card-stage">' + p.stage + '</span>';
+    // Map status to risk badge
+    var riskType = p.status === 'prod' ? 'on-track' : 'at-risk';
+    if (p.status === 'done') riskType = 'done';
+    if (p.status === 'paused') riskType = 'paused';
+    var riskLabel = p.status === 'prod' ? 'В проде' : 'В разработке';
+    if (p.status === 'done') riskLabel = 'Завершён';
+    if (p.status === 'paused') riskLabel = 'На паузе';
+    var riskBadge = window.Badge ? Badge.html('risk', riskType, riskLabel) : '<span class="ps-badge">' + riskLabel + '</span>';
     var extra = '';
     if (p.status === 'dev' && p.forecast) extra = '<div class="product-forecast">🗓 Релиз: ' + p.forecast + '</div>';
     if (p.status === 'prod' && p.metrics) extra = '<div class="product-metrics">📈 ' + p.metrics + '</div>';
@@ -746,9 +757,9 @@ function renderProducts() {
     return '<div class="product-card" onclick="openProductModal(' + realIdx + ')">' +
       '<div class="product-card-bar" style="background:' + p.color + ';"></div>' +
       '<div class="product-card-body">' +
-        '<div class="product-status-row">' + statusBadge + productTagHtml(p) + '</div>' +
+        '<div class="product-status-row">' + riskBadge + productTagHtml(p) + '</div>' +
         '<div class="product-card-name">' + p.name + '</div>' +
-        '<div class="product-card-stage">' + p.stage + '</div>' +
+        '<div style="margin-bottom:10px">' + gateBadge + '</div>' +
         '<div class="product-card-desc">' + p.desc + '</div>' +
         (p.initiatives && p.initiatives.length ? '<div class="product-card-initiatives">' +
           p.initiatives.map(function(i){ return '<span class="initiative-tag">' + i + '</span>'; }).join('') +
@@ -773,15 +784,20 @@ function renderProducts() {
 function openProductModal(idx) {
   var p = ACTIVE_PRODUCTS[idx];
   if (!p) return;
-  var statusBadge = p.status === 'prod'
-    ? '<span class="ps-badge ps-prod" style="margin-bottom:8px;display:inline-block;">● В проде' + (p.metrics ? ' · ' + p.metrics : '') + '</span>'
-    : '<span class="ps-badge ps-dev" style="margin-bottom:8px;display:inline-block;">◐ В разработке' + (p.forecast ? ' · релиз ' + p.forecast : '') + '</span>';
+  var gateNum = parseInt((p.stage || '').replace(/\D/g, ''), 10);
+  if (isNaN(gateNum)) gateNum = 0;
+  var riskType = p.status === 'prod' ? 'on-track' : 'at-risk';
+  if (p.status === 'done') riskType = 'done';
+  if (p.status === 'paused') riskType = 'paused';
+  var riskLabel = p.status === 'prod' ? 'В проде' : 'В разработке';
+  if (p.status === 'prod' && p.metrics) riskLabel += ' · ' + p.metrics;
+  if (p.status === 'dev' && p.forecast) riskLabel += ' · релиз ' + p.forecast;
+  var modalBadges = (window.Badge ? Badge.html('risk', riskType, riskLabel) : '') + ' '
+    + (window.Badge ? Badge.html('gate', gateNum) : '<span>' + p.stage + '</span>');
   document.getElementById('modal-body').innerHTML =
     '<div class="modal-header">' +
-      statusBadge +
-      '<div class="product-card-tags" style="margin-bottom:10px;">' + productTagHtml(p) +
-        '<span class="product-tag" style="background:rgba(0,212,180,0.08);color:#008870;border:1px solid rgba(0,212,180,0.2);">' + p.stage + '</span>' +
-      '</div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">' + modalBadges + '</div>' +
+      '<div class="product-card-tags" style="margin-bottom:10px;">' + productTagHtml(p) + '</div>' +
       '<div class="modal-title">' + p.name + '</div>' +
       '<div class="modal-sub">' + p.desc + '</div>' +
     '</div>' +
