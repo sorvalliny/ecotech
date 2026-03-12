@@ -1,0 +1,172 @@
+/* ═══════════════════════════════════════════════════════════
+   ОРБИТА — Onboarding Tour Styles (Shepherd.js overrides)
+   Uses design tokens from tokens.css
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Overlay ── */
+.shepherd-modal-overlay-container {
+  fill: rgba(3, 8, 15, 0.65);
+}
+
+/* ── Tooltip (dark theme) ── */
+.shepherd-element {
+  background: #0a1929;
+  border: 1px solid rgba(79, 195, 247, 0.25);
+  border-radius: 16px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(79, 195, 247, 0.08),
+    0 0 40px rgba(79, 195, 247, 0.08);
+  max-width: 380px;
+  font-family: 'Exo 2', sans-serif;
+  z-index: 10001;
+}
+
+.shepherd-arrow::before {
+  background: #0a1929 !important;
+  border-color: rgba(79, 195, 247, 0.25) !important;
+}
+
+/* ── Header ── */
+.shepherd-header {
+  background: transparent !important;
+  padding: 20px 22px 0 !important;
+}
+
+.shepherd-title {
+  font-family: 'Orbitron', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  color: #fff !important;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+
+.shepherd-cancel-icon {
+  color: rgba(255, 255, 255, 0.35) !important;
+  font-size: 20px !important;
+  transition: color 0.15s;
+}
+.shepherd-cancel-icon:hover {
+  color: #fff !important;
+}
+
+/* ── Body text ── */
+.shepherd-text {
+  padding: 12px 22px 6px !important;
+  font-size: 13px !important;
+  color: rgba(180, 210, 240, 0.75) !important;
+  line-height: 1.65 !important;
+}
+
+/* ── Step counter (eyebrow) ── */
+.tour-step-counter {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #4FC3F7;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* ── Footer / buttons ── */
+.shepherd-footer {
+  padding: 10px 22px 18px !important;
+  border-top: none !important;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.shepherd-button {
+  font-family: 'Orbitron', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+  padding: 8px 18px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.shepherd-button:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* Back button — ghost */
+.shepherd-button-secondary {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(180, 220, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+.shepherd-button-secondary:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Next / Done button — gradient */
+.shepherd-button-primary {
+  background: linear-gradient(135deg, #4FC3F7, #0288D1) !important;
+  color: #fff !important;
+}
+
+/* ── Progress dots ── */
+.tour-progress {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-right: auto;
+}
+.tour-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transition: background 0.2s, transform 0.2s;
+}
+.tour-dot.active {
+  background: #4FC3F7;
+  transform: scale(1.3);
+}
+
+/* ── Target highlight ── */
+.shepherd-target {
+  outline: 2px solid rgba(79, 195, 247, 0.5) !important;
+  outline-offset: 4px;
+  border-radius: 12px;
+  transition: outline-color 0.3s;
+}
+
+/* ── "Start Tour" header button ── */
+.tour-start-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(79, 195, 247, 0.10);
+  border: 1px solid rgba(79, 195, 247, 0.25);
+  border-radius: 8px;
+  color: #4FC3F7;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.tour-start-btn:hover {
+  background: rgba(79, 195, 247, 0.18);
+  color: #81D4FA;
+  border-color: rgba(79, 195, 247, 0.4);
+}
+.tour-start-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
