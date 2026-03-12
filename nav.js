@@ -23,6 +23,11 @@
     ts.id = 'en-theme-js'; ts.src = base + 'js/theme.js';
     document.head.appendChild(ts);
   }
+  if (!document.getElementById('en-search-js')) {
+    var ss = document.createElement('script');
+    ss.id = 'en-search-js'; ss.src = base + 'js/search.js';
+    document.head.appendChild(ss);
+  }
 
   // ── current page detection (handles Cyrillic file:// paths) ──
   var p;

@@ -1,0 +1,341 @@
+[
+  {
+    "id": "page-index",
+    "title": "Главная — Платформа инноваций",
+    "description": "Стартовая страница платформы инноваций RWB. Выбор роли: бизнес, продукт, PMO.",
+    "url": "index.html",
+    "category": "Документация",
+    "tags": ["главная", "старт", "роли", "бизнес", "продукт", "PMO"]
+  },
+  {
+    "id": "page-business",
+    "title": "Для бизнеса — портфель продуктов",
+    "description": "Дашборд для бизнеса: портфель продуктов, KPI, статусы, презентация платформы.",
+    "url": "business.html",
+    "category": "Документация",
+    "tags": ["бизнес", "портфель", "продукты", "KPI", "дашборд", "презентация"]
+  },
+  {
+    "id": "page-product",
+    "title": "Для продукта — с чего начать",
+    "description": "Стартовая страница для продуктовых команд. Ссылки на фреймворк, инструменты, стратегию.",
+    "url": "product.html",
+    "category": "Документация",
+    "tags": ["продукт", "команда", "старт", "фреймворк", "инструменты"]
+  },
+  {
+    "id": "page-templates",
+    "title": "Каталог шаблонов",
+    "description": "Библиотека шаблонов для всех стадий продукта: бриф, PRD, Discovery, ретро, метрики.",
+    "url": "Продукту/templates.html",
+    "category": "Шаблоны",
+    "tags": ["шаблоны", "каталог", "артефакты", "документы"]
+  },
+  {
+    "id": "page-tools",
+    "title": "Каталог инструментов",
+    "description": "Инструменты и сервисы платформы: RICE, трекер, GitLab, BI, Wiki и др.",
+    "url": "Продукту/tools.html",
+    "category": "Инструменты",
+    "tags": ["инструменты", "сервисы", "каталог", "RICE", "GitLab", "BI"]
+  },
+  {
+    "id": "page-strategy",
+    "title": "Стратегическое планирование",
+    "description": "Стратегия продукта: Identity, Goals, Roadmap, OKR, экспорт в Excel.",
+    "url": "Продукту/strategy.html",
+    "category": "Документация",
+    "tags": ["стратегия", "планирование", "OKR", "roadmap", "цели"]
+  },
+  {
+    "id": "page-rice",
+    "title": "Калькулятор RICE",
+    "description": "Приоритизация инициатив по методологии RICE: Reach, Impact, Confidence, Effort.",
+    "url": "Продукту/rice.html",
+    "category": "Инструменты",
+    "tags": ["RICE", "приоритизация", "калькулятор", "score", "инициативы"]
+  },
+  {
+    "id": "page-framework",
+    "title": "Продуктовый фреймворк RWB",
+    "description": "Операционный справочник: Gate 0→5, регламенты, чек-листы, шаблоны артефактов.",
+    "url": "Фреймворк/rwb-product-os-v3.html",
+    "category": "Документация",
+    "tags": ["фреймворк", "Gate", "регламенты", "Product OS", "операционный"]
+  },
+  {
+    "id": "page-framework-lite",
+    "title": "Гайд по стадиям зрелости",
+    "description": "Упрощённый путь продукта: O·0 Идея → O·5 Зрелость. Орбиты, артефакты, метрики.",
+    "url": "Фреймворк/framework-lite.html",
+    "category": "Документация",
+    "tags": ["стадии", "зрелость", "орбиты", "гайд", "framework lite"]
+  },
+  {
+    "id": "page-council",
+    "title": "Управляющий совет",
+    "description": "Структура управления: Core, Steering, Architecture комитеты. Роли, встречи, решения.",
+    "url": "Проектный офис/council.html",
+    "category": "Документация",
+    "tags": ["совет", "комитет", "управление", "governance", "PMO"]
+  },
+  {
+    "id": "page-handbook",
+    "title": "Хэндбук Product OS",
+    "description": "Полный справочник Product OS: гайды, стандарты, шаблоны для PM и Tech Lead.",
+    "url": "Хэндбук/rwb-product-os-v12.html",
+    "category": "Документация",
+    "tags": ["хэндбук", "справочник", "гайд", "PM", "Tech Lead"]
+  },
+  {
+    "id": "page-tokens",
+    "title": "Design Tokens — Preview",
+    "description": "Интерактивный каталог дизайн-токенов: цвета, типографика, отступы, тени.",
+    "url": "design-system/tokens-preview.html",
+    "category": "Инструменты",
+    "tags": ["дизайн", "токены", "цвета", "типографика", "design system"]
+  },
+  {
+    "id": "page-badge-demo",
+    "title": "Badge Component — Demo",
+    "description": "Демо компонента Badge: Gate 0–5, статусы On Track / At Risk / Paused / Done.",
+    "url": "design-system/components/badge-demo.html",
+    "category": "Инструменты",
+    "tags": ["badge", "компонент", "статус", "Gate", "demo", "design system"]
+  },
+
+  {
+    "id": "T01",
+    "title": "Бриф инициативы",
+    "description": "Стартовый документ для подачи новой инициативы в PMO. Заполняется заказчиком за 15–30 минут.",
+    "url": "Продукту/templates.html?t=T01",
+    "category": "Шаблоны",
+    "tags": ["бриф", "инициатива", "PMO", "Gate 0", "скрининг", "заявка"]
+  },
+  {
+    "id": "T02",
+    "title": "Discovery Report",
+    "description": "Итоговый документ Discovery — результаты исследования для прохождения Gate 1.",
+    "url": "Продукту/templates.html?t=T02",
+    "category": "Шаблоны",
+    "tags": ["discovery", "исследование", "отчёт", "Gate 1", "CustDev"]
+  },
+  {
+    "id": "T03",
+    "title": "PRD / Specification",
+    "description": "Product Requirements Document — требования к продукту перед стартом Delivery.",
+    "url": "Продукту/templates.html?t=T03",
+    "category": "Шаблоны",
+    "tags": ["PRD", "требования", "спецификация", "delivery", "product requirements"]
+  },
+  {
+    "id": "T04",
+    "title": "Gate Review",
+    "description": "Структура презентации на Gate-прохождении для Управляющего совета / Комитета.",
+    "url": "Продукту/templates.html?t=T04",
+    "category": "Шаблоны",
+    "tags": ["gate review", "презентация", "совет", "комитет", "прохождение"]
+  },
+  {
+    "id": "T05",
+    "title": "Sprint Planning",
+    "description": "Шаблон повестки и артефактов для планирования спринта.",
+    "url": "Продукту/templates.html?t=T05",
+    "category": "Шаблоны",
+    "tags": ["спринт", "планирование", "agile", "sprint", "delivery"]
+  },
+  {
+    "id": "T06",
+    "title": "Ретроспектива",
+    "description": "Структура ретро в формате Start / Stop / Continue + action items.",
+    "url": "Продукту/templates.html?t=T06",
+    "category": "Шаблоны",
+    "tags": ["ретро", "ретроспектива", "start stop continue", "action items"]
+  },
+  {
+    "id": "T07",
+    "title": "Метрики здоровья",
+    "description": "Шаблон дашборда метрик продукта для еженедельного / ежемесячного отчёта PMO.",
+    "url": "Продукту/templates.html?t=T07",
+    "category": "Шаблоны",
+    "tags": ["метрики", "дашборд", "KPI", "отчёт", "здоровье продукта"]
+  },
+  {
+    "id": "T08",
+    "title": "Release Notes",
+    "description": "Шаблон коммуникации о релизе для команды, заказчика и пользователей.",
+    "url": "Продукту/templates.html?t=T08",
+    "category": "Шаблоны",
+    "tags": ["release notes", "релиз", "коммуникация", "changelog"]
+  },
+  {
+    "id": "T09",
+    "title": "DoR / DoD Чеклист",
+    "description": "Чеклист готовности задачи к спринту и проверки завершённости.",
+    "url": "Продукту/templates.html?t=T09",
+    "category": "Шаблоны",
+    "tags": ["DoR", "DoD", "чеклист", "готовность", "definition of ready", "definition of done"]
+  },
+  {
+    "id": "T10",
+    "title": "Fast-Track Бриф",
+    "description": "Ускоренный бриф для стратегических инициатив. Срок скрининга PMO — 24 часа.",
+    "url": "Продукту/templates.html?t=T10",
+    "category": "Шаблоны",
+    "tags": ["fast-track", "ускоренный", "бриф", "стратегический", "24 часа"]
+  },
+  {
+    "id": "T11",
+    "title": "CustDev Скрипт",
+    "description": "Структура глубинного интервью с пользователем. 45–60 минут, 5+ интервью на гипотезу.",
+    "url": "Продукту/templates.html?t=T11",
+    "category": "Шаблоны",
+    "tags": ["CustDev", "интервью", "пользователь", "гипотеза", "исследование"]
+  },
+  {
+    "id": "T12",
+    "title": "ADR — Architecture Decision Record",
+    "description": "Фиксация архитектурного решения: контекст, варианты, выбор и последствия.",
+    "url": "Продукту/templates.html?t=T12",
+    "category": "Шаблоны",
+    "tags": ["ADR", "архитектура", "решение", "architecture", "decision record"]
+  },
+
+  {
+    "id": "prod-P01",
+    "title": "WB Seller Portal",
+    "description": "Личный кабинет продавца. Аналитика продаж, управление товарами, финансовые отчёты, логистика.",
+    "url": "business.html",
+    "category": "Продукты",
+    "tags": ["seller portal", "продавец", "аналитика", "B2B", "Gate 4"]
+  },
+  {
+    "id": "prod-P02",
+    "title": "WB Pay",
+    "description": "Платёжный сервис экосистемы. Карта, кешбэк, переводы, подписки, NFC-оплата.",
+    "url": "business.html",
+    "category": "Продукты",
+    "tags": ["pay", "платежи", "кешбэк", "NFC", "B2C", "Gate 3"]
+  },
+  {
+    "id": "prod-P03",
+    "title": "WB Logistics B2B",
+    "description": "Платформа фулфилмента и логистики для партнёров. Автораспределение, SLA, мониторинг.",
+    "url": "business.html",
+    "category": "Продукты",
+    "tags": ["логистика", "фулфилмент", "SLA", "B2B", "Gate 3", "at-risk"]
+  },
+  {
+    "id": "prod-P04",
+    "title": "WB Gov Procurement",
+    "description": "Платформа для государственных закупок. ФЗ-44/223, электронная подпись, интеграция с ЕИС.",
+    "url": "business.html",
+    "category": "Продукты",
+    "tags": ["госзакупки", "ФЗ-44", "B2G", "Gate 1", "paused"]
+  },
+  {
+    "id": "prod-P05",
+    "title": "WB Analytics Pro",
+    "description": "BI-платформа для аналитики продаж и поведения покупателей. Когорты, воронки, прогнозы.",
+    "url": "business.html",
+    "category": "Продукты",
+    "tags": ["аналитика", "BI", "когорты", "воронки", "B2B", "Gate 2"]
+  },
+  {
+    "id": "prod-P06",
+    "title": "WB Academy",
+    "description": "Образовательная платформа: курсы для продавцов и партнёров, сертификация, вебинары.",
+    "url": "business.html",
+    "category": "Продукты",
+    "tags": ["обучение", "курсы", "сертификация", "B2C", "Gate 5"]
+  },
+  {
+    "id": "prod-P07",
+    "title": "RWB Marketplace API",
+    "description": "Публичное API маркетплейса для интеграторов. REST + GraphQL, sandbox, документация.",
+    "url": "business.html",
+    "category": "Продукты",
+    "tags": ["API", "маркетплейс", "REST", "GraphQL", "B2B", "Gate 2"]
+  },
+
+  {
+    "id": "tool-rice",
+    "title": "Приоритизация (RICE)",
+    "description": "Калькулятор RICE: оцени инициативу по Reach, Impact, Confidence, Effort и обнови Score.",
+    "url": "Продукту/rice.html",
+    "category": "Инструменты",
+    "tags": ["RICE", "приоритизация", "калькулятор", "score"]
+  },
+  {
+    "id": "tool-framework",
+    "title": "Продуктовый фреймворк",
+    "description": "Операционный справочник контура. Gate 0→5, регламенты, чек-листы, шаблоны артефактов.",
+    "url": "Фреймворк/rwb-product-os-v3.html",
+    "category": "Инструменты",
+    "tags": ["фреймворк", "Gate", "регламенты", "Product OS"]
+  },
+  {
+    "id": "tool-framework-lite",
+    "title": "Гайд по стадиям продукта",
+    "description": "Упрощённый путь для быстрых гипотез: Discovery → Пилот → Запуск.",
+    "url": "Фреймворк/framework-lite.html",
+    "category": "Инструменты",
+    "tags": ["стадии", "гайд", "discovery", "пилот", "запуск"]
+  },
+  {
+    "id": "tool-handbook",
+    "title": "Хэндбук лидера",
+    "description": "Гайды, шаблоны и стандарты для PM и Tech Lead. G0–G5.",
+    "url": "Хэндбук/rwb-product-os-v12.html",
+    "category": "Инструменты",
+    "tags": ["хэндбук", "PM", "Tech Lead", "стандарты"]
+  },
+  {
+    "id": "tool-tracker",
+    "title": "Трекер проектов и инициатив",
+    "description": "Управление Gate-переходами, реестр продуктов, эпиков и целей.",
+    "url": "Проектный офис/RWB · Product OS - Трекер инициатив.html",
+    "category": "Инструменты",
+    "tags": ["трекер", "проекты", "инициативы", "Gate", "реестр"]
+  },
+  {
+    "id": "tool-strategy",
+    "title": "Стратегическое планирование",
+    "description": "Стратегия продукта: Identity, Goals, Roadmap, PRD, DoR/DoD.",
+    "url": "Продукту/strategy.html",
+    "category": "Инструменты",
+    "tags": ["стратегия", "планирование", "roadmap", "identity", "goals"]
+  },
+  {
+    "id": "tool-gitlab",
+    "title": "WB GitLab",
+    "description": "Репозитории кода, CI/CD пайплайны, merge request ревью.",
+    "url": "Продукту/tools.html",
+    "category": "Инструменты",
+    "tags": ["GitLab", "код", "CI/CD", "merge request", "разработка"]
+  },
+  {
+    "id": "tool-grafana",
+    "title": "WB Grafana",
+    "description": "Дашборды мониторинга, метрики сервисов, алерты.",
+    "url": "Продукту/tools.html",
+    "category": "Инструменты",
+    "tags": ["Grafana", "мониторинг", "метрики", "алерты", "дашборды"]
+  },
+  {
+    "id": "tool-bi",
+    "title": "WB BI",
+    "description": "Аналитические отчёты, дашборды, выгрузки данных экосистемы.",
+    "url": "Продукту/tools.html",
+    "category": "Инструменты",
+    "tags": ["BI", "аналитика", "отчёты", "данные", "дашборды"]
+  },
+  {
+    "id": "tool-youtrack",
+    "title": "YouTrack",
+    "description": "Система задач и трекинга инициатив. Спринты, бэклог, отчёты.",
+    "url": "Продукту/tools.html",
+    "category": "Инструменты",
+    "tags": ["YouTrack", "задачи", "спринты", "бэклог", "трекинг"]
+  }
+]
