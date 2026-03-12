@@ -330,8 +330,90 @@
 [data-theme="light"] .dd-head-label,
 [data-theme="light"] .mhead-title,
 [data-theme="light"] .quarter-sel,
-[data-theme="light"] .id-sel {
+[data-theme="light"] .id-sel,
+/* ── product.html hero + section headings ── */
+[data-theme="light"] .hero-h1,
+[data-theme="light"] .sec-title,
+/* ── rwb-product-os-v3.html (framework page) ── */
+[data-theme="light"] .principle-title,
+[data-theme="light"] .orbit-name,
+[data-theme="light"] .process-step-title,
+[data-theme="light"] .corp-title,
+[data-theme="light"] .gate-name,
+[data-theme="light"] .role-name,
+[data-theme="light"] .role-detail-title,
+[data-theme="light"] .init-step-name,
+[data-theme="light"] .doc-title,
+[data-theme="light"] .tmpl-name {
   color: #1A1040 !important;
+}
+
+/* ── product.html: headings use var(--white), force dark ── */
+
+/* ── Framework page: stat gradient text fix ── */
+[data-theme="light"] .stat-val {
+  background: linear-gradient(135deg, #1A1040, #7A7A9D) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* ── Framework page: subtle backgrounds → light equivalents ── */
+[data-theme="light"] .principle-card,
+[data-theme="light"] .process-step,
+[data-theme="light"] .corp-card,
+[data-theme="light"] .health-card,
+[data-theme="light"] .role-item,
+[data-theme="light"] .role-detail,
+[data-theme="light"] .doc-card,
+[data-theme="light"] .tmpl-card,
+[data-theme="light"] .modal-box {
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+}
+
+/* ── Framework page: table headers + hover rows ── */
+[data-theme="light"] .sla-table th,
+[data-theme="light"] .rituals-table th,
+[data-theme="light"] .stack-table th,
+[data-theme="light"] .access-matrix th {
+  background: #F3F0FF !important;
+  color: #1A1040 !important;
+}
+[data-theme="light"] .sla-table tr:hover td,
+[data-theme="light"] .rituals-table tr:hover td,
+[data-theme="light"] .stack-table tr:hover td {
+  background: rgba(123,47,255,0.04) !important;
+}
+
+/* ── Framework page: tag-w (white tags) ── */
+[data-theme="light"] .tag-w {
+  background: rgba(123,47,255,0.06) !important;
+  color: #4A4A6A !important;
+}
+
+/* ── Framework page: muted principle numbers ── */
+[data-theme="light"] .principle-num {
+  color: rgba(123,47,255,0.08) !important;
+}
+
+/* ── Framework page: modal ── */
+[data-theme="light"] .modal-box {
+  background: #FFFFFF !important;
+}
+[data-theme="light"] .modal-header {
+  background: #F3F0FF !important;
+}
+[data-theme="light"] .modal-close {
+  background: rgba(0,0,0,0.04) !important;
+}
+[data-theme="light"] .modal-close:hover {
+  background: rgba(0,0,0,0.08) !important;
+}
+
+/* ── Framework page: accordion "none" state ── */
+[data-theme="light"] .acc-none {
+  color: rgba(0,0,0,0.1) !important;
 }
 
 /* ── Buttons that use color:#fff — keep white on colored bg ── */
