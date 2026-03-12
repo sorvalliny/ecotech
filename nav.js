@@ -28,6 +28,17 @@
     ss.id = 'en-search-js'; ss.src = base + 'js/search.js';
     document.head.appendChild(ss);
   }
+  if (!document.getElementById('en-breadcrumbs-js')) {
+    var bs = document.createElement('script');
+    bs.id = 'en-breadcrumbs-js'; bs.src = base + 'js/breadcrumbs.js';
+    document.head.appendChild(bs);
+  }
+  if (!document.getElementById('en-responsive-css')) {
+    var rl = document.createElement('link');
+    rl.id = 'en-responsive-css'; rl.rel = 'stylesheet';
+    rl.href = base + 'css/responsive.css';
+    document.head.appendChild(rl);
+  }
 
   // ── current page detection (handles Cyrillic file:// paths) ──
   var p;
@@ -106,6 +117,7 @@
     + '</div>'
     + '<button id="en-theme-btn" class="en-theme-btn" onclick="EcoTheme.toggle()" title="Переключить тему"></button>'
     + '<a class="en-rwb" href="https://rwb.ru" target="_blank" rel="noopener">' + RWB_SVG + '</a>'
+    + '<button class="en-hamburger" id="en-hamburger" aria-label="Меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>'
     + '</nav>';
 
   // ── CSS ─────────────────────────────────────────────────────
@@ -161,6 +173,14 @@
       d.addEventListener('mouseenter', function () { clearTimeout(t); d.classList.add('is-open'); });
       d.addEventListener('mouseleave', function () { t = setTimeout(function () { d.classList.remove('is-open'); }, 120); });
     });
+    // hamburger toggle
+    var burger = document.getElementById('en-hamburger');
+    if (burger) {
+      burger.addEventListener('click', function () {
+        var navEl = document.querySelector('.ecotech-nav');
+        if (navEl) navEl.classList.toggle('nav-open');
+      });
+    }
     // populate theme button icon once theme.js has loaded
     function initThemeBtn() {
       if (window.EcoTheme) { EcoTheme.apply(EcoTheme.get()); }

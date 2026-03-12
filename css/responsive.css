@@ -1,0 +1,278 @@
+/* ═══════════════════════════════════════════════════════════
+   Responsive — Breakpoints: 640 / 1024 / 1280 px
+   Requires: design-system/tokens.css
+   Loaded via nav.js on all pages.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Touch targets (WCAG 2.5.5 — ≥44px) ───────────────── */
+@media (pointer: coarse) {
+  button, a, select, input[type="checkbox"], input[type="radio"],
+  .en-drop-trigger, .en-link, .pf-tab, .ctrl-btn, .search-item {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .en-drop-menu a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* ═════════════════════════════════════════════════════════
+   MOBILE — max 640px
+   ═════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+
+  /* ── Nav: hamburger mode ─────────────────────────────── */
+  .ecotech-nav {
+    padding: 0 12px;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 48px;
+  }
+  .en-logo {
+    font-size: 10px;
+  }
+  .en-logo span {
+    display: none;
+  }
+  .en-sep {
+    display: none;
+  }
+  .en-links {
+    order: 10;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease, padding 0.25s ease;
+    padding: 0;
+  }
+  .ecotech-nav.nav-open .en-links {
+    max-height: 400px;
+    padding: 8px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .en-drop-trigger {
+    padding: 10px 12px;
+    min-height: 44px;
+  }
+  .en-drop-menu {
+    position: static;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    padding: 0 0 0 16px;
+    min-width: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease;
+  }
+  .en-drop.is-open .en-drop-menu {
+    max-height: 500px;
+  }
+  .en-drop-menu a {
+    padding: 10px 12px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .en-rwb {
+    margin-left: 8px;
+  }
+  .en-rwb svg {
+    width: 48px;
+    height: 16px;
+  }
+
+  /* ── Hamburger button ────────────────────────────────── */
+  .en-hamburger {
+    display: flex !important;
+  }
+
+  /* ── Generic card grids → 1 column ──────────────────── */
+  .pc-grid,
+  .products-grid,
+  .slide-cols,
+  .slide-role-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Hero sections ───────────────────────────────────── */
+  .hero-section {
+    grid-template-columns: 1fr !important;
+    padding: 40px 16px 32px !important;
+    gap: 24px !important;
+  }
+  .orbit-wrap {
+    width: 260px !important;
+    height: 260px !important;
+    margin: 0 auto;
+  }
+  .hero-h1 {
+    font-size: 26px !important;
+  }
+  .hero-sub {
+    font-size: 14px !important;
+  }
+
+  /* ── Page wrap padding ───────────────────────────────── */
+  .page-wrap {
+    padding: 0 12px !important;
+  }
+
+  /* ── Section titles ──────────────────────────────────── */
+  .sec-title {
+    font-size: 20px !important;
+  }
+
+  /* ── Slide deck ──────────────────────────────────────── */
+  .slide {
+    padding: 28px 20px !important;
+  }
+  .slide-title {
+    font-size: 22px !important;
+  }
+
+  /* ── Filters row ─────────────────────────────────────── */
+  .products-filters,
+  .pf-tabs {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .pf-tab {
+    padding: 8px 14px;
+    min-height: 44px;
+  }
+
+  /* ── Product card KPIs ───────────────────────────────── */
+  .pc__kpis {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  /* ── Modal ───────────────────────────────────────────── */
+  .modal {
+    width: 95vw !important;
+    max-width: none !important;
+    margin: 16px !important;
+  }
+
+  /* ── Footer ──────────────────────────────────────────── */
+  .page-footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  /* ── Breadcrumb — only last 2 levels ─────────────────── */
+  .bc-bar {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}
+
+/* ═════════════════════════════════════════════════════════
+   TABLET — 641px to 1024px
+   ═════════════════════════════════════════════════════════ */
+@media (min-width: 641px) and (max-width: 1024px) {
+
+  /* ── Card grids → 2 columns ─────────────────────────── */
+  .pc-grid,
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* ── Hero ────────────────────────────────────────────── */
+  .hero-section {
+    grid-template-columns: 1fr 300px !important;
+    gap: 28px !important;
+  }
+  .orbit-wrap {
+    width: 300px !important;
+    height: 300px !important;
+  }
+
+  /* ── Page wrap ───────────────────────────────────────── */
+  .page-wrap {
+    padding: 0 20px !important;
+  }
+
+  /* ── Nav: compact ────────────────────────────────────── */
+  .en-logo {
+    font-size: 10px;
+  }
+
+  /* ── Slide columns ───────────────────────────────────── */
+  .slide-cols {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ═════════════════════════════════════════════════════════
+   DESKTOP — 1025px+
+   ═════════════════════════════════════════════════════════ */
+@media (min-width: 1025px) {
+  /* ── Card grids → 3 columns ─────────────────────────── */
+  .pc-grid,
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* ── Hamburger hidden ────────────────────────────────── */
+  .en-hamburger {
+    display: none !important;
+  }
+}
+
+/* ═════════════════════════════════════════════════════════
+   WIDE DESKTOP — 1280px+
+   ═════════════════════════════════════════════════════════ */
+@media (min-width: 1280px) {
+  .page-wrap {
+    max-width: 1200px;
+  }
+}
+
+/* ── Hamburger button (injected by JS) ─────────────────── */
+.en-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-height: 44px;
+  min-width: 44px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  cursor: pointer;
+  color: rgba(220,210,255,0.7);
+  transition: color 0.15s, background 0.15s;
+  margin-left: 8px;
+  padding: 0;
+  flex-shrink: 0;
+}
+.en-hamburger:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.14);
+}
+.en-hamburger svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Smooth transitions for layout ─────────────────────── */
+.page-wrap,
+.hero-section,
+.pc-grid,
+.products-grid {
+  transition: padding 0.2s ease;
+}
