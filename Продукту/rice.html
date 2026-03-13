@@ -30,7 +30,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pl-head{padding:16px 16px 12px;border-bottom:1px solid var(--border);flex-shrink:0}
 .pl-title{font-family:var(--head);font-size:13px;font-weight:900;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .proj-select{width:100%;background:var(--card);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:var(--font);font-size:12px;padding:8px 12px;outline:none;cursor:pointer;transition:border-color .15s}
-.proj-select:focus{border-color:var(--vborder)}
+.proj-select:focus{border-color:var(--violet-border)}
 .proj-select option{background:var(--card)}
 .pl-search{margin-top:8px;position:relative}
 .pl-search svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
@@ -41,7 +41,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pl-empty{padding:32px 12px;text-align:center;color:var(--muted);font-size:12px}
 .irow{padding:9px 11px;border-radius:9px;cursor:pointer;transition:background .13s;display:flex;flex-direction:column;gap:4px;border:1px solid transparent;margin-bottom:2px}
 .irow:hover{background:var(--surface2)}
-.irow.sel{background:var(--vdim);border-color:var(--vborder)}
+.irow.sel{background:var(--violet-dim);border-color:var(--violet-border)}
 .irow-top{display:flex;align-items:center;gap:6px}
 .irow-id{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:.05em}
 .irow-score{margin-left:auto;font-family:var(--mono);font-size:11px;font-weight:700}
@@ -50,9 +50,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .irow-proj{font-size:10px;color:var(--muted)}
 .ist-chip{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;letter-spacing:.03em;font-family:var(--head)}
 .ist-backlog{background:rgba(107,107,142,.15);color:var(--muted)}
-.ist-planned{background:var(--vdim);color:#C4B5FD}
-.ist-wip    {background:var(--tdim);color:#00D4B4}
-.ist-done   {background:var(--gdim);color:#34D399}
+.ist-planned{background:var(--violet-dim);color:#C4B5FD}
+.ist-wip    {background:var(--teal-dim);color:#00D4B4}
+.ist-done   {background:var(--green-dim);color:#34D399}
 .score-hi{color:#34D399}
 .score-mid{color:#FFB830}
 .score-lo{color:var(--muted)}
@@ -66,7 +66,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* placeholder */
 .placeholder{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px;text-align:center}
-.placeholder-icon{width:64px;height:64px;border-radius:18px;background:var(--vdim);display:flex;align-items:center;justify-content:center;color:#C4B5FD}
+.placeholder-icon{width:64px;height:64px;border-radius:18px;background:var(--violet-dim);display:flex;align-items:center;justify-content:center;color:#C4B5FD}
 .placeholder-title{font-family:var(--head);font-size:14px;font-weight:900;color:#fff}
 .placeholder-sub{font-size:13px;color:var(--muted);max-width:320px;line-height:1.6}
 
@@ -106,8 +106,8 @@ input[type=range]{position:absolute;inset:0;width:100%;opacity:0;cursor:pointer;
 .score-val{font-family:var(--mono);font-size:48px;font-weight:700;line-height:1;transition:color .2s}
 .score-formula{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px}
 .score-tier{font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;letter-spacing:.06em;font-family:var(--head);margin-top:4px}
-.tier-hi {background:var(--gdim);color:#34D399;border:1px solid var(--gborder)}
-.tier-mid{background:var(--adim);color:#FFB830;border:1px solid rgba(255,184,48,.3)}
+.tier-hi {background:var(--green-dim);color:#34D399;border:1px solid var(--gborder)}
+.tier-mid{background:var(--amber-dim);color:#FFB830;border:1px solid rgba(255,184,48,.3)}
 .tier-lo {background:rgba(107,107,142,.12);color:var(--muted);border:1px solid var(--border)}
 
 .score-delta{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px;background:var(--surface2);border-radius:9px;width:100%}
@@ -130,6 +130,10 @@ input[type=range]{position:absolute;inset:0;width:100%;opacity:0;cursor:pointer;
   .calc-body{flex-direction:column}
   .calc-right{width:100%}
 }
+
+/* ── FOOTER ── */
+.page-footer{border-top:1px solid var(--border);padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);max-width:1060px;margin:0 auto;}
+.page-footer strong{color:rgba(255,255,255,0.3);}
 </style>
 <script src="../icons.js"></script>
 <script src="../platform.js"></script>
@@ -505,5 +509,12 @@ loadData();
 renderProjSelect();
 renderList();
 </script>
+
+<footer>
+  <div class="page-footer">
+    <div><strong>ОРБИТА</strong> · Проектный офис · RICE Приоритизация</div>
+    <div>Март 2026 · v1.0</div>
+  </div>
+</footer>
 </body>
 </html>

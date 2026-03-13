@@ -5,9 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — KPI Дашборд</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"
+        onerror="window.__chartjsFailed=true;document.querySelectorAll('.chart-wrap,.chart-wrap-scatter').forEach(function(el){el.innerHTML='<p style=&quot;text-align:center;padding:40px 16px;color:#7A7A9D;font-size:13px;&quot;>Не удалось загрузить библиотеку графиков. Проверьте подключение к сети и обновите страницу.</p>';})"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"
+        onerror="window.__html2canvasFailed=true;var b=document.getElementById('pdfBtn');if(b){b.disabled=true;b.title='Экспорт недоступен: не удалось загрузить html2canvas';}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"
+        onerror="window.__jspdfFailed=true;var b=document.getElementById('pdfBtn');if(b){b.disabled=true;b.title='Экспорт недоступен: не удалось загрузить jsPDF';}"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -149,6 +152,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* hide export button during capture */
 .capturing .pdf-btn{display:none!important;}
+
+/* ── FOOTER ── */
+.page-footer{border-top:1px solid var(--border);padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);max-width:1060px;margin:0 auto;}
+.page-footer strong{color:rgba(26,16,64,0.35);}
 </style>
 <script src="../nav.js"></script>
 </head>
@@ -252,8 +259,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   function init() {
     renderKPI(DATA);
     populateQuarters(DATA);
-    renderDonut(DATA);
-    renderRisk(DATA);
+    if (!window.__chartjsFailed && typeof Chart !== 'undefined') {
+      renderDonut(DATA);
+      renderRisk(DATA);
+    }
     bindEvents();
   }
 
@@ -542,8 +551,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       var q = this.value;
       var filtered = q === 'all' ? DATA : DATA.filter(function (p) { return p.quarter === q; });
       renderKPI(filtered);
-      renderDonut(filtered);
-      renderRisk(filtered);
+      if (!window.__chartjsFailed && typeof Chart !== 'undefined') {
+        renderDonut(filtered);
+        renderRisk(filtered);
+      }
     });
   }
 
@@ -580,6 +591,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
   function exportPDF() {
     if (btn.disabled) return;
+    if (typeof html2canvas === 'undefined' || !window.jspdf) {
+      btn.disabled = true;
+      btn.title = 'Экспорт недоступен: необходимые библиотеки не загружены';
+      return;
+    }
     btn.disabled = true;
     btn.setAttribute('aria-busy', 'true');
 
@@ -635,5 +651,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   }
 })();
 </script>
+
+<footer>
+  <div class="page-footer">
+    <div><strong>ОРБИТА</strong> · Проектный офис · KPI Дашборд</div>
+    <div>Март 2026 · v1.0</div>
+  </div>
+</footer>
 </body>
 </html>

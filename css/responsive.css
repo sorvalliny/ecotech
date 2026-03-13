@@ -2,7 +2,49 @@
    Responsive — Breakpoints: 640 / 1024 / 1280 px
    Requires: design-system/tokens.css
    Loaded via nav.js on all pages.
+
+   NOTE: !important is required on many rules here because
+   page-level inline <style> blocks set the same properties
+   with equal specificity. Removing !important will break
+   responsive layouts. Tracked for future cleanup when inline
+   styles are extracted (P2).
    ═══════════════════════════════════════════════════════════ */
+
+/* ── Hamburger button (injected by JS) ─────────────────── */
+.en-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-height: 44px;
+  min-width: 44px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  cursor: pointer;
+  color: rgba(220,210,255,0.7);
+  transition: color 0.15s, background 0.15s;
+  margin-left: 8px;
+  padding: 0;
+  flex-shrink: 0;
+}
+.en-hamburger:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.14);
+}
+.en-hamburger svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Smooth transitions for layout ─────────────────────── */
+.page-wrap, .page, .wrap,
+.hero-section,
+.pc-grid,
+.products-grid {
+  transition: padding 0.2s ease;
+}
 
 /* ── Touch targets (WCAG 2.5.5 — ≥44px) ───────────────── */
 @media (pointer: coarse) {
@@ -94,7 +136,7 @@
 
   /* ── Hamburger button ────────────────────────────────── */
   .en-hamburger {
-    display: flex !important;
+    display: flex;
   }
 
   /* ── Generic card grids → 1 column ──────────────────── */
@@ -124,7 +166,7 @@
   }
 
   /* ── Page wrap padding ───────────────────────────────── */
-  .page-wrap {
+  .page-wrap, .page, .wrap {
     padding: 0 12px !important;
   }
 
@@ -201,7 +243,7 @@
   }
 
   /* ── Page wrap ───────────────────────────────────────── */
-  .page-wrap {
+  .page-wrap, .page, .wrap {
     padding: 0 20px !important;
   }
 
@@ -228,7 +270,7 @@
 
   /* ── Hamburger hidden ────────────────────────────────── */
   .en-hamburger {
-    display: none !important;
+    display: none;
   }
 }
 
@@ -236,43 +278,7 @@
    WIDE DESKTOP — 1280px+
    ═════════════════════════════════════════════════════════ */
 @media (min-width: 1280px) {
-  .page-wrap {
+  .page-wrap, .page, .wrap {
     max-width: 1200px;
   }
-}
-
-/* ── Hamburger button (injected by JS) ─────────────────── */
-.en-hamburger {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  min-height: 44px;
-  min-width: 44px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 8px;
-  cursor: pointer;
-  color: rgba(220,210,255,0.7);
-  transition: color 0.15s, background 0.15s;
-  margin-left: 8px;
-  padding: 0;
-  flex-shrink: 0;
-}
-.en-hamburger:hover {
-  color: #fff;
-  background: rgba(255,255,255,0.14);
-}
-.en-hamburger svg {
-  width: 18px;
-  height: 18px;
-}
-
-/* ── Smooth transitions for layout ─────────────────────── */
-.page-wrap,
-.hero-section,
-.pc-grid,
-.products-grid {
-  transition: padding 0.2s ease;
 }

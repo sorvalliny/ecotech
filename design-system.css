@@ -140,7 +140,7 @@ body::before {
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  z-index: 100;
+  z-index: var(--z-dropdown);
   transition: transform var(--ease-spring);
 }
 
@@ -163,7 +163,7 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 50;
+  z-index: var(--z-sticky);
 }
 
 /* ── Content area ── */
@@ -446,7 +446,10 @@ body::before {
   transform: translateY(-2px);
 }
 
-/* ═══════════════════════════════════════════════════════════ TAGS / BADGES */
+/* ═══════════════════════════════════════════════════════════ TAGS
+   Categorical labels (segments, content types).
+   Convention: .tag .tag--{color}
+   Legacy aliases: .tag-v, .tag-p, .tag-t, .tag-a, .tag-b, .tag-w */
 .tag {
   display: inline-flex;
   align-items: center;
@@ -458,14 +461,16 @@ body::before {
   letter-spacing: 0.06em;
   white-space: nowrap;
 }
-.tag-v { background: rgba(79,195,247,0.2);  color: #B3E5FC; border: 1px solid rgba(79,195,247,0.4); }
-.tag-p { background: rgba(255,45,138,0.18); color: #FF85C0; border: 1px solid rgba(255,45,138,0.35); }
-.tag-t { background: rgba(0,212,180,0.13);  color: var(--teal);  border: 1px solid rgba(0,212,180,0.28); }
-.tag-a { background: rgba(255,184,48,0.15); color: var(--amber); border: 1px solid rgba(255,184,48,0.3); }
-.tag-b { background: rgba(59,130,246,0.15); color: #93C5FD;      border: 1px solid rgba(59,130,246,0.3); }
-.tag-w { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid var(--border-hi); }
+.tag--violet, .tag-v { background: rgba(79,195,247,0.2);  color: #B3E5FC; border: 1px solid rgba(79,195,247,0.4); }
+.tag--pink,   .tag-p { background: rgba(255,45,138,0.18); color: #FF85C0; border: 1px solid rgba(255,45,138,0.35); }
+.tag--teal,   .tag-t { background: rgba(0,212,180,0.13);  color: var(--teal);  border: 1px solid rgba(0,212,180,0.28); }
+.tag--amber,  .tag-a { background: rgba(255,184,48,0.15); color: var(--amber); border: 1px solid rgba(255,184,48,0.3); }
+.tag--blue,   .tag-b { background: rgba(59,130,246,0.15); color: #93C5FD;      border: 1px solid rgba(59,130,246,0.3); }
+.tag--white,  .tag-w { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid var(--border-hi); }
 
-/* ── Status pills (for modules / progress) ── */
+/* ═══════════════════════════════════════════════════════════ STATUS PILLS
+   DEPRECATED — prefer .badge .badge--* from status-badge.css for new code.
+   Kept for backward compatibility with Витрина and legacy pages. */
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -609,7 +614,7 @@ body::before {
   inset: 0;
   background: rgba(0,0,0,0.7);
   backdrop-filter: blur(12px);
-  z-index: 200;
+  z-index: var(--z-modal);
   align-items: center;
   justify-content: center;
   padding: 32px;
@@ -672,7 +677,7 @@ body::before {
   border-radius: var(--radius-pill);
   font-size: 12px;
   font-weight: 600;
-  z-index: 300;
+  z-index: calc(var(--z-modal) + 1);
   transition: transform var(--ease-spring);
   pointer-events: none;
 }
@@ -684,7 +689,7 @@ body::before {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.6);
-  z-index: 99;
+  z-index: calc(var(--z-dropdown) - 1);
 }
 
 /* ═══════════════════════════════════════════════════════════ ANIMATIONS */

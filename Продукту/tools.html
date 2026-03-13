@@ -41,7 +41,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .cat-tabs{display:flex;gap:4px;flex-wrap:wrap}
 .cat-btn{padding:5px 12px;border:1px solid var(--border);border-radius:7px;background:transparent;color:var(--muted);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
 .cat-btn:hover{color:#fff;border-color:var(--border-hi)}
-.cat-btn.active{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+.cat-btn.active{background:var(--violet-dim);color:#C4B5FD;border-color:var(--violet-border)}
 
 /* ── GRID ── */
 .tl-body{flex:1;overflow-y:auto;padding:20px 28px 32px}
@@ -54,7 +54,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── TOOL CARD ── */
 .tool-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:border-color .15s,transform .13s,box-shadow .15s;display:flex;flex-direction:column;gap:10px;position:relative}
 .tool-card:hover{border-color:rgba(79,195,247,.3);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
-.tool-card.active{border-color:var(--vborder);background:rgba(79,195,247,.06)}
+.tool-card.active{border-color:var(--violet-border);background:rgba(79,195,247,.06)}
 .tc-head{display:flex;align-items:flex-start;gap:10px}
 .tc-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .tc-meta{flex:1;min-width:0}
@@ -67,10 +67,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .tc-inactive{opacity:.45;cursor:pointer}
 
 /* ── CAT COLOR TOKENS ── */
-.cat-platform .tc-cat{background:var(--vdim);color:#C4B5FD}
-.cat-dev      .tc-cat{background:var(--tdim);color:#00D4B4}
-.cat-common   .tc-cat{background:var(--adim);color:#FFB830}
-.cat-custom   .tc-cat{background:var(--pdim);color:#F9A8D4}
+.cat-platform .tc-cat{background:var(--violet-dim);color:#C4B5FD}
+.cat-dev      .tc-cat{background:var(--teal-dim);color:#00D4B4}
+.cat-common   .tc-cat{background:var(--amber-dim);color:#FFB830}
+.cat-custom   .tc-cat{background:var(--pink-dim);color:#F9A8D4}
 
 /* ── ICON COLOR TOKENS ── */
 .ic-violet{background:rgba(79,195,247,.15);color:#C4B5FD}
@@ -97,7 +97,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .dr-section-title svg{flex-shrink:0}
 .dr-text{font-size:13px;color:var(--text);line-height:1.65;white-space:pre-wrap}
 .dr-text.empty{color:var(--muted);font-style:italic}
-.dr-link-btn{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 16px;background:var(--vdim);border:1px solid var(--vborder);border-radius:10px;text-decoration:none;color:#C4B5FD;font-family:var(--head);font-size:11px;font-weight:700;transition:all .15s}
+.dr-link-btn{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 16px;background:var(--violet-dim);border:1px solid var(--violet-border);border-radius:10px;text-decoration:none;color:#C4B5FD;font-family:var(--head);font-size:11px;font-weight:700;transition:all .15s}
 .dr-link-btn:hover{background:rgba(79,195,247,.22);border-color:rgba(79,195,247,.6)}
 .dr-link-btn.external::after{content:'↗';font-size:14px}
 .dr-link-btn.internal::after{content:'→';font-size:14px}

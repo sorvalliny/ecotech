@@ -83,7 +83,7 @@
     try { hf = decodeURIComponent(href).toLowerCase().split('/').pop(); }
     catch (e) { hf = href.toLowerCase().split('/').pop(); }
     var cls = (filename === hf) ? ' class="en-active"' : '';
-    return '<a href="' + base + href + '"' + cls + '>' + label + '</a>';
+    return '<a href="' + base + href + '"' + cls + ' role="menuitem">' + label + '</a>';
   }
 
   function sep() { return '<div class="en-drop-sep"></div>'; }
@@ -115,8 +115,8 @@
 
     // ── Бизнесу ──────────────────────────────
     + '<div class="en-drop' + bizActive + '">'
-    +   '<a class="en-drop-trigger">Бизнесу</a>'
-    +   '<div class="en-drop-menu">'
+    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Бизнесу</a>'
+    +   '<div class="en-drop-menu" role="menu">'
     +     a('business.html', 'Для бизнеса')
     +     a('pages/dashboard.html', 'Дашборд')
     +   '</div>'
@@ -124,8 +124,8 @@
 
     // ── Продукту ─────────────────────────────
     + '<div class="en-drop' + pdktActive + '">'
-    +   '<a class="en-drop-trigger">Продукту</a>'
-    +   '<div class="en-drop-menu">'
+    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Продукту</a>'
+    +   '<div class="en-drop-menu" role="menu">'
     +     a('product.html',                              'С чего начать')
     +     sep()
     +     grp('Процессы и артефакты')
@@ -146,13 +146,13 @@
     + '</div>'
     + '<button id="en-theme-btn" class="en-theme-btn" onclick="EcoTheme.toggle()" title="Переключить тему" aria-label="Переключить тему"></button>'
     + '<a class="en-rwb" href="https://rwb.ru" target="_blank" rel="noopener">' + RWB_SVG + '</a>'
-    + '<button class="en-hamburger" id="en-hamburger" aria-label="Меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>'
+    + '<button class="en-hamburger" id="en-hamburger" aria-label="Меню" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>'
     + '</nav>';
 
   // ── CSS ─────────────────────────────────────────────────────
   var CSS = [
     /* nav bar — asymmetric cosmic blue gradient, stands out on light + dark pages */
-    '.ecotech-nav{position:sticky;top:0;z-index:9999;height:48px;background:linear-gradient(105deg,#020810 0%,#041830 36%,#0a3560 62%,#0d5090 82%,#4FC3F7 100%);backdrop-filter:blur(24px);border-bottom:1px solid rgba(79,195,247,.22);display:flex;align-items:center;padding:0 24px;gap:0;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 2px 20px rgba(2,136,209,.35)}',
+    '.ecotech-nav{position:sticky;top:0;z-index:var(--z-nav,9999);height:48px;background:linear-gradient(105deg,#020810 0%,#041830 36%,#0a3560 62%,#0d5090 82%,#4FC3F7 100%);backdrop-filter:blur(24px);border-bottom:1px solid rgba(79,195,247,.22);display:flex;align-items:center;padding:0 24px;gap:0;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 2px 20px rgba(2,136,209,.35)}',
     /* logo */
     ".en-logo{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:8px}",
     '.en-logo span{color:rgba(180,225,255,.85)}',
@@ -168,7 +168,7 @@
     '.en-drop.is-open .en-drop-trigger,.en-drop-trigger:hover{color:#fff;background:rgba(255,255,255,.1)}',
     '.en-drop.en-active .en-drop-trigger{color:#fff;background:rgba(255,255,255,.14)}',
     /* dropdown panel */
-    '.en-drop-menu{position:absolute;top:calc(100% + 6px);left:0;background:rgba(2,8,16,.97);backdrop-filter:blur(24px);border:1px solid rgba(79,195,247,.25);border-radius:12px;padding:6px;min-width:240px;display:flex;flex-direction:column;gap:1px;z-index:10000;box-shadow:0 12px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-5px);transition:opacity .15s,transform .15s,visibility .15s}',
+    '.en-drop-menu{position:absolute;top:calc(100% + 6px);left:0;background:rgba(2,8,16,.97);backdrop-filter:blur(24px);border:1px solid rgba(79,195,247,.25);border-radius:12px;padding:6px;min-width:240px;display:flex;flex-direction:column;gap:1px;z-index:var(--z-modal,10000);box-shadow:0 12px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-5px);transition:opacity .15s,transform .15s,visibility .15s}',
     '.en-drop.is-open .en-drop-menu{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0)}',
     '.en-drop-menu a{font-size:12px;font-weight:500;color:#9090B8;text-decoration:none;padding:7px 11px;border-radius:8px;transition:color .15s,background .15s;white-space:nowrap;display:block}',
     '.en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,.07)}',
@@ -198,7 +198,7 @@
   function inject() {
     // Skip link — first element in body
     if (!document.querySelector('.skip-link')) {
-      var mainTarget = document.querySelector('main, .page-wrap, .tl-wrap, #content, .page');
+      var mainTarget = document.querySelector('main, .page-wrap, .wrap, .tl-wrap, #content, .page');
       if (mainTarget && !mainTarget.id) mainTarget.id = 'main-content';
       var skipHref = mainTarget ? '#' + mainTarget.id : '#main-content';
       document.body.insertAdjacentHTML('afterbegin', '<a class="skip-link" href="' + skipHref + '">Перейти к содержимому</a>');
@@ -206,15 +206,28 @@
     document.body.insertAdjacentHTML('afterbegin', nav);
     [].forEach.call(document.querySelectorAll('.en-drop'), function (d) {
       var t;
-      d.addEventListener('mouseenter', function () { clearTimeout(t); d.classList.add('is-open'); });
-      d.addEventListener('mouseleave', function () { t = setTimeout(function () { d.classList.remove('is-open'); }, 120); });
+      var trigger = d.querySelector('.en-drop-trigger');
+      d.addEventListener('mouseenter', function () {
+        clearTimeout(t);
+        d.classList.add('is-open');
+        if (trigger) trigger.setAttribute('aria-expanded', 'true');
+      });
+      d.addEventListener('mouseleave', function () {
+        t = setTimeout(function () {
+          d.classList.remove('is-open');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }, 120);
+      });
     });
     // hamburger toggle
     var burger = document.getElementById('en-hamburger');
     if (burger) {
       burger.addEventListener('click', function () {
         var navEl = document.querySelector('.ecotech-nav');
-        if (navEl) navEl.classList.toggle('nav-open');
+        if (navEl) {
+          navEl.classList.toggle('nav-open');
+          burger.setAttribute('aria-expanded', navEl.classList.contains('nav-open') ? 'true' : 'false');
+        }
       });
     }
     // populate theme button icon once theme.js has loaded

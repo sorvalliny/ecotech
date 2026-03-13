@@ -24,7 +24,7 @@
 /* ── Tooltip card ── */
 .term-tooltip {
   position: fixed;
-  z-index: 10002;
+  z-index: calc(var(--z-modal) + 2);
   max-width: 280px;
   min-width: 200px;
   background: #0a1929;

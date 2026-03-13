@@ -69,6 +69,7 @@
   --bborder:       rgba(2,136,209,0.20);
 
   --red:           #EF4444;
+  --red-dim:       rgba(239,68,68,0.08);
   --rdim:          rgba(239,68,68,0.08);
 
   /* ── shadows ── */
@@ -162,6 +163,7 @@
   --bborder:       rgba(79,195,247,0.30);
 
   --red:           #EF4444;
+  --red-dim:       rgba(239,68,68,0.12);
   --rdim:          rgba(239,68,68,0.12);
 
   /* ── shadows ── */
@@ -608,7 +610,7 @@
   position: absolute;
   top: -100%;
   left: 16px;
-  z-index: 99999;
+  z-index: calc(var(--z-modal) + 10);
   padding: 10px 20px;
   background: #4FC3F7;
   color: #03080F;
