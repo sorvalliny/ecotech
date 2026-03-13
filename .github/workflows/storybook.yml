@@ -1,10 +1,10 @@
-name: Deploy Storybook
-
+  name: Deploy Storybook                                                        
+                                                                                
   on:
-    push:
-      branches: [main]
-      paths:
-        - 'stories/**'
+    push:                                                                       
+      branches: [main]                                                          
+      paths:                                                                    
+        - 'stories/**'                                                          
         - '.storybook/**'
         - 'design-system/**'
         - 'design-system.css'
