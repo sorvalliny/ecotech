@@ -1,0 +1,35 @@
+{
+  "name": "ecotech",
+  "version": "1.0.0",
+  "description": "Платформа запуска продуктов экосистемы RWB.",
+  "type": "module",
+  "main": "data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sorvalliny/ecotech.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sorvalliny/ecotech/issues"
+  },
+  "homepage": "https://github.com/sorvalliny/ecotech#readme",
+  "devDependencies": {
+    "storybook": "^10.2.17",
+    "@storybook/html-vite": "^10.2.17",
+    "@chromatic-com/storybook": "^5.0.1",
+    "@storybook/addon-vitest": "^10.2.17",
+    "@storybook/addon-a11y": "^10.2.17",
+    "@storybook/addon-docs": "^10.2.17",
+    "vitest": "^4.1.0",
+    "playwright": "^1.58.2",
+    "@vitest/browser-playwright": "^4.1.0",
+    "@vitest/coverage-v8": "^4.1.0"
+  }
+}

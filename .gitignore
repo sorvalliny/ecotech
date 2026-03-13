@@ -1,2 +1,6 @@
 .DS_Store
 files.zip
+node_modules/
+
+*storybook.log
+storybook-static
