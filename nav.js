@@ -107,7 +107,7 @@
     + '</svg>';
 
   // ── nav HTML ────────────────────────────────────────────────
-  var nav = '<nav class="ecotech-nav">'
+  var nav = '<nav class="ecotech-nav" role="navigation" aria-label="Главная навигация">'
 
     + '<a class="en-logo" href="' + base + 'index.html"><span class="en-logo-mark">' + MARK_SVG + '</span>ОРБИТА</a>'
     + '<div class="en-sep"></div>'
@@ -143,7 +143,7 @@
     + '</div>'
 
     + '</div>'
-    + '<button id="en-theme-btn" class="en-theme-btn" onclick="EcoTheme.toggle()" title="Переключить тему"></button>'
+    + '<button id="en-theme-btn" class="en-theme-btn" onclick="EcoTheme.toggle()" title="Переключить тему" aria-label="Переключить тему"></button>'
     + '<a class="en-rwb" href="https://rwb.ru" target="_blank" rel="noopener">' + RWB_SVG + '</a>'
     + '<button class="en-hamburger" id="en-hamburger" aria-label="Меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>'
     + '</nav>';
@@ -195,6 +195,13 @@
 
   // ── inject nav + init dropdowns (body must exist) ───────────
   function inject() {
+    // Skip link — first element in body
+    if (!document.querySelector('.skip-link')) {
+      var mainTarget = document.querySelector('main, .page-wrap, .tl-wrap, #content, .page');
+      if (mainTarget && !mainTarget.id) mainTarget.id = 'main-content';
+      var skipHref = mainTarget ? '#' + mainTarget.id : '#main-content';
+      document.body.insertAdjacentHTML('afterbegin', '<a class="skip-link" href="' + skipHref + '">Перейти к содержимому</a>');
+    }
     document.body.insertAdjacentHTML('afterbegin', nav);
     [].forEach.call(document.querySelectorAll('.en-drop'), function (d) {
       var t;

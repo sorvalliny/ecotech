@@ -123,9 +123,9 @@
 
   /* ── text ── */
   --text:   #E8F4FD;
-  --muted:  #4A7A9B;
-  --muted2: #2A5A7A;
-  --gray:   #6A98B4;
+  --muted:  #7A9DB8;
+  --muted2: #5A8AA8;
+  --gray:   #8AB0C8;
   --gray2:  #9EC8E0;
   --white:  #FFFFFF;
 
@@ -599,9 +599,55 @@
 }
 [data-theme="dark"] .bc-chevron,
 [data-theme="dark"] .bc-ellipsis {
-  color: #2A5A7A;
+  color: #5A8AA8;
 }
 
+
+/* ── Skip link ────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 99999;
+  padding: 10px 20px;
+  background: #4FC3F7;
+  color: #03080F;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ── Focus visible ───────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #4FC3F7 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #4FC3F7 !important;
+  outline-offset: 2px !important;
+}
+[data-theme="light"] :focus-visible {
+  outline-color: #0288D1 !important;
+}
+[data-theme="light"] a:focus-visible,
+[data-theme="light"] button:focus-visible,
+[data-theme="light"] input:focus-visible,
+[data-theme="light"] select:focus-visible,
+[data-theme="light"] textarea:focus-visible,
+[data-theme="light"] [tabindex]:focus-visible {
+  outline-color: #0288D1 !important;
+}
 
 /* ── Smooth transition on theme switch ─────────────────── */
 html[data-theme] body {

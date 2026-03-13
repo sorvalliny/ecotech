@@ -157,7 +157,7 @@
       }
 
       if (isLast || !c.href) {
-        html += '<span class="bc-current' + hideClass + '">' + esc(c.label) + '</span>';
+        html += '<span class="bc-current' + hideClass + '" aria-current="page">' + esc(c.label) + '</span>';
       } else {
         html += '<a class="bc-link' + hideClass + '" href="' + c.href + '">' + esc(c.label) + '</a>';
       }
