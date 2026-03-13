@@ -1,6 +1,6 @@
 /**
  * StatusBadge — Gate 0–5 progression badges and risk status indicators.
- * CSS: design-system/components/status-badge.css
+ * Component: design-system/components/status-badge.css
  */
 export default {
   title: 'Components/StatusBadge',
