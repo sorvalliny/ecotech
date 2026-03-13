@@ -1,0 +1,116 @@
+/* ═══════════════════════════════════════════════════════════
+   ОРБИТА — Term Tooltip Component
+   Usage: <abbr class="term" data-tip="Definition text">TERM</abbr>
+   Optional: data-href="/page.html" for "Подробнее →" link
+   Requires: tokens.css (optional, works standalone)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Abbreviation base ── */
+.term {
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(79, 195, 247, 0.45);
+  cursor: help;
+  position: relative;
+  font-style: normal;
+  transition: border-color 0.15s, color 0.15s;
+}
+.term:hover,
+.term:focus {
+  border-bottom-color: #4FC3F7;
+  color: #4FC3F7;
+  outline: none;
+}
+
+/* ── Tooltip card ── */
+.term-tooltip {
+  position: fixed;
+  z-index: 10002;
+  max-width: 280px;
+  min-width: 200px;
+  background: #0a1929;
+  border: 1px solid rgba(79, 195, 247, 0.25);
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(79, 195, 247, 0.06),
+    0 0 24px rgba(79, 195, 247, 0.06);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s, transform 0.15s;
+  font-family: 'Exo 2', var(--font-body, sans-serif);
+}
+.term-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ── Arrow ── */
+.term-tooltip::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #0a1929;
+  border: 1px solid rgba(79, 195, 247, 0.25);
+  transform: rotate(45deg);
+}
+.term-tooltip[data-pos="bottom"]::before {
+  top: -6px;
+  left: 20px;
+  border-right: none;
+  border-bottom: none;
+}
+.term-tooltip[data-pos="top"]::before {
+  bottom: -6px;
+  left: 20px;
+  border-left: none;
+  border-top: none;
+}
+
+/* ── Content ── */
+.term-tooltip-title {
+  font-family: 'Orbitron', var(--font-head, sans-serif);
+  font-size: 11px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+  line-height: 1.3;
+}
+
+.term-tooltip-body {
+  font-size: 12px;
+  color: rgba(180, 210, 240, 0.75);
+  line-height: 1.6;
+}
+
+.term-tooltip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-family: 'Orbitron', var(--font-head, sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #4FC3F7;
+  text-decoration: none;
+  transition: color 0.15s;
+  pointer-events: auto;
+}
+.term-tooltip-link:hover {
+  color: #81D4FA;
+}
+
+/* ── Light theme adjustments ── */
+[data-theme="light"] .term {
+  border-bottom-color: rgba(2, 136, 209, 0.35);
+}
+[data-theme="light"] .term:hover,
+[data-theme="light"] .term:focus {
+  color: #0277BD;
+  border-bottom-color: #0288D1;
+}

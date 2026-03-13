@@ -53,6 +53,17 @@
     rl.href = base + 'css/responsive.css';
     document.head.appendChild(rl);
   }
+  if (!document.getElementById('en-tooltip-css')) {
+    var tc = document.createElement('link');
+    tc.id = 'en-tooltip-css'; tc.rel = 'stylesheet';
+    tc.href = base + 'design-system/components/tooltip.css';
+    document.head.appendChild(tc);
+  }
+  if (!document.getElementById('en-tooltip-js')) {
+    var tj = document.createElement('script');
+    tj.id = 'en-tooltip-js'; tj.src = base + 'design-system/components/tooltip.js';
+    document.head.appendChild(tj);
+  }
 
   // ── current page detection (handles Cyrillic file:// paths) ──
   var p;

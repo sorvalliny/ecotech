@@ -272,7 +272,7 @@ var KEY = window.PT ? PT.KEY_TOOLS || 'ECOTECH_TOOLS' : 'ECOTECH_TOOLS';
 /* ── default data ── */
 var TOOLS_DEFAULT = [
   { id:'P01', name:'Приоритизация (RICE)',           cat:'platform', icon:'activity', color:'teal',
-    desc:'Калькулятор RICE: выбери инициативу из проекта, оцени по R·I·C·E и обнови Score в инициативах.',
+    desc:'Калькулятор <abbr class=\"term\" tabindex=\"0\" data-tip=\"Reach × Impact × Confidence ÷ Effort. Чем выше Score, тем выше приоритет инициативы в роадмапе.\">RICE</abbr>: выбери инициативу из проекта, оцени по R·I·C·E и обнови Score в инициативах.',
     link:'./rice.html',
     access:'Открытый доступ — ссылка в навигации платформы.',
     rules:'Оценивай инициативу честно — занижай Confidence если данных мало. RICE Score влияет на приоритет в роадмапе.', custom:false },
@@ -372,10 +372,10 @@ var TOOLS_DEFAULT = [
     access:'Корпоративный аккаунт WB. Согласование обучения — с лидом.',
     rules:'Обучение сверх лимита бюджета согласуй с HR BP. Результаты курсов фиксируй в профиле.', custom:false },
   { id:'M01', name:'Разработка бизнес-плана и P&L', cat:'pm',     icon:'trending-up',color:'amber',
-    desc:'Шаблоны и инструменты для построения P&L модели, бизнес-плана и unit economics.',
+    desc:'Шаблоны и инструменты для построения <abbr class=\"term\" tabindex=\"0\" data-tip=\"Profit &amp; Loss — отчёт о прибылях и убытках. Включает выручку, расходы, маржинальность. 3 сценария, горизонт 12+ мес.\">P&amp;L</abbr> модели, бизнес-плана и unit economics.',
     link:'./strategy.html',
     access:'Открытый доступ в составе Стратегического планирования.',
-    rules:'P&L обязателен для перехода через Инвест комитет. Модель — 3 сценария, горизонт 12+ мес.', custom:false },
+    rules:'P&L обязателен для перехода через <abbr class=\"term\" tabindex=\"0\" data-tip=\"Орган, принимающий инвестиционные решения. Состав: CEO, CPO, CFO. Рассматривает бизнес-планы и P&amp;L на Gate 3–4.\">Инвест комитет</abbr>. Модель — 3 сценария, горизонт 12+ мес.', custom:false },
   { id:'M02', name:'Исследования (CustDev)',        cat:'pm',     icon:'users',      color:'teal',
     desc:'Методики пользовательских исследований: проблемные интервью, JTBD, опросы.',
     link:'../Хэндбук/rwb-product-os-v12.html',
