@@ -23,7 +23,8 @@
     'хэндбук':         'Хэндбук',
     'витрина':         'Витрина',
     'design-system':   'Design System',
-    'components':      'Компоненты'
+    'components':      'Компоненты',
+    'pages':           'Страницы'
   };
 
   var PAGE_NAMES = {
@@ -41,7 +42,8 @@
     'rwb-product-os-2026-03-03.html': 'Операционный справочник',
     'artifacts.html':          'Артефакты',
     'tokens-preview.html':     'Design Tokens',
-    'badge-demo.html':         'Badge Demo'
+    'badge-demo.html':         'Badge Demo',
+    'dashboard.html':          'KPI Дашборд'
   };
 
   // ── chevron SVG ─────────────────────────────────────────

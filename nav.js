@@ -74,7 +74,7 @@
   function has(s) { return p.indexOf(s.toLowerCase()) !== -1; }
 
   // ── active group detection ──────────────────────────────────
-  var bizActive  = (has('business') || has('бизнесу')) ? ' en-active' : '';
+  var bizActive  = (has('business') || has('бизнесу') || has('dashboard')) ? ' en-active' : '';
   var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
@@ -118,6 +118,7 @@
     +   '<a class="en-drop-trigger">Бизнесу</a>'
     +   '<div class="en-drop-menu">'
     +     a('business.html', 'Для бизнеса')
+    +     a('pages/dashboard.html', 'Дашборд')
     +   '</div>'
     + '</div>'
 
