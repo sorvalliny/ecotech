@@ -1,5 +1,3 @@
-
-
 /** @type { import('@storybook/html-vite').StorybookConfig } */
 const config = {
   "stories": [
