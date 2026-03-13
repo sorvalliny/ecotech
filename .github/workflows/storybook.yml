@@ -1,0 +1,41 @@
+name: Deploy Storybook
+
+  on:
+    push:
+      branches: [main]
+      paths:
+        - 'stories/**'
+        - '.storybook/**'
+        - 'design-system/**'
+        - 'design-system.css'
+        - 'package.json'
+    workflow_dispatch:
+
+  permissions:
+    contents: write
+
+  jobs:
+    build-and-deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+
+        - uses: actions/setup-node@v4
+          with:
+            node-version: 22
+            cache: npm
+
+        - run: npm ci
+
+        - run: npm run build-storybook -- -o storybook-static
+
+        - name: Deploy to design-system directory
+          run: |
+            rm -rf design-system-storybook
+            mv storybook-static design-system-storybook
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add design-system-storybook -f
+            git commit -m "chore: deploy Storybook to design-system-storybook/"
+  --allow-empty
+            git push
