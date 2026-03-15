@@ -26,89 +26,110 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .page-wrap{max-width:1060px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
 
 /* ── HERO ── */
-.hero-section{padding:72px 0 56px;display:grid;grid-template-columns:1fr 400px;gap:40px;align-items:center;background:linear-gradient(135deg,#0D0030 0%,#1A0A48 60%,#220E5A 100%);margin:0 -28px;padding-left:28px;padding-right:28px;border-radius:30px;}
-.hero-eyebrow{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.hero-section{padding:56px 0 48px;display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:center;background:linear-gradient(135deg,#0D0030 0%,#1A0A48 60%,#220E5A 100%);margin:0 -28px;padding-left:28px;padding-right:28px;border-radius:30px;}
+.hero-eyebrow{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .hero-eyebrow::before{content:'';width:24px;height:2px;background:var(--teal);border-radius:2px;}
-.hero-h1{font-family:var(--font-head);font-size:38px;font-weight:900;line-height:1.1;letter-spacing:-1.5px;color:var(--white);margin-bottom:18px;}
+.hero-h1{font-family:var(--font-head);font-size:34px;font-weight:900;line-height:1.12;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;}
 .hero-h1 .grad{background:linear-gradient(135deg,var(--teal),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:28px;max-width:480px;}
-.hero-cta{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;background:linear-gradient(135deg,var(--teal),var(--violet));border-radius:12px;color:#fff;font-family:var(--font-head);font-size:12px;font-weight:900;text-decoration:none;letter-spacing:0.02em;cursor:pointer;border:none;transition:opacity .15s,transform .15s;}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:24px;max-width:460px;}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:linear-gradient(135deg,var(--teal),var(--violet));border-radius:12px;color:#fff;font-family:var(--font-head);font-size:11px;font-weight:900;text-decoration:none;letter-spacing:0.02em;cursor:pointer;border:none;transition:opacity .15s,transform .15s;}
 .hero-cta:hover{opacity:0.88;transform:translateY(-1px);}
+.hero-cta-sec{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;color:var(--gray2);font-family:var(--font-head);font-size:11px;font-weight:700;text-decoration:none;letter-spacing:0.02em;cursor:pointer;transition:border-color .15s,transform .15s,background .15s;}
+.hero-cta-sec:hover{border-color:rgba(0,212,180,0.4);background:rgba(0,212,180,0.06);transform:translateY(-1px);}
 
-/* ── ORBITAL VISUALIZATION B ── */
-.orbit-wrap{position:relative;width:340px;height:340px;flex-shrink:0;}
-.orbit-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:68px;background:linear-gradient(135deg,var(--teal),var(--violet));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 0 40px rgba(0,212,180,0.4);}
+/* ── ORBITAL VISUALIZATION ── */
+.orbit-wrap{position:relative;width:300px;height:300px;flex-shrink:0;}
+.orbit-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:linear-gradient(135deg,var(--teal),var(--violet));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 40px rgba(0,212,180,0.4);}
 .orbit-ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid rgba(0,212,180,0.1);transform:translate(-50%,-50%);}
-.orbit-ring-1{width:150px;height:150px;}
-.orbit-ring-2{width:230px;height:230px;}
-.orbit-ring-3{width:310px;height:310px;}
-.orbit-planet{position:absolute;top:50%;left:50%;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;}
-.orbit-planet-dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;}
+.orbit-ring-1{width:130px;height:130px;}
+.orbit-ring-2{width:200px;height:200px;}
+.orbit-ring-3{width:270px;height:270px;}
+.orbit-planet{position:absolute;top:50%;left:50%;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;text-decoration:none;color:inherit;}
+.orbit-planet-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;font-size:13px;}
 .orbit-planet:hover .orbit-planet-dot{transform:scale(1.25);box-shadow:0 0 16px rgba(0,212,180,0.6);}
-.orbit-planet-label{font-size:9px;font-weight:700;font-family:var(--font-head);letter-spacing:0.05em;color:var(--gray2);white-space:nowrap;background:rgba(8,8,26,0.9);padding:2px 6px;border-radius:4px;}
-
+.orbit-planet-label{font-size:8px;font-weight:700;font-family:var(--font-head);letter-spacing:0.05em;color:var(--gray2);white-space:nowrap;background:rgba(8,8,26,0.9);padding:2px 5px;border-radius:4px;}
 @keyframes orbit{
   from{transform:translate(-50%,-50%) rotate(0deg) translateX(var(--r)) rotate(0deg);}
   to{transform:translate(-50%,-50%) rotate(360deg) translateX(var(--r)) rotate(-360deg);}
 }
-.p-backlog{--r:75px;animation:orbit 9s linear infinite;}
-.p-fw{--r:115px;animation:orbit 13s linear infinite;animation-delay:-4s;}
-.p-tracker{--r:115px;animation:orbit 13s linear infinite;animation-delay:-8s;}
-.p-okr{--r:155px;animation:orbit 18s linear infinite;}
-.p-health{--r:155px;animation:orbit 18s linear infinite;animation-delay:-6s;}
-.p-custdev{--r:155px;animation:orbit 18s linear infinite;animation-delay:-12s;}
+.p-rice{--r:65px;animation:orbit 9s linear infinite;}
+.p-fw{--r:100px;animation:orbit 13s linear infinite;animation-delay:-4s;}
+.p-tracker{--r:100px;animation:orbit 13s linear infinite;animation-delay:-8s;}
+.p-strategy{--r:135px;animation:orbit 18s linear infinite;}
+.p-templates{--r:135px;animation:orbit 18s linear infinite;animation-delay:-6s;}
+.p-tools{--r:135px;animation:orbit 18s linear infinite;animation-delay:-12s;}
 .orbit-planet:hover{animation-play-state:paused;}
 
 /* ── DIVIDER ── */
-.section-divider{height:1px;background:linear-gradient(90deg,var(--teal),var(--violet),var(--pink),transparent);opacity:0.2;margin:56px 0;}
+.section-divider{height:1px;background:linear-gradient(90deg,var(--teal),var(--violet),var(--pink),transparent);opacity:0.2;margin:48px 0;}
 
-/* ── MODULES SECTION ── */
-.modules-section{padding:0 0 80px;}
+/* ── SECTION COMMON ── */
 .sec-eyebrow{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
-.sec-title{font-family:var(--font-head);font-size:26px;font-weight:900;color:var(--white);margin-bottom:8px;letter-spacing:-0.5px;line-height:1.2;}
-.sec-sub{font-size:14px;color:var(--muted);max-width:580px;line-height:1.65;margin-bottom:32px;}
+.sec-title{font-family:var(--font-head);font-size:24px;font-weight:900;color:var(--white);margin-bottom:8px;letter-spacing:-0.5px;line-height:1.2;}
+.sec-sub{font-size:14px;color:var(--muted);max-width:580px;line-height:1.65;margin-bottom:28px;}
 
-.modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.module-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;gap:10px;transition:border-color .18s,transform .15s,box-shadow .18s;text-decoration:none;color:inherit;}
-.module-card.active:hover{border-color:rgba(0,212,180,0.35);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,212,180,0.1);}
-.module-card.dev{opacity:0.38;cursor:not-allowed;pointer-events:none;}
-.module-icon{font-size:28px;line-height:1;}
-.module-name{font-family:var(--font-head);font-size:12px;font-weight:900;color:#fff;line-height:1.25;}
-.module-desc{font-size:12px;color:var(--muted);line-height:1.6;flex:1;}
-.module-badge{font-size:9px;font-weight:700;font-family:var(--font-head);padding:2px 8px;border-radius:4px;letter-spacing:0.06em;align-self:flex-start;}
-.badge-active{background:rgba(0,212,180,0.12);color:#00D4B4;border:1px solid rgba(0,212,180,0.25);}
-.badge-dev{background:rgba(255,255,255,0.05);color:#7A7A9D;border:1px solid rgba(255,255,255,0.08);}
+/* ── QUICK ACTIONS ── */
+.actions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.action-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 20px;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;transition:border-color .18s,transform .15s,box-shadow .18s;position:relative;overflow:hidden;}
+.action-card:hover{border-color:rgba(0,212,180,0.35);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,212,180,0.1);}
+.action-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0;opacity:0;transition:opacity .18s;}
+.action-card:hover::before{opacity:1;}
+.action-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.action-name{font-family:var(--font-head);font-size:12px;font-weight:900;color:#fff;line-height:1.3;}
+.action-desc{font-size:12px;color:var(--muted);line-height:1.6;flex:1;}
+.action-go{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:0.06em;color:var(--teal);display:flex;align-items:center;gap:4px;margin-top:auto;}
+.action-go::after{content:'\2192';transition:transform .15s;}
+.action-card:hover .action-go::after{transform:translateX(3px);}
 
-.modules-footer-note{font-size:12px;color:var(--muted);margin-top:20px;text-align:center;font-style:italic;}
+/* action accent colors */
+.action-card[data-accent="teal"]::before{background:linear-gradient(90deg,var(--teal),var(--blue));}
+.action-card[data-accent="teal"] .action-icon{background:var(--teal-dim);color:var(--teal);}
+.action-card[data-accent="violet"]::before{background:linear-gradient(90deg,var(--violet),#B3E5FC);}
+.action-card[data-accent="violet"] .action-icon{background:var(--violet-dim);color:var(--violet);}
+.action-card[data-accent="pink"]::before{background:linear-gradient(90deg,var(--pink),#FF85C0);}
+.action-card[data-accent="pink"] .action-icon{background:rgba(255,45,138,0.1);color:var(--pink);}
+.action-card[data-accent="green"]::before{background:linear-gradient(90deg,var(--green),var(--teal));}
+.action-card[data-accent="green"] .action-icon{background:var(--green-dim);color:var(--green);}
+.action-card[data-accent="amber"]::before{background:linear-gradient(90deg,var(--amber),#FF9F43);}
+.action-card[data-accent="amber"] .action-icon{background:rgba(255,184,48,0.1);color:var(--amber);}
+.action-card[data-accent="blue"]::before{background:linear-gradient(90deg,var(--blue),var(--violet));}
+.action-card[data-accent="blue"] .action-icon{background:var(--blue-dim);color:var(--blue);}
 
-/* ── TOOLS SECTION ── */
-.tools-section{padding:0 0 80px;}
-.tools-group{margin-bottom:28px;}
-.tools-group-label{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.tools-group-label::before{content:'';width:16px;height:1px;background:var(--muted);}
-.tools-grid{display:grid;gap:10px;}
-.tools-grid-4{grid-template-columns:repeat(4,1fr);}
-.tools-grid-3{grid-template-columns:repeat(3,1fr);}
-.tool-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 15px;display:flex;align-items:flex-start;gap:12px;text-decoration:none;color:inherit;transition:border-color .15s,transform .13s,box-shadow .15s;}
-.tool-card:hover{border-color:rgba(0,212,180,.3);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,212,180,.08);}
-.tool-icon-wrap{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.tool-name{font-family:var(--font-head);font-size:11px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:3px;}
-.tool-ext{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:3px;}
+/* ── SCENARIOS ── */
+.scenarios-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.scenario-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 22px;display:flex;flex-direction:column;gap:16px;transition:border-color .18s;}
+.scenario-card:hover{border-color:var(--border-hi);}
+.scenario-header{display:flex;align-items:center;gap:12px;}
+.scenario-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.scenario-title{font-family:var(--font-head);font-size:13px;font-weight:900;color:#fff;line-height:1.25;}
+.scenario-subtitle{font-size:11px;color:var(--muted);margin-top:2px;}
+.scenario-steps{display:flex;flex-direction:column;gap:0;position:relative;padding-left:18px;}
+.scenario-steps::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:rgba(0,212,180,0.15);}
+.scenario-step{display:flex;align-items:flex-start;gap:10px;padding:6px 0;position:relative;}
+.scenario-step::before{content:'';position:absolute;left:-14px;top:12px;width:9px;height:9px;border-radius:50%;border:2px solid var(--teal);background:var(--card);z-index:1;}
+.step-text{font-size:12px;color:var(--gray2);line-height:1.5;}
+.step-text a{color:var(--teal);text-decoration:none;font-weight:600;}
+.step-text a:hover{text-decoration:underline;}
+.scenario-cta{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;font-family:var(--font-head);font-size:10px;font-weight:700;text-decoration:none;letter-spacing:0.04em;transition:opacity .15s,transform .15s;align-self:flex-start;}
+.scenario-cta:hover{opacity:0.85;transform:translateY(-1px);}
+.scenario-cta-primary{background:linear-gradient(135deg,var(--teal),var(--violet));color:#fff;}
+.scenario-cta-secondary{background:rgba(255,45,138,0.1);border:1px solid rgba(255,45,138,0.25);color:var(--pink);}
 
 /* ── FOOTER ── */
 .page-footer{border-top:1px solid var(--border);padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);max-width:1060px;margin:0 auto;}
 .page-footer strong{color:rgba(255,255,255,0.3);}
 
+/* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .hero-section{grid-template-columns:1fr;padding:48px 0 40px;}
-  .orbit-wrap{width:280px;height:280px;margin:0 auto;}
-  .modules-grid{grid-template-columns:repeat(2,1fr);}
-  .tools-grid-4{grid-template-columns:repeat(2,1fr);}
-  .tools-grid-3{grid-template-columns:repeat(2,1fr);}
+  .hero-section{grid-template-columns:1fr;padding:48px 28px 40px;}
+  .orbit-wrap{width:260px;height:260px;margin:0 auto;}
+  .actions-grid{grid-template-columns:repeat(2,1fr);}
+  .scenarios-grid{grid-template-columns:1fr;}
 }
 @media(max-width:520px){
-  .modules-grid{grid-template-columns:1fr;}
-  .tools-grid-4,.tools-grid-3{grid-template-columns:1fr;}
+  .actions-grid{grid-template-columns:1fr;}
+  .hero-h1{font-size:26px;}
 }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@13/dist/css/shepherd.css">
@@ -126,47 +147,164 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <section class="hero-section">
     <div class="hero-content">
       <div class="hero-eyebrow">ОРБИТА · Для продукта</div>
-      <h1 class="hero-h1">Инструменты для создания<br><span class="grad">продукта экосистемы RWB</span></h1>
-      <p class="hero-sub">ОРБИТА — платформа запуска продуктов экосистемы WB. Фреймворк, шаблоны, трекер и поддержка <abbr class="term" tabindex="0" data-tip="Project Management Office — Проектный офис. Координирует Gate-ревью, помогает командам с методологией, отвечает за стандарты и шаблоны платформы." data-href="Проектный офис/council.html">Проектного офиса</abbr>.</p>
-      <a class="hero-cta" href="Фреймворк/rwb-product-os-v3.html">Начать с Продуктового фреймворка →</a>
+      <h1 class="hero-h1">Быстрый доступ к<br><span class="grad">инструментам продукта</span></h1>
+      <p class="hero-sub">Всё что нужно команде продукта: приоритизация, шаблоны, стратегия, трекер и фреймворк — в одном месте.</p>
+      <div class="hero-ctas">
+        <a class="hero-cta" href="Продукту/tools.html">Каталог инструментов</a>
+        <a class="hero-cta-sec" href="Продукту/index.html">Онбординг команды</a>
+      </div>
     </div>
 
-    <!-- ORBITAL VISUALIZATION B -->
+    <!-- ORBITAL VISUALIZATION -->
     <div class="orbit-wrap">
       <div class="orbit-ring orbit-ring-1"></div>
       <div class="orbit-ring orbit-ring-2"></div>
       <div class="orbit-ring orbit-ring-3"></div>
-      <div class="orbit-center"><svg class="ei" width="26" height="26"><use href="#ic-users"/></svg></div>
-      <!-- Inner orbit: Backlog -->
-      <div class="orbit-planet p-backlog">
-        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#00D4B4,#3B82F6);"></div>
-        <div class="orbit-planet-label">Инициативы</div>
-      </div>
-      <!-- Middle orbit: Framework + Tracker -->
-      <div class="orbit-planet p-fw">
+      <div class="orbit-center"><svg class="ei" width="22" height="22"><use href="#ic-users"/></svg></div>
+      <a class="orbit-planet p-rice" href="Продукту/rice.html" title="RICE-калькулятор">
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#00D4B4,#3B82F6);">&#9878;</div>
+        <div class="orbit-planet-label">RICE</div>
+      </a>
+      <a class="orbit-planet p-fw" href="Фреймворк/rwb-product-os-v3.html" title="Продуктовый фреймворк">
         <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#4FC3F7,#B3E5FC);"></div>
-        <div class="orbit-planet-label">Стадии</div>
-      </div>
-      <div class="orbit-planet p-tracker">
+        <div class="orbit-planet-label">Фреймворк</div>
+      </a>
+      <a class="orbit-planet p-tracker" href="Проектный офис/RWB · Product OS - Трекер инициатив.html" title="Трекер инициатив">
         <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#FF2D8A,#FF85C0);"></div>
         <div class="orbit-planet-label">Трекер</div>
-      </div>
-      <!-- Outer orbit: OKR + Health + CustDev -->
-      <div class="orbit-planet p-okr">
+      </a>
+      <a class="orbit-planet p-strategy" href="Продукту/strategy.html" title="Стратегия продукта">
         <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#34D399,#00D4B4);"></div>
-        <div class="orbit-planet-label">Цели</div>
-      </div>
-      <div class="orbit-planet p-health">
+        <div class="orbit-planet-label">Стратегия</div>
+      </a>
+      <a class="orbit-planet p-templates" href="Продукту/templates.html" title="Шаблоны">
         <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#FFB830,#FF9F43);"></div>
-        <div class="orbit-planet-label">Метрики</div>
-      </div>
-      <div class="orbit-planet p-custdev">
-        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#8B8BAE,#C4C4D8);">🎤</div>
-        <div class="orbit-planet-label">CustDev</div>
-      </div>
+        <div class="orbit-planet-label">Шаблоны</div>
+      </a>
+      <a class="orbit-planet p-tools" href="Продукту/tools.html" title="Все инструменты">
+        <div class="orbit-planet-dot" style="background:linear-gradient(135deg,#8B8BAE,#C4C4D8);"></div>
+        <div class="orbit-planet-label">Каталог</div>
+      </a>
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
+  <!-- ── QUICK ACTIONS ── -->
+  <section class="actions-section">
+    <div class="sec-eyebrow">Быстрые действия</div>
+    <h2 class="sec-title">Что нужно сделать?</h2>
+    <p class="sec-sub">Выберите задачу — перейдёте сразу к нужному инструменту.</p>
+
+    <div class="actions-grid">
+      <a class="action-card" data-accent="teal" href="Продукту/rice.html">
+        <div class="action-icon">&#9878;</div>
+        <div class="action-name">Приоритизировать инициативы</div>
+        <div class="action-desc">RICE-калькулятор: оцените Reach, Impact, Confidence, Effort и получите скоринг.</div>
+        <div class="action-go">Открыть RICE</div>
+      </a>
+
+      <a class="action-card" data-accent="amber" href="Продукту/templates.html">
+        <div class="action-icon">&#128196;</div>
+        <div class="action-name">Взять шаблон артефакта</div>
+        <div class="action-desc">Готовые шаблоны для каждого Gate: от описания гипотезы до плана запуска.</div>
+        <div class="action-go">Все шаблоны</div>
+      </a>
+
+      <a class="action-card" data-accent="green" href="Продукту/strategy.html">
+        <div class="action-icon">&#127919;</div>
+        <div class="action-name">Спланировать стратегию</div>
+        <div class="action-desc">P&amp;L, бизнес-план, юнит-экономика и OKR продукта в одном месте.</div>
+        <div class="action-go">Стратегия</div>
+      </a>
+
+      <a class="action-card" data-accent="pink" href="Проектный офис/RWB · Product OS - Трекер инициатив.html">
+        <div class="action-icon">&#128202;</div>
+        <div class="action-name">Проверить статус в трекере</div>
+        <div class="action-desc">Текущий Gate, прогресс команды и ближайшие ревью — в реальном времени.</div>
+        <div class="action-go">Открыть трекер</div>
+      </a>
+
+      <a class="action-card" data-accent="violet" href="Фреймворк/rwb-product-os-v3.html">
+        <div class="action-icon">&#128218;</div>
+        <div class="action-name">Изучить фреймворк G0-G5</div>
+        <div class="action-desc">Операционный справочник: стадии, чеклисты, правила прохождения Gate.</div>
+        <div class="action-go">Фреймворк</div>
+      </a>
+
+      <a class="action-card" data-accent="blue" href="Продукту/tools.html">
+        <div class="action-icon">&#128295;</div>
+        <div class="action-name">Все инструменты команды</div>
+        <div class="action-desc">Каталог сервисов: BI, Wiki, GitLab, YouTrack, Shiva и другие — с фильтрами по роли.</div>
+        <div class="action-go">Каталог</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── SCENARIOS ── -->
+  <section class="scenarios-section" style="padding-bottom:64px;">
+    <div class="sec-eyebrow">Сценарии</div>
+    <h2 class="sec-title">Типовые задачи команды</h2>
+    <p class="sec-sub">Пошаговые маршруты для двух ключевых ситуаций.</p>
+
+    <div class="scenarios-grid">
+
+      <!-- Scenario 1: Launch -->
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <div class="scenario-icon" style="background:var(--teal-dim);color:var(--teal);">&#128640;</div>
+          <div>
+            <div class="scenario-title">Запуск новой инициативы</div>
+            <div class="scenario-subtitle">От идеи до Gate 0</div>
+          </div>
+        </div>
+        <div class="scenario-steps">
+          <div class="scenario-step">
+            <div class="step-text">Опишите проблему и гипотезу в <a href="Продукту/templates.html">шаблоне G0</a></div>
+          </div>
+          <div class="scenario-step">
+            <div class="step-text">Оцените приоритет через <a href="Продукту/rice.html">RICE-калькулятор</a></div>
+          </div>
+          <div class="scenario-step">
+            <div class="step-text">Проведите экспресс-анализ конкурентов</div>
+          </div>
+          <div class="scenario-step">
+            <div class="step-text">Подайте инициативу в <a href="Проектный офис/RWB · Product OS - Трекер инициатив.html">трекер</a></div>
+          </div>
+        </div>
+        <a class="scenario-cta scenario-cta-primary" href="Продукту/templates.html">Начать с шаблона G0</a>
+      </div>
+
+      <!-- Scenario 2: Gate Review -->
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <div class="scenario-icon" style="background:rgba(255,45,138,0.1);color:var(--pink);">&#9989;</div>
+          <div>
+            <div class="scenario-title">Подготовка к Gate Review</div>
+            <div class="scenario-subtitle">Чеклист перед ревью</div>
+          </div>
+        </div>
+        <div class="scenario-steps">
+          <div class="scenario-step">
+            <div class="step-text">Проверьте требования текущего Gate во <a href="Фреймворк/rwb-product-os-v3.html">фреймворке</a></div>
+          </div>
+          <div class="scenario-step">
+            <div class="step-text">Заполните артефакты по <a href="Продукту/templates.html">шаблонам</a></div>
+          </div>
+          <div class="scenario-step">
+            <div class="step-text">Обновите метрики и <a href="Продукту/strategy.html">P&amp;L-модель</a></div>
+          </div>
+          <div class="scenario-step">
+            <div class="step-text">Убедитесь, что <a href="Проектный офис/RWB · Product OS - Трекер инициатив.html">трекер</a> актуален</div>
+          </div>
+        </div>
+        <a class="scenario-cta scenario-cta-secondary" href="Фреймворк/rwb-product-os-v3.html">Открыть чеклист Gate</a>
+      </div>
+
+    </div>
+  </section>
 
 </div><!-- /page-wrap -->
 
