@@ -663,3 +663,445 @@ html[data-theme] .orbit-center,
 html[data-theme] .bc-bar {
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
+
+
+/* ═══════════════════════════════════════════════════════════
+   PILOT PAGES — LIGHT-MODE FIXES
+   brief.html, gate-checklist.html, tracker.html
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── brief.html ───────────────────────────────────────────── */
+
+/* Section number badges — force dark text on light bg */
+[data-theme="light"] .sec-num {
+  color: #0A1929 !important;
+}
+
+/* Page header title */
+[data-theme="light"] .pg-head-title {
+  color: #0A1929 !important;
+}
+
+/* Field labels (already use --muted which is overridden, but
+   ensure .star stays visible) */
+[data-theme="light"] .field label {
+  color: #4A7A9B !important;
+}
+
+/* RICE slider values — hardcoded color:#fff */
+[data-theme="light"] .rice-val {
+  color: #0A1929 !important;
+}
+
+/* RICE score — dynamically set via JS, override all */
+[data-theme="light"] .rice-score {
+  color: #0A1929 !important;
+}
+
+/* RICE abbreviation letters */
+[data-theme="light"] .rice-abbr {
+  opacity: 0.9;
+}
+
+/* Validation bar counter — hardcoded color:#fff */
+[data-theme="light"] .val-count {
+  color: #0A1929 !important;
+}
+
+/* Validation bar background */
+[data-theme="light"] .validation-bar {
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+}
+
+/* Action buttons — secondary keeps dark text; primary/teal keep white */
+[data-theme="light"] .act-btn.act-secondary {
+  color: #4A7A9B !important;
+  border-color: var(--border) !important;
+}
+[data-theme="light"] .act-btn.act-secondary:hover {
+  color: #0A1929 !important;
+}
+
+/* Mode toggle active state */
+[data-theme="light"] .mode-btn.active {
+  background: rgba(2,136,209,0.08) !important;
+  color: #0288D1 !important;
+  border-color: rgba(2,136,209,0.25) !important;
+}
+[data-theme="light"] .mode-btn {
+  color: #4A7A9B !important;
+  border-color: var(--border) !important;
+}
+[data-theme="light"] .mode-btn:hover {
+  color: #0A1929 !important;
+}
+
+/* Back link hover — hardcoded color:#fff */
+[data-theme="light"] .back-link:hover {
+  color: #0A1929 !important;
+}
+
+/* Requirement badges — ensure readable on light */
+[data-theme="light"] .req-must {
+  background: rgba(239,68,68,0.08) !important;
+  color: #DC2626 !important;
+  border-color: rgba(239,68,68,0.20) !important;
+}
+[data-theme="light"] .req-nice {
+  background: rgba(245,158,11,0.08) !important;
+  color: #D97706 !important;
+  border-color: rgba(245,158,11,0.20) !important;
+}
+
+/* RICE tier badges — ensure contrast on light */
+[data-theme="light"] .tier-hi {
+  background: rgba(5,150,105,0.08) !important;
+  color: #059669 !important;
+}
+[data-theme="light"] .tier-mid {
+  background: rgba(245,158,11,0.08) !important;
+  color: #D97706 !important;
+}
+
+/* RICE items background */
+[data-theme="light"] .rice-item {
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+}
+
+/* Fast-track badge */
+[data-theme="light"] .ft-badge {
+  background: rgba(0,184,158,0.08) !important;
+  color: #059669 !important;
+  border-color: rgba(0,184,158,0.20) !important;
+}
+
+
+/* ── gate-checklist.html ──────────────────────────────────── */
+
+/* Active tab — hardcoded color:#C4B5FD */
+[data-theme="light"] .gc-tab.active {
+  background: rgba(2,136,209,0.08) !important;
+  color: #0288D1 !important;
+  border-color: rgba(2,136,209,0.25) !important;
+}
+[data-theme="light"] .gc-tab:hover {
+  color: #0A1929 !important;
+}
+
+/* Gate info card */
+[data-theme="light"] .gate-info {
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+}
+
+/* Gate orbit title — hardcoded color:#fff */
+[data-theme="light"] .gate-orbit {
+  color: #0A1929 !important;
+}
+
+/* Checklist item text — uses var(--text), already covered */
+[data-theme="light"] .cl-text {
+  color: #0A1929 !important;
+}
+
+/* Checked item text stays muted */
+[data-theme="light"] .cl-item.checked .cl-text {
+  color: #4A7A9B !important;
+}
+
+/* Progress count — dynamically colored via inline style */
+[data-theme="light"] .progress-count {
+  color: #0A1929 !important;
+}
+
+/* Progress wrap card */
+[data-theme="light"] .progress-wrap {
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+}
+
+/* Checklist items */
+[data-theme="light"] .cl-item {
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+}
+[data-theme="light"] .cl-item.checked {
+  background: rgba(5,150,105,0.04) !important;
+  border-color: rgba(5,150,105,0.20) !important;
+}
+
+/* Review button — white text on colored bg is fine, but ensure
+   disabled state is visible */
+[data-theme="light"] .review-btn {
+  color: #fff !important;
+}
+
+/* Gate badge — inline-styled, ensure text contrast */
+[data-theme="light"] .gate-badge {
+  color: #0A1929 !important;
+}
+
+/* Gate meta values */
+[data-theme="light"] .gate-meta-item strong {
+  color: #0A1929 !important;
+}
+
+/* Product select dropdown */
+[data-theme="light"] .gc-prod-select {
+  background: var(--card) !important;
+  color: #0A1929 !important;
+  border-color: var(--border) !important;
+}
+
+
+/* ── tracker.html ─────────────────────────────────────────── */
+
+/* Toolbar title — hardcoded color:#fff */
+[data-theme="light"] .htitle {
+  color: #0A1929 !important;
+}
+
+/* Toolbar background */
+[data-theme="light"] .tracker-toolbar {
+  background: rgba(240,247,252,0.95) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+/* Product card name — hardcoded color:#fff */
+[data-theme="light"] .pname {
+  color: #0A1929 !important;
+}
+
+/* KPI values — hardcoded inline color:#fff and others */
+[data-theme="light"] .kpi-n {
+  color: #0A1929 !important;
+}
+[data-theme="light"] .kpi-val,
+[data-theme="light"] .kpi .kpi-n {
+  color: #0A1929 !important;
+}
+
+/* Score values in backlog */
+[data-theme="light"] .sval {
+  color: #0A1929 !important;
+}
+
+/* Portfolio stat numbers */
+[data-theme="light"] .pstat-num {
+  color: #0A1929 !important;
+}
+
+/* Item name in backlog — hardcoded color:#fff */
+[data-theme="light"] .item-name {
+  color: #0A1929 !important;
+}
+
+/* Initiative row name */
+[data-theme="light"] .iname {
+  color: #0A1929 !important;
+}
+
+/* Product foot stat numbers — hardcoded color:#fff */
+[data-theme="light"] .pfnum {
+  color: #0A1929 !important;
+}
+
+/* RICE badge (inline-colored badges in tracker) */
+[data-theme="light"] .rice-badge {
+  color: #0A1929 !important;
+}
+[data-theme="light"] .chip {
+  opacity: 0.95;
+}
+
+/* Goal titles — hardcoded color:#fff */
+[data-theme="light"] .goal-title {
+  color: #0A1929 !important;
+}
+[data-theme="light"] .goals-header h2 {
+  color: #0A1929 !important;
+}
+
+/* Goal modal title — hardcoded color:#fff */
+[data-theme="light"] .gm-htitle {
+  color: #0A1929 !important;
+}
+
+/* Goal modal fields */
+[data-theme="light"] .gm-field input,
+[data-theme="light"] .gm-field textarea,
+[data-theme="light"] .gm-field select {
+  color: #0A1929 !important;
+  background: #FFFFFF !important;
+  border-color: rgba(2,136,209,0.15) !important;
+}
+
+/* Goal modal background */
+[data-theme="light"] #goal-modal,
+[data-theme="light"] #prod-modal {
+  background: #FFFFFF !important;
+  border-color: var(--border) !important;
+}
+
+/* Edit panel title — hardcoded color:#fff */
+[data-theme="light"] .ep-title {
+  color: #0A1929 !important;
+}
+[data-theme="light"] .ep-name-disp {
+  color: #0A1929 !important;
+}
+
+/* Edit panel fields */
+[data-theme="light"] .ep-select,
+[data-theme="light"] .ep-textarea {
+  color: #0A1929 !important;
+  background: #FFFFFF !important;
+  border-color: rgba(2,136,209,0.15) !important;
+}
+
+/* Edit panel background */
+[data-theme="light"] .edit-panel {
+  background: #FFFFFF !important;
+  border-color: var(--border) !important;
+}
+
+/* Product PRD panel */
+[data-theme="light"] .prod-prd-panel {
+  background: #FFFFFF !important;
+  border-color: var(--border) !important;
+}
+[data-theme="light"] .pp-field input,
+[data-theme="light"] .pp-field textarea {
+  color: #0A1929 !important;
+  background: #FFFFFF !important;
+  border-color: rgba(2,136,209,0.15) !important;
+}
+
+/* PM view: gate name + selector */
+[data-theme="light"] .pm-gate-name {
+  color: #0A1929 !important;
+}
+[data-theme="light"] .pm-sel {
+  color: #0A1929 !important;
+  background: var(--card) !important;
+}
+
+/* CEO view cards */
+[data-theme="light"] .ceo-name {
+  color: #0A1929 !important;
+}
+[data-theme="light"] .ceo-stat-n {
+  color: #0A1929 !important;
+}
+
+/* Tracker card headings */
+[data-theme="light"] .trk-card h3 {
+  color: #0A1929 !important;
+}
+[data-theme="light"] .trk-item-name {
+  color: #0A1929 !important;
+}
+
+/* Tabs — active keeps white on colored bg */
+[data-theme="light"] .tab.active {
+  color: #fff !important;
+}
+[data-theme="light"] .tab:not(.active) {
+  color: #4A7A9B !important;
+}
+[data-theme="light"] .tab:hover:not(.active) {
+  color: #0A1929 !important;
+  background: rgba(2,136,209,0.06) !important;
+}
+
+/* Sidebar filter buttons */
+[data-theme="light"] .fbtn {
+  color: #4A7A9B !important;
+}
+[data-theme="light"] .fbtn:hover,
+[data-theme="light"] .fbtn.active {
+  background: rgba(2,136,209,0.08) !important;
+  color: #0288D1 !important;
+}
+
+/* Sort buttons */
+[data-theme="light"] .sbtn:hover,
+[data-theme="light"] .sbtn.active {
+  border-color: rgba(2,136,209,0.25) !important;
+  color: #0288D1 !important;
+  background: rgba(2,136,209,0.06) !important;
+}
+
+/* Role buttons */
+[data-theme="light"] .rbtn:hover {
+  color: #0A1929 !important;
+}
+
+/* Search input */
+[data-theme="light"] .search-inp {
+  background: var(--card) !important;
+  color: #0A1929 !important;
+  border-color: var(--border) !important;
+}
+
+/* Summary card numbers */
+[data-theme="light"] .sum-n {
+  color: #0A1929 !important;
+}
+
+/* Funnel numbers */
+[data-theme="light"] .funnel-n {
+  color: #0A1929 !important;
+}
+
+/* Goal KR text */
+[data-theme="light"] .kr-text {
+  color: #0A1929 !important;
+}
+[data-theme="light"] .goal-stat b {
+  color: #0A1929 !important;
+}
+
+/* Epic name in portfolio */
+[data-theme="light"] .epic-name {
+  color: #0288D1 !important;
+}
+
+/* Proto badge */
+[data-theme="light"] .proto-badge {
+  background: rgba(245,158,11,0.08) !important;
+  color: #D97706 !important;
+  border-color: rgba(245,158,11,0.20) !important;
+}
+
+/* Onboarding overlay */
+[data-theme="light"] .ob-tooltip {
+  background: rgba(255,255,255,0.98) !important;
+  border-color: rgba(2,136,209,0.25) !important;
+}
+[data-theme="light"] .ob-title {
+  color: #0A1929 !important;
+}
+[data-theme="light"] .ob-body {
+  color: #4A7A9B !important;
+}
+
+/* Visual lifecycle dots */
+[data-theme="light"] .vl-dot {
+  background: #FFFFFF !important;
+  border-color: rgba(2,136,209,0.15) !important;
+  color: #4A7A9B !important;
+}
+[data-theme="light"] .vl-item.vl-selected .vl-dot {
+  border-color: #0288D1 !important;
+  background: rgba(2,136,209,0.08) !important;
+  color: #0288D1 !important;
+}
+[data-theme="light"] .vl-label {
+  color: #4A7A9B !important;
+}
+[data-theme="light"] .vl-item.vl-selected .vl-label {
+  color: #0288D1 !important;
+}
