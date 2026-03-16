@@ -1281,6 +1281,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           </select>
         </div>
       </div>
+      <div class="gm-field"><label>Продукт</label><select id="gm-product"><option value="">— Без привязки —</option></select></div>
       <div class="gm-field">
         <label>Описание</label>
         <textarea id="gm-desc" rows="2" placeholder="Контекст цели…"></textarea>
@@ -1412,7 +1413,7 @@ let PROJECTS = (() => {
 function saveProjects() { if (window.PT) PT.save(PT.KEY_PRODUCTS, PROJECTS); }
 
 let gateChecklist = {};
-try { gateChecklist = JSON.parse(localStorage.getItem('ECOTECH_GATE_CHECKLIST')) || {}; } catch(e) {}
+try { gateChecklist = (window.PT ? PT.load('ECOTECH_GATE_CHECKLIST') : JSON.parse(localStorage.getItem('ECOTECH_GATE_CHECKLIST'))) || {}; } catch(e) {}
 
 const BACKLOG_DEFAULT = [
   { id:'I001', productId:'P01', project:'P01', track:'delivery', name:'Геймификация обучения', desc:'Добавить игровые механики в учебные модули', cat:'feature', segment:'product', r:8, i:7, c:6, e:5, status:'wip' },
@@ -1513,14 +1514,18 @@ const CAT_LBL = {
   content: EI.svg('file-text',12)+' Контент',
   infra:   EI.svg('package',12)+' Инфра'
 };
-const ST_LBL  = { backlog:'Бэклог', planned:'Запланировано', wip:'В работе', done:'Готово' };
+const ST_LBL  = { backlog:'Бэклог', planned:'Запланировано', wip:'В работе', done:'Готово', 'on-track':'On Track', 'at-risk':'At Risk', 'blocked':'Blocked', 'paused':'Paused' };
 const ST_ICO  = {
   backlog: EI.svg('inbox',12,'ei-backlog'),
   planned: EI.svg('map-pin',12,'ei-planned'),
   wip:     EI.svg('refresh',12,'ei-wip'),
-  done:    EI.svg('check-circle',12,'ei-done')
+  done:    EI.svg('check-circle',12,'ei-done'),
+  'on-track': EI.svg('check-circle',12,'ei-done'),
+  'at-risk': EI.svg('alert-triangle',12,'ei-planned'),
+  'blocked': EI.svg('x-circle',12,'ei-backlog'),
+  'paused': EI.svg('x',12,'ei-backlog')
 };
-const ST_CLS  = { backlog:'st-backlog', planned:'st-planned', wip:'st-wip', done:'st-done' };
+const ST_CLS  = { backlog:'st-backlog', planned:'st-planned', wip:'st-wip', done:'st-done', 'on-track':'st-wip', 'at-risk':'st-planned', 'blocked':'st-backlog', 'paused':'st-backlog' };
 
 // ════════════════════════════════════════════
 // TABS
@@ -1547,8 +1552,8 @@ function switchTab(tab, btn) {
 function renderLifecycle() {
   const el = document.getElementById('visual-lifecycle');
   if (!el) return;
-  const gateCount = Array(6).fill(0);
-  PROJECTS.forEach(p => { if (p.gate >= 0 && p.gate < 6) gateCount[p.gate]++; });
+  const gateCount = Array(7).fill(0);
+  PROJECTS.forEach(p => { if (p.gate >= 0 && p.gate <= 6) gateCount[p.gate]++; });
   el.innerHTML = STAGES.map((s, idx) => {
     const cnt = gateCount[idx];
     const isSel = gateFilter === idx;
@@ -1646,14 +1651,14 @@ function renderPortfolio() {
       </div>`;
     };
 
-    const projectEpics = epics.filter(e => e.projectId === p.id);
+    const projectEpics = epics.filter(e => e.productId === p.id);
     let initRows = '';
     if (projectEpics.length) {
       // Group by epic
       const byEpic = {};
       const noEpic = [];
       sorted.forEach(item => {
-        const eid = item.epicId && epics.find(e=>e.id===item.epicId&&e.projectId===p.id) ? item.epicId : null;
+        const eid = item.epicId && epics.find(e=>e.id===item.epicId&&e.productId===p.id) ? item.epicId : null;
         if (eid) { if (!byEpic[eid]) byEpic[eid]=[]; byEpic[eid].push(item); }
         else noEpic.push(item);
       });
@@ -2100,7 +2105,7 @@ function renderPMO() {
 // ── CPO VIEW ──
 function renderCPO() {
   // Gate funnel data
-  const gateCount = Array(6).fill(0);
+  const gateCount = Array(7).fill(0);
   PROJECTS.forEach(p => gateCount[p.gate]++);
   const maxCount = Math.max(...gateCount, 1);
   const funnelBars = STAGES.map((s,idx) => {
@@ -2332,6 +2337,9 @@ function saveEP() {
   item.status=document.getElementById('ep-status').value;
   item.release=document.getElementById('ep-release').value;
   item.notes=document.getElementById('ep-notes').value;
+  item.goalId = document.getElementById('ep-goal-sel').value || null;
+  item.epicId = document.getElementById('ep-epic-sel').value || null;
+  item.segment = document.getElementById('ep-segment').value || 'product';
   if (window.PT) PT.save(PT.KEY_BACKLOG, backlog); else localStorage.setItem('rwb_os_backlog', JSON.stringify(backlog));
   if (curTab === 'backlog') renderBL();
   renderPortfolio();
@@ -2391,7 +2399,7 @@ function openPRD(id) {
   if (epicSel) {
     epicSel.innerHTML = '<option value="">— Без инициативы —</option>' +
       epics.map(e => {
-        const proj = e.projectId === (item.productId||item.project) ? '' : ` (${e.projectId})`;
+        const proj = e.productId === (item.productId||item.project) ? '' : ` (${e.productId})`;
         return `<option value="${e.id}"${item.epicId===e.id?' selected':''}>${e.id} · ${e.title}${proj}</option>`;
       }).join('');
   }
@@ -2616,6 +2624,7 @@ function addInitiative(projectId) {
   }
   const newItem = {
     id: newId,
+    productId: projectId,
     project: projectId,
     track: 'discovery',
     name: 'Новая инициатива',
@@ -2629,6 +2638,8 @@ function addInitiative(projectId) {
     notes: '',
     goalId: null,
     epicId: null,
+    created: new Date().toISOString().slice(0,10),
+    updated: new Date().toISOString().slice(0,10),
     prd: { problem:'', hypothesis:'', audience:'', solution:'', metrics:'', risks:'', timeline:'' }
   };
   backlog.push(newItem);
@@ -2741,6 +2752,11 @@ function openGoalEditor(goalId) {
   document.getElementById('gm-owner').value  = goal ? goal.owner       : 'PM';
   document.getElementById('gm-status').value = goal ? goal.status      : 'active';
   document.getElementById('gm-desc').value   = goal ? (goal.description || '') : '';
+  const gmProd = document.getElementById('gm-product');
+  if (gmProd) {
+    gmProd.innerHTML = '<option value="">— Без привязки —</option>' + PROJECTS.map(p => `<option value="${p.id}">${p.id} · ${p.name}</option>`).join('');
+    gmProd.value = goal ? (goal.productId || '') : '';
+  }
   const krList = document.getElementById('gm-kr-list');
   if (goal && goal.keyResults && goal.keyResults.length) {
     krList.innerHTML = goal.keyResults.map(kr => buildKRRow(kr)).join('');
@@ -2771,6 +2787,8 @@ function saveGoalEdit() {
   const titleEl = document.getElementById('gm-title');
   const title = titleEl.value.trim();
   if (!title) { titleEl.focus(); return; }
+  const existingGoal = curGoalId ? goals.find(g => g.id === curGoalId) : null;
+  const oldKR = existingGoal ? (existingGoal.keyResults || []) : [];
   const krRows = document.querySelectorAll('#gm-kr-list .gm-kr-row');
   const keyResults = [];
   let krIdx = 1;
@@ -2778,16 +2796,19 @@ function saveGoalEdit() {
     const inputs = row.querySelectorAll('input');
     const text = inputs[0].value.trim();
     if (!text) return;
-    keyResults.push({
+    const kr = {
       id: 'KR' + krIdx++,
       text: text,
       current: Math.max(0, parseFloat(inputs[1].value) || 0),
       target: Math.max(1, parseFloat(inputs[2].value) || 10),
       unit: inputs[3].value.trim() || '\u0435\u0434.'
-    });
+    };
+    const existingKR = oldKR.find(k => k.id === kr.id);
+    kr.initiativeIds = existingKR ? (existingKR.initiativeIds || []) : [];
+    keyResults.push(kr);
   });
   if (curGoalId) {
-    const goal = goals.find(g => g.id === curGoalId);
+    const goal = existingGoal;
     if (goal) {
       goal.title       = title;
       goal.type        = document.getElementById('gm-type').value;
@@ -2795,6 +2816,7 @@ function saveGoalEdit() {
       goal.owner       = document.getElementById('gm-owner').value;
       goal.status      = document.getElementById('gm-status').value;
       goal.description = document.getElementById('gm-desc').value;
+      goal.productId   = document.getElementById('gm-product').value || null;
       if (keyResults.length) goal.keyResults = keyResults;
     }
   } else {
@@ -2806,6 +2828,7 @@ function saveGoalEdit() {
       owner: document.getElementById('gm-owner').value,
       status: document.getElementById('gm-status').value,
       description: document.getElementById('gm-desc').value,
+      productId: document.getElementById('gm-product').value || null,
       keyResults: keyResults.length ? keyResults : [{ id:'KR1', text:'\u041a\u043b\u044e\u0447\u0435\u0432\u043e\u0439 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442', target:10, current:0, unit:'\u0435\u0434.' }]
     });
   }
