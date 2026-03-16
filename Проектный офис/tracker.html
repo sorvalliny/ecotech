@@ -452,6 +452,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .kanban-card-name { font-size:12px; font-weight:700; color:var(--text); margin-bottom:3px; }
 .kanban-card-meta { font-size:10px; color:var(--muted); }
 .kanban-empty { font-size:11px; color:var(--muted); text-align:center; padding:16px; }
+.stage-help-link { font-size:10px; color:var(--violet); text-decoration:none; display:inline-flex; align-items:center; gap:3px; transition:color .15s; }
+.stage-help-link:hover { color:var(--teal); }
+.gate-check-link { display:inline-flex; align-items:center; gap:2px; }
 </style>
   <script src="../icons.js"></script>
   <script src="../platform.js"></script>
@@ -1049,6 +1052,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <!-- PRD Tab Panel -->
     <div class="ep-tab-panel active" id="ep-panel-prd">
       <div class="ep-body">
+        <div style="padding:10px 14px;background:rgba(0,212,180,0.06);border:1px solid rgba(0,212,180,0.2);border-radius:8px;margin-bottom:14px;font-size:11px;color:var(--text);">
+          <strong style="color:#00D4B4;">Подсказка:</strong> Привяжите инициативу к продукту и цели. Укажите сегмент (бизнес/продукт/техника) и оцените RICE. Без привязки к цели инициатива уходит в бэклог.
+        </div>
         <div class="ep-group">
           <div class="ep-lbl"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цель</div>
           <select class="ep-select" id="ep-goal-sel" onchange="onGoalSelect()">
@@ -1243,6 +1249,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <button class="ep-close" onclick="closeGoalModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
     </div>
     <div class="gm-body">
+      <div style="padding:10px 14px;background:rgba(255,184,48,0.06);border:1px solid rgba(255,184,48,0.2);border-radius:8px;margin-bottom:14px;font-size:11px;color:var(--text);">
+        <strong style="color:#FFB830;">Подсказка:</strong> Цель = OKR. Привяжите к продукту, добавьте 2–3 измеримых Key Results. Инициативы для достижения KR создаются отдельно и привязываются к цели.
+      </div>
       <div class="gm-field">
         <label>Название *</label>
         <input type="text" id="gm-title" placeholder="Название цели">
@@ -1390,6 +1399,9 @@ let PROJECTS = (() => {
   return (raw && Array.isArray(raw) && raw.length) ? raw : [...PROJECTS_DEFAULT];
 })();
 function saveProjects() { if (window.PT) PT.save(PT.KEY_PRODUCTS, PROJECTS); }
+
+let gateChecklist = {};
+try { gateChecklist = JSON.parse(localStorage.getItem('ECOTECH_GATE_CHECKLIST')) || {}; } catch(e) {}
 
 const BACKLOG_DEFAULT = [
   { id:'I001', productId:'P01', project:'P01', track:'delivery', name:'Геймификация обучения', desc:'Добавить игровые механики в учебные модули', cat:'feature', segment:'product', r:8, i:7, c:6, e:5, status:'wip' },
@@ -1591,6 +1603,16 @@ function renderPortfolio() {
       return `<span class="chip ${chipCls(s)}">${i.id} · ${s.toFixed(0)}</span>`;
     }).join('');
     const stage = STAGES[p.gate] || STAGES[0];
+    const checks = gateChecklist[p.id] ? gateChecklist[p.id]['gate'+p.gate] : null;
+    let checkProgress = '';
+    if (checks && checks.length) {
+      const done = checks.filter(Boolean).length;
+      const total = checks.length;
+      const pct = Math.round(done/total*100);
+      const color = pct === 100 ? '#34D399' : pct >= 50 ? '#FFB830' : 'var(--muted)';
+      checkProgress = `<a href="../Продукту/gate-checklist.html#product=${p.id}&gate=${p.gate}" class="gate-check-link" style="font-size:9px;color:${color};text-decoration:none" title="Gate-чеклист: ${done}/${total}">\u2713 ${done}/${total}</a>`;
+    }
+    const stageLink = `<a href="../Фреймворк/framework-lite.html#stage=${p.gate}" class="stage-help-link" title="Открыть стадию во фреймворке">${EI.svg('book-open',10)} Что делать \u2192</a>`;
     const gateBar = STAGES.map((s,idx) => {
       let cls = idx < p.gate ? 'done' : idx === p.gate ? 'current' : '';
       return `<div class="gate-step ${cls}" title="G${idx}: ${s.name}"></div>`;
@@ -1665,6 +1687,8 @@ function renderPortfolio() {
           <span class="pid">${p.id}</span>
           <span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span>
           <span class="gbadge ${gateClass(p.gate)}">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</span>
+          ${checkProgress}
+          ${stageLink}
           <span class="player">${p.layer}</span>
           <button class="pcard-edit-btn" onclick="event.stopPropagation();openProdModal('${p.id}')" title="Редактировать продукт">${EI.svg('edit',12)}</button>
         </div>
