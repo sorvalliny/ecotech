@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Framework Lite · RWB Product OS</title>
+<title>ОРБИТА — Как мы работаем по стадиям</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../design-system.css">
 <style>
@@ -309,6 +309,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 .se-sync{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--teal);font-weight:600;background:var(--teal-dim);border:1px solid var(--teal-border);padding:4px 12px;border-radius:20px;margin-bottom:20px;}
 .se-sync-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:sepl 2s infinite;flex-shrink:0;}
 @keyframes sepl{0%,100%{opacity:1}50%{opacity:.3}}
+/* ── F-05: HIDE PILOT SECTION ── */
+#sec-pilot, .pilot-section, [data-tab="pilot"], #pilot-tab { display: none !important; }
+/* ── A-03: HIDE EDITOR UI ── */
+.edit-bar, .edit-badge, .edit-toast-msg { display: none !important; }
+#sec-stages-editor { display: none !important; }
 /* ── EDIT MODE ── */
 .fw-ed[contenteditable="true"]{outline:1px dashed rgba(79,195,247,0.35);border-radius:4px;cursor:text;min-height:1em;}
 .fw-ed[contenteditable="true"]:hover{outline-color:rgba(79,195,247,0.7);background:rgba(79,195,247,0.03);}
@@ -424,8 +429,8 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <button class="stab s6" onclick="showSec('s6',this)" id="stab-s6">О·6 &nbsp;Архив</button>
     <div class="stab-sep"></div>
     <button class="stab" onclick="window.location.href='../Продукту/templates.html'">Шаблоны →</button>
-    <button class="stab" onclick="showSec('pilot',this)">Пилот →</button>
-    <button class="stab" onclick="showSec('stages-editor',this)">Стадии</button>
+    <button class="stab" onclick="showSec('pilot',this)" style="display:none !important">Пилот →</button>
+    <button class="stab" onclick="showSec('stages-editor',this)" style="display:none !important">Стадии</button>
   </div>
 </div>
 
@@ -435,9 +440,9 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 <!-- ══════════════════════════════════════════════ OVERVIEW -->
 <div class="fw-section active" id="sec-overview">
   <div class="fw-hero">
-    <div class="fw-hero-eyebrow">RWB · Product OS · 2026</div>
-    <h1 class="fw-hero-title">Framework <em>Lite</em></h1>
-    <p class="fw-hero-sub">Практическое руководство по жизненному циклу продукта — от идеи до экосистемного масштаба. Один документ с процессом, артефактами, инструментами и шаблонами для каждой стадии. Создан для быстрого старта с пилотной командой и масштабирования на весь портфель.</p>
+    <div class="fw-hero-eyebrow">ОРБИТА · Product OS · 2026</div>
+    <h1 class="fw-hero-title">Как мы работаем <em>по стадиям</em></h1>
+    <p class="fw-hero-sub">Путь продукта от Заявки до Плато: стадии, артефакты, критерии перехода</p>
     <div class="fw-hero-tags">
       <span class="fw-tag fw-tag-v">7 стадий зрелости</span>
       <span class="fw-tag fw-tag-t">12 готовых шаблонов</span>
@@ -592,7 +597,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="howto-card">
       <div class="howto-num">02</div>
       <div class="howto-title">Ревью с руководством</div>
-      <div class="howto-desc">Откройте нужную стадию, покажите артефакты и Gate-критерии. Раздел <strong>Пилот</strong> — для согласования плана внедрения с CPO/CTO.</div>
+      <div class="howto-desc">Откройте нужную стадию, покажите артефакты и Gate-критерии команде и руководству.</div>
     </div>
     <div class="howto-card">
       <div class="howto-num">03</div>

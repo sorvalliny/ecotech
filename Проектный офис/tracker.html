@@ -2703,7 +2703,7 @@ initSidebar();
   const _hash = window.PT ? PT.parseHash() : {};
   const _ui   = window.PT ? PT.getUIState() : {};
   const _tab  = _hash.tab || _ui.tracker_tab || 'portfolio';
-  const _tabIdx = ['portfolio','backlog','tracker','goals'].indexOf(_tab);
+  const _tabIdx = ['goals','portfolio','backlog','tracker'].indexOf(_tab);
   if (_tabIdx >= 0 && tabBtns[_tabIdx]) {
     switchTab(_tab, tabBtns[_tabIdx]);
   }

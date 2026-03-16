@@ -40,68 +40,44 @@
     "tags": ["инструменты", "сервисы", "каталог", "RICE", "GitLab", "BI"]
   },
   {
-    "id": "page-strategy",
-    "title": "Стратегическое планирование",
-    "description": "Стратегия продукта: Identity, Goals, Roadmap, OKR, экспорт в Excel.",
-    "url": "Продукту/strategy.html",
-    "category": "Документация",
-    "tags": ["стратегия", "планирование", "OKR", "roadmap", "цели"]
-  },
-  {
-    "id": "page-rice",
-    "title": "Калькулятор RICE",
-    "description": "Приоритизация инициатив по методологии RICE: Reach, Impact, Confidence, Effort.",
+    "id": "page-brief",
+    "title": "Product Brief — Бриф инициативы",
+    "description": "Калькулятор RICE и бриф инициативы: Reach, Impact, Confidence, Effort.",
     "url": "Продукту/brief.html",
     "category": "Инструменты",
-    "tags": ["RICE", "приоритизация", "калькулятор", "score", "инициативы"]
+    "tags": ["RICE", "приоритизация", "калькулятор", "score", "инициативы", "бриф"]
   },
   {
-    "id": "page-framework",
-    "title": "Продуктовый фреймворк RWB",
-    "description": "Операционный справочник: Gate 0→5, регламенты, чек-листы, шаблоны артефактов.",
-    "url": "Фреймворк/framework-lite.html",
+    "id": "page-gate-checklist",
+    "title": "Gate-чеклист",
+    "description": "Чеклист прохождения Gate: критерии готовности, артефакты, решения комитета.",
+    "url": "Продукту/gate-checklist.html",
+    "category": "Инструменты",
+    "tags": ["gate", "чеклист", "критерии", "артефакты", "комитет"]
+  },
+  {
+    "id": "page-tracker",
+    "title": "Трекер продуктов и инициатив",
+    "description": "Управление Gate-переходами, реестр продуктов, эпиков и целей.",
+    "url": "Проектный офис/tracker.html",
+    "category": "Инструменты",
+    "tags": ["трекер", "продукты", "инициативы", "Gate", "реестр"]
+  },
+  {
+    "id": "page-terminology",
+    "title": "Глоссарий — терминология ОРБИТА",
+    "description": "Единый словарь терминов платформы: стадии, артефакты, роли, метрики.",
+    "url": "terminology.html",
     "category": "Документация",
-    "tags": ["фреймворк", "Gate", "регламенты", "Product OS", "операционный"]
+    "tags": ["глоссарий", "терминология", "словарь", "определения"]
   },
   {
     "id": "page-framework-lite",
-    "title": "Гайд по стадиям зрелости",
-    "description": "Упрощённый путь продукта: O·0 Заявка → O·5 Плато. Орбиты, артефакты, метрики.",
+    "title": "Как мы работаем по стадиям",
+    "description": "Путь продукта от Заявки до Плато: стадии, артефакты, критерии перехода.",
     "url": "Фреймворк/framework-lite.html",
     "category": "Документация",
-    "tags": ["стадии", "зрелость", "орбиты", "гайд", "framework lite"]
-  },
-  {
-    "id": "page-council",
-    "title": "Управляющий совет",
-    "description": "Структура управления: Core, Steering, Architecture комитеты. Роли, встречи, решения.",
-    "url": "Проектный офис/council.html",
-    "category": "Документация",
-    "tags": ["совет", "комитет", "управление", "governance", "PMO"]
-  },
-  {
-    "id": "page-handbook",
-    "title": "Хэндбук Product OS",
-    "description": "Полный справочник Product OS: гайды, стандарты, шаблоны для PM и Tech Lead.",
-    "url": "Хэндбук/rwb-product-os-v12.html",
-    "category": "Документация",
-    "tags": ["хэндбук", "справочник", "гайд", "PM", "Tech Lead"]
-  },
-  {
-    "id": "page-tokens",
-    "title": "Design Tokens — Preview",
-    "description": "Интерактивный каталог дизайн-токенов: цвета, типографика, отступы, тени.",
-    "url": "design-system/tokens-preview.html",
-    "category": "Инструменты",
-    "tags": ["дизайн", "токены", "цвета", "типографика", "design system"]
-  },
-  {
-    "id": "page-badge-demo",
-    "title": "Badge Component — Demo",
-    "description": "Демо компонента Badge: Gate 0–5, статусы On Track / At Risk / Paused / Done.",
-    "url": "design-system/components/badge-demo.html",
-    "category": "Инструменты",
-    "tags": ["badge", "компонент", "статус", "Gate", "demo", "design system"]
+    "tags": ["стадии", "зрелость", "орбиты", "фреймворк", "framework lite"]
   },
 
   {
@@ -268,43 +244,19 @@
   },
   {
     "id": "tool-framework",
-    "title": "Продуктовый фреймворк",
-    "description": "Операционный справочник контура. Gate 0→5, регламенты, чек-листы, шаблоны артефактов.",
+    "title": "Как мы работаем по стадиям",
+    "description": "Путь продукта: стадии зрелости О·0 → О·5, Gate-критерии, артефакты, шаблоны.",
     "url": "Фреймворк/framework-lite.html",
     "category": "Инструменты",
-    "tags": ["фреймворк", "Gate", "регламенты", "Product OS"]
-  },
-  {
-    "id": "tool-framework-lite",
-    "title": "Гайд по стадиям продукта",
-    "description": "Упрощённый путь для быстрых гипотез: Разведка → Прототип → Разгон.",
-    "url": "Фреймворк/framework-lite.html",
-    "category": "Инструменты",
-    "tags": ["стадии", "гайд", "разведка", "прототип", "разгон"]
-  },
-  {
-    "id": "tool-handbook",
-    "title": "Хэндбук лидера",
-    "description": "Гайды, шаблоны и стандарты для PM и Tech Lead. G0–G6.",
-    "url": "Хэндбук/rwb-product-os-v12.html",
-    "category": "Инструменты",
-    "tags": ["хэндбук", "PM", "Tech Lead", "стандарты"]
+    "tags": ["фреймворк", "Gate", "регламенты", "Product OS", "стадии"]
   },
   {
     "id": "tool-tracker",
     "title": "Трекер продуктов и инициатив",
     "description": "Управление Gate-переходами, реестр продуктов, эпиков и целей.",
-    "url": "Проектный офис/RWB · Product OS - Трекер инициатив.html",
+    "url": "Проектный офис/tracker.html",
     "category": "Инструменты",
     "tags": ["трекер", "продукты", "инициативы", "Gate", "реестр"]
-  },
-  {
-    "id": "tool-strategy",
-    "title": "Стратегическое планирование",
-    "description": "Стратегия продукта: Identity, Goals, Roadmap, PRD, DoR/DoD.",
-    "url": "Продукту/strategy.html",
-    "category": "Инструменты",
-    "tags": ["стратегия", "планирование", "roadmap", "identity", "goals"]
   },
   {
     "id": "tool-gitlab",
