@@ -316,6 +316,15 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .btn-add-goal{padding:8px 16px;background:var(--violet-dim);border:1px solid var(--violet-border);border-radius:8px;color:#C4B5FD;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
 .btn-add-goal:hover{background:var(--violet);color:#fff}
 
+/* ── KR INITIATIVES & CARD GOALS ── */
+.kr-inits{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.kr-init-chip{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
+.card-goals{display:flex;flex-direction:column;gap:4px;margin-top:8px;border-top:1px solid var(--border);padding-top:8px}
+.card-goal-item{display:flex;align-items:center;gap:6px;font-size:11px}
+.card-goal-id{font-family:var(--font-head);font-size:9px;font-weight:700;color:var(--amber)}
+.card-goal-title{color:var(--text);flex:1}
+.card-goal-progress{font-family:var(--font-head);font-size:9px;color:var(--muted)}
+
 /* ── PRODUCT PRD PANEL ── */
 .prod-prd-panel{position:fixed;top:96px;right:0;bottom:0;width:480px;background:var(--card);border-left:1px solid var(--border);z-index:140;transform:translateX(100%);transition:transform .2s;overflow:hidden;display:flex;flex-direction:column}
 .prod-prd-panel.open{transform:none;box-shadow:-8px 0 32px rgba(0,0,0,.5)}
@@ -1344,14 +1353,14 @@ const GOALS_DEFAULT = [
   { id:'G001', title:'Запустить WB Kids через Gate 3', type:'product',
     period:'Q2 2026', owner:'CPO', status:'active', productId:'P01',
     keyResults:[
-      { id:'KR1', text:'Activation Rate >= 30%', target:30, current:18, unit:'%' },
-      { id:'KR2', text:'NPS >= 40', target:40, current:32, unit:'pts' }
+      { id:'KR1', text:'Activation Rate >= 30%', target:30, current:18, unit:'%', initiativeIds:['I001','I002'] },
+      { id:'KR2', text:'NPS >= 40', target:40, current:32, unit:'pts', initiativeIds:[] }
     ]
   },
   { id:'G002', title:'EdTech MVP в production', type:'strategic',
     period:'Q1 2026', owner:'CPO', status:'active', productId:'P03',
     keyResults:[
-      { id:'KR1', text:'MVP запущен', target:1, current:0, unit:'продукт' }
+      { id:'KR1', text:'MVP запущен', target:1, current:0, unit:'продукт', initiativeIds:['I005'] }
     ]
   }
 ];
@@ -1385,6 +1394,13 @@ backlog.forEach(item => {
 let goals = (window.PT ? PT.load(PT.KEY_GOALS) : null) || GOALS_DEFAULT;
 let epics = (window.PT ? PT.load(PT.KEY_EPICS) : null) || EPICS_DEFAULT;
 let productsPRD = (window.PT ? PT.load(PT.KEY_PRODUCTS_PRD) : null) || {};
+
+// Migrate KR initiativeIds
+goals.forEach(g => {
+  (g.keyResults || []).forEach(kr => {
+    if (!kr.initiativeIds) kr.initiativeIds = [];
+  });
+});
 
 // Migrate prd fields
 backlog.forEach(item => {
@@ -1617,6 +1633,22 @@ function renderPortfolio() {
         </div>
         <div class="ilist">${initRows}</div>
         <button class="add-init-btn" onclick="event.stopPropagation();addInitiative('${p.id}')">+ Добавить эпик</button>
+        ${(() => {
+          const productGoals = goals.filter(g => g.productId === p.id);
+          if (!productGoals.length) return '';
+          return `<div class="card-goals">
+            <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Цели (${productGoals.length})</div>
+            ${productGoals.map(g => {
+              const totalKR = g.keyResults.length;
+              const doneKR = g.keyResults.filter(kr => kr.current >= kr.target).length;
+              return `<div class="card-goal-item">
+                <span class="card-goal-id">${g.id}</span>
+                <span class="card-goal-title">${g.title}</span>
+                <span class="card-goal-progress">${doneKR}/${totalKR} KR</span>
+              </div>`;
+            }).join('')}
+          </div>`;
+        })()}
       </div>
     </div>`;
   }).join('');
@@ -2330,6 +2362,7 @@ function renderGoals() {
           <span class="kr-progress">${kr.current}/${kr.target} ${kr.unit}</span>
         </div>
         <div class="kr-bar"><div class="kr-bar-fill" style="width:${pct}%"></div></div>
+        <div class="kr-inits">${((kr.initiativeIds || []).map(id => backlog.find(i => i.id === id)).filter(Boolean)).map(init => `<span class="kr-init-chip ${ST_CLS[init.status]}">${init.name}</span>`).join('')}</div>
       </div>`;
     }).join('');
     return `<div class="goal-card">
@@ -2347,8 +2380,8 @@ function renderGoals() {
       </div>
       <div class="kr-list">${krRows}</div>
       <div class="goal-stats">
-        <div class="goal-stat">Эпиков: <b>${goalInits.length}</b></div>
-        <div class="goal-stat">Инициатив: <b>${goalEpics.length}</b></div>
+        <div class="goal-stat">Инициатив: <b>${goalInits.length}</b></div>
+        <div class="goal-stat">Эпиков: <b>${goalEpics.length}</b></div>
         <div style="flex:1"></div>
         <button class="exbtn" onclick="openGoalEditor('${goal.id}')">${EI.svg('edit',14)} Редактировать</button>
       </div>
@@ -2362,6 +2395,10 @@ function editGoal(goalId) {
   goal.keyResults.forEach(kr => {
     const val = prompt(`${kr.id}: ${kr.text}\nТекущее значение (из ${kr.target} ${kr.unit}):`, kr.current);
     if (val !== null && !isNaN(+val)) kr.current = Math.max(0, +val);
+    const linkInit = prompt(`Привязать инициативу к ${kr.id}? (ID через запятую или пусто):`, (kr.initiativeIds||[]).join(','));
+    if (linkInit !== null) {
+      kr.initiativeIds = linkInit.split(',').map(s => s.trim()).filter(Boolean);
+    }
   });
   if (window.PT) PT.save(PT.KEY_GOALS, goals);
   renderGoals();
