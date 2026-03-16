@@ -75,7 +75,7 @@
 
   // ── active group detection ──────────────────────────────────
   var bizActive  = (has('business') || has('бизнесу') || has('dashboard')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('rice') || has('brief') || has('tracker') || has('gate-checklist')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('rice') || has('brief') || has('tracker') || has('gate-checklist') || has('terminology')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -118,6 +118,7 @@
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Бизнесу</a>'
     +   '<div class="en-drop-menu" role="menu">'
     +     a('business.html', 'Для бизнеса')
+    +     a('Бизнесу/index.html', 'Сценарии для бизнеса')
     +     a('pages/dashboard.html', 'Дашборд')
     +   '</div>'
     + '</div>'
