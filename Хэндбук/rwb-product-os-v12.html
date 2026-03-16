@@ -144,7 +144,7 @@ h3 { font-size: 14px; font-weight: 700; color: var(--gray2); margin-bottom: 12px
 
 /* ═══ BADGES ═══ */
 .badge { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-head); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: .04em; }
-/* Stage badges — aligned to design system G0–G5 palette */
+/* Stage badges — aligned to design system G0–G6 palette */
 .badge-idea     { background: var(--amber-dim);               color: var(--amber);      border: 1px solid var(--amber-border); }
 .badge-discovery{ background: var(--violet-dim);              color: var(--stage-g1);   border: 1px solid var(--violet-border); }
 .badge-pilot    { background: var(--blue-dim);                color: var(--blue);       border: 1px solid rgba(59,130,246,0.35); }
@@ -174,7 +174,7 @@ h3 { font-size: 14px; font-weight: 700; color: var(--gray2); margin-bottom: 12px
 }
 .stage-segment:hover { transform: translateY(-2px); }
 .stage-segment.active { border-color: rgba(255,255,255,0.3); }
-/* Stage segments — aligned to design system G0–G5 palette */
+/* Stage segments — aligned to design system G0–G6 palette */
 .stage-s0 { background: var(--amber-dim);               color: var(--amber); }
 .stage-s1 { background: var(--violet-dim);              color: var(--stage-g1); }
 .stage-s2 { background: var(--blue-dim);                color: var(--blue); }
@@ -371,13 +371,13 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
     </div>
     <div class="nav-group">
       <div class="nav-label">Стадии зрелости</div>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(0)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg></span>Идея</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(1)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg></span>Discovery</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(2)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg></span>Пилот</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(3)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg></span>Запуск</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(4)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg></span>Масштаб</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(5)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg></span>Зрелость</button>
-      <button class="nav-item" onclick="showSection('stages',this);showStage(6)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg></span>Консервация</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(0)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg></span>Заявка</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(1)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg></span>Разведка</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(2)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg></span>Прототип</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(3)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg></span>Разгон</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(4)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg></span>Экосистема</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(5)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg></span>Плато</button>
+      <button class="nav-item" onclick="showSection('stages',this);showStage(6)"><span class="nav-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg></span>Архив</button>
     </div>
     <div class="nav-group">
       <div class="nav-label">Продукты</div>
@@ -419,13 +419,13 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
 
   <!-- Прогресс стадий -->
   <div class="stage-bar mb-32">
-    <div class="stage-segment stage-s0" onclick="showSection('stages', null);showStage(0)" title="Идея"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg><br>Идея</div>
-    <div class="stage-segment stage-s1" onclick="showSection('stages', null);showStage(1)" title="Discovery"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg><br>Discovery</div>
-    <div class="stage-segment stage-s2" onclick="showSection('stages', null);showStage(2)" title="Пилот"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg><br>Пилот</div>
-    <div class="stage-segment stage-s3" onclick="showSection('stages', null);showStage(3)" title="Запуск"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg><br>Запуск</div>
-    <div class="stage-segment stage-s4" onclick="showSection('stages', null);showStage(4)" title="Масштаб"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg><br>Масштаб</div>
-    <div class="stage-segment stage-s5" onclick="showSection('stages', null);showStage(5)" title="Зрелость"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg><br>Зрелость</div>
-    <div class="stage-segment stage-s6" onclick="showSection('stages', null);showStage(6)" title="Консервация"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg><br>Консервация</div>
+    <div class="stage-segment stage-s0" onclick="showSection('stages', null);showStage(0)" title="Заявка"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg><br>Заявка</div>
+    <div class="stage-segment stage-s1" onclick="showSection('stages', null);showStage(1)" title="Разведка"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg><br>Разведка</div>
+    <div class="stage-segment stage-s2" onclick="showSection('stages', null);showStage(2)" title="Прототип"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg><br>Прототип</div>
+    <div class="stage-segment stage-s3" onclick="showSection('stages', null);showStage(3)" title="Разгон"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg><br>Разгон</div>
+    <div class="stage-segment stage-s4" onclick="showSection('stages', null);showStage(4)" title="Экосистема"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg><br>Экосистема</div>
+    <div class="stage-segment stage-s5" onclick="showSection('stages', null);showStage(5)" title="Плато"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg><br>Плато</div>
+    <div class="stage-segment stage-s6" onclick="showSection('stages', null);showStage(6)" title="Архив"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg><br>Архив</div>
   </div>
 
   <!-- Быстрый вход по роли -->
@@ -434,7 +434,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
     <div class="card card-hover role-card" onclick="showSection('stages',null);showStage(1)" style="cursor:pointer">
       <div class="role-icon">PM</div>
       <div class="role-name">Product Manager</div>
-      <div class="role-desc">Ведёшь от идеи до роста. Начни с Discovery.</div>
+      <div class="role-desc">Ведёшь от заявки до роста. Начни с Разведки.</div>
     </div>
     <div class="card card-hover role-card" onclick="showSection('committees',null)" style="cursor:pointer">
       <div class="role-icon">STK</div>
@@ -444,7 +444,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
     <div class="card card-hover role-card" onclick="showSection('stages',null);showStage(2)" style="cursor:pointer">
       <div class="role-icon">TL</div>
       <div class="role-name">Тех.лид / Разработчик</div>
-      <div class="role-desc">Подключаешься на пилоте. Смотри чек-лист.</div>
+      <div class="role-desc">Подключаешься на прототипе. Смотри чек-лист.</div>
     </div>
     <div class="card card-hover role-card" onclick="showSection('glossary',null)" style="cursor:pointer">
       <div class="role-icon">ANA</div>
@@ -491,25 +491,25 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
 <!-- ════════════════════════════ СТАДИИ ════════════════════════════ -->
 <div class="section" id="sec-stages">
   <div class="page-title" id="stages-title">Стадии зрелости</div>
-  <div class="page-sub">Жизненный цикл продукта: от идеи до консервации</div>
+  <div class="page-sub">Жизненный цикл продукта: от заявки до архива</div>
 
   <!-- Навигация между стадиями -->
   <div class="stage-bar mb-24" id="stage-nav">
-    <div class="stage-segment stage-s0" onclick="showStage(0)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg> Идея</div>
-    <div class="stage-segment stage-s1" onclick="showStage(1)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg> Discovery</div>
-    <div class="stage-segment stage-s2" onclick="showStage(2)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg> Пилот</div>
-    <div class="stage-segment stage-s3" onclick="showStage(3)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg> Запуск</div>
-    <div class="stage-segment stage-s4" onclick="showStage(4)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg> Масштаб</div>
-    <div class="stage-segment stage-s5" onclick="showStage(5)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg> Зрелость</div>
-    <div class="stage-segment stage-s6" onclick="showStage(6)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg> Консервация</div>
+    <div class="stage-segment stage-s0" onclick="showStage(0)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg> Заявка</div>
+    <div class="stage-segment stage-s1" onclick="showStage(1)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg> Разведка</div>
+    <div class="stage-segment stage-s2" onclick="showStage(2)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg> Прототип</div>
+    <div class="stage-segment stage-s3" onclick="showStage(3)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg> Разгон</div>
+    <div class="stage-segment stage-s4" onclick="showStage(4)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg> Экосистема</div>
+    <div class="stage-segment stage-s5" onclick="showStage(5)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg> Плато</div>
+    <div class="stage-segment stage-s6" onclick="showStage(6)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg> Архив</div>
   </div>
 
-  <!-- ── ИДЕЯ ── -->
+  <!-- ── ЗАЯВКА ── -->
   <div class="stage-content" id="stage-0">
     <div class="stage-header">
       <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-lightbulb"/></svg></span>
       <div>
-        <div class="stage-title" style="color:var(--stage-idea)">Идея</div>
+        <div class="stage-title" style="color:var(--stage-idea)">Заявка</div>
         <div class="stage-goal">Проверяем, стоит ли тратить время на инициативу. Цель — быстро понять: «да, копаем» или «нет, не берём».</div>
       </div>
     </div>
@@ -575,16 +575,16 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="showStage(1)">→ Следующая стадия: Discovery</button>
+    <button class="btn btn-primary" onclick="showStage(1)">→ Следующая стадия: Разведка</button>
   </div>
 
-  <!-- ── DISCOVERY ── -->
+  <!-- ── РАЗВЕДКА ── -->
   <div class="stage-content" id="stage-1">
     <div class="stage-header">
       <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-search"/></svg></span>
       <div>
-        <div class="stage-title" style="color:var(--stage-discovery)">Discovery</div>
-        <div class="stage-goal">Копаем в проблему. Делаем <span class="term" data-tooltip="Customer Development — серия интервью с потенциальными пользователями для проверки гипотез">CustDev</span>, ищем боли, формируем гипотезы решений. Выход — Product ID и решение по пилоту.</div>
+        <div class="stage-title" style="color:var(--stage-discovery)">Разведка</div>
+        <div class="stage-goal">Копаем в проблему. Делаем <span class="term" data-tooltip="Customer Development — серия интервью с потенциальными пользователями для проверки гипотез">CustDev</span>, ищем боли, формируем гипотезы решений. Выход — Product ID и решение по прототипу.</div>
       </div>
     </div>
 
@@ -597,7 +597,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
           </div>
         </div>
         <div class="acc-item">
-          <div class="acc-header" onclick="toggleAcc(this)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-clipboard"/></svg> Артефакты Discovery <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
+          <div class="acc-header" onclick="toggleAcc(this)"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-clipboard"/></svg> Артефакты Разведки <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <div style="display:flex;flex-direction:column;gap:8px;">
               <div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:13px;">
@@ -605,7 +605,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
                 <button class="btn btn-outline btn-sm" onclick="showSection('productid',null)">Открыть</button>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:13px;">
-                <span style="color:var(--gray2)">CustDev скрипт (≥5 интервью)</span>
+                <span style="color:var(--gray2)">CustDev скрипт (≥7 интервью)</span>
                 <button class="btn btn-outline btn-sm" onclick="showModal('custdev')">Шаблон</button>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:13px;">
@@ -622,9 +622,9 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
           <div style="margin-top:8px;font-size:12px;">
             <strong>Нужно показать:</strong><br>
             • Product ID заполненный<br>
-            • CustDev: ≥5 интервью + инсайты<br>
+            • CustDev: ≥7 интервью + инсайты<br>
             • Гипотезы и приоритет фич<br>
-            • Roadmap пилота (4–6 недель)<br>
+            • Roadmap прототипа (4–6 недель)<br>
             • <span class="term" data-tooltip="North Star Metric — одна ключевая метрика, показывающая ценность продукта для пользователя">North Star метрика</span><br><br>
             <strong>Вопросы:</strong><br>
             • «Сколько людей с проблемой?»<br>
@@ -647,28 +647,28 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="font-size:13px;color:#FF6B6B">✗ CustDev = «мы и так знаем» без интервью</li>
               <li style="font-size:13px;color:#FF6B6B">✗ Метрика «DAU» без понимания baseline</li>
-              <li style="font-size:13px;color:#FF6B6B">✗ Roadmap пилота = 6 месяцев</li>
+              <li style="font-size:13px;color:#FF6B6B">✗ Roadmap прототипа = 6 месяцев</li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="showStage(2)">→ Следующая стадия: Пилот</button>
+    <button class="btn btn-primary" onclick="showStage(2)">→ Следующая стадия: Прототип</button>
   </div>
 
-  <!-- ── ПИЛОТ ── -->
+  <!-- ── ПРОТОТИП ── -->
   <div class="stage-content" id="stage-2">
     <div class="stage-header">
       <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-rocket"/></svg></span>
       <div>
-        <div class="stage-title" style="color:var(--stage-pilot)">Пилот</div>
+        <div class="stage-title" style="color:var(--stage-pilot)">Прототип</div>
         <div class="stage-goal">Пилим <span class="term" data-tooltip="Minimum Viable Product — минимальная версия продукта с ключевой ценностью для первых пользователей">MVP</span>, катим на реальных пользователей. Доказываем: продукт решает боль и метрики растут.</div>
       </div>
     </div>
     <div class="grid-2 mb-24">
       <div>
         <div class="acc-item open">
-          <div class="acc-header" onclick="toggleAcc(this)">Чек-лист пилота <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Чек-лист прототипа <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul class="checklist" id="cl-pilot"></ul>
           </div>
@@ -679,7 +679,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
           <strong>Gate 2 — Продуктовый комитет</strong><br>
           <div style="margin-top:8px;font-size:12px;">
             <strong>Нужно показать:</strong><br>
-            • Метрики пилота vs baseline<br>
+            • Метрики прототипа vs baseline<br>
             • NPS / CSAT пользователей<br>
             • Технический долг и риски<br>
             • Решение: масштабировать / пивот / стоп<br><br>
@@ -687,32 +687,32 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
           </div>
         </div>
         <div class="acc-item">
-          <div class="acc-header" onclick="toggleAcc(this)">Типичные фейлы пилота <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Типичные фейлы прототипа <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
-              <li style="font-size:13px;color:#FF6B6B">✗ Пилот без измеримых метрик</li>
-              <li style="font-size:13px;color:#FF6B6B">✗ «Пилот» длится больше 8 недель</li>
+              <li style="font-size:13px;color:#FF6B6B">✗ Прототип без измеримых метрик</li>
+              <li style="font-size:13px;color:#FF6B6B">✗ Прототип длится больше 8 недель</li>
               <li style="font-size:13px;color:#FF6B6B">✗ Нет канала обратной связи от пользователей</li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="showStage(3)">→ Следующая стадия: Запуск</button>
+    <button class="btn btn-primary" onclick="showStage(3)">→ Следующая стадия: Разгон</button>
   </div>
 
-  <!-- ── ЗАПУСК ── -->
+  <!-- ── РАЗГОН ── -->
   <div class="stage-content" id="stage-3">
     <div class="stage-header">
       <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-trending-up"/></svg></span>
       <div>
-        <div class="stage-title" style="color:var(--stage-launch)">Запуск</div>
+        <div class="stage-title" style="color:var(--stage-launch)">Разгон</div>
         <div class="stage-goal">Катим в прод на всю аудиторию. <span class="term" data-tooltip="Go-To-Market — стратегия выхода на рынок: кому, как и через какие каналы">GTM</span> план, коммуникации, поддержка. Начинаем активно растить метрики.</div>
       </div>
     </div>
     <div class="grid-2 mb-24">
       <div class="acc-item open">
-        <div class="acc-header" onclick="toggleAcc(this)">Чек-лист запуска <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
+        <div class="acc-header" onclick="toggleAcc(this)">Чек-лист разгона <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
         <div class="acc-body">
           <ul class="checklist" id="cl-launch"></ul>
         </div>
@@ -728,15 +728,15 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="showStage(4)">→ Следующая стадия: Масштаб</button>
+    <button class="btn btn-primary" onclick="showStage(4)">→ Следующая стадия: Экосистема</button>
   </div>
 
-  <!-- ── МАСШТАБ ── -->
+  <!-- ── ЭКОСИСТЕМА ── -->
   <div class="stage-content" id="stage-4">
     <div class="stage-header">
       <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-zap"/></svg></span>
       <div>
-        <div class="stage-title" style="color:var(--stage-scale)">Масштаб</div>
+        <div class="stage-title" style="color:var(--stage-scale)">Экосистема</div>
         <div class="stage-goal">Растим базу, оптимизируем <span class="term" data-tooltip="Retention — метрика удержания: % пользователей, которые вернулись через N дней">Retention</span>, снижаем <span class="term" data-tooltip="Churn — отток: % пользователей, которые перестали пользоваться продуктом">Churn</span>. Ищем новые сегменты и каналы роста.</div>
       </div>
     </div>
@@ -762,7 +762,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
         </ul>
       </div>
       <div class="card">
-        <h3>Риски масштаба</h3>
+        <h3>Риски экосистемы</h3>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;color:#FF6B6B;">
           <li>–Техдолг тормозит скорость</li>
           <li>–Команда не растёт вместе с продуктом</li>
@@ -770,26 +770,26 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
         </ul>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="showStage(5)">→ Следующая стадия: Зрелость</button>
+    <button class="btn btn-primary" onclick="showStage(5)">→ Следующая стадия: Плато</button>
   </div>
 
-  <!-- ── ЗРЕЛОСТЬ ── -->
+  <!-- ── ПЛАТО ── -->
   <div class="stage-content" id="stage-5">
     <div class="stage-header">
       <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-star"/></svg></span>
       <div>
-        <div class="stage-title" style="color:var(--stage-maturity)">Зрелость</div>
+        <div class="stage-title" style="color:var(--stage-maturity)">Плато</div>
         <div class="stage-goal">Продукт на плато. Удерживаем пользователей, работаем над маржинальностью, готовим к следующему витку роста или консервации.</div>
       </div>
     </div>
     <div class="grid-2 mb-24">
       <div class="card">
-        <h3>Фокус команды на зрелости</h3>
+        <h3>Фокус команды на плато</h3>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--gray2);">
           <li>→ Оптимизация <span class="term" data-tooltip="Unit Economics — экономика одной транзакции/пользователя: доходы минус расходы на привлечение">unit-экономики</span></li>
           <li>→ Снижение поддержки (автоматизация)</li>
           <li>→ Стратегический ревью каждый квартал</li>
-          <li>→ Решение: новый Discovery или консервация</li>
+          <li>→ Решение: новая Разведка или архивация</li>
         </ul>
       </div>
       <div class="alert alert-success">
@@ -800,29 +800,29 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="showStage(6)">→ Следующая стадия: Консервация</button>
+    <button class="btn btn-primary" onclick="showStage(6)">→ Следующая стадия: Архив</button>
   </div>
 
-  <!-- ── КОНСЕРВАЦИЯ ── -->
+  <!-- ── АРХИВ ── -->
   <div class="stage-content" id="stage-6">
     <div class="stage-header">
       <span class="stage-icon"><svg class="ei ei-16" aria-hidden="true"><use href="#ic-folder"/></svg></span>
       <div>
-        <div class="stage-title" style="color:var(--stage-archive)">Консервация</div>
+        <div class="stage-title" style="color:var(--stage-archive)">Архив</div>
         <div class="stage-goal">Продукт завершает жизнь. Переводим пользователей, архивируем данные, освобождаем команду. Делаем всё без потери доверия.</div>
       </div>
     </div>
     <div class="grid-2 mb-24">
       <div>
         <div class="acc-item open">
-          <div class="acc-header" onclick="toggleAcc(this)">Чек-лист консервации <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
+          <div class="acc-header" onclick="toggleAcc(this)">Чек-лист архивации <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
           <div class="acc-body">
             <ul class="checklist" id="cl-archive"></ul>
           </div>
         </div>
       </div>
       <div class="alert alert-danger">
-        <strong>⛔ Kill-условия (принудительная консервация)</strong><br>
+        <strong>⛔ Kill-условия (принудительная архивация)</strong><br>
         <div style="margin-top:8px;font-size:12px;">
           • North Star падает >30% 3 месяца подряд<br>
           • NPS < 0 и не растёт<br>
@@ -840,18 +840,18 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
 <!-- ════════════════════════════ ВИТРИНА ════════════════════════════ -->
 <div class="section" id="sec-showcase">
   <div class="page-title">Витрина продуктов</div>
-  <div class="page-sub">Продукты контура RWB — от идеи до зрелости</div>
+  <div class="page-sub">Продукты контура RWB — от заявки до плато</div>
 
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:20px;">
     <select class="form-select" style="width:auto;min-width:130px;" id="filter-stage" onchange="filterProducts()">
       <option value="">Все стадии</option>
-      <option value="idea">Идея</option>
-      <option value="discovery">Discovery</option>
-      <option value="pilot">Пилот</option>
-      <option value="launch">Запуск</option>
-      <option value="scale">Масштаб</option>
-      <option value="maturity">Зрелость</option>
-      <option value="archive">Консервация</option>
+      <option value="idea">Заявка</option>
+      <option value="discovery">Разведка</option>
+      <option value="pilot">Прототип</option>
+      <option value="launch">Разгон</option>
+      <option value="scale">Экосистема</option>
+      <option value="maturity">Плато</option>
+      <option value="archive">Архив</option>
     </select>
     <select class="form-select" style="width:auto;min-width:100px;" id="filter-seg" onchange="filterProducts()">
       <option value="">Все сегменты</option>
@@ -877,11 +877,11 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
           <th>Продукт</th>
           <th>Сегмент</th>
           <th>PM</th>
-          <th style="color:var(--stage-idea)">Идея</th>
-          <th style="color:var(--stage-discovery)">Discovery</th>
-          <th style="color:var(--stage-pilot)">Пилот</th>
-          <th style="color:var(--stage-launch)">Запуск</th>
-          <th style="color:var(--stage-scale)">Масштаб</th>
+          <th style="color:var(--stage-idea)">Заявка</th>
+          <th style="color:var(--stage-discovery)">Разведка</th>
+          <th style="color:var(--stage-pilot)">Прототип</th>
+          <th style="color:var(--stage-launch)">Разгон</th>
+          <th style="color:var(--stage-scale)">Экосистема</th>
           <th>Комитет</th>
         </tr>
       </thead>
@@ -951,7 +951,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
 <!-- ════════════════════════════ PRODUCT ID ════════════════════════════ -->
 <div class="section" id="sec-productid">
   <div class="page-title">Product ID — Паспорт продукта</div>
-  <div class="page-sub">Заполняй секцию за секцией. Это твой главный документ на Discovery.</div>
+  <div class="page-sub">Заполняй секцию за секцией. Это твой главный документ на Разведке.</div>
 
   <div class="grid-2">
     <div>
@@ -999,7 +999,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
         </div>
       </div>
       <div class="acc-item">
-        <div class="acc-header" onclick="toggleAcc(this)">6. Roadmap пилота <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
+        <div class="acc-header" onclick="toggleAcc(this)">6. Roadmap прототипа <span class="acc-arrow"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-chevron-down"/></svg></span></div>
         <div class="acc-body">
           <div style="display:flex;flex-direction:column;gap:8px;">
             <div style="padding:10px;background:rgba(33,150,243,0.1);border-radius:8px;font-size:12px;">
@@ -1072,7 +1072,7 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
         <div class="grid-3">
           <div style="padding:12px;background:rgba(76,175,80,0.1);border-radius:8px;border:1px solid rgba(76,175,80,0.2);">
             <div style="font-size:11px;font-weight:700;color:var(--stage-scale);margin-bottom:6px;">Одобрили</div>
-            <div style="font-size:12px;color:var(--gray2);">Фиксируем решение в реестре. PMO создаёт проект в трекере. Старт Discovery/пилота.</div>
+            <div style="font-size:12px;color:var(--gray2);">Фиксируем решение в реестре. PMO создаёт продукт в трекере. Старт Разведки/прототипа.</div>
           </div>
           <div style="padding:12px;background:rgba(244,67,54,0.1);border-radius:8px;border:1px solid rgba(244,67,54,0.2);">
             <div style="font-size:11px;font-weight:700;color:#FF6B6B;margin-bottom:6px;">Отказали</div>
@@ -1188,13 +1188,13 @@ table.matrix tr:hover td { background: rgba(255,255,255,0.03); }
         </div>
         <div class="form-group"><label class="form-label">Стадия</label>
           <select class="form-select" id="new-stage">
-            <option value="idea">Идея</option>
-            <option value="discovery">Discovery</option>
-            <option value="pilot">Пилот</option>
-            <option value="launch">Запуск</option>
-            <option value="scale">Масштаб</option>
-            <option value="maturity">Зрелость</option>
-            <option value="archive">Консервация</option>
+            <option value="idea">Заявка</option>
+            <option value="discovery">Разведка</option>
+            <option value="pilot">Прототип</option>
+            <option value="launch">Разгон</option>
+            <option value="scale">Экосистема</option>
+            <option value="maturity">Плато</option>
+            <option value="archive">Архив</option>
           </select>
         </div>
       </div>
@@ -1351,46 +1351,46 @@ const DEFAULT_PRODUCTS = [
 // ДАННЫЕ GLOSSARY
 // ══════════════════════════════════════
 const GLOSSARY = [
-  { term:'A/B-тест', short:'Сравнение двух вариантов', def:'Метод проверки гипотез: аудитория делится на 2 группы, каждая видит разную версию продукта. Победитель — тот, у кого метрика лучше.', where:'Масштаб, Зрелость' },
+  { term:'A/B-тест', short:'Сравнение двух вариантов', def:'Метод проверки гипотез: аудитория делится на 2 группы, каждая видит разную версию продукта. Победитель — тот, у кого метрика лучше.', where:'Экосистема, Плато' },
   { term:'Бэклог', short:'Список задач продукта', def:'Приоритизированный список всех задач, фич и багов продукта. PM владеет бэклогом и расставляет приоритеты.', where:'Все стадии' },
-  { term:'Бриф', short:'Документ инициативы', def:'Структурированный документ от заказчика с описанием проблемы, целевой аудитории, ожидаемого эффекта и ограничений.', where:'Идея' },
-  { term:'CAC', short:'Стоимость привлечения', def:'Customer Acquisition Cost — сколько стоит привлечь одного нового пользователя. CAC / LTV < 1/3 — хороший показатель.', where:'Запуск, Масштаб' },
-  { term:'Churn', short:'Отток пользователей', def:'Процент пользователей, которые перестали пользоваться продуктом за период. Churn Rate = (ушедшие / были) × 100%.', where:'Запуск, Масштаб, Зрелость' },
-  { term:'CustDev', short:'Интервью с пользователями', def:'Customer Development — серия структурированных интервью для проверки гипотез о проблемах пользователей. Минимум 5 интервью на гипотезу.', where:'Discovery' },
-  { term:'DAU/MAU', short:'Ежедневная/ежемесячная аудитория', def:'Daily/Monthly Active Users. DAU/MAU ratio (stickiness) > 20% — признак вовлечённого продукта.', where:'Запуск, Масштаб' },
-  { term:'Discovery', short:'Исследование проблемы', def:'Стадия продукта, на которой команда копает в проблему пользователя: CustDev, анализ конкурентов, формирование гипотез.', where:'Стадия 1' },
+  { term:'Бриф', short:'Документ инициативы', def:'Структурированный документ от заказчика с описанием проблемы, целевой аудитории, ожидаемого эффекта и ограничений.', where:'Заявка' },
+  { term:'CAC', short:'Стоимость привлечения', def:'Customer Acquisition Cost — сколько стоит привлечь одного нового пользователя. CAC / LTV < 1/3 — хороший показатель.', where:'Разгон, Экосистема' },
+  { term:'Churn', short:'Отток пользователей', def:'Процент пользователей, которые перестали пользоваться продуктом за период. Churn Rate = (ушедшие / были) × 100%.', where:'Разгон, Экосистема, Плато' },
+  { term:'CustDev', short:'Интервью с пользователями', def:'Customer Development — серия структурированных интервью для проверки гипотез о проблемах пользователей. Минимум 5 интервью на гипотезу.', where:'Разведка' },
+  { term:'DAU/MAU', short:'Ежедневная/ежемесячная аудитория', def:'Daily/Monthly Active Users. DAU/MAU ratio (stickiness) > 20% — признак вовлечённого продукта.', where:'Разгон, Экосистема' },
+  { term:'Разведка', short:'Исследование проблемы', def:'Стадия продукта, на которой команда копает в проблему пользователя: CustDev, анализ конкурентов, формирование гипотез.', where:'Стадия О·1' },
   { term:'DoR', short:'Definition of Ready', def:'Чек-лист готовности задачи к разработке: есть все требования, мокапы, критерии приёмки, оценка.', where:'Все стадии разработки' },
   { term:'DoD', short:'Definition of Done', def:'Чек-лист завершённости задачи: прошло код-ревью, тесты, выкатили в прод, проверили метрики.', where:'Все стадии разработки' },
   { term:'Gate', short:'Контрольная точка', def:'Проверка перед переходом на следующую стадию продукта. Gate-условия определяют, готов ли продукт двигаться дальше.', where:'Все стадии' },
-  { term:'GTM', short:'Стратегия выхода на рынок', def:'Go-To-Market — план выхода на рынок: кому, как, через какие каналы продвигаем продукт после запуска.', where:'Запуск' },
+  { term:'GTM', short:'Стратегия выхода на рынок', def:'Go-To-Market — план выхода на рынок: кому, как, через какие каналы продвигаем продукт после разгона.', where:'Разгон' },
   { term:'KPI', short:'Ключевой показатель', def:'Key Performance Indicator — измеримый показатель эффективности. Должен быть конкретным, измеримым и привязанным к цели.', where:'Все стадии' },
-  { term:'Kill-условие', short:'Критерий закрытия продукта', def:'Набор показателей, при достижении которых продукт принудительно переводится на консервацию (North Star -30%, NPS < 0 и др.).', where:'Консервация' },
-  { term:'LTV', short:'Ценность пользователя за жизнь', def:'Lifetime Value — сколько денег приносит один пользователь за всё время использования продукта.', where:'Масштаб, Зрелость' },
-  { term:'MVP', short:'Минимально жизнеспособный продукт', def:'Minimum Viable Product — минимальная версия продукта с ключевой ценностью. Цель: проверить гипотезу с минимальными затратами.', where:'Пилот' },
-  { term:'North Star', short:'Главная метрика продукта', def:'North Star Metric — одна метрика, которая лучше всего показывает ценность продукта для пользователей. Растёт — значит делаем правильное.', where:'Discovery, все стадии' },
-  { term:'NPS', short:'Индекс лояльности', def:'Net Promoter Score — вопрос «Насколько вероятно, что порекомендуешь нас?» (0–10). NPS = промоутеры% – критики%. > 40 — хорошо.', where:'Пилот, Масштаб' },
+  { term:'Kill-условие', short:'Критерий закрытия продукта', def:'Набор показателей, при достижении которых продукт принудительно переводится в архив (North Star -30%, NPS < 0 и др.).', where:'Архив' },
+  { term:'LTV', short:'Ценность пользователя за жизнь', def:'Lifetime Value — сколько денег приносит один пользователь за всё время использования продукта.', where:'Экосистема, Плато' },
+  { term:'MVP', short:'Минимально жизнеспособный продукт', def:'Minimum Viable Product — минимальная версия продукта с ключевой ценностью. Цель: проверить гипотезу с минимальными затратами.', where:'Прототип' },
+  { term:'North Star', short:'Главная метрика продукта', def:'North Star Metric — одна метрика, которая лучше всего показывает ценность продукта для пользователей. Растёт — значит делаем правильное.', where:'Разведка, все стадии' },
+  { term:'NPS', short:'Индекс лояльности', def:'Net Promoter Score — вопрос «Насколько вероятно, что порекомендуешь нас?» (0–10). NPS = промоутеры% – критики%. > 40 — хорошо.', where:'Прототип, Экосистема' },
   { term:'OKR', short:'Цели и ключевые результаты', def:'Objectives and Key Results — фреймворк целеполагания. O — амбициозная цель, KR — 3-5 измеримых результатов, доказывающих достижение.', where:'Все стадии' },
-  { term:'Пивот', short:'Смена направления', def:'Pivot — кардинальное изменение гипотезы продукта при сохранении команды и ресурсов. Результат неудачного Gate или CustDev.', where:'Discovery, Пилот' },
-  { term:'PnL', short:'Прибыли и убытки', def:'Profit and Loss — финансовая модель продукта: доходы, расходы, маржинальность, breakeven. Обязательно для коммерческих продуктов.', where:'Запуск, Зрелость' },
-  { term:'PMF', short:'Соответствие продукта рынку', def:'Product-Market Fit — момент, когда продукт решает реальную боль достаточного количества людей. Признак: пользователи расстроятся если продукт закроют.', where:'Пилот, Запуск' },
+  { term:'Пивот', short:'Смена направления', def:'Pivot — кардинальное изменение гипотезы продукта при сохранении команды и ресурсов. Результат неудачного Gate или CustDev.', where:'Разведка, Прототип' },
+  { term:'PnL', short:'Прибыли и убытки', def:'Profit and Loss — финансовая модель продукта: доходы, расходы, маржинальность, breakeven. Обязательно для коммерческих продуктов.', where:'Разгон, Плато' },
+  { term:'PMF', short:'Соответствие продукта рынку', def:'Product-Market Fit — момент, когда продукт решает реальную боль достаточного количества людей. Признак: пользователи расстроятся если продукт закроют.', where:'Прототип, Разгон' },
   { term:'PMO', short:'Проектный офис', def:'Project Management Office — команда, обеспечивающая методологию, скрининг инициатив, трекинг прогресса и сопровождение на всех стадиях.', where:'Все стадии' },
-  { term:'R/ICE', short:'Фреймворк приоритизации', def:'Reach × Impact × Confidence / Effort. Метод оценки инициатив по 4 параметрам. Score > 20 — берём в ближайший спринт.', where:'Идея, Discovery' },
-  { term:'Retention', short:'Удержание пользователей', def:'Процент пользователей, вернувшихся через N дней. D7 Retention > 30% — хороший показатель для большинства продуктов.', where:'Запуск, Масштаб' },
-  { term:'Roadmap', short:'Карта развития продукта', def:'План развития продукта по времени: что, когда и зачем делаем. Не детальный план, а стратегическое направление.', where:'Discovery, все стадии' },
-  { term:'SLA', short:'Соглашение об уровне сервиса', def:'Service Level Agreement — зафиксированные параметры качества: время отклика, доступность, скорость поддержки.', where:'Запуск, Зрелость' },
-  { term:'Спринт', short:'Период разработки', def:'Фиксированный период работы команды (1-2 недели). В конце спринта — рабочий инкремент и ретроспектива.', where:'Пилот, Запуск' },
+  { term:'R/ICE', short:'Фреймворк приоритизации', def:'Reach × Impact × Confidence / Effort. Метод оценки инициатив по 4 параметрам. Score > 20 — берём в ближайший спринт.', where:'Заявка, Разведка' },
+  { term:'Retention', short:'Удержание пользователей', def:'Процент пользователей, вернувшихся через N дней. D7 Retention > 30% — хороший показатель для большинства продуктов.', where:'Разгон, Экосистема' },
+  { term:'Roadmap', short:'Карта развития продукта', def:'План развития продукта по времени: что, когда и зачем делаем. Не детальный план, а стратегическое направление.', where:'Разведка, все стадии' },
+  { term:'SLA', short:'Соглашение об уровне сервиса', def:'Service Level Agreement — зафиксированные параметры качества: время отклика, доступность, скорость поддержки.', where:'Разгон, Плато' },
+  { term:'Спринт', short:'Период разработки', def:'Фиксированный период работы команды (1-2 недели). В конце спринта — рабочий инкремент и ретроспектива.', where:'Прототип, Разгон' },
   { term:'Стейкхолдер', short:'Заинтересованное лицо', def:'Тот, кто влияет на продукт или на кого влияет продукт: заказчик, пользователь, инвестор, смежная команда.', where:'Все стадии' },
-  { term:'Техдолг', short:'Накопленные технические проблемы', def:'Technical Debt — накопленные компромиссы в коде и архитектуре, которые замедляют разработку. Нужно планировать погашение.', where:'Масштаб, Зрелость' },
-  { term:'Unit-экономика', short:'Экономика на пользователя', def:'Расчёт доходов и расходов в пересчёте на одного пользователя/транзакцию. Основа финансовой модели.', where:'Запуск, Зрелость' },
-  { term:'УТП', short:'Уникальное предложение', def:'Уникальное Торговое Предложение — чем твой продукт лучше альтернатив с точки зрения пользователя.', where:'Discovery' },
+  { term:'Техдолг', short:'Накопленные технические проблемы', def:'Technical Debt — накопленные компромиссы в коде и архитектуре, которые замедляют разработку. Нужно планировать погашение.', where:'Экосистема, Плато' },
+  { term:'Unit-экономика', short:'Экономика на пользователя', def:'Расчёт доходов и расходов в пересчёте на одного пользователя/транзакцию. Основа финансовой модели.', where:'Разгон, Плато' },
+  { term:'УТП', short:'Уникальное предложение', def:'Уникальное Торговое Предложение — чем твой продукт лучше альтернатив с точки зрения пользователя.', where:'Разведка' },
   { term:'B2B', short:'Бизнес для бизнеса', def:'Business-to-Business — продукты для корпоративных клиентов. Длинный цикл продаж, решение принимает ЛПР, важны интеграции.', where:'Все стадии' },
   { term:'B2C', short:'Бизнес для потребителя', def:'Business-to-Consumer — продукты для конечных пользователей. Массовый рынок, быстрые циклы, UX критичен.', where:'Все стадии' },
   { term:'B2G', short:'Бизнес для государства', def:'Business-to-Government — продукты для гос. структур. Длинные согласования, жёсткие требования к безопасности и соответствию.', where:'Все стадии' },
-  { term:'CJM', short:'Карта пути пользователя', def:'Customer Journey Map — визуализация шагов пользователя от первого знакомства с продуктом до целевого действия.', where:'Discovery, Пилот' },
-  { term:'Elevator Pitch', short:'Питч за 30 секунд', def:'Краткое описание продукта: для кого, какая боль, что решает, чем отличается от конкурентов. Умещается в 1 абзац.', where:'Идея, Discovery' },
-  { term:'KV', short:'Ключевое значение', def:'Key Value — ключевая ценность, которую продукт создаёт для пользователя. Основа Elevator Pitch и позиционирования.', where:'Discovery' },
-  { term:'Persona', short:'Типичный пользователь', def:'Описание типичного представителя целевой аудитории: демография, боли, цели, поведение. Помогает принимать решения по продукту.', where:'Discovery' },
-  { term:'Time to Value', short:'Время до первой ценности', def:'Насколько быстро новый пользователь получает первую ценность от продукта. Чем меньше — тем лучше Retention.', where:'Пилот, Запуск' },
+  { term:'CJM', short:'Карта пути пользователя', def:'Customer Journey Map — визуализация шагов пользователя от первого знакомства с продуктом до целевого действия.', where:'Разведка, Прототип' },
+  { term:'Elevator Pitch', short:'Питч за 30 секунд', def:'Краткое описание продукта: для кого, какая боль, что решает, чем отличается от конкурентов. Умещается в 1 абзац.', where:'Заявка, Разведка' },
+  { term:'KV', short:'Ключевое значение', def:'Key Value — ключевая ценность, которую продукт создаёт для пользователя. Основа Elevator Pitch и позиционирования.', where:'Разведка' },
+  { term:'Persona', short:'Типичный пользователь', def:'Описание типичного представителя целевой аудитории: демография, боли, цели, поведение. Помогает принимать решения по продукту.', where:'Разведка' },
+  { term:'Time to Value', short:'Время до первой ценности', def:'Насколько быстро новый пользователь получает первую ценность от продукта. Чем меньше — тем лучше Retention.', where:'Прототип, Разгон' },
 ];
 
 // ══════════════════════════════════════
@@ -1398,13 +1398,13 @@ const GLOSSARY = [
 // ══════════════════════════════════════
 const QA = [
   { q:'Как приоритизировать, если у нас 20 инициатив?', a:'Запускай R/ICE калькулятор — он за 5 минут даёт объективный рейтинг. Score > 20 — берём сейчас, 10-20 — в бэклог, < 10 — не берём. Дополнительно: проверь связь с OKR. Если инициатива не привязана к OKR квартала — автоматически в бэклог.' },
-  { q:'Можно ли пропустить стадию Discovery?', a:'Нет. Даже если «всё очевидно» — без минимального CustDev (5 интервью) не знаешь baseline метрик и не можешь доказать Gate 2. Исключение: продукт-клон с известным рынком + аналогичный уже в портфеле. Согласуй с PMO.' },
-  { q:'Пилот затянулся больше 8 недель — что делать?', a:'Эскалируй на Продуктовый комитет немедленно. Причины: нет ресурсов — решает директор, нет пользователей — пересмотр GTM пилота, нет метрик — стоп или пивот. Пилот > 12 недель автоматически уходит на ревью CEO.' },
+  { q:'Можно ли пропустить стадию Разведки?', a:'Нет. Даже если «всё очевидно» — без минимального CustDev (5 интервью) не знаешь baseline метрик и не можешь доказать Gate 2. Исключение: продукт-клон с известным рынком + аналогичный уже в портфеле. Согласуй с PMO.' },
+  { q:'Прототип затянулся больше 8 недель — что делать?', a:'Эскалируй на Продуктовый комитет немедленно. Причины: нет ресурсов — решает директор, нет пользователей — пересмотр GTM прототипа, нет метрик — стоп или пивот. Прототип > 12 недель автоматически уходит на ревью CEO.' },
   { q:'Как работать с заказчиком который приходит с готовым решением?', a:'Переформулируй бриф: «Ты говоришь нам нужна кнопка — помоги понять, что происходит без этой кнопки?» Проведи CustDev с реальными пользователями, не с заказчиком. Результат интервью = твой главный аргумент или основание для другого решения.' },
   { q:'Как договориться о ресурсах для нового продукта?', a:'Два пути: 1) Проектный комитет с CEO — там выделяют ресурсы под конкретную инициативу. 2) Внутренний рынок: покажи R/ICE и OKR-связь директорам, чей ресурс нужен. Никогда не проси «людей вообще» — проси конкретную роль на конкретный срок.' },
-  { q:'Что делать если метрики пилота не растут?', a:'Разбери воронку по шагам: пользователи приходят? → онбординг проходят? → ключевое действие делают? → возвращаются? На каком шаге потеря — туда и копай. Если проблема в продуктовой гипотезе — пивот или стоп, не тяни.' },
-  { q:'Когда консервировать продукт?', a:'Kill-условия: North Star падает >30% три месяца подряд, NPS < 0, PnL отрицательный > 6 мес без плана выхода, стратегический ревью CEO принял решение. Консервация — не провал, это освобождение ресурсов для чего-то более важного.' },
-  { q:'Нужна ли PnL-модель для внутреннего B2B продукта?', a:'Да, упрощённая. Даже если нет прямых продаж — считай: стоимость разработки + поддержки vs экономия/выгода для бизнес-заказчика. Без этого невозможно обосновать продление финансирования на Зрелости.' },
+  { q:'Что делать если метрики прототипа не растут?', a:'Разбери воронку по шагам: пользователи приходят? → онбординг проходят? → ключевое действие делают? → возвращаются? На каком шаге потеря — туда и копай. Если проблема в продуктовой гипотезе — пивот или стоп, не тяни.' },
+  { q:'Когда архивировать продукт?', a:'Kill-условия: North Star падает >30% три месяца подряд, NPS < 0, PnL отрицательный > 6 мес без плана выхода, стратегический ревью CEO принял решение. Архивация — не провал, это освобождение ресурсов для чего-то более важного.' },
+  { q:'Нужна ли PnL-модель для внутреннего B2B продукта?', a:'Да, упрощённая. Даже если нет прямых продаж — считай: стоимость разработки + поддержки vs экономия/выгода для бизнес-заказчика. Без этого невозможно обосновать продление финансирования на Плато.' },
   { q:'Как не накапливать техдолг в темпе стартапа?', a:'Правило 20%: каждый спринт 20% capacity — на техдолг. Это не опция, это часть Definition of Done. Обсуждай с TL на Продуктовом комитете. Техдолг > 30% спринта = красный флаг на Gate.' },
   { q:'Как работает PMO и когда к нему обращаться?', a:'PMO помогает на каждом этапе: Gate 0 скрининг, поиск команды, трекинг прогресса, подготовка к комитетам. Обращайся: в начале инициативы, при блокерах, перед каждым Gate, при смене приоритетов. PMO — не бюрократия, а буфер между тобой и хаосом.' },
 ];
@@ -1427,17 +1427,17 @@ const CHECKLISTS = {
     'Сделали конкурентный анализ (минимум 3 конкурента)',
     'Заполнили Product ID (все 7 секций)',
     'Определили North Star метрику и supporting метрики',
-    'Сформировали Roadmap пилота (≤6 недель)',
-    'Прошли Gate 1: Продуктовый комитет одобрил переход в Пилот',
+    'Сформировали Roadmap прототипа (≤6 недель)',
+    'Прошли Gate 1: Продуктовый комитет одобрил переход в Прототип',
   ],
   'cl-pilot': [
     'MVP задизайнен и разработан (ключевая фича)',
     'Привлекли первых пользователей (≥20 чел. для B2B, ≥100 для B2C)',
     'Настроили аналитику: трекинг North Star и supporting метрик',
-    'Собрали NPS / фидбэк от пользователей пилота',
+    'Собрали NPS / фидбэк от пользователей прототипа',
     'Зафиксировали технический долг и риски',
     'North Star вырос ≥20% vs baseline → Gate 2',
-    'Подготовили отчёт пилота для комитета',
+    'Подготовили отчёт прототипа для комитета',
   ],
   'cl-launch': [
     'GTM-план готов: каналы, коммуникации, сроки',
@@ -1504,7 +1504,7 @@ function showStage(n) {
   document.querySelectorAll('#stage-nav .stage-segment').forEach((s, i) => {
     s.classList.toggle('active', i === n);
   });
-  const names = ['Идея', 'Discovery', 'Пилот', 'Запуск', 'Масштаб', 'Зрелость', 'Консервация'];
+  const names = ['Заявка', 'Разведка', 'Прототип', 'Разгон', 'Экосистема', 'Плато', 'Архив'];
   document.getElementById('topbar-title').textContent = names[n];
 }
 
@@ -1548,8 +1548,8 @@ function saveProducts() {
 }
 
 const STAGE_LABELS = {
-  idea: 'Идея', discovery: 'Discovery', pilot: 'Пилот',
-  launch: 'Запуск', scale: 'Масштаб', maturity: 'Зрелость', archive: 'Консервация'
+  idea: 'Заявка', discovery: 'Разведка', pilot: 'Прототип',
+  launch: 'Разгон', scale: 'Экосистема', maturity: 'Плато', archive: 'Архив'
 };
 const STAGE_ORDERS = ['idea','discovery','pilot','launch','scale','maturity','archive'];
 

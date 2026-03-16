@@ -108,6 +108,18 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offse
 .pos-gate{font-family:var(--font-head);font-size:9px;font-weight:700;color:var(--teal);}
 .pos-empty{font-size:12px;color:var(--muted);font-style:italic;}
 
+/* ── WHERE SELECTOR ── */
+.where-selector{margin-bottom:28px;}
+.where-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.where-card{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .18s,background .15s;user-select:none;}
+.where-card:hover{border-color:rgba(0,212,180,0.25);background:rgba(0,212,180,0.03);}
+.where-card.selected{border-color:var(--teal-border);background:var(--teal-dim);}
+.where-icon{width:36px;height:36px;border-radius:10px;background:var(--teal-dim);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.where-card.selected .where-icon{background:rgba(0,212,180,0.2);}
+.where-label{font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--white);margin-bottom:2px;}
+.where-desc{font-size:11px;color:var(--muted);line-height:1.4;}
+@media(max-width:680px){.where-grid{grid-template-columns:1fr;}}
+
 /* ── ONBOARDING COLLAPSIBLE ── */
 .collapsible-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;background:var(--card);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:border-color .15s;}
 .collapsible-header:hover{border-color:var(--border-hi);}
@@ -241,22 +253,31 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offse
   // ── STAGES DATA (fallback; overridden by localStorage STAGES_DB if available) ──
   var STAGES_DEFAULT = [
     {
-      id: 'o0', code: 'O·0', name: 'Идея', color: '#64748B',
-      duration: '< 5 дней', lead: 'Product', goal: 'Скрининг идеи: сформулировать проблему, гипотезу ценности и целевую аудиторию. Пройти Gate 0 — получить одобрение на Discovery.',
+      id: 'o0', code: 'O·0', name: 'Заявка', color: '#64748B',
+      duration: '< 5 дней', lead: 'Product', goal: 'Скрининг заявки: сформулировать проблему, гипотезу ценности и целевую аудиторию. Пройти Gate 0 — получить одобрение на Разведку.',
       artifacts: [{id:'T01',name:'Бриф инициативы'},{id:'T10',name:'Fast-Track бриф'}],
       checklist: ['Проблема пользователя описана','Целевая аудитория определена','RICE-оценка проведена','Стратегическое соответствие подтверждено','PM назначен'],
+
       kill: null,
       tools: [
         {name:'RICE',icon:'bar-chart',href:'rice.html',bg:'var(--teal-dim)',color:'var(--teal)'},
-        {name:'Шаблоны',icon:'file-text',href:'templates.html',bg:'var(--amber-dim)',color:'var(--amber)'}
+        {name:'Шаблоны',icon:'file-text',href:'templates.html',bg:'var(--amber-dim)',color:'var(--amber)'},
+        {name:'Product Brief',icon:'file-text',href:'brief.html',bg:'var(--green-dim)',color:'var(--green)'}
+      ],
+      whereOptions: [
+        {icon:'target',label:'CEO / Руководитель',desc:'Директивный приоритет'},
+        {icon:'layers',label:'OKR квартала',desc:'Стратегическое соответствие'},
+        {icon:'bar-chart',label:'Данные и метрики',desc:'Выявлена проблема в аналитике'},
+        {icon:'wrench',label:'Техдолг / UX',desc:'Внутренняя потребность команды'}
       ]
     },
     {
-      id: 'o1', code: 'O·1', name: 'Discovery', color: '#3B82F6',
-      duration: '3–6 недель', lead: 'Product', goal: 'Валидация гипотез: CustDev (5-7 интервью), определение North Star Metric, тест прототипа с 5+ пользователями. Подтвердить бизнес-кейс для перехода к Delivery.',
-      artifacts: [{id:'T02',name:'Discovery Report'},{id:'T11',name:'CustDev Script'},{id:'T12',name:'ADR'}],
-      checklist: ['CustDev: 5-7 интервью проведено','North Star Metric определена','Прототип протестирован с 5+ пользователями','PRD финализирован','Activation > 30%','Бизнес-кейс подтверждён'],
+      id: 'o1', code: 'O·1', name: 'Разведка', color: '#3B82F6',
+      duration: '3–6 недель', lead: 'Product', goal: 'Валидация гипотез: CustDev (7-10 интервью), определение North Star Metric, тест прототипа с 5+ пользователями. Подтвердить бизнес-кейс для перехода к Прототипу.',
+      artifacts: [{id:'T02',name:'Отчёт Разведки'},{id:'T11',name:'CustDev Script'},{id:'T12',name:'ADR'}],
+      checklist: ['CustDev: 7-10 интервью проведено','North Star Metric определена','Прототип протестирован с 5+ пользователями','PRD финализирован','Activation > 30%','Бизнес-кейс подтверждён'],
       kill: 'Activation < 10% за 8 недель без гипотезы пивота',
+
       tools: [
         {name:'RICE',icon:'bar-chart',href:'rice.html',bg:'var(--teal-dim)',color:'var(--teal)'},
         {name:'Шаблоны',icon:'file-text',href:'templates.html',bg:'var(--amber-dim)',color:'var(--amber)'},
@@ -264,7 +285,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offse
       ]
     },
     {
-      id: 'o2', code: 'O·2', name: 'Пилот', color: '#8B5CF6',
+      id: 'o2', code: 'O·2', name: 'Прототип', color: '#8B5CF6',
       duration: 'После MVP', lead: 'Product + Dev', goal: 'MVP в продакшене. Мониторинг Activation с первого дня, отслеживание Retention и NPS. Формирование бэклога роста и подготовка P&L-модели.',
       artifacts: [{id:'T03',name:'PRD / Спецификация'},{id:'T05',name:'Sprint Planning'},{id:'T07',name:'Health Metrics'}],
       checklist: ['MVP в продакшене','Security review пройден','Runbook + мониторинг настроены','P&L-модель подготовлена','DORA-метрики отслеживаются','Бэклог роста сформирован'],
@@ -276,7 +297,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offse
       ]
     },
     {
-      id: 'o3', code: 'O·3', name: 'Запуск', color: '#F59E0B',
+      id: 'o3', code: 'O·3', name: 'Разгон', color: '#F59E0B',
       duration: '1–3 мес', lead: 'Product + Business', goal: 'Рыночная валидация: Go-To-Market, A/B-тесты (2-3 параллельно), ежемесячный NPS. Достичь PMF (Retention D30 >= target) и выход на безубыточность.',
       artifacts: [{id:'T04',name:'Gate Review Deck'},{id:'T07',name:'Health Metrics'},{id:'T08',name:'Release Notes'}],
       checklist: ['PMF достигнут (Retention D30 >= target)','NPS >= 40','EBITDA -> 0 (безубыточность)','Команда >= 8 человек','NSM растёт 2 квартала подряд','Quarterly Gate Review проведён'],
@@ -288,7 +309,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offse
       ]
     },
     {
-      id: 'o4', code: 'O·4', name: 'Масштаб', color: '#F97316',
+      id: 'o4', code: 'O·4', name: 'Экосистема', color: '#F97316',
       duration: '3–12 мес', lead: 'Business + Dev', goal: 'Экосистемная интеграция: стратегическое планирование с CPO и CEO BU, P&L-ревью ежеквартально, SLA для партнёров, масштабирование архитектуры на 10x нагрузку.',
       artifacts: [{id:'T04',name:'Gate Review Deck'},{id:'T07',name:'Health Metrics'}],
       checklist: ['P&L положительный 2 квартала подряд','>=2 продукта зависят от платформы','Архитектура масштабируется на 10x','NSM растёт 2 квартала подряд','SLA для партнёров определён'],
@@ -299,7 +320,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offse
       ]
     },
     {
-      id: 'o5', code: 'O·5', name: 'Зрелость', color: '#34D399',
+      id: 'o5', code: 'O·5', name: 'Плато', color: '#34D399',
       duration: 'Непрерывно', lead: 'Business', goal: 'Оптимизация: Quarterly Product Review, оптимизация воронки и юнит-экономики, оценка стратегических опций. Продукт операционно независим.',
       artifacts: [{id:'T04',name:'Gate Review Deck'},{id:'T07',name:'Health Metrics'}],
       checklist: ['Quarterly Product Review проводится','Юнит-экономика оптимизирована','Воронка оптимизирована','Стратегические опции оценены'],
@@ -386,6 +407,31 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offse
     // Goal
     html += '<div class="stage-goal">' + s.goal + '</div>';
 
+    // Where-selector (only for O·0)
+    if (s.whereOptions && s.whereOptions.length) {
+      html += '<div class="where-selector">';
+      html += '<div class="sub-label">Откуда пришла инициатива</div>';
+      html += '<div class="where-grid">';
+      s.whereOptions.forEach(function(w, wi) {
+        html += '<div class="where-card" data-where="' + wi + '">';
+        html += '<div class="where-icon"><svg class="ei" width="18" height="18"><use href="#ic-' + w.icon + '"/></svg></div>';
+        html += '<div><div class="where-label">' + w.label + '</div>';
+        html += '<div class="where-desc">' + w.desc + '</div></div>';
+        html += '</div>';
+      });
+      html += '</div></div>';
+    }
+
+    // Brief CTA (only for O·0)
+    if (s.id === 'o0') {
+      html += '<a class="product-card-cta" href="brief.html">';
+      html += '<div class="pcc-icon" style="background:var(--green-dim);color:var(--green);"><svg class="ei" width="22" height="22"><use href="#ic-file-text"/></svg></div>';
+      html += '<div class="pcc-text"><div class="pcc-title">Заполнить Product Brief</div>';
+      html += '<div class="pcc-desc">Структурированный бриф инициативы — первый шаг для прохождения Gate 0.</div></div>';
+      html += '<svg class="ei pcc-arrow" width="18" height="18"><use href="#ic-arrow-right"/></svg>';
+      html += '</a>';
+    }
+
     // Product Card CTA
     html += '<a class="product-card-cta" href="../Проектный офис/RWB · Product OS - Трекер инициатив.html#tab=portfolio">';
     html += '<div class="pcc-icon"><svg class="ei" width="22" height="22"><use href="#ic-package"/></svg></div>';
@@ -445,6 +491,15 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offse
     }
 
     el.innerHTML = html;
+
+    // Where-selector click behavior
+    el.querySelectorAll('.where-card').forEach(function(card) {
+      card.addEventListener('click', function() {
+        var wasSelected = this.classList.contains('selected');
+        el.querySelectorAll('.where-card').forEach(function(c) { c.classList.remove('selected'); });
+        if (!wasSelected) this.classList.add('selected');
+      });
+    });
 
     // Load products for this stage from unified source
     loadProductsForStage(activeStage);

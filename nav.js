@@ -75,7 +75,7 @@
 
   // ── active group detection ──────────────────────────────────
   var bizActive  = (has('business') || has('бизнесу') || has('dashboard')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('rice') || has('brief')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -127,16 +127,20 @@
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Продукту</a>'
     +   '<div class="en-drop-menu" role="menu">'
     +     a('product.html',                              'С чего начать')
+    +     a('Продукту/index.html',                     'Подключить команду')
     +     sep()
     +     grp('Процессы и артефакты')
     +     a('Фреймворк/rwb-product-os-v3.html',         'Продуктовый фреймворк')
     +     a('Фреймворк/framework-lite.html',             'Гайд по стадиям зрелости')
     +     a('Продукту/strategy.html',                   'Стратегическое планирование')
     +     a('Проектный офис/council.html',              'Управляющий совет')
+    +     a('Проектный офис/RWB · Product OS - Трекер инициатив.html', 'Трекер инициатив')
     +     a('Продукту/templates.html',                  'Шаблоны')
     +     sep()
     +     grp('Инструменты и сервисы')
     +     a('Продукту/tools.html',                      'Инструменты')
+    +     a('Продукту/rice.html',                       'RICE-калькулятор')
+    +     a('Продукту/brief.html',                      'Project Brief')
     +     sep()
     +     grp('Справочник')
     +     a('terminology.html',                         'Глоссарий терминов')
@@ -207,17 +211,70 @@
     [].forEach.call(document.querySelectorAll('.en-drop'), function (d) {
       var t;
       var trigger = d.querySelector('.en-drop-trigger');
-      d.addEventListener('mouseenter', function () {
+      var menu = d.querySelector('.en-drop-menu');
+
+      function openDrop() {
         clearTimeout(t);
         d.classList.add('is-open');
         if (trigger) trigger.setAttribute('aria-expanded', 'true');
-      });
+      }
+      function closeDrop(focusTrigger) {
+        d.classList.remove('is-open');
+        if (trigger) {
+          trigger.setAttribute('aria-expanded', 'false');
+          if (focusTrigger) trigger.focus();
+        }
+      }
+
+      // mouse
+      d.addEventListener('mouseenter', openDrop);
       d.addEventListener('mouseleave', function () {
-        t = setTimeout(function () {
-          d.classList.remove('is-open');
-          if (trigger) trigger.setAttribute('aria-expanded', 'false');
-        }, 120);
+        t = setTimeout(function () { closeDrop(false); }, 120);
       });
+
+      // keyboard: Enter / Space open, Escape closes
+      if (trigger) {
+        trigger.setAttribute('tabindex', '0');
+        trigger.setAttribute('role', 'button');
+        trigger.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (d.classList.contains('is-open')) { closeDrop(true); }
+            else {
+              openDrop();
+              // focus first menu link
+              var first = menu && menu.querySelector('a');
+              if (first) first.focus();
+            }
+          }
+          if (e.key === 'Escape') { closeDrop(true); }
+          // arrow down → first item
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            openDrop();
+            var first = menu && menu.querySelector('a');
+            if (first) first.focus();
+          }
+        });
+      }
+
+      // keyboard nav inside menu
+      if (menu) {
+        menu.addEventListener('keydown', function (e) {
+          var links = [].slice.call(menu.querySelectorAll('a'));
+          var idx = links.indexOf(document.activeElement);
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (idx < links.length - 1) links[idx + 1].focus();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (idx > 0) links[idx - 1].focus();
+            else if (trigger) trigger.focus();
+          } else if (e.key === 'Escape') {
+            closeDrop(true);
+          }
+        });
+      }
     });
     // hamburger toggle
     var burger = document.getElementById('en-hamburger');

@@ -1645,7 +1645,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="principle-card">
           <div class="principle-num">03</div>
           <div class="principle-title" data-id="e036" data-editable="">Скорость через SLA</div>
-          <div class="principle-desc" data-id="e037" data-editable="">Каждая стадия — Discovery, Delivery, рост — имеет таймбокс и чёткие условия перехода. Согласования сокращаем, приоритеты фиксируем на входе.</div>
+          <div class="principle-desc" data-id="e037" data-editable="">Каждая стадия — Исследование, Разработка, рост — имеет таймбокс и чёткие условия перехода. Согласования сокращаем, приоритеты фиксируем на входе.</div>
         </div>
         <div class="principle-card">
           <div class="principle-num">04</div>
@@ -1670,7 +1670,7 @@ body.edit-mode .edit-mode-banner { display: block; }
       <div class="section-header">
         <div class="section-eyebrow" data-id="e044" data-editable="">Жизненный цикл продукта</div>
         <div class="section-title" data-id="e045" data-editable="" data-listener-added_f2c3d0b6="true">Два слоя продуктовой зрелости</div>
-        <div class="section-desc" data-id="e046" data-editable="" data-listener-added_f2c3d0b6="true">Слой А: где находится продукт (орбита).&nbsp;<div>Слой Б: как он развивается внутри орбиты (витки Discovery → Delivery → Метрики).</div></div>
+        <div class="section-desc" data-id="e046" data-editable="" data-listener-added_f2c3d0b6="true">Слой А: где находится продукт (орбита).&nbsp;<div>Слой Б: как он развивается внутри орбиты (витки Исследование → Разработка → Оценка и ретро).</div></div>
       </div>
       <div class="grad-line"></div>
 
@@ -1732,13 +1732,13 @@ body.edit-mode .edit-mode-banner { display: block; }
               <!-- ── ORBIT RINGS ── -->
               <!-- Orbit 4 — Экосистемный (outermost) -->
               <circle cx="350" cy="350" r="290" stroke="#3B82F6" stroke-width="1.2" stroke-dasharray="8 5" fill="none" opacity="0.25" class="orbit-ring ring-4"></circle>
-              <!-- Orbit 3 — Масштаб -->
+              <!-- Orbit 3 — Разгон -->
               <circle cx="350" cy="350" r="230" stroke="#FF2D8A" stroke-width="1.2" stroke-dasharray="8 5" fill="none" opacity="0.3" class="orbit-ring ring-3"></circle>
               <!-- Orbit 2 — Рост -->
               <circle cx="350" cy="350" r="170" stroke="#00D4B4" stroke-width="1.4" stroke-dasharray="6 4" fill="none" opacity="0.35" class="orbit-ring ring-2"></circle>
               <!-- Orbit 1 — Старт -->
               <circle cx="350" cy="350" r="110" stroke="#4FC3F7" stroke-width="1.4" stroke-dasharray="5 4" fill="none" opacity="0.4" class="orbit-ring ring-1"></circle>
-              <!-- Orbit 0 — Идея (inner) -->
+              <!-- Orbit 0 — Заявка (inner) -->
               <circle cx="350" cy="350" r="58" stroke="#8B8BAE" stroke-width="1" stroke-dasharray="3 5" fill="none" opacity="0.3" class="orbit-ring ring-0"></circle>
 
               <!-- ── ORBIT LABEL ARCS (text on path) ── -->
@@ -1840,17 +1840,23 @@ body.edit-mode .edit-mode-banner { display: block; }
 
             <!-- ── ORBIT LEGEND BADGES on right side ── -->
             <div class="orbit-legend-badges">
+              <button class="orbit-badge ob-6" onclick="showOrbitDetail(6)">
+                <span class="ob-num">6</span><span class="ob-label">Архив</span>
+              </button>
+              <button class="orbit-badge ob-5" onclick="showOrbitDetail(5)">
+                <span class="ob-num">5</span><span class="ob-label">Плато</span>
+              </button>
               <button class="orbit-badge ob-4" onclick="showOrbitDetail(4)">
                 <span class="ob-num">4</span><span class="ob-label">Экосистемный</span>
               </button>
               <button class="orbit-badge ob-3" onclick="showOrbitDetail(3)">
-                <span class="ob-num">3</span><span class="ob-label">Масштаб</span>
+                <span class="ob-num">3</span><span class="ob-label">Разгон</span>
               </button>
               <button class="orbit-badge ob-2" onclick="showOrbitDetail(2)">
                 <span class="ob-num">2</span><span class="ob-label">Рост</span>
               </button>
               <button class="orbit-badge ob-1" onclick="showOrbitDetail(1)">
-                <span class="ob-num">1</span><span class="ob-label">Запуск</span>
+                <span class="ob-num">1</span><span class="ob-label">Разведка</span>
               </button>
               <button class="orbit-badge ob-0" onclick="showOrbitDetail(0)">
                 <span class="ob-num">0</span><span class="ob-label">Прелюд</span>
@@ -1868,13 +1874,13 @@ body.edit-mode .edit-mode-banner { display: block; }
             <div class="oss-item oss-0" onclick="showOrbitDetail(0)">
               <div class="oss-dot"></div>
               <div class="oss-stage">0. ПРЕЛЮД</div>
-              <div class="oss-desc">Идея · PMO скрининг</div>
+              <div class="oss-desc">Заявка · PMO скрининг</div>
             </div>
             <div class="oss-arrow">→</div>
             <div class="oss-item oss-1" onclick="showOrbitDetail(1)">
               <div class="oss-dot"></div>
-              <div class="oss-stage">1. ЗАПУСК</div>
-              <div class="oss-desc">MVP · Discovery→Delivery</div>
+              <div class="oss-stage">1. РАЗВЕДКА</div>
+              <div class="oss-desc">MVP · Исследование→Разработка</div>
             </div>
             <div class="oss-arrow">→</div>
             <div class="oss-item oss-2" onclick="showOrbitDetail(2)">
@@ -1885,14 +1891,26 @@ body.edit-mode .edit-mode-banner { display: block; }
             <div class="oss-arrow">→</div>
             <div class="oss-item oss-3" onclick="showOrbitDetail(3)">
               <div class="oss-dot"></div>
-              <div class="oss-stage">3. МАСШТАБ</div>
+              <div class="oss-stage">3. РАЗГОН</div>
               <div class="oss-desc">GMV · P&amp;L · NPS</div>
             </div>
             <div class="oss-arrow">→</div>
             <div class="oss-item oss-4" onclick="showOrbitDetail(4)">
               <div class="oss-dot"></div>
-              <div class="oss-stage">4. ЗРЕЛОСТЬ</div>
+              <div class="oss-stage">4. ЭКОСИСТЕМНЫЙ</div>
               <div class="oss-desc">Платформа · API · Экосистема</div>
+            </div>
+            <div class="oss-arrow">→</div>
+            <div class="oss-item oss-5" onclick="showOrbitDetail(5)">
+              <div class="oss-dot"></div>
+              <div class="oss-stage">5. ПЛАТО</div>
+              <div class="oss-desc">Unit Economics · Оптимизация</div>
+            </div>
+            <div class="oss-arrow">→</div>
+            <div class="oss-item oss-6" onclick="showOrbitDetail(6)">
+              <div class="oss-dot"></div>
+              <div class="oss-stage">6. АРХИВ</div>
+              <div class="oss-desc">Offboarding · Архив</div>
             </div>
           </div>
 
@@ -1918,23 +1936,23 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="connect-block">
           <p>Орбита отвечает на вопрос: <strong style="color:var(--gray2);">где мы сейчас?</strong></p>
           <p>Полёт отвечает на вопрос: <strong style="color:var(--gray2);">как мы летим к следующей орбите?</strong></p>
-          <p style="margin-top:12px;">Внутри каждой орбиты шаттл делает витки: <span class="term" data-tip="Исследование: валидируем проблему до начала разработки">Discovery</span> → <span class="term" data-tip="Разработка и выпуск проверенного решения">Delivery</span> → Метрики. На Старте — один виток. В <span class="term" data-tip="Операционный режим: продукт запущен, аудитория есть. Команда улучшает на данных">Growth</span> — витки повторяются непрерывно. Когда витков достаточно и <span class="term" data-tip="Gate: Go — летим дальше, No-Go — останавливаемся или меняем курс">Точка манёвра</span> пройдена — уходим на следующую орбиту.</p>
+          <p style="margin-top:12px;">Внутри каждой орбиты шаттл делает витки: <span class="term" data-tip="Исследование: валидируем проблему до начала разработки">Исследование</span> → <span class="term" data-tip="Разработка и выпуск проверенного решения">Разработка</span> → Оценка и ретро. На Старте — один виток. В <span class="term" data-tip="Операционный режим: продукт запущен, аудитория есть. Команда улучшает на данных">Growth</span> — витки повторяются непрерывно. Когда витков достаточно и <span class="term" data-tip="Gate: Go — летим дальше, No-Go — останавливаемся или меняем курс">Точка манёвра</span> пройдена — уходим на следующую орбиту.</p>
         </div>
 
         <!-- Zone 2 -->
         <div class="v2-section-label" style="margin-bottom:8px;">Виток и топливо</div>
         <div class="zone2-grid">
           <div class="cycle-diagram">
-            <div class="cycle-title">Виток — один цикл Discovery → Delivery</div>
+            <div class="cycle-title">Виток — один цикл Исследование → Разработка → Оценка и ретро</div>
             <div class="cycle-sub">В Growth витки повторяются для каждой инициативы. 3–7 параллельно.</div>
             <div class="cf-step">
               <div class="cf-num v">01</div>
-              <div><div class="cf-label"><span class="term" data-tip="Исследование: валидируем проблему до начала разработки">Discovery</span></div><div class="cf-desc">Исследование: валидируем проблему, проводим CustDev, оцениваем техническую реализуемость</div></div>
+              <div><div class="cf-label"><span class="term" data-tip="Исследование: валидируем проблему до начала разработки">Исследование</span></div><div class="cf-desc">Валидируем проблему, проводим CustDev, оцениваем техническую реализуемость</div></div>
             </div>
             <div class="loop-connector"><div class="loop-line"></div><span style="font-size:10px;white-space:nowrap;">↓ к следующему</span><div class="loop-line"></div></div>
             <div class="cf-step">
               <div class="cf-num t">02</div>
-              <div><div class="cf-label"><span class="term" data-tip="Разработка и выпуск проверенного решения">Delivery</span></div><div class="cf-desc">Разработка и выпуск: строим согласованный scope, выпускаем в прод итерациями</div></div>
+              <div><div class="cf-label"><span class="term" data-tip="Разработка и выпуск проверенного решения">Разработка</span></div><div class="cf-desc">Строим согласованный scope, выпускаем в прод итерациями</div></div>
             </div>
             <div class="loop-connector"><div class="loop-line"></div><span style="font-size:10px;white-space:nowrap;">↓ к следующему</span><div class="loop-line"></div></div>
             <div class="cf-step">
@@ -1950,7 +1968,7 @@ body.edit-mode .edit-mode-banner { display: block; }
 
           <div class="sources-box">
             <div class="sources-title">Топливо — откуда берутся инициативы для витка</div>
-            <div class="sources-sub">Любая инициатива проходит Discovery-скрининг перед Delivery</div>
+            <div class="sources-sub">Любая инициатива проходит Исследование-скрининг перед Разработкой</div>
             <div class="source-row">
               <div class="source-icon" style="background:rgba(245,158,11,0.15);">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3.5" stroke="#F59E0B" stroke-width="1.5"></circle><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"></path></svg>
@@ -1975,7 +1993,7 @@ body.edit-mode .edit-mode-banner { display: block; }
               </div>
               <div><div class="source-name">Команда: техдолг и UX</div><div class="source-desc">Техдолг — планируется явно в 20% слоте спринта. UX-улучшения — по данным исследований.</div></div>
             </div>
-            <div class="screening-rule">⚠ Любая инициатива входит в Delivery только через <span class="term" data-tip="Исследование: валидируем проблему до начала разработки">Discovery</span>-скрининг. Даже если задачу ставит CEO.</div>
+            <div class="screening-rule">⚠ Любая инициатива входит в Разработку только через <span class="term" data-tip="Исследование: валидируем проблему до начала разработки">Исследование</span>-скрининг. Даже если задачу ставит CEO.</div>
           </div>
         </div><!-- /zone2-grid -->
 
@@ -1987,7 +2005,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
             <div style="padding:12px 14px;background:rgba(79,195,247,0.08);border:1px solid rgba(79,195,247,0.2);border-radius:10px;">
               <div style="font-size:11px;font-weight:700;color:#B3E5FC;margin-bottom:4px;">Продуктовая инициатива</div>
-              <div style="font-size:10px;color:var(--gray2);line-height:1.5;">Создаёт ценность для пользователя или бизнеса. Обязательно: Problem statement + целевая метрика + гипотеза. Путь: Discovery → Gate 1 → Delivery → Метрика.</div>
+              <div style="font-size:10px;color:var(--gray2);line-height:1.5;">Создаёт ценность для пользователя или бизнеса. Обязательно: Problem statement + целевая метрика + гипотеза. Путь: Исследование → Gate 1 → Разработка → Метрика.</div>
             </div>
             <div style="padding:12px 14px;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);border-radius:10px;">
               <div style="font-size:11px;font-weight:700;color:#93C5FD;margin-bottom:4px;">Техническая инициатива</div>
@@ -2000,11 +2018,11 @@ body.edit-mode .edit-mode-banner { display: block; }
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;">
                 <div style="background:rgba(79,195,247,0.1);border:1px solid rgba(79,195,247,0.25);border-radius:8px;padding:8px;">
                   <div style="font-size:10px;font-weight:700;color:#B3E5FC;margin-bottom:4px;">📦 Продуктовая</div>
-                  <div style="font-size:10px;color:var(--gray2);line-height:1.4;">Фича, сценарий, новая аудитория, монетизация. Владелец: PM. Валидация через CustDev → Discovery.</div>
+                  <div style="font-size:10px;color:var(--gray2);line-height:1.4;">Фича, сценарий, новая аудитория, монетизация. Владелец: PM. Валидация через CustDev → Исследование.</div>
                 </div>
                 <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:8px;padding:8px;">
                   <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:4px;">⚙ Техническая</div>
-                  <div style="font-size:10px;color:var(--gray2);line-height:1.4;">Архитектура, техдолг, DevEx, безопасность. Владелец: TL. 20% слот спринта — без Discovery.</div>
+                  <div style="font-size:10px;color:var(--gray2);line-height:1.4;">Архитектура, техдолг, DevEx, безопасность. Владелец: TL. 20% слот спринта — без Исследования.</div>
                 </div>
               </div>
               <div style="margin-top:6px;font-size:10px;color:var(--muted);">Обе проходят скрининг PMO. Обе привязаны к OKR или техрадару.</div>
@@ -2013,19 +2031,19 @@ body.edit-mode .edit-mode-banner { display: block; }
             <div class="chain-node"><div class="chain-dot c4">04</div><div class="chain-node-title">User Stories</div><div class="chain-node-body">Сценарий от лица пользователя: «Как [роль], хочу [действие], чтобы [результат]». Согласует: UX, TL.</div><span class="chain-node-owner ct">PM</span></div>
             <div class="chain-node"><div class="chain-dot c5">05</div><div class="chain-node-title">Задачи</div><div class="chain-node-body">Единица работы 1–3 дня с чётким <span class="term" data-tip="Definition of Done: чёткий критерий того, что задача завершена">DoD</span>. Разработчик берёт в спринт.</div><span class="chain-node-owner cb">Dev / TL</span></div>
           </div>
-          <div class="chain-rule">⚠ Задача без связи с инициативой = техдолг в 20% слоте (техническая) или лишняя работа (удали). Любая продуктовая инициатива — через Discovery-скрининг.</div>
+          <div class="chain-rule">⚠ Задача без связи с инициативой = техдолг в 20% слоте (техническая) или лишняя работа (удали). Любая продуктовая инициатива — через Исследование-скрининг.</div>
           <!-- Planning horizons per stage -->
           <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
             <div style="font-size:10px;font-weight:700;color:var(--gray);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;">Горизонты и тип планирования по орбитам</div>
             <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
               <div style="background:rgba(139,139,174,0.08);border:1px solid rgba(139,139,174,0.2);border-radius:10px;padding:12px;">
                 <div style="font-size:9px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Орбита 0</div>
-                <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;">Идея / Скрининг</div>
+                <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;">Заявка / Скрининг</div>
                 <div style="font-size:10px;color:var(--gray2);line-height:1.5;">Горизонт: 1–2 недели<br>Тип: качественная оценка<br>Артефакт: Бриф PMO</div>
               </div>
               <div style="background:rgba(79,195,247,0.07);border:1px solid rgba(79,195,247,0.2);border-radius:10px;padding:12px;">
                 <div style="font-size:9px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Орбита 1</div>
-                <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;">Discovery → MVP</div>
+                <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;">Исследование → MVP</div>
                 <div style="font-size:10px;color:var(--gray2);line-height:1.5;">Горизонт: 6–12 недель<br>Тип: итерационный<br>Артефакт: PRD + Roadmap</div>
               </div>
               <div style="background:rgba(0,212,180,0.07);border:1px solid rgba(0,212,180,0.2);border-radius:10px;padding:12px;">
@@ -2089,7 +2107,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="orbit-stage-header">
           <div class="orbit-num-badge o0">0</div>
           <div>
-            <div class="orbit-stage-title o0" data-id="e053" data-editable="">Орбита 0 — Видение / Идея</div>
+            <div class="orbit-stage-title o0" data-id="e053" data-editable="">Орбита 0 — Заявка</div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px">Неоформленная инициатива · PMO оценивает стратегическое соответствие</div>
           </div>
           <div class="orbit-stage-sep"></div>
@@ -2178,7 +2196,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="border-top:1px solid var(--border);padding-top:12px;">
             <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">🔗 Сквозные функции на Орбите 0</div>
             <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
-              <div style="padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;"><div style="font-size:10px;font-weight:700;color:var(--text);margin-bottom:3px;">💰 Инвестиции</div><div style="font-size:9px;color:var(--muted);">Инвест-комитет: предварит. одобрение бюджета Discovery</div></div>
+              <div style="padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;"><div style="font-size:10px;font-weight:700;color:var(--text);margin-bottom:3px;">💰 Инвестиции</div><div style="font-size:9px;color:var(--muted);">Инвест-комитет: предварит. одобрение бюджета Исследования</div></div>
               <div style="padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;"><div style="font-size:10px;font-weight:700;color:var(--text);margin-bottom:3px;">👥 HR</div><div style="font-size:9px;color:var(--muted);">Запрос на команду: PM, TL, DA, Designer. Онбординг-план.</div></div>
               <div style="padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;"><div style="font-size:10px;font-weight:700;color:var(--text);margin-bottom:3px;">⚖️ Юридический</div><div style="font-size:9px;color:var(--muted);">Pre-check: лицензии, персданные, регулятор (B2G)</div></div>
               <div style="padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;"><div style="font-size:10px;font-weight:700;color:var(--text);margin-bottom:3px;">🏗 Архитектура</div><div style="font-size:9px;color:var(--muted);">Экспресс-ревью: доступность экосистемных интеграций</div></div>
@@ -2192,11 +2210,11 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="orbit-stage-header">
           <div class="orbit-num-badge o1">1</div>
           <div>
-            <div class="orbit-stage-title o1" data-id="e070" data-editable="">Орбита 1 — Старт / Релиз минимального продукта</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px">Один виток Discovery→Delivery · MVP в проде · без широкой аудитории</div>
+            <div class="orbit-stage-title o1" data-id="e070" data-editable="">Орбита 1 — Разведка</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px">Один виток Исследование→Разработка · MVP в проде · без широкой аудитории</div>
           </div>
           <div class="orbit-stage-sep"></div>
-          <span class="tag tag-v">DISCOVERY + DELIVERY</span>
+          <span class="tag tag-v">ИССЛЕДОВАНИЕ + РАЗРАБОТКА</span>
         </div>
         <div class="grid-3 mb-4">
           <div class="card card-violet">
@@ -2214,14 +2232,14 @@ body.edit-mode .edit-mode-banner { display: block; }
               <li style="font-size:12px;color:var(--text)" data-id="e075" data-editable="">CustDev + анализ рынка (2–3 нед)</li>
               <li style="font-size:12px;color:var(--text)" data-id="e076" data-editable="">Техническое исследование, ADR, архитектурный набросок</li>
               <li style="font-size:12px;color:var(--text)" data-id="e077" data-editable="">Концепция + бизнес-кейс → Gate 1 (Комитет)</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e078" data-editable="">Delivery: спринты с чёткими DoD, feature flags</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e078" data-editable="">Разработка: спринты с чёткими DoD, feature flags</li>
               <li style="font-size:12px;color:var(--text)" data-id="e079" data-editable="">MVP в прод → Gate 2 (Tech Lead + PM)</li>
             </ol>
           </div>
           <div class="card">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Правила</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e080" data-editable="">Не обещать сроки и scope до конца Discovery</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e080" data-editable="">Не обещать сроки и scope до конца Исследования</span></li>
               <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e081" data-editable="">Прототип ≠ продакшн-решение, не тащим в прод</span></li>
               <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e082" data-editable="">Все ключевые риски задокументированы в ADR</span></li>
               <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--muted)">→</span><span data-id="e083" data-editable="">MVP — не «плохо», MVP — «достаточно для проверки»</span></li>
@@ -2244,7 +2262,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="background:rgba(79,195,247,0.07);border:1px solid rgba(79,195,247,0.2);border-radius:12px;padding:16px;">
             <div style="font-size:10px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">✅ Обязательные процессы</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
-              <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:#F59E0B">★</span>CustDev ≥ 5 интервью (до Delivery)</li>
+              <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:#F59E0B">★</span>CustDev ≥ 7 интервью (до Разработки, мин. 7–10 носителей проблемы)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:#F59E0B">★</span>ADR: архитектурные решения</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:#F59E0B">★</span>Бюджет согласован с Финансами</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:#F59E0B">★</span>Архитектурный ревью (ИТ)</li>
@@ -2267,32 +2285,32 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div style="background:rgba(79,195,247,0.05);border:2px solid rgba(79,195,247,0.2);border-radius:14px;padding:20px;margin-bottom:32px;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
             <div style="width:28px;height:28px;border-radius:8px;background:rgba(79,195,247,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#B3E5FC;">1</div>
-            <div style="font-size:11px;font-weight:700;color:#B3E5FC;letter-spacing:.08em;text-transform:uppercase;">Handbook · Орбита 1 · Discovery → MVP</div>
+            <div style="font-size:11px;font-weight:700;color:#B3E5FC;letter-spacing:.08em;text-transform:uppercase;">Handbook · Орбита 1 · Исследование → MVP</div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
             <div>
-              <div style="font-size:10px;font-weight:700;color:#B3E5FC;margin-bottom:6px;">PM — Discovery (нед. 1–4)</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e084" data-editable="">1. CustDev-скрипт: 5–7 интервью, HMW-синтез с DA<br>2. Определи North Star Metric и Activation-метрику<br>3. Прототип в Figma → usability тест (5 чел.)<br>4. Напиши PRD: scope, acceptance criteria, OKD<br>5. Защита на Gate 1 → Delivery</div>
+              <div style="font-size:10px;font-weight:700;color:#B3E5FC;margin-bottom:6px;">PM — Исследование (нед. 1–4)</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e084" data-editable="">1. CustDev-скрипт: 7–10 интервью, HMW-синтез с DA<br>2. Определи North Star Metric и Activation-метрику<br>3. Прототип в Figma → usability тест (5 чел.)<br>4. Напиши PRD: scope, acceptance criteria, OKD<br>5. Защита на Gate 1 → Разработка</div>
             </div>
             <div>
-              <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — Discovery (нед. 1–4)</div>
+              <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — Исследование (нед. 1–4)</div>
               <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e085" data-editable="">1. Tech spike: прощупай архитектурные риски (2–3 дня)<br>2. Напиши ADR: выбранный подход и отклонённые альтернативы<br>3. Оцени интеграции экосистемы: WB ID, SDK Video, Корзина<br>4. Настрой CI/CD skeleton и feature flags с первого дня<br>5. Определи SLO для MVP: uptime, latency, error rate</div>
             </div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
             <div>
-              <div style="font-size:10px;font-weight:700;color:#B3E5FC;margin-bottom:6px;">PM — Delivery (нед. 5–12)</div>
+              <div style="font-size:10px;font-weight:700;color:#B3E5FC;margin-bottom:6px;">PM — Разработка (нед. 5–12)</div>
               <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e086" data-editable="">1. Веди Backlog: User Stories с чёткими DoD<br>2. Спринт-ревью с заказчиком каждые 2 нед.<br>3. Мониторь Activation Rate с первого дня в проде<br>4. Не расширяй scope без Gate<br>5. Готовь данные для Gate 2</div>
             </div>
             <div>
-              <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — Delivery (нед. 5–12)</div>
+              <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — Разработка (нед. 5–12)</div>
               <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e087" data-editable="">1. Code review 100% PR перед мержем в main<br>2. Runbook: деплой, откат, алерты — до выхода в прод<br>3. Security review с ИБ до Gate 2<br>4. DORA-метрики с первого спринта: deploy freq, MTTR<br>5. Постинцидентный анализ любого P0</div>
             </div>
           </div>
           <div style="border-top:1px solid var(--border);padding-top:12px;">
             <div style="font-size:10px;font-weight:700;color:#B3E5FC;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">🔗 Сквозные функции на Орбите 1</div>
             <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
-              <div style="padding:8px;background:rgba(79,195,247,0.07);border-radius:8px;"><div style="font-size:10px;font-weight:700;color:#B3E5FC;margin-bottom:3px;">💰 Финансы</div><div style="font-size:9px;color:var(--muted);">CAPEX на Discovery. Бюджет Delivery после Gate 1. Ежемес. сверка.</div></div>
+              <div style="padding:8px;background:rgba(79,195,247,0.07);border-radius:8px;"><div style="font-size:10px;font-weight:700;color:#B3E5FC;margin-bottom:3px;">💰 Финансы</div><div style="font-size:9px;color:var(--muted);">CAPEX на Исследование. Бюджет Разработки после Gate 1. Ежемес. сверка.</div></div>
               <div style="padding:8px;background:rgba(79,195,247,0.07);border-radius:8px;"><div style="font-size:10px;font-weight:700;color:#B3E5FC;margin-bottom:3px;">👥 HR</div><div style="font-size:9px;color:var(--muted);">Подтверждение найма / внешних подрядчиков. Онбординг-план.</div></div>
               <div style="padding:8px;background:rgba(79,195,247,0.07);border-radius:8px;"><div style="font-size:10px;font-weight:700;color:#B3E5FC;margin-bottom:3px;">🔐 WB ID</div><div style="font-size:9px;color:var(--muted);">Интеграция авторизации: SDK, SSO, токены. SLA с WB ID-командой.</div></div>
               <div style="padding:8px;background:rgba(79,195,247,0.07);border-radius:8px;"><div style="font-size:10px;font-weight:700;color:#B3E5FC;margin-bottom:3px;">🔍 Поиск WB</div><div style="font-size:9px;color:var(--muted);">API поиска для MVP: контракт, rate limits, fallback-стратегия.</div></div>
@@ -2315,7 +2333,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div class="card card-teal">
             <div class="text-small text-muted mb-16" style="font-family:var(--font-head);letter-spacing:.1em;font-size:9px;text-transform:uppercase">Фокус команды</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e089" data-editable="">Повторные витки Discovery→Delivery (3–7 параллельно)</span></li>
+              <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e089" data-editable="">Повторные витки Исследование→Разработка (3–7 параллельно)</span></li>
               <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e090" data-editable="">Рост Retention D7/D30, Activation Rate, Revenue</span></li>
               <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e091" data-editable="">A/B-эксперименты как основной метод развития</span></li>
               <li style="font-size:12px;color:var(--text);display:flex;gap:8px"><span style="color:var(--teal)">·</span><span data-id="e092" data-editable="">Интеграция с Маркетплейсом для буста роста</span></li>
@@ -2327,8 +2345,8 @@ body.edit-mode .edit-mode-banner { display: block; }
             <ol style="padding-left:16px;display:flex;flex-direction:column;gap:8px">
               <li style="font-size:12px;color:var(--text)" data-id="e094" data-editable="">Анализ метрик: Retention, Revenue, NPS, Activation</li>
               <li style="font-size:12px;color:var(--text)" data-id="e095" data-editable="">Формирование инициативы с гипотезой роста</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e096" data-editable="">Discovery-скрининг (даже если задачу ставит CEO)</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e097" data-editable="">Delivery → A/B → Результат → следующий виток</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e096" data-editable="">Исследование-скрининг (даже если задачу ставит CEO)</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e097" data-editable="">Разработка → A/B → Результат → следующий виток</li>
               <li style="font-size:12px;color:var(--text)" data-id="e098" data-editable="">Квартальный Gate Review → Gate 3 (CPO + CFO)</li>
             </ol>
           </div>
@@ -2414,7 +2432,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
             <div>
               <div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:6px;">PM — каждый виток роста</div>
-              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e103" data-editable="">1. Дашборд Retention D7/D30, Activation, Revenue — твой ежедневник<br>2. Формулируй гипотезу: «Если Х → то Y, потому что Z»<br>3. Проводи Discovery-скрининг для каждой гипотезы<br>4. A/B-эксперимент: min sample size, доверительный интервал<br>5. Quarterly Gate Review: данные → решение Комитета</div>
+              <div style="font-size:11px;color:var(--gray2);line-height:1.8;" data-id="e103" data-editable="">1. Дашборд Retention D7/D30, Activation, Revenue — твой ежедневник<br>2. Формулируй гипотезу: «Если Х → то Y, потому что Z»<br>3. Проводи Исследование-скрининг для каждой гипотезы<br>4. A/B-эксперимент: min sample size, доверительный интервал<br>5. Quarterly Gate Review: данные → решение Комитета</div>
             </div>
             <div>
               <div style="font-size:10px;font-weight:700;color:#93C5FD;margin-bottom:6px;">TL — стабильный Growth</div>
@@ -2439,7 +2457,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="orbit-stage-header">
           <div class="orbit-num-badge o3">3</div>
           <div>
-            <div class="orbit-stage-title o3" data-id="e105" data-editable="">Орбита 3 — Зрелость / Рост GMV</div>
+            <div class="orbit-stage-title o3" data-id="e105" data-editable="">Орбита 3 — Разгон</div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px">Свой P&amp;L · зависимые продукты экосистемы · буст GMV через Маркетплейс</div>
           </div>
           <div class="orbit-stage-sep"></div>
@@ -2460,7 +2478,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             <ol style="padding-left:16px;display:flex;flex-direction:column;gap:8px">
               <li style="font-size:12px;color:var(--text)" data-id="e110" data-editable="">Стратегическое планирование H1/H2 с CPO и CFO</li>
               <li style="font-size:12px;color:var(--text)" data-id="e111" data-editable="">OKR → Инициативы → Эпики → Спринты</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e112" data-editable="">Scaled Delivery: несколько потоков параллельно</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e112" data-editable="">Scaled Разработка: несколько потоков параллельно</li>
               <li style="font-size:12px;color:var(--text)" data-id="e113" data-editable="">Квартальный P&amp;L ревью + Gate 4 (CEO BU + CPO)</li>
             </ol>
           </div>
@@ -2482,7 +2500,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--pink)">→</span>BI (P&amp;L, GMV-дашборды)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--pink)">→</span>Стратегическое планирование (H1/H2)</li>
-              <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--pink)">→</span>Scaled Delivery (несколько потоков)</li>
+              <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--pink)">→</span>Scaled Разработка (несколько потоков)</li>
               <li style="font-size:11px;color:var(--gray2);display:flex;gap:6px;"><span style="color:var(--pink)">→</span>Platform engineering tools</li>
             </ul>
           </div>
@@ -2561,7 +2579,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             <ol style="padding-left:16px;display:flex;flex-direction:column;gap:8px">
               <li style="font-size:12px;color:var(--text)" data-id="e125" data-editable="">Архитектурный ревью платформенного решения</li>
               <li style="font-size:12px;color:var(--text)" data-id="e126" data-editable="">API Design + Developer Experience для партнёров</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e127" data-editable="">Platform Delivery: стабильность, версионирование, SLA</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e127" data-editable="">Platform Разработка: стабильность, версионирование, SLA</li>
               <li style="font-size:12px;color:var(--text)" data-id="e128" data-editable="">Совет: решение о форме → Манёвр к Звезде (Маркетплейс)</li>
             </ol>
           </div>
@@ -2653,8 +2671,8 @@ body.edit-mode .edit-mode-banner { display: block; }
           </div>
           <div class="corp-title" data-id="e138" data-editable="">Бюджетирование</div>
           <ul class="corp-list">
-            <li data-id="e139" data-editable="" data-listener-added_f2c3d0b6="true">Бюджет на Discovery — до Gate 0 <span style="color:var(--gray);font-size:10px;"><br></span></li>
-            <li data-id="e140" data-editable="" data-listener-added_f2c3d0b6="true">Бюджет на Delivery — после Gate 1 <span style="color:var(--violet);font-size:10px;"><br></span></li>
+            <li data-id="e139" data-editable="" data-listener-added_f2c3d0b6="true">Бюджет на Исследование — до Gate 0 <span style="color:var(--gray);font-size:10px;"><br></span></li>
+            <li data-id="e140" data-editable="" data-listener-added_f2c3d0b6="true">Бюджет на Разработку — после Gate 1 <span style="color:var(--violet);font-size:10px;"><br></span></li>
             <li data-id="e141" data-editable="" data-listener-added_f2c3d0b6="true">Квартальное переутверждение при отклонении&nbsp;</li>
             <li data-id="e142" data-editable="" data-listener-added_f2c3d0b6="true">P&amp;L модель обязательна для Gate 2 <span style="color:var(--teal);font-size:10px;">[Орб. 2]</span></li>
           </ul>
@@ -2663,7 +2681,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div class="corp-dept">ИТ / Архитектура</div>
           <div class="corp-title" data-id="e143" data-editable="">Инфраструктура и деплой</div>
           <ul class="corp-list">
-            <li data-id="e144" data-editable="">Архитектурный ревью до старта Delivery</li>
+            <li data-id="e144" data-editable="">Архитектурный ревью до старта Разработки</li>
             <li data-id="e145" data-editable="">CI/CD pipeline по корп. стандарту</li>
             <li data-id="e146" data-editable="">Разрешение на деплой в прод от ИТ-директора</li>
             <li data-id="e147" data-editable="">Runbook + мониторинг перед релизом</li>
@@ -2684,7 +2702,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div class="corp-title" data-id="e153" data-editable="">Design System</div>
           <ul class="corp-list">
             <li data-id="e154" data-editable="">Все UI-компоненты из RWB Design System</li>
-            <li data-id="e155" data-editable="">UX-ревью прототипа на Discovery</li>
+            <li data-id="e155" data-editable="">UX-ревью прототипа на Исследовании</li>
             <li data-id="e156" data-editable="">Дизайн-ревью перед каждым релизом</li>
           </ul>
         </div>
@@ -2694,7 +2712,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           <ul class="corp-list">
             <li data-id="e158" data-editable="">Юр. согласование при работе с контрагентами</li>
             <li data-id="e159" data-editable="">Privacy policy / ToS перед публичным запуском</li>
-            <li data-id="e160" data-editable="">Лицензии Open Source проверяются до Delivery</li>
+            <li data-id="e160" data-editable="">Лицензии Open Source проверяются до Разработки</li>
           </ul>
         </div>
         <div class="corp-card">
@@ -2892,7 +2910,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </div>
             <div style="padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:8px;">
               <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px;">Данные обязательны</div>
-              <div style="font-size:10px;color:var(--gray2);">CustDev ≥ 5 интервью или данные BI. Без них — не Gate, а бэклог.</div>
+              <div style="font-size:10px;color:var(--gray2);">CustDev ≥ 7 интервью (7–10 носителей проблемы) или данные BI. Без них — не Gate, а бэклог.</div>
             </div>
             <div style="padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:8px;">
               <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px;">Ad-hoc инициативы</div>
@@ -3094,7 +3112,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Выход</span>
-              <span class="gate-meta-val" data-id="e192" data-editable="">Старт Орбиты 1 — Discovery</span>
+              <span class="gate-meta-val" data-id="e192" data-editable="">Старт Орбиты 1 — Разведка</span>
             </div>
           </div>
         </div>
@@ -3102,9 +3120,9 @@ body.edit-mode .edit-mode-banner { display: block; }
         <!-- GATE 1 -->
         <div class="gate-card gate-1">
           <div>
-            <div class="gate-num">GATE 1 → DELIVERY</div>
-            <div class="gate-name" data-id="e193" data-editable="" data-listener-added_f2c3d0b6="true">Переход в Delivery</div>
-            <div class="gate-trigger" data-id="e194" data-editable="">Триггер: завершение Discovery Орбиты 1</div>
+            <div class="gate-num">GATE 1 → РАЗРАБОТКА</div>
+            <div class="gate-name" data-id="e193" data-editable="" data-listener-added_f2c3d0b6="true">Переход в Разработку</div>
+            <div class="gate-trigger" data-id="e194" data-editable="">Триггер: завершение Исследования Орбиты 1</div>
           </div>
           <div class="gate-divider"></div>
           <div>
@@ -3129,7 +3147,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Выход</span>
-              <span class="gate-meta-val" data-id="e203" data-editable="">Старт Delivery → MVP в прод</span>
+              <span class="gate-meta-val" data-id="e203" data-editable="">Старт Разработки → MVP в прод</span>
             </div>
           </div>
         </div>
@@ -3173,7 +3191,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="gate-card gate-3">
           <div>
             <div class="gate-num">GATE 3 → ОРБИТА 3</div>
-            <div class="gate-name" data-id="e215" data-editable="" data-listener-added_f2c3d0b6="true">Переход к Зрелости</div>
+            <div class="gate-name" data-id="e215" data-editable="" data-listener-added_f2c3d0b6="true">Переход к Разгону</div>
             <div class="gate-trigger" data-id="e216" data-editable="">Триггер: EBITDA → 0, NPS &gt; 40, команда 8+</div>
           </div>
           <div class="gate-divider"></div>
@@ -3238,15 +3256,93 @@ body.edit-mode .edit-mode-banner { display: block; }
           </div>
         </div>
 
+        <!-- GATE 5 -->
+        <div class="gate-card gate-5">
+          <div>
+            <div class="gate-num">GATE 5 → ПЛАТО</div>
+            <div class="gate-name" data-id="e236" data-editable="">Переход к Плато / Оптимизации</div>
+            <div class="gate-trigger" data-id="e237" data-editable="">Триггер: P&amp;L стабилен 4 квартала, NPS не деградирует</div>
+          </div>
+          <div class="gate-divider"></div>
+          <div>
+            <div class="gate-section-label">Критерии входа</div>
+            <ul class="gate-criteria">
+              <li data-id="e238" data-editable="">P&amp;L стабилен или положительный за последние 4 квартала</li>
+              <li data-id="e239" data-editable="">NPS не деградирует: стабилен или растёт</li>
+              <li data-id="e240" data-editable="">Есть понятный план следующего цикла (Исследование или монетизация)</li>
+              <li data-id="e241" data-editable="">Техдолг не блокирует развитие продукта</li>
+              <li data-id="e242" data-editable="">Команда укомплектована на ≥80%</li>
+            </ul>
+          </div>
+          <div class="gate-meta">
+            <div class="gate-meta-row">
+              <span class="gate-meta-label">Кто решает</span>
+              <span class="gate-meta-val" data-id="e243" data-editable="">CPO + CFO + CEO BU</span>
+            </div>
+            <div class="gate-meta-row">
+              <span class="gate-meta-label">Срок решения</span>
+              <span class="gate-meta-val" data-id="e244" data-editable="">Ежегодно (QBR Q4)</span>
+            </div>
+            <div class="gate-meta-row">
+              <span class="gate-meta-label">Формат</span>
+              <span class="gate-meta-val" data-id="e245" data-editable="">Strategic Review 60 мин</span>
+            </div>
+            <div class="gate-meta-row">
+              <span class="gate-meta-label">Выход</span>
+              <span class="gate-meta-val" data-id="e246" data-editable="">Go: новое Исследование или расширение · No-Go: архив</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- GATE 6 -->
+        <div class="gate-card gate-6">
+          <div>
+            <div class="gate-num">GATE 6 → АРХИВ</div>
+            <div class="gate-name" data-id="e247" data-editable="">Graceful Shutdown продукта</div>
+            <div class="gate-trigger" data-id="e248" data-editable="">Триггер: решение Gate 5 No-Go или Kill-условия</div>
+          </div>
+          <div class="gate-divider"></div>
+          <div>
+            <div class="gate-section-label">Чеклист завершения</div>
+            <ul class="gate-criteria">
+              <li data-id="e249" data-editable="">100% пользователей уведомлены и получили инструкцию</li>
+              <li data-id="e250" data-editable="">Данные архивированы согласно политике хранения</li>
+              <li data-id="e251" data-editable="">Инфраструктура освобождена, затраты обнулены</li>
+              <li data-id="e252" data-editable="">Post-mortem проведён и задокументирован в базе PMO</li>
+              <li data-id="e253" data-editable="">Команда перераспределена или уведомлена</li>
+            </ul>
+          </div>
+          <div class="gate-meta">
+            <div class="gate-meta-row">
+              <span class="gate-meta-label">Ответственный</span>
+              <span class="gate-meta-val" data-id="e254" data-editable="">PM + PMO</span>
+            </div>
+            <div class="gate-meta-row">
+              <span class="gate-meta-label">Срок</span>
+              <span class="gate-meta-val" data-id="e255" data-editable="">30–60 дней после решения</span>
+            </div>
+            <div class="gate-meta-row">
+              <span class="gate-meta-label">Формат</span>
+              <span class="gate-meta-val" data-id="e256" data-editable="">Чеклист + итоговый отчёт PMO</span>
+            </div>
+            <div class="gate-meta-row">
+              <span class="gate-meta-label">Артефакты</span>
+              <span class="gate-meta-val" data-id="e257" data-editable="">Sunset Plan · Коммуникация · Data Archive · Kill Checklist · Post-mortem</span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- Gates kill conditions -->
       <div style="margin-top:20px;padding:16px 20px;background:rgba(255,45,138,0.06);border:1px solid rgba(255,45,138,0.2);border-radius:12px;">
         <div style="font-size:11px;font-weight:700;color:#FF85C0;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">⚠ Условия схода с орбиты (Kill conditions)</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
           <div style="font-size:11px;color:var(--gray2);line-height:1.5;"><strong style="color:var(--text);">Орбита 1:</strong> Activation &lt; 10% за 8 нед без гипотез разворота</div>
           <div style="font-size:11px;color:var(--gray2);line-height:1.5;"><strong style="color:var(--text);">Орбита 2:</strong> NSM падает 3 квартала подряд без стратегии</div>
           <div style="font-size:11px;color:var(--gray2);line-height:1.5;"><strong style="color:var(--text);">Орбита 3:</strong> EBITDA отрицательный 2 кв. + нет плана разворота</div>
+          <div style="font-size:11px;color:var(--gray2);line-height:1.5;"><strong style="color:var(--text);">Орбита 4:</strong> GMV-плато + нет платформенной стратегии</div>
+          <div style="font-size:11px;color:var(--gray2);line-height:1.5;"><strong style="color:var(--text);">Орбита 5:</strong> North Star падает >30% три месяца подряд · NPS &lt; 0 · Команда &lt;50% >2 мес</div>
         </div>
       </div>
 
@@ -3352,7 +3448,7 @@ const ROLES_DATA = {
     eng: 'Product Manager',
     color: 'var(--pink)',
     responsibilities: [
-      'Владеет продуктом от Discovery до Growth',
+      'Владеет продуктом от Исследования до Growth',
       'Формирует и поддерживает Product Backlog',
       'Пишет PRD, user stories, acceptance criteria',
       'Проводит CustDev и анализ пользователей',
@@ -3373,7 +3469,7 @@ const ROLES_DATA = {
     color: 'var(--teal)',
     responsibilities: [
       'Архитектурные решения и ADR',
-      'Техническая реализуемость в Discovery',
+      'Техническая реализуемость в Исследовании',
       'Декомпозиция эпиков на задачи с DoD',
       'Code review и технические стандарты',
       'Управление техническим долгом',
@@ -3412,7 +3508,7 @@ const ROLES_DATA = {
     eng: 'Product Designer',
     color: '#FF8C55',
     responsibilities: [
-      'UX-исследования и прототипирование в Discovery',
+      'UX-исследования и прототипирование в Исследовании',
       'Проектирование пользовательских сценариев',
       'Создание и поддержка компонентов Design System',
       'Дизайн-ревью перед каждым релизом',
@@ -3495,16 +3591,16 @@ const TEMPLATES_DATA = [
   },
   {
     id: 2,
-    name: 'Discovery Report',
-    desc: 'Итоговый документ Discovery — результаты исследования для Gate 1.',
+    name: 'Отчёт Исследования',
+    desc: 'Итоговый документ Исследования — результаты для Gate 1.',
     color: 'rgba(255,45,138,0.1)',
     iconColor: '#FF85C0',
     tag: 'Gate 1',
     tagClass: 'tag-p',
-    content: `<h3>Discovery Report</h3>
+    content: `<h3>Отчёт Исследования</h3>
 <strong>Продукт:</strong> [Название]
 <strong>Владелец:</strong> [Product PM]
-<strong>Период Discovery:</strong> [ДД.ММ — ДД.ММ.ГГГГ]
+<strong>Период Исследования:</strong> [ДД.ММ — ДД.ММ.ГГГГ]
 <strong>Статус:</strong> [ ] Рекомендуем Go   [ ] Рекомендуем No-Go   [ ] Нужны данные
 
 <h3>1. Проблема</h3>
@@ -3535,7 +3631,7 @@ const TEMPLATES_DATA = [
 —
 
 <h3>5. Оценка</h3>
-<strong>Срок Discovery → MVP:</strong> ~N недель
+<strong>Срок Исследование → MVP:</strong> ~N недель
 <strong>Команда:</strong> [состав и FTE]
 <strong>Предварительный бюджет:</strong> [диапазон]
 
@@ -3554,10 +3650,10 @@ const TEMPLATES_DATA = [
   {
     id: 3,
     name: 'PRD / Specification',
-    desc: 'Product Requirements Document — требования к продукту перед Delivery.',
+    desc: 'Product Requirements Document — требования к продукту перед Разработкой.',
     color: 'rgba(0,212,180,0.08)',
     iconColor: 'var(--teal)',
-    tag: 'Delivery',
+    tag: 'Разработка',
     tagClass: 'tag-t',
     content: `<h3>Product Requirements Document</h3>
 <strong>Продукт:</strong> [Название]
@@ -3565,7 +3661,7 @@ const TEMPLATES_DATA = [
 <strong>Product PM:</strong> [Имя]   <strong>Tech Lead:</strong> [Имя]
 
 <h3>1. Контекст и цели</h3>
-Что мы строим и зачем. Связь с Discovery Report.
+Что мы строим и зачем. Связь с Отчётом Исследования.
 
 <strong>Цели MVP:</strong>
 — Цель 1: метрика
@@ -3663,7 +3759,7 @@ Gate 2 (MVP Release): [дата]`
     desc: 'Шаблон повестки и артефактов для планирования спринта.',
     color: 'rgba(79,195,247,0.1)',
     iconColor: '#B3E5FC',
-    tag: 'Delivery',
+    tag: 'Разработка',
     tagClass: 'tag-v',
     content: `<h3>Sprint Planning</h3>
 <strong>Дата:</strong> [ДД.ММ.ГГГГ]
@@ -3762,7 +3858,7 @@ Gate 2 (MVP Release): [дата]`
     tagClass: 'tag-p',
     content: `<h3>Product Health Dashboard</h3>
 <strong>Продукт:</strong> [Название]
-<strong>Стадия:</strong> [ ] Discovery  [ ] Delivery  [ ] Growth
+<strong>Стадия:</strong> [ ] Исследование  [ ] Разработка  [ ] Growth
 <strong>Период:</strong> [Неделя / Месяц / Квартал]
 <strong>Дата:</strong> [ДД.ММ.ГГГГ]
 <strong>Ответственный:</strong> [Product PM]
@@ -3897,7 +3993,7 @@ Gate 2 (MVP Release): [дата]`
     desc: 'Структура глубинного интервью с пользователем. 45–60 минут, 5+ интервью для валидации гипотезы.',
     color: 'rgba(255,45,138,0.08)',
     iconColor: '#FF85C0',
-    tag: 'Discovery',
+    tag: 'Исследование',
     tagClass: 'tag-p',
     content: `<h3>CustDev Скрипт — глубинное интервью</h3>
 <strong>Продукт / Гипотеза:</strong> [Название и формулировка гипотезы]
@@ -3951,7 +4047,7 @@ Gate 2 (MVP Release): [дата]`
     desc: 'Шаблон коммуникации о релизе для команды, заказчика и пользователей.',
     color: 'rgba(255,184,48,0.08)',
     iconColor: 'var(--amber)',
-    tag: 'Delivery / Growth',
+    tag: 'Разработка / Growth',
     tagClass: 'tag-a',
     content: `<h3>Release Notes</h3>
 <strong>Продукт:</strong> [Название]
@@ -4155,7 +4251,7 @@ sections.forEach(s => observer.observe(s));
 // ═══ ORBIT DETAIL DATA ═══
 const ORBIT_DATA = {
   0: {
-    name: 'Видение / Идея',
+    name: 'Заявка',
     sub: 'Неоформленная инициатива · PMO проверяет стратегическое соответствие',
     col: '#8B8BAE', rgb: '139,139,174', badge: 'Прелюд',
     focus: ['Заказчик подаёт бриф: проблема, цель, аудитория', 'PMO: скрининг, стратегическое соответствие OKR', 'Поиск команды: PM, TL, DA, Designer', 'Калибровка с CEO / Проектный комитет'],
@@ -4165,12 +4261,12 @@ const ORBIT_DATA = {
     kill: null
   },
   1: {
-    name: 'Старт / Релиз MVP',
-    sub: 'Один виток Discovery→Delivery · MVP в проде · без широкой аудитории',
-    col: '#4FC3F7', rgb: '123,47,255', badge: 'Запуск',
+    name: 'Разведка',
+    sub: 'Один виток Исследование→Разработка · MVP в проде · без широкой аудитории',
+    col: '#4FC3F7', rgb: '123,47,255', badge: 'Разведка',
     focus: ['CustDev: валидируем Problem-Solution Fit', 'Tech spikes: оцениваем архитектурные риски', 'Строим минимальный scope для проверки', 'Первый деплой в прод с мониторингом и rollback'],
-    cycle: ['CustDev + анализ рынка (2–3 нед)', 'Техническое исследование, ADR', 'Бизнес-кейс → Gate 1 (Комитет)', 'Delivery: спринты с DoD, feature flags', 'MVP в прод → Gate 2'],
-    rules: ['Не обещать сроки и scope до конца Discovery', 'Прототип ≠ продакшн-решение', 'MVP — достаточно для проверки гипотезы'],
+    cycle: ['CustDev + анализ рынка (2–3 нед)', 'Техническое исследование, ADR', 'Бизнес-кейс → Gate 1 (Комитет)', 'Разработка: спринты с DoD, feature flags', 'MVP в прод → Gate 2'],
+    rules: ['Не обещать сроки и scope до конца Исследования', 'Прототип ≠ продакшн-решение', 'MVP — достаточно для проверки гипотезы'],
     gate: '→ Орбита 2: Проектный комитет · Activation > 30% · Business Case подтверждён',
     kill: 'Сход с орбиты: Activation < 10% за 8 нед. без гипотез разворота'
   },
@@ -4178,16 +4274,16 @@ const ORBIT_DATA = {
     name: 'Развитие / Рост метрик',
     sub: 'Живая орбита · витки D→D повторяются · аудитория есть · данные управляют',
     col: '#00D4B4', rgb: '0,212,180', badge: 'Рост',
-    focus: ['Повторные витки Discovery→Delivery (3–7 параллельно)', 'Рост Retention D7/D30, Activation Rate, Revenue', 'A/B-эксперименты как основной метод развития', 'Интеграция с экосистемой: WB ID, Корзина, Поиск'],
-    cycle: ['Анализ метрик: Retention, Revenue, NPS', 'Формирование гипотезы роста', 'Discovery-скрининг → Delivery → A/B → Результат', 'Квартальный Gate Review → Gate 3'],
-    rules: ['Данные — обязательны для каждой гипотезы', 'Discovery даже для задач от CEO', 'A/B: min sample size + доверительный интервал'],
+    focus: ['Повторные витки Исследование→Разработка (3–7 параллельно)', 'Рост Retention D7/D30, Activation Rate, Revenue', 'A/B-эксперименты как основной метод развития', 'Интеграция с экосистемой: WB ID, Корзина, Поиск'],
+    cycle: ['Анализ метрик: Retention, Revenue, NPS', 'Формирование гипотезы роста', 'Исследование-скрининг → Разработка → A/B → Результат', 'Квартальный Gate Review → Gate 3'],
+    rules: ['Данные — обязательны для каждой гипотезы', 'Исследование даже для задач от CEO', 'A/B: min sample size + доверительный интервал'],
     gate: '→ Орбита 3: CPO + CFO · EBITDA → 0 · Команда 8+ · NPS > 40',
     kill: 'Сход с орбиты: NSM падает 3 квартала подряд'
   },
   3: {
-    name: 'Масштаб / Рост GMV',
+    name: 'Разгон / Рост GMV',
     sub: 'Кольца зависимых продуктов · свой P&L · рост замедлился',
-    col: '#FF2D8A', rgb: '255,45,138', badge: 'Масштаб',
+    col: '#FF2D8A', rgb: '255,45,138', badge: 'Разгон',
     focus: ['Стратегическое планирование H1/H2 с CPO и CEO BU', 'P&L ревью ежеквартально: EBITDA → положительный', 'NPS ежемесячно → action plan при NPS < 40', 'Совместный GMV-трек с WB e-comm'],
     cycle: ['NSM рост 2 квартала подряд', 'Масштаб архитектуры на 10× нагрузку', 'SRE: SLA для партнёров, постинцидентный анализ', 'Quarterly Gate Review → Gate 4'],
     rules: ['P&L ревью ежеквартально', 'Platform-подход: переиспользуемые компоненты', 'Tech Strategy 1–2 года согласована с CPO'],
@@ -4197,7 +4293,7 @@ const ORBIT_DATA = {
   4: {
     name: 'Экосистемный продукт',
     sub: 'Самодостаточен · Платформа / P&L-центр / Интеграция в WB',
-    col: '#3B82F6', rgb: '59,130,246', badge: 'Зрелость',
+    col: '#3B82F6', rgb: '59,130,246', badge: 'Экосистема',
     focus: ['А) Платформа — API для экосистемы', 'Б) P&L-центр — независимый бизнес', 'В) Интеграция в Маркетплейс', 'Corp. ProductHunt: карточка в каталоге экосистемы'],
     cycle: ['API Gateway: SemVer, rate limits, versioning', 'Disaster Recovery: RPO ≤ 1ч, RTO ≤ 4ч', 'FinOps: стоимость на транзакцию под контролем', 'Developer Experience: публичная документация'],
     rules: ['SLA для внешних партнёров прописан юридически', 'Federated identity через WB ID', 'FinOps контроль затрат на каждый сервис'],

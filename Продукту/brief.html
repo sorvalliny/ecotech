@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОРБИТА — Product Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#03080F;--mid:#040f1a;--card:#061525;--surface2:#0d2a40;
+  --border:rgba(255,255,255,.07);--border-hi:rgba(255,255,255,.14);
+  --violet:#4FC3F7;--vdim:rgba(79,195,247,.12);--vborder:rgba(79,195,247,.35);
+  --pink:#FF2D8A;--teal:#00D4B4;--tdim:rgba(0,212,180,.10);
+  --amber:#FFB830;--adim:rgba(255,184,48,.10);
+  --green:#34D399;--gdim:rgba(52,211,153,.10);--gborder:rgba(52,211,153,.3);
+  --red:#F87171;--rdim:rgba(248,113,113,.10);
+  --text:#E8E6FF;--muted:#7A7A9D;--white:#fff;
+  --font:'Exo 2',sans-serif;--head:'Orbitron',sans-serif;--mono:monospace;
+  --nav-h:44px;
+}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--dark);color:var(--text);display:flex;flex-direction:column;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.02;pointer-events:none;z-index:0}
+
+.app{display:flex;flex-direction:column;flex:1;overflow:hidden;position:relative;z-index:1}
+
+/* header */
+.pg-head{padding:16px 28px 12px;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;gap:12px}
+.pg-head-title{font-family:var(--head);font-size:15px;font-weight:900;color:#fff;display:flex;align-items:center;gap:8px}
+.pg-head-sub{font-size:11px;color:var(--muted);margin-left:12px}
+.back-link{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);text-decoration:none;transition:color .15s;margin-left:auto}
+.back-link:hover{color:#fff}
+
+/* mode toggle */
+.mode-bar{padding:10px 28px;border-bottom:1px solid var(--border);display:flex;gap:4px;flex-shrink:0}
+.mode-btn{padding:6px 16px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.mode-btn:hover{color:var(--text);border-color:var(--border-hi)}
+.mode-btn.active{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+
+/* body scroll */
+.pg-body{flex:1;overflow-y:auto;padding:24px 28px 48px}
+.form-wrap{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+
+/* section card */
+.sec{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;transition:border-color .2s}
+.sec:focus-within{border-color:var(--vborder)}
+.sec-head{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.sec-num{font-family:var(--head);font-size:10px;font-weight:900;width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-family:var(--head);font-size:12px;font-weight:900;color:#fff}
+.sec-req{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.05em;font-family:var(--head);margin-left:auto}
+.req-must{background:rgba(248,113,113,.12);color:#F87171;border:1px solid rgba(248,113,113,.25)}
+.req-nice{background:rgba(255,184,48,.1);color:#FFB830;border:1px solid rgba(255,184,48,.2)}
+
+/* form fields */
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.field label{font-size:11px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:4px}
+.field label .star{color:#F87171;font-size:13px}
+.field input,.field textarea,.field select{background:var(--surface2);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:var(--font);font-size:13px;padding:9px 12px;outline:none;transition:border-color .15s;width:100%;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--vborder)}
+.field input::placeholder,.field textarea::placeholder{color:rgba(122,122,157,.5)}
+.field select option{background:var(--card)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field-hint{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* RICE section */
+.rice-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.rice-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.rice-abbr{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1}
+.rice-name{font-size:10px;color:var(--muted);text-align:center}
+.rice-slider{width:100%}
+.rice-slider input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;outline:none;cursor:pointer}
+.rice-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;cursor:pointer;border:2px solid var(--dark)}
+.rice-val{font-family:var(--mono);font-size:22px;font-weight:700;color:#fff}
+.rice-hint{font-size:9px;color:var(--muted);text-align:center;min-height:26px}
+
+.rice-result{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;align-items:center;gap:16px;margin-top:8px}
+.rice-score{font-family:var(--mono);font-size:40px;font-weight:700;line-height:1}
+.rice-formula{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.rice-tier{font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;font-family:var(--head)}
+.tier-hi{background:var(--gdim);color:#34D399;border:1px solid var(--gborder)}
+.tier-mid{background:var(--adim);color:#FFB830;border:1px solid rgba(255,184,48,.3)}
+.tier-lo{background:rgba(107,107,142,.12);color:var(--muted);border:1px solid var(--border)}
+
+/* validation */
+.validation-bar{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:12px}
+.val-progress{flex:1}
+.val-bar{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.val-fill{height:100%;border-radius:3px;transition:width .3s,background .3s}
+.val-label{font-size:11px;color:var(--muted);margin-top:4px}
+.val-count{font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;min-width:45px;text-align:center}
+
+/* actions */
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.act-btn{padding:11px 24px;border-radius:10px;font-family:var(--head);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:7px;border:none;color:#fff}
+.act-primary{background:var(--violet)}
+.act-primary:hover{opacity:.85}
+.act-primary:disabled{opacity:.4;cursor:not-allowed}
+.act-secondary{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.act-secondary:hover{border-color:var(--border-hi);color:var(--text)}
+.act-teal{background:var(--teal);color:var(--dark)}
+.act-teal:hover{opacity:.85}
+.act-teal:disabled{opacity:.4;cursor:not-allowed}
+
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(13,13,30,.96);border:1px solid var(--gborder);border-radius:10px;padding:10px 20px;font-size:12px;font-weight:700;color:#34D399;z-index:9999;opacity:0;transition:opacity .2s,transform .2s;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* footer */
+.page-footer{border-top:1px solid var(--border);padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);max-width:780px;margin:0 auto;width:100%}
+.page-footer strong{color:rgba(255,255,255,.3)}
+
+/* fast-track badge */
+.ft-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(0,212,180,.1);color:var(--teal);border:1px solid rgba(0,212,180,.25);font-family:var(--head);letter-spacing:.04em}
+
+@media(max-width:640px){
+  .rice-grid{grid-template-columns:repeat(2,1fr)}
+  .field-row{grid-template-columns:1fr}
+  .rice-result{flex-direction:column;text-align:center}
+}
+</style>
+<script src="../icons.js"></script>
+<script src="../platform.js"></script>
+<script src="../nav.js"></script>
+</head>
+<body>
+
+<div class="app">
+
+  <div class="pg-head">
+    <div class="pg-head-title">
+      <svg class="ei" width="16" height="16" style="color:var(--violet)"><use href="#ic-file-text"/></svg>
+      Product Brief
+    </div>
+    <div class="pg-head-sub">Бриф инициативы + RICE-оценка = вход в Gate 0</div>
+    <a class="back-link" href="tools.html">
+      <svg class="ei" width="12" height="12"><use href="#ic-arrow-left"/></svg> Инструменты
+    </a>
+  </div>
+
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('full')" id="mode-full">Полный бриф</button>
+    <button class="mode-btn" onclick="setMode('fast')" id="mode-fast">Fast-Track</button>
+  </div>
+
+  <div class="pg-body">
+    <div class="form-wrap" id="form-wrap">
+
+      <!-- VALIDATION BAR -->
+      <div class="validation-bar">
+        <div class="val-progress">
+          <div class="val-bar"><div class="val-fill" id="val-fill" style="width:0;background:var(--muted)"></div></div>
+          <div class="val-label" id="val-label">Заполните обязательные поля</div>
+        </div>
+        <div class="val-count" id="val-count">0/5</div>
+      </div>
+
+      <!-- 1. INITIATIVE -->
+      <div class="sec">
+        <div class="sec-head">
+          <div class="sec-num" style="background:var(--vdim);color:#C4B5FD">1</div>
+          <div class="sec-title">Инициатива</div>
+          <span class="sec-req req-must">Обязательно</span>
+        </div>
+        <div class="field">
+          <label><span class="star">*</span> Название инициативы</label>
+          <input type="text" id="f-name" placeholder="Краткое название продукта / инициативы" data-req="1" oninput="validate()">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Подразделение / Заказчик</label>
+            <input type="text" id="f-dept" placeholder="Кто инициирует">
+          </div>
+          <div class="field">
+            <label>Дата подачи</label>
+            <input type="date" id="f-date">
+          </div>
+        </div>
+        <div class="field" id="ft-reason-wrap" style="display:none">
+          <label><span class="star">*</span> Почему Fast-Track</label>
+          <select id="f-ft-reason" data-req-ft="1" onchange="validate()">
+            <option value="">— Выберите причину —</option>
+            <option value="ceo">Директивный приоритет CEO / топ-менеджмента</option>
+            <option value="deadline">Жёсткий внешний дедлайн (регулятор, событие)</option>
+            <option value="competitor">Конкурентная угроза — нужно действовать немедленно</option>
+            <option value="regulation">Регуляторное требование</option>
+          </select>
+          <div class="field-hint">Fast-Track: PMO скринит за 24ч, мини-комитет за 3 рабочих дня</div>
+        </div>
+      </div>
+
+      <!-- 2. PROBLEM -->
+      <div class="sec">
+        <div class="sec-head">
+          <div class="sec-num" style="background:rgba(255,45,138,.12);color:#FF85C0">2</div>
+          <div class="sec-title">Проблема</div>
+          <span class="sec-req req-must">Обязательно</span>
+        </div>
+        <div class="field">
+          <label><span class="star">*</span> Описание проблемы</label>
+          <textarea id="f-problem" rows="3" placeholder="Какую проблему решаем? Опишите одним-двумя предложениями" data-req="1" oninput="validate()"></textarea>
+          <div class="field-hint">Проблема, а не решение. Не предлагайте готовый ответ — опишите боль.</div>
+        </div>
+        <div class="field">
+          <label><span class="star">*</span> Целевая аудитория</label>
+          <input type="text" id="f-audience" placeholder="Кто страдает? Сегмент + примерный объём" data-req="1" oninput="validate()">
+        </div>
+      </div>
+
+      <!-- 3. VALUE -->
+      <div class="sec">
+        <div class="sec-head">
+          <div class="sec-num" style="background:var(--tdim);color:var(--teal)">3</div>
+          <div class="sec-title">Ценность и цель</div>
+          <span class="sec-req req-must">Обязательно</span>
+        </div>
+        <div class="field">
+          <label><span class="star">*</span> Ожидаемый эффект</label>
+          <textarea id="f-effect" rows="2" placeholder="Что изменится, если решим? Бизнес-метрика + продуктовая метрика" data-req="1" oninput="validate()"></textarea>
+        </div>
+        <div class="field">
+          <label><span class="star">*</span> Связь с OKR компании / департамента</label>
+          <input type="text" id="f-okr" placeholder="К какому OKR относится инициатива" data-req="1" oninput="validate()">
+          <div class="field-hint">Инициатива без привязки к OKR уходит в бэклог</div>
+        </div>
+      </div>
+
+      <!-- 4. RICE -->
+      <div class="sec">
+        <div class="sec-head">
+          <div class="sec-num" style="background:var(--adim);color:var(--amber)">4</div>
+          <div class="sec-title">RICE-оценка</div>
+          <span class="sec-req req-must">Обязательно</span>
+        </div>
+        <div class="rice-grid">
+          <div class="rice-item">
+            <div class="rice-abbr" style="color:var(--violet)">R</div>
+            <div class="rice-name">Reach / Охват</div>
+            <div class="rice-val" id="rv-r">5</div>
+            <div class="rice-slider"><input type="range" id="rs-r" min="1" max="10" value="5" oninput="onRice()" style="accent-color:var(--violet)"></div>
+            <div class="rice-hint" id="rh-r"></div>
+          </div>
+          <div class="rice-item">
+            <div class="rice-abbr" style="color:var(--pink)">I</div>
+            <div class="rice-name">Impact / Влияние</div>
+            <div class="rice-val" id="rv-i">5</div>
+            <div class="rice-slider"><input type="range" id="rs-i" min="1" max="10" value="5" oninput="onRice()" style="accent-color:var(--pink)"></div>
+            <div class="rice-hint" id="rh-i"></div>
+          </div>
+          <div class="rice-item">
+            <div class="rice-abbr" style="color:var(--amber)">C</div>
+            <div class="rice-name">Confidence</div>
+            <div class="rice-val" id="rv-c">5</div>
+            <div class="rice-slider"><input type="range" id="rs-c" min="1" max="10" value="5" oninput="onRice()" style="accent-color:var(--amber)"></div>
+            <div class="rice-hint" id="rh-c"></div>
+          </div>
+          <div class="rice-item">
+            <div class="rice-abbr" style="color:var(--teal)">E</div>
+            <div class="rice-name">Effort / Усилия</div>
+            <div class="rice-val" id="rv-e">5</div>
+            <div class="rice-slider"><input type="range" id="rs-e" min="1" max="10" value="5" oninput="onRice()" style="accent-color:var(--teal)"></div>
+            <div class="rice-hint" id="rh-e"></div>
+          </div>
+        </div>
+        <div class="rice-result">
+          <div>
+            <div style="font-size:10px;color:var(--muted);font-family:var(--head);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">RICE Score</div>
+            <div class="rice-score" id="rice-score" style="color:var(--muted)">25.0</div>
+          </div>
+          <div style="flex:1">
+            <div class="rice-formula" id="rice-formula">5 x 5 x 5 / 5 = 25.0</div>
+            <div class="rice-tier tier-lo" id="rice-tier" style="margin-top:6px;display:inline-block">Низкий</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. ADDITIONAL (full mode) -->
+      <div class="sec" id="sec-extra">
+        <div class="sec-head">
+          <div class="sec-num" style="background:rgba(107,107,142,.12);color:var(--muted)">5</div>
+          <div class="sec-title">Дополнительно</div>
+          <span class="sec-req req-nice">Желательно</span>
+        </div>
+        <div class="field">
+          <label>Конкуренты / аналоги (3-5)</label>
+          <textarea id="f-competitors" rows="2" placeholder="Кто уже решает эту проблему? Чем отличаемся?"></textarea>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Желаемые сроки</label>
+            <input type="text" id="f-timeline" placeholder="Когда нужен результат">
+          </div>
+          <div class="field">
+            <label>Предварительный бюджет</label>
+            <input type="text" id="f-budget" placeholder="T-shirt оценка или сумма">
+          </div>
+        </div>
+        <div class="field">
+          <label>Ограничения и зависимости</label>
+          <textarea id="f-constraints" rows="2" placeholder="Технические, юридические, командные ограничения"></textarea>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="actions">
+        <button class="act-btn act-teal" id="btn-submit" onclick="submitBrief()" disabled>
+          <svg class="ei" width="14" height="14"><use href="#ic-send"/></svg>
+          Отправить в PMO
+        </button>
+        <button class="act-btn act-primary" onclick="saveDraft()">
+          <svg class="ei" width="14" height="14"><use href="#ic-save"/></svg>
+          Сохранить черновик
+        </button>
+        <button class="act-btn act-secondary" onclick="copyBrief()">
+          <svg class="ei" width="14" height="14"><use href="#ic-copy"/></svg>
+          Скопировать текст
+        </button>
+        <button class="act-btn act-secondary" onclick="resetForm()">
+          <svg class="ei" width="14" height="14"><use href="#ic-refresh"/></svg>
+          Очистить
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var BKEY = window.PT ? PT.KEY_BACKLOG : 'ECOTECH_BACKLOG';
+var mode = 'full'; // full | fast
+
+var R_HINTS=['','Единицы пользователей','Десятки','Небольшая часть аудитории','Заметная доля','Половина активных','Большинство','Широкий охват','Почти все','Практически вся аудитория','Вся аудитория продукта'];
+var I_HINTS=['','Почти незаметно','Слабое влияние','Небольшое улучшение','Заметное улучшение','Значимое изменение','Меняет поведение','Сильный эффект на метрики','Трансформирует процесс','Критичное изменение','Полностью меняет ценностное предложение'];
+var C_HINTS=['','Нет данных — предположение','Слабые косвенные признаки','Есть наблюдения','Качественные данные','Количественные данные','Подтверждено A/B','Высокая уверенность','Очень высокая','Доказано на кейсе','Полная уверенность'];
+var E_HINTS=['','Пара часов','До нескольких дней','Около недели','1-2 недели','Полный спринт (2 нед)','Несколько спринтов','Месяц-полтора','Два месяца','Квартал','Полгода+'];
+
+function setMode(m){
+  mode = m;
+  document.getElementById('mode-full').className = 'mode-btn' + (m==='full'?' active':'');
+  document.getElementById('mode-fast').className = 'mode-btn' + (m==='fast'?' active':'');
+  document.getElementById('sec-extra').style.display = m==='fast'?'none':'';
+  document.getElementById('ft-reason-wrap').style.display = m==='fast'?'':'none';
+  validate();
+}
+
+function onRice(){
+  var r=+document.getElementById('rs-r').value;
+  var i=+document.getElementById('rs-i').value;
+  var c=+document.getElementById('rs-c').value;
+  var e=+document.getElementById('rs-e').value;
+  document.getElementById('rv-r').textContent=r;
+  document.getElementById('rv-i').textContent=i;
+  document.getElementById('rv-c').textContent=c;
+  document.getElementById('rv-e').textContent=e;
+  document.getElementById('rh-r').textContent=R_HINTS[r]||'';
+  document.getElementById('rh-i').textContent=I_HINTS[i]||'';
+  document.getElementById('rh-c').textContent=C_HINTS[c]||'';
+  document.getElementById('rh-e').textContent=E_HINTS[e]||'';
+  var s=Math.round(r*i*c/e*10)/10;
+  var col=s>=150?'#34D399':s>=50?'#FFB830':'#7A7A9D';
+  var tier=s>=150?'Высокий':s>=50?'Средний':'Низкий';
+  var tcls=s>=150?'tier-hi':s>=50?'tier-mid':'tier-lo';
+  document.getElementById('rice-score').textContent=s.toFixed(1);
+  document.getElementById('rice-score').style.color=col;
+  document.getElementById('rice-formula').textContent=r+' x '+i+' x '+c+' / '+e+' = '+s.toFixed(1);
+  var te=document.getElementById('rice-tier');
+  te.textContent=tier;te.className='rice-tier '+tcls;
+}
+
+function getRequiredFields(){
+  var fields=document.querySelectorAll('[data-req="1"]');
+  if(mode==='fast'){
+    var ftFields=document.querySelectorAll('[data-req-ft="1"]');
+    var all=[];
+    fields.forEach(function(f){all.push(f)});
+    ftFields.forEach(function(f){all.push(f)});
+    return all;
+  }
+  return fields;
+}
+
+function validate(){
+  var fields=getRequiredFields();
+  var total=fields.length;
+  var filled=0;
+  fields.forEach(function(f){
+    var v=(f.value||'').trim();
+    if(v) filled++;
+  });
+  var pct=total?Math.round(filled/total*100):0;
+  var fill=document.getElementById('val-fill');
+  fill.style.width=pct+'%';
+  fill.style.background=pct===100?'var(--green)':pct>=60?'var(--amber)':'var(--muted)';
+  document.getElementById('val-count').textContent=filled+'/'+total;
+  document.getElementById('val-label').textContent=pct===100?'Все обязательные поля заполнены — можно отправить':'Заполните обязательные поля';
+  document.getElementById('btn-submit').disabled=(pct<100);
+}
+
+function gatherData(){
+  return {
+    id:'BRIEF-'+Date.now().toString(36).toUpperCase(),
+    name:document.getElementById('f-name').value.trim(),
+    dept:document.getElementById('f-dept').value.trim(),
+    date:document.getElementById('f-date').value||new Date().toISOString().slice(0,10),
+    fast_track:mode==='fast',
+    ft_reason:mode==='fast'?document.getElementById('f-ft-reason').value:'',
+    problem:document.getElementById('f-problem').value.trim(),
+    audience:document.getElementById('f-audience').value.trim(),
+    effect:document.getElementById('f-effect').value.trim(),
+    okr:document.getElementById('f-okr').value.trim(),
+    r:+document.getElementById('rs-r').value,
+    i:+document.getElementById('rs-i').value,
+    c:+document.getElementById('rs-c').value,
+    e:+document.getElementById('rs-e').value,
+    competitors:document.getElementById('f-competitors').value.trim(),
+    timeline:document.getElementById('f-timeline').value.trim(),
+    budget:document.getElementById('f-budget').value.trim(),
+    constraints:document.getElementById('f-constraints').value.trim()
+  };
+}
+
+function submitBrief(){
+  var d=gatherData();
+  var score=Math.round(d.r*d.i*d.c/d.e*10)/10;
+  // Save to backlog
+  var bl=window.PT?PT.load(BKEY):JSON.parse(localStorage.getItem(BKEY)||'null');
+  if(!Array.isArray(bl)) bl=[];
+  bl.push({
+    id:d.id,name:d.name,desc:d.problem,project:d.dept||'New',
+    status:'backlog',r:d.r,i:d.i,c:d.c,e:d.e,
+    gate:0,brief:d
+  });
+  if(window.PT) PT.save(BKEY,bl);
+  else localStorage.setItem(BKEY,JSON.stringify(bl));
+  // Compose mailto
+  var subj=encodeURIComponent((d.fast_track?'[FAST-TRACK] ':'')+'Бриф: '+d.name);
+  var body=encodeURIComponent(formatBriefText(d,score));
+  window.open('mailto:sorval.viktor@rwb.ru?subject='+subj+'&body='+body,'_blank');
+  showToast('Бриф сохранён в инициативы (RICE '+score.toFixed(1)+') и открыт в почтовом клиенте');
+}
+
+function saveDraft(){
+  var d=gatherData();
+  var key='ECOTECH_BRIEF_DRAFT';
+  if(window.PT) PT.save(key,d);
+  else localStorage.setItem(key,JSON.stringify(d));
+  showToast('Черновик сохранён');
+}
+
+function loadDraft(){
+  var key='ECOTECH_BRIEF_DRAFT';
+  var d=window.PT?PT.load(key):JSON.parse(localStorage.getItem(key)||'null');
+  if(!d) return;
+  if(d.fast_track) setMode('fast');
+  document.getElementById('f-name').value=d.name||'';
+  document.getElementById('f-dept').value=d.dept||'';
+  document.getElementById('f-date').value=d.date||'';
+  document.getElementById('f-ft-reason').value=d.ft_reason||'';
+  document.getElementById('f-problem').value=d.problem||'';
+  document.getElementById('f-audience').value=d.audience||'';
+  document.getElementById('f-effect').value=d.effect||'';
+  document.getElementById('f-okr').value=d.okr||'';
+  document.getElementById('rs-r').value=d.r||5;
+  document.getElementById('rs-i').value=d.i||5;
+  document.getElementById('rs-c').value=d.c||5;
+  document.getElementById('rs-e').value=d.e||5;
+  document.getElementById('f-competitors').value=d.competitors||'';
+  document.getElementById('f-timeline').value=d.timeline||'';
+  document.getElementById('f-budget').value=d.budget||'';
+  document.getElementById('f-constraints').value=d.constraints||'';
+  onRice();validate();
+}
+
+function formatBriefText(d,score){
+  var lines=[];
+  lines.push('='+'='.repeat(50));
+  lines.push(d.fast_track?'FAST-TRACK БРИФ ИНИЦИАТИВЫ':'БРИФ ИНИЦИАТИВЫ');
+  lines.push('='+'='.repeat(50));
+  lines.push('');
+  lines.push('Название: '+d.name);
+  lines.push('Подразделение: '+(d.dept||'—'));
+  lines.push('Дата подачи: '+d.date);
+  if(d.fast_track) lines.push('Причина Fast-Track: '+d.ft_reason);
+  lines.push('');
+  lines.push('--- ПРОБЛЕМА ---');
+  lines.push(d.problem);
+  lines.push('');
+  lines.push('Целевая аудитория: '+d.audience);
+  lines.push('');
+  lines.push('--- ЦЕННОСТЬ ---');
+  lines.push('Ожидаемый эффект: '+d.effect);
+  lines.push('Связь с OKR: '+d.okr);
+  lines.push('');
+  lines.push('--- RICE ---');
+  lines.push('R='+d.r+' I='+d.i+' C='+d.c+' E='+d.e);
+  lines.push('Score: '+score.toFixed(1)+' ('+(score>=150?'Высокий':score>=50?'Средний':'Низкий')+')');
+  if(d.competitors||d.timeline||d.budget||d.constraints){
+    lines.push('');
+    lines.push('--- ДОПОЛНИТЕЛЬНО ---');
+    if(d.competitors) lines.push('Конкуренты: '+d.competitors);
+    if(d.timeline) lines.push('Сроки: '+d.timeline);
+    if(d.budget) lines.push('Бюджет: '+d.budget);
+    if(d.constraints) lines.push('Ограничения: '+d.constraints);
+  }
+  lines.push('');
+  lines.push('--- SLA ---');
+  lines.push(d.fast_track?'PMO: скрининг 24ч, мини-комитет 3 рабочих дня':'PMO: решение за 5 рабочих дней');
+  return lines.join('\n');
+}
+
+function copyBrief(){
+  var d=gatherData();
+  var score=Math.round(d.r*d.i*d.c/d.e*10)/10;
+  var text=formatBriefText(d,score);
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(function(){showToast('Бриф скопирован в буфер обмена')});
+  } else {
+    var ta=document.createElement('textarea');
+    ta.value=text;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    showToast('Бриф скопирован в буфер обмена');
+  }
+}
+
+function resetForm(){
+  document.querySelectorAll('input[type=text],input[type=date],textarea,select').forEach(function(f){f.value='';});
+  ['r','i','c','e'].forEach(function(k){document.getElementById('rs-'+k).value=5;});
+  onRice();validate();
+  var key='ECOTECH_BRIEF_DRAFT';
+  localStorage.removeItem(key);
+  showToast('Форма очищена');
+}
+
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3000);
+}
+
+// init
+document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
+onRice();
+validate();
+loadDraft();
+</script>
+
+<footer>
+  <div class="page-footer">
+    <div><strong>ОРБИТА</strong> · Product Brief · Gate 0</div>
+    <div>Март 2026 · v1.0</div>
+  </div>
+</footer>
+</body>
+</html>

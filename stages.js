@@ -12,7 +12,7 @@
   var DEFAULT = [
     {
       id: 's0', num: 0, orbita: 'О·0',
-      name: 'Идея', icon: '🌱',
+      name: 'Заявка', icon: '🌱',
       tagline: 'Бриф → Скрининг → Gate 0',
       goal: 'Быстро оценить: стоит ли браться. Получить Go/No-Go за 5 рабочих дней.',
       duration: 'до 5 дней',
@@ -23,8 +23,8 @@
     },
     {
       id: 's1', num: 1, orbita: 'О·1',
-      name: 'Discovery', icon: '🔍',
-      tagline: 'Custdev → PSF → Gate 1',
+      name: 'Разведка', icon: '🔍',
+      tagline: 'CustDev → PSF → Gate 1',
       goal: 'Подтвердить Problem-Solution Fit. Понять кто страдает и как сильно.',
       duration: '3–6 нед',
       color: '#B3E5FC',
@@ -34,7 +34,7 @@
     },
     {
       id: 's2', num: 2, orbita: 'О·2',
-      name: 'Пилот', icon: '🚀',
+      name: 'Прототип', icon: '🚀',
       tagline: 'PRD → Спринты → Gate 2',
       goal: 'Разработать MVP и проверить с реальными пользователями.',
       duration: '6–12 нед',
@@ -45,7 +45,7 @@
     },
     {
       id: 's3', num: 3, orbita: 'О·3',
-      name: 'Запуск', icon: '📈',
+      name: 'Разгон', icon: '📈',
       tagline: 'GTM → Метрики → Gate 3',
       goal: 'Полный выход на аудиторию. GTM план, SLA, поддержка. Активный рост метрик.',
       duration: '1–3 мес',
@@ -56,8 +56,8 @@
     },
     {
       id: 's4', num: 4, orbita: 'О·4',
-      name: 'Масштаб', icon: '⚡',
-      tagline: 'Retention → A/B → Экосистема',
+      name: 'Экосистема', icon: '⚡',
+      tagline: 'Retention → A/B → Интеграция',
       goal: 'PMF достигнут. Растим аудиторию, снижаем Churn, интегрируемся в экосистему.',
       duration: '3–12 мес',
       color: '#34D399',
@@ -67,9 +67,9 @@
     },
     {
       id: 's5', num: 5, orbita: 'О·5',
-      name: 'Зрелость', icon: '💎',
+      name: 'Плато', icon: '💎',
       tagline: 'Unit Economics → Оптимизация',
-      goal: 'Продукт на плато. Оптимизируем маржинальность. Решаем: новый Discovery или консервация.',
+      goal: 'Продукт на плато. Оптимизируем маржинальность. Решаем: новая Разведка или архивация.',
       duration: 'ongoing',
       color: '#FF85C0',
       colorDim: 'rgba(255,133,192,0.12)',
@@ -78,8 +78,8 @@
     },
     {
       id: 's6', num: 6, orbita: 'О·6',
-      name: 'Консервация', icon: '📦',
-      tagline: 'Offboarding → Архив',
+      name: 'Архив', icon: '📦',
+      tagline: 'Offboarding → Архивация',
       goal: 'Завершаем жизнь продукта без потери доверия пользователей и команды.',
       duration: '2–4 нед',
       color: '#8B8BAE',

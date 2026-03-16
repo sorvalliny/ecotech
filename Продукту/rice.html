@@ -151,7 +151,7 @@ input[type=range]{position:absolute;inset:0;width:100%;opacity:0;cursor:pointer;
         Выбор инициативы
       </div>
       <select class="proj-select" id="proj-select" onchange="onProjChange()">
-        <option value="all">— Все проекты —</option>
+        <option value="all">— Все продукты —</option>
       </select>
       <div class="pl-search">
         <svg class="ei" width="13" height="13"><use href="#ic-search"/></svg>
@@ -177,7 +177,7 @@ input[type=range]{position:absolute;inset:0;width:100%;opacity:0;cursor:pointer;
     <div class="placeholder" id="placeholder">
       <div class="placeholder-icon"><svg class="ei" width="28" height="28"><use href="#ic-target"/></svg></div>
       <div class="placeholder-title">Выбери инициативу</div>
-      <div class="placeholder-sub">Выбери проект и инициативу слева, чтобы оценить её по методологии <abbr class="term" tabindex="0" data-tip="Reach (охват пользователей за период) × Impact (сила влияния 0.25–3) × Confidence (уверенность в оценке 0–100%) ÷ Effort (трудозатраты в человеко-неделях). Score &gt; 20 = высокий приоритет.">RICE</abbr> и обновить Score.</div>
+      <div class="placeholder-sub">Выбери продукт и инициативу слева, чтобы оценить её по методологии <abbr class="term" tabindex="0" data-tip="Reach (охват пользователей за период) × Impact (сила влияния 0.25–3) × Confidence (уверенность в оценке 0–100%) ÷ Effort (трудозатраты в человеко-неделях). Score &gt; 20 = высокий приоритет.">RICE</abbr> и обновить Score.</div>
     </div>
 
     <!-- calculator (hidden until initiative selected) -->
@@ -336,7 +336,7 @@ function loadData(){
 /* ── populate project select ── */
 function renderProjSelect(){
   var sel = document.getElementById('proj-select');
-  var opt = '<option value="all">— Все проекты —</option>';
+  var opt = '<option value="all">— Все продукты —</option>';
   projects.forEach(function(p){
     var cnt = backlog.filter(function(b){ return b.project===p.id; }).length;
     opt += '<option value="' + p.id + '">' + esc(p.name) + ' (' + cnt + ')</option>';
@@ -407,7 +407,7 @@ function showCal(item){
     '</div>' +
     (item.desc ? '<div class="init-desc">' + esc(item.desc) + '</div>' : '') +
     '<div class="init-proj-tag">' +
-      '<span class="init-proj-lbl">Проект:</span>' +
+      '<span class="init-proj-lbl">Продукт:</span>' +
       '<span class="init-proj-val">' + esc(getProjectName(item.project)) + '</span>' +
     '</div>';
 

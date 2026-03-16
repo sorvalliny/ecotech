@@ -830,10 +830,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 // ════════════════════════════════════════════
 const SP_KEY = 'ECOTECH_STRATEGY';
 
-const STAGE_LABELS  = { idea:'О·0 Идея', discovery:'О·1 Discovery', pilot:'О·2 Пилот', launch:'О·3 Запуск', scale:'О·4 Масштаб', mature:'О·5 Зрелость', sunset:'О·6 Консервация' };
-const STAGE_TO_GATE = { idea:0, discovery:1, pilot:2, launch:3, scale:4, mature:5, sunset:5 };
+const STAGE_LABELS  = { idea:'О·0 Заявка', discovery:'О·1 Разведка', pilot:'О·2 Прототип', launch:'О·3 Разгон', scale:'О·4 Экосистема', mature:'О·5 Плато', sunset:'О·6 Архив' };
+const STAGE_TO_GATE = { idea:0, discovery:1, pilot:2, launch:3, scale:4, mature:5, sunset:6 };
 const STATUS_TO_TRACKER = { planning:'planned', active:'wip', paused:'planned', launched:'wip', closed:'backlog' };
-const PHASE_LABELS  = { discovery:'Discovery', delivery:'Delivery', growth:'Growth' };
+const PHASE_LABELS  = { discovery:'Исследование', delivery:'Разработка', review:'Оценка и ретро' };
 const STATUS_LABELS = { planning:'Планирование', active:'В работе', paused:'На паузе', launched:'Запущен', closed:'Закрыт' };
 const GSTATUS_LABELS = { active:'Активна', draft:'Черновик', achieved:'Достигнута', cancelled:'Отменена' };
 const ISTATUS_LABELS = { planned:'Запланировано', active:'В работе', done:'Готово', cancelled:'Отменено' };

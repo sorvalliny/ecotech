@@ -66,7 +66,7 @@
   {
     "id": "page-framework-lite",
     "title": "Гайд по стадиям зрелости",
-    "description": "Упрощённый путь продукта: O·0 Идея → O·5 Зрелость. Орбиты, артефакты, метрики.",
+    "description": "Упрощённый путь продукта: O·0 Заявка → O·5 Плато. Орбиты, артефакты, метрики.",
     "url": "Фреймворк/framework-lite.html",
     "category": "Документация",
     "tags": ["стадии", "зрелость", "орбиты", "гайд", "framework lite"]
@@ -123,7 +123,7 @@
   {
     "id": "T03",
     "title": "PRD / Specification",
-    "description": "Product Requirements Document — требования к продукту перед стартом Delivery.",
+    "description": "Product Requirements Document — требования к продукту перед стартом Разработки.",
     "url": "Продукту/templates.html?t=T03",
     "category": "Шаблоны",
     "tags": ["PRD", "требования", "спецификация", "delivery", "product requirements"]
@@ -277,26 +277,26 @@
   {
     "id": "tool-framework-lite",
     "title": "Гайд по стадиям продукта",
-    "description": "Упрощённый путь для быстрых гипотез: Discovery → Пилот → Запуск.",
+    "description": "Упрощённый путь для быстрых гипотез: Разведка → Прототип → Разгон.",
     "url": "Фреймворк/framework-lite.html",
     "category": "Инструменты",
-    "tags": ["стадии", "гайд", "discovery", "пилот", "запуск"]
+    "tags": ["стадии", "гайд", "разведка", "прототип", "разгон"]
   },
   {
     "id": "tool-handbook",
     "title": "Хэндбук лидера",
-    "description": "Гайды, шаблоны и стандарты для PM и Tech Lead. G0–G5.",
+    "description": "Гайды, шаблоны и стандарты для PM и Tech Lead. G0–G6.",
     "url": "Хэндбук/rwb-product-os-v12.html",
     "category": "Инструменты",
     "tags": ["хэндбук", "PM", "Tech Lead", "стандарты"]
   },
   {
     "id": "tool-tracker",
-    "title": "Трекер проектов и инициатив",
+    "title": "Трекер продуктов и инициатив",
     "description": "Управление Gate-переходами, реестр продуктов, эпиков и целей.",
     "url": "Проектный офис/RWB · Product OS - Трекер инициатив.html",
     "category": "Инструменты",
-    "tags": ["трекер", "проекты", "инициативы", "Gate", "реестр"]
+    "tags": ["трекер", "продукты", "инициативы", "Gate", "реестр"]
   },
   {
     "id": "tool-strategy",

@@ -415,13 +415,13 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 <div class="stage-tabs">
   <div class="stage-tabs-inner">
     <button class="stab active" onclick="showSec('overview',this)">Обзор</button>
-    <button class="stab s0" onclick="showSec('s0',this)" id="stab-s0">О·0 &nbsp;Идея</button>
-    <button class="stab s1" onclick="showSec('s1',this)" id="stab-s1">О·1 &nbsp;Discovery</button>
-    <button class="stab s2" onclick="showSec('s2',this)" id="stab-s2">О·2 &nbsp;Пилот</button>
-    <button class="stab s3" onclick="showSec('s3',this)" id="stab-s3">О·3 &nbsp;Запуск</button>
-    <button class="stab s4" onclick="showSec('s4',this)" id="stab-s4">О·4 &nbsp;Масштаб</button>
-    <button class="stab s5" onclick="showSec('s5',this)" id="stab-s5">О·5 &nbsp;Зрелость</button>
-    <button class="stab s6" onclick="showSec('s6',this)" id="stab-s6">О·6 &nbsp;Консервация</button>
+    <button class="stab s0" onclick="showSec('s0',this)" id="stab-s0">О·0 &nbsp;Заявка</button>
+    <button class="stab s1" onclick="showSec('s1',this)" id="stab-s1">О·1 &nbsp;Разведка</button>
+    <button class="stab s2" onclick="showSec('s2',this)" id="stab-s2">О·2 &nbsp;Прототип</button>
+    <button class="stab s3" onclick="showSec('s3',this)" id="stab-s3">О·3 &nbsp;Разгон</button>
+    <button class="stab s4" onclick="showSec('s4',this)" id="stab-s4">О·4 &nbsp;Экосистема</button>
+    <button class="stab s5" onclick="showSec('s5',this)" id="stab-s5">О·5 &nbsp;Плато</button>
+    <button class="stab s6" onclick="showSec('s6',this)" id="stab-s6">О·6 &nbsp;Архив</button>
     <div class="stab-sep"></div>
     <button class="stab" onclick="window.location.href='../Продукту/templates.html'">Шаблоны →</button>
     <button class="stab" onclick="showSec('pilot',this)">Пилот →</button>
@@ -448,43 +448,43 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   <div class="lc-flow" id="lc-flow">
     <div class="lc-step s0" onclick="showSec('s0',null)" title="Перейти к О·0">
       <div class="lc-num">ОРБИТА 0</div>
-      <div class="lc-name">Идея</div>
+      <div class="lc-name">Заявка</div>
       <div class="lc-tagline">Бриф → Скрининг → Gate 0</div>
       <span class="lc-dur">до 5 дней</span>
     </div>
     <div class="lc-step s1" onclick="showSec('s1',null)" title="Перейти к О·1">
       <div class="lc-num">ОРБИТА 1</div>
-      <div class="lc-name">Discovery</div>
+      <div class="lc-name">Разведка</div>
       <div class="lc-tagline">Custdev → PSF → Gate 1</div>
       <span class="lc-dur">3–6 нед</span>
     </div>
     <div class="lc-step s2" onclick="showSec('s2',null)" title="Перейти к О·2">
       <div class="lc-num">ОРБИТА 2</div>
-      <div class="lc-name">Пилот</div>
+      <div class="lc-name">Прототип</div>
       <div class="lc-tagline">PRD → Спринты → Gate 2</div>
       <span class="lc-dur">6–12 нед</span>
     </div>
     <div class="lc-step s3" onclick="showSec('s3',null)" title="Перейти к О·3">
       <div class="lc-num">ОРБИТА 3</div>
-      <div class="lc-name">Запуск</div>
+      <div class="lc-name">Разгон</div>
       <div class="lc-tagline">GTM → Метрики → Gate 3</div>
       <span class="lc-dur">1–3 мес</span>
     </div>
     <div class="lc-step s4" onclick="showSec('s4',null)" title="Перейти к О·4">
       <div class="lc-num">ОРБИТА 4</div>
-      <div class="lc-name">Масштаб</div>
+      <div class="lc-name">Экосистема</div>
       <div class="lc-tagline">Retention → A/B → Экосистема</div>
       <span class="lc-dur">3–12 мес</span>
     </div>
     <div class="lc-step s5" onclick="showSec('s5',null)" title="Перейти к О·5">
       <div class="lc-num">ОРБИТА 5</div>
-      <div class="lc-name">Зрелость</div>
+      <div class="lc-name">Плато</div>
       <div class="lc-tagline">Unit Economics → Оптимизация</div>
       <span class="lc-dur">ongoing</span>
     </div>
     <div class="lc-step s6" onclick="showSec('s6',null)" title="Перейти к О·6">
       <div class="lc-num">ОРБИТА 6</div>
-      <div class="lc-name">Консервация</div>
+      <div class="lc-name">Архив</div>
       <div class="lc-tagline">Offboarding → Архив</div>
       <span class="lc-dur">2–4 нед</span>
     </div>
@@ -493,7 +493,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   <div class="kpi-bar">
     <div class="kpi-item"><div class="kpi-val">7</div><div class="kpi-label">Стадий зрелости (орбит)</div></div>
     <div class="kpi-item"><div class="kpi-val">4</div><div class="kpi-label">Gate-условия перехода</div></div>
-    <div class="kpi-item"><div class="kpi-val">~14 нед</div><div class="kpi-label">Идея → MVP (среднее)</div></div>
+    <div class="kpi-item"><div class="kpi-val">~14 нед</div><div class="kpi-label">Заявка → MVP (среднее)</div></div>
     <div class="kpi-item"><div class="kpi-val">12</div><div class="kpi-label">Готовых шаблонов документов</div></div>
     <div class="kpi-item"><div class="kpi-val">12+</div><div class="kpi-label">Продуктов в контуре</div></div>
   </div>
@@ -504,32 +504,32 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   <div class="visual-lifecycle" id="vl-lifecycle">
     <div class="vl-item active">
       <div class="vl-dot">G0</div>
-      <div class="vl-label">Идея</div>
+      <div class="vl-label">Заявка</div>
       <div class="vl-sublabel">до 5 дней</div>
     </div>
     <div class="vl-item">
       <div class="vl-dot">G1</div>
-      <div class="vl-label">Discovery</div>
+      <div class="vl-label">Разведка</div>
       <div class="vl-sublabel">3–6 нед</div>
     </div>
     <div class="vl-item">
       <div class="vl-dot">G2</div>
-      <div class="vl-label">Пилот</div>
+      <div class="vl-label">Прототип</div>
       <div class="vl-sublabel">6–12 нед</div>
     </div>
     <div class="vl-item">
       <div class="vl-dot">G3</div>
-      <div class="vl-label">Запуск</div>
+      <div class="vl-label">Разгон</div>
       <div class="vl-sublabel">1–3 мес</div>
     </div>
     <div class="vl-item">
       <div class="vl-dot">G4</div>
-      <div class="vl-label">Масштаб</div>
+      <div class="vl-label">Экосистема</div>
       <div class="vl-sublabel">3–12 мес</div>
     </div>
     <div class="vl-item">
       <div class="vl-dot">G5</div>
-      <div class="vl-label">Зрелость</div>
+      <div class="vl-label">Плато</div>
       <div class="vl-sublabel">ongoing</div>
     </div>
   </div>
@@ -538,49 +538,43 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   <div class="visual-cycle-wrap">
     <svg class="visual-cycle-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
       <circle cx="80" cy="80" r="78" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-      <!-- Discovery: top-left sector (270°–360°) -->
+      <!-- Исследование: top-left sector (270°–360°) -->
       <g class="vc-sector">
         <path d="M80,80 L80,4 A76,76 0 0,1 156,80 Z" fill="rgba(79,195,247,0.22)" stroke="rgba(79,195,247,0.4)" stroke-width="1"/>
-        <text x="112" y="50" font-size="8" font-weight="700" fill="#B3E5FC" font-family="sans-serif" text-anchor="middle">Discovery</text>
+        <text x="112" y="50" font-size="8" font-weight="700" fill="#B3E5FC" font-family="sans-serif" text-anchor="middle">Исследование</text>
       </g>
-      <!-- Delivery: bottom-right sector (0°–90°) -->
+      <!-- Разработка: bottom-right sector (0°–90°) -->
       <g class="vc-sector">
         <path d="M80,80 L156,80 A76,76 0 0,1 80,156 Z" fill="rgba(0,212,180,0.18)" stroke="rgba(0,212,180,0.35)" stroke-width="1"/>
-        <text x="112" y="120" font-size="8" font-weight="700" fill="#00D4B4" font-family="sans-serif" text-anchor="middle">Delivery</text>
+        <text x="112" y="120" font-size="8" font-weight="700" fill="#00D4B4" font-family="sans-serif" text-anchor="middle">Разработка</text>
       </g>
-      <!-- Launch: bottom-left sector (90°–180°) -->
+      <!-- Оценка и ретро: bottom-left + top-right sectors -->
       <g class="vc-sector">
         <path d="M80,80 L80,156 A76,76 0 0,1 4,80 Z" fill="rgba(52,211,153,0.18)" stroke="rgba(52,211,153,0.35)" stroke-width="1"/>
-        <text x="48" y="120" font-size="8" font-weight="700" fill="#34D399" font-family="sans-serif" text-anchor="middle">Launch</text>
+        <text x="48" y="120" font-size="7" font-weight="700" fill="#34D399" font-family="sans-serif" text-anchor="middle">Оценка</text>
       </g>
-      <!-- Retro: top-right sector (180°–270°) -->
       <g class="vc-sector">
         <path d="M80,80 L4,80 A76,76 0 0,1 80,4 Z" fill="rgba(255,184,48,0.18)" stroke="rgba(255,184,48,0.35)" stroke-width="1"/>
-        <text x="48" y="50" font-size="8" font-weight="700" fill="#FFB830" font-family="sans-serif" text-anchor="middle">Retro</text>
+        <text x="48" y="50" font-size="7" font-weight="700" fill="#FFB830" font-family="sans-serif" text-anchor="middle">Ретро</text>
       </g>
       <circle cx="80" cy="80" r="18" fill="#040f1a" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-      <text x="80" y="84" font-size="8" font-weight="700" fill="#7A7A9D" font-family="sans-serif" text-anchor="middle">цикл</text>
+      <text x="80" y="84" font-size="8" font-weight="700" fill="#7A7A9D" font-family="sans-serif" text-anchor="middle">виток</text>
     </svg>
     <div class="visual-cycle-legend">
       <div class="vc-legend-item">
         <div class="vc-legend-dot" style="background:#4FC3F7;"></div>
-        <span class="vc-legend-label">Discovery</span>
-        <span class="vc-legend-sub">— исследование, CustDev, PSF</span>
+        <span class="vc-legend-label">Исследование</span>
+        <span class="vc-legend-sub">— CustDev, PSF, гипотезы</span>
       </div>
       <div class="vc-legend-item">
         <div class="vc-legend-dot" style="background:#00D4B4;"></div>
-        <span class="vc-legend-label">Delivery</span>
+        <span class="vc-legend-label">Разработка</span>
         <span class="vc-legend-sub">— MVP, спринты, Gate-review</span>
       </div>
       <div class="vc-legend-item">
         <div class="vc-legend-dot" style="background:#34D399;"></div>
-        <span class="vc-legend-label">Launch</span>
-        <span class="vc-legend-sub">— GTM, метрики, рост</span>
-      </div>
-      <div class="vc-legend-item">
-        <div class="vc-legend-dot" style="background:#FFB830;"></div>
-        <span class="vc-legend-label">Retro</span>
-        <span class="vc-legend-sub">— анализ, оптимизация</span>
+        <span class="vc-legend-label">Оценка и ретро</span>
+        <span class="vc-legend-sub">— GTM, метрики, анализ, оптимизация</span>
       </div>
     </div>
   </div>
@@ -593,7 +587,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="howto-card">
       <div class="howto-num">01</div>
       <div class="howto-title">Новая инициатива</div>
-      <div class="howto-desc">Выберите <strong>О·0 Идея</strong> → заполните Бриф → следуйте Gate-условиям. Каждая вкладка — самодостаточный гид для PM и TL на текущей стадии.</div>
+      <div class="howto-desc">Выберите <strong>О·0 Заявка</strong> → заполните Бриф → следуйте Gate-условиям. Каждая вкладка — самодостаточный гид для PM и TL на текущей стадии.</div>
     </div>
     <div class="howto-card">
       <div class="howto-num">02</div>
@@ -614,7 +608,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   <div class="stage-hdr s0">
     <div class="stage-num">О·0</div>
     <div class="stage-hdr-info">
-      <div class="stage-name">Идея — Предстарт</div>
+      <div class="stage-name">Заявка — Предстарт</div>
       <div class="stage-tagline">Заказчик формулирует проблему · PMO оценивает · Команда собирается</div>
     </div>
     <div class="stage-hdr-meta">
@@ -671,7 +665,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         <div class="gate-meta-row"><div class="gate-meta-label">Варианты решения</div><div class="gate-meta-val">Go / No-Go / В бэклог</div></div>
       </div>
       <div>
-        <div class="gate-meta-row"><div class="gate-meta-label">Выход (при Go)</div><div class="gate-meta-val">Старт Орбиты 1 — Discovery</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Выход (при Go)</div><div class="gate-meta-val">Старт Орбиты 1 — Разведка</div></div>
         <div class="gate-meta-row"><div class="gate-meta-label">Шаблон для Gate</div><div class="gate-meta-val"><button class="tmpl-open-btn" onclick="openTmpl('brief')">Бриф инициативы →</button></div></div>
       </div>
     </div>
@@ -683,7 +677,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   <div class="stage-hdr s1">
     <div class="stage-num">О·1</div>
     <div class="stage-hdr-info">
-      <div class="stage-name">Discovery — Исследование</div>
+      <div class="stage-name">Разведка — Исследование</div>
       <div class="stage-tagline">Подтвердить Problem-Solution Fit · Определить MVP scope · ADR</div>
     </div>
     <div class="stage-hdr-meta">
@@ -695,7 +689,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
         <ol class="sg-list numbered">
-          <li>Kick-off: команда фиксирует цели Discovery и план исследования</li>
+          <li>Kick-off: команда фиксирует цели Разведки и план исследования</li>
           <li>Qualitative: custdev-интервью (мин. 7–10 носителей проблемы)</li>
           <li>Quantitative: аналитика, бенчмарки, сегменты данных</li>
           <li>Синтез: Jobs-to-be-Done, карта болей, концепция решения</li>
@@ -722,7 +716,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
           <li><span class="sg-marker">→</span><span>Notion / Confluence — Discovery Report</span></li>
           <li><span class="sg-marker">→</span><span>SQL / Metabase — продуктовая аналитика</span></li>
           <li><span class="sg-marker">→</span><span>Calendly — рекрутинг респондентов</span></li>
-          <li><span class="sg-marker">→</span><span>ПИ Трекер — статус Discovery для PMO</span></li>
+          <li><span class="sg-marker">→</span><span>ПИ Трекер — статус Разведки для PMO</span></li>
         </ul>
       </div>
     </div>
@@ -743,7 +737,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         <div class="gate-meta-row"><div class="gate-meta-label">Формат</div><div class="gate-meta-val">Gate Review (20 мин + Q&A)</div></div>
       </div>
       <div>
-        <div class="gate-meta-row"><div class="gate-meta-label">Выход (при Go)</div><div class="gate-meta-val">Старт Орбиты 2 — Delivery/MVP</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Выход (при Go)</div><div class="gate-meta-val">Старт Орбиты 2 — Прототип/MVP</div></div>
         <div class="gate-meta-row"><div class="gate-meta-label">Шаблоны для Gate</div>
           <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
             <button class="tmpl-open-btn" onclick="openTmpl('custdev')">Интервью-гид →</button>
@@ -761,7 +755,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   <div class="stage-hdr s2">
     <div class="stage-num">О·2</div>
     <div class="stage-hdr-info">
-      <div class="stage-name">Пилот — Delivery</div>
+      <div class="stage-name">Прототип — Разработка</div>
       <div class="stage-tagline">Разработать MVP и проверить с реальными пользователями</div>
     </div>
     <div class="stage-hdr-meta">
@@ -839,7 +833,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   <div class="stage-hdr s3">
     <div class="stage-num">О·3</div>
     <div class="stage-hdr-info">
-      <div class="stage-name">Запуск — Growth</div>
+      <div class="stage-name">Разгон — Growth</div>
       <div class="stage-tagline">GTM план, коммуникации, поддержка · Активный рост метрик · PMF</div>
     </div>
     <div class="stage-hdr-meta">
@@ -898,7 +892,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         <div class="gate-meta-row"><div class="gate-meta-label">Периодичность проверки</div><div class="gate-meta-val">Ежеквартально</div></div>
       </div>
       <div>
-        <div class="gate-meta-row"><div class="gate-meta-label">Выход (при Go)</div><div class="gate-meta-val">Старт Орбиты 4 — Масштаб</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Выход (при Go)</div><div class="gate-meta-val">Старт Орбиты 4 — Экосистема</div></div>
         <div class="gate-meta-row"><div class="gate-meta-label">Шаблоны для Gate</div>
           <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
             <button class="tmpl-open-btn" onclick="openTmpl('metrics')">Metrics Review →</button>
@@ -915,7 +909,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   <div class="stage-hdr s4">
     <div class="stage-num">О·4</div>
     <div class="stage-hdr-info">
-      <div class="stage-name">Масштаб — Экосистема</div>
+      <div class="stage-name">Экосистема — Интеграция</div>
       <div class="stage-tagline">Интеграция в экосистему WB · Платформизация · Cross-product синергии</div>
     </div>
     <div class="stage-hdr-meta">
@@ -984,12 +978,12 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════ ОРБИТА 5 — Зрелость -->
+<!-- ══════════════════════════════════════════════ ОРБИТА 5 — Плато -->
 <div class="fw-section" id="sec-s5">
   <div class="stage-hdr s5">
     <div class="stage-num">О·5</div>
     <div class="stage-hdr-info">
-      <div class="stage-name">Зрелость — Оптимизация</div>
+      <div class="stage-name">Плато — Оптимизация</div>
       <div class="stage-tagline">Удерживать пользователей · Оптимизировать unit economics · Готовить следующий виток</div>
     </div>
     <div class="stage-hdr-meta">
@@ -1005,7 +999,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
           <li>Оптимизация unit economics: снижение Cost to Serve, рост маржинальности</li>
           <li>Автоматизация поддержки и онбординга → снижение операционной нагрузки</li>
           <li>Аудит технического долга → приоритизированный план погашения</li>
-          <li>Оценка стратегических опций: новый Discovery / расширение / консервация</li>
+          <li>Оценка стратегических опций: новая Разведка / расширение / архивация</li>
           <li><strong>Gate 5</strong> — ежегодный стратегический ревью (QBR Q4)</li>
         </ol>
       </div>
@@ -1015,7 +1009,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
           <li><span class="sg-marker">·</span><span><strong>Quarterly Business Review</strong> — P&amp;L, NPS, Retention за квартал</span></li>
           <li><span class="sg-marker">·</span><span><strong>Unit Economics Dashboard</strong> — LTV, CAC, маржа в динамике</span></li>
           <li><span class="sg-marker">·</span><span><strong>Tech Debt Backlog</strong> — приоритизированный список долга</span></li>
-          <li><span class="sg-marker">·</span><span><strong>Стратегические опции</strong> — оценка Go/No-Go на следующий цикл</span></li>
+          <li><span class="sg-marker">·</span><span><strong>Стратегические опции</strong> — оценка Go/No-Go на следующую стадию</span></li>
           <li><span class="sg-marker">·</span><span><strong>Strategic Review Deck</strong> — для CPO/CFO/CEO ежегодно</span></li>
         </ul>
       </div>
@@ -1036,7 +1030,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         <ul class="gate-criteria-list">
           <li>P&amp;L стабилен или положительный за последние 4 квартала</li>
           <li>NPS не деградирует: стабилен или растёт</li>
-          <li>Есть понятный план следующего цикла (Discovery или монетизация)</li>
+          <li>Есть понятный план следующей стадии (Разведка или монетизация)</li>
           <li>Техдолг не блокирует развитие продукта</li>
           <li>Команда укомплектована на ≥80%</li>
         </ul>
@@ -1047,8 +1041,8 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         <div class="gate-meta-row"><div class="gate-meta-label">Формат</div><div class="gate-meta-val">Strategic Review 60 мин</div></div>
       </div>
       <div>
-        <div class="gate-meta-row"><div class="gate-meta-label">Решение Go</div><div class="gate-meta-val">Запуск нового Discovery или расширение</div></div>
-        <div class="gate-meta-row"><div class="gate-meta-label">Решение No-Go</div><div class="gate-meta-val">Консервация или передача в поддержку</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Решение Go</div><div class="gate-meta-val">Запуск новой Разведки или расширение</div></div>
+        <div class="gate-meta-row"><div class="gate-meta-label">Решение No-Go</div><div class="gate-meta-val">Архив или передача в поддержку</div></div>
         <div class="gate-meta-row"><div class="gate-meta-label">Шаблон</div>
           <div style="margin-top:4px;"><button class="tmpl-open-btn" onclick="openTmpl('gate-review')">Gate Review →</button></div>
         </div>
@@ -1057,12 +1051,12 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════ ОРБИТА 6 — Консервация -->
+<!-- ══════════════════════════════════════════════ ОРБИТА 6 — Архив -->
 <div class="fw-section" id="sec-s6">
   <div class="stage-hdr s6">
     <div class="stage-num">О·6</div>
     <div class="stage-hdr-info">
-      <div class="stage-name">Консервация — Sunset</div>
+      <div class="stage-name">Архив — Sunset</div>
       <div class="stage-tagline">Перевести пользователей · Архивировать данные · Освободить команду</div>
     </div>
     <div class="stage-hdr-meta">
@@ -1074,7 +1068,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
         <ol class="sg-list numbered">
-          <li>Решение о консервации принято на Gate 5 или по Kill-условиям</li>
+          <li>Решение об архивации принято на Gate 5 или по Kill-условиям</li>
           <li>Sunset Plan: сроки отключения, план миграции, коммуникации за 30+ дней</li>
           <li>Уведомление пользователей: письмо / in-app с инструкцией перехода</li>
           <li>Миграция данных: экспорт, архивирование согласно data policy</li>
@@ -1093,7 +1087,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         </ul>
       </div>
       <div class="sg-card">
-        <div class="sg-card-title">Kill-условия (экстренная консервация)</div>
+        <div class="sg-card-title">Kill-условия (экстренная архивация)</div>
         <ul class="sg-list">
           <li><span class="sg-marker">✗</span><span>North Star падает &gt;30% три месяца подряд</span></li>
           <li><span class="sg-marker">✗</span><span>NPS &lt; 0 и не восстанавливается</span></li>
@@ -1105,7 +1099,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
     <div class="gate-card s6">
       <div>
-        <div class="gate-label">Консервация завершена · Чеклист</div>
+        <div class="gate-label">Архивация завершена · Чеклист</div>
         <ul class="gate-criteria-list">
           <li>100% пользователей уведомлены и получили инструкцию</li>
           <li>Данные архивированы согласно политике хранения</li>
@@ -1154,7 +1148,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
       <div class="pilot-step-num">1</div>
       <div class="pilot-step-body">
         <div class="pilot-step-title">Выбор пилотной инициативы и команды</div>
-        <div class="pilot-step-desc">Выбираем 1–2 инициативы из бэклога с наибольшим потенциалом: чёткая проблема, мотивированная команда, умеренная сложность. Идеально — инициатива в фазе О·0 (ещё не стартовала в Discovery).</div>
+        <div class="pilot-step-desc">Выбираем 1–2 инициативы из бэклога с наибольшим потенциалом: чёткая проблема, мотивированная команда, умеренная сложность. Идеально — инициатива в фазе О·0 (ещё не стартовала в Разведке).</div>
         <div class="pilot-step-tags">
           <span class="pilot-step-tag">Критерий: мотивированный PM + TL</span>
           <span class="pilot-step-tag">Срок выбора: 1 неделя</span>
@@ -1177,8 +1171,8 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="pilot-step">
       <div class="pilot-step-num">3</div>
       <div class="pilot-step-body">
-        <div class="pilot-step-title">О·0 → О·1 → Gate 1: первый полный цикл</div>
-        <div class="pilot-step-desc">Команда проходит Орбиты 0 и 1 по фреймворку: бриф → скрининг PMO → Gate 0 → Discovery (custdev, синтез, Discovery Report, ADR) → Gate 1. PMO и CPO/CTO наблюдают, дают обратную связь на каждом Gate.</div>
+        <div class="pilot-step-title">О·0 → О·1 → Gate 1: первый полный виток</div>
+        <div class="pilot-step-desc">Команда проходит Орбиты 0 и 1 по фреймворку: бриф → скрининг PMO → Gate 0 → Разведка (custdev, синтез, Discovery Report, ADR) → Gate 1. PMO и CPO/CTO наблюдают, дают обратную связь на каждом Gate.</div>
         <div class="pilot-step-tags">
           <span class="pilot-step-tag">Длительность: 4–8 недель</span>
           <span class="pilot-step-tag">Чекпоинты: Gate 0 + Gate 1</span>
@@ -1212,7 +1206,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
       <ul class="pilot-criteria-list">
         <li><span style="color:#4ADE80">✓</span> Бриф заполнен без повторных доработок (с 1–2 итерации)</li>
         <li><span style="color:#4ADE80">✓</span> Gate 0 пройден в срок (≤5 рабочих дней)</li>
-        <li><span style="color:#4ADE80">✓</span> Discovery завершён в плановые сроки (±20%)</li>
+        <li><span style="color:#4ADE80">✓</span> Разведка завершена в плановые сроки (±20%)</li>
         <li><span style="color:#4ADE80">✓</span> Discovery Report написан без помощи PMO (команда сама)</li>
         <li><span style="color:#4ADE80">✓</span> Gate 1 проведён в формате Gate Review (20 мин + Q&A)</li>
       </ul>
@@ -1240,7 +1234,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
       <div class="scale-step">
         <div class="scale-step-icon">02</div>
         <div class="scale-step-label">Волна 2</div>
-        <div class="scale-step-sub">Все активные инициативы<br>Ретрофит текущих проектов</div>
+        <div class="scale-step-sub">Все активные инициативы<br>Ретрофит текущих продуктов</div>
       </div>
       <div class="scale-step">
         <div class="scale-step-icon">03</div>
@@ -1341,7 +1335,7 @@ const TMPLS = {
   brief: {
     name: 'Бриф инициативы',
     stage: 's0',
-    stageLabel: 'О·0 Идея',
+    stageLabel: 'О·0 Заявка',
     icon: 'BRF',
     desc: 'Стартовый документ заказчика — описание проблемы и ожидаемого эффекта.',
     content: `БРИФ ИНИЦИАТИВЫ
@@ -1385,7 +1379,7 @@ ID (присваивает PMO): INI-____
   custdev: {
     name: 'Интервью-гид Custdev',
     stage: 's1',
-    stageLabel: 'О·1 Discovery',
+    stageLabel: 'О·1 Разведка',
     icon: 'CDV',
     desc: 'Скрипт для custdev-интервью — проверка гипотезы проблемы с носителями боли.',
     content: `CUSTDEV INTERVIEW GUIDE
@@ -1435,9 +1429,9 @@ SIGNAL: Подтвердил / Опроверг / Нейтральный`
   discovery: {
     name: 'Discovery Report',
     stage: 's1',
-    stageLabel: 'О·1 Discovery',
+    stageLabel: 'О·1 Разведка',
     icon: 'DSC',
-    desc: 'Итоговый документ Discovery-фазы — находки, PSF, рекомендация Go/No-Go.',
+    desc: 'Итоговый документ фазы Разведки — находки, PSF, рекомендация Go/No-Go.',
     content: `DISCOVERY REPORT
 ═══════════════════════════════════
 Продукт: [Название]
@@ -1489,8 +1483,8 @@ KPI 1: [название] — база [X] → цель [Y] за [срок]
 KPI 2: [...]
 
 7. РЕКОМЕНДАЦИЯ
-[x] Go to Delivery
-[ ] Доработать Discovery: [что именно]
+[x] Go to Разработка
+[ ] Доработать Разведку: [что именно]
 [ ] No Go: [обоснование]
 
 Следующий шаг: [Gate 1 Review — дата]`
@@ -1498,7 +1492,7 @@ KPI 2: [...]
   adr: {
     name: 'ADR — Architecture Decision',
     stage: 's1',
-    stageLabel: 'О·1 Discovery',
+    stageLabel: 'О·1 Разведка',
     icon: 'ARC',
     desc: 'Architecture Decision Record — фиксация ключевых технических решений.',
     content: `ARCHITECTURE DECISION RECORD
@@ -1563,7 +1557,7 @@ Discovery Report: [ссылка]
 
 1. КОНТЕКСТ И ЦЕЛИ
 Что строим: [1-2 предложения]
-Связь с Discovery: [ссылка на отчёт]
+Связь с Разведкой: [ссылка на отчёт]
 
 Цели MVP:
 — Цель 1: [метрика — цель — срок]
@@ -2032,7 +2026,7 @@ const TRACKS_DATA = {
   s1:{
     product:{
       goals:['Подтвердить PSF данными','Синтезировать JTBD','Определить MVP scope'],
-      process:['Kick-off: цели Discovery и план исследования','CustDev: 7–10 интервью с носителями проблемы','Синтез: JTBD, карта болей, концепция решения','Discovery Report + прототип Figma','Скоупинг MVP: Scope In / Out','Gate 1 Review'],
+      process:['Kick-off: цели Разведки и план исследования','CustDev: 7–10 интервью с носителями проблемы','Синтез: JTBD, карта болей, концепция решения','Discovery Report + прототип Figma','Скоупинг MVP: Scope In / Out','Gate 1 Review'],
       artifacts:['Интервью-гид','Синтез JTBD','Discovery Report','Прототип Figma','Scope In/Out'],
       tools:['Miro','Figma','Calendly','Metabase','ПИ Трекер'],
       initiatives:['CustDev-серия','Story Map','Gate 1 Review']
