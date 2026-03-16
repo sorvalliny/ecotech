@@ -76,6 +76,36 @@
       this.save(this.KEY_UI, state);
     },
 
+    // ── Ensure products loaded (seed from portfolio.json if empty) ──
+    ensureProducts: function(cb) {
+      var self = this;
+      var products = self.load(self.KEY_PRODUCTS);
+      if (products && products.length) {
+        if (cb) cb(products);
+        return;
+      }
+      // Detect base path: script loaded from root or subdirectory
+      var scripts = document.querySelectorAll('script[src*="platform.js"]');
+      var base = '';
+      if (scripts.length) {
+        var src = scripts[0].getAttribute('src') || '';
+        base = src.replace('platform.js', '');
+      }
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', base + 'data/portfolio.json', true);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          try {
+            products = JSON.parse(xhr.responseText);
+            self.save(self.KEY_PRODUCTS, products);
+          } catch(e) { products = []; }
+        } else { products = []; }
+        if (cb) cb(products);
+      };
+      xhr.onerror = function() { if (cb) cb([]); };
+      xhr.send();
+    },
+
     // ── Live stats ──────────────────────────────────────────────────
     getStats: function() {
       var bl = this.load(this.KEY_BACKLOG) || [];

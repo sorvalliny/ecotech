@@ -548,7 +548,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
 });
 
-// ── PRODUCTS (fetch from portfolio.json) ──
+// ── PRODUCTS (unified source: localStorage via PT, seed from portfolio.json) ──
 var ACTIVE_PRODUCTS = [];
 var currentFilter = 'all';
 
@@ -561,22 +561,26 @@ var currentFilter = 'all';
   grid.innerHTML = skeletons;
 })();
 
-// Fetch portfolio data
+// Load portfolio from unified source
 function loadPortfolio() {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'data/portfolio.json', true);
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      try {
-        ACTIVE_PRODUCTS = JSON.parse(xhr.responseText);
-      } catch(e) {
-        ACTIVE_PRODUCTS = [];
+  if (window.PT && PT.ensureProducts) {
+    PT.ensureProducts(function(products) {
+      ACTIVE_PRODUCTS = products || [];
+      renderProducts();
+    });
+  } else {
+    // Fallback if platform.js not loaded
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'data/portfolio.json', true);
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        try { ACTIVE_PRODUCTS = JSON.parse(xhr.responseText); } catch(e) { ACTIVE_PRODUCTS = []; }
       }
-    }
-    renderProducts();
-  };
-  xhr.onerror = function() { renderProducts(); };
-  xhr.send();
+      renderProducts();
+    };
+    xhr.onerror = function() { renderProducts(); };
+    xhr.send();
+  }
 }
 
 // ── FILTER ──
