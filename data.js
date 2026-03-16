@@ -80,7 +80,7 @@ window.ECOTECH_DATA = {
       "status_label": "Проработка",
       "color": "#5C7AFF",
       "color_class": "blue",
-      "link": "Проектный офис/RWB · Product OS - Трекер инициатив.html"
+      "link": "Проектный офис/tracker.html"
     },
     {
       "code": "PR05",

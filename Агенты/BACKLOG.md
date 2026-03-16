@@ -1,5 +1,5 @@
 # БЭКЛОГ ОРБИТА — Задачи для агентов
-## Обновлено: 16 марта 2026
+## Обновлено: 16 марта 2026 (UX/UI аудит — 8 новых задач B-032…B-039)
 
 ---
 
@@ -44,9 +44,11 @@
 
 ### B-009 | Починить битые ссылки в nav.js
 - **Агент:** Разработчик платформы
-- **Статус:** TODO
+- **Статус:** IN_PROGRESS
 - **Файл:** nav.js
 - **Суть:** Проверить pages/dashboard.html и terminology.html — существуют ли. Удалить или создать. Проверить все ссылки на актуальность.
+- **Выполнено (16.03):** Добавлены rice.html, brief.html, Продукту/index.html, Трекер инициатив в меню. pdktActive расширен для rice, brief, проектный офис.
+- **Осталось:** Добавить Хэндбук в меню (B03, RICE 28). Добавить Бизнесу/index.html (B04, RICE 24). Добавить `has('terminology')` в pdktActive (RICE 16). Добавить Бэклог развития в меню (RICE 12.8). Проверить Витрина/ — добавить `has('витрина')` если актуальна.
 
 ---
 
@@ -136,6 +138,7 @@
 - **Статус:** TODO
 - **Файлы:** brief.html, gate-checklist.html, tracker.html
 - **Суть:** Продолжение accessibility-report.md. Проверить: focus-visible на всех интерактивных элементах, aria-labels на кнопках/модалах, keyboard navigation, контраст. Добавить aria-live для прогресс-бара в чеклисте.
+- **Доп. из аудита:** `<label>` без `for`/`id` в rice.html:197–255 и brief.html:167–300 (скринридер не объявляет название поля). Skip-link target может не находиться на strategy.html, business.html (`.sp-page` не матчится в nav.js:203). См. также B-033, B-034, B-039.
 
 ### B-027 | Компонент ProductCard — вынести в переиспользуемый модуль
 - **Агент:** UX/UI
@@ -147,6 +150,62 @@
 - **Агент:** UX/UI
 - **Статус:** TODO
 - **Суть:** Legacy трекер имеет интерактивный onboarding overlay. При миграции на единый трекер — сохранить и адаптировать тур под новую терминологию (Орбиты, фазы, продукты вместо проектов).
+
+### B-032 | Mobile nav: max-height обрезает меню «Продукту»
+- **Агент:** UX/UI
+- **Статус:** TODO
+- **RICE:** 54.0 (R:9 I:3 C:1.0 E:0.5)
+- **Файл:** css/responsive.css:96
+- **Суть:** `.ecotech-nav.nav-open .en-links { max-height: 400px }` — после добавления rice.html, brief.html и Подключить команду меню содержит 12+ пунктов (~520px). Последние пункты недоступны. Исправить: `max-height: 80vh` или `max-height: 600px` + `overflow-y: auto`.
+
+### B-033 | aria-live на динамически обновляемых значениях
+- **Агент:** UX/UI
+- **Статус:** TODO
+- **RICE:** 54.0 (R:9 I:3 C:1.0 E:0.5)
+- **Файлы:** Продукту/rice.html:263–267, Продукту/gate-checklist.html (прогресс-бар)
+- **Суть:** RICE Score обновляется при движении слайдеров, но `#score-val` не имеет `aria-live="polite"`. Скринридер не объявляет результат. Аналогично — прогресс Gate-чеклиста.
+
+### B-034 | focus-visible на ВСЕХ страницах
+- **Агент:** UX/UI
+- **Статус:** TODO
+- **RICE:** 48.0 (R:8 I:3 C:1.0 E:0.5)
+- **Файлы:** index.html, business.html, product.html, все Продукту/*
+- **Суть:** B-026 покрывает только новые страницы. Но index.html, business.html и product.html тоже не имеют `:focus-visible` стилей — `outline:none` сброшен без замены. Добавить глобальный focus-ring в design-system.css: `*:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px }`.
+
+### B-035 | Meta-теги: description, color-scheme, preconnect
+- **Агент:** UX/UI
+- **Статус:** TODO
+- **RICE:** 20.0 (R:10 I:1 C:1.0 E:0.5)
+- **Файлы:** Все страницы
+- **Суть:** Ни одна страница не имеет `<meta name="description">` (пустое превью при шаринге). Нет `<meta name="color-scheme" content="dark light">` (flash of wrong theme). Нет `<link rel="preconnect" href="https://fonts.googleapis.com">` (кроме трекера). Добавить через nav.js для автоматического применения.
+
+### B-036 | Favicon
+- **Агент:** UX/UI
+- **Статус:** TODO
+- **RICE:** 20.0 (R:10 I:1 C:1.0 E:0.5)
+- **Файлы:** Корень (favicon.svg/ico), все страницы
+- **Суть:** Отсутствует favicon — 404 на каждой загрузке, нет брендинга во вкладке. Создать SVG favicon с логотипом ОРБИТА (гексагон из nav.js), добавить `<link rel="icon">` через nav.js.
+
+### B-037 | CDN-скрипты: defer/async + preconnect
+- **Агент:** UX/UI
+- **Статус:** TODO
+- **RICE:** 19.2 (R:6 I:2 C:0.8 E:0.5)
+- **Файлы:** Продукту/strategy.html:9, pages/dashboard.html:8–13
+- **Суть:** xlsx.js (~700KB) в strategy.html и Chart.js+html2canvas+jsPDF (~750KB суммарно) в dashboard.html загружаются без defer/async, блокируя рендер. Добавить `defer` и `<link rel="preconnect" href="https://cdn.jsdelivr.net">`.
+
+### B-038 | prefers-reduced-motion
+- **Агент:** UX/UI
+- **Статус:** TODO
+- **RICE:** 14.0 (R:7 I:2 C:1.0 E:1)
+- **Файлы:** business.html:54–62, index.html:46–49, design-system.css
+- **Суть:** Orbit-анимация в business.html (`animation:orbit 8s linear infinite`) и hero-pulse в index.html крутятся непрерывно. Пользователи с вестибулярными расстройствами не могут отключить. Добавить `@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }` в design-system.css.
+
+### B-039 | Модалы: role=dialog, aria-modal, focus trap
+- **Агент:** UX/UI
+- **Статус:** TODO
+- **RICE:** 12.0 (R:8 I:3 C:1.0 E:2)
+- **Файлы:** Продукту/templates.html:238, Трекер:1178,1231
+- **Суть:** Модальные окна не имеют `role="dialog"`, `aria-modal="true"`, `aria-labelledby`. При открытии фокус не перемещается внутрь, Tab выводит за пределы модала. Реализовать focus trap и Escape-закрытие.
 
 ---
 
