@@ -291,7 +291,51 @@
    Grouped by page for clarity.
    ═══════════════════════════════════════════════════════════ */
 
-/* ── Global: any element using color:#fff that should be dark ── */
+/* ══ NUCLEAR FIX: all headings, titles, bold text → dark in light mode ══
+   Catches ALL elements that use Orbitron (heading font), h1-h6,
+   and any element with hardcoded color:#fff or var(--white).
+   Buttons with colored backgrounds are excluded below. */
+
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6 {
+  color: #0A1929 !important;
+}
+
+/* All Orbitron-family elements (titles, badges labels, tab labels) */
+[data-theme="light"] [style*="font-family:var(--head)"],
+[data-theme="light"] [style*="font-family:'Orbitron'"],
+[data-theme="light"] [style*="font-family:var(--font-head)"] {
+  color: #0A1929 !important;
+}
+
+/* All elements using --white which resolves to #fff */
+[data-theme="light"] {
+  --white: #0A1929;
+}
+
+/* Restore actual white for elements that NEED it (buttons on colored bg, nav logo) */
+[data-theme="light"] .hero-cta,
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .act-btn.act-teal,
+[data-theme="light"] .act-btn.act-primary,
+[data-theme="light"] .mo-save,
+[data-theme="light"] .se-btn-save,
+[data-theme="light"] .modal-btn-primary,
+[data-theme="light"] .save-btn,
+[data-theme="light"] .add-btn-primary,
+[data-theme="light"] .review-btn:not(.disabled),
+[data-theme="light"] .stab.active,
+[data-theme="light"] .copy-toast,
+[data-theme="light"] .toast,
+[data-theme="light"] .en-logo {
+  color: #fff !important;
+}
+
+/* ── Per-class overrides (legacy, kept for specificity) ── */
 [data-theme="light"] .section-title,
 [data-theme="light"] .module-name,
 [data-theme="light"] .tool-name,
