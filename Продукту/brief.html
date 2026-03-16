@@ -177,6 +177,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
             <input type="date" id="f-date">
           </div>
         </div>
+        <div class="field">
+          <label>Продукт</label>
+          <select id="f-product">
+            <option value="">— Без привязки —</option>
+          </select>
+          <div class="field-hint">К какому продукту экосистемы относится инициатива</div>
+        </div>
         <div class="field" id="ft-reason-wrap" style="display:none">
           <label><span class="star">*</span> Почему Fast-Track</label>
           <select id="f-ft-reason" data-req-ft="1" onchange="validate()">
@@ -405,6 +412,7 @@ function gatherData(){
     id:'BRIEF-'+Date.now().toString(36).toUpperCase(),
     name:document.getElementById('f-name').value.trim(),
     dept:document.getElementById('f-dept').value.trim(),
+    productId:document.getElementById('f-product').value,
     date:document.getElementById('f-date').value||new Date().toISOString().slice(0,10),
     fast_track:mode==='fast',
     ft_reason:mode==='fast'?document.getElementById('f-ft-reason').value:'',
@@ -430,9 +438,20 @@ function submitBrief(){
   var bl=window.PT?PT.load(BKEY):JSON.parse(localStorage.getItem(BKEY)||'null');
   if(!Array.isArray(bl)) bl=[];
   bl.push({
-    id:d.id,name:d.name,desc:d.problem,project:d.dept||'New',
-    status:'backlog',r:d.r,i:d.i,c:d.c,e:d.e,
-    gate:0,brief:d
+    id:d.id,name:d.name,desc:d.problem,
+    productId:d.productId||'',
+    project:d.dept||'',
+    track:'discovery',
+    status:'backlog',
+    r:d.r,i:d.i,c:d.c,e:d.e,
+    cat:'',
+    goalId:null,
+    epicId:null,
+    gate:0,
+    brief:d,
+    prd:null,
+    created:new Date().toISOString().slice(0,10),
+    updated:new Date().toISOString().slice(0,10)
   });
   if(window.PT) PT.save(BKEY,bl);
   else localStorage.setItem(BKEY,JSON.stringify(bl));
@@ -458,6 +477,7 @@ function loadDraft(){
   if(d.fast_track) setMode('fast');
   document.getElementById('f-name').value=d.name||'';
   document.getElementById('f-dept').value=d.dept||'';
+  document.getElementById('f-product').value=d.productId||'';
   document.getElementById('f-date').value=d.date||'';
   document.getElementById('f-ft-reason').value=d.ft_reason||'';
   document.getElementById('f-problem').value=d.problem||'';
@@ -541,8 +561,22 @@ function showToast(msg){
   setTimeout(function(){t.classList.remove('show');},3000);
 }
 
+function loadProducts(){
+  var prods=window.PT?PT.load(PT.KEY_PRODUCTS):[];
+  var sel=document.getElementById('f-product');
+  if(sel&&Array.isArray(prods)){
+    prods.forEach(function(p){
+      var opt=document.createElement('option');
+      opt.value=p.id;
+      opt.textContent=p.name;
+      sel.appendChild(opt);
+    });
+  }
+}
+
 // init
 document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
+loadProducts();
 onRice();
 validate();
 loadDraft();

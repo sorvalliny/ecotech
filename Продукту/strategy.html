@@ -95,7 +95,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── IDENTITY CARD ── */
 .id-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.id-status-row{display:grid;grid-template-columns:1fr 1fr 1fr}
+.id-status-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr}
 .id-cell{padding:18px 20px;border-right:1px solid var(--border)}
 .id-cell:last-child{border-right:none}
 .id-cell-lbl{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
@@ -358,6 +358,16 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
             <option value="paused">На паузе</option>
             <option value="launched">Запущен</option>
             <option value="closed">Закрыт</option>
+          </select>
+        </div>
+        <div class="id-cell">
+          <div class="id-cell-lbl">Категория</div>
+          <div class="id-badge-slot" id="cat-badge-slot"></div>
+          <select class="id-sel" id="id-cat" onchange="onIdentityChange()">
+            <option value="b2c">B2C</option>
+            <option value="b2b">B2B</option>
+            <option value="b2g">B2G</option>
+            <option value="internal">Internal</option>
           </select>
         </div>
       </div>
@@ -834,6 +844,7 @@ const STAGE_LABELS  = { idea:'О·0 Заявка', discovery:'О·1 Развед
 const STAGE_TO_GATE = { idea:0, discovery:1, pilot:2, launch:3, scale:4, mature:5, sunset:6 };
 const STATUS_TO_TRACKER = { planning:'planned', active:'wip', paused:'planned', launched:'wip', closed:'backlog' };
 const PHASE_LABELS  = { discovery:'Исследование', delivery:'Разработка', review:'Оценка и ретро' };
+const CAT_LABELS    = { b2c:'B2C', b2b:'B2B', b2g:'B2G', internal:'Internal' };
 const STATUS_LABELS = { planning:'Планирование', active:'В работе', paused:'На паузе', launched:'Запущен', closed:'Закрыт' };
 const GSTATUS_LABELS = { active:'Активна', draft:'Черновик', achieved:'Достигнута', cancelled:'Отменена' };
 const ISTATUS_LABELS = { planned:'Запланировано', active:'В работе', done:'Готово', cancelled:'Отменено' };
@@ -896,7 +907,7 @@ let editCtx = {};  // { type, id } for current modal
 function initState() {
   const saved = window.PT ? PT.load(SP_KEY) : null;
   state = {
-    identity: { name:'', stage:'', phase:'', status:'', pm:'', trackerUrl:'', trackerProductId: null },
+    identity: { name:'', stage:'', phase:'', status:'', pm:'', trackerUrl:'', trackerProductId: null, cat:'b2c', catLabel:'B2C' },
     goals: [],
     roadmap: { h1:[], h2:[] },
     quarterly: { quarter:'Q1 2026', items:[] },
@@ -932,7 +943,32 @@ function initState() {
   }
 }
 
-function saveState() { if (window.PT) PT.save(SP_KEY, state); }
+function saveState() {
+  if (!window.PT) return;
+  PT.save(SP_KEY, state);
+  // Sync goals to ECOTECH_GOALS
+  if (state.goals && state.goals.length && window.PT) {
+    var existingGoals = PT.load(PT.KEY_GOALS) || [];
+    state.goals.forEach(function(g) {
+      if (!g.productId) g.productId = state.identity.trackerProductId || '';
+      var idx = existingGoals.findIndex(function(eg) { return eg.id === g.id; });
+      if (idx >= 0) existingGoals[idx] = g;
+      else existingGoals.push(g);
+    });
+    PT.save(PT.KEY_GOALS, existingGoals);
+  }
+  // Sync epics to ECOTECH_EPICS
+  if (state.quarterly && state.quarterly.items && state.quarterly.items.length && window.PT) {
+    var existingEpics = PT.load(PT.KEY_EPICS) || [];
+    state.quarterly.items.forEach(function(ep) {
+      if (!ep.productId) ep.productId = state.identity.trackerProductId || '';
+      var idx = existingEpics.findIndex(function(ee) { return ee.id === ep.id; });
+      if (idx >= 0) existingEpics[idx] = ep;
+      else existingEpics.push(ep);
+    });
+    PT.save(PT.KEY_EPICS, existingEpics);
+  }
+}
 function isFullFormat() { return ['launch','scale','mature','sunset'].includes(state.identity.stage); }
 
 function nextId(prefix, arr) {
@@ -974,9 +1010,11 @@ function onIdentityChange() {
   const stage  = document.getElementById('id-stage').value;
   const phase  = document.getElementById('id-phase').value;
   const status = document.getElementById('id-status').value;
+  const cat    = document.getElementById('id-cat').value;
   renderBadgeSlot('stage-badge-slot',  stage,  STAGE_LABELS,  'badge-');
   renderBadgeSlot('phase-badge-slot',  phase,  PHASE_LABELS,  phase === 'growth' ? 'badge-growth-phase' : 'badge-');
   renderBadgeSlot('status-badge-slot', status, STATUS_LABELS, 'badge-');
+  renderBadgeSlot('cat-badge-slot',    cat,    CAT_LABELS,    'badge-');
   const fmt = ['launch','scale','mature','sunset'].includes(stage) ? 'Полный формат' : stage ? 'Упрощённый формат' : '';
   const hint = document.getElementById('id-format-hint');
   if (hint) hint.textContent = fmt;
@@ -995,9 +1033,11 @@ function renderIdentity() {
   const stageEl  = document.getElementById('id-stage');
   const phaseEl  = document.getElementById('id-phase');
   const statusEl = document.getElementById('id-status');
+  const catEl    = document.getElementById('id-cat');
   if (stageEl)  stageEl.value  = id.stage;
   if (phaseEl)  phaseEl.value  = id.phase;
   if (statusEl) statusEl.value = id.status;
+  if (catEl)    catEl.value    = id.cat || 'b2c';
   document.getElementById('id-name').value    = id.name;
   document.getElementById('id-pm').value      = id.pm;
   document.getElementById('id-tracker').value = id.trackerUrl;
@@ -1022,6 +1062,8 @@ function saveIdentity() {
   state.identity.status     = document.getElementById('id-status').value;
   state.identity.pm         = document.getElementById('id-pm').value.trim();
   state.identity.trackerUrl = document.getElementById('id-tracker').value.trim();
+  state.identity.cat        = document.getElementById('id-cat').value || 'b2c';
+  state.identity.catLabel   = CAT_LABELS[state.identity.cat] || 'B2C';
   saveState();
   renderAll();
   const btn = document.getElementById('id-save-btn');
@@ -1752,9 +1794,15 @@ function addToTracker() {
     desc: state.prd && state.prd.problem ? state.prd.problem : '',
     gate: STAGE_TO_GATE[id.stage] ?? 0,
     status: STATUS_TO_TRACKER[id.status] || 'planned',
-    layer: 'B2C',
-    color: '#4FC3F7',
-    release: 'v14'
+    cat: (id.cat || 'b2c'),
+    catLabel: (id.catLabel || CAT_LABELS[id.cat] || 'B2C'),
+    owner: id.pm || '',
+    updated: new Date().toISOString().split('T')[0],
+    color: '',
+    quarter: state.quarterly ? state.quarterly.quarter : 'Q1 2026',
+    pilot: false,
+    kpi: [],
+    initiatives: []
   });
   PT.save(PT.KEY_PRODUCTS, products);
   state.identity.trackerProductId = newId;
@@ -1768,9 +1816,14 @@ function updateTrackerProduct() {
   const idx = products.findIndex(p => p.id === state.identity.trackerProductId);
   if (idx < 0) { state.identity.trackerProductId = null; saveState(); renderTrackerCTA(); return; }
   const id = state.identity;
-  products[idx].name   = id.name || products[idx].name;
-  products[idx].gate   = STAGE_TO_GATE[id.stage] ?? products[idx].gate;
-  products[idx].status = STATUS_TO_TRACKER[id.status] || products[idx].status;
+  products[idx].name     = id.name || products[idx].name;
+  products[idx].gate     = STAGE_TO_GATE[id.stage] ?? products[idx].gate;
+  products[idx].status   = STATUS_TO_TRACKER[id.status] || products[idx].status;
+  products[idx].cat      = id.cat || products[idx].cat || 'b2c';
+  products[idx].catLabel = id.catLabel || CAT_LABELS[id.cat] || products[idx].catLabel || 'B2C';
+  products[idx].owner    = id.pm || products[idx].owner || '';
+  products[idx].updated  = new Date().toISOString().split('T')[0];
+  products[idx].quarter  = state.quarterly ? state.quarterly.quarter : (products[idx].quarter || 'Q1 2026');
   if (state.prd && state.prd.problem) products[idx].desc = state.prd.problem;
   PT.save(PT.KEY_PRODUCTS, products);
   renderTrackerCTA();
