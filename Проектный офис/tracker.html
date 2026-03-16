@@ -491,25 +491,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="app">
   <aside class="sidebar hidden" id="sidebar">
     <div class="slabel">Продукт</div>
-    <div id="proj-filters"><button class="fbtn active" onclick="setF(&#39;project&#39;,&#39;all&#39;,this)"><span>Все продукты</span></button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR01&#39;,this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#00D4B4;margin-right:5px;vertical-align:middle"></span>Продуктовый фреймворк</span>
-      <span class="fcount" id="fcp-PR01"></span>
-    </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR02&#39;,this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#4FC3F7;margin-right:5px;vertical-align:middle"></span>Хендбук для руководителей</span>
-      <span class="fcount" id="fcp-PR02"></span>
-    </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR03&#39;,this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FFB830;margin-right:5px;vertical-align:middle"></span>Лендинг для бизнеса</span>
-      <span class="fcount" id="fcp-PR03"></span>
-    </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR04&#39;,this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#3B82F6;margin-right:5px;vertical-align:middle"></span>Трекер инициатив (Shiva/WB)</span>
-      <span class="fcount" id="fcp-PR04"></span>
-    </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR05&#39;,this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FF2D8A;margin-right:5px;vertical-align:middle"></span>Реестр целей и инициатив</span>
-      <span class="fcount" id="fcp-PR05"></span>
-    </button><button class="fbtn" onclick="setF(&#39;project&#39;,&#39;PR06&#39;,this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#EF4444;margin-right:5px;vertical-align:middle"></span>Корпоративный ProductHunt</span>
-      <span class="fcount" id="fcp-PR06"></span>
-    </button></div>
+    <div id="proj-filters"><button class="fbtn active" onclick="setF('project','all',this)"><span>Все продукты</span></button></div>
     <div class="sdiv"></div>
     <div class="slabel">Тип инициативы</div>
     <button class="fbtn active" onclick="setF(&#39;track&#39;,&#39;all&#39;,this)"><span>Все типы</span></button>
@@ -1012,6 +994,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
       <div id="backlog-table-wrap" style="display:none"></div>
       <div id="backlog-kanban" style="display:none"></div>
+      <button class="add-init-btn" style="margin-top:16px;width:auto;padding:10px 20px" onclick="addInitiative(PROJECTS[0]?PROJECTS[0].id:'')"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-plus"/></svg> Добавить инициативу</button>
     </div>
 
     <!-- GOALS -->
