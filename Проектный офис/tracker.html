@@ -1053,7 +1053,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <div class="ep-tab-panel active" id="ep-panel-prd">
       <div class="ep-body">
         <div style="padding:10px 14px;background:rgba(0,212,180,0.06);border:1px solid rgba(0,212,180,0.2);border-radius:8px;margin-bottom:14px;font-size:11px;color:var(--text);">
-          <strong style="color:#00D4B4;">Подсказка:</strong> Привяжите инициативу к продукту и цели. Укажите сегмент (бизнес/продукт/техника) и оцените RICE. Без привязки к цели инициатива уходит в бэклог.
+          <strong style="color:#00D4B4;">Создание инициативы:</strong> Привяжите к продукту и цели. Выберите сегмент (бизнес/продукт/техника). RICE-оценка поможет приоритизировать.
+          <div style="margin-top:6px;font-size:10px;color:var(--muted);">Для заявки на <strong>новый продукт</strong> используйте <a href="../Продукту/brief.html" style="color:#4FC3F7;">Заявку на продукт →</a></div>
         </div>
         <div class="ep-group">
           <div class="ep-lbl"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цель</div>
@@ -1305,46 +1306,52 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <button class="ep-close" onclick="closeProdModal()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
     </div>
     <div class="gm-body">
+      <div style="padding:10px 14px;background:rgba(79,195,247,0.06);border:1px solid rgba(79,195,247,0.2);border-radius:8px;margin-bottom:14px;font-size:11px;color:var(--text);">
+        <strong style="color:#4FC3F7;">Как добавить продукт:</strong> Укажите название и описание проблемы, выберите категорию (B2C/B2B/B2G) и начальную Орбиту (обычно О·0 Заявка). Назначьте владельца — PM продукта. После создания продукт появится в портфеле.
+      </div>
       <div class="gm-field">
         <label>Название *</label>
         <input id="prodm-name" placeholder="Название продукта…">
       </div>
       <div class="gm-field">
-        <label>Описание</label>
-        <textarea id="prodm-desc" rows="2" placeholder="Краткое описание продукта…"></textarea>
+        <label>Описание проблемы / продукта</label>
+        <textarea id="prodm-desc" rows="2" placeholder="Какую проблему решает продукт? Краткое описание…"></textarea>
       </div>
       <div class="gm-row4">
         <div class="gm-field">
-          <label>Gate</label>
+          <label>Категория</label>
+          <select id="prodm-layer">
+            <option value="B2C">B2C</option>
+            <option value="B2B">B2B</option>
+            <option value="B2G">B2G</option>
+            <option value="Internal">Internal</option>
+            <option value="Уровень 0 — Фундамент">Уровень 0</option>
+            <option value="Уровень 1 — Команды">Уровень 1</option>
+            <option value="Уровень 2 — Управление">Уровень 2</option>
+            <option value="Уровень 3 — Рост">Уровень 3</option>
+          </select>
+        </div>
+        <div class="gm-field">
+          <label>Начальная Орбита</label>
           <select id="prodm-gate">
-            <option value="0">G0 · Заявка</option>
-            <option value="1">G1 · Разведка</option>
-            <option value="2">G2 · Прототип</option>
-            <option value="3">G3 · Разгон</option>
-            <option value="4">G4 · Экосистема</option>
-            <option value="5">G5 · Плато</option>
-            <option value="6">G6 · Архив</option>
+            <option value="0">О·0 Заявка</option>
+            <option value="1">О·1 Разведка</option>
+            <option value="2">О·2 Прототип</option>
+            <option value="3">О·3 Разгон</option>
+            <option value="4">О·4 Экосистема</option>
+            <option value="5">О·5 Плато</option>
+            <option value="6">О·6 Архив</option>
           </select>
         </div>
         <div class="gm-field">
           <label>Статус</label>
           <select id="prodm-status">
+            <option value="on-track" selected>On Track</option>
             <option value="backlog">Бэклог</option>
             <option value="planned">Запланировано</option>
             <option value="wip">В работе</option>
+            <option value="at-risk">At Risk</option>
             <option value="done">Готово</option>
-          </select>
-        </div>
-        <div class="gm-field">
-          <label>Слой</label>
-          <select id="prodm-layer">
-            <option value="B2C">B2C</option>
-            <option value="B2B">B2B</option>
-            <option value="B2G">B2G</option>
-            <option value="Уровень 0 — Фундамент">Уровень 0</option>
-            <option value="Уровень 1 — Команды">Уровень 1</option>
-            <option value="Уровень 2 — Управление">Уровень 2</option>
-            <option value="Уровень 3 — Рост">Уровень 3</option>
           </select>
         </div>
         <div class="gm-field">
@@ -1353,14 +1360,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         </div>
       </div>
       <div class="gm-row4">
+        <div class="gm-field" style="grid-column:span 2">
+          <label>Владелец (PM)</label>
+          <input id="prodm-owner" placeholder="Имя PM продукта…">
+        </div>
         <div class="gm-field" style="grid-column:span 1">
           <label>Цвет</label>
           <input id="prodm-color" type="color" value="#4FC3F7" style="height:36px;padding:3px 6px;cursor:pointer">
         </div>
-        <div class="gm-field" style="grid-column:span 3">
-          <label>Ссылка на таск-трекер команды (Jira / YouTrack…)</label>
-          <input id="prodm-tracker" type="url" placeholder="https://…">
-        </div>
+      </div>
+      <div class="gm-field">
+        <label>Трекер задач (YouTrack/Shiva)</label>
+        <input id="prodm-tracker" type="url" placeholder="https://youtrack.rwb.ru/project/...">
       </div>
     </div>
     <div class="gm-actions">
@@ -2508,22 +2519,26 @@ function openProdModal(pid) {
     document.getElementById('prodm-name').value    = p.name;
     document.getElementById('prodm-desc').value    = p.desc || '';
     document.getElementById('prodm-gate').value    = String(p.gate);
-    document.getElementById('prodm-status').value  = p.status || 'backlog';
+    document.getElementById('prodm-status').value  = p.status || 'on-track';
     document.getElementById('prodm-layer').value   = p.layer || 'B2C';
     document.getElementById('prodm-release').value = p.release || '';
     document.getElementById('prodm-color').value   = p.color || '#4FC3F7';
     document.getElementById('prodm-tracker').value = p.trackerUrl || '';
+    document.getElementById('prodm-owner').value   = p.owner || '';
+    document.getElementById('prodm-name').style.borderColor = '';
     delBtn.style.display = '';
   } else {
     titleEl.textContent = 'Новый продукт';
     document.getElementById('prodm-name').value    = '';
     document.getElementById('prodm-desc').value    = '';
     document.getElementById('prodm-gate').value    = '0';
-    document.getElementById('prodm-status').value  = 'backlog';
+    document.getElementById('prodm-status').value  = 'on-track';
     document.getElementById('prodm-layer').value   = 'B2C';
     document.getElementById('prodm-release').value = '';
     document.getElementById('prodm-color').value   = '#4FC3F7';
     document.getElementById('prodm-tracker').value = '';
+    document.getElementById('prodm-owner').value   = '';
+    document.getElementById('prodm-name').style.borderColor = '';
     delBtn.style.display = 'none';
   }
   document.getElementById('prodm-overlay').classList.add('open');
@@ -2536,21 +2551,25 @@ function closeProdModal() {
 }
 
 function saveProdModal() {
-  const name = document.getElementById('prodm-name').value.trim();
-  if (!name) { document.getElementById('prodm-name').focus(); return; }
+  const nameEl = document.getElementById('prodm-name');
+  const name = nameEl.value.trim();
+  if (!name) { nameEl.style.borderColor = '#F87171'; nameEl.focus(); return; }
+  nameEl.style.borderColor = '';
+  const commonFields = {
+    name,
+    desc:       document.getElementById('prodm-desc').value.trim(),
+    gate:       +document.getElementById('prodm-gate').value,
+    status:     document.getElementById('prodm-status').value,
+    layer:      document.getElementById('prodm-layer').value,
+    release:    document.getElementById('prodm-release').value.trim(),
+    color:      document.getElementById('prodm-color').value,
+    trackerUrl: document.getElementById('prodm-tracker').value.trim(),
+    owner:      document.getElementById('prodm-owner').value.trim()
+  };
   if (curEditPid) {
     const idx = PROJECTS.findIndex(p => p.id === curEditPid);
     if (idx < 0) return;
-    Object.assign(PROJECTS[idx], {
-      name,
-      desc:       document.getElementById('prodm-desc').value.trim(),
-      gate:       +document.getElementById('prodm-gate').value,
-      status:     document.getElementById('prodm-status').value,
-      layer:      document.getElementById('prodm-layer').value,
-      release:    document.getElementById('prodm-release').value.trim(),
-      color:      document.getElementById('prodm-color').value,
-      trackerUrl: document.getElementById('prodm-tracker').value.trim()
-    });
+    Object.assign(PROJECTS[idx], commonFields);
   } else {
     const existingIds = new Set(PROJECTS.map(p => p.id));
     let newId;
@@ -2558,16 +2577,7 @@ function saveProdModal() {
       newId = 'PR' + String(n).padStart(2, '0');
       if (!existingIds.has(newId)) break;
     }
-    PROJECTS.push({
-      id: newId, name,
-      desc:       document.getElementById('prodm-desc').value.trim(),
-      gate:       +document.getElementById('prodm-gate').value,
-      status:     document.getElementById('prodm-status').value,
-      layer:      document.getElementById('prodm-layer').value,
-      release:    document.getElementById('prodm-release').value.trim() || 'backlog',
-      color:      document.getElementById('prodm-color').value,
-      trackerUrl: document.getElementById('prodm-tracker').value.trim()
-    });
+    PROJECTS.push(Object.assign({ id: newId, release: commonFields.release || 'backlog' }, commonFields));
   }
   saveProjects();
   renderPortfolio();
