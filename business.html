@@ -715,6 +715,17 @@ document.getElementById('modal-overlay').addEventListener('click', function(e) {
 document.getElementById('btn-modal-close').addEventListener('click', function() { closeModal(); });
 document.getElementById('admin-toggle').addEventListener('click', adminClick);
 
+// ── CROSS-TAB SYNC: auto-refresh when another tab updates ECOTECH_PRODUCTS ──
+window.addEventListener('storage', function(e) {
+  if (e.key === 'ECOTECH_PRODUCTS') {
+    var fresh = (window.PT && PT.load) ? PT.load(PT.KEY_PRODUCTS) : null;
+    if (fresh && fresh.length) {
+      ACTIVE_PRODUCTS = fresh;
+      renderProducts();
+    }
+  }
+});
+
 // Init — load from portfolio.json
 loadPortfolio();
 </script>
