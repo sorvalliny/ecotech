@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Трекер продуктов и инициатив — ОРБИТА</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system.css">
+<style>
+/* ── PAGE LAYOUT ── */
+.page{max-width:1100px;margin:0 auto;padding:32px 28px 80px;position:relative;z-index:1;}
+
+/* ── HEADER ── */
+.tr-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+.tr-title{display:flex;align-items:center;gap:10px;}
+.tr-title h1{font-family:var(--font-head,'Orbitron',sans-serif);font-size:20px;font-weight:900;color:var(--white);}
+.tr-title-icon{width:36px;height:36px;border-radius:10px;background:var(--teal-dim);color:var(--teal);display:flex;align-items:center;justify-content:center;}
+.admin-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
+.admin-toggle input{display:none;}
+.admin-switch{width:36px;height:20px;border-radius:10px;background:var(--border-hi);position:relative;transition:background .2s;}
+.admin-switch::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--muted);transition:transform .2s,background .2s;}
+.admin-toggle input:checked + .admin-switch{background:var(--teal);}
+.admin-toggle input:checked + .admin-switch::after{transform:translateX(16px);background:#fff;}
+.admin-label{font-family:var(--font-head,'Orbitron',sans-serif);font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+
+/* ── TABS ── */
+.tr-tabs{display:flex;gap:4px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;}
+.tr-tab{flex:none;padding:9px 18px;border:none;border-radius:9px;background:transparent;cursor:pointer;font-family:var(--font-head,'Orbitron',sans-serif);font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--muted);transition:background .15s,color .15s;}
+.tr-tab:hover{background:rgba(0,212,180,0.05);color:var(--gray2);}
+.tr-tab.active{background:var(--teal-dim);color:var(--teal);}
+
+/* ── FILTERS ── */
+.tr-filters{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.tr-filter{padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--font-body,'Exo 2',sans-serif);font-size:12px;font-weight:600;cursor:pointer;transition:border-color .15s,color .15s,background .15s;}
+.tr-filter:hover{border-color:var(--border-hi);color:var(--gray2);}
+.tr-filter.active{border-color:var(--teal-border);color:var(--teal);background:var(--teal-dim);}
+.tr-search{padding:7px 12px 7px 32px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:var(--font-body,'Exo 2',sans-serif);font-size:12px;outline:none;min-width:180px;transition:border-color .15s;background-image:url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237A7A9D' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:10px center;}
+.tr-search:focus{border-color:var(--teal-border);}
+.tr-search::placeholder{color:var(--muted);}
+.tr-filters-right{margin-left:auto;display:flex;gap:8px;align-items:center;}
+
+/* ── PRODUCT CARDS GRID ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
+.p-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px;transition:border-color .18s,transform .15s;}
+.p-card:hover{border-color:var(--border-hi);transform:translateY(-2px);}
+.p-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.p-card-name{font-family:var(--font-head,'Orbitron',sans-serif);font-size:13px;font-weight:900;color:var(--white);line-height:1.25;}
+.p-card-owner{font-size:11px;color:var(--muted);margin-top:2px;}
+.p-card-badges{display:flex;gap:6px;flex-wrap:wrap;}
+.p-badge{font-family:var(--font-head,'Orbitron',sans-serif);font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.04em;border:1px solid;}
+.badge-gate{background:var(--blue-dim);color:var(--blue);border-color:var(--blue-border);}
+.badge-on-track{background:rgba(52,211,153,0.1);color:#34D399;border-color:rgba(52,211,153,0.3);}
+.badge-at-risk{background:var(--amber-dim);color:var(--amber);border-color:var(--amber-border);}
+.badge-blocked{background:var(--pink-dim);color:var(--pink);border-color:var(--pink-border);}
+.badge-paused{background:rgba(139,139,174,0.1);color:#8B8BAE;border-color:rgba(139,139,174,0.3);}
+.badge-done{background:var(--teal-dim);color:var(--teal);border-color:var(--teal-border);}
+.badge-cat{background:var(--violet-dim);color:var(--violet);border-color:var(--violet-border);}
+.badge-pilot{background:var(--pink-dim);color:var(--pink);border-color:var(--pink-border);}
+.p-card-desc{font-size:12px;color:var(--muted);line-height:1.55;flex:1;}
+.p-card-kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.kpi-item{text-align:center;padding:8px 4px;background:var(--surface2);border-radius:8px;}
+.kpi-val{font-family:var(--font-head,'Orbitron',sans-serif);font-size:12px;font-weight:900;color:var(--white);}
+.kpi-label{font-size:10px;color:var(--muted);margin-top:2px;}
+.p-card-initiatives{display:flex;flex-wrap:wrap;gap:4px;}
+.init-chip{font-size:10px;padding:3px 8px;border-radius:6px;background:var(--surface2);color:var(--gray2);border:1px solid var(--border);}
+
+/* RICE score badge */
+.rice-badge{font-family:var(--font-head,'Orbitron',sans-serif);font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;border:1px solid;}
+.rice-high{background:rgba(52,211,153,0.1);color:#34D399;border-color:rgba(52,211,153,0.3);}
+.rice-mid{background:var(--amber-dim);color:var(--amber);border-color:var(--amber-border);}
+.rice-low{background:rgba(139,139,174,0.1);color:#8B8BAE;border-color:rgba(139,139,174,0.3);}
+
+/* ── TABLE VIEW (Initiatives) ── */
+.tr-table{width:100%;border-collapse:separate;border-spacing:0;}
+.tr-table th{font-family:var(--font-head,'Orbitron',sans-serif);font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;}
+.tr-table th:hover{color:var(--gray2);}
+.tr-table th .sort-arrow{margin-left:4px;opacity:0.4;font-size:10px;}
+.tr-table th.sorted .sort-arrow{opacity:1;color:var(--teal);}
+.tr-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:12px;color:var(--text);vertical-align:middle;}
+.tr-table tr:hover td{background:rgba(0,212,180,0.02);}
+.tr-table .group-row td{padding:14px 12px;font-family:var(--font-head,'Orbitron',sans-serif);font-size:11px;font-weight:900;color:var(--white);background:var(--surface2);border:none;}
+.init-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;}
+.st-backlog{background:rgba(139,139,174,0.1);color:#8B8BAE;}
+.st-planned{background:var(--blue-dim);color:var(--blue);}
+.st-wip{background:var(--teal-dim);color:var(--teal);}
+.st-done{background:rgba(52,211,153,0.1);color:#34D399;}
+
+/* ── ADD BUTTON ── */
+.add-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9px;border:1px dashed var(--border-hi);background:transparent;color:var(--muted);font-family:var(--font-head,'Orbitron',sans-serif);font-size:10px;font-weight:700;cursor:pointer;transition:border-color .15s,color .15s;margin-top:12px;}
+.add-btn:hover{border-color:var(--teal-border);color:var(--teal);}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(3,8,15,0.8);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border:1px solid var(--border-hi);border-radius:16px;padding:28px;max-width:480px;width:90%;max-height:85vh;overflow-y:auto;}
+.modal h2{font-family:var(--font-head,'Orbitron',sans-serif);font-size:16px;font-weight:900;color:var(--white);margin-bottom:20px;}
+.modal-field{margin-bottom:14px;}
+.modal-field label{display:block;font-family:var(--font-head,'Orbitron',sans-serif);font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
+.modal-field input,.modal-field select,.modal-field textarea{width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:var(--font-body,'Exo 2',sans-serif);font-size:13px;outline:none;transition:border-color .15s;}
+.modal-field input:focus,.modal-field select:focus,.modal-field textarea:focus{border-color:var(--teal-border);}
+.modal-field textarea{resize:vertical;min-height:60px;}
+.modal-field select{cursor:pointer;}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
+.modal-btn{padding:9px 20px;border-radius:9px;font-family:var(--font-head,'Orbitron',sans-serif);font-size:10px;font-weight:700;cursor:pointer;border:none;transition:opacity .15s;}
+.modal-btn-primary{background:linear-gradient(135deg,var(--teal),var(--violet));color:#fff;}
+.modal-btn-primary:hover{opacity:0.85;}
+.modal-btn-cancel{background:transparent;border:1px solid var(--border);color:var(--muted);}
+.modal-btn-cancel:hover{border-color:var(--border-hi);color:var(--gray2);}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted);}
+.empty-state svg{margin-bottom:12px;opacity:0.3;}
+.empty-state p{font-size:14px;}
+
+/* ── INLINE EDIT ── */
+.editable{cursor:text;border-bottom:1px dashed transparent;transition:border-color .15s;}
+.editable:hover{border-color:var(--teal-border);}
+.editable:focus{outline:none;border-color:var(--teal);background:rgba(0,212,180,0.04);border-radius:2px;padding:0 2px;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:24px 16px 60px;}
+  .cards-grid{grid-template-columns:1fr;}
+  .tr-filters{flex-direction:column;align-items:flex-start;}
+  .tr-filters-right{margin-left:0;width:100%;}
+  .tr-search{width:100%;}
+  .tr-table{display:block;overflow-x:auto;}
+}
+</style>
+<script src="../icons.js"></script>
+<script src="../platform.js"></script>
+<script src="../stages.js"></script>
+<script src="../nav.js"></script>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="tr-header">
+    <div class="tr-title">
+      <div class="tr-title-icon"><svg class="ei" width="20" height="20"><use href="#ic-activity"/></svg></div>
+      <h1>Трекер продуктов и инициатив</h1>
+    </div>
+    <label class="admin-toggle" id="admin-toggle">
+      <span class="admin-label">Admin</span>
+      <input type="checkbox" id="admin-cb">
+      <span class="admin-switch"></span>
+    </label>
+  </div>
+
+  <!-- TABS -->
+  <div class="tr-tabs" id="tabs"></div>
+
+  <!-- FILTERS -->
+  <div class="tr-filters" id="filters"></div>
+
+  <!-- CONTENT -->
+  <div id="content"></div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // ── STATE ──
+  var state = {
+    tab: 'pilot',       // pilot | portfolio | initiatives
+    orbitFilter: 'all',  // all | 0-6
+    statusFilter: 'all', // all | on-track | at-risk | blocked | paused | done
+    catFilter: 'all',    // all | b2b | b2c | b2g
+    search: '',
+    sort: {col:'rice', dir:'desc'},
+    admin: false
+  };
+
+  var products = [];
+  var backlog = [];
+  var stages = [];
+  var pilotProducts = []; // from data.json portfolio
+
+  // ── INIT ──
+  function init() {
+    stages = window.STAGES_DB ? STAGES_DB.get() : [];
+
+    // Load products from PT
+    if (window.PT && PT.ensureProducts) {
+      PT.ensureProducts(function(p) {
+        products = p || [];
+        backlog = PT.load(PT.KEY_BACKLOG) || [];
+        loadPilotData();
+      });
+    } else {
+      products = [];
+      backlog = [];
+      loadPilotData();
+    }
+  }
+
+  function loadPilotData() {
+    // Fetch pilot flags from data.json
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../data.json', true);
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        try {
+          var data = JSON.parse(xhr.responseText);
+          pilotProducts = (data.portfolio || []).filter(function(p){ return p.pilot; });
+        } catch(e) { pilotProducts = []; }
+      }
+      render();
+    };
+    xhr.onerror = function() { render(); };
+    xhr.send();
+  }
+
+  // ── HELPERS ──
+  function getStage(gate) {
+    var g = parseInt(gate, 10) || 0;
+    return stages[g] || stages[0] || {orbita:'O·'+g, name:'?', color:'#8B8BAE'};
+  }
+
+  function riceScore(p) {
+    var r = parseInt(p.r||p.impact||0,10);
+    var i = parseInt(p.i||p.probability||0,10);
+    var c = parseInt(p.c||5,10);
+    var e = parseInt(p.e||1,10);
+    return e > 0 ? Math.round((r * i * c) / e) : 0;
+  }
+
+  function riceClass(score) {
+    if (score >= 500) return 'rice-high';
+    if (score >= 100) return 'rice-mid';
+    return 'rice-low';
+  }
+
+  function statusBadge(s) {
+    var map = {
+      'on-track':'badge-on-track','at-risk':'badge-at-risk',
+      'blocked':'badge-blocked','paused':'badge-paused','done':'badge-done'
+    };
+    var labels = {
+      'on-track':'On Track','at-risk':'At Risk',
+      'blocked':'Blocked','paused':'Paused','done':'Done'
+    };
+    return '<span class="p-badge '+(map[s]||'badge-paused')+'">'+(labels[s]||s)+'</span>';
+  }
+
+  function statusLabel(s) {
+    var map = {'backlog':'Бэклог','planned':'Запланировано','wip':'В работе','done':'Готово'};
+    return map[s] || s;
+  }
+
+  function statusClass(s) {
+    var map = {'backlog':'st-backlog','planned':'st-planned','wip':'st-wip','done':'st-done'};
+    return map[s] || 'st-backlog';
+  }
+
+  function matchSearch(text) {
+    if (!state.search) return true;
+    return text.toLowerCase().indexOf(state.search.toLowerCase()) >= 0;
+  }
+
+  // ── RENDER ──
+  function render() {
+    renderTabs();
+    renderFilters();
+    renderContent();
+  }
+
+  function renderTabs() {
+    var el = document.getElementById('tabs');
+    var tabs = [
+      {id:'pilot', label:'Пилот'},
+      {id:'portfolio', label:'Портфель'},
+      {id:'initiatives', label:'Инициативы'}
+    ];
+    el.innerHTML = tabs.map(function(t) {
+      return '<button class="tr-tab'+(state.tab===t.id?' active':'')+'" data-tab="'+t.id+'">'+t.label+'</button>';
+    }).join('');
+    el.querySelectorAll('.tr-tab').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        state.tab = this.dataset.tab;
+        state.orbitFilter = 'all';
+        state.statusFilter = 'all';
+        state.catFilter = 'all';
+        render();
+      });
+    });
+  }
+
+  function renderFilters() {
+    var el = document.getElementById('filters');
+    var html = '';
+
+    if (state.tab === 'portfolio' || state.tab === 'pilot') {
+      // Orbit filters
+      html += '<button class="tr-filter'+(state.orbitFilter==='all'?' active':'')+'" data-orbit="all">Все</button>';
+      stages.forEach(function(s, i) {
+        html += '<button class="tr-filter'+(state.orbitFilter===String(i)?' active':'')+'" data-orbit="'+i+'">'+s.orbita+'</button>';
+      });
+
+      // Status filters (portfolio only)
+      if (state.tab === 'portfolio') {
+        html += '<span style="width:1px;height:20px;background:var(--border);margin:0 4px;"></span>';
+        ['all','on-track','at-risk','paused','done'].forEach(function(s) {
+          var label = s === 'all' ? 'Все статусы' : {'on-track':'On Track','at-risk':'At Risk','paused':'Paused','done':'Done'}[s];
+          html += '<button class="tr-filter'+(state.statusFilter===s?' active':'')+'" data-status="'+s+'">'+label+'</button>';
+        });
+      }
+    }
+
+    if (state.tab === 'initiatives') {
+      ['all','backlog','planned','wip','done'].forEach(function(s) {
+        var label = s === 'all' ? 'Все' : statusLabel(s);
+        html += '<button class="tr-filter'+(state.statusFilter===s?' active':'')+'" data-status="'+s+'">'+label+'</button>';
+      });
+    }
+
+    html += '<div class="tr-filters-right"><input class="tr-search" id="search-input" type="text" placeholder="Поиск..." value="'+state.search+'"></div>';
+    el.innerHTML = html;
+
+    // Bind
+    el.querySelectorAll('[data-orbit]').forEach(function(btn) {
+      btn.addEventListener('click', function() { state.orbitFilter = this.dataset.orbit; render(); });
+    });
+    el.querySelectorAll('[data-status]').forEach(function(btn) {
+      btn.addEventListener('click', function() { state.statusFilter = this.dataset.status; render(); });
+    });
+    var searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', function() { state.search = this.value; renderContent(); });
+    }
+  }
+
+  function renderContent() {
+    var el = document.getElementById('content');
+    if (state.tab === 'pilot') renderPilot(el);
+    else if (state.tab === 'portfolio') renderPortfolio(el);
+    else renderInitiatives(el);
+  }
+
+  // ── PILOT TAB ──
+  function renderPilot(el) {
+    // Filter products that are in pilot
+    var pilotCodes = pilotProducts.map(function(p) { return p.code; });
+    var filtered = products.filter(function(p) {
+      if (pilotCodes.length && !pilotCodes.some(function(c) { return p.id === c || p.name.indexOf(c) >= 0; })) {
+        // Also match by pilot flag or EdTech keyword
+        if (!p.pilot) return false;
+      }
+      if (state.orbitFilter !== 'all' && String(p.gate) !== state.orbitFilter) return false;
+      return matchSearch(p.name + ' ' + (p.desc||''));
+    });
+
+    // If no products matched pilot filter, show pilot info from data.json
+    if (filtered.length === 0 && pilotProducts.length > 0) {
+      var html = '<div style="margin-bottom:20px;padding:18px;background:var(--card);border:1px solid var(--border);border-radius:12px;">';
+      html += '<div style="font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--teal);margin-bottom:8px;">ПИЛОТ АКТИВЕН</div>';
+      pilotProducts.forEach(function(pp) {
+        html += '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);">';
+        html += '<span class="p-badge badge-pilot">Pilot</span>';
+        html += '<span style="font-weight:700;color:var(--white);">' + (pp.name||pp.code) + '</span>';
+        html += '<span style="color:var(--muted);font-size:12px;">' + (pp.meta||'') + '</span>';
+        html += '</div>';
+      });
+      html += '</div>';
+      html += renderProductCards(filtered);
+      el.innerHTML = html;
+    } else {
+      el.innerHTML = renderProductCards(filtered.length ? filtered : products.filter(function(){ return false; }));
+    }
+
+    if (state.admin) {
+      el.innerHTML += '<button class="add-btn" onclick="openAddModal(\'product\')"><svg class="ei" width="14" height="14"><use href="#ic-plus"/></svg> Добавить продукт</button>';
+    }
+  }
+
+  // ── PORTFOLIO TAB ──
+  function renderPortfolio(el) {
+    var filtered = products.filter(function(p) {
+      if (state.orbitFilter !== 'all' && String(p.gate) !== state.orbitFilter) return false;
+      if (state.statusFilter !== 'all' && p.status !== state.statusFilter) return false;
+      return matchSearch(p.name + ' ' + (p.desc||'') + ' ' + (p.owner||''));
+    });
+
+    // Sort
+    filtered.sort(function(a, b) {
+      var scoreA = riceScore(a), scoreB = riceScore(b);
+      return state.sort.dir === 'desc' ? scoreB - scoreA : scoreA - scoreB;
+    });
+
+    el.innerHTML = renderProductCards(filtered);
+    if (state.admin) {
+      el.innerHTML += '<button class="add-btn" onclick="openAddModal(\'product\')"><svg class="ei" width="14" height="14"><use href="#ic-plus"/></svg> Добавить продукт</button>';
+    }
+  }
+
+  // ── RENDER PRODUCT CARDS ──
+  function renderProductCards(list) {
+    if (!list.length) {
+      return '<div class="empty-state"><svg class="ei" width="40" height="40"><use href="#ic-inbox"/></svg><p>Нет продуктов по фильтру</p></div>';
+    }
+
+    var html = '<div class="cards-grid">';
+    list.forEach(function(p, idx) {
+      var s = getStage(p.gate);
+      var score = riceScore(p);
+      var editable = state.admin ? ' contenteditable="true"' : '';
+      var editClass = state.admin ? ' editable' : '';
+
+      html += '<div class="p-card" data-pid="'+p.id+'">';
+      html += '<div class="p-card-top">';
+      html += '<div><div class="p-card-name'+editClass+'"'+editable+' data-field="name">'+p.name+'</div>';
+      html += '<div class="p-card-owner">'+( p.owner || '—' )+'</div></div>';
+      html += '<div class="p-card-badges">';
+      html += '<span class="p-badge badge-gate" style="background:'+s.colorDim+';color:'+s.color+';border-color:'+s.colorBorder+';">'+s.orbita+'</span>';
+      html += statusBadge(p.status);
+      if (p.catLabel) html += '<span class="p-badge badge-cat">'+p.catLabel+'</span>';
+      if (score > 0) html += '<span class="rice-badge '+riceClass(score)+'">RICE '+score+'</span>';
+      html += '</div></div>';
+
+      if (p.desc) html += '<div class="p-card-desc'+editClass+'"'+editable+' data-field="desc">'+p.desc+'</div>';
+
+      // KPI
+      if (p.kpi && p.kpi.length) {
+        html += '<div class="p-card-kpi">';
+        p.kpi.forEach(function(k) {
+          html += '<div class="kpi-item"><div class="kpi-val">'+k.value+'</div><div class="kpi-label">'+k.label+'</div></div>';
+        });
+        html += '</div>';
+      }
+
+      // Initiatives
+      if (p.initiatives && p.initiatives.length) {
+        html += '<div class="p-card-initiatives">';
+        p.initiatives.forEach(function(i) {
+          html += '<span class="init-chip">'+i+'</span>';
+        });
+        html += '</div>';
+      }
+
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  // ── INITIATIVES TAB ──
+  function renderInitiatives(el) {
+    var filtered = backlog.filter(function(i) {
+      if (state.statusFilter !== 'all' && i.status !== state.statusFilter) return false;
+      return matchSearch(i.name + ' ' + (i.desc||'') + ' ' + (i.project||''));
+    });
+
+    // Group by product
+    var groups = {};
+    filtered.forEach(function(i) {
+      var key = i.project || 'Без продукта';
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(i);
+    });
+
+    // Sort each group by RICE desc
+    Object.keys(groups).forEach(function(k) {
+      groups[k].sort(function(a, b) {
+        return riceScore(b) - riceScore(a);
+      });
+    });
+
+    if (!filtered.length) {
+      el.innerHTML = '<div class="empty-state"><svg class="ei" width="40" height="40"><use href="#ic-inbox"/></svg><p>Нет инициатив по фильтру</p></div>';
+      return;
+    }
+
+    var html = '<table class="tr-table"><thead><tr>';
+    html += '<th>Инициатива</th>';
+    html += '<th>Фаза</th>';
+    html += '<th>Статус</th>';
+    html += '<th class="sorted">RICE <span class="sort-arrow">↓</span></th>';
+    html += '</tr></thead><tbody>';
+
+    Object.keys(groups).forEach(function(gk) {
+      // Find product name
+      var prod = products.find(function(p) { return p.id === gk; });
+      var prodName = prod ? prod.name : gk;
+      html += '<tr class="group-row"><td colspan="4">' + prodName + '</td></tr>';
+
+      groups[gk].forEach(function(i) {
+        var score = riceScore(i);
+        var phaseMap = {'discovery':'Исследование','delivery':'Разработка','review':'Оценка'};
+        var phase = phaseMap[i.track] || i.track || '—';
+
+        html += '<tr>';
+        html += '<td><strong style="color:var(--white);">'+i.name+'</strong>';
+        if (i.desc) html += '<div style="font-size:11px;color:var(--muted);margin-top:2px;">'+i.desc+'</div>';
+        html += '</td>';
+        html += '<td>'+phase+'</td>';
+        html += '<td><span class="init-status '+statusClass(i.status)+'">'+statusLabel(i.status)+'</span></td>';
+        html += '<td><span class="rice-badge '+riceClass(score)+'">'+score+'</span></td>';
+        html += '</tr>';
+      });
+    });
+
+    html += '</tbody></table>';
+
+    if (state.admin) {
+      html += '<button class="add-btn" onclick="openAddModal(\'initiative\')"><svg class="ei" width="14" height="14"><use href="#ic-plus"/></svg> Добавить инициативу</button>';
+    }
+
+    el.innerHTML = html;
+  }
+
+  // ── ADMIN: ADD MODAL ──
+  window.openAddModal = function(type) {
+    var overlay = document.getElementById('modal-overlay');
+    var modal = document.getElementById('modal');
+    overlay.classList.add('open');
+
+    if (type === 'product') {
+      var stageOpts = stages.map(function(s, i) {
+        return '<option value="'+i+'">'+s.orbita+' '+s.name+'</option>';
+      }).join('');
+
+      modal.innerHTML = '<h2>Новый продукт</h2>' +
+        '<div class="modal-field"><label>Название</label><input type="text" id="m-name" placeholder="WB ..."></div>' +
+        '<div class="modal-field"><label>Описание</label><textarea id="m-desc" placeholder="Краткое описание продукта"></textarea></div>' +
+        '<div class="modal-field"><label>Орбита</label><select id="m-gate">'+stageOpts+'</select></div>' +
+        '<div class="modal-field"><label>Статус</label><select id="m-status"><option value="on-track">On Track</option><option value="at-risk">At Risk</option><option value="paused">Paused</option></select></div>' +
+        '<div class="modal-field"><label>Тип</label><select id="m-cat"><option value="b2b">B2B</option><option value="b2c">B2C</option><option value="b2g">B2G</option></select></div>' +
+        '<div class="modal-field"><label>Владелец</label><input type="text" id="m-owner" placeholder="Имя Ф."></div>' +
+        '<div class="modal-actions">' +
+        '<button class="modal-btn modal-btn-cancel" onclick="closeModal()">Отмена</button>' +
+        '<button class="modal-btn modal-btn-primary" onclick="saveProduct()">Сохранить</button>' +
+        '</div>';
+    } else {
+      var prodOpts = products.map(function(p) {
+        return '<option value="'+p.id+'">'+p.name+'</option>';
+      }).join('');
+
+      modal.innerHTML = '<h2>Новая инициатива</h2>' +
+        '<div class="modal-field"><label>Название</label><input type="text" id="m-name" placeholder="Название инициативы"></div>' +
+        '<div class="modal-field"><label>Описание</label><textarea id="m-desc" placeholder="Краткое описание"></textarea></div>' +
+        '<div class="modal-field"><label>Продукт</label><select id="m-product">'+prodOpts+'</select></div>' +
+        '<div class="modal-field"><label>Фаза</label><select id="m-track"><option value="discovery">Исследование</option><option value="delivery">Разработка</option><option value="review">Оценка</option></select></div>' +
+        '<div class="modal-field"><label>Статус</label><select id="m-status"><option value="backlog">Бэклог</option><option value="planned">Запланировано</option><option value="wip">В работе</option></select></div>' +
+        '<div class="modal-actions">' +
+        '<button class="modal-btn modal-btn-cancel" onclick="closeModal()">Отмена</button>' +
+        '<button class="modal-btn modal-btn-primary" onclick="saveInitiative()">Сохранить</button>' +
+        '</div>';
+    }
+  };
+
+  window.closeModal = function() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  };
+
+  window.saveProduct = function() {
+    var name = document.getElementById('m-name').value.trim();
+    if (!name) return;
+    var catLabels = {'b2b':'B2B','b2c':'B2C','b2g':'B2G'};
+    var cat = document.getElementById('m-cat').value;
+    var newP = {
+      id: 'P' + String(products.length + 1).padStart(2,'0'),
+      name: name,
+      desc: document.getElementById('m-desc').value.trim(),
+      gate: parseInt(document.getElementById('m-gate').value, 10),
+      status: document.getElementById('m-status').value,
+      cat: cat,
+      catLabel: catLabels[cat] || cat.toUpperCase(),
+      owner: document.getElementById('m-owner').value.trim(),
+      updated: new Date().toISOString().slice(0,10),
+      quarter: 'Q1 2026',
+      impact: 3, probability: 3,
+      kpi: [], initiatives: []
+    };
+    products.push(newP);
+    PT.save(PT.KEY_PRODUCTS, products);
+    closeModal();
+    render();
+  };
+
+  window.saveInitiative = function() {
+    var name = document.getElementById('m-name').value.trim();
+    if (!name) return;
+    var newI = {
+      id: 'I' + String(backlog.length + 1).padStart(3,'0'),
+      name: name,
+      desc: document.getElementById('m-desc').value.trim(),
+      project: document.getElementById('m-product').value,
+      track: document.getElementById('m-track').value,
+      status: document.getElementById('m-status').value,
+      r: 5, i: 5, c: 5, e: 5
+    };
+    backlog.push(newI);
+    PT.save(PT.KEY_BACKLOG, backlog);
+    closeModal();
+    render();
+  };
+
+  // ── ADMIN TOGGLE ──
+  document.getElementById('admin-cb').addEventListener('change', function() {
+    state.admin = this.checked;
+    render();
+  });
+
+  // ── INLINE EDIT (delegated) ──
+  document.getElementById('content').addEventListener('blur', function(e) {
+    if (!state.admin || !e.target.classList.contains('editable')) return;
+    var card = e.target.closest('.p-card');
+    if (!card) return;
+    var pid = card.dataset.pid;
+    var field = e.target.dataset.field;
+    var newVal = e.target.textContent.trim();
+    var p = products.find(function(x){ return x.id === pid; });
+    if (p && field && p[field] !== newVal) {
+      p[field] = newVal;
+      PT.save(PT.KEY_PRODUCTS, products);
+    }
+  }, true);
+
+  // ── MODAL CLOSE ON OVERLAY ──
+  document.getElementById('modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // ── URL HASH ──
+  if (window.PT) {
+    var hash = PT.parseHash();
+    if (hash.tab && ['pilot','portfolio','initiatives'].indexOf(hash.tab) >= 0) {
+      state.tab = hash.tab;
+    }
+  }
+
+  // ── GO ──
+  init();
+
+})();
+</script>
+
+</body>
+</html>
