@@ -75,7 +75,7 @@
 
   // ── active group detection ──────────────────────────────────
   var bizActive  = (has('business') || has('бизнесу') || has('dashboard')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('rice') || has('brief') || has('tracker')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('rice') || has('brief') || has('tracker') || has('gate-checklist')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -142,6 +142,7 @@
     +     a('Продукту/tools.html',                      'Инструменты')
     +     a('Продукту/rice.html',                       'RICE-калькулятор')
     +     a('Продукту/brief.html',                      'Product Brief')
+    +     a('Продукту/gate-checklist.html',             'Gate-чеклист')
     +     sep()
     +     grp('Справочник')
     +     a('terminology.html',                         'Глоссарий терминов')

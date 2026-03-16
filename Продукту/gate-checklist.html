@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОРБИТА — Gate-чеклист</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#03080F;--mid:#040f1a;--card:#061525;--surface2:#0d2a40;
+  --border:rgba(255,255,255,.07);--border-hi:rgba(255,255,255,.14);
+  --violet:#4FC3F7;--vdim:rgba(79,195,247,.12);--vborder:rgba(79,195,247,.35);
+  --pink:#FF2D8A;--pdim:rgba(255,45,138,.10);
+  --teal:#00D4B4;--tdim:rgba(0,212,180,.10);
+  --amber:#FFB830;--adim:rgba(255,184,48,.10);--aborder:rgba(255,184,48,.3);
+  --green:#34D399;--gdim:rgba(52,211,153,.10);--gborder:rgba(52,211,153,.3);
+  --red:#FCA5A5;--rdim:rgba(252,165,165,.08);
+  --text:#E8E6FF;--muted:#7A7A9D;--white:#fff;
+  --font:'Exo 2',sans-serif;--head:'Orbitron',sans-serif;--mono:monospace;
+  --nav-h:44px;
+}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--dark);color:var(--text);display:flex;flex-direction:column;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.02;pointer-events:none;z-index:0}
+
+/* ── LAYOUT ── */
+.gc-wrap{display:flex;flex-direction:column;flex:1;overflow:hidden;position:relative;z-index:1}
+
+/* ── HEADER ── */
+.gc-head{padding:18px 28px 0;flex-shrink:0;background:var(--dark)}
+.gc-title-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.gc-title{font-family:var(--head);font-size:18px;font-weight:900;color:#fff;letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
+.gc-prod-select{background:var(--card);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:var(--font);font-size:12px;padding:7px 12px;outline:none;cursor:pointer;transition:border-color .15s;min-width:180px}
+.gc-prod-select:focus{border-color:var(--vborder)}
+.gc-prod-select option{background:var(--card)}
+.back-link{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);text-decoration:none;transition:color .15s;flex-shrink:0}
+.back-link:hover{color:#fff}
+
+/* ── TABS ── */
+.gc-tabs{display:flex;gap:4px;padding-bottom:14px;border-bottom:1px solid var(--border);flex-wrap:wrap;margin-top:4px}
+.gc-tab{padding:6px 14px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--muted);font-family:var(--head);font-size:10px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:.03em}
+.gc-tab:hover{color:#fff;border-color:var(--border-hi)}
+.gc-tab.active{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+
+/* ── BODY ── */
+.gc-body{flex:1;overflow-y:auto;padding:20px 28px 40px}
+
+/* ── GATE INFO ── */
+.gate-info{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:18px}
+.gate-info-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.gate-orbit{font-family:var(--head);font-size:14px;font-weight:900;color:#fff}
+.gate-transition{font-size:12px;color:var(--muted);line-height:1.5}
+.gate-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.gate-meta-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.gate-meta-item strong{color:var(--text);font-weight:600}
+.gate-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:.04em;font-family:var(--head);display:inline-block}
+
+/* ── PROGRESS BAR ── */
+.progress-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:18px}
+.progress-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.progress-title{font-family:var(--head);font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.progress-count{font-family:var(--mono);font-size:13px;font-weight:700}
+.progress-bar{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;border-radius:4px;transition:width .3s,background .3s}
+.progress-fill.p-low{background:var(--muted)}
+.progress-fill.p-mid{background:var(--amber)}
+.progress-fill.p-done{background:var(--green)}
+
+/* ── CHECKLIST ── */
+.cl-section{margin-bottom:18px}
+.cl-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-family:var(--head);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.cl-must-label{color:var(--pink)}
+.cl-nice-label{color:var(--amber)}
+
+.cl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:6px;transition:border-color .15s,background .15s;cursor:pointer;user-select:none}
+.cl-item:hover{border-color:var(--border-hi)}
+.cl-item.checked{border-color:var(--gborder);background:rgba(52,211,153,.04)}
+
+/* custom checkbox */
+.cl-check{width:20px;height:20px;flex-shrink:0;border:2px solid var(--border-hi);border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-top:1px}
+.cl-item.checked .cl-check{background:var(--green);border-color:var(--green)}
+.cl-check-mark{display:none;color:#fff}
+.cl-item.checked .cl-check-mark{display:block}
+
+.cl-content{flex:1;min-width:0}
+.cl-text{font-size:12px;font-weight:600;color:var(--text);line-height:1.4}
+.cl-item.checked .cl-text{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(122,122,157,.4)}
+.cl-link{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--violet);text-decoration:none;margin-top:4px;transition:opacity .15s;font-weight:600}
+.cl-link:hover{opacity:.7}
+
+/* ── REVIEW BUTTON ── */
+.review-wrap{margin-top:20px;display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.review-btn{padding:12px 24px;background:var(--violet);border:none;border-radius:10px;color:#fff;font-family:var(--head);font-size:11px;font-weight:700;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;gap:8px;text-decoration:none}
+.review-btn:hover{opacity:.85}
+.review-btn:disabled,.review-btn.disabled{opacity:.3;cursor:not-allowed;pointer-events:none}
+.review-note{font-size:10px;color:var(--muted);line-height:1.5}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(13,13,30,.96);border:1px solid var(--gborder);border-radius:10px;padding:10px 20px;font-size:12px;font-weight:700;color:#34D399;z-index:9999;opacity:0;transition:opacity .2s,transform .2s;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── FOOTER ── */
+.page-footer{border-top:1px solid var(--border);padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);max-width:1060px;margin:0 auto}
+.page-footer strong{color:rgba(255,255,255,0.3)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .gc-head{padding:14px 16px 0}
+  .gc-body{padding:16px 16px 32px}
+  .gc-title{font-size:14px}
+  .gc-prod-select{min-width:140px;font-size:11px}
+  .gc-tab{padding:5px 10px;font-size:9px}
+}
+</style>
+<script src="../icons.js"></script>
+<script src="../platform.js"></script>
+<script src="../stages.js"></script>
+<script src="../nav.js"></script>
+</head>
+<body>
+
+<div class="gc-wrap">
+
+  <!-- ── HEADER ── -->
+  <div class="gc-head">
+    <div class="gc-title-row">
+      <div class="gc-title">
+        <svg class="ei" width="18" height="18" style="color:var(--violet)"><use href="#ic-clipboard"/></svg>
+        Gate-чеклист
+      </div>
+      <select class="gc-prod-select" id="prod-select" onchange="onProductChange()">
+        <option value="">-- Выберите продукт --</option>
+      </select>
+      <a class="back-link" href="tools.html">
+        <svg class="ei" width="12" height="12"><use href="#ic-arrow-left"/></svg> Инструменты
+      </a>
+    </div>
+    <div class="gc-tabs" id="gate-tabs"></div>
+  </div>
+
+  <!-- ── BODY ── -->
+  <div class="gc-body" id="gc-body">
+    <div style="padding:60px 0;text-align:center;color:var(--muted);font-size:13px">
+      Выберите продукт и Gate для просмотра чеклиста
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="page-footer">
+    <div><strong>ОРБИТА</strong> · Проектный офис · Gate-чеклист</div>
+    <div>Март 2026 · v1.0</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+var LS_KEY = 'ECOTECH_GATE_CHECKLIST';
+var MAILTO = 'sorval.viktor@rwb.ru';
+
+/* ── GATE DATA ── */
+var GATES = [
+  {
+    id: 'gate0', tab: 'Gate 0', orbit: 'О·0 Заявка', target: 'О·1 Разведка',
+    transition: 'Переход из Заявки в Разведку. Быстро оценить: стоит ли браться.',
+    who: 'PMO', sla: '5 рабочих дней',
+    must: [
+      { text: 'Проблема описана одним предложением и понятна заказчику', tpl: 'T01' },
+      { text: 'Целевая аудитория определена (сегмент + объем)', tpl: 'T01' },
+      { text: 'Связь с OKR компании или департамента подтверждена', tpl: null },
+      { text: 'Нет дублей в реестре продуктов', tpl: null },
+      { text: 'Команда найдена или путь к поиску согласован', tpl: null },
+      { text: 'RICE-оценка проведена', tpl: null, link: 'rice.html', linkLabel: 'Открыть RICE-калькулятор' }
+    ],
+    nice: [
+      { text: 'Конкурентный обзор (3-5 аналогов)', tpl: 'T01' },
+      { text: 'Первичная оценка ресурсов (T-shirt)', tpl: 'T10' }
+    ]
+  },
+  {
+    id: 'gate1', tab: 'Gate 1', orbit: 'О·1 Разведка', target: 'О·2 Прототип',
+    transition: 'Переход из Разведки в Прототип. Подтвердить Problem-Solution Fit.',
+    who: 'PMO + Инвестиционный директор', sla: '3 рабочих дня',
+    must: [
+      { text: 'PSF подтвержден (мин. 7 интервью)', tpl: 'T11' },
+      { text: 'Техническая реализуемость (ADR)', tpl: 'T12' },
+      { text: 'Scope MVP зафиксирован', tpl: 'T03' },
+      { text: 'Бюджет согласован', tpl: null },
+      { text: 'Отчет Разведки утвержден', tpl: 'T02' }
+    ],
+    nice: [
+      { text: 'Прототип в Figma', tpl: null },
+      { text: 'Usability тест (5+ чел)', tpl: null }
+    ]
+  },
+  {
+    id: 'gate2', tab: 'Gate 2', orbit: 'О·2 Прототип', target: 'О·3 Разгон',
+    transition: 'Переход из Прототипа в Разгон. MVP в production, первые метрики.',
+    who: 'Проектный комитет + CPO', sla: '5 рабочих дней',
+    must: [
+      { text: 'MVP в production (0 P0/P1 багов)', tpl: 'T08' },
+      { text: 'Baseline метрики зафиксированы', tpl: 'T07' },
+      { text: 'Фидбек от первых юзеров собран', tpl: null },
+      { text: 'Unit economics рассчитаны', tpl: null, link: 'strategy.html', linkLabel: 'Стратегическое планирование' },
+      { text: 'Команда для Разгона сформирована', tpl: null }
+    ],
+    nice: [
+      { text: 'Security review пройден', tpl: null }
+    ]
+  },
+  {
+    id: 'gate3', tab: 'Gate 3', orbit: 'О·3 Разгон', target: 'О·4 Экосистема',
+    transition: 'Переход из Разгона в Экосистему. PMF достигнут, рост подтвержден.',
+    who: 'CPO + CFO + CEO', sla: 'Ежеквартальный ревью',
+    must: [
+      { text: 'Retention D30 >= бенчмарк', tpl: 'T07' },
+      { text: 'NPS >= целевого значения', tpl: 'T07' },
+      { text: 'CAC < LTV, Payback < 12 мес', tpl: null, link: 'strategy.html', linkLabel: 'Стратегическое планирование' },
+      { text: 'Каналы привлечения определены', tpl: null },
+      { text: 'Roadmap экосистемы согласован', tpl: null }
+    ],
+    nice: []
+  },
+  {
+    id: 'gate4', tab: 'Gate 4', orbit: 'О·4 Экосистема', target: 'О·5 Плато',
+    transition: 'Переход в Плато. Экосистемная ценность подтверждена, интеграции работают.',
+    who: 'CPO + Инвестиционный Комитет', sla: 'По готовности',
+    must: [
+      { text: 'Экосистемная ценность подтверждена', tpl: null },
+      { text: 'Интегрирован в 2+ продукта экосистемы', tpl: null },
+      { text: 'Shared services вынесены в платформу', tpl: null },
+      { text: 'Бизнес-кейс одобрен CFO', tpl: null, link: 'strategy.html', linkLabel: 'Стратегическое планирование' }
+    ],
+    nice: []
+  },
+  {
+    id: 'gate5', tab: 'Gate 5', orbit: 'О·5 Плато', target: 'Стратегическое решение',
+    transition: 'Стратегическое решение: новый цикл Разведки или переход в Архив.',
+    who: 'CPO + CFO + CEO', sla: 'Ежегодно, QBR',
+    must: [
+      { text: 'P&L стабилен 4 квартала подряд', tpl: null, link: 'strategy.html', linkLabel: 'Стратегическое планирование' },
+      { text: 'NPS не деградирует', tpl: 'T07' },
+      { text: 'План следующего цикла подготовлен', tpl: null },
+      { text: 'Техдолг не блокирует развитие', tpl: null },
+      { text: 'Команда укомплектована >= 80%', tpl: null }
+    ],
+    nice: []
+  },
+  {
+    id: 'gate6', tab: 'Gate 6', orbit: 'О·6 Архив', target: 'Архивация',
+    transition: 'Корректное завершение жизни продукта без потери доверия.',
+    who: 'PM + PMO', sla: '30-60 дней',
+    must: [
+      { text: '100% пользователей уведомлены о закрытии', tpl: null },
+      { text: 'Данные архивированы по регламенту', tpl: null },
+      { text: 'Инфраструктура освобождена', tpl: null },
+      { text: 'Post-mortem проведен и зафиксирован', tpl: 'T06' },
+      { text: 'Команда перераспределена', tpl: null }
+    ],
+    nice: []
+  }
+];
+
+/* stage colors from stages.js */
+var STAGE_COLORS = {};
+function loadStageColors() {
+  if (window.STAGES_DB) {
+    var stages = STAGES_DB.get();
+    stages.forEach(function(s) {
+      STAGE_COLORS['gate' + s.num] = { color: s.color, dim: s.colorDim, border: s.colorBorder };
+    });
+  }
+}
+
+/* ── STATE ── */
+var currentProduct = '';
+var currentGate = 0;
+var checkData = {}; // { productId: { gate0: [bool,...], gate1: [...] } }
+var products = [];
+
+/* ── INIT ── */
+function init() {
+  loadStageColors();
+  loadCheckData();
+  loadProducts();
+  renderTabs();
+  // If product already selected (e.g. from hash), render
+  var hash = window.PT ? PT.parseHash() : {};
+  if (hash.product) {
+    document.getElementById('prod-select').value = hash.product;
+    currentProduct = hash.product;
+  }
+  if (hash.gate !== undefined) {
+    currentGate = parseInt(hash.gate, 10) || 0;
+  }
+  if (currentProduct) {
+    renderTabs();
+    renderGate();
+  }
+}
+
+function loadProducts() {
+  var raw = window.PT ? PT.load(PT.KEY_PRODUCTS) : null;
+  products = Array.isArray(raw) ? raw : [];
+  var sel = document.getElementById('prod-select');
+  var html = '<option value="">-- Выберите продукт --</option>';
+  products.forEach(function(p) {
+    var id = p.id || p.name;
+    var name = p.name || p.id;
+    html += '<option value="' + esc(id) + '">' + esc(name) + '</option>';
+  });
+  sel.innerHTML = html;
+  if (currentProduct) sel.value = currentProduct;
+}
+
+function loadCheckData() {
+  var raw = window.PT ? PT.load(LS_KEY) : null;
+  if (!raw) {
+    try { raw = JSON.parse(localStorage.getItem(LS_KEY)); } catch(e) {}
+  }
+  checkData = raw && typeof raw === 'object' ? raw : {};
+}
+
+function saveCheckData() {
+  if (window.PT) { PT.save(LS_KEY, checkData); }
+  else { try { localStorage.setItem(LS_KEY, JSON.stringify(checkData)); } catch(e) {} }
+}
+
+function getChecks(productId, gateId) {
+  if (!checkData[productId]) checkData[productId] = {};
+  var gate = GATES.find(function(g){ return g.id === gateId; });
+  var total = gate ? gate.must.length + gate.nice.length : 0;
+  if (!checkData[productId][gateId]) {
+    checkData[productId][gateId] = [];
+    for (var i = 0; i < total; i++) checkData[productId][gateId].push(false);
+  }
+  // ensure length matches
+  while (checkData[productId][gateId].length < total) checkData[productId][gateId].push(false);
+  return checkData[productId][gateId];
+}
+
+/* ── PRODUCT CHANGE ── */
+window.onProductChange = function() {
+  currentProduct = document.getElementById('prod-select').value;
+  currentGate = 0;
+  renderTabs();
+  if (currentProduct) renderGate();
+  else document.getElementById('gc-body').innerHTML = '<div style="padding:60px 0;text-align:center;color:var(--muted);font-size:13px">Выберите продукт и Gate для просмотра чеклиста</div>';
+};
+
+/* ── TABS ── */
+function renderTabs() {
+  var el = document.getElementById('gate-tabs');
+  el.innerHTML = GATES.map(function(g, i) {
+    var cls = i === currentGate ? ' active' : '';
+    var sc = STAGE_COLORS[g.id];
+    var style = '';
+    if (i === currentGate && sc) {
+      style = ' style="background:' + sc.dim + ';border-color:' + sc.border + ';color:' + sc.color + '"';
+    }
+    return '<button class="gc-tab' + cls + '"' + style + ' onclick="selectGate(' + i + ')">' + g.tab + '</button>';
+  }).join('');
+}
+
+window.selectGate = function(idx) {
+  currentGate = idx;
+  renderTabs();
+  if (currentProduct) renderGate();
+};
+
+/* ── RENDER GATE ── */
+function renderGate() {
+  var gate = GATES[currentGate];
+  var checks = getChecks(currentProduct, gate.id);
+  var sc = STAGE_COLORS[gate.id] || { color: '#C4B5FD', dim: 'rgba(79,195,247,.12)', border: 'rgba(79,195,247,.35)' };
+
+  // count must
+  var mustDone = 0;
+  for (var i = 0; i < gate.must.length; i++) { if (checks[i]) mustDone++; }
+  var mustTotal = gate.must.length;
+  var pct = mustTotal > 0 ? Math.round(mustDone / mustTotal * 100) : 0;
+
+  var pClass = pct < 50 ? 'p-low' : pct < 100 ? 'p-mid' : 'p-done';
+  var pColor = pct < 50 ? 'var(--muted)' : pct < 100 ? 'var(--amber)' : 'var(--green)';
+  var pText = pct === 100 ? 'Все критерии выполнены' : mustDone + ' из ' + mustTotal + ' обязательных критериев';
+
+  var html = '';
+
+  // Gate info card
+  html += '<div class="gate-info">';
+  html += '  <div class="gate-info-top">';
+  html += '    <div>';
+  html += '      <div class="gate-orbit" style="color:' + sc.color + '">' + esc(gate.orbit) + '</div>';
+  html += '      <div class="gate-transition" style="margin-top:4px">' + esc(gate.transition) + '</div>';
+  html += '    </div>';
+  html += '  </div>';
+  html += '  <div class="gate-meta">';
+  html += '    <div class="gate-meta-item">';
+  html += '      <svg class="ei" width="13" height="13" style="color:' + sc.color + '"><use href="#ic-users"/></svg>';
+  html += '      <span>Решает:</span> <strong>' + esc(gate.who) + '</strong>';
+  html += '    </div>';
+  html += '    <div class="gate-meta-item">';
+  html += '      <svg class="ei" width="13" height="13" style="color:' + sc.color + '"><use href="#ic-calendar"/></svg>';
+  html += '      <span>SLA:</span> <strong>' + esc(gate.sla) + '</strong>';
+  html += '    </div>';
+  html += '    <span class="gate-badge" style="background:' + sc.dim + ';color:' + sc.color + ';border:1px solid ' + sc.border + '">Переход в ' + esc(gate.target) + '</span>';
+  html += '  </div>';
+  html += '</div>';
+
+  // Progress bar
+  html += '<div class="progress-wrap">';
+  html += '  <div class="progress-label">';
+  html += '    <span class="progress-title">Прогресс обязательных</span>';
+  html += '    <span class="progress-count" style="color:' + pColor + '">' + pct + '%</span>';
+  html += '  </div>';
+  html += '  <div class="progress-bar"><div class="progress-fill ' + pClass + '" style="width:' + pct + '%"></div></div>';
+  html += '  <div style="margin-top:6px;font-size:11px;color:var(--muted)">' + pText + '</div>';
+  html += '</div>';
+
+  // Must items
+  html += '<div class="cl-section">';
+  html += '  <div class="cl-section-title"><span class="cl-must-label">';
+  html += '    <svg class="ei" width="12" height="12" style="color:var(--pink)"><use href="#ic-alert-triangle"/></svg>';
+  html += '    Обязательные (блокирующие)</span> <span style="color:var(--muted);font-weight:400">' + mustDone + '/' + mustTotal + '</span>';
+  html += '  </div>';
+  gate.must.forEach(function(item, idx) {
+    html += renderItem(item, idx, checks[idx]);
+  });
+  html += '</div>';
+
+  // Nice items
+  if (gate.nice.length > 0) {
+    html += '<div class="cl-section">';
+    html += '  <div class="cl-section-title"><span class="cl-nice-label">';
+    html += '    <svg class="ei" width="12" height="12" style="color:var(--amber)"><use href="#ic-star"/></svg>';
+    html += '    Желательные</span>';
+    html += '  </div>';
+    gate.nice.forEach(function(item, idx) {
+      var realIdx = gate.must.length + idx;
+      html += renderItem(item, realIdx, checks[realIdx]);
+    });
+    html += '</div>';
+  }
+
+  // Review button
+  var allMust = mustDone === mustTotal && mustTotal > 0;
+  var prodName = getProductName(currentProduct);
+  var today = new Date().toISOString().slice(0, 10);
+  var subject = encodeURIComponent('Gate ' + currentGate + ' Review — ' + prodName + ' — ' + today);
+  var bodyLines = ['Запрос на Gate ' + currentGate + ' Review', '', 'Продукт: ' + prodName, 'Дата: ' + today, '', 'Выполненные критерии:'];
+  gate.must.forEach(function(item, idx) {
+    bodyLines.push((checks[idx] ? '[x] ' : '[ ] ') + item.text);
+  });
+  if (gate.nice.length > 0) {
+    bodyLines.push('', 'Желательные:');
+    gate.nice.forEach(function(item, idx) {
+      var ri = gate.must.length + idx;
+      bodyLines.push((checks[ri] ? '[x] ' : '[ ] ') + item.text);
+    });
+  }
+  var mailBody = encodeURIComponent(bodyLines.join('\n'));
+  var mailHref = 'mailto:' + MAILTO + '?subject=' + subject + '&body=' + mailBody;
+
+  html += '<div class="review-wrap">';
+  html += '  <a class="review-btn' + (allMust ? '' : ' disabled') + '" href="' + (allMust ? mailHref : '#') + '"' + (allMust ? '' : ' tabindex="-1"') + '>';
+  html += '    <svg class="ei" width="14" height="14"><use href="#ic-send"/></svg>';
+  html += '    Запросить Gate Review';
+  html += '  </a>';
+  if (!allMust) {
+    html += '  <div class="review-note">Кнопка станет активна, когда все обязательные критерии будут выполнены</div>';
+  } else {
+    html += '  <div class="review-note">Откроется письмо на ' + MAILTO + ' с темой и списком критериев</div>';
+  }
+  html += '</div>';
+
+  document.getElementById('gc-body').innerHTML = html;
+}
+
+function renderItem(item, idx, checked) {
+  var cls = checked ? ' checked' : '';
+  var h = '<div class="cl-item' + cls + '" onclick="toggleCheck(' + idx + ')">';
+  h += '  <div class="cl-check"><svg class="cl-check-mark ei" width="12" height="12"><use href="#ic-check"/></svg></div>';
+  h += '  <div class="cl-content">';
+  h += '    <div class="cl-text">' + esc(item.text) + '</div>';
+  // template link
+  if (item.tpl) {
+    h += '    <a class="cl-link" href="templates.html?t=' + item.tpl + '" onclick="event.stopPropagation()">';
+    h += '      <svg class="ei" width="10" height="10"><use href="#ic-file-text"/></svg>';
+    h += '      Шаблон ' + item.tpl;
+    h += '      <svg class="ei" width="9" height="9"><use href="#ic-arrow-right"/></svg>';
+    h += '    </a>';
+  }
+  // custom link (rice.html, strategy.html etc)
+  if (item.link) {
+    h += '    <a class="cl-link" href="' + item.link + '" onclick="event.stopPropagation()">';
+    h += '      <svg class="ei" width="10" height="10"><use href="#ic-external-link"/></svg>';
+    h += '      ' + esc(item.linkLabel || item.link);
+    h += '      <svg class="ei" width="9" height="9"><use href="#ic-arrow-right"/></svg>';
+    h += '    </a>';
+  }
+  h += '  </div>';
+  h += '</div>';
+  return h;
+}
+
+/* ── TOGGLE ── */
+window.toggleCheck = function(idx) {
+  if (!currentProduct) return;
+  var gate = GATES[currentGate];
+  var checks = getChecks(currentProduct, gate.id);
+  checks[idx] = !checks[idx];
+  saveCheckData();
+  renderGate();
+};
+
+/* ── HELPERS ── */
+function getProductName(pid) {
+  var p = products.find(function(x){ return (x.id || x.name) === pid; });
+  return p ? (p.name || p.id) : pid;
+}
+
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 3000);
+}
+
+/* ── RUN ── */
+init();
+
+})();
+</script>
+</body>
+</html>
