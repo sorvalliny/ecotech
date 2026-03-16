@@ -27,19 +27,39 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.02;pointer-events:none;z-index:0}
 
 /* ── TOOLBAR (below nav.js) ── */
-.tracker-toolbar{background:rgba(7,7,15,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:14px}
-.htitle{font-size:14px;font-weight:800;color:#fff;flex:1}
-.tabs{display:flex;gap:2px;background:rgba(255,255,255,0.04);border-radius:10px;padding:3px}
+.tracker-toolbar { display:flex; align-items:center; justify-content:space-between; padding:12px 20px; border-bottom:1px solid var(--border); flex-wrap:wrap; gap:8px; background:rgba(7,7,15,.95); backdrop-filter:blur(20px); }
+.tt-left { display:flex; gap:4px; }
+.tt-right { display:flex; align-items:center; gap:8px; }
+.tt-create-wrap { position:relative; }
+.tt-create-btn { display:flex; align-items:center; gap:5px; padding:7px 16px; background:linear-gradient(135deg,var(--teal),var(--violet)); border:none; border-radius:9px; color:#fff; font-family:var(--font-head); font-size:10px; font-weight:700; cursor:pointer; transition:opacity .15s; }
+.tt-create-btn:hover { opacity:.85; }
+.tt-create-menu { position:absolute; top:calc(100% + 6px); right:0; background:var(--card); border:1px solid var(--bhi); border-radius:10px; padding:6px; min-width:180px; flex-direction:column; gap:2px; z-index:100; box-shadow:0 8px 30px rgba(0,0,0,.4); }
+.tt-create-menu button { display:flex; align-items:center; gap:8px; width:100%; padding:8px 12px; border:none; border-radius:7px; background:transparent; color:#E8E8F0; font-family:var(--font); font-size:12px; font-weight:500; cursor:pointer; text-align:left; transition:background .15s; }
+.tt-create-menu button:hover { background:rgba(0,212,180,.08); }
 .tab{padding:6px 16px;border:none;border-radius:8px;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;color:var(--muted);background:transparent;letter-spacing:.02em;white-space:nowrap}
 .tab.active{background:var(--violet);color:#fff}
 .tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.06)}
+
+/* ── CONTEXT BAR ── */
+.context-bar { display:flex; align-items:center; gap:12px; padding:8px 20px; border-bottom:1px solid var(--border); flex-wrap:wrap; background:rgba(7,7,15,.85); }
+.ctx-product { display:flex; align-items:center; gap:6px; }
+.ctx-label { font-family:var(--font-head); font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
+.ctx-select { background:var(--surface2); border:1px solid var(--border); border-radius:8px; color:#E8E8F0; font-family:var(--font); font-size:12px; padding:6px 10px; outline:none; cursor:pointer; min-width:160px; }
+.ctx-select:focus { border-color:rgba(0,212,180,.4); }
+.ctx-filters { display:flex; gap:3px; flex-wrap:wrap; }
+.ctx-right { margin-left:auto; display:flex; align-items:center; gap:8px; }
+.ctx-search { background:var(--surface2); border:1px solid var(--border); border-radius:8px; color:#E8E8F0; font-family:var(--font); font-size:12px; padding:6px 12px; outline:none; width:140px; }
+.ctx-search:focus { border-color:rgba(0,212,180,.4); }
+.cfbtn { padding:4px 10px; border:1px solid var(--border); border-radius:6px; background:transparent; color:var(--muted); font-family:var(--font); font-size:10px; font-weight:600; cursor:pointer; transition:all .15s; white-space:nowrap; }
+.cfbtn:hover { color:#E8E8F0; border-color:var(--bhi); }
+.cfbtn.active { background:var(--tdim); color:var(--teal); border-color:rgba(0,212,180,.4); }
 
 /* ── APP SHELL ── */
 .app{display:flex;height:calc(100vh - 52px);overflow:hidden;position:relative;z-index:1}
 
 /* ── SIDEBAR ── */
-.sidebar{width:220px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;padding:8px 0 24px;background:rgba(7,7,15,.5);transition:width .2s,opacity .2s}
-.sidebar.hidden{width:0;overflow:hidden;opacity:0;pointer-events:none}
+.sidebar{display:none !important}
+.sidebar.hidden{display:none !important}
 .slabel{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;padding:12px 14px 5px}
 .fbtn{display:flex;align-items:center;justify-content:space-between;width:calc(100% - 8px);padding:7px 12px;border-radius:8px;background:none;border:none;color:var(--muted);font-size:12px;font-family:var(--font);font-weight:600;cursor:pointer;text-align:left;transition:all .15s;margin:0 4px}
 .fbtn:hover,.fbtn.active{background:var(--violet-dim);color:#C4B5FD}
@@ -389,7 +409,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .gm-save-btn:hover{background:#6D28D9}
 </style>
 <style>
-.app{height:calc(100vh - 48px - 57px)!important;margin-top:0;}
+.app{height:calc(100vh - 48px - 57px - 42px)!important;margin-top:0;}
 /* proto badge */
 .proto-badge{background:rgba(255,184,48,0.10);color:#FFB830;border:1px solid rgba(255,184,48,0.35);font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.05em;flex-shrink:0;}
 /* onboarding overlay */
@@ -463,14 +483,22 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <body>
 
 <div class="tracker-toolbar">
-  <div class="htitle">Реестр продуктов и инициатив</div>
-  <span class="proto-badge">Ранний этап тестирования</span>
-  <div class="tabs">
-    <button class="tab" onclick="switchTab(&#39;goals&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цели</button>
-    <button class="tab active" onclick="switchTab(&#39;portfolio&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Продукты</button>
-    <button class="tab" onclick="switchTab(&#39;backlog&#39;,this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clipboard"/></svg> Инициативы</button>
+  <div class="tt-left">
+    <button class="tab active" onclick="switchTab('portfolio',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Продукты</button>
+    <button class="tab" onclick="switchTab('backlog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-layers"/></svg> Инициативы</button>
+    <button class="tab" onclick="switchTab('goals',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цели</button>
   </div>
-  <button class="ob-help-btn" onclick="startOnboarding()" title="Справка / онбординг">?</button>
+  <div class="tt-right">
+    <div class="tt-create-wrap">
+      <button class="tt-create-btn" onclick="toggleCreateMenu()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-plus"/></svg> Создать</button>
+      <div class="tt-create-menu" id="create-menu" style="display:none">
+        <button onclick="openProdModal();hideCreateMenu()"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-package"/></svg> Продукт</button>
+        <button onclick="openGoalEditor(null);hideCreateMenu()"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-target"/></svg> Цель</button>
+        <button onclick="addInitiative(contextProduct||'');hideCreateMenu()"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-zap"/></svg> Инициативу</button>
+      </div>
+    </div>
+    <button class="ob-help-btn" onclick="startOnboarding()" title="Справка / онбординг">?</button>
+  </div>
 </div>
 
 <!-- ── ONBOARDING OVERLAY ── -->
@@ -485,6 +513,20 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="ob-dots" id="ob-dots"></div>
       <button class="ob-btn-next" id="ob-btn-next" onclick="nextOnboarding()">Далее →</button>
     </div>
+  </div>
+</div>
+
+<div class="context-bar" id="context-bar">
+  <div class="ctx-product">
+    <label class="ctx-label">Контекст:</label>
+    <select class="ctx-select" id="ctx-product" onchange="setContext(this.value)">
+      <option value="">Все продукты</option>
+    </select>
+  </div>
+  <div class="ctx-filters" id="ctx-filters"></div>
+  <div class="ctx-right">
+    <div class="view-switch" id="active-views"></div>
+    <input class="ctx-search" id="ctx-search" type="text" placeholder="Поиск..." oninput="onContextSearch()">
   </div>
 </div>
 
@@ -545,11 +587,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <!-- Visual Lifecycle -->
       <div class="visual-lifecycle" id="visual-lifecycle"></div>
       <div class="divlabel">Продукты экосистемы — 6 продуктов, 38 инициатив</div>
-      <div class="view-switch" id="portfolio-views">
-        <button class="view-btn active" data-view="cards" onclick="setPortfolioView('cards',this)">Cards</button>
-        <button class="view-btn" data-view="table" onclick="setPortfolioView('table',this)">Table</button>
-        <button class="view-btn" data-view="kanban" onclick="setPortfolioView('kanban',this)">Kanban</button>
-      </div>
       <div class="pgrid" id="portfolio-cards"><div class="pcard" id="pc-PR01">
       <div class="pcard-head" onclick="togglePC(&#39;PR01&#39;)">
         <div class="pmeta">
@@ -979,13 +1016,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="leg-dot" style="background:#EF4444"></div>PR06 · Корпоративный ProductHunt
     </div></div>
       <div class="bltop">
-        <input class="search-inp" id="bl-q" type="text" placeholder="Поиск…" oninput="renderBL()">
-        <div style="margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted)" id="bl-cnt"></div>
-      </div>
-      <div class="view-switch" id="backlog-views">
-        <button class="view-btn active" data-view="list" onclick="setBacklogView('list',this)">Cards</button>
-        <button class="view-btn" data-view="table" onclick="setBacklogView('table',this)">Table</button>
-        <button class="view-btn" data-view="kanban" onclick="setBacklogView('kanban',this)">Kanban</button>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted)" id="bl-cnt"></div>
       </div>
       <div class="summary" id="summary"></div>
       <div id="backlog-list-wrap">
@@ -994,14 +1025,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
       <div id="backlog-table-wrap" style="display:none"></div>
       <div id="backlog-kanban" style="display:none"></div>
-      <button class="add-init-btn" style="margin-top:16px;width:auto;padding:10px 20px" onclick="addInitiative(PROJECTS[0]?PROJECTS[0].id:'')"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-plus"/></svg> Добавить инициативу</button>
     </div>
 
     <!-- GOALS -->
     <div id="pg-goals" style="display:none">
       <div class="goals-header">
         <h2><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Реестр целей</h2>
-        <button class="btn-add-goal" onclick="addGoal()">+ Добавить цель</button>
       </div>
       <div id="goals-list"></div>
     </div>
@@ -1477,6 +1506,93 @@ let curTab = 'portfolio';
 let curRole = 'pm';
 let curPid = null;     // current product ID for #pp panel
 let curGoalId = null;  // current goal ID for modal
+var contextProduct = ''; // '' = все, 'PR01' = конкретный
+
+// ════════════════════════════════════════════
+// CREATE MENU
+// ════════════════════════════════════════════
+function toggleCreateMenu() {
+  var menu = document.getElementById('create-menu');
+  menu.style.display = menu.style.display === 'none' ? 'flex' : 'none';
+}
+function hideCreateMenu() {
+  document.getElementById('create-menu').style.display = 'none';
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.tt-create-wrap')) hideCreateMenu();
+});
+
+// ════════════════════════════════════════════
+// CONTEXT BAR
+// ════════════════════════════════════════════
+function setContext(productId) {
+  contextProduct = productId;
+  filters.project = productId || 'all';
+  renderContextFilters();
+  if (curTab === 'portfolio') renderPortfolio();
+  if (curTab === 'backlog') renderBL();
+  if (curTab === 'goals') renderGoals();
+}
+
+function renderContextBar() {
+  var sel = document.getElementById('ctx-product');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">Все продукты</option>' +
+    PROJECTS.map(function(p) { return '<option value="'+p.id+'"'+(contextProduct===p.id?' selected':'')+'>'+p.name+'</option>'; }).join('');
+  renderContextFilters();
+  renderContextViewSwitch();
+}
+
+function renderContextFilters() {
+  var el = document.getElementById('ctx-filters');
+  if (!el) return;
+  if (curTab === 'backlog') {
+    el.innerHTML =
+      '<button class="cfbtn'+(filters.track==='all'?' active':'')+'" onclick="setF(\'track\',\'all\',this)">Все</button>' +
+      '<button class="cfbtn'+(filters.track==='discovery'?' active':'')+'" onclick="setF(\'track\',\'discovery\',this)">Исследование</button>' +
+      '<button class="cfbtn'+(filters.track==='delivery'?' active':'')+'" onclick="setF(\'track\',\'delivery\',this)">Разработка</button>' +
+      '<button class="cfbtn'+(filters.track==='review'?' active':'')+'" onclick="setF(\'track\',\'review\',this)">Оценка</button>' +
+      '<span style="width:1px;height:16px;background:var(--border);margin:0 4px"></span>' +
+      '<button class="cfbtn'+(filters.status==='all'?' active':'')+'" onclick="setF(\'status\',\'all\',this)">Все</button>' +
+      '<button class="cfbtn'+(filters.status==='backlog'?' active':'')+'" onclick="setF(\'status\',\'backlog\',this)">Бэклог</button>' +
+      '<button class="cfbtn'+(filters.status==='planned'?' active':'')+'" onclick="setF(\'status\',\'planned\',this)">Запланировано</button>' +
+      '<button class="cfbtn'+(filters.status==='wip'?' active':'')+'" onclick="setF(\'status\',\'wip\',this)">В работе</button>' +
+      '<button class="cfbtn'+(filters.status==='done'?' active':'')+'" onclick="setF(\'status\',\'done\',this)">Готово</button>';
+  } else if (curTab === 'portfolio') {
+    el.innerHTML = STAGES.map(function(s,i) {
+      return '<button class="cfbtn'+(gateFilter===i?' active':'')+'" onclick="filterGate('+i+')">'+s.name+'</button>';
+    }).join('');
+  } else {
+    el.innerHTML = '';
+  }
+}
+
+function filterGate(idx) {
+  setGateFilter(idx);
+  renderContextFilters();
+}
+
+function renderContextViewSwitch() {
+  var viewsEl = document.getElementById('active-views');
+  if (!viewsEl) return;
+  if (curTab === 'portfolio') {
+    viewsEl.innerHTML =
+      '<button class="view-btn'+(portfolioView==='cards'?' active':'')+'" onclick="setPortfolioView(\'cards\',this);renderContextViewSwitch()">Cards</button>' +
+      '<button class="view-btn'+(portfolioView==='table'?' active':'')+'" onclick="setPortfolioView(\'table\',this);renderContextViewSwitch()">Table</button>' +
+      '<button class="view-btn'+(portfolioView==='kanban'?' active':'')+'" onclick="setPortfolioView(\'kanban\',this);renderContextViewSwitch()">Kanban</button>';
+  } else if (curTab === 'backlog') {
+    viewsEl.innerHTML =
+      '<button class="view-btn'+(backlogView==='list'?' active':'')+'" onclick="setBacklogView(\'list\',this);renderContextViewSwitch()">Cards</button>' +
+      '<button class="view-btn'+(backlogView==='table'?' active':'')+'" onclick="setBacklogView(\'table\',this);renderContextViewSwitch()">Table</button>' +
+      '<button class="view-btn'+(backlogView==='kanban'?' active':'')+'" onclick="setBacklogView(\'kanban\',this);renderContextViewSwitch()">Kanban</button>';
+  } else {
+    viewsEl.innerHTML = '';
+  }
+}
+
+function onContextSearch() {
+  if (curTab === 'backlog') renderBL();
+}
 
 // ════════════════════════════════════════════
 // HELPERS
@@ -1522,11 +1638,13 @@ function switchTab(tab, btn) {
   document.getElementById('pg-backlog').style.display   = tab === 'backlog'   ? '' : 'none';
   document.getElementById('pg-tracker').style.display   = tab === 'tracker'   ? '' : 'none';
   document.getElementById('pg-goals').style.display     = tab === 'goals'     ? '' : 'none';
-  const sb = document.getElementById('sidebar');
-  if (tab === 'backlog') { sb.classList.remove('hidden'); renderBL(); }
-  else { sb.classList.add('hidden'); if (tab !== 'portfolio') { closeEP(); closeProductPRD(); } }
+  if (tab === 'backlog') { renderBL(); }
+  else { if (tab !== 'portfolio') { closeEP(); closeProductPRD(); } }
   if (tab === 'tracker') renderTracker(curRole);
   if (tab === 'goals')   renderGoals();
+  if (tab === 'portfolio') renderPortfolio();
+  renderContextFilters();
+  renderContextViewSwitch();
 }
 
 // ════════════════════════════════════════════
@@ -1785,7 +1903,7 @@ function initSidebar() {
 }
 
 function getFiltered() {
-  const q = (document.getElementById('bl-q')||{value:''}).value.toLowerCase();
+  const q = (document.getElementById('ctx-search')||document.getElementById('bl-q')||{value:''}).value.toLowerCase();
   return backlog.filter(item => {
     if (filters.project !== 'all' && (item.productId||item.project) !== filters.project) return false;
     if (filters.cat     !== 'all' && item.cat     !== filters.cat)     return false;
@@ -1896,11 +2014,15 @@ function setF(type, val, btn) {
   if (btn) {
     // find parent group and deactivate siblings
     const parent = btn.parentElement;
-    if (parent) parent.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+    if (parent) {
+      parent.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+      parent.querySelectorAll('.cfbtn').forEach(b=>b.classList.remove('active'));
+    }
     btn.classList.add('active');
   }
   if (window.PT) PT.setUIState({tracker_filters: filters});
   renderBL();
+  renderContextFilters();
 }
 
 function setSort(val, btn) {
@@ -2570,10 +2692,17 @@ function saveProdModal() {
     }
     PROJECTS.push(Object.assign({ id: newId, release: commonFields.release || 'backlog' }, commonFields));
   }
+  var isNewProduct = !curEditPid;
   saveProjects();
   renderPortfolio();
   initSidebar();
+  renderContextBar();
   closeProdModal();
+  if (isNewProduct && typeof newId !== 'undefined' && confirm('Продукт создан. Добавить цель для ' + name + '?')) {
+    contextProduct = newId;
+    renderContextBar();
+    openGoalEditor(null);
+  }
 }
 
 function deleteProductConfirm() {
@@ -2815,9 +2944,14 @@ function saveGoalEdit() {
       keyResults: keyResults.length ? keyResults : [{ id:'KR1', text:'\u041a\u043b\u044e\u0447\u0435\u0432\u043e\u0439 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442', target:10, current:0, unit:'\u0435\u0434.' }]
     });
   }
+  var isNewGoal = !curGoalId;
+  var savedProductId = document.getElementById('gm-product').value || contextProduct || '';
   if (window.PT) PT.save(PT.KEY_GOALS, goals);
   closeGoalModal();
   renderGoals();
+  if (isNewGoal && confirm('Цель создана. Добавить инициативу?')) {
+    addInitiative(savedProductId);
+  }
 }
 
 function deleteGoalConfirm() {
@@ -2833,15 +2967,16 @@ function deleteGoalConfirm() {
 // INIT
 // ════════════════════════════════════════════
 let portfolioView='cards';
-function setPortfolioView(view,btn){portfolioView=view;document.querySelectorAll('#portfolio-views .view-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('portfolio-cards').style.display=view==='cards'?'':'none';document.getElementById('portfolio-table').style.display=view==='table'?'':'none';document.getElementById('portfolio-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderPortfolioTable();if(view==='kanban')renderPortfolioKanban();}
+function setPortfolioView(view,btn){portfolioView=view;document.querySelectorAll('#active-views .view-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('portfolio-cards').style.display=view==='cards'?'':'none';document.getElementById('portfolio-table').style.display=view==='table'?'':'none';document.getElementById('portfolio-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderPortfolioTable();if(view==='kanban')renderPortfolioKanban();}
 function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Продукт</th><th>Орбита</th><th>Статус</th><th>Владелец</th><th>Целей</th><th>Инициатив</th></tr></thead><tbody>';PROJECTS.forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pGoals=goals.filter(function(g){return g.productId===p.id;});var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});html+='<tr onclick="togglePC(\''+p.id+'\')"><td><strong>'+p.name+'</strong></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+(p.owner||'\u2014')+'</td><td>'+pGoals.length+'</td><td>'+pInits.length+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
 function renderPortfolioKanban(){var el=document.getElementById('portfolio-kanban');var html='<div class="kanban-board">';STAGES.forEach(function(s,idx){var prods=PROJECTS.filter(function(p){return p.gate===idx;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+s.color+'"><span class="kanban-col-name">'+s.name+'</span><span class="kanban-col-count">'+prods.length+'</span></div><div class="kanban-col-body">';prods.forEach(function(p){html+='<div class="kanban-card" onclick="togglePC(\''+p.id+'\')"><div class="kanban-card-name">'+p.name+'</div><div class="kanban-card-meta">'+(p.owner||'')+' \u00b7 '+p.status+'</div></div>';});if(!prods.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
 let backlogView='list';
-function setBacklogView(view,btn){backlogView=view;document.querySelectorAll('#backlog-views .view-btn').forEach(function(b){b.classList.remove('active');});if(btn)btn.classList.add('active');document.getElementById('backlog-list-wrap').style.display=view==='list'?'':'none';document.getElementById('backlog-table-wrap').style.display=view==='table'?'':'none';document.getElementById('backlog-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderBacklogTable();if(view==='kanban')renderBacklogKanban();}
+function setBacklogView(view,btn){backlogView=view;document.querySelectorAll('#active-views .view-btn').forEach(function(b){b.classList.remove('active');});if(btn)btn.classList.add('active');document.getElementById('backlog-list-wrap').style.display=view==='list'?'':'none';document.getElementById('backlog-table-wrap').style.display=view==='table'?'':'none';document.getElementById('backlog-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderBacklogTable();if(view==='kanban')renderBacklogKanban();}
 function renderBacklogTable(){var items=getFiltered();var el=document.getElementById('backlog-table-wrap');var html='<table class="ptr-table"><thead><tr><th>ID</th><th>Название</th><th>Продукт</th><th>Статус</th><th>Трек</th><th>RICE</th></tr></thead><tbody>';items.forEach(function(item){var s=sc(item);html+='<tr onclick="openPRD(\''+item.id+'\')"><td style="font-family:var(--mono);font-size:10px;color:var(--muted)">'+item.id+'</td><td><strong>'+item.name+'</strong></td><td>'+(item.productId||item.project)+'</td><td><span class="sdot '+ST_CLS[item.status]+'">'+ST_LBL[item.status]+'</span></td><td>'+(item.track==='discovery'?'Исследование':'Разработка')+'</td><td><span class="iscore '+scClass(s)+'">'+s.toFixed(1)+'</span></td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
 function renderBacklogKanban(){var items=getFiltered();var el=document.getElementById('backlog-kanban');var cols=[{key:'backlog',label:'Бэклог',color:'var(--muted)'},{key:'planned',label:'Запланировано',color:'#C4B5FD'},{key:'wip',label:'В работе',color:'var(--teal)'},{key:'done',label:'Готово',color:'var(--green)'}];var html='<div class="kanban-board">';cols.forEach(function(col){var colItems=items.filter(function(i){return i.status===col.key;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+col.color+'"><span class="kanban-col-name">'+col.label+'</span><span class="kanban-col-count">'+colItems.length+'</span></div><div class="kanban-col-body">';colItems.forEach(function(item){var s=sc(item);html+='<div class="kanban-card" onclick="openPRD(\''+item.id+'\')"><div class="kanban-card-name">'+item.name+'</div><div class="kanban-card-meta">'+(item.productId||item.project)+' \u00b7 RICE '+s.toFixed(1)+'</div></div>';});if(!colItems.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
 renderPortfolio();
 initSidebar();
+renderContextBar();
 
 // Восстановление UI-состояния и hash-навигация
 (function() {
@@ -2849,7 +2984,7 @@ initSidebar();
   const _hash = window.PT ? PT.parseHash() : {};
   const _ui   = window.PT ? PT.getUIState() : {};
   const _tab  = _hash.tab || _ui.tracker_tab || 'portfolio';
-  const _tabIdx = ['goals','portfolio','backlog','tracker'].indexOf(_tab);
+  const _tabIdx = ['portfolio','backlog','goals'].indexOf(_tab);
   if (_tabIdx >= 0 && tabBtns[_tabIdx]) {
     switchTab(_tab, tabBtns[_tabIdx]);
   }
@@ -2869,7 +3004,7 @@ var OB_STEPS = [
   {
     title: 'Вкладки навигации',
     body: 'Используй вкладки: <strong>Портфель</strong> — продукты и инициативы, <strong>Беклог</strong> — список инициатив, <strong>Трекер</strong> — Gate-прогресс, <strong>Цели</strong> — OKR.',
-    anchor: '.tabs'
+    anchor: '.tt-left'
   },
   {
     title: 'Карточки продуктов',
