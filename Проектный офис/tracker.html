@@ -235,8 +235,8 @@
   }
 
   function riceClass(score) {
-    if (score >= 500) return 'rice-high';
-    if (score >= 100) return 'rice-mid';
+    if (score >= 150) return 'rice-high';
+    if (score >= 50) return 'rice-mid';
     return 'rice-low';
   }
 
@@ -313,6 +313,11 @@
           var label = s === 'all' ? 'Все статусы' : {'on-track':'On Track','at-risk':'At Risk','paused':'Paused','done':'Done'}[s];
           html += '<button class="tr-filter'+(state.statusFilter===s?' active':'')+'" data-status="'+s+'">'+label+'</button>';
         });
+        html += '<span style="width:1px;height:20px;background:var(--border);margin:0 4px;"></span>';
+        ['all','b2b','b2c','b2g'].forEach(function(c) {
+          var label = c === 'all' ? 'Все типы' : c.toUpperCase();
+          html += '<button class="tr-filter'+(state.catFilter===c?' active':'')+'" data-cat="'+c+'">'+label+'</button>';
+        });
       }
     }
 
@@ -332,6 +337,9 @@
     });
     el.querySelectorAll('[data-status]').forEach(function(btn) {
       btn.addEventListener('click', function() { state.statusFilter = this.dataset.status; render(); });
+    });
+    el.querySelectorAll('[data-cat]').forEach(function(btn) {
+      btn.addEventListener('click', function() { state.catFilter = this.dataset.cat; render(); });
     });
     var searchInput = document.getElementById('search-input');
     if (searchInput) {
@@ -387,6 +395,7 @@
     var filtered = products.filter(function(p) {
       if (state.orbitFilter !== 'all' && String(p.gate) !== state.orbitFilter) return false;
       if (state.statusFilter !== 'all' && p.status !== state.statusFilter) return false;
+      if (state.catFilter !== 'all' && p.cat !== state.catFilter) return false;
       return matchSearch(p.name + ' ' + (p.desc||'') + ' ' + (p.owner||''));
     });
 
@@ -494,7 +503,7 @@
 
       groups[gk].forEach(function(i) {
         var score = riceScore(i);
-        var phaseMap = {'discovery':'Исследование','delivery':'Разработка','review':'Оценка'};
+        var phaseMap = {'discovery':'Исследование','delivery':'Разработка','review':'Оценка и ретро','growth':'Оценка и ретро'};
         var phase = phaseMap[i.track] || i.track || '—';
 
         html += '<tr>';
@@ -644,5 +653,9 @@
 })();
 </script>
 
+<footer style="border-top:1px solid var(--border);padding:20px 28px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted);max-width:1100px;margin:0 auto;">
+  <div><strong style="color:rgba(255,255,255,.3)">ОРБИТА</strong> · Трекер продуктов и инициатив</div>
+  <div>Март 2026 · v1.0</div>
+</footer>
 </body>
 </html>

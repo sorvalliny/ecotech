@@ -75,7 +75,7 @@
 
   // ── active group detection ──────────────────────────────────
   var bizActive  = (has('business') || has('бизнесу') || has('dashboard')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('rice') || has('brief')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('rice') || has('brief') || has('tracker')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -134,13 +134,14 @@
     +     a('Фреймворк/framework-lite.html',             'Гайд по стадиям зрелости')
     +     a('Продукту/strategy.html',                   'Стратегическое планирование')
     +     a('Проектный офис/council.html',              'Управляющий совет')
-    +     a('Проектный офис/RWB · Product OS - Трекер инициатив.html', 'Трекер инициатив')
+    +     a('Проектный офис/tracker.html',                          'Трекер продуктов')
+    +     a('Проектный офис/RWB · Product OS - Трекер инициатив.html', 'Трекер (legacy)')
     +     a('Продукту/templates.html',                  'Шаблоны')
     +     sep()
     +     grp('Инструменты и сервисы')
     +     a('Продукту/tools.html',                      'Инструменты')
     +     a('Продукту/rice.html',                       'RICE-калькулятор')
-    +     a('Продукту/brief.html',                      'Project Brief')
+    +     a('Продукту/brief.html',                      'Product Brief')
     +     sep()
     +     grp('Справочник')
     +     a('terminology.html',                         'Глоссарий терминов')
