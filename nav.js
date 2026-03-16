@@ -64,6 +64,16 @@
     tj.id = 'en-tooltip-js'; tj.src = base + 'design-system/components/tooltip.js';
     document.head.appendChild(tj);
   }
+  if (!document.getElementById('en-auth-js')) {
+    var aj = document.createElement('script');
+    aj.id = 'en-auth-js'; aj.src = base + 'js/auth.js';
+    document.head.appendChild(aj);
+  }
+  if (!document.getElementById('en-auth-ui-js')) {
+    var auj = document.createElement('script');
+    auj.id = 'en-auth-ui-js'; auj.src = base + 'js/auth-ui.js';
+    document.head.appendChild(auj);
+  }
 
   // ── current page detection (handles Cyrillic file:// paths) ──
   var p;

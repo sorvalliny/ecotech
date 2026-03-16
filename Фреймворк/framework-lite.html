@@ -420,6 +420,26 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 .stage-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; padding-top:12px; border-top:1px solid var(--border, rgba(255,255,255,.07)); }
 .stage-action-btn { font-size:11px; font-weight:600; padding:6px 14px; border-radius:8px; background:rgba(79,195,247,0.08); border:1px solid rgba(79,195,247,0.2); color:var(--c1, #4FC3F7); text-decoration:none; transition:all .15s; }
 .stage-action-btn:hover { background:rgba(79,195,247,0.15); border-color:rgba(79,195,247,0.4); }
+
+/* ── TRACKS GRID (F-03) ── */
+.tracks-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px; }
+.track-card { padding:14px; background:var(--card,#061525); border:1px solid var(--border,rgba(255,255,255,.07)); border-radius:10px; }
+.track-head { font-family:var(--font-head,'Orbitron'); font-size:10px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.track-icon { font-size:12px; }
+.track-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.track-list li { font-size:11px; color:var(--muted,#7A7A9D); line-height:1.4; padding-left:10px; position:relative; }
+.track-list li::before { content:'·'; position:absolute; left:0; color:var(--muted,#7A7A9D); }
+@media(max-width:768px) { .tracks-grid { grid-template-columns:1fr; } }
+
+/* ── VITOK BLOCK (F-04) ── */
+.vitok-block { margin-top:14px; padding:14px 16px; background:rgba(0,212,180,0.04); border:1px solid rgba(0,212,180,0.15); border-radius:10px; }
+.vitok-title { font-family:var(--font-head,'Orbitron'); font-size:10px; font-weight:700; color:var(--teal,#00D4B4); margin-bottom:10px; letter-spacing:.06em; text-transform:uppercase; }
+.vitok-phases { display:flex; align-items:flex-start; gap:8px; flex-wrap:wrap; }
+.vitok-phase { flex:1; min-width:140px; padding:10px; background:var(--card,#061525); border:1px solid var(--border,rgba(255,255,255,.07)); border-radius:8px; }
+.vp-name { font-family:var(--font-head,'Orbitron'); font-size:9px; font-weight:700; color:var(--text,#E8E6FF); display:block; margin-bottom:4px; }
+.vp-desc { font-size:10px; color:var(--muted,#7A7A9D); display:block; line-height:1.4; margin-bottom:4px; }
+.vp-time { font-size:9px; color:var(--teal,#00D4B4); font-weight:600; }
+.vitok-arrow { color:var(--muted,#7A7A9D); font-size:16px; display:flex; align-items:center; padding-top:10px; }
 </style>
 <script src="../stages.js"></script>
 <script src="../nav.js"></script>
@@ -687,6 +707,41 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         <div class="gate-meta-row"><div class="gate-meta-label">Шаблон для Gate</div><div class="gate-meta-val"><button class="tmpl-open-btn" onclick="openTmpl('brief')">Бриф инициативы →</button></div></div>
       </div>
     </div>
+    <div class="tracks-grid">
+      <div class="track-card track-biz">
+        <div class="track-head"><span class="track-icon" style="color:var(--amber,#FFB830)">★</span> Бизнес</div>
+        <ul class="track-list">
+          <li>Описание бизнес-проблемы</li>
+          <li>Связь с OKR</li>
+          <li>Оценка рынка (TAM/SAM)</li>
+        </ul>
+      </div>
+      <div class="track-card track-prod">
+        <div class="track-head"><span class="track-icon" style="color:var(--teal,#00D4B4)">◆</span> Продукт</div>
+        <ul class="track-list">
+          <li>Описание ЦА и боли</li>
+          <li>RICE-оценка</li>
+          <li>Product Brief</li>
+        </ul>
+      </div>
+      <div class="track-card track-dev">
+        <div class="track-head"><span class="track-icon" style="color:var(--blue,#4FC3F7)">▲</span> Разработка</div>
+        <ul class="track-list">
+          <li>Предварительная оценка сложности (T-shirt)</li>
+          <li>Технические ограничения</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vitok-block">
+      <div class="vitok-title">Виток на этой стадии (1, не повторяется)</div>
+      <div class="vitok-phases">
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Формулировка проблемы + анализ рынка</span><span class="vp-time">1–2 дня</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Заполнение Product Brief + RICE</span><span class="vp-time">1 день</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Скрининг PMO → Go/No-Go</span><span class="vp-time">до 5 дней</span></div>
+      </div>
+    </div>
     <div class="stage-actions">
       <a href="../Проектный офис/tracker.html#tab=backlog" class="stage-action-btn">+ Создать инициативу</a>
       <a href="../Продукту/gate-checklist.html#gate=0" class="stage-action-btn">Gate-чеклист</a>
@@ -768,6 +823,43 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
             <button class="tmpl-open-btn" onclick="openTmpl('adr')">ADR →</button>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="tracks-grid">
+      <div class="track-card track-biz">
+        <div class="track-head"><span class="track-icon" style="color:var(--amber,#FFB830)">★</span> Бизнес</div>
+        <ul class="track-list">
+          <li>Бизнес-модель (как зарабатываем)</li>
+          <li>Конкурентный анализ</li>
+          <li>Unit economics (гипотеза)</li>
+        </ul>
+      </div>
+      <div class="track-card track-prod">
+        <div class="track-head"><span class="track-icon" style="color:var(--teal,#00D4B4)">◆</span> Продукт</div>
+        <ul class="track-list">
+          <li>CustDev 7–10 интервью</li>
+          <li>JTBD-синтез</li>
+          <li>Прототип (Figma)</li>
+          <li>Discovery Report</li>
+        </ul>
+      </div>
+      <div class="track-card track-dev">
+        <div class="track-head"><span class="track-icon" style="color:var(--blue,#4FC3F7)">▲</span> Разработка</div>
+        <ul class="track-list">
+          <li>ADR (Architecture Decision Record)</li>
+          <li>Tech spike</li>
+          <li>Оценка MVP scope</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vitok-block">
+      <div class="vitok-title">Виток на этой стадии (1–2, повтор если PSF не подтверждён)</div>
+      <div class="vitok-phases">
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">CustDev 7–10 интервью + JTBD-синтез</span><span class="vp-time">2–3 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Прототип Figma + ADR</span><span class="vp-time">1–2 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Discovery Report → Gate 1 Review</span><span class="vp-time">3 дня</span></div>
       </div>
     </div>
     <div class="stage-actions">
@@ -853,6 +945,44 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         </div>
       </div>
     </div>
+    <div class="tracks-grid">
+      <div class="track-card track-biz">
+        <div class="track-head"><span class="track-icon" style="color:var(--amber,#FFB830)">★</span> Бизнес</div>
+        <ul class="track-list">
+          <li>P&L модель (3 сценария)</li>
+          <li>Согласование бюджета</li>
+          <li>Юридические требования</li>
+        </ul>
+      </div>
+      <div class="track-card track-prod">
+        <div class="track-head"><span class="track-icon" style="color:var(--teal,#00D4B4)">◆</span> Продукт</div>
+        <ul class="track-list">
+          <li>PRD</li>
+          <li>Sprint Planning</li>
+          <li>UAT с пилотными юзерами</li>
+          <li>Метрики baseline</li>
+        </ul>
+      </div>
+      <div class="track-card track-dev">
+        <div class="track-head"><span class="track-icon" style="color:var(--blue,#4FC3F7)">▲</span> Разработка</div>
+        <ul class="track-list">
+          <li>CI/CD pipeline</li>
+          <li>Security review</li>
+          <li>Runbook + мониторинг</li>
+          <li>DoR/DoD</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vitok-block">
+      <div class="vitok-title">Виток на этой стадии (2–4, спринты)</div>
+      <div class="vitok-phases">
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">UAT-фидбек + анализ метрик</span><span class="vp-time">2–3 дня</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Sprint</span><span class="vp-time">1–2 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Sprint Review + ретро</span><span class="vp-time">1 день</span></div>
+      </div>
+    </div>
     <div class="stage-actions">
       <a href="../Проектный офис/tracker.html#tab=backlog" class="stage-action-btn">+ Создать инициативу</a>
       <a href="../Продукту/gate-checklist.html#gate=2" class="stage-action-btn">Gate-чеклист</a>
@@ -934,6 +1064,43 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         </div>
       </div>
     </div>
+    <div class="tracks-grid">
+      <div class="track-card track-biz">
+        <div class="track-head"><span class="track-icon" style="color:var(--amber,#FFB830)">★</span> Бизнес</div>
+        <ul class="track-list">
+          <li>GTM-стратегия</li>
+          <li>Каналы привлечения + CAC</li>
+          <li>Ценообразование</li>
+        </ul>
+      </div>
+      <div class="track-card track-prod">
+        <div class="track-head"><span class="track-icon" style="color:var(--teal,#00D4B4)">◆</span> Продукт</div>
+        <ul class="track-list">
+          <li>Growth Backlog</li>
+          <li>A/B тесты</li>
+          <li>Retention D7/D30</li>
+          <li>NPS</li>
+        </ul>
+      </div>
+      <div class="track-card track-dev">
+        <div class="track-head"><span class="track-icon" style="color:var(--blue,#4FC3F7)">▲</span> Разработка</div>
+        <ul class="track-list">
+          <li>Масштабирование архитектуры</li>
+          <li>DORA-метрики</li>
+          <li>SLA/SLO</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vitok-block">
+      <div class="vitok-title">Виток на этой стадии (3–7, параллельные эксперименты)</div>
+      <div class="vitok-phases">
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Анализ воронки + гипотезы роста</span><span class="vp-time">1 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">A/B тесты + фичи</span><span class="vp-time">2 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Метрики + Growth Review</span><span class="vp-time">2–3 дня</span></div>
+      </div>
+    </div>
     <div class="stage-actions">
       <a href="../Проектный офис/tracker.html#tab=backlog" class="stage-action-btn">+ Создать инициативу</a>
       <a href="../Продукту/gate-checklist.html#gate=3" class="stage-action-btn">Gate-чеклист</a>
@@ -1011,6 +1178,42 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
             <button class="tmpl-open-btn" onclick="openTmpl('gate-review')">Gate Review →</button>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="tracks-grid">
+      <div class="track-card track-biz">
+        <div class="track-head"><span class="track-icon" style="color:var(--amber,#FFB830)">★</span> Бизнес</div>
+        <ul class="track-list">
+          <li>Экосистемная P&L</li>
+          <li>Партнёрские интеграции</li>
+          <li>GMV-атрибуция</li>
+        </ul>
+      </div>
+      <div class="track-card track-prod">
+        <div class="track-head"><span class="track-icon" style="color:var(--teal,#00D4B4)">◆</span> Продукт</div>
+        <ul class="track-list">
+          <li>Cross-product adoption</li>
+          <li>Platform features</li>
+          <li>API Developer Experience</li>
+        </ul>
+      </div>
+      <div class="track-card track-dev">
+        <div class="track-head"><span class="track-icon" style="color:var(--blue,#4FC3F7)">▲</span> Разработка</div>
+        <ul class="track-list">
+          <li>API Gateway (SemVer)</li>
+          <li>Multi-tenancy</li>
+          <li>Disaster Recovery</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vitok-block">
+      <div class="vitok-title">Виток на этой стадии (2–4, интеграционные циклы)</div>
+      <div class="vitok-phases">
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">API-потребности партнёров</span><span class="vp-time">1–2 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Platform features + интеграции</span><span class="vp-time">3–6 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Ecosystem metrics + партнёрский фидбек</span><span class="vp-time">1 нед</span></div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1091,6 +1294,41 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         </div>
       </div>
     </div>
+    <div class="tracks-grid">
+      <div class="track-card track-biz">
+        <div class="track-head"><span class="track-icon" style="color:var(--amber,#FFB830)">★</span> Бизнес</div>
+        <ul class="track-list">
+          <li>Квартальный P&L ревью</li>
+          <li>Стратегические опции (рост/консервация)</li>
+        </ul>
+      </div>
+      <div class="track-card track-prod">
+        <div class="track-head"><span class="track-icon" style="color:var(--teal,#00D4B4)">◆</span> Продукт</div>
+        <ul class="track-list">
+          <li>Оптимизация воронки</li>
+          <li>NPS-мониторинг</li>
+          <li>Roadmap обновление</li>
+        </ul>
+      </div>
+      <div class="track-card track-dev">
+        <div class="track-head"><span class="track-icon" style="color:var(--blue,#4FC3F7)">▲</span> Разработка</div>
+        <ul class="track-list">
+          <li>Техдолг (план погашения)</li>
+          <li>Cost to Serve оптимизация</li>
+          <li>FinOps</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vitok-block">
+      <div class="vitok-title">Виток на этой стадии (1–2 в квартал, стратегические итерации)</div>
+      <div class="vitok-phases">
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">P&L анализ + стратегические опции</span><span class="vp-time">2 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Оптимизация + техдолг</span><span class="vp-time">4–6 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">QBR → решение (Go новый цикл / Архив)</span><span class="vp-time">1 нед</span></div>
+      </div>
+    </div>
     <div class="stage-actions">
       <a href="../Проектный офис/tracker.html#tab=backlog" class="stage-action-btn">+ Создать инициативу</a>
       <a href="../Продукту/gate-checklist.html#gate=5" class="stage-action-btn">Gate-чеклист</a>
@@ -1164,6 +1402,42 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
       <div>
         <div class="gate-meta-row"><div class="gate-meta-label">Следующий шаг</div><div class="gate-meta-val">Закрытие записи в Трекере</div></div>
         <div class="gate-meta-row"><div class="gate-meta-label">Архив</div><div class="gate-meta-val">Post-mortem → база знаний PMO</div></div>
+      </div>
+    </div>
+    <div class="tracks-grid">
+      <div class="track-card track-biz">
+        <div class="track-head"><span class="track-icon" style="color:var(--amber,#FFB830)">★</span> Бизнес</div>
+        <ul class="track-list">
+          <li>Sunset Plan (коммуникация)</li>
+          <li>Data Archive согласование</li>
+          <li>Финальный P&L</li>
+        </ul>
+      </div>
+      <div class="track-card track-prod">
+        <div class="track-head"><span class="track-icon" style="color:var(--teal,#00D4B4)">◆</span> Продукт</div>
+        <ul class="track-list">
+          <li>Offboarding юзеров</li>
+          <li>Миграция данных</li>
+          <li>Post-mortem</li>
+        </ul>
+      </div>
+      <div class="track-card track-dev">
+        <div class="track-head"><span class="track-icon" style="color:var(--blue,#4FC3F7)">▲</span> Разработка</div>
+        <ul class="track-list">
+          <li>Отключение инфраструктуры</li>
+          <li>Архивирование кода</li>
+          <li>Kill Checklist</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vitok-block">
+      <div class="vitok-title">Виток на этой стадии (1, финальный)</div>
+      <div class="vitok-phases">
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Аудит зависимостей + план миграции</span><span class="vp-time">1 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Offboarding + отключение</span><span class="vp-time">2–3 нед</span></div>
+        <div class="vitok-arrow">→</div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Post-mortem + закрытие</span><span class="vp-time">1 нед</span></div>
       </div>
     </div>
     <div class="stage-actions">
