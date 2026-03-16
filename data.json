@@ -279,7 +279,7 @@
           "status_label": "Готово",
           "status_class": "st-green",
           "color": "linear-gradient(90deg, #5C7AFF, #A78BFA)",
-          "link": "Бизнесу/index.html"
+          "link": "business.html"
         },
         {
           "code": "Продукту",
@@ -297,7 +297,7 @@
           "status_label": "Готов",
           "status_class": "st-green",
           "color": "linear-gradient(90deg, #34D399, #00D4B4)",
-          "link": "Фреймворк/rwb-product-os-v3.html"
+          "link": "Фреймворк/framework-lite.html"
         },
         {
           "code": "PR02",
@@ -321,7 +321,7 @@
           "status_label": "В работе",
           "status_class": "st-green",
           "color": "linear-gradient(90deg, #5C7AFF, #34D399)",
-          "link": "Витрина/ОРБИТА - главная страница.html"
+          "link": "business.html"
         },
         {
           "code": "Wiki",
@@ -330,7 +330,7 @@
           "status_label": "В работе",
           "status_class": "st-green",
           "color": "linear-gradient(90deg, #34D399, #5C7AFF)",
-          "link": "Витрина/ОРБИТА — Витрина.html"
+          "link": "business.html"
         }
       ]
     },

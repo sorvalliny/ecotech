@@ -1908,7 +1908,7 @@ function renderPMO() {
     const stage = STAGES[p.gate];
     const gateDots = STAGES.map((s,idx) => {
       let cls = idx < p.gate ? 'g-done' : idx === p.gate ? 'g-cur' : 'g-todo';
-      const fwUrl = window.PT ? PT.buildUrl('../Фреймворк/rwb-product-os-v3.html', {orbit:idx}) : '#';
+      const fwUrl = window.PT ? PT.buildUrl('../Фреймворк/framework-lite.html', {orbit:idx}) : '#';
       return `<a class="pmo-gate-dot ${cls}" title="G${idx}: ${s.name} → Фреймворк" href="${fwUrl}" style="text-decoration:none;cursor:pointer">${idx}</a>`;
     }).join('');
     return `<tr>
@@ -1921,7 +1921,7 @@ function renderPMO() {
           </div>
         </div>
       </td>
-      <td><a class="gbadge ${gateClass(p.gate)}" href="${window.PT ? PT.buildUrl('../Фреймворк/rwb-product-os-v3.html', {orbit:p.gate}) : '#'}" style="text-decoration:none;cursor:pointer" title="Открыть орбиту ${p.gate} во Фреймворке">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</a></td>
+      <td><a class="gbadge ${gateClass(p.gate)}" href="${window.PT ? PT.buildUrl('../Фреймворк/framework-lite.html', {orbit:p.gate}) : '#'}" style="text-decoration:none;cursor:pointer" title="Открыть орбиту ${p.gate} во Фреймворке">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</a></td>
       <td><div class="pmo-gate-track">${gateDots}</div></td>
       <td style="text-align:center">
         <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--teal)">${wip}</div>

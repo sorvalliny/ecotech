@@ -118,8 +118,6 @@
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Бизнесу</a>'
     +   '<div class="en-drop-menu" role="menu">'
     +     a('business.html', 'Для бизнеса')
-    +     a('Бизнесу/index.html', 'Сценарии для бизнеса')
-    +     a('pages/dashboard.html', 'Дашборд')
     +   '</div>'
     + '</div>'
 
@@ -128,24 +126,19 @@
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Продукту</a>'
     +   '<div class="en-drop-menu" role="menu">'
     +     a('product.html',                              'С чего начать')
-    +     a('Продукту/index.html',                     'Подключить команду')
     +     sep()
     +     grp('Процессы и артефакты')
-    +     a('Фреймворк/rwb-product-os-v3.html',         'Продуктовый фреймворк')
-    +     a('Фреймворк/framework-lite.html',             'Гайд по стадиям зрелости')
-    +     a('Продукту/strategy.html',                   'Стратегическое планирование')
-    +     a('Проектный офис/council.html',              'Управляющий совет')
+    +     a('Фреймворк/framework-lite.html',             'Продуктовый фреймворк')
     +     a('Проектный офис/tracker.html',              'Трекер продуктов')
     +     a('Продукту/templates.html',                  'Шаблоны')
     +     sep()
-    +     grp('Инструменты и сервисы')
-    +     a('Продукту/tools.html',                      'Инструменты')
-    +     a('Продукту/rice.html',                       'RICE-калькулятор')
+    +     grp('Инструменты')
     +     a('Продукту/brief.html',                      'Product Brief')
     +     a('Продукту/gate-checklist.html',             'Gate-чеклист')
+    +     a('Продукту/tools.html',                      'Инструменты')
     +     sep()
     +     grp('Справочник')
-    +     a('terminology.html',                         'Глоссарий терминов')
+    +     a('terminology.html',                         'Глоссарий')
     +   '</div>'
     + '</div>'
 

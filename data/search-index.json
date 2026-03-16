@@ -51,7 +51,7 @@
     "id": "page-rice",
     "title": "Калькулятор RICE",
     "description": "Приоритизация инициатив по методологии RICE: Reach, Impact, Confidence, Effort.",
-    "url": "Продукту/rice.html",
+    "url": "Продукту/brief.html",
     "category": "Инструменты",
     "tags": ["RICE", "приоритизация", "калькулятор", "score", "инициативы"]
   },
@@ -59,7 +59,7 @@
     "id": "page-framework",
     "title": "Продуктовый фреймворк RWB",
     "description": "Операционный справочник: Gate 0→5, регламенты, чек-листы, шаблоны артефактов.",
-    "url": "Фреймворк/rwb-product-os-v3.html",
+    "url": "Фреймворк/framework-lite.html",
     "category": "Документация",
     "tags": ["фреймворк", "Gate", "регламенты", "Product OS", "операционный"]
   },
@@ -262,7 +262,7 @@
     "id": "tool-rice",
     "title": "Приоритизация (RICE)",
     "description": "Калькулятор RICE: оцени инициативу по Reach, Impact, Confidence, Effort и обнови Score.",
-    "url": "Продукту/rice.html",
+    "url": "Продукту/brief.html",
     "category": "Инструменты",
     "tags": ["RICE", "приоритизация", "калькулятор", "score"]
   },
@@ -270,7 +270,7 @@
     "id": "tool-framework",
     "title": "Продуктовый фреймворк",
     "description": "Операционный справочник контура. Gate 0→5, регламенты, чек-листы, шаблоны артефактов.",
-    "url": "Фреймворк/rwb-product-os-v3.html",
+    "url": "Фреймворк/framework-lite.html",
     "category": "Инструменты",
     "tags": ["фреймворк", "Gate", "регламенты", "Product OS"]
   },

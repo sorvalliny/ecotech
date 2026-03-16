@@ -70,7 +70,7 @@ window.ECOTECH_DATA = {
       "status_label": "В работе",
       "color": "#34D399",
       "color_class": "green",
-      "link": "Витрина/ОРБИТА - главная страница.html"
+      "link": "business.html"
     },
     {
       "code": "PR04",
