@@ -9,34 +9,33 @@
 /* Тёмная тема, центрированный layout */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#03080F;--card:#061525;--surface:#0d2a40;--border:rgba(79,195,247,.12);--text:#E8F4FD;--muted:#7A9DB8;--violet:#4FC3F7;--teal:#00D4B4;--amber:#FFB830;--green:#34D399}
-body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:80px 20px 40px}
+body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-/* Навбар сверху занимает ~48px, padding-top компенсирует */
+.landing{max-width:1060px;margin:0 auto;padding:60px 28px 40px}
+.landing-header{text-align:center;margin-bottom:40px}
+.logo{font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:-1px}
+.tagline{font-size:14px;color:var(--muted)}
 
-.landing{max-width:640px;width:100%;text-align:center}
-.logo{font-family:'Orbitron',sans-serif;font-size:36px;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:-1px}
-.tagline{font-size:14px;color:var(--muted);margin-bottom:40px}
-
-.paths{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px}
-.path{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-decoration:none;transition:all .18s;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer}
-.path:hover{border-color:rgba(79,195,247,.35);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
-.path-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center}
-.path-name{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:900;color:#fff}
-.path-desc{font-size:11px;color:var(--muted);line-height:1.5}
-.path-tag{font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.04em}
+.paths{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px}
+.path{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 24px;text-decoration:none;transition:all .18s;display:flex;flex-direction:column;gap:12px;cursor:pointer}
+.path:hover{border-color:rgba(79,195,247,.35);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.path-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.path-name{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:#fff}
+.path-desc{font-size:12px;color:var(--muted);line-height:1.55;flex:1}
+.path-tag{font-size:9px;font-weight:700;padding:3px 10px;border-radius:5px;letter-spacing:.04em;align-self:flex-start}
 .tag-open{background:rgba(0,212,180,.1);color:var(--teal)}
 .tag-auth{background:rgba(79,195,247,.1);color:var(--violet)}
 
 .auth-block{display:flex;gap:10px;justify-content:center;margin-bottom:24px}
-.auth-btn{padding:10px 24px;border-radius:10px;font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.auth-btn{padding:11px 28px;border-radius:10px;font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
 .auth-primary{background:linear-gradient(135deg,var(--teal),var(--violet));border:none;color:#fff}
 .auth-primary:hover{opacity:.85}
 .auth-ghost{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--muted)}
 .auth-ghost:hover{border-color:rgba(255,255,255,.2);color:#fff}
 
-.footer{font-size:10px;color:rgba(255,255,255,.2);margin-top:auto;padding-top:40px}
-.footer a{color:rgba(255,255,255,.3);text-decoration:none}
+.footer{font-size:10px;color:rgba(255,255,255,.2);text-align:center;padding:20px 28px;max-width:1060px;margin:0 auto}
 
+@media(max-width:860px){.paths{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.paths{grid-template-columns:1fr}}
 </style>
 <script src="icons.js"></script>
@@ -46,8 +45,10 @@ body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);min-h
 <body>
 
 <div class="landing">
-  <div class="logo">ОРБИТА</div>
-  <div class="tagline">Управление портфелем продуктов экосистемы</div>
+  <div class="landing-header">
+    <div class="logo">ОРБИТА</div>
+    <div class="tagline">Управление портфелем продуктов экосистемы</div>
+  </div>
 
   <div class="paths">
     <a class="path" href="business.html">
