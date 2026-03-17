@@ -16,9 +16,9 @@
 
   // ── friendly names for directories and files ────────────
   var DIR_NAMES = {
-    'продукту':        'Продукту',
-    'фреймворк':       'Фреймворк',
-    'проектный офис':  'Проектный офис',
+    'продукту':        'Инструменты',
+    'фреймворк':       'Методология',
+    'проектный офис':  'Управление',
     'бизнесу':         'Бизнесу',
     'хэндбук':         'Хэндбук',
     'витрина':         'Витрина',
@@ -29,20 +29,24 @@
 
   var PAGE_NAMES = {
     'index.html':              'Главная',
-    'business.html':           'Для бизнеса',
-    'product.html':            'Для продукта',
+    'business.html':           'Витрина',
+    'product.html':            'Для команды',
     'templates.html':          'Шаблоны',
     'tools.html':              'Инструменты',
     'strategy.html':           'Стратегическое планирование',
-    'brief.html':              'Product Brief',
+    'brief.html':              'Заявка на продукт',
     'council.html':            'Управляющий совет',
-    'framework-lite.html':     'Продуктовый фреймворк',
+    'framework-lite.html':     'Как мы работаем',
     'rwb-product-os-v12.html': 'Хэндбук Product OS',
     'rwb-product-os-2026-03-03.html': 'Операционный справочник',
     'artifacts.html':          'Артефакты',
     'tokens-preview.html':     'Design Tokens',
     'badge-demo.html':         'Badge Demo',
-    'dashboard.html':          'KPI Дашборд'
+    'dashboard.html':          'Статус портфеля',
+    'tracker.html':            'Реестр',
+    'gate-checklist.html':     'Gate-чеклист',
+    'admin.html':              'Администрирование',
+    'terminology.html':        'Глоссарий'
   };
 
   // ── chevron SVG ─────────────────────────────────────────

@@ -93,8 +93,8 @@
   function has(s) { return p.indexOf(s.toLowerCase()) !== -1; }
 
   // ── active group detection ──────────────────────────────────
-  var bizActive  = (has('business') || has('бизнесу') || has('dashboard')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('rice') || has('brief') || has('tracker') || has('gate-checklist') || has('terminology')) ? ' en-active' : '';
+  var bizActive  = (has('business') || has('бизнесу') || has('dashboard') || has('brief')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('rice') || has('tracker') || has('gate-checklist') || has('terminology')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -132,28 +132,28 @@
     + '<div class="en-sep"></div>'
     + '<div class="en-links">'
 
-    // ── Бизнесу ──────────────────────────────
+    // ── Портфель ──────────────────────────────
     + '<div class="en-drop' + bizActive + '">'
-    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Бизнесу</a>'
+    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Портфель</a>'
     +   '<div class="en-drop-menu" role="menu">'
-    +     a('business.html', 'Для бизнеса')
-    +     a('dashboard.html', 'Статус портфеля')
+    +     a('business.html',                             'Витрина продуктов')
+    +     a('Продукту/brief.html',                      'Подать заявку')
+    +     a('dashboard.html',                            'Статус портфеля')
     +   '</div>'
     + '</div>'
 
-    // ── Продукту ─────────────────────────────
+    // ── Команде ─────────────────────────────
     + '<div class="en-drop' + pdktActive + '">'
-    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Продукту</a>'
+    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Команде</a>'
     +   '<div class="en-drop-menu" role="menu">'
     +     a('product.html',                              'С чего начать')
     +     sep()
     +     grp('Процессы и артефакты')
     +     a('Фреймворк/framework-lite.html',             'Как мы работаем')
-    +     a('Проектный офис/tracker.html',              'Трекер продуктов')
+    +     a('Проектный офис/tracker.html',              'Реестр')
     +     a('Продукту/templates.html',                  'Шаблоны')
     +     sep()
     +     grp('Инструменты')
-    +     a('Продукту/brief.html',                      'Product Brief')
     +     a('Продукту/gate-checklist.html',             'Gate-чеклист')
     +     a('Продукту/tools.html',                      'Инструменты')
     +     sep()

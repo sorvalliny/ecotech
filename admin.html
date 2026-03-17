@@ -131,6 +131,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <script src="icons.js"></script>
 <script src="platform.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/auth-ui.js"></script>
 <script src="nav.js"></script>
 </head>
 <body>
@@ -166,7 +167,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="sec">
           <table class="adm-table">
             <thead>
-              <tr><th>Имя</th><th>Роль</th><th>Email</th><th>Продукты</th><th>Действия</th></tr>
+              <tr><th>Имя</th><th>Email</th><th>Роль</th><th>Продукты</th><th>Действия</th></tr>
             </thead>
             <tbody id="users-tbody"></tbody>
           </table>
@@ -385,8 +386,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
       html += '<tr>'
         + '<td style="font-weight:600;color:#fff">' + escHtml(u.name) + (isSelf ? ' <span style="font-size:9px;color:var(--violet)">(вы)</span>' : '') + '</td>'
-        + '<td><span class="role-badge" style="background:' + rc.bg + ';color:' + rc.color + ';border:1px solid ' + rc.border + '">' + rl + '</span></td>'
         + '<td style="color:var(--muted)">' + (u.email ? escHtml(u.email) : '--') + '</td>'
+        + '<td><span class="role-badge" style="background:' + rc.bg + ';color:' + rc.color + ';border:1px solid ' + rc.border + '">' + rl + '</span></td>'
         + '<td>' + prodNames + '</td>'
         + '<td>'
         +   '<button class="btn btn-ghost btn-sm" onclick="AdminApp.editUser(\'' + u.id + '\')">Ред.</button> '

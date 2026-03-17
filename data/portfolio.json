@@ -1,149 +1,34 @@
 [
   {
-    "id": "P01",
-    "name": "Портал продавца",
-    "desc": "Личный кабинет продавца. Аналитика продаж, управление товарами, финансовые отчёты, логистика.",
-    "gate": 4,
-    "status": "on-track",
-    "cat": "b2b",
-    "catLabel": "B2B",
-    "color": "linear-gradient(90deg,#00D4B4,#3B82F6)",
-    "owner": "Алексей Р.",
-    "updated": "2026-03-10",
-    "quarter": "Q1 2026",
-    "impact": 4,
-    "probability": 2,
-    "kpi": [
-      { "icon": "users", "value": "42K", "label": "MAU" },
-      { "icon": "trending-up", "value": "+18%", "label": "MoM" },
-      { "icon": "dollar-sign", "value": "94%", "label": "Retention" }
-    ],
-    "initiatives": ["Редизайн дашборда", "Новые отчёты", "API интеграция"]
+    "id": "ECO-00", "name": "ОРБИТА", "desc": "Платформа управления портфелем. Эталонный продукт-пример для онбординга команд.",
+    "gate": 2, "status": "on-track", "cat": "internal", "catLabel": "Платформа",
+    "owner": "Проектный офис", "color": "#7B2FFF", "updated": "2026-03-17", "quarter": "Q1 2026",
+    "pilot": false, "trackerUrl": "", "trackerType": "",
+    "kpi": [{"icon":"users","value":"500","label":"Activation"},{"icon":"trending-up","value":"28%","label":"Retention D7"},{"icon":"star","value":"35","label":"NPS"}],
+    "initiatives": ["D001","D002","D003","D004","D005","D006"]
   },
   {
-    "id": "P02",
-    "name": "Платёжный сервис",
-    "desc": "Платёжный сервис экосистемы. Карта, кешбэк, переводы, подписки, NFC-оплата.",
-    "gate": 3,
-    "status": "on-track",
-    "cat": "b2c",
-    "catLabel": "B2C",
-    "color": "linear-gradient(90deg,#4FC3F7,#B3E5FC)",
-    "owner": "Мария К.",
-    "updated": "2026-03-08",
-    "quarter": "Q1 2026",
-    "impact": 3,
-    "probability": 2,
-    "kpi": [
-      { "icon": "users", "value": "18K", "label": "MAU" },
-      { "icon": "credit-card", "value": "3.2M", "label": "Транзакций" },
-      { "icon": "trending-up", "value": "+24%", "label": "MoM" }
-    ],
-    "initiatives": ["NFC оплата", "Программа лояльности"]
+    "id": "ECO-01", "name": "ECO-01", "desc": "Маркетплейс для детской аудитории",
+    "gate": 3, "status": "on-track", "cat": "b2c", "catLabel": "B2C",
+    "owner": "PM Team", "color": "#FF85C0", "updated": "2026-03-17", "quarter": "Q1 2026",
+    "pilot": true, "trackerUrl": "", "trackerType": "youtrack",
+    "kpi": [{"icon":"users","value":"12K","label":"MAU"},{"icon":"trending-up","value":"34%","label":"Retention D30"},{"icon":"star","value":"42","label":"NPS"}],
+    "initiatives": ["I001","I002","I003"]
   },
   {
-    "id": "P03",
-    "name": "Логистика B2B",
-    "desc": "Платформа фулфилмента и логистики для партнёров. Автораспределение, SLA, мониторинг.",
-    "gate": 3,
-    "status": "at-risk",
-    "cat": "b2b",
-    "catLabel": "B2B",
-    "color": "linear-gradient(90deg,#00D4B4,#34D399)",
-    "owner": "Дмитрий С.",
-    "updated": "2026-03-11",
-    "quarter": "Q1 2026",
-    "impact": 4,
-    "probability": 4,
-    "kpi": [
-      { "icon": "package", "value": "860K", "label": "Отправок/мес" },
-      { "icon": "clock", "value": "98.2%", "label": "SLA" },
-      { "icon": "alert-triangle", "value": "3", "label": "Блокера" }
-    ],
-    "initiatives": ["Автораспределение складов", "SLA-трекер"]
+    "id": "ECO-02", "name": "ECO-02", "desc": "Сервис генерации обучающего контента",
+    "gate": 1, "status": "on-track", "cat": "b2b", "catLabel": "B2B",
+    "owner": "PM Team", "color": "#4FC3F7", "updated": "2026-03-17", "quarter": "Q1 2026",
+    "pilot": true, "trackerUrl": "", "trackerType": "youtrack",
+    "kpi": [{"icon":"zap","value":"7","label":"CustDev"},{"icon":"file-text","value":"Draft","label":"PSF"}],
+    "initiatives": ["I004","I005"]
   },
   {
-    "id": "P04",
-    "name": "Госзакупки",
-    "desc": "Платформа для государственных закупок. ФЗ-44/223, электронная подпись, интеграция с ЕИС.",
-    "gate": 1,
-    "status": "paused",
-    "cat": "b2g",
-    "catLabel": "B2G",
-    "color": "linear-gradient(90deg,#FFB830,#FF9F43)",
-    "owner": "Елена В.",
-    "updated": "2026-02-20",
-    "quarter": "Q4 2025",
-    "impact": 2,
-    "probability": 3,
-    "kpi": [
-      { "icon": "file-text", "value": "12", "label": "Интервью" },
-      { "icon": "check-circle", "value": "PSF", "label": "Статус" },
-      { "icon": "calendar", "value": "Q4 26", "label": "Прогноз" }
-    ],
-    "initiatives": ["Интеграция с ЕИС", "Электронная подпись"]
-  },
-  {
-    "id": "P05",
-    "name": "Аналитика Pro",
-    "desc": "BI-платформа для аналитики продаж и поведения покупателей. Когорты, воронки, прогнозы.",
-    "gate": 2,
-    "status": "on-track",
-    "cat": "b2b",
-    "catLabel": "B2B",
-    "color": "linear-gradient(90deg,#3B82F6,#4FC3F7)",
-    "owner": "Игорь Л.",
-    "updated": "2026-03-09",
-    "quarter": "Q1 2026",
-    "impact": 3,
-    "probability": 1,
-    "kpi": [
-      { "icon": "bar-chart-2", "value": "MVP", "label": "Стадия" },
-      { "icon": "users", "value": "β 120", "label": "Тестеры" },
-      { "icon": "calendar", "value": "Q3 26", "label": "Релиз" }
-    ],
-    "initiatives": ["Когортный анализ", "Дашборд для CEO"]
-  },
-  {
-    "id": "P06",
-    "name": "Образовательная платформа",
-    "desc": "Образовательная платформа: курсы для продавцов и партнёров, сертификация, вебинары.",
-    "gate": 5,
-    "status": "done",
-    "cat": "b2c",
-    "catLabel": "B2C",
-    "color": "linear-gradient(90deg,#B3E5FC,#FF85C0)",
-    "owner": "Анна М.",
-    "updated": "2026-03-05",
-    "quarter": "Q1 2026",
-    "impact": 1,
-    "probability": 1,
-    "kpi": [
-      { "icon": "users", "value": "8K", "label": "MAU" },
-      { "icon": "award", "value": "1.2K", "label": "Сертификатов" },
-      { "icon": "star", "value": "4.7", "label": "NPS" }
-    ],
-    "initiatives": ["Мобильное приложение", "Сертификация"]
-  },
-  {
-    "id": "P07",
-    "name": "Marketplace API",
-    "desc": "Публичное API маркетплейса для интеграторов. REST + GraphQL, sandbox, документация.",
-    "gate": 2,
-    "status": "on-track",
-    "cat": "b2b",
-    "catLabel": "B2B",
-    "color": "linear-gradient(90deg,#00D4B4,#4FC3F7)",
-    "owner": "Кирилл Н.",
-    "updated": "2026-03-12",
-    "quarter": "Q1 2026",
-    "impact": 3,
-    "probability": 3,
-    "kpi": [
-      { "icon": "code", "value": "48", "label": "Эндпоинтов" },
-      { "icon": "users", "value": "β 35", "label": "Партнёров" },
-      { "icon": "zap", "value": "p95 180ms", "label": "Latency" }
-    ],
-    "initiatives": ["GraphQL gateway", "Developer portal"]
+    "id": "ECO-03", "name": "ECO-03", "desc": "Сервис для знакомств в экосистеме",
+    "gate": 0, "status": "at-risk", "cat": "b2c", "catLabel": "B2C",
+    "owner": "PM Team", "color": "#00D4B4", "updated": "2026-03-17", "quarter": "Q1 2026",
+    "pilot": true, "trackerUrl": "", "trackerType": "",
+    "kpi": [],
+    "initiatives": ["I006","I007"]
   }
 ]
