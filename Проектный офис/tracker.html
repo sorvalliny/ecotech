@@ -184,6 +184,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .tag-content{background:var(--pink-dim);color:#F9A8D4;border-color:rgba(255,45,138,.3)}
 .tag-infra{background:var(--red-dim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
 .ptag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap;border:1px solid transparent}
+.pt-DEMO{background:rgba(123,47,255,0.12);border-color:rgba(123,47,255,0.3);color:#A78BFA}
 .pt-P01{background:rgba(255,133,192,.14);color:#FF85C0;border-color:rgba(255,133,192,.3)}
 .pt-P02{background:rgba(79,195,247,.14);color:#4FC3F7;border-color:rgba(79,195,247,.3)}
 .pt-P03{background:rgba(0,212,180,.14);color:#00D4B4;border-color:rgba(0,212,180,.3)}
@@ -1436,6 +1437,20 @@ const STAGES = [
 // ════════════════════════════════════════════
 const PROJECTS_DEFAULT = [
   {
+    id: 'DEMO', name: '\u{1F4A1} ОРБИТА Демо',
+    desc: 'Эталонный продукт-пример. Показывает как заполнять карточку, ставить цели, вести инициативы и проходить Gate.',
+    gate: 2, status: 'on-track', cat: 'internal', catLabel: 'Демо',
+    owner: 'Проектный офис', color: '#7B2FFF', release: 'Q1 2026',
+    updated: '2026-03-17', quarter: 'Q1 2026', pilot: false,
+    trackerUrl: 'https://youtrack.example.com/project/DEMO', trackerType: 'youtrack',
+    kpi: [
+      { icon: 'users', value: '500', label: 'Activation' },
+      { icon: 'trending-up', value: '28%', label: 'Retention D7' },
+      { icon: 'star', value: '35', label: 'NPS' }
+    ],
+    initiatives: ['D001','D002','D003','D004','D005','D006']
+  },
+  {
     id: 'P01', name: 'Маркетплейс К',
     desc: 'Маркетплейс для детской аудитории — товары, контент, обучение',
     gate: 3, status: 'on-track', cat: 'b2c', catLabel: 'B2C',
@@ -1483,6 +1498,12 @@ let gateChecklist = {};
 try { gateChecklist = (window.PT ? PT.load('ECOTECH_GATE_CHECKLIST') : JSON.parse(localStorage.getItem('ECOTECH_GATE_CHECKLIST'))) || {}; } catch(e) {}
 
 const BACKLOG_DEFAULT = [
+  { id:'D001', productId:'DEMO', project:'DEMO', track:'delivery', name:'Онбординг-флоу для новых юзеров', desc:'Пошаговый wizard при первом входе \u2192 рост Retention D7', cat:'feature', segment:'product', r:9, i:8, c:7, e:4, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
+  { id:'D002', productId:'DEMO', project:'DEMO', track:'review', name:'NPS-опрос + action plan', desc:'Ежемесячный NPS-замер, анализ детракторов, план улучшений', cat:'process', segment:'product', r:10, i:6, c:8, e:2, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
+  { id:'D003', productId:'DEMO', project:'DEMO', track:'discovery', name:'A/B тест лендинга', desc:'3 варианта лендинга, замер конверсии в регистрацию', cat:'feature', segment:'product', r:8, i:7, c:6, e:3, status:'planned', created:'2026-03-05', updated:'2026-03-17' },
+  { id:'D004', productId:'DEMO', project:'DEMO', track:'delivery', name:'Push-уведомления', desc:'Триггерные пуши для возврата неактивных юзеров', cat:'feature', segment:'tech', r:7, i:6, c:5, e:5, status:'backlog', created:'2026-03-10', updated:'2026-03-17' },
+  { id:'D005', productId:'DEMO', project:'DEMO', track:'discovery', name:'P&L модель 3 сценария', desc:'Финансовая модель: базовый, оптимистичный, пессимистичный', cat:'process', segment:'business', r:8, i:9, c:7, e:3, status:'planned', created:'2026-03-10', updated:'2026-03-17' },
+  { id:'D006', productId:'DEMO', project:'DEMO', track:'discovery', name:'Unit economics: CAC и LTV', desc:'Расчёт стоимости привлечения и жизненной ценности клиента', cat:'process', segment:'business', r:7, i:8, c:5, e:4, status:'backlog', created:'2026-03-12', updated:'2026-03-17' },
   { id:'I001', productId:'P01', project:'P01', track:'delivery', name:'Геймификация покупок', desc:'Игровые механики для увеличения retention', cat:'feature', segment:'product', r:8, i:7, c:7, e:4, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
   { id:'I002', productId:'P01', project:'P01', track:'review', name:'NPS-опрос и анализ', desc:'Ежемесячный NPS-замер + action plan по детракторам', cat:'process', segment:'product', r:10, i:6, c:8, e:2, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
   { id:'I003', productId:'P01', project:'P01', track:'discovery', name:'Unit economics модель', desc:'P&L модель + CAC/LTV расчёт для Gate 4', cat:'process', segment:'business', r:8, i:9, c:6, e:3, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
@@ -1496,6 +1517,23 @@ const BACKLOG_DEFAULT = [
 // GOALS & EPICS DATA
 // ════════════════════════════════════════════
 const GOALS_DEFAULT = [
+  {
+    id: 'GD01', title: '\u{1F3AF} Демо: подтвердить PMF и выйти на Gate 3',
+    type: 'product', period: 'Q1 2026', owner: 'PM Демо', status: 'active', productId: 'DEMO',
+    keyResults: [
+      { id: 'KR1', text: 'Retention D7 >= 35%', target: 35, current: 28, unit: '%', initiativeIds: ['D001'] },
+      { id: 'KR2', text: 'NPS >= 40', target: 40, current: 35, unit: 'pts', initiativeIds: ['D002'] },
+      { id: 'KR3', text: 'Activation Rate >= 30%', target: 30, current: 22, unit: '%', initiativeIds: ['D003','D004'] }
+    ]
+  },
+  {
+    id: 'GD02', title: '\u{1F3AF} Демо: подготовить P&L для инвест-комитета',
+    type: 'strategic', period: 'Q2 2026', owner: 'Бизнес-лид', status: 'active', productId: 'DEMO',
+    keyResults: [
+      { id: 'KR1', text: 'P&L модель готова (3 сценария)', target: 1, current: 0, unit: 'документ', initiativeIds: ['D005'] },
+      { id: 'KR2', text: 'CAC < LTV подтверждён', target: 1, current: 0, unit: 'да/нет', initiativeIds: ['D006'] }
+    ]
+  },
   {
     id: 'G001', title: 'Маркетплейс К: выход на Gate 4 (Экосистема)',
     type: 'product', period: 'H1 2026', owner: 'CPO', status: 'active', productId: 'P01',
@@ -1524,12 +1562,16 @@ const GOALS_DEFAULT = [
 ];
 
 const EPICS_DEFAULT = [
+  { id:'ED01', title:'Retention Sprint Q1', productId:'DEMO', goalId:'GD01', status:'active', gate:2 },
+  { id:'ED02', title:'P&L подготовка', productId:'DEMO', goalId:'GD02', status:'planned', gate:2 },
   { id:'E001', title:'Геймификация Q1', productId:'P01', goalId:'G001', status:'active', gate:3 },
   { id:'E002', title:'CustDev волна 1', productId:'P02', goalId:'G002', status:'active', gate:1 }
 ];
 
 // Epic assignments for existing BACKLOG items (used in migration)
 const EPIC_ASSIGNMENTS = {
+  D001:'ED01', D002:'ED01', D003:'ED01',
+  D005:'ED02', D006:'ED02',
   I001:'E001',
   I004:'E002'
 };
