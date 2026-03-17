@@ -1528,6 +1528,19 @@ const PROJECTS_DEFAULT = [
   }
 ];
 let PROJECTS = (() => {
+  const DATA_VER = 3;
+  const curVer = parseInt(localStorage.getItem('ECOTECH_DATA_VERSION') || '0', 10);
+  if (curVer < DATA_VER) {
+    // Версия устарела — перезаписать из defaults
+    localStorage.setItem('ECOTECH_DATA_VERSION', String(DATA_VER));
+    if (window.PT) {
+      PT.save(PT.KEY_PRODUCTS, PROJECTS_DEFAULT);
+      PT.save(PT.KEY_BACKLOG, BACKLOG_DEFAULT);
+      PT.save(PT.KEY_GOALS, GOALS_DEFAULT);
+      PT.save(PT.KEY_EPICS, EPICS_DEFAULT);
+    }
+    return [...PROJECTS_DEFAULT];
+  }
   const raw = window.PT ? PT.load(PT.KEY_PRODUCTS) : null;
   return (raw && Array.isArray(raw) && raw.length) ? raw : [...PROJECTS_DEFAULT];
 })();

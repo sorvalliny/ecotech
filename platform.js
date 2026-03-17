@@ -76,11 +76,17 @@
       this.save(this.KEY_UI, state);
     },
 
-    // ── Ensure products loaded (seed from portfolio.json if empty) ──
+    // ── Data version — increment to force refresh from portfolio.json ──
+    DATA_VERSION: 3,
+
+    // ── Ensure products loaded (seed from portfolio.json if empty or outdated) ──
     ensureProducts: function(cb) {
       var self = this;
+      var currentVersion = parseInt(localStorage.getItem('ECOTECH_DATA_VERSION') || '0', 10);
       var products = self.load(self.KEY_PRODUCTS);
-      if (products && products.length) {
+
+      // Если данные есть И версия актуальна — используем localStorage
+      if (products && products.length && currentVersion >= self.DATA_VERSION) {
         if (cb) cb(products);
         return;
       }
@@ -98,6 +104,7 @@
           try {
             products = JSON.parse(xhr.responseText);
             self.save(self.KEY_PRODUCTS, products);
+            localStorage.setItem('ECOTECH_DATA_VERSION', String(self.DATA_VERSION));
           } catch(e) { products = []; }
         } else { products = []; }
         if (cb) cb(products);
