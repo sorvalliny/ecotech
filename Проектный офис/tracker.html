@@ -491,6 +491,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .kanban-empty { font-size:11px; color:var(--muted); text-align:center; padding:16px; }
 .stage-help-link { font-size:10px; color:var(--violet); text-decoration:none; display:inline-flex; align-items:center; gap:3px; transition:color .15s; }
 .stage-help-link:hover { color:var(--teal); }
+.share-link-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:2px;transition:color .15s}
+.share-link-btn:hover{color:var(--violet)}
+.approve-btn{padding:4px 12px;border:1px solid rgba(52,211,153,.3);border-radius:6px;background:rgba(52,211,153,.1);color:#34D399;font-size:10px;font-weight:700;cursor:pointer}
+.reject-btn{padding:4px 12px;border:1px solid rgba(248,113,113,.3);border-radius:6px;background:rgba(248,113,113,.1);color:#F87171;font-size:10px;font-weight:700;cursor:pointer}
 .gate-check-link { display:inline-flex; align-items:center; gap:2px; }
 </style>
   <script src="../icons.js"></script>
@@ -2053,7 +2057,9 @@ function renderPortfolio() {
           <span class="gbadge ${gateClass(p.gate)}">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</span>
           ${checkProgress}
           ${stageLink}
+          <button class="share-link-btn" onclick="event.stopPropagation();navigator.clipboard.writeText(window.location.origin+window.location.pathname+'#product=${p.id}');showToast('Ссылка скопирована')" title="Скопировать ссылку">${EI.svg('link',10)}</button>
           <span class="player">${p.layer}</span>
+          ${p.status === 'pending' && (function(){ var r = window.OrbAuth ? OrbAuth.getRole() : 'admin'; return r === 'admin' || r === 'pmo'; })() ? '<button class="approve-btn" onclick="event.stopPropagation();approveProduct(\''+p.id+'\')">✓ Одобрить</button><button class="reject-btn" onclick="event.stopPropagation();rejectProduct(\''+p.id+'\')">✗ Отклонить</button>' : ''}
           <button class="pcard-edit-btn" onclick="event.stopPropagation();openProdModal('${p.id}')" title="Редактировать продукт">${EI.svg('edit',12)}</button>
         </div>
         <div class="pname">${escHtml(p.name)}</div>
@@ -3293,8 +3299,11 @@ renderContextBar();
       renderContextBar();
       setContext(_hash.product);
       switchTab('portfolio', document.querySelector('.tab'));
-      setTimeout(function() { togglePC(_hash.product); }, 300);
-    }, 500);
+      // Раскрыть карточку
+      var card = document.querySelector('.pcard[data-id="'+_hash.product+'"]');
+      if (card) card.click();
+      else togglePC(_hash.product);
+    }, 300);
   }
   if (_ui.tracker_filters && _tab === 'backlog') {
     Object.assign(filters, _ui.tracker_filters);
