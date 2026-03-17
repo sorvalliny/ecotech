@@ -1700,7 +1700,7 @@ let filters = { cat:'all', status:'all', audience:'all', project:'all', track:'a
 let gateFilter = null; // null = all, 0-5 = filter by gate
 let sortBy = 'score';
 let editId = null;
-let curTab = 'portfolio';
+let curTab = (window.OrbAuth && OrbAuth.getRole() === 'pm') ? 'backlog' : 'portfolio';
 let curRole = 'pm';
 let curPid = null;     // current product ID for #pp panel
 let curGoalId = null;  // current goal ID for modal
@@ -3239,6 +3239,8 @@ renderContextBar();
   if (_tabIdx >= 0 && tabBtns[_tabIdx]) {
     switchTab(_tab, tabBtns[_tabIdx]);
   }
+  if (_hash.create === 'goal') { setTimeout(function(){ openGoalEditor(null); }, 500); }
+  if (_hash.create === 'initiative') { setTimeout(function(){ addInitiative(contextProduct||''); }, 500); }
   if (_ui.tracker_filters && _tab === 'backlog') {
     Object.assign(filters, _ui.tracker_filters);
     renderBL();
