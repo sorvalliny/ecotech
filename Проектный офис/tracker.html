@@ -2110,7 +2110,7 @@ function renderFilterBar() {
   var sel = document.getElementById('filter-product');
   if (!sel) return;
   sel.innerHTML = '<option value="">Все продукты</option>' +
-    PROJECTS.map(function(p) { return '<option value="'+p.id+'"'+(FILTERS.product===p.id?' selected':'')+'>'+escHtml(p.name)+'</option>'; }).join('');
+    PROJECTS.map(function(p) { return '<option value="'+p.id+'"'+(FILTERS.product===p.id?' selected':'')+'>'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</option>'; }).join('');
   renderContextViewSwitch();
   updateStats();
 }
@@ -2361,7 +2361,7 @@ function renderPortfolio() {
         : `<span class="track-v">${EI.svg('rocket',12)} Разработка</span>`;
       return `<div class="irow" onclick="openPRD('${item.id}')">
         <div class="iid"><span class="ilist-seg" title="${segLabel}">${EI.svg(segIcon,10)}</span> ${item.id}</div>
-        <div><div class="iname">${escHtml(item.name)}</div><div class="isub">${escHtml(item.desc.substring(0,52))}${item.desc.length>52?'…':''}</div></div>
+        <div><div class="iname">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div><div class="isub">${escHtml(item.desc.substring(0,52))}${item.desc.length>52?'…':''}</div></div>
         <div>${trackHtml}</div>
         <div><div class="iscore ${scClass(s)}">${s.toFixed(1)}</div><div class="iscl">RICE</div></div>
         <div style="text-align:right"><span class="ist ${ST_CLS[item.status]}">${ST_ICO[item.status]} ${ST_LBL[item.status]}</span></div>
@@ -2427,7 +2427,7 @@ function renderPortfolio() {
           ${p.status === 'pending' && (function(){ var r = window.OrbAuth ? OrbAuth.getRole() : 'admin'; return r === 'admin' || r === 'pmo'; })() ? '<button class="approve-btn" onclick="event.stopPropagation();approveProduct(\''+p.id+'\')">✓ Одобрить</button><button class="reject-btn" onclick="event.stopPropagation();rejectProduct(\''+p.id+'\')">✗ Отклонить</button>' : ''}
           <button class="pcard-edit-btn" onclick="event.stopPropagation();openProdModal('${p.id}')" title="Редактировать продукт">${EI.svg('edit',12)}</button>
         </div>
-        <div class="pname">${escHtml(p.name)}</div>
+        <div class="pname">${escHtml(OrbAuth.getDisplayName(p,'product'))}</div>
         <div class="pdesc">${escHtml(p.desc)}</div>
         <div class="gate-bar">${gateBar}</div>
         <div class="gate-label-row">
@@ -2519,16 +2519,16 @@ function initSidebar() {
   const pf = document.getElementById('proj-filters');
   pf.innerHTML = `<button class="fbtn active" onclick="setF('project','all',this)"><span>Все продукты</span></button>` +
     PROJECTS.map(p => `<button class="fbtn" onclick="setF('project','${p.id}',this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${p.color};margin-right:5px;vertical-align:middle"></span>${escHtml(p.name)}</span>
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${p.color};margin-right:5px;vertical-align:middle"></span>${escHtml(OrbAuth.getDisplayName(p,'product'))}</span>
       <span class="fcount" id="fcp-${p.id}"></span>
     </button>`).join('');
 
   const sel = document.getElementById('ep-proj');
-  sel.innerHTML = PROJECTS.map(p => `<option value="${p.id}">${p.id} — ${escHtml(p.name)}</option>`).join('');
+  sel.innerHTML = PROJECTS.map(p => `<option value="${p.id}">${p.id} — ${escHtml(OrbAuth.getDisplayName(p,'product'))}</option>`).join('');
 
   document.getElementById('legend').innerHTML = PROJECTS.map(p => `
     <div class="leg-item" onclick="setF('project','${p.id}',null)">
-      <div class="leg-dot" style="background:${p.color}"></div>${p.id} · ${escHtml(p.name)}
+      <div class="leg-dot" style="background:${p.color}"></div>${p.id} · ${escHtml(OrbAuth.getDisplayName(p,'product'))}
     </div>`).join('');
 }
 
@@ -2595,7 +2595,7 @@ function renderItem(item, rank) {
   return `<div class="item${editId===item.id?' editing':''}" onclick="openPRD('${item.id}')">
     <div class="item-rank">#${rank}</div>
     <div class="item-main">
-      <div class="item-name">${escHtml(item.name)}</div>
+      <div class="item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div>
       <div class="item-desc">${escHtml(item.desc)}</div>
       <div class="item-meta">
         <span class="tag tag-${item.cat}">${CAT_LBL[item.cat]||item.cat}</span>
@@ -2685,7 +2685,7 @@ function renderPM() {
   // Default to first project
   const selVal = PROJECTS.length ? PROJECTS[0].id : 'P01';
   const projectSel = `<select class="pm-sel" id="pm-proj-sel" onchange="renderPMProject(this.value)">
-    ${PROJECTS.map(p=>`<option value="${p.id}">${p.id} — ${p.name}</option>`).join('')}
+    ${PROJECTS.map(p=>`<option value="${p.id}">${p.id} — ${escHtml(OrbAuth.getDisplayName(p,'product'))}</option>`).join('')}
   </select>`;
 
   const html = `
@@ -2721,7 +2721,7 @@ function renderPMProject(pid) {
     return `<div class="trk-item">
       <div class="trk-item-id">${item.id}</div>
       <div>
-        <div class="trk-item-name">${item.name}</div>
+        <div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div>
         <div style="font-size:10px;color:var(--muted);margin-top:2px">${ST_ICO[item.status]} ${ST_LBL[item.status]} · ${item.release||'—'}</div>
       </div>
       <div class="trk-item-score ${scClass(s)}">${s.toFixed(0)}</div>
@@ -2732,7 +2732,7 @@ function renderPMProject(pid) {
     <div class="pm-gate-card" style="border-left:3px solid ${stage.color}">
       <div class="pm-gate-icon">${EI.svg(stage.icon,28)}</div>
       <div style="flex:1">
-        <div class="pm-gate-name">${p.name}</div>
+        <div class="pm-gate-name">${escHtml(OrbAuth.getDisplayName(p,'product'))}</div>
         <div style="display:flex;align-items:center;gap:8px;margin:6px 0">
           <span class="gbadge ${gateClass(p.gate)}">G${p.gate} · ${stage.name}</span>
           <span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span>
@@ -2779,7 +2779,7 @@ function renderPMO() {
         <div style="display:flex;align-items:center;gap:8px">
           <div style="width:8px;height:8px;border-radius:50%;background:${p.color};flex-shrink:0"></div>
           <div>
-            <div style="font-size:12px;font-weight:700;color:#fff">${p.name}</div>
+            <div style="font-size:12px;font-weight:700;color:#fff">${escHtml(OrbAuth.getDisplayName(p,'product'))}</div>
             <div style="font-size:10px;color:var(--muted)">${p.id} · ${p.layer}</div>
           </div>
         </div>
@@ -2867,7 +2867,7 @@ function renderCPO() {
       return `<div class="trk-item">
         <div class="trk-item-id">${p.id}</div>
         <div style="flex:1">
-          <div class="trk-item-name">${p.name}</div>
+          <div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(p,'product'))}</div>
           <div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap">
             <span class="gbadge ${gateClass(p.gate)}">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</span>
             <span style="font-size:9px;color:var(--muted)">${highItems.length} high-priority</span>
@@ -2888,7 +2888,7 @@ function renderCPO() {
     return `<div class="trk-item">
       <div style="font-size:14px">${EI.svg(STAGES[p.gate].icon,14)}</div>
       <div style="flex:1">
-        <div class="trk-item-name">${p.name}</div>
+        <div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(p,'product'))}</div>
         <div style="font-size:10px;color:var(--muted);margin-top:2px">G${p.gate} · ${disc} задач Исследования в беклоге</div>
       </div>
       <span class="gbadge ${gateClass(p.gate)}" style="flex-shrink:0">G${p.gate}</span>
@@ -2915,10 +2915,10 @@ function renderCPO() {
             return `<div class="trk-item">
               <div class="trk-item-id">${item.id}</div>
               <div style="flex:1">
-                <div class="trk-item-name">${item.name}</div>
+                <div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div>
                 <div style="display:flex;gap:5px;margin-top:2px">
                   <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${proj?proj.color:'#888'};flex-shrink:0;margin-top:3px"></span>
-                  <span style="font-size:9px;color:var(--muted)">${proj?proj.name:'—'}</span>
+                  <span style="font-size:9px;color:var(--muted)">${proj?escHtml(OrbAuth.getDisplayName(proj,'product')):'—'}</span>
                 </div>
               </div>
               <div class="trk-item-score ${scClass(s)}">${s.toFixed(0)}</div>
@@ -2947,7 +2947,7 @@ function renderCEO() {
     return `<div class="ceo-card">
       <div class="ceo-accent" style="background:${p.color}"></div>
       <div class="ceo-pid">${p.id}</div>
-      <div class="ceo-name">${p.name}</div>
+      <div class="ceo-name">${escHtml(OrbAuth.getDisplayName(p,'product'))}</div>
       <div class="ceo-meta">
         <span class="gbadge ${gateClass(p.gate)}">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</span>
         <span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span>
@@ -2980,8 +2980,8 @@ function renderCEO() {
             const proj = PROJECTS.find(p=>p.id===(item.productId||item.project));
             return `<div class="trk-item">
               <div class="trk-item-id">${item.id}</div>
-              <div style="flex:1"><div class="trk-item-name">${item.name}</div>
-                <div style="font-size:9px;color:var(--muted);margin-top:1px">${proj?proj.name:'—'} · ${item.release}</div>
+              <div style="flex:1"><div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div>
+                <div style="font-size:9px;color:var(--muted);margin-top:1px">${proj?escHtml(OrbAuth.getDisplayName(proj,'product')):'—'} · ${item.release}</div>
               </div>
               <span class="sdot st-planned" style="flex-shrink:0;font-size:9px">${EI.svg('map-pin',12)}</span>
             </div>`;
@@ -2997,8 +2997,8 @@ function renderCEO() {
             const gate = STAGES[proj?proj.gate:0];
             return `<div class="trk-item">
               <div class="trk-item-id">${item.id}</div>
-              <div style="flex:1"><div class="trk-item-name">${item.name}</div>
-                <div style="font-size:9px;color:var(--muted);margin-top:1px">${proj?proj.name:'—'}</div>
+              <div style="flex:1"><div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div>
+                <div style="font-size:9px;color:var(--muted);margin-top:1px">${proj?escHtml(OrbAuth.getDisplayName(proj,'product')):'—'}</div>
               </div>
               <div class="trk-item-score ${scClass(s)}">${s.toFixed(0)}</div>
             </div>`;
@@ -3015,7 +3015,7 @@ function openEP(id) {
   const item = backlog.find(i => i.id === id);
   if (!item) return;
   editId = id;
-  document.getElementById('ep-title').textContent = item.name;
+  document.getElementById('ep-title').textContent = OrbAuth.getDisplayName(item,'initiative');
   document.getElementById('ep-r').value = item.r;
   document.getElementById('ep-i').value = item.i;
   document.getElementById('ep-c').value = item.c;
@@ -3096,7 +3096,7 @@ function openPRD(id) {
   // Header
   const idDisp = document.getElementById('ep-id-disp');
   if (idDisp) idDisp.textContent = item.id;
-  document.getElementById('ep-title').textContent = item.name;
+  document.getElementById('ep-title').textContent = OrbAuth.getDisplayName(item,'initiative');
   // RICE fields
   document.getElementById('ep-r').value = item.r;
   document.getElementById('ep-i').value = item.i;
@@ -3208,7 +3208,7 @@ function renderGoals() {
           <span class="kr-progress">${kr.current}/${kr.target} ${kr.unit}</span>
         </div>
         <div class="kr-bar"><div class="kr-bar-fill" style="width:${pct}%"></div></div>
-        <div class="kr-inits">${((kr.initiativeIds || []).map(id => backlog.find(i => i.id === id)).filter(Boolean)).map(init => `<span class="kr-init-chip ${ST_CLS[init.status]}">${escHtml(init.name)}</span>`).join('')}</div>
+        <div class="kr-inits">${((kr.initiativeIds || []).map(id => backlog.find(i => i.id === id)).filter(Boolean)).map(init => `<span class="kr-init-chip ${ST_CLS[init.status]}">${escHtml(OrbAuth.getDisplayName(init,'initiative'))}</span>`).join('')}</div>
         <div class="kr-history">${Object.entries(kr.history || {}).map(([month, val]) => {
           const pct = Math.min(100, kr.target > 0 ? Math.round(val / kr.target * 100) : 0);
           return `<div class="krh-cell"><div class="krh-month">${month.slice(5)}</div><div class="krh-bar"><div style="width:${pct}%;background:var(--teal);height:100%;border-radius:2px"></div></div><div class="krh-val">${val}</div></div>`;
@@ -3444,7 +3444,7 @@ function openProductPRD(pid, event) {
   curPid = pid;
   const proj = PROJECTS.find(p => p.id === pid);
   const back = document.getElementById('pp-back');
-  if (back) back.textContent = '\u2190 ' + pid + ' \u00B7 ' + (proj ? proj.name : pid);
+  if (back) back.textContent = '\u2190 ' + pid + ' \u00B7 ' + (proj ? OrbAuth.getDisplayName(proj,'product') : pid);
   const data = productsPRD[pid] || {};
   document.getElementById('pp-owner').value         = data.owner        || '';
   document.getElementById('pp-problem').value       = data.problem      || '';
@@ -3538,7 +3538,7 @@ function openGoalEditor(goalId) {
   document.getElementById('gm-desc').value   = goal ? (goal.description || '') : '';
   const gmProd = document.getElementById('gm-product');
   if (gmProd) {
-    gmProd.innerHTML = '<option value="">— Без привязки —</option>' + PROJECTS.map(p => `<option value="${p.id}">${p.id} · ${p.name}</option>`).join('');
+    gmProd.innerHTML = '<option value="">— Без привязки —</option>' + PROJECTS.map(p => `<option value="${p.id}">${p.id} · ${escHtml(OrbAuth.getDisplayName(p,'product'))}</option>`).join('');
     gmProd.value = goal ? (goal.productId || '') : '';
   }
   const krList = document.getElementById('gm-kr-list');
@@ -3644,12 +3644,12 @@ function deleteGoalConfirm() {
 // ════════════════════════════════════════════
 let portfolioView='cards';
 function setPortfolioView(view,btn){portfolioView=view;document.querySelectorAll('#active-views .view-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('portfolio-cards').style.display=view==='cards'?'':'none';document.getElementById('portfolio-table').style.display=view==='table'?'':'none';document.getElementById('portfolio-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderPortfolioTable();if(view==='kanban')renderPortfolioKanban();}
-function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Название</th><th>Орбита</th><th>Статус</th><th>RICE</th><th>PM</th></tr></thead><tbody>';PROJECTS.forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});var avgRice=pInits.length?(pInits.reduce(function(a,i){return a+sc(i);},0)/pInits.length).toFixed(1):'\u2014';html+='<tr onclick="togglePC(\''+p.id+'\')"><td><strong>'+escHtml(p.name)+'</strong></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+avgRice+'</td><td>'+escHtml(p.owner||'\u2014')+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
-function renderPortfolioKanban(){var el=document.getElementById('portfolio-kanban');var html='<div class="kanban-board">';STAGES.forEach(function(s,idx){var prods=PROJECTS.filter(function(p){return p.gate===idx;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+s.color+'"><span class="kanban-col-name">'+s.name+'</span><span class="kanban-col-count">'+prods.length+'</span></div><div class="kanban-col-body">';prods.forEach(function(p){html+='<div class="kanban-card" onclick="togglePC(\''+p.id+'\')"><div class="kanban-card-name">'+escHtml(p.name)+'</div><div class="kanban-card-meta">'+escHtml(p.owner||'')+' \u00b7 '+p.status+'</div></div>';});if(!prods.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
+function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Название</th><th>Орбита</th><th>Статус</th><th>RICE</th><th>PM</th></tr></thead><tbody>';PROJECTS.forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});var avgRice=pInits.length?(pInits.reduce(function(a,i){return a+sc(i);},0)/pInits.length).toFixed(1):'\u2014';html+='<tr onclick="togglePC(\''+p.id+'\')"><td><strong>'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</strong></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+avgRice+'</td><td>'+escHtml(p.owner||'\u2014')+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
+function renderPortfolioKanban(){var el=document.getElementById('portfolio-kanban');var html='<div class="kanban-board">';STAGES.forEach(function(s,idx){var prods=PROJECTS.filter(function(p){return p.gate===idx;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+s.color+'"><span class="kanban-col-name">'+s.name+'</span><span class="kanban-col-count">'+prods.length+'</span></div><div class="kanban-col-body">';prods.forEach(function(p){html+='<div class="kanban-card" onclick="togglePC(\''+p.id+'\')"><div class="kanban-card-name">'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</div><div class="kanban-card-meta">'+escHtml(p.owner||'')+' \u00b7 '+p.status+'</div></div>';});if(!prods.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
 let backlogView='list';
 function setBacklogView(view,btn){backlogView=view;document.querySelectorAll('#active-views .view-btn').forEach(function(b){b.classList.remove('active');});if(btn)btn.classList.add('active');document.getElementById('backlog-list-wrap').style.display=view==='list'?'':'none';document.getElementById('backlog-table-wrap').style.display=view==='table'?'':'none';document.getElementById('backlog-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderBacklogTable();if(view==='kanban')renderBacklogKanban();}
-function renderBacklogTable(){var items=getFiltered();var el=document.getElementById('backlog-table-wrap');var html='<table class="ptr-table"><thead><tr><th>ID</th><th>Название</th><th>Продукт</th><th>Статус</th><th>Трек</th><th>RICE</th></tr></thead><tbody>';items.forEach(function(item){var s=sc(item);html+='<tr onclick="openPRD(\''+item.id+'\')"><td style="font-family:var(--mono);font-size:10px;color:var(--muted)">'+item.id+'</td><td><strong>'+escHtml(item.name)+'</strong></td><td>'+(item.productId||item.project)+'</td><td><span class="sdot '+ST_CLS[item.status]+'">'+ST_LBL[item.status]+'</span></td><td>'+(item.track==='discovery'?'Исследование':'Разработка')+'</td><td><span class="iscore '+scClass(s)+'">'+s.toFixed(1)+'</span></td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
-function renderBacklogKanban(){var items=getFiltered();var el=document.getElementById('backlog-kanban');var cols=[{key:'backlog',label:'Бэклог',color:'var(--muted)'},{key:'planned',label:'Запланировано',color:'#C4B5FD'},{key:'wip',label:'В работе',color:'var(--teal)'},{key:'done',label:'Готово',color:'var(--green)'}];var html='<div class="kanban-board">';cols.forEach(function(col){var colItems=items.filter(function(i){return i.status===col.key;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+col.color+'"><span class="kanban-col-name">'+col.label+'</span><span class="kanban-col-count">'+colItems.length+'</span></div><div class="kanban-col-body">';colItems.forEach(function(item){var s=sc(item);html+='<div class="kanban-card" onclick="openPRD(\''+item.id+'\')"><div class="kanban-card-name">'+escHtml(item.name)+'</div><div class="kanban-card-meta">'+(item.productId||item.project)+' \u00b7 RICE '+s.toFixed(1)+'</div></div>';});if(!colItems.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
+function renderBacklogTable(){var items=getFiltered();var el=document.getElementById('backlog-table-wrap');var html='<table class="ptr-table"><thead><tr><th>ID</th><th>Название</th><th>Продукт</th><th>Статус</th><th>Трек</th><th>RICE</th></tr></thead><tbody>';items.forEach(function(item){var s=sc(item);html+='<tr onclick="openPRD(\''+item.id+'\')"><td style="font-family:var(--mono);font-size:10px;color:var(--muted)">'+item.id+'</td><td><strong>'+escHtml(OrbAuth.getDisplayName(item,'initiative'))+'</strong></td><td>'+(item.productId||item.project)+'</td><td><span class="sdot '+ST_CLS[item.status]+'">'+ST_LBL[item.status]+'</span></td><td>'+(item.track==='discovery'?'Исследование':'Разработка')+'</td><td><span class="iscore '+scClass(s)+'">'+s.toFixed(1)+'</span></td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
+function renderBacklogKanban(){var items=getFiltered();var el=document.getElementById('backlog-kanban');var cols=[{key:'backlog',label:'Бэклог',color:'var(--muted)'},{key:'planned',label:'Запланировано',color:'#C4B5FD'},{key:'wip',label:'В работе',color:'var(--teal)'},{key:'done',label:'Готово',color:'var(--green)'}];var html='<div class="kanban-board">';cols.forEach(function(col){var colItems=items.filter(function(i){return i.status===col.key;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+col.color+'"><span class="kanban-col-name">'+col.label+'</span><span class="kanban-col-count">'+colItems.length+'</span></div><div class="kanban-col-body">';colItems.forEach(function(item){var s=sc(item);html+='<div class="kanban-card" onclick="openPRD(\''+item.id+'\')"><div class="kanban-card-name">'+escHtml(OrbAuth.getDisplayName(item,'initiative'))+'</div><div class="kanban-card-meta">'+(item.productId||item.project)+' \u00b7 RICE '+s.toFixed(1)+'</div></div>';});if(!colItems.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
 renderPortfolio();
 initSidebar();
 renderContextBar();

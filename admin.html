@@ -58,6 +58,19 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .status-active{color:#34D399}
 .status-inactive{color:#F87171}
 
+/* product status badges */
+.prod-status{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700;font-family:var(--head);letter-spacing:.04em}
+.prod-status-active{background:var(--gdim);color:var(--green);border:1px solid var(--gborder)}
+.prod-status-paused{background:var(--adim);color:var(--amber);border:1px solid rgba(255,184,48,.3)}
+.prod-status-archived{background:rgba(122,122,157,.1);color:var(--muted);border:1px solid rgba(122,122,157,.25)}
+.prod-status-inactive{background:var(--rdim);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+
+/* product filter bar */
+.prod-filter-bar{display:flex;gap:6px;flex-wrap:wrap}
+.prod-filter-btn{padding:4px 12px;border-radius:6px;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .15s}
+.prod-filter-btn:hover{border-color:var(--border-hi);color:var(--text)}
+.prod-filter-btn.active{background:var(--vdim);color:#C4B5FD;border-color:var(--vborder)}
+
 /* buttons */
 .btn{padding:7px 16px;border-radius:8px;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px;border:none;color:#fff}
 .btn-primary{background:var(--violet)}
@@ -183,12 +196,28 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
       <!-- TAB: Products -->
       <div id="tab-products" class="tab-content">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-          <div style="font-family:var(--head);font-size:12px;font-weight:700;color:#fff">Продукты платформы</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+          <div style="font-family:var(--head);font-size:12px;font-weight:700;color:#fff">Управление продуктами</div>
           <button class="btn btn-teal" onclick="AdminApp.openProductModal()">+ Продукт</button>
         </div>
-        <div id="products-list"></div>
-        <div id="products-empty" class="empty-state" style="display:none">Нет продуктов</div>
+        <div style="margin-bottom:16px">
+          <div class="prod-filter-bar" id="prod-filter-bar">
+            <button class="prod-filter-btn active" data-filter="all" onclick="AdminApp.filterProducts('all')">Все</button>
+            <button class="prod-filter-btn" data-filter="active" onclick="AdminApp.filterProducts('active')">Активные</button>
+            <button class="prod-filter-btn" data-filter="paused" onclick="AdminApp.filterProducts('paused')">На паузе</button>
+            <button class="prod-filter-btn" data-filter="archived" onclick="AdminApp.filterProducts('archived')">Архив</button>
+            <button class="prod-filter-btn" data-filter="inactive" onclick="AdminApp.filterProducts('inactive')">Неактивные</button>
+          </div>
+        </div>
+        <div class="sec">
+          <table class="adm-table">
+            <thead>
+              <tr><th>ID</th><th>Название</th><th>Орбита</th><th>Статус</th><th>Владелец</th><th>Действия</th></tr>
+            </thead>
+            <tbody id="products-tbody"></tbody>
+          </table>
+          <div id="products-empty" class="empty-state" style="display:none">Нет продуктов</div>
+        </div>
       </div>
 
       <!-- TAB: Settings -->
@@ -260,13 +289,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   </div>
 </div>
 
-<!-- Modal: Product -->
+<!-- Modal: Product (create/edit) -->
 <div class="modal-overlay" id="modal-product">
   <div class="modal">
-    <div class="modal-title">Новый продукт</div>
+    <div class="modal-title" id="modal-product-title">Новый продукт</div>
+    <input type="hidden" id="prod-edit-id">
     <div class="field">
       <label>Название</label>
       <input type="text" id="prod-name" placeholder="Название продукта">
+    </div>
+    <div class="field">
+      <label>Описание</label>
+      <textarea id="prod-desc" placeholder="Описание продукта" rows="3"></textarea>
     </div>
     <div class="field-row">
       <div class="field">
@@ -288,11 +322,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
     <div class="field">
-      <label>Владелец (PM)</label>
+      <label>Владелец (PMO)</label>
       <select id="prod-owner"></select>
     </div>
     <div style="display:flex;gap:8px;margin-top:16px">
-      <button class="btn btn-teal" onclick="AdminApp.saveProduct()">Создать</button>
+      <button class="btn btn-teal" id="prod-save-btn" onclick="AdminApp.saveProduct()">Создать</button>
       <button class="btn btn-ghost" onclick="AdminApp.closeModal('modal-product')">Отмена</button>
     </div>
   </div>
@@ -604,14 +638,82 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   }
 
   // ── Products ──
+  var currentProductFilter = 'all';
+
+  var STATUS_LABELS = {
+    active: 'Активен',
+    paused: 'На паузе',
+    archived: 'В архиве',
+    inactive: 'Неактивен'
+  };
+
+  var STATUS_CSS = {
+    active: 'prod-status-active',
+    paused: 'prod-status-paused',
+    archived: 'prod-status-archived',
+    inactive: 'prod-status-inactive'
+  };
+
+  function getProductStatus(p) {
+    if (p.status === 'active' || p.status === 'on-track') return 'active';
+    if (p.status === 'paused' || p.status === 'at-risk') return 'paused';
+    if (p.status === 'archived') return 'archived';
+    if (p.status === 'inactive') return 'inactive';
+    return 'active';
+  }
+
+  function canManageProductStatus() {
+    var role = OrbAuth.getRole();
+    return role === 'admin' || role === 'pmo_lead';
+  }
+
+  function canDeleteProduct() {
+    var role = OrbAuth.getRole();
+    return role === 'admin' || role === 'pmo_lead';
+  }
+
+  function canEditProductAdmin(productId) {
+    var role = OrbAuth.getRole();
+    if (role === 'admin' || role === 'pmo_lead') return true;
+    // pmo привязанный к продукту
+    if (role === 'pmo') {
+      var user = OrbAuth.getCurrentUser();
+      if (user && user.productIds && user.productIds.indexOf(productId) >= 0) return true;
+      if (user && user.assignments) {
+        for (var i = 0; i < user.assignments.length; i++) {
+          if (user.assignments[i].productId === productId) return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function filterProducts(filter) {
+    currentProductFilter = filter;
+    var btns = document.querySelectorAll('#prod-filter-bar .prod-filter-btn');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].classList.toggle('active', btns[i].getAttribute('data-filter') === filter);
+    }
+    renderProducts();
+  }
+
   function renderProducts() {
     var products = (typeof PT !== 'undefined') ? (PT.load(PT.KEY_PRODUCTS) || []) : [];
     var users = OrbAuth.getUsers();
-    var container = document.getElementById('products-list');
+    var tbody = document.getElementById('products-tbody');
     var empty = document.getElementById('products-empty');
 
-    if (!products.length) {
-      container.innerHTML = '';
+    // Filter
+    var filtered = [];
+    for (var fi = 0; fi < products.length; fi++) {
+      var st = getProductStatus(products[fi]);
+      if (currentProductFilter === 'all' || st === currentProductFilter) {
+        filtered.push(products[fi]);
+      }
+    }
+
+    if (!filtered.length) {
+      tbody.innerHTML = '';
       empty.style.display = '';
       return;
     }
@@ -624,99 +726,250 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     };
 
     var html = '';
-    for (var i = 0; i < products.length; i++) {
-      var p = products[i];
-      var orbit = String(p.orbit || '1');
-      var oc = orbitColors[orbit] || orbitColors['1'];
+    var canStatus = canManageProductStatus();
+    var canDel = canDeleteProduct();
 
-      // Find owner
+    for (var i = 0; i < filtered.length; i++) {
+      var p = filtered[i];
+      var orbit = String(p.orbit || p.gate || '1');
+      var oc = orbitColors[orbit] || orbitColors['1'];
+      var status = getProductStatus(p);
+      var statusLabel = STATUS_LABELS[status] || status;
+      var statusCss = STATUS_CSS[status] || 'prod-status-active';
+
+      // Find owner name
       var ownerName = '--';
       if (p.owner) {
         for (var j = 0; j < users.length; j++) {
-          if (users[j].id === p.owner) { ownerName = users[j].name; break; }
+          if (users[j].id === p.owner || users[j].name === p.owner) {
+            ownerName = users[j].name;
+            break;
+          }
         }
         if (ownerName === '--') ownerName = p.owner;
       }
 
-      html += '<div class="prod-card">'
-        + '<span class="prod-orbit" style="background:' + oc.bg + ';color:' + oc.color + ';border:1px solid ' + oc.border + '">O' + orbit + '</span>'
-        + '<div style="flex:1">'
-        +   '<div class="prod-name">' + escHtml(p.name || p.id) + '</div>'
-        +   '<div class="prod-meta">' + escHtml(p.category || '') + (ownerName !== '--' ? ' / ' + escHtml(ownerName) : '') + '</div>'
-        + '</div>'
-        + '</div>';
+      var canEdit = canEditProductAdmin(p.id);
+      var pid = p.id.replace(/'/g, "\\'");
+
+      // Action buttons
+      var actions = '';
+      if (canEdit) {
+        actions += '<button class="btn btn-ghost btn-sm" onclick="AdminApp.editProduct(\'' + pid + '\')" title="Редактировать">Ред.</button> ';
+      }
+      if (canStatus) {
+        if (status === 'active' || status === 'paused') {
+          actions += '<button class="btn btn-ghost btn-sm" onclick="AdminApp.deactivateProduct(\'' + pid + '\')" title="Деактивировать" style="color:var(--amber)">Деакт.</button> ';
+          actions += '<button class="btn btn-ghost btn-sm" onclick="AdminApp.archiveProduct(\'' + pid + '\')" title="Архивировать" style="color:var(--muted)">Архив</button> ';
+        }
+        if (status === 'inactive') {
+          actions += '<button class="btn btn-ghost btn-sm" onclick="AdminApp.activateProduct(\'' + pid + '\')" title="Активировать" style="color:var(--green)">Акт.</button> ';
+        }
+        if (status === 'archived') {
+          actions += '<button class="btn btn-ghost btn-sm" onclick="AdminApp.activateProduct(\'' + pid + '\')" title="Активировать" style="color:var(--green)">Акт.</button> ';
+        }
+      }
+      if (canDel) {
+        actions += '<button class="btn btn-danger btn-sm" onclick="AdminApp.deleteProduct(\'' + pid + '\')" title="Удалить">Удл.</button>';
+      }
+
+      html += '<tr>'
+        + '<td style="font-family:var(--mono);font-size:11px;color:var(--muted)">' + escHtml(p.id) + '</td>'
+        + '<td style="font-weight:600;color:#fff">' + escHtml(p.name || p.id) + '</td>'
+        + '<td><span class="prod-orbit" style="background:' + oc.bg + ';color:' + oc.color + ';border:1px solid ' + oc.border + '">O' + orbit + '</span></td>'
+        + '<td><span class="prod-status ' + statusCss + '">' + statusLabel + '</span></td>'
+        + '<td>' + escHtml(ownerName) + '</td>'
+        + '<td style="white-space:nowrap">' + actions + '</td>'
+        + '</tr>';
     }
-    container.innerHTML = html;
+    tbody.innerHTML = html;
   }
 
-  function openProductModal() {
-    var modal = document.getElementById('modal-product');
-    var users = OrbAuth.getUsers();
-    var pms = [];
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].role === 'pm') pms.push(users[i]);
+  function setProductStatus(productId, newStatus) {
+    var products = (typeof PT !== 'undefined') ? (PT.load(PT.KEY_PRODUCTS) || []) : [];
+    for (var i = 0; i < products.length; i++) {
+      if (products[i].id === productId) {
+        products[i].status = newStatus;
+        break;
+      }
     }
+    if (typeof PT !== 'undefined') {
+      PT.save(PT.KEY_PRODUCTS, products);
+    }
+    renderProducts();
+  }
 
-    // Populate owner select
+  function deactivateProduct(productId) {
+    if (!canManageProductStatus()) { showToast('Нет прав для деактивации'); return; }
+    setProductStatus(productId, 'inactive');
+    showToast('Продукт деактивирован');
+  }
+
+  function activateProduct(productId) {
+    if (!canManageProductStatus()) { showToast('Нет прав для активации'); return; }
+    setProductStatus(productId, 'active');
+    showToast('Продукт активирован');
+  }
+
+  function archiveProduct(productId) {
+    if (!canManageProductStatus()) { showToast('Нет прав для архивации'); return; }
+    setProductStatus(productId, 'archived');
+    showToast('Продукт перемещён в архив');
+  }
+
+  function deleteProduct(productId) {
+    if (!canDeleteProduct()) { showToast('Нет прав для удаления'); return; }
+    if (!confirm('Удалить продукт и все его инициативы?')) return;
+
+    var products = (typeof PT !== 'undefined') ? (PT.load(PT.KEY_PRODUCTS) || []) : [];
+    var filtered = [];
+    for (var i = 0; i < products.length; i++) {
+      if (products[i].id !== productId) filtered.push(products[i]);
+    }
+    if (typeof PT !== 'undefined') {
+      PT.save(PT.KEY_PRODUCTS, filtered);
+    }
+    renderProducts();
+    renderUsers();
+    showToast('Продукт удалён');
+  }
+
+  function editProduct(productId) {
+    if (!canEditProductAdmin(productId)) { showToast('Нет прав для редактирования'); return; }
+    openProductModal(productId);
+  }
+
+  function openProductModal(productId) {
+    var modal = document.getElementById('modal-product');
+    var titleEl = document.getElementById('modal-product-title');
+    var saveBtn = document.getElementById('prod-save-btn');
+    var users = OrbAuth.getUsers();
+
+    // Populate owner select — pmo_lead, pmo, pm
     var ownerSelect = document.getElementById('prod-owner');
     var optHtml = '<option value="">-- Не назначен --</option>';
-    for (var j = 0; j < pms.length; j++) {
-      optHtml += '<option value="' + pms[j].id + '">' + escHtml(pms[j].name) + '</option>';
+    for (var j = 0; j < users.length; j++) {
+      var u = users[j];
+      if (u.role === 'pm' || u.role === 'pmo' || u.role === 'pmo_lead') {
+        optHtml += '<option value="' + u.id + '">' + escHtml(u.name) + ' (' + (ROLE_LABELS[u.role] || u.role) + ')</option>';
+      }
     }
     ownerSelect.innerHTML = optHtml;
 
-    document.getElementById('prod-name').value = '';
-    document.getElementById('prod-category').value = 'product';
-    document.getElementById('prod-orbit').value = '2';
+    if (productId) {
+      // Edit mode
+      titleEl.textContent = 'Редактировать продукт';
+      saveBtn.textContent = 'Сохранить';
+      document.getElementById('prod-edit-id').value = productId;
+
+      var products = (typeof PT !== 'undefined') ? (PT.load(PT.KEY_PRODUCTS) || []) : [];
+      var prod = null;
+      for (var pi = 0; pi < products.length; pi++) {
+        if (products[pi].id === productId) { prod = products[pi]; break; }
+      }
+      if (!prod) return;
+
+      document.getElementById('prod-name').value = prod.name || '';
+      document.getElementById('prod-desc').value = prod.desc || prod.description || '';
+      document.getElementById('prod-category').value = prod.category || prod.cat || 'product';
+      document.getElementById('prod-orbit').value = String(prod.orbit || prod.gate || '2');
+
+      // Match owner by id or name
+      var ownerVal = '';
+      if (prod.owner) {
+        for (var oi = 0; oi < users.length; oi++) {
+          if (users[oi].id === prod.owner || users[oi].name === prod.owner) {
+            ownerVal = users[oi].id;
+            break;
+          }
+        }
+      }
+      ownerSelect.value = ownerVal;
+    } else {
+      // Create mode
+      titleEl.textContent = 'Новый продукт';
+      saveBtn.textContent = 'Создать';
+      document.getElementById('prod-edit-id').value = '';
+      document.getElementById('prod-name').value = '';
+      document.getElementById('prod-desc').value = '';
+      document.getElementById('prod-category').value = 'product';
+      document.getElementById('prod-orbit').value = '2';
+    }
 
     modal.classList.add('open');
   }
 
   function saveProduct() {
     var name = document.getElementById('prod-name').value.trim();
+    var desc = document.getElementById('prod-desc').value.trim();
     var category = document.getElementById('prod-category').value;
     var orbit = parseInt(document.getElementById('prod-orbit').value, 10);
     var owner = document.getElementById('prod-owner').value;
+    var editId = document.getElementById('prod-edit-id').value;
 
     if (!name) { showToast('Укажите название продукта'); return; }
 
     var products = (typeof PT !== 'undefined') ? (PT.load(PT.KEY_PRODUCTS) || []) : [];
-    var newId = 'P' + String(Date.now()).slice(-6);
 
-    products.push({
-      id: newId,
-      name: name,
-      category: category,
-      orbit: orbit,
-      owner: owner,
-      stage: 'discovery',
-      status: 'active',
-      createdAt: new Date().toISOString()
-    });
-
-    if (typeof PT !== 'undefined') {
-      PT.save(PT.KEY_PRODUCTS, products);
-    }
-
-    // If owner assigned, add product to owner's productIds & assignments
-    if (owner) {
-      var users = OrbAuth.getUsers();
-      for (var i = 0; i < users.length; i++) {
-        if (users[i].id === owner) {
-          if (!users[i].productIds) users[i].productIds = [];
-          users[i].productIds.push(newId);
-          if (!users[i].assignments) users[i].assignments = [];
-          users[i].assignments.push({ productId: newId, scope: 'all' });
-          OrbAuth.saveUsers(users);
+    if (editId) {
+      // Update existing product
+      for (var k = 0; k < products.length; k++) {
+        if (products[k].id === editId) {
+          products[k].name = name;
+          products[k].desc = desc;
+          products[k].category = category;
+          products[k].cat = category;
+          products[k].orbit = orbit;
+          products[k].owner = owner;
           break;
         }
       }
-    }
+      if (typeof PT !== 'undefined') {
+        PT.save(PT.KEY_PRODUCTS, products);
+      }
+      closeModal('modal-product');
+      renderProducts();
+      showToast('Продукт обновлён');
+    } else {
+      // Create new product
+      var newId = 'P' + String(Date.now()).slice(-6);
+      products.push({
+        id: newId,
+        name: name,
+        desc: desc,
+        category: category,
+        cat: category,
+        orbit: orbit,
+        owner: owner,
+        stage: 'discovery',
+        status: 'active',
+        createdAt: new Date().toISOString()
+      });
 
-    closeModal('modal-product');
-    renderProducts();
-    renderUsers();
-    showToast('Продукт создан');
+      if (typeof PT !== 'undefined') {
+        PT.save(PT.KEY_PRODUCTS, products);
+      }
+
+      // If owner assigned, add product to owner's productIds & assignments
+      if (owner) {
+        var users = OrbAuth.getUsers();
+        for (var i = 0; i < users.length; i++) {
+          if (users[i].id === owner) {
+            if (!users[i].productIds) users[i].productIds = [];
+            users[i].productIds.push(newId);
+            if (!users[i].assignments) users[i].assignments = [];
+            users[i].assignments.push({ productId: newId, scope: 'all' });
+            OrbAuth.saveUsers(users);
+            break;
+          }
+        }
+      }
+
+      closeModal('modal-product');
+      renderProducts();
+      renderUsers();
+      showToast('Продукт создан');
+    }
   }
 
   // ── Settings ──
@@ -805,6 +1058,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     toggleUserActive: toggleUserActive,
     openProductModal: openProductModal,
     saveProduct: saveProduct,
+    editProduct: editProduct,
+    deleteProduct: deleteProduct,
+    deactivateProduct: deactivateProduct,
+    activateProduct: activateProduct,
+    archiveProduct: archiveProduct,
+    filterProducts: filterProducts,
     saveSetting: saveSetting,
     resetAllData: resetAllData,
     exportData: exportData,

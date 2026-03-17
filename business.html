@@ -157,7 +157,7 @@ body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text)}
 
       return '<a class="pcard" href="Проектный офис/tracker.html#product='+p.id+'">' +
         '<div class="pcard-left">' +
-          '<div class="pcard-name">' + esc(p.name) + '</div>' +
+          '<div class="pcard-name">' + esc(window.OrbAuth ? OrbAuth.getDisplayName(p, 'product') : p.name) + '</div>' +
           '<div class="pcard-desc">' + esc(p.desc) + '</div>' +
           '<div class="pcard-meta">' +
             '<span class="pcard-badge" style="background:'+s.colorDim+';color:'+s.color+'">О·'+p.gate+' '+s.name+'</span>' +

@@ -285,5 +285,19 @@
     }
   };
 
+  // ── W4-012: Маскировка названий для гостей ──────────────────────
+  // type = 'product' | 'initiative' | 'goal' | 'epic'
+  Auth.getDisplayName = function(item, type) {
+    if (!item) return 'N/A';
+    var user = Auth.getCurrentUser();
+    var isGuest = !user || user.role === 'guest';
+    if (isGuest) {
+      // Исключение: ДЕМО-продукт показываем всегда
+      if (item.id === Auth.DEMO_PRODUCT_ID) return item.name || item.title || item.id;
+      return item.id || item.code || 'N/A';
+    }
+    return item.name || item.title || item.id;
+  };
+
   window.OrbAuth = Auth;
 })();

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Карточка продукта — ОРБИТА</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./design-system.css">
+<style>
+/* ── TOKENS ── */
+:root {
+  --bg:#03080F; --card:#040f1a; --card2:#061525; --border:rgba(255,255,255,0.07);
+  --bhi:rgba(255,255,255,0.14); --muted:#7A7A9D;
+  --violet:#4FC3F7; --vdim:rgba(79,195,247,0.14); --vborder:rgba(79,195,247,0.4);
+  --teal:#00D4B4; --tdim:rgba(0,212,180,0.12);
+  --amber:#FFB830; --adim:rgba(255,184,48,0.12);
+  --green:#34D399; --gdim:rgba(52,211,153,0.12);
+  --red:#EF4444; --rdim:rgba(239,68,68,0.12);
+  --blue:#3B82F6; --bdim:rgba(59,130,246,0.12);
+  --pink:#FF2D8A; --pdim:rgba(255,45,138,0.12);
+  --r:12px; --font:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh;font-size:14px;line-height:1.5;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.02;pointer-events:none;z-index:0}
+
+/* ── PAGE WRAP ── */
+.page-wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 24px 120px}
+
+/* ── HEADER ── */
+.pc-header{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.pc-header-left{flex:1;min-width:0}
+.pc-title{font-size:28px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pc-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.pc-owner{font-size:12px;color:var(--muted);font-weight:600}
+.pc-header-actions{display:flex;gap:8px;flex-shrink:0;align-items:center}
+
+/* ── BADGES ── */
+.orbit-badge{font-family:var(--mono);font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;white-space:nowrap}
+.status-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;white-space:nowrap}
+.status-badge::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.sb-on-track{color:var(--green);background:var(--gdim);border:1px solid rgba(52,211,153,.3)}
+.sb-on-track::before{background:var(--green)}
+.sb-at-risk{color:var(--amber);background:var(--adim);border:1px solid rgba(255,184,48,.3)}
+.sb-at-risk::before{background:var(--amber)}
+.sb-blocked{color:var(--red);background:var(--rdim);border:1px solid rgba(239,68,68,.3)}
+.sb-blocked::before{background:var(--red)}
+.sb-paused{color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--bhi)}
+.sb-paused::before{background:var(--muted)}
+.sb-done{color:var(--violet);background:var(--vdim);border:1px solid var(--vborder)}
+.sb-done::before{background:var(--violet)}
+.sb-draft{color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--bhi)}
+.sb-draft::before{background:var(--muted)}
+
+/* ── BUTTONS ── */
+.btn-back{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:1px solid var(--bhi);background:rgba(255,255,255,.04);color:var(--muted);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none}
+.btn-back:hover{color:#fff;border-color:var(--violet);background:var(--vdim)}
+.btn-share{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:1px solid rgba(0,212,180,.3);background:var(--tdim);color:var(--teal);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-share:hover{background:rgba(0,212,180,.18)}
+
+/* ── TABS ── */
+.pc-tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:0;flex-wrap:wrap}
+.tab{padding:8px 18px;border:none;border-radius:8px 8px 0 0;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;color:var(--muted);background:transparent;letter-spacing:.02em;white-space:nowrap;border-bottom:2px solid transparent}
+.tab.active{color:#fff;background:var(--violet);border-bottom-color:var(--violet)}
+.tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.06)}
+
+/* ── TAB PANELS ── */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── GATE TIMELINE ── */
+.gate-timeline{display:flex;align-items:center;gap:0;margin:24px 0;position:relative}
+.gate-point{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;position:relative;z-index:2}
+.gate-dot{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.12);background:var(--card2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;font-weight:700;color:var(--muted);transition:all .2s}
+.gate-dot.done{background:var(--green);border-color:var(--green);color:#fff}
+.gate-dot.current{background:var(--teal);border-color:var(--teal);color:#fff;box-shadow:0 0 16px rgba(0,212,180,.4)}
+.gate-label{font-size:9px;color:var(--muted);font-weight:600;text-align:center;white-space:nowrap}
+.gate-dot.done+.gate-label,.gate-dot.current+.gate-label{color:#E8E8F0}
+.gate-line{position:absolute;top:14px;left:0;right:0;height:2px;background:rgba(255,255,255,.07);z-index:1}
+.gate-line-fill{position:absolute;top:14px;left:0;height:2px;background:var(--green);z-index:1;transition:width .3s}
+
+/* ── OVERVIEW CARDS ── */
+.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.ov-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+.ov-card-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.ov-card-value{font-size:15px;font-weight:700;color:#E8E8F0;line-height:1.5}
+.ov-kpi-grid{display:flex;gap:16px;flex-wrap:wrap}
+.ov-kpi{display:flex;flex-direction:column;gap:2px;min-width:80px}
+.ov-kpi-val{font-family:var(--mono);font-size:20px;font-weight:700;color:#fff}
+.ov-kpi-lbl{font-size:10px;color:var(--muted);font-weight:600}
+
+/* ── INITIATIVE CARDS ── */
+.init-list{display:flex;flex-direction:column;gap:8px}
+.init-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;display:grid;grid-template-columns:52px 1fr 60px 80px 80px auto;align-items:center;gap:12px;transition:border-color .15s}
+.init-card:hover{border-color:var(--bhi)}
+.init-id{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700}
+.init-name{font-size:13px;font-weight:700;color:#E8E8F0}
+.init-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.init-seg{font-size:9px;font-weight:700;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.seg-business{color:var(--amber);background:var(--adim);border:1px solid rgba(255,184,48,.3)}
+.seg-product{color:var(--teal);background:var(--tdim);border:1px solid rgba(0,212,180,.3)}
+.seg-tech{color:var(--blue);background:var(--bdim);border:1px solid rgba(59,130,246,.3)}
+.init-rice{font-family:var(--mono);font-size:14px;font-weight:700;text-align:right}
+.init-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;text-align:center;white-space:nowrap}
+.is-wip{color:var(--amber);background:var(--adim)}
+.is-planned{color:var(--blue);background:var(--bdim)}
+.is-backlog{color:var(--muted);background:rgba(255,255,255,.04)}
+.is-done{color:var(--green);background:var(--gdim)}
+.init-edit-btn{width:28px;height:28px;border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:7px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;opacity:0}
+.init-card:hover .init-edit-btn{opacity:1}
+.init-edit-btn:hover{background:var(--vdim);color:var(--violet);border-color:var(--vborder)}
+
+/* ── GOALS ── */
+.goal-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:12px}
+.goal-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:8px}
+.goal-meta{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.goal-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.gt-product{color:var(--teal);background:var(--tdim)}
+.gt-strategic{color:var(--amber);background:var(--adim)}
+.gt-growth{color:var(--pink);background:var(--pdim)}
+.kr-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.kr-item{display:flex;align-items:center;gap:12px}
+.kr-text{font-size:12px;color:#E8E8F0;flex:1}
+.kr-progress{width:120px;height:6px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden;flex-shrink:0}
+.kr-progress-fill{height:100%;border-radius:3px;background:var(--teal);transition:width .3s}
+.kr-pct{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--muted);width:40px;text-align:right;flex-shrink:0}
+.kr-linked{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* ── PLACEHOLDER ── */
+.placeholder-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:40px;text-align:center;color:var(--muted)}
+.placeholder-card h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:8px}
+.placeholder-card p{font-size:13px;line-height:1.6}
+
+/* ── NOT FOUND ── */
+.not-found{text-align:center;padding:80px 20px}
+.not-found h2{font-size:24px;font-weight:800;color:#fff;margin-bottom:12px}
+.not-found p{font-size:14px;color:var(--muted);margin-bottom:24px}
+
+/* ── TOAST ── */
+.pc-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--teal);color:#fff;padding:10px 20px;border-radius:50px;font-size:12px;font-weight:600;z-index:9999;transition:transform .3s cubic-bezier(.22,1,.36,1);pointer-events:none}
+.pc-toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .ov-grid{grid-template-columns:1fr}
+  .init-card{grid-template-columns:1fr;gap:6px}
+  .init-rice,.init-status,.init-edit-btn{justify-self:start}
+  .pc-header{flex-direction:column}
+}
+@media(max-width:560px){
+  .page-wrap{padding:20px 16px 80px}
+  .pc-title{font-size:22px}
+  .gate-label{font-size:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap" id="main-content">
+  <div id="pc-app"></div>
+</div>
+
+<div class="pc-toast" id="pc-toast">Ссылка скопирована</div>
+
+<script src="./platform.js"></script>
+<script src="./js/auth.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ── Helpers ──────────────────────────────────────────────
+  var GATE_NAMES = ['О·0 Заявка','О·1 Разведка','О·2 Прототип','О·3 Разгон','О·4 Экосистема','О·5 Плато'];
+  var STATUS_LABELS = {'on-track':'On Track','at-risk':'At Risk','blocked':'Blocked','paused':'Paused','done':'Done','draft':'Draft','wip':'В работе','planned':'Запланировано','backlog':'Бэклог','active':'Активна'};
+  var STATUS_CLS = {'on-track':'sb-on-track','at-risk':'sb-at-risk','blocked':'sb-blocked','paused':'sb-paused','done':'sb-done','draft':'sb-draft'};
+  var SEGMENT_LABELS = {'business':'Бизнес','product':'Продукт','tech':'Техника'};
+  var SEGMENT_CLS = {'business':'seg-business','product':'seg-product','tech':'seg-tech'};
+  var INIT_STATUS_CLS = {'wip':'is-wip','planned':'is-planned','backlog':'is-backlog','done':'is-done'};
+
+  function esc(t) { return String(t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function getParam(name) {
+    var url = window.location.search;
+    var regex = new RegExp('[?&]' + name + '=([^&#]*)');
+    var results = regex.exec(url);
+    return results ? decodeURIComponent(results[1]) : null;
+  }
+
+  function isGuest() {
+    if (!window.OrbAuth) return true;
+    var user = OrbAuth.getCurrentUser();
+    if (!user) return true;
+    return user.role === 'guest';
+  }
+
+  function canEditProduct(productId) {
+    if (!window.OrbAuth) return false;
+    return OrbAuth.canEditProduct(productId);
+  }
+
+  function canEditInitiative(productId, initId) {
+    if (!window.OrbAuth) return false;
+    return OrbAuth.canEditInitiative(productId, initId);
+  }
+
+  function getUserRole() {
+    if (!window.OrbAuth) return null;
+    return OrbAuth.getUserRole();
+  }
+
+  function getDisplayName(product) {
+    if (isGuest()) return product.id;
+    return product.name || product.id;
+  }
+
+  function riceScore(item) {
+    if (!item.e || item.e === 0) return 0;
+    return Math.round((item.r * item.i * item.c) / item.e);
+  }
+
+  function orbitBadgeColor(gate) {
+    var colors = ['var(--muted)','var(--blue)','var(--amber)','var(--teal)','var(--green)','var(--violet)'];
+    return colors[gate] || colors[0];
+  }
+
+  function showToast(msg) {
+    var t = document.getElementById('pc-toast');
+    if (!t) return;
+    t.textContent = msg || 'Ссылка скопирована';
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 2200);
+  }
+
+  // ── Get product ID from URL ──────────────────────────────
+  var productId = getParam('id');
+  var app = document.getElementById('pc-app');
+
+  if (!productId) {
+    app.innerHTML = renderNotFound();
+    return;
+  }
+
+  // ── Load data ────────────────────────────────────────────
+  PT.ensureProducts(function(products) {
+    var product = null;
+    for (var i = 0; i < products.length; i++) {
+      if (products[i].id === productId) { product = products[i]; break; }
+    }
+
+    if (!product) {
+      app.innerHTML = renderNotFound();
+      return;
+    }
+
+    // Update page title
+    document.title = getDisplayName(product) + ' — ОРБИТА';
+
+    var backlog = PT.load(PT.KEY_BACKLOG) || [];
+    var goals = PT.load(PT.KEY_GOALS) || [];
+
+    // Filter for this product
+    var productInitiatives = backlog.filter(function(b) { return b.productId === productId || b.project === productId; });
+    var productGoals = goals.filter(function(g) { return g.productId === productId; });
+
+    var guest = isGuest();
+    var role = getUserRole();
+    var canEdit = canEditProduct(productId);
+
+    app.innerHTML = renderPage(product, productInitiatives, productGoals, guest, canEdit);
+    initTabs(guest);
+    initShareButton();
+  });
+
+  // ── Render: Not Found ────────────────────────────────────
+  function renderNotFound() {
+    return '<div class="not-found">'
+      + '<h2>Продукт не найден</h2>'
+      + '<p>Продукт с ID "' + esc(productId || '') + '" не найден в реестре.</p>'
+      + '<a href="./Проектный офис/tracker.html" class="btn-back" style="display:inline-flex">Назад в реестр</a>'
+      + '</div>';
+  }
+
+  // ── Render: Full page ────────────────────────────────────
+  function renderPage(product, initiatives, goals, guest, canEdit) {
+    var html = '';
+
+    // ── Header ──
+    var gateNum = product.gate || 0;
+    var gateColor = orbitBadgeColor(gateNum);
+    var statusCls = STATUS_CLS[product.status] || 'sb-draft';
+    var statusLabel = STATUS_LABELS[product.status] || product.status || '--';
+
+    html += '<div class="pc-header">';
+    html += '<div class="pc-header-left">';
+    html += '<div class="pc-meta">';
+    html += '<span class="orbit-badge" style="color:' + gateColor + ';background:rgba(255,255,255,.06);border:1px solid ' + gateColor + '">О·' + gateNum + '</span>';
+    html += '<span class="status-badge ' + statusCls + '">' + esc(statusLabel) + '</span>';
+    if (product.catLabel) {
+      html += '<span style="font-size:10px;font-weight:700;color:var(--violet);background:var(--vdim);padding:2px 8px;border-radius:5px;border:1px solid var(--vborder)">' + esc(product.catLabel) + '</span>';
+    }
+    html += '</div>';
+    html += '<div class="pc-title">' + esc(getDisplayName(product)) + '</div>';
+    html += '<div class="pc-owner">Владелец: ' + esc(product.owner || '--') + '</div>';
+    html += '</div>';
+    html += '<div class="pc-header-actions">';
+    html += '<button class="btn-share" id="btn-share" title="Скопировать ссылку">Поделиться ссылкой</button>';
+    html += '<a href="./Проектный офис/tracker.html" class="btn-back">Назад в реестр</a>';
+    html += '</div>';
+    html += '</div>';
+
+    // ── Tabs ──
+    html += '<div class="pc-tabs" id="pc-tabs">';
+    html += '<button class="tab active" data-tab="overview">Обзор</button>';
+    html += '<button class="tab" data-tab="initiatives">Инициативы</button>';
+    html += '<button class="tab" data-tab="goals">Цели</button>';
+    if (!guest) {
+      html += '<button class="tab" data-tab="calendar">Календарь</button>';
+      html += '<button class="tab" data-tab="docs">Документация</button>';
+    }
+    html += '</div>';
+
+    // ── Tab: Overview ──
+    html += '<div class="tab-panel active" id="panel-overview">';
+    html += renderOverview(product, initiatives);
+    html += '</div>';
+
+    // ── Tab: Initiatives ──
+    html += '<div class="tab-panel" id="panel-initiatives">';
+    html += renderInitiatives(initiatives, canEdit);
+    html += '</div>';
+
+    // ── Tab: Goals ──
+    html += '<div class="tab-panel" id="panel-goals">';
+    html += renderGoals(goals, initiatives);
+    html += '</div>';
+
+    // ── Tab: Calendar ──
+    if (!guest) {
+      html += '<div class="tab-panel" id="panel-calendar">';
+      html += renderCalendar();
+      html += '</div>';
+    }
+
+    // ── Tab: Docs ──
+    if (!guest) {
+      html += '<div class="tab-panel" id="panel-docs">';
+      html += renderDocs(product);
+      html += '</div>';
+    }
+
+    return html;
+  }
+
+  // ── Render: Overview ─────────────────────────────────────
+  function renderOverview(product, initiatives) {
+    var html = '';
+
+    // Description & UTP
+    html += '<div class="ov-grid">';
+    html += '<div class="ov-card">';
+    html += '<div class="ov-card-title">Описание</div>';
+    html += '<div class="ov-card-value">' + esc(product.desc || 'Описание не указано') + '</div>';
+    html += '</div>';
+    html += '<div class="ov-card">';
+    html += '<div class="ov-card-title">Команда</div>';
+    html += '<div class="ov-card-value">' + esc(product.owner || '--') + '</div>';
+    if (product.quarter) {
+      html += '<div style="font-size:11px;color:var(--muted);margin-top:6px">Квартал: ' + esc(product.quarter) + '</div>';
+    }
+    html += '</div>';
+    html += '</div>';
+
+    // KPI
+    if (product.kpi && product.kpi.length) {
+      html += '<div class="ov-card" style="margin-bottom:24px">';
+      html += '<div class="ov-card-title">Ключевые метрики</div>';
+      html += '<div class="ov-kpi-grid">';
+      for (var k = 0; k < product.kpi.length; k++) {
+        var kpi = product.kpi[k];
+        html += '<div class="ov-kpi">';
+        html += '<div class="ov-kpi-val">' + esc(kpi.value) + '</div>';
+        html += '<div class="ov-kpi-lbl">' + esc(kpi.label) + '</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+      html += '</div>';
+    }
+
+    // Gate Progress Timeline
+    html += '<div class="ov-card" style="margin-bottom:24px">';
+    html += '<div class="ov-card-title">Gate-прогресс</div>';
+    html += renderGateTimeline(product.gate || 0);
+    html += '</div>';
+
+    // Quick stats
+    var wip = 0, planned = 0, done = 0;
+    for (var s = 0; s < initiatives.length; s++) {
+      if (initiatives[s].status === 'wip') wip++;
+      else if (initiatives[s].status === 'planned') planned++;
+      else if (initiatives[s].status === 'done') done++;
+    }
+    html += '<div class="ov-grid">';
+    html += '<div class="ov-card"><div class="ov-card-title">Инициативы</div><div class="ov-kpi-grid">';
+    html += '<div class="ov-kpi"><div class="ov-kpi-val">' + initiatives.length + '</div><div class="ov-kpi-lbl">Всего</div></div>';
+    html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--amber)">' + wip + '</div><div class="ov-kpi-lbl">В работе</div></div>';
+    html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--blue)">' + planned + '</div><div class="ov-kpi-lbl">Запланировано</div></div>';
+    html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--green)">' + done + '</div><div class="ov-kpi-lbl">Готово</div></div>';
+    html += '</div></div>';
+    html += '<div class="ov-card"><div class="ov-card-title">Обновление</div>';
+    html += '<div class="ov-card-value">' + esc(product.updated || '--') + '</div>';
+    if (product.release) {
+      html += '<div style="font-size:11px;color:var(--muted);margin-top:6px">Релиз: ' + esc(product.release) + '</div>';
+    }
+    html += '</div>';
+    html += '</div>';
+
+    return html;
+  }
+
+  // ── Render: Gate Timeline ────────────────────────────────
+  function renderGateTimeline(currentGate) {
+    var html = '';
+    var totalGates = 6; // O·0 to O·5
+    var fillPct = currentGate > 0 ? ((currentGate) / (totalGates - 1)) * 100 : 0;
+
+    html += '<div class="gate-timeline" style="position:relative;padding:0 10px">';
+    html += '<div class="gate-line"></div>';
+    html += '<div class="gate-line-fill" style="width:' + fillPct + '%"></div>';
+
+    for (var g = 0; g < totalGates; g++) {
+      var dotCls = 'gate-dot';
+      if (g < currentGate) dotCls += ' done';
+      else if (g === currentGate) dotCls += ' current';
+
+      html += '<div class="gate-point">';
+      html += '<div class="' + dotCls + '">' + g + '</div>';
+      html += '<div class="gate-label">' + (GATE_NAMES[g] || 'О·' + g) + '</div>';
+      html += '</div>';
+    }
+
+    html += '</div>';
+    return html;
+  }
+
+  // ── Render: Initiatives ──────────────────────────────────
+  function renderInitiatives(initiatives, canEdit) {
+    var html = '';
+
+    if (!initiatives.length) {
+      html += '<div class="placeholder-card">';
+      html += '<h3>Нет инициатив</h3>';
+      html += '<p>Для этого продукта пока нет инициатив в бэклоге.</p>';
+      html += '</div>';
+      return html;
+    }
+
+    // Sort by RICE desc
+    var sorted = initiatives.slice().sort(function(a, b) {
+      return riceScore(b) - riceScore(a);
+    });
+
+    html += '<div class="init-list">';
+    for (var i = 0; i < sorted.length; i++) {
+      var it = sorted[i];
+      var rice = riceScore(it);
+      var segLabel = SEGMENT_LABELS[it.segment] || it.segment || '--';
+      var segCls = SEGMENT_CLS[it.segment] || 'seg-product';
+      var stLabel = STATUS_LABELS[it.status] || it.status || '--';
+      var stCls = INIT_STATUS_CLS[it.status] || 'is-backlog';
+      var showEdit = canEdit && canEditInitiative(productId, it.id);
+
+      html += '<div class="init-card">';
+      html += '<div class="init-id">' + esc(it.id) + '</div>';
+      html += '<div>';
+      html += '<div class="init-name">' + esc(it.name) + '</div>';
+      if (it.desc) html += '<div class="init-sub">' + esc(it.desc) + '</div>';
+      html += '</div>';
+      html += '<div><span class="init-seg ' + segCls + '">' + esc(segLabel) + '</span></div>';
+      html += '<div class="init-rice" title="RICE = (R*I*C)/E">' + rice + '</div>';
+      html += '<div><span class="init-status ' + stCls + '">' + esc(stLabel) + '</span></div>';
+      if (showEdit) {
+        html += '<button class="init-edit-btn" title="Редактировать" onclick="window.location.href=\'./Проектный офис/tracker.html#product=' + esc(productId) + '\'">&#9998;</button>';
+      } else {
+        html += '<div style="width:28px"></div>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+
+    return html;
+  }
+
+  // ── Render: Goals ────────────────────────────────────────
+  function renderGoals(goals, initiatives) {
+    var html = '';
+
+    if (!goals.length) {
+      html += '<div class="placeholder-card">';
+      html += '<h3>Нет целей</h3>';
+      html += '<p>Для этого продукта пока нет установленных целей.</p>';
+      html += '</div>';
+      return html;
+    }
+
+    for (var i = 0; i < goals.length; i++) {
+      var g = goals[i];
+      var typeCls = g.type === 'product' ? 'gt-product' : g.type === 'strategic' ? 'gt-strategic' : 'gt-growth';
+      var typeLabel = g.type === 'product' ? 'Продуктовая' : g.type === 'strategic' ? 'Стратегическая' : g.type === 'growth' ? 'Рост' : g.type || '--';
+
+      html += '<div class="goal-card">';
+      html += '<div class="goal-title">' + esc(g.title) + '</div>';
+      html += '<div class="goal-meta">';
+      html += '<span class="goal-tag ' + typeCls + '">' + esc(typeLabel) + '</span>';
+      if (g.period) html += '<span style="font-size:11px;color:var(--muted);font-weight:600">' + esc(g.period) + '</span>';
+      if (g.owner) html += '<span style="font-size:11px;color:var(--muted)">' + esc(g.owner) + '</span>';
+      if (g.status) {
+        var gStLabel = STATUS_LABELS[g.status] || g.status;
+        html += '<span style="font-size:10px;font-weight:700;color:var(--teal)">' + esc(gStLabel) + '</span>';
+      }
+      html += '</div>';
+
+      // Key Results
+      if (g.keyResults && g.keyResults.length) {
+        html += '<div class="kr-list">';
+        for (var k = 0; k < g.keyResults.length; k++) {
+          var kr = g.keyResults[k];
+          var pct = kr.target > 0 ? Math.min(100, Math.round((kr.current / kr.target) * 100)) : 0;
+
+          html += '<div class="kr-item">';
+          html += '<div class="kr-text">' + esc(kr.text) + '</div>';
+          html += '<div class="kr-progress"><div class="kr-progress-fill" style="width:' + pct + '%"></div></div>';
+          html += '<div class="kr-pct">' + pct + '%</div>';
+          html += '</div>';
+
+          // Linked initiatives
+          if (kr.initiativeIds && kr.initiativeIds.length) {
+            var linked = [];
+            for (var li = 0; li < kr.initiativeIds.length; li++) {
+              for (var ii = 0; ii < initiatives.length; ii++) {
+                if (initiatives[ii].id === kr.initiativeIds[li]) {
+                  linked.push(initiatives[ii].id + ' ' + (initiatives[ii].name || ''));
+                  break;
+                }
+              }
+            }
+            if (linked.length) {
+              html += '<div class="kr-linked">Связанные: ' + linked.map(function(l) { return esc(l); }).join(', ') + '</div>';
+            }
+          }
+        }
+        html += '</div>';
+      }
+
+      html += '</div>';
+    }
+
+    return html;
+  }
+
+  // ── Render: Calendar (placeholder) ───────────────────────
+  function renderCalendar() {
+    return '<div class="placeholder-card">'
+      + '<h3>Календарь</h3>'
+      + '<p>Ключевые даты: Gate Review, дедлайны инициатив, релизы.</p>'
+      + '<p style="color:var(--amber);margin-top:12px;font-size:12px;font-weight:700">TODO: реализовать в W4-023</p>'
+      + '</div>';
+  }
+
+  // ── Render: Docs (placeholder) ───────────────────────────
+  function renderDocs(product) {
+    var gateNum = product.gate || 0;
+    var artifacts = [
+      { gate: 0, name: 'Product Brief', status: gateNum >= 0 ? 'available' : 'locked' },
+      { gate: 1, name: 'CustDev Report', status: gateNum >= 1 ? 'available' : 'locked' },
+      { gate: 1, name: 'PSF (Problem-Solution Fit)', status: gateNum >= 1 ? 'available' : 'locked' },
+      { gate: 2, name: 'MVP Spec', status: gateNum >= 2 ? 'available' : 'locked' },
+      { gate: 2, name: 'Unit Economics v1', status: gateNum >= 2 ? 'available' : 'locked' },
+      { gate: 3, name: 'Growth Plan', status: gateNum >= 3 ? 'available' : 'locked' },
+      { gate: 3, name: 'P&L Model', status: gateNum >= 3 ? 'available' : 'locked' },
+      { gate: 4, name: 'Ecosystem Integration Plan', status: gateNum >= 4 ? 'available' : 'locked' },
+      { gate: 5, name: 'Maturity Assessment', status: gateNum >= 5 ? 'available' : 'locked' }
+    ];
+
+    var html = '<div class="placeholder-card">';
+    html += '<h3>Документация по Gate</h3>';
+    html += '<p style="margin-bottom:16px">Артефакты, необходимые для прохождения Gate Review.</p>';
+    html += '<p style="color:var(--amber);margin-bottom:20px;font-size:12px;font-weight:700">TODO: добавить реальные ссылки на артефакты (W4-024)</p>';
+
+    html += '<div style="text-align:left;max-width:500px;margin:0 auto">';
+    for (var a = 0; a < artifacts.length; a++) {
+      var art = artifacts[a];
+      var iconColor = art.status === 'available' ? 'var(--green)' : 'var(--muted)';
+      var icon = art.status === 'available' ? '&#10003;' : '&#9711;';
+      html += '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">';
+      html += '<span style="font-size:10px;font-weight:700;color:var(--muted);font-family:var(--mono);width:30px">О·' + art.gate + '</span>';
+      html += '<span style="color:' + iconColor + ';font-size:14px">' + icon + '</span>';
+      html += '<span style="font-size:13px;color:' + (art.status === 'available' ? '#E8E8F0' : 'var(--muted)') + '">' + esc(art.name) + '</span>';
+      html += '</div>';
+    }
+    html += '</div>';
+
+    html += '</div>';
+    return html;
+  }
+
+  // ── Init: Tabs ───────────────────────────────────────────
+  function initTabs(guest) {
+    var tabsContainer = document.getElementById('pc-tabs');
+    if (!tabsContainer) return;
+
+    tabsContainer.addEventListener('click', function(e) {
+      var btn = e.target;
+      if (!btn.classList.contains('tab')) return;
+
+      var tabName = btn.getAttribute('data-tab');
+      if (!tabName) return;
+
+      // Deactivate all tabs
+      var allTabs = tabsContainer.querySelectorAll('.tab');
+      for (var t = 0; t < allTabs.length; t++) {
+        allTabs[t].classList.remove('active');
+      }
+      btn.classList.add('active');
+
+      // Hide all panels
+      var allPanels = document.querySelectorAll('.tab-panel');
+      for (var p = 0; p < allPanels.length; p++) {
+        allPanels[p].classList.remove('active');
+      }
+
+      // Show target panel
+      var target = document.getElementById('panel-' + tabName);
+      if (target) target.classList.add('active');
+    });
+  }
+
+  // ── Init: Share Button ───────────────────────────────────
+  function initShareButton() {
+    var btn = document.getElementById('btn-share');
+    if (!btn) return;
+
+    btn.addEventListener('click', function() {
+      var url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function() {
+          showToast('Ссылка скопирована');
+        });
+      } else {
+        // Fallback
+        var input = document.createElement('input');
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        try { document.execCommand('copy'); showToast('Ссылка скопирована'); } catch(e) {}
+        document.body.removeChild(input);
+      }
+    });
+  }
+
+})();
+</script>
+<script src="./nav.js"></script>
+</body>
+</html>
