@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Статус Проектного офиса — 17.03.2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#03080F;--card:#061525;--surface:#0d2a40;--border:rgba(79,195,247,.12);--text:#E8F4FD;--muted:#7A9DB8;--violet:#4FC3F7;--teal:#00D4B4;--amber:#FFB830;--pink:#FF2D8A;--green:#34D399;--red:#F87171}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+.deck{max-width:960px;margin:0 auto;padding:20px}
+.slide{aspect-ratio:16/9;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:48px 56px;margin-bottom:24px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.slide::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--violet),var(--pink),var(--teal))}
+.s-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:12px}
+.s-title{font-size:32px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:16px}
+.s-sub{font-size:15px;color:var(--muted);line-height:1.6;max-width:600px}
+.s-grid{display:grid;gap:12px;margin-top:20px}
+.s-grid-2{grid-template-columns:1fr 1fr}
+.s-grid-3{grid-template-columns:1fr 1fr 1fr}
+.s-grid-4{grid-template-columns:1fr 1fr 1fr 1fr}
+.s-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.s-card-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:6px}
+.s-card-val{font-size:28px;font-weight:900;line-height:1;margin-bottom:4px}
+.s-card-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.s-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;letter-spacing:.04em}
+.b-green{background:rgba(52,211,153,.12);color:var(--green)}
+.b-amber{background:rgba(255,184,48,.12);color:var(--amber)}
+.b-red{background:rgba(248,113,113,.12);color:var(--red)}
+.b-violet{background:rgba(79,195,247,.12);color:var(--violet)}
+.s-table{width:100%;border-collapse:collapse;margin-top:16px}
+.s-table th{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border)}
+.s-table td{font-size:13px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text)}
+.s-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.s-list li{font-size:13px;color:var(--text);padding-left:16px;position:relative;line-height:1.5}
+.s-list li::before{content:'→';position:absolute;left:0;color:var(--teal)}
+.s-num{font-size:48px;font-weight:900;line-height:1}
+.s-footer{position:absolute;bottom:16px;left:56px;right:56px;display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.3)}
+.orbit-flow{display:flex;align-items:center;gap:6px;margin-top:16px;flex-wrap:wrap}
+.orbit-step{padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700}
+.orbit-arrow{color:var(--muted);font-size:14px}
+@media print{.slide{page-break-after:always;border:none;margin:0}}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- SLIDE 1: Title -->
+<div class="slide">
+  <div class="s-eyebrow">Проектный офис · Статус</div>
+  <div class="s-title">ОРБИТА<br><span style="color:var(--muted);font-size:20px;font-weight:400">Операционная система продуктового портфеля</span></div>
+  <div class="s-sub">Статус разработки и запуска пилота</div>
+  <div style="margin-top:24px;display:flex;gap:12px">
+    <span class="s-badge b-violet">17 марта 2026</span>
+    <span class="s-badge b-green">MVP готов</span>
+  </div>
+  <div class="s-footer"><span>ОРБИТА · Проектный офис</span><span>Конфиденциально</span></div>
+</div>
+
+<!-- SLIDE 2: Problem -->
+<div class="slide">
+  <div class="s-eyebrow">Проблема</div>
+  <div class="s-title">Почему ОРБИТА</div>
+  <div class="s-grid s-grid-3">
+    <div class="s-card">
+      <div class="s-card-val" style="color:var(--red)">0%</div>
+      <div class="s-card-title">Прозрачность портфеля</div>
+      <div class="s-card-desc">Руководство не видит статус продуктов без запроса PM</div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-val" style="color:var(--amber)">10+</div>
+      <div class="s-card-title">Методологий</div>
+      <div class="s-card-desc">Каждая команда работает по-своему. Нет единого языка</div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-val" style="color:var(--pink)">?</div>
+      <div class="s-card-title">Приоритеты</div>
+      <div class="s-card-desc">Решения по голосу, а не по данным. RICE не применяется</div>
+    </div>
+  </div>
+  <div class="s-footer"><span>ОРБИТА · Проектный офис</span><span>2/7</span></div>
+</div>
+
+<!-- SLIDE 3: Solution -->
+<div class="slide">
+  <div class="s-eyebrow">Решение</div>
+  <div class="s-title">Единый фреймворк</div>
+  <div class="orbit-flow">
+    <span class="orbit-step" style="background:rgba(255,184,48,.12);color:var(--amber)">О·0 Заявка</span>
+    <span class="orbit-arrow">→</span>
+    <span class="orbit-step" style="background:rgba(79,195,247,.12);color:var(--violet)">О·1 Разведка</span>
+    <span class="orbit-arrow">→</span>
+    <span class="orbit-step" style="background:rgba(59,130,246,.12);color:#3B82F6">О·2 Прототип</span>
+    <span class="orbit-arrow">→</span>
+    <span class="orbit-step" style="background:rgba(0,212,180,.12);color:var(--teal)">О·3 Разгон</span>
+    <span class="orbit-arrow">→</span>
+    <span class="orbit-step" style="background:rgba(52,211,153,.12);color:var(--green)">О·4 Экосистема</span>
+    <span class="orbit-arrow">→</span>
+    <span class="orbit-step" style="background:rgba(255,133,192,.12);color:#FF85C0">О·5 Плато</span>
+  </div>
+  <div class="s-grid s-grid-3" style="margin-top:24px">
+    <div class="s-card">
+      <div class="s-card-title">Gate Review</div>
+      <div class="s-card-desc">Комитет решает Go/No-Go по чеклисту. SLA: 3–5 дней.</div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-title">RICE-приоритизация</div>
+      <div class="s-card-desc">Каждая инициатива оценена объективно: Reach × Impact × Confidence ÷ Effort</div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-title">Трекер портфеля</div>
+      <div class="s-card-desc">Все продукты, цели, инициативы — в одном месте. 3 вида: карточки, таблица, Канбан.</div>
+    </div>
+  </div>
+  <div class="s-footer"><span>ОРБИТА · Проектный офис</span><span>3/7</span></div>
+</div>
+
+<!-- SLIDE 4: What's built -->
+<div class="slide">
+  <div class="s-eyebrow">Результат</div>
+  <div class="s-title">Что построено</div>
+  <div class="s-grid s-grid-4">
+    <div class="s-card">
+      <div class="s-card-val" style="color:var(--teal)">9</div>
+      <div class="s-card-desc">Инструментов в платформе</div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-val" style="color:var(--violet)">4</div>
+      <div class="s-card-desc">Продукта в трекере</div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-val" style="color:var(--green)">17</div>
+      <div class="s-card-desc">ИИ-агентов в команде</div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-val" style="color:var(--amber)">38+</div>
+      <div class="s-card-desc">Задач закрыто за спринт</div>
+    </div>
+  </div>
+  <table class="s-table">
+    <tr><th>Инструмент</th><th>Статус</th></tr>
+    <tr><td>Трекер (продукты, цели, инициативы, Kanban)</td><td><span class="s-badge b-green">Готов</span></td></tr>
+    <tr><td>Gate-чеклист (7 стадий, прогресс, deep links)</td><td><span class="s-badge b-green">Готов</span></td></tr>
+    <tr><td>Заявка на продукт (Brief + RICE)</td><td><span class="s-badge b-green">Готов</span></td></tr>
+    <tr><td>Фреймворк «Как мы работаем» (3 трека, виток)</td><td><span class="s-badge b-green">Готов</span></td></tr>
+    <tr><td>Авторизация + Админка</td><td><span class="s-badge b-green">Готов</span></td></tr>
+    <tr><td>Миграция на GitLab (корп серверы)</td><td><span class="s-badge b-amber">После пилота</span></td></tr>
+  </table>
+  <div class="s-footer"><span>ОРБИТА · Проектный офис</span><span>4/7</span></div>
+</div>
+
+<!-- SLIDE 5: Pilot -->
+<div class="slide">
+  <div class="s-eyebrow">Пилот</div>
+  <div class="s-title">3 продукта, разные стадии</div>
+  <div class="s-grid s-grid-3">
+    <div class="s-card" style="border-top:3px solid var(--teal)">
+      <div class="s-card-title">Маркетплейс К</div>
+      <div style="margin:8px 0"><span class="s-badge b-green">О·3 Разгон</span></div>
+      <div class="s-card-desc">B2C · On Track<br>3 инициативы · Gate 4 в Q2</div>
+    </div>
+    <div class="s-card" style="border-top:3px solid var(--violet)">
+      <div class="s-card-title">Генератор О</div>
+      <div style="margin:8px 0"><span class="s-badge b-violet">О·1 Разведка</span></div>
+      <div class="s-card-desc">B2B · On Track<br>CustDev 4/7 · MVP в бэклоге</div>
+    </div>
+    <div class="s-card" style="border-top:3px solid var(--amber)">
+      <div class="s-card-title">Сервис З</div>
+      <div style="margin:8px 0"><span class="s-badge b-amber">О·0 Заявка</span></div>
+      <div class="s-card-desc">B2C · At Risk<br>Brief не заполнен · RICE = 0</div>
+    </div>
+  </div>
+  <div style="margin-top:20px;padding:12px 16px;background:rgba(0,212,180,.06);border:1px solid rgba(0,212,180,.15);border-radius:8px;font-size:12px;color:var(--text)">
+    <strong style="color:var(--teal)">Формат:</strong> PMO ведёт данные · Еженедельные синки 30 мин · Первый Gate Review неделя 3–4
+  </div>
+  <div class="s-footer"><span>ОРБИТА · Проектный офис</span><span>5/7</span></div>
+</div>
+
+<!-- SLIDE 6: Risks -->
+<div class="slide">
+  <div class="s-eyebrow">Риски и блокеры</div>
+  <div class="s-title">Что учитываем</div>
+  <div class="s-grid s-grid-2">
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:10px">Для масштабирования (после пилота)</div>
+      <ul class="s-list">
+        <li>Shared storage — сейчас данные в одном браузере</li>
+        <li>Серверная авторизация через WB ID</li>
+        <li>Миграция GitHub → GitLab (корп серверы)</li>
+        <li>ИБ-аудит: 3 HIGH уязвимости открыты</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:10px">Для пилота — решено</div>
+      <ul class="s-list">
+        <li>PMO вводит данные при командах</li>
+        <li>MVP авторизация (4 роли, localStorage)</li>
+        <li>XSS-уязвимости закрыты (escHtml)</li>
+        <li>PII убраны из публичного репо</li>
+      </ul>
+    </div>
+  </div>
+  <div class="s-footer"><span>ОРБИТА · Проектный офис</span><span>6/7</span></div>
+</div>
+
+<!-- SLIDE 7: Next steps -->
+<div class="slide">
+  <div class="s-eyebrow">План</div>
+  <div class="s-title">Ближайшие шаги</div>
+  <table class="s-table">
+    <tr><th>Действие</th><th>Срок</th><th>Статус</th></tr>
+    <tr><td>Анкеты отправлены PM пилотных продуктов</td><td>17 марта</td><td><span class="s-badge b-green">Готово</span></td></tr>
+    <tr><td>Установочная встреча пилота</td><td>20 марта, 10:00</td><td><span class="s-badge b-amber">Запланировано</span></td></tr>
+    <tr><td>Еженедельные синки</td><td>С 24 марта</td><td><span class="s-badge b-violet">Планируется</span></td></tr>
+    <tr><td>Первый Gate Review</td><td>7–10 апреля</td><td><span class="s-badge b-violet">Планируется</span></td></tr>
+    <tr><td>Ретро пилота</td><td>Конец апреля</td><td><span class="s-badge b-violet">Планируется</span></td></tr>
+    <tr><td>Миграция на корп серверы</td><td>Май 2026</td><td><span class="s-badge b-amber">После пилота</span></td></tr>
+  </table>
+  <div style="margin-top:20px">
+    <div style="font-size:12px;font-weight:700;color:var(--violet);margin-bottom:8px">Нужно решение</div>
+    <ul class="s-list">
+      <li>Согласование формата пилота (PMO ведёт vs PM самостоятельно)</li>
+      <li>Выделение ресурсов на миграцию (GitLab + сервер)</li>
+      <li>Состав комитета Gate Review</li>
+    </ul>
+  </div>
+  <div class="s-footer"><span>ОРБИТА · Проектный офис</span><span>7/7</span></div>
+</div>
+
+</div>
+</body>
+</html>
