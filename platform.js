@@ -14,6 +14,7 @@
     KEY_EPICS:    'ECOTECH_EPICS',
     KEY_PRODUCTS_PRD: 'ECOTECH_PRODUCTS_PRD',
     KEY_USERS:    'ECOTECH_USERS',
+    KEY_CHANGELOG:'ECOTECH_CHANGELOG',
 
     // ── Storage helpers ─────────────────────────────────────────────
     load: function(key) {
@@ -112,6 +113,27 @@
       };
       xhr.onerror = function() { if (cb) cb([]); };
       xhr.send();
+    },
+
+    // ── Audit log ────────────────────────────────────────────────────
+    addLog: function(productId, action, details, entityType, entityId) {
+      var logs = this.load(this.KEY_CHANGELOG) || [];
+      var user = window.OrbAuth ? window.OrbAuth.getCurrentUser() : null;
+      var entry = {
+        id: 'log-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        timestamp: new Date().toISOString(),
+        userId: user ? user.id : 'anonymous',
+        userName: user ? user.name : 'Аноним',
+        productId: productId,
+        action: action,
+        details: details || '',
+        entityType: entityType || '',
+        entityId: entityId || ''
+      };
+      logs.unshift(entry);
+      if (logs.length > 500) logs = logs.slice(0, 500);
+      this.save(this.KEY_CHANGELOG, logs);
+      return entry;
     },
 
     // ── Live stats ──────────────────────────────────────────────────

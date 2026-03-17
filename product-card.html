@@ -31,41 +31,56 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .page-wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 24px 120px}
 
 /* ── HEADER ── */
-.pc-header{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.pc-header{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:24px}
 .pc-header-left{flex:1;min-width:0}
-.pc-title{font-size:28px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pc-title{font-size:28px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .pc-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
-.pc-owner{font-size:12px;color:var(--muted);font-weight:600}
+.pc-team{font-size:12px;color:var(--muted);font-weight:600;margin-top:4px}
+.pc-team span{color:#E8E8F0}
 .pc-header-actions{display:flex;gap:8px;flex-shrink:0;align-items:center}
 
 /* ── BADGES ── */
 .orbit-badge{font-family:var(--mono);font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;white-space:nowrap}
 .status-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;white-space:nowrap}
 .status-badge::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:middle}
-.sb-on-track{color:var(--green);background:var(--gdim);border:1px solid rgba(52,211,153,.3)}
-.sb-on-track::before{background:var(--green)}
-.sb-at-risk{color:var(--amber);background:var(--adim);border:1px solid rgba(255,184,48,.3)}
-.sb-at-risk::before{background:var(--amber)}
+.sb-active,.sb-on-track{color:var(--green);background:var(--gdim);border:1px solid rgba(52,211,153,.3)}
+.sb-active::before,.sb-on-track::before{background:var(--green)}
+.sb-at-risk,.sb-pending{color:var(--amber);background:var(--adim);border:1px solid rgba(255,184,48,.3)}
+.sb-at-risk::before,.sb-pending::before{background:var(--amber)}
 .sb-blocked{color:var(--red);background:var(--rdim);border:1px solid rgba(239,68,68,.3)}
 .sb-blocked::before{background:var(--red)}
-.sb-paused{color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--bhi)}
-.sb-paused::before{background:var(--muted)}
+.sb-paused,.sb-archived{color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--bhi)}
+.sb-paused::before,.sb-archived::before{background:var(--muted)}
 .sb-done{color:var(--violet);background:var(--vdim);border:1px solid var(--vborder)}
 .sb-done::before{background:var(--violet)}
-.sb-draft{color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--bhi)}
-.sb-draft::before{background:var(--muted)}
+
+.approval-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.ab-approved{color:var(--green);background:var(--gdim);border:1px solid rgba(52,211,153,.3)}
+.ab-pending{color:var(--amber);background:var(--adim);border:1px solid rgba(255,184,48,.3)}
+.ab-rejected{color:var(--red);background:var(--rdim);border:1px solid rgba(239,68,68,.3)}
 
 /* ── BUTTONS ── */
 .btn-back{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:1px solid var(--bhi);background:rgba(255,255,255,.04);color:var(--muted);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none}
 .btn-back:hover{color:#fff;border-color:var(--violet);background:var(--vdim)}
 .btn-share{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:1px solid rgba(0,212,180,.3);background:var(--tdim);color:var(--teal);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
 .btn-share:hover{background:rgba(0,212,180,.18)}
+.btn-action{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:1px solid var(--vborder);background:var(--vdim);color:var(--violet);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-action:hover{background:rgba(79,195,247,.22)}
+.btn-save-sm{padding:6px 14px;border-radius:7px;border:none;background:var(--teal);color:#fff;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-save-sm:hover{background:#00b89a}
+.btn-cancel-sm{padding:6px 14px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-cancel-sm:hover{color:#fff;border-color:var(--bhi)}
+.btn-danger{padding:6px 14px;border-radius:7px;border:1px solid rgba(239,68,68,.3);background:var(--rdim);color:var(--red);font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-danger:hover{background:rgba(239,68,68,.2)}
+.btn-approve{padding:6px 14px;border-radius:7px;border:1px solid rgba(52,211,153,.3);background:var(--gdim);color:var(--green);font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-approve:hover{background:rgba(52,211,153,.2)}
 
 /* ── TABS ── */
 .pc-tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:0;flex-wrap:wrap}
 .tab{padding:8px 18px;border:none;border-radius:8px 8px 0 0;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;color:var(--muted);background:transparent;letter-spacing:.02em;white-space:nowrap;border-bottom:2px solid transparent}
 .tab.active{color:#fff;background:var(--violet);border-bottom-color:var(--violet)}
 .tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.06)}
+.tab-count{font-family:var(--mono);font-size:9px;margin-left:4px;background:rgba(255,255,255,.1);padding:1px 5px;border-radius:8px}
 
 /* ── TAB PANELS ── */
 .tab-panel{display:none}
@@ -74,28 +89,42 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── GATE TIMELINE ── */
 .gate-timeline{display:flex;align-items:center;gap:0;margin:24px 0;position:relative}
 .gate-point{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;position:relative;z-index:2}
-.gate-dot{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.12);background:var(--card2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;font-weight:700;color:var(--muted);transition:all .2s}
+.gate-dot{width:32px;height:32px;border-radius:50%;border:2px solid rgba(255,255,255,.12);background:var(--card2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;font-weight:700;color:var(--muted);transition:all .2s}
 .gate-dot.done{background:var(--green);border-color:var(--green);color:#fff}
 .gate-dot.current{background:var(--teal);border-color:var(--teal);color:#fff;box-shadow:0 0 16px rgba(0,212,180,.4)}
 .gate-label{font-size:9px;color:var(--muted);font-weight:600;text-align:center;white-space:nowrap}
 .gate-dot.done+.gate-label,.gate-dot.current+.gate-label{color:#E8E8F0}
-.gate-line{position:absolute;top:14px;left:0;right:0;height:2px;background:rgba(255,255,255,.07);z-index:1}
-.gate-line-fill{position:absolute;top:14px;left:0;height:2px;background:var(--green);z-index:1;transition:width .3s}
+.gate-line{position:absolute;top:16px;left:0;right:0;height:2px;background:rgba(255,255,255,.07);z-index:1}
+.gate-line-fill{position:absolute;top:16px;left:0;height:2px;background:var(--green);z-index:1;transition:width .3s}
 
 /* ── OVERVIEW CARDS ── */
 .ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
 .ov-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px}
 .ov-card-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
-.ov-card-value{font-size:15px;font-weight:700;color:#E8E8F0;line-height:1.5}
+.ov-card-value{font-size:14px;font-weight:600;color:#E8E8F0;line-height:1.6}
+.ov-card-value[contenteditable="true"]{outline:none;border:1px dashed rgba(79,195,247,.3);border-radius:6px;padding:4px 8px;min-height:40px;transition:border-color .15s}
+.ov-card-value[contenteditable="true"]:focus{border-color:var(--vborder);background:rgba(79,195,247,.04)}
 .ov-kpi-grid{display:flex;gap:16px;flex-wrap:wrap}
 .ov-kpi{display:flex;flex-direction:column;gap:2px;min-width:80px}
 .ov-kpi-val{font-family:var(--mono);font-size:20px;font-weight:700;color:#fff}
 .ov-kpi-lbl{font-size:10px;color:var(--muted);font-weight:600}
 
-/* ── INITIATIVE CARDS ── */
+/* ── APPROVAL STATUS ── */
+.approval-summary{display:flex;gap:12px;flex-wrap:wrap}
+.approval-item{display:flex;align-items:center;gap:6px}
+.approval-dot{width:8px;height:8px;border-radius:50%}
+
+/* ── FILTERS ── */
+.filter-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.filter-sel{background:var(--card2);border:1px solid var(--border);border-radius:8px;color:#E8E8F0;font-family:var(--font);font-size:12px;padding:7px 12px;outline:none;cursor:pointer;min-width:130px}
+.filter-sel:focus{border-color:rgba(0,212,180,.4)}
+
+/* ── INITIATIVE LIST ── */
 .init-list{display:flex;flex-direction:column;gap:8px}
-.init-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;display:grid;grid-template-columns:52px 1fr 60px 80px 80px auto;align-items:center;gap:12px;transition:border-color .15s}
+.init-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .15s}
 .init-card:hover{border-color:var(--bhi)}
+.init-card.expanded{border-color:var(--vborder)}
+.init-card-head{display:grid;grid-template-columns:52px 1fr 70px 60px 80px 80px;align-items:center;gap:12px;padding:14px 18px;cursor:pointer}
 .init-id{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700}
 .init-name{font-size:13px;font-weight:700;color:#E8E8F0}
 .init-sub{font-size:11px;color:var(--muted);margin-top:2px}
@@ -109,35 +138,116 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .is-planned{color:var(--blue);background:var(--bdim)}
 .is-backlog{color:var(--muted);background:rgba(255,255,255,.04)}
 .is-done{color:var(--green);background:var(--gdim)}
-.init-edit-btn{width:28px;height:28px;border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:7px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;opacity:0}
-.init-card:hover .init-edit-btn{opacity:1}
-.init-edit-btn:hover{background:var(--vdim);color:var(--violet);border-color:var(--vborder)}
+
+/* ── INITIATIVE INLINE EDIT ── */
+.init-edit{display:none;padding:16px 18px;border-top:1px solid var(--border);background:rgba(0,0,0,.12)}
+.init-card.expanded .init-edit{display:block}
+.ie-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.ie-group{display:flex;flex-direction:column;gap:4px}
+.ie-group.full{grid-column:1/-1}
+.ie-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.ie-input{background:var(--card2);border:1px solid var(--border);border-radius:8px;color:#E8E8F0;font-family:var(--font);font-size:12px;padding:8px 10px;outline:none;width:100%}
+.ie-input:focus{border-color:var(--vborder)}
+.ie-textarea{background:var(--card2);border:1px solid var(--border);border-radius:8px;color:#E8E8F0;font-family:var(--font);font-size:12px;padding:8px 10px;outline:none;width:100%;resize:vertical;min-height:60px}
+.ie-textarea:focus{border-color:var(--vborder)}
+.ie-select{background:var(--card2);border:1px solid var(--border);border-radius:8px;color:#E8E8F0;font-family:var(--font);font-size:12px;padding:8px 10px;outline:none;width:100%;cursor:pointer}
+.ie-select:focus{border-color:var(--vborder)}
+.ie-rice-row{display:flex;align-items:center;gap:8px}
+.ie-rice-lbl{font-family:var(--mono);font-size:11px;color:var(--muted);width:14px}
+.ie-rice-slider{flex:1;accent-color:var(--violet)}
+.ie-rice-val{font-family:var(--mono);font-size:12px;color:#fff;width:24px;text-align:right}
+.ie-score-preview{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--teal);text-align:center;padding:8px;background:rgba(0,0,0,.2);border-radius:8px;border:1px solid var(--border)}
+.ie-footer{display:flex;gap:8px;align-items:center;padding-top:12px;border-top:1px solid var(--border)}
+
+/* ── INLINE FORM (create initiative/goal/event) ── */
+.inline-form{background:var(--card);border:1px solid var(--vborder);border-radius:var(--r);padding:20px;margin-bottom:16px;display:none}
+.inline-form.visible{display:block}
+.if-title{font-size:14px;font-weight:800;color:#fff;margin-bottom:14px}
 
 /* ── GOALS ── */
-.goal-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:12px}
-.goal-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:8px}
-.goal-meta{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.goal-period-group{margin-bottom:24px}
+.goal-period-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;padding:12px 0 8px;display:flex;align-items:center;gap:10px}
+.goal-period-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.goal-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:12px;transition:border-color .15s}
+.goal-card:hover{border-color:var(--bhi)}
+.goal-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:8px;display:flex;align-items:center;gap:8px;justify-content:space-between}
+.goal-meta{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
 .goal-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
 .gt-product{color:var(--teal);background:var(--tdim)}
 .gt-strategic{color:var(--amber);background:var(--adim)}
 .gt-growth{color:var(--pink);background:var(--pdim)}
-.kr-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-.kr-item{display:flex;align-items:center;gap:12px}
-.kr-text{font-size:12px;color:#E8E8F0;flex:1}
+.kr-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.kr-item{display:flex;flex-direction:column;gap:4px}
+.kr-top{display:flex;align-items:center;gap:12px}
+.kr-text{font-size:12px;color:#E8E8F0;flex:1;font-weight:600}
 .kr-progress{width:120px;height:6px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden;flex-shrink:0}
 .kr-progress-fill{height:100%;border-radius:3px;background:var(--teal);transition:width .3s}
 .kr-pct{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--muted);width:40px;text-align:right;flex-shrink:0}
-.kr-linked{font-size:10px;color:var(--muted);margin-top:2px}
+.kr-linked{font-size:10px;color:var(--muted);margin-top:4px;padding-left:4px}
+.kr-linked-item{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:1px 6px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);margin-right:4px;margin-top:2px}
+.kr-influence{font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px}
+.inf-high{color:var(--green);background:var(--gdim)}
+.inf-medium{color:var(--amber);background:var(--adim)}
+.inf-low{color:var(--muted);background:rgba(255,255,255,.04)}
 
-/* ── PLACEHOLDER ── */
-.placeholder-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:40px;text-align:center;color:var(--muted)}
-.placeholder-card h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:8px}
-.placeholder-card p{font-size:13px;line-height:1.6}
+/* ── CALENDAR / TIMELINE ── */
+.cal-timeline-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;overflow-x:auto;margin-bottom:16px}
+.cal-timeline{position:relative;min-height:120px;padding-top:32px}
+.cal-axis{position:absolute;top:32px;left:0;right:0;height:2px;background:rgba(255,255,255,.07)}
+.cal-month{position:absolute;top:0;font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.cal-marker{position:absolute;top:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:4px;cursor:default;z-index:2}
+.cal-marker-dot{width:14px;height:14px;border-radius:50%;border:2px solid}
+.cal-marker-dot.type-gate_review{background:rgba(79,195,247,.3);border-color:var(--violet)}
+.cal-marker-dot.type-deadline{background:var(--adim);border-color:var(--amber)}
+.cal-marker-dot.type-release{background:var(--gdim);border-color:var(--green)}
+.cal-marker-dot.type-planning{background:var(--bdim);border-color:var(--blue)}
+.cal-marker-label{font-size:9px;font-weight:600;color:#E8E8F0;white-space:nowrap;max-width:90px;overflow:hidden;text-overflow:ellipsis}
+.cal-marker-date{font-family:var(--mono);font-size:8px;color:var(--muted)}
+.cal-legend{display:flex;gap:16px;margin-top:20px;flex-wrap:wrap}
+.cal-legend-item{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);font-weight:600}
+.cal-legend-dot{width:8px;height:8px;border-radius:50%}
+.cal-events-list{display:flex;flex-direction:column;gap:6px;margin-top:16px}
+.cal-event-row{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px}
+.cal-event-type{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cal-event-title{font-size:12px;font-weight:700;color:#E8E8F0;flex:1}
+.cal-event-date{font-family:var(--mono);font-size:11px;color:var(--muted);flex-shrink:0}
+.cal-event-actions{display:flex;gap:4px}
+
+/* ── DOCUMENTS ── */
+.doc-checklist{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.doc-checklist-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:10px}
+.doc-checklist-bar{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;margin-bottom:6px}
+.doc-checklist-fill{height:100%;border-radius:4px;background:var(--green);transition:width .3s}
+.doc-checklist-text{font-size:11px;color:var(--muted)}
+.doc-list{display:flex;flex-direction:column;gap:6px}
+.doc-row{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;transition:border-color .15s}
+.doc-row:hover{border-color:var(--bhi)}
+.doc-gate{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700;width:36px;flex-shrink:0}
+.doc-status-icon{width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.doc-name{font-size:13px;font-weight:600;color:#E8E8F0;flex:1}
+.doc-url-input{background:var(--card2);border:1px solid var(--border);border-radius:6px;color:var(--violet);font-family:var(--font);font-size:11px;padding:5px 8px;outline:none;width:200px;flex-shrink:0}
+.doc-url-input:focus{border-color:var(--vborder)}
+.doc-url-link{font-size:11px;color:var(--violet);text-decoration:none;flex-shrink:0}
+.doc-url-link:hover{text-decoration:underline}
+
+/* ── CHANGELOG ── */
+.log-list{display:flex;flex-direction:column;gap:4px}
+.log-date-group{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;padding:12px 0 6px;display:flex;align-items:center;gap:10px}
+.log-date-group::after{content:'';flex:1;height:1px;background:var(--border)}
+.log-entry{display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px}
+.log-time{font-family:var(--mono);font-size:10px;color:var(--muted);flex-shrink:0;padding-top:2px;width:50px}
+.log-user{font-size:11px;font-weight:700;color:var(--violet);flex-shrink:0;width:100px}
+.log-action{font-size:10px;font-weight:700;color:var(--amber);flex-shrink:0;width:140px;text-transform:uppercase;letter-spacing:.04em}
+.log-details{font-size:12px;color:#E8E8F0;flex:1;line-height:1.4}
 
 /* ── NOT FOUND ── */
 .not-found{text-align:center;padding:80px 20px}
 .not-found h2{font-size:24px;font-weight:800;color:#fff;margin-bottom:12px}
 .not-found p{font-size:14px;color:var(--muted);margin-bottom:24px}
+
+/* ── PLACEHOLDER ── */
+.placeholder-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:40px;text-align:center;color:var(--muted)}
+.placeholder-card h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:8px}
 
 /* ── TOAST ── */
 .pc-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--teal);color:#fff;padding:10px 20px;border-radius:50px;font-size:12px;font-weight:600;z-index:9999;transition:transform .3s cubic-bezier(.22,1,.36,1);pointer-events:none}
@@ -146,9 +256,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .ov-grid{grid-template-columns:1fr}
-  .init-card{grid-template-columns:1fr;gap:6px}
-  .init-rice,.init-status,.init-edit-btn{justify-self:start}
+  .init-card-head{grid-template-columns:1fr;gap:6px}
+  .init-rice,.init-status{justify-self:start}
   .pc-header{flex-direction:column}
+  .ie-grid{grid-template-columns:1fr}
 }
 @media(max-width:560px){
   .page-wrap{padding:20px 16px 80px}
@@ -171,13 +282,41 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 (function() {
   'use strict';
 
-  // ── Helpers ──────────────────────────────────────────────
-  var GATE_NAMES = ['О·0 Заявка','О·1 Разведка','О·2 Прототип','О·3 Разгон','О·4 Экосистема','О·5 Плато'];
-  var STATUS_LABELS = {'on-track':'On Track','at-risk':'At Risk','blocked':'Blocked','paused':'Paused','done':'Done','draft':'Draft','wip':'В работе','planned':'Запланировано','backlog':'Бэклог','active':'Активна'};
-  var STATUS_CLS = {'on-track':'sb-on-track','at-risk':'sb-at-risk','blocked':'sb-blocked','paused':'sb-paused','done':'sb-done','draft':'sb-draft'};
+  // ── Helpers ──
+  var GATE_NAMES = ['O\xB70 Заявка','O\xB71 Разведка','O\xB72 Прототип','O\xB73 Разгон','O\xB74 Экосистема','O\xB75 Плато'];
+  var STATUS_LABELS = {'on-track':'On Track','at-risk':'At Risk','blocked':'Blocked','paused':'Paused','done':'Done','active':'Active','pending':'Pending','archived':'Archived','draft':'Draft','wip':'В работе','planned':'Запланировано','backlog':'Бэклог'};
+  var STATUS_CLS = {'on-track':'sb-on-track','at-risk':'sb-at-risk','blocked':'sb-blocked','paused':'sb-paused','done':'sb-done','active':'sb-active','pending':'sb-pending','archived':'sb-archived','draft':'sb-paused'};
   var SEGMENT_LABELS = {'business':'Бизнес','product':'Продукт','tech':'Техника'};
   var SEGMENT_CLS = {'business':'seg-business','product':'seg-product','tech':'seg-tech'};
   var INIT_STATUS_CLS = {'wip':'is-wip','planned':'is-planned','backlog':'is-backlog','done':'is-done'};
+  var GOAL_TYPE_LABELS = {'product':'Продуктовая','strategic':'Стратегическая','growth':'Рост'};
+  var GOAL_TYPE_CLS = {'product':'gt-product','strategic':'gt-strategic','growth':'gt-growth'};
+  var APPROVAL_LABELS = {'approved':'Согласовано','pending':'На согласовании','rejected':'Отклонено'};
+  var APPROVAL_CLS = {'approved':'ab-approved','pending':'ab-pending','rejected':'ab-rejected'};
+  var EVENT_TYPE_LABELS = {'gate_review':'Gate Review','deadline':'Дедлайн','release':'Релиз','planning':'Планирование'};
+  var EVENT_TYPE_COLORS = {'gate_review':'var(--violet)','deadline':'var(--amber)','release':'var(--green)','planning':'var(--blue)'};
+  var DOC_STATUS_ICONS = {'done':'\u2705','wip':'\u23F3','none':'\u274C'};
+  var DOC_STATUS_LABELS = {'done':'Готов','wip':'В работе','none':'Отсутствует'};
+
+  var DEFAULT_ARTIFACTS = [
+    {gate:0, name:'Product Brief', url:'', status:'none'},
+    {gate:1, name:'CustDev Report', url:'', status:'none'},
+    {gate:1, name:'PSF (Problem-Solution Fit)', url:'', status:'none'},
+    {gate:2, name:'MVP Spec', url:'', status:'none'},
+    {gate:2, name:'Unit Economics v1', url:'', status:'none'},
+    {gate:3, name:'Growth Plan', url:'', status:'none'},
+    {gate:3, name:'P&L Model', url:'', status:'none'},
+    {gate:4, name:'Ecosystem Integration Plan', url:'', status:'none'},
+    {gate:5, name:'Maturity Assessment', url:'', status:'none'}
+  ];
+
+  // State
+  var _product = null;
+  var _backlog = [];
+  var _goals = [];
+  var _allProducts = [];
+  var _expandedInit = null;
+  var _activeTab = 'overview';
 
   function esc(t) { return String(t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
@@ -195,22 +334,37 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     return user.role === 'guest';
   }
 
-  function canEditProduct(productId) {
+  function getRole() {
+    if (!window.OrbAuth) return 'guest';
+    var user = OrbAuth.getCurrentUser();
+    return user ? user.role : 'guest';
+  }
+
+  function canEdit() {
     if (!window.OrbAuth) return false;
     return OrbAuth.canEditProduct(productId);
   }
 
-  function canEditInitiative(productId, initId) {
-    if (!window.OrbAuth) return false;
-    return OrbAuth.canEditInitiative(productId, initId);
+  function canApprove() {
+    var r = getRole();
+    return r === 'admin' || r === 'pmo_lead' || r === 'pmo';
   }
 
-  function getUserRole() {
-    if (!window.OrbAuth) return null;
-    return OrbAuth.getUserRole();
+  function canDelete() {
+    var r = getRole();
+    return r === 'admin' || r === 'pmo_lead';
   }
 
-  function getDisplayName(product) {
+  function isPM() {
+    var r = getRole();
+    return r === 'pm' || r === 'pmo' || r === 'pmo_lead' || r === 'admin';
+  }
+
+  function isLead() {
+    return getRole() === 'lead';
+  }
+
+  function displayName(product) {
     if (isGuest()) return product.id;
     return product.name || product.id;
   }
@@ -220,20 +374,84 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     return Math.round((item.r * item.i * item.c) / item.e);
   }
 
-  function orbitBadgeColor(gate) {
+  function orbitColor(gate) {
     var colors = ['var(--muted)','var(--blue)','var(--amber)','var(--teal)','var(--green)','var(--violet)'];
     return colors[gate] || colors[0];
+  }
+
+  function genId(prefix) {
+    return prefix + '-' + Date.now().toString(36) + Math.random().toString(36).substr(2,4);
   }
 
   function showToast(msg) {
     var t = document.getElementById('pc-toast');
     if (!t) return;
-    t.textContent = msg || 'Ссылка скопирована';
+    t.textContent = msg || 'Готово';
     t.classList.add('show');
     setTimeout(function() { t.classList.remove('show'); }, 2200);
   }
 
-  // ── Get product ID from URL ──────────────────────────────
+  function formatDate(d) {
+    if (!d) return '--';
+    var parts = d.split('T');
+    return parts[0];
+  }
+
+  function formatTime(d) {
+    if (!d) return '';
+    var parts = d.split('T');
+    if (parts.length < 2) return '';
+    return parts[1].substr(0, 5);
+  }
+
+  function saveProducts() {
+    PT.save(PT.KEY_PRODUCTS, _allProducts);
+  }
+
+  function saveBacklog() {
+    PT.save(PT.KEY_BACKLOG, _backlog);
+  }
+
+  function saveGoals() {
+    PT.save(PT.KEY_GOALS, _goals);
+  }
+
+  function addLog(action, details, entityType, entityId) {
+    PT.addLog(productId, action, details, entityType, entityId);
+  }
+
+  function getProductInitiatives() {
+    var result = [];
+    for (var i = 0; i < _backlog.length; i++) {
+      if (_backlog[i].productId === productId || _backlog[i].project === productId) {
+        result.push(_backlog[i]);
+      }
+    }
+    return result;
+  }
+
+  function getProductGoals() {
+    var result = [];
+    for (var i = 0; i < _goals.length; i++) {
+      if (_goals[i].productId === productId) {
+        result.push(_goals[i]);
+      }
+    }
+    return result;
+  }
+
+  function getProductLogs() {
+    var all = PT.load(PT.KEY_CHANGELOG) || [];
+    var result = [];
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].productId === productId) {
+        result.push(all[i]);
+      }
+    }
+    return result;
+  }
+
+  // ── Product ID from URL ──
   var productId = getParam('id');
   var app = document.getElementById('pc-app');
 
@@ -242,143 +460,198 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     return;
   }
 
-  // ── Load data ────────────────────────────────────────────
+  // ── Load data ──
   PT.ensureProducts(function(products) {
-    var product = null;
+    _allProducts = products;
+    _product = null;
     for (var i = 0; i < products.length; i++) {
-      if (products[i].id === productId) { product = products[i]; break; }
+      if (products[i].id === productId) { _product = products[i]; break; }
     }
 
-    if (!product) {
+    if (!_product) {
       app.innerHTML = renderNotFound();
       return;
     }
 
-    // Update page title
-    document.title = getDisplayName(product) + ' — ОРБИТА';
+    document.title = displayName(_product) + ' \u2014 \u041E\u0420\u0411\u0418\u0422\u0410';
 
-    var backlog = PT.load(PT.KEY_BACKLOG) || [];
-    var goals = PT.load(PT.KEY_GOALS) || [];
+    _backlog = PT.load(PT.KEY_BACKLOG) || [];
+    _goals = PT.load(PT.KEY_GOALS) || [];
 
-    // Filter for this product
-    var productInitiatives = backlog.filter(function(b) { return b.productId === productId || b.project === productId; });
-    var productGoals = goals.filter(function(g) { return g.productId === productId; });
+    // Ensure product has events and artifacts arrays
+    if (!_product.events) _product.events = [];
+    if (!_product.artifacts) _product.artifacts = copyDefaults();
 
-    var guest = isGuest();
-    var role = getUserRole();
-    var canEdit = canEditProduct(productId);
-
-    app.innerHTML = renderPage(product, productInitiatives, productGoals, guest, canEdit);
-    initTabs(guest);
-    initShareButton();
+    renderApp();
   });
 
-  // ── Render: Not Found ────────────────────────────────────
-  function renderNotFound() {
-    return '<div class="not-found">'
-      + '<h2>Продукт не найден</h2>'
-      + '<p>Продукт с ID "' + esc(productId || '') + '" не найден в реестре.</p>'
-      + '<a href="./Проектный офис/tracker.html" class="btn-back" style="display:inline-flex">Назад в реестр</a>'
-      + '</div>';
+  function copyDefaults() {
+    var result = [];
+    for (var i = 0; i < DEFAULT_ARTIFACTS.length; i++) {
+      var a = DEFAULT_ARTIFACTS[i];
+      result.push({gate: a.gate, name: a.name, url: '', status: 'none'});
+    }
+    return result;
   }
 
-  // ── Render: Full page ────────────────────────────────────
-  function renderPage(product, initiatives, goals, guest, canEdit) {
+  // ── RENDER APP ──
+  function renderApp() {
+    var initiatives = getProductInitiatives();
+    var goals = getProductGoals();
+    var guest = isGuest();
+    var editable = canEdit();
+    var role = getRole();
+
     var html = '';
 
-    // ── Header ──
-    var gateNum = product.gate || 0;
-    var gateColor = orbitBadgeColor(gateNum);
-    var statusCls = STATUS_CLS[product.status] || 'sb-draft';
-    var statusLabel = STATUS_LABELS[product.status] || product.status || '--';
+    // ── HEADER ──
+    var gateNum = _product.gate || 0;
+    var gateColor = orbitColor(gateNum);
+    var statusCls = STATUS_CLS[_product.status] || 'sb-paused';
+    var statusLabel = STATUS_LABELS[_product.status] || _product.status || '--';
 
     html += '<div class="pc-header">';
     html += '<div class="pc-header-left">';
     html += '<div class="pc-meta">';
-    html += '<span class="orbit-badge" style="color:' + gateColor + ';background:rgba(255,255,255,.06);border:1px solid ' + gateColor + '">О·' + gateNum + '</span>';
+    html += '<span class="orbit-badge" style="color:' + gateColor + ';background:rgba(255,255,255,.06);border:1px solid ' + gateColor + '">\u041E\xB7' + gateNum + '</span>';
     html += '<span class="status-badge ' + statusCls + '">' + esc(statusLabel) + '</span>';
-    if (product.catLabel) {
-      html += '<span style="font-size:10px;font-weight:700;color:var(--violet);background:var(--vdim);padding:2px 8px;border-radius:5px;border:1px solid var(--vborder)">' + esc(product.catLabel) + '</span>';
+    if (_product.catLabel) {
+      html += '<span style="font-size:10px;font-weight:700;color:var(--violet);background:var(--vdim);padding:2px 8px;border-radius:5px;border:1px solid var(--vborder)">' + esc(_product.catLabel) + '</span>';
     }
     html += '</div>';
-    html += '<div class="pc-title">' + esc(getDisplayName(product)) + '</div>';
-    html += '<div class="pc-owner">Владелец: ' + esc(product.owner || '--') + '</div>';
+    html += '<div class="pc-title">' + esc(displayName(_product)) + '</div>';
+
+    // Team line
+    html += '<div class="pc-team">';
+    html += 'PMO: <span>' + esc(_product.pmo || _product.owner || '--') + '</span>';
+    if (_product.pm) {
+      html += ' | PM: <span>' + esc(_product.pm) + '</span>';
+    }
+    if (_product.stakeholders) {
+      html += ' | \u0421\u0442\u0435\u0439\u043A\u0445\u043E\u043B\u0434\u0435\u0440\u044B: <span>' + esc(_product.stakeholders) + '</span>';
+    }
     html += '</div>';
+    html += '</div>';
+
     html += '<div class="pc-header-actions">';
-    html += '<button class="btn-share" id="btn-share" title="Скопировать ссылку">Поделиться ссылкой</button>';
-    html += '<a href="./Проектный офис/tracker.html" class="btn-back">Назад в реестр</a>';
+    html += '<button class="btn-share" id="btn-share">\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F</button>';
+    html += '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/tracker.html" class="btn-back">\u2190 \u0420\u0435\u0435\u0441\u0442\u0440</a>';
     html += '</div>';
     html += '</div>';
 
-    // ── Tabs ──
+    // ── TABS ──
     html += '<div class="pc-tabs" id="pc-tabs">';
-    html += '<button class="tab active" data-tab="overview">Обзор</button>';
-    html += '<button class="tab" data-tab="initiatives">Инициативы</button>';
-    html += '<button class="tab" data-tab="goals">Цели</button>';
+    html += '<button class="tab' + (_activeTab === 'overview' ? ' active' : '') + '" data-tab="overview">\u041E\u0431\u0437\u043E\u0440</button>';
+    html += '<button class="tab' + (_activeTab === 'initiatives' ? ' active' : '') + '" data-tab="initiatives">\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B<span class="tab-count">' + initiatives.length + '</span></button>';
+    html += '<button class="tab' + (_activeTab === 'goals' ? ' active' : '') + '" data-tab="goals">\u0426\u0435\u043B\u0438<span class="tab-count">' + goals.length + '</span></button>';
     if (!guest) {
-      html += '<button class="tab" data-tab="calendar">Календарь</button>';
-      html += '<button class="tab" data-tab="docs">Документация</button>';
+      html += '<button class="tab' + (_activeTab === 'calendar' ? ' active' : '') + '" data-tab="calendar">\u041A\u0430\u043B\u0435\u043D\u0434\u0430\u0440\u044C</button>';
+      html += '<button class="tab' + (_activeTab === 'docs' ? ' active' : '') + '" data-tab="docs">\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B</button>';
+      html += '<button class="tab' + (_activeTab === 'log' ? ' active' : '') + '" data-tab="log">\u041B\u043E\u0433</button>';
     }
     html += '</div>';
 
-    // ── Tab: Overview ──
-    html += '<div class="tab-panel active" id="panel-overview">';
-    html += renderOverview(product, initiatives);
+    // ── PANELS ──
+    html += '<div class="tab-panel' + (_activeTab === 'overview' ? ' active' : '') + '" id="panel-overview">';
+    html += renderOverview(initiatives, goals, editable);
     html += '</div>';
 
-    // ── Tab: Initiatives ──
-    html += '<div class="tab-panel" id="panel-initiatives">';
-    html += renderInitiatives(initiatives, canEdit);
+    html += '<div class="tab-panel' + (_activeTab === 'initiatives' ? ' active' : '') + '" id="panel-initiatives">';
+    html += renderInitiatives(initiatives, editable);
     html += '</div>';
 
-    // ── Tab: Goals ──
-    html += '<div class="tab-panel" id="panel-goals">';
-    html += renderGoals(goals, initiatives);
+    html += '<div class="tab-panel' + (_activeTab === 'goals' ? ' active' : '') + '" id="panel-goals">';
+    html += renderGoals(goals, initiatives, editable);
     html += '</div>';
 
-    // ── Tab: Calendar ──
     if (!guest) {
-      html += '<div class="tab-panel" id="panel-calendar">';
-      html += renderCalendar();
+      html += '<div class="tab-panel' + (_activeTab === 'calendar' ? ' active' : '') + '" id="panel-calendar">';
+      html += renderCalendar(editable);
+      html += '</div>';
+
+      html += '<div class="tab-panel' + (_activeTab === 'docs' ? ' active' : '') + '" id="panel-docs">';
+      html += renderDocs(editable);
+      html += '</div>';
+
+      html += '<div class="tab-panel' + (_activeTab === 'log' ? ' active' : '') + '" id="panel-log">';
+      html += renderLog();
       html += '</div>';
     }
 
-    // ── Tab: Docs ──
+    app.innerHTML = html;
+    initTabs();
+    initShareButton();
+    initInitiatives(initiatives, editable);
     if (!guest) {
-      html += '<div class="tab-panel" id="panel-docs">';
-      html += renderDocs(product);
-      html += '</div>';
+      initCalendar(editable);
+      initDocs(editable);
     }
-
-    return html;
+    initGoals(goals, initiatives, editable);
+    initOverviewEditable(editable);
   }
 
-  // ── Render: Overview ─────────────────────────────────────
-  function renderOverview(product, initiatives) {
-    var html = '';
+  // ── NOT FOUND ──
+  function renderNotFound() {
+    return '<div class="not-found">'
+      + '<h2>\u041F\u0440\u043E\u0434\u0443\u043A\u0442 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D</h2>'
+      + '<p>\u041F\u0440\u043E\u0434\u0443\u043A\u0442 \u0441 ID "' + esc(productId || '') + '" \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D \u0432 \u0440\u0435\u0435\u0441\u0442\u0440\u0435.</p>'
+      + '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/tracker.html" class="btn-back" style="display:inline-flex">\u2190 \u041D\u0430\u0437\u0430\u0434 \u0432 \u0440\u0435\u0435\u0441\u0442\u0440</a>'
+      + '</div>';
+  }
 
-    // Description & UTP
+  // ── TAB: OVERVIEW ──
+  function renderOverview(initiatives, goals, editable) {
+    var html = '';
+    var gateNum = _product.gate || 0;
+
+    // Gate Progress Timeline
+    html += '<div class="ov-card" style="margin-bottom:24px">';
+    html += '<div class="ov-card-title">Gate-\u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441</div>';
+    html += renderGateTimeline(gateNum);
+    html += '</div>';
+
+    // Description, UTP, Audience
     html += '<div class="ov-grid">';
     html += '<div class="ov-card">';
-    html += '<div class="ov-card-title">Описание</div>';
-    html += '<div class="ov-card-value">' + esc(product.desc || 'Описание не указано') + '</div>';
+    html += '<div class="ov-card-title">\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</div>';
+    if (editable && !isGuest()) {
+      html += '<div class="ov-card-value" contenteditable="true" data-field="desc" id="ov-desc">' + esc(_product.desc || '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E') + '</div>';
+    } else {
+      html += '<div class="ov-card-value">' + esc(_product.desc || '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E') + '</div>';
+    }
     html += '</div>';
     html += '<div class="ov-card">';
-    html += '<div class="ov-card-title">Команда</div>';
-    html += '<div class="ov-card-value">' + esc(product.owner || '--') + '</div>';
-    if (product.quarter) {
-      html += '<div style="font-size:11px;color:var(--muted);margin-top:6px">Квартал: ' + esc(product.quarter) + '</div>';
+    html += '<div class="ov-card-title">\u0423\u0422\u041F / \u0426\u0435\u043B\u0435\u0432\u0430\u044F \u0430\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u044F</div>';
+    if (editable && !isGuest()) {
+      html += '<div class="ov-card-value" contenteditable="true" data-field="utp" id="ov-utp">' + esc(_product.utp || '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0423\u0422\u041F') + '</div>';
+      html += '<div style="margin-top:8px"><div class="ov-card-title">\u0410\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u044F</div>';
+      html += '<div class="ov-card-value" contenteditable="true" data-field="audience" id="ov-audience">' + esc(_product.audience || '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0430\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u044E') + '</div></div>';
+    } else {
+      html += '<div class="ov-card-value">' + esc(_product.utp || '--') + '</div>';
+      if (_product.audience) {
+        html += '<div style="margin-top:8px;font-size:12px;color:var(--muted)">\u0410\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u044F: ' + esc(_product.audience) + '</div>';
+      }
     }
+    html += '</div>';
+    html += '</div>';
+
+    // Team card
+    html += '<div class="ov-card" style="margin-bottom:24px">';
+    html += '<div class="ov-card-title">\u041A\u043E\u043C\u0430\u043D\u0434\u0430</div>';
+    html += '<div style="display:flex;gap:24px;flex-wrap:wrap">';
+    html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">PMO-\u043C\u0435\u043D\u0435\u0434\u0436\u0435\u0440</div><div style="font-size:13px;font-weight:700;color:#fff">' + esc(_product.pmo || _product.owner || '--') + '</div></div>';
+    html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">Product Manager</div><div style="font-size:13px;font-weight:700;color:#fff">' + esc(_product.pm || '--') + '</div></div>';
+    html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">\u0421\u0442\u0435\u0439\u043A\u0445\u043E\u043B\u0434\u0435\u0440\u044B</div><div style="font-size:13px;font-weight:700;color:#fff">' + esc(_product.stakeholders || '--') + '</div></div>';
     html += '</div>';
     html += '</div>';
 
     // KPI
-    if (product.kpi && product.kpi.length) {
+    if (_product.kpi && _product.kpi.length) {
       html += '<div class="ov-card" style="margin-bottom:24px">';
-      html += '<div class="ov-card-title">Ключевые метрики</div>';
+      html += '<div class="ov-card-title">\u041A\u043B\u044E\u0447\u0435\u0432\u044B\u0435 \u043C\u0435\u0442\u0440\u0438\u043A\u0438</div>';
       html += '<div class="ov-kpi-grid">';
-      for (var k = 0; k < product.kpi.length; k++) {
-        var kpi = product.kpi[k];
+      for (var k = 0; k < _product.kpi.length; k++) {
+        var kpi = _product.kpi[k];
         html += '<div class="ov-kpi">';
         html += '<div class="ov-kpi-val">' + esc(kpi.value) + '</div>';
         html += '<div class="ov-kpi-lbl">' + esc(kpi.label) + '</div>';
@@ -388,30 +661,47 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       html += '</div>';
     }
 
-    // Gate Progress Timeline
-    html += '<div class="ov-card" style="margin-bottom:24px">';
-    html += '<div class="ov-card-title">Gate-прогресс</div>';
-    html += renderGateTimeline(product.gate || 0);
+    // Approval status + planning
+    var approved = 0, pending = 0, rejected = 0;
+    for (var ai = 0; ai < initiatives.length; ai++) {
+      var appr = initiatives[ai].approval || 'pending';
+      if (appr === 'approved') approved++;
+      else if (appr === 'rejected') rejected++;
+      else pending++;
+    }
+    var goalsApproved = 0, goalsPending = 0;
+    for (var gi = 0; gi < goals.length; gi++) {
+      if (goals[gi].approvalStatus === 'approved') goalsApproved++;
+      else goalsPending++;
+    }
+
+    html += '<div class="ov-grid">';
+    html += '<div class="ov-card">';
+    html += '<div class="ov-card-title">\u0421\u0442\u0430\u0442\u0443\u0441 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u044F</div>';
+    html += '<div class="approval-summary">';
+    html += '<div class="approval-item"><div class="approval-dot" style="background:var(--green)"></div><span style="font-size:12px;color:#E8E8F0;font-weight:600">' + approved + ' \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 approved</span></div>';
+    html += '<div class="approval-item"><div class="approval-dot" style="background:var(--amber)"></div><span style="font-size:12px;color:#E8E8F0;font-weight:600">' + pending + ' pending</span></div>';
+    if (rejected > 0) {
+      html += '<div class="approval-item"><div class="approval-dot" style="background:var(--red)"></div><span style="font-size:12px;color:#E8E8F0;font-weight:600">' + rejected + ' rejected</span></div>';
+    }
+    html += '</div>';
+    html += '<div style="margin-top:10px;font-size:11px;color:var(--muted)">\u0426\u0435\u043B\u0438: ' + goalsApproved + ' \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u043E, ' + goalsPending + ' \u043D\u0430 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u0438</div>';
     html += '</div>';
 
-    // Quick stats
-    var wip = 0, planned = 0, done = 0;
-    for (var s = 0; s < initiatives.length; s++) {
-      if (initiatives[s].status === 'wip') wip++;
-      else if (initiatives[s].status === 'planned') planned++;
-      else if (initiatives[s].status === 'done') done++;
+    html += '<div class="ov-card">';
+    html += '<div class="ov-card-title">\u041F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435</div>';
+    html += '<div class="ov-kpi-grid">';
+    html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--amber)">' + initiatives.length + '</div><div class="ov-kpi-lbl">\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432</div></div>';
+    var wip = 0, done = 0;
+    for (var si = 0; si < initiatives.length; si++) {
+      if (initiatives[si].status === 'wip') wip++;
+      if (initiatives[si].status === 'done') done++;
     }
-    html += '<div class="ov-grid">';
-    html += '<div class="ov-card"><div class="ov-card-title">Инициативы</div><div class="ov-kpi-grid">';
-    html += '<div class="ov-kpi"><div class="ov-kpi-val">' + initiatives.length + '</div><div class="ov-kpi-lbl">Всего</div></div>';
-    html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--amber)">' + wip + '</div><div class="ov-kpi-lbl">В работе</div></div>';
-    html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--blue)">' + planned + '</div><div class="ov-kpi-lbl">Запланировано</div></div>';
-    html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--green)">' + done + '</div><div class="ov-kpi-lbl">Готово</div></div>';
-    html += '</div></div>';
-    html += '<div class="ov-card"><div class="ov-card-title">Обновление</div>';
-    html += '<div class="ov-card-value">' + esc(product.updated || '--') + '</div>';
-    if (product.release) {
-      html += '<div style="font-size:11px;color:var(--muted);margin-top:6px">Релиз: ' + esc(product.release) + '</div>';
+    html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--teal)">' + wip + '</div><div class="ov-kpi-lbl">\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</div></div>';
+    html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--green)">' + done + '</div><div class="ov-kpi-lbl">\u0413\u043E\u0442\u043E\u0432\u043E</div></div>';
+    html += '</div>';
+    if (_product.quarter) {
+      html += '<div style="margin-top:10px;font-size:12px;color:var(--muted);font-weight:600">\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D \u043D\u0430: <span style="color:var(--violet)">' + esc(_product.quarter) + '</span></div>';
     }
     html += '</div>';
     html += '</div>';
@@ -419,24 +709,24 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     return html;
   }
 
-  // ── Render: Gate Timeline ────────────────────────────────
+  // ── Gate Timeline ──
   function renderGateTimeline(currentGate) {
     var html = '';
-    var totalGates = 6; // O·0 to O·5
-    var fillPct = currentGate > 0 ? ((currentGate) / (totalGates - 1)) * 100 : 0;
+    var total = 6;
+    var fillPct = currentGate > 0 ? (currentGate / (total - 1)) * 100 : 0;
 
     html += '<div class="gate-timeline" style="position:relative;padding:0 10px">';
     html += '<div class="gate-line"></div>';
     html += '<div class="gate-line-fill" style="width:' + fillPct + '%"></div>';
 
-    for (var g = 0; g < totalGates; g++) {
+    for (var g = 0; g < total; g++) {
       var dotCls = 'gate-dot';
       if (g < currentGate) dotCls += ' done';
       else if (g === currentGate) dotCls += ' current';
 
       html += '<div class="gate-point">';
       html += '<div class="' + dotCls + '">' + g + '</div>';
-      html += '<div class="gate-label">' + (GATE_NAMES[g] || 'О·' + g) + '</div>';
+      html += '<div class="gate-label">' + (GATE_NAMES[g] || '\u041E\xB7' + g) + '</div>';
       html += '</div>';
     }
 
@@ -444,16 +734,47 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     return html;
   }
 
-  // ── Render: Initiatives ──────────────────────────────────
-  function renderInitiatives(initiatives, canEdit) {
+  // ── TAB: INITIATIVES ──
+  function renderInitiatives(initiatives, editable) {
     var html = '';
+
+    // Create button
+    if (editable && isPM()) {
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">';
+      html += '<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">\u0411\u044D\u043A\u043B\u043E\u0433 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432</div>';
+      html += '<button class="btn-action" id="btn-create-init">+ \u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0443</button>';
+      html += '</div>';
+
+      // Inline create form
+      html += '<div class="inline-form" id="form-create-init">';
+      html += '<div class="if-title">\u041D\u043E\u0432\u0430\u044F \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430</div>';
+      html += '<div class="ie-grid">';
+      html += '<div class="ie-group full"><div class="ie-lbl">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div><input class="ie-input" id="new-init-name" placeholder="\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B"></div>';
+      html += '<div class="ie-group full"><div class="ie-lbl">\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</div><textarea class="ie-textarea" id="new-init-desc" placeholder="\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435"></textarea></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0422\u0438\u043F</div><select class="ie-select" id="new-init-seg"><option value="business">\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442</option><option value="tech">\u0422\u0435\u0445\u043D\u0438\u043A\u0430</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u041A\u0432\u0430\u0440\u0442\u0430\u043B</div><select class="ie-select" id="new-init-quarter"><option value="Q1 2026">Q1 2026</option><option value="Q2 2026" selected>Q2 2026</option><option value="Q3 2026">Q3 2026</option><option value="Q4 2026">Q4 2026</option><option value="H1 2026">H1 2026</option><option value="H2 2026">H2 2026</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0421\u0442\u0430\u0442\u0443\u0441</div><select class="ie-select" id="new-init-status"><option value="backlog">\u0411\u044D\u043A\u043B\u043E\u0433</option><option value="planned">\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043E</option><option value="wip">\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">PM</div><input class="ie-input" id="new-init-pm" placeholder="\u041E\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439"></div>';
+      html += '</div>';
+      html += '<div style="display:flex;gap:8px;margin-top:12px">';
+      html += '<button class="btn-save-sm" id="btn-save-new-init">\u0421\u043E\u0437\u0434\u0430\u0442\u044C</button>';
+      html += '<button class="btn-cancel-sm" id="btn-cancel-new-init">\u041E\u0442\u043C\u0435\u043D\u0430</button>';
+      html += '</div>';
+      html += '</div>';
+    }
+
+    // Filters
+    html += '<div class="filter-row">';
+    html += '<select class="filter-sel" id="filter-init-seg"><option value="">\u0412\u0441\u0435 \u0442\u0438\u043F\u044B</option><option value="business">\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442</option><option value="tech">\u0422\u0435\u0445\u043D\u0438\u043A\u0430</option></select>';
+    html += '<select class="filter-sel" id="filter-init-status"><option value="">\u0412\u0441\u0435 \u0441\u0442\u0430\u0442\u0443\u0441\u044B</option><option value="backlog">\u0411\u044D\u043A\u043B\u043E\u0433</option><option value="planned">\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043E</option><option value="wip">\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option><option value="done">\u0413\u043E\u0442\u043E\u0432\u043E</option></select>';
+    html += '<select class="filter-sel" id="filter-init-quarter"><option value="">\u0412\u0441\u0435 \u043A\u0432\u0430\u0440\u0442\u0430\u043B\u044B</option><option value="Q1 2026">Q1 2026</option><option value="Q2 2026">Q2 2026</option><option value="Q3 2026">Q3 2026</option><option value="Q4 2026">Q4 2026</option></select>';
+    html += '</div>';
 
     if (!initiatives.length) {
       html += '<div class="placeholder-card">';
-      html += '<h3>Нет инициатив</h3>';
-      html += '<p>Для этого продукта пока нет инициатив в бэклоге.</p>';
+      html += '<h3>\u041D\u0435\u0442 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432</h3>';
+      html += '<p>\u0414\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432. \u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u043F\u0435\u0440\u0432\u0443\u044E!</p>';
       html += '</div>';
-      return html;
     }
 
     // Sort by RICE desc
@@ -461,202 +782,908 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       return riceScore(b) - riceScore(a);
     });
 
-    html += '<div class="init-list">';
+    html += '<div class="init-list" id="init-list">';
     for (var i = 0; i < sorted.length; i++) {
-      var it = sorted[i];
-      var rice = riceScore(it);
-      var segLabel = SEGMENT_LABELS[it.segment] || it.segment || '--';
-      var segCls = SEGMENT_CLS[it.segment] || 'seg-product';
-      var stLabel = STATUS_LABELS[it.status] || it.status || '--';
-      var stCls = INIT_STATUS_CLS[it.status] || 'is-backlog';
-      var showEdit = canEdit && canEditInitiative(productId, it.id);
-
-      html += '<div class="init-card">';
-      html += '<div class="init-id">' + esc(it.id) + '</div>';
-      html += '<div>';
-      html += '<div class="init-name">' + esc(it.name) + '</div>';
-      if (it.desc) html += '<div class="init-sub">' + esc(it.desc) + '</div>';
-      html += '</div>';
-      html += '<div><span class="init-seg ' + segCls + '">' + esc(segLabel) + '</span></div>';
-      html += '<div class="init-rice" title="RICE = (R*I*C)/E">' + rice + '</div>';
-      html += '<div><span class="init-status ' + stCls + '">' + esc(stLabel) + '</span></div>';
-      if (showEdit) {
-        html += '<button class="init-edit-btn" title="Редактировать" onclick="window.location.href=\'./Проектный офис/tracker.html#product=' + esc(productId) + '\'">&#9998;</button>';
-      } else {
-        html += '<div style="width:28px"></div>';
-      }
-      html += '</div>';
+      html += renderInitCard(sorted[i], editable);
     }
     html += '</div>';
 
     return html;
   }
 
-  // ── Render: Goals ────────────────────────────────────────
-  function renderGoals(goals, initiatives) {
+  function renderInitCard(it, editable) {
+    var rice = riceScore(it);
+    var segLabel = SEGMENT_LABELS[it.segment] || it.segment || '--';
+    var segCls = SEGMENT_CLS[it.segment] || 'seg-product';
+    var stLabel = STATUS_LABELS[it.status] || it.status || '--';
+    var stCls = INIT_STATUS_CLS[it.status] || 'is-backlog';
+    var apprLabel = APPROVAL_LABELS[it.approval || 'pending'] || 'pending';
+    var apprCls = APPROVAL_CLS[it.approval || 'pending'] || 'ab-pending';
+    var isExpanded = _expandedInit === it.id;
+    var canEditThis = editable && window.OrbAuth && OrbAuth.canEditInitiative(productId, it.id);
+
+    var html = '<div class="init-card' + (isExpanded ? ' expanded' : '') + '" data-init-id="' + esc(it.id) + '">';
+
+    // Head row
+    html += '<div class="init-card-head">';
+    html += '<div class="init-id">' + esc(it.id) + '</div>';
+    html += '<div>';
+    html += '<div class="init-name">' + esc(it.name) + '</div>';
+    if (it.pm) html += '<div class="init-sub">' + esc(it.pm) + '</div>';
+    html += '</div>';
+    html += '<div><span class="init-seg ' + segCls + '">' + esc(segLabel) + '</span></div>';
+    html += '<div class="init-rice" title="RICE">' + rice + '</div>';
+    html += '<div><span class="init-status ' + stCls + '">' + esc(stLabel) + '</span></div>';
+    html += '<div><span class="approval-badge ' + apprCls + '">' + esc(apprLabel) + '</span></div>';
+    html += '</div>';
+
+    // Inline edit block
+    if (canEditThis || canApprove()) {
+      html += '<div class="init-edit">';
+      html += '<div class="ie-grid">';
+      html += '<div class="ie-group full"><div class="ie-lbl">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div><input class="ie-input" data-ie="name" value="' + esc(it.name) + '"></div>';
+      html += '<div class="ie-group full"><div class="ie-lbl">\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</div><textarea class="ie-textarea" data-ie="desc">' + esc(it.desc || '') + '</textarea></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0422\u0438\u043F</div><select class="ie-select" data-ie="segment"><option value="business"' + (it.segment === 'business' ? ' selected' : '') + '>\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product"' + (it.segment === 'product' ? ' selected' : '') + '>\u041F\u0440\u043E\u0434\u0443\u043A\u0442</option><option value="tech"' + (it.segment === 'tech' ? ' selected' : '') + '>\u0422\u0435\u0445\u043D\u0438\u043A\u0430</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0421\u0442\u0430\u0442\u0443\u0441</div><select class="ie-select" data-ie="status"><option value="backlog"' + (it.status === 'backlog' ? ' selected' : '') + '>\u0411\u044D\u043A\u043B\u043E\u0433</option><option value="planned"' + (it.status === 'planned' ? ' selected' : '') + '>\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043E</option><option value="wip"' + (it.status === 'wip' ? ' selected' : '') + '>\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option><option value="done"' + (it.status === 'done' ? ' selected' : '') + '>\u0413\u043E\u0442\u043E\u0432\u043E</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u041A\u0432\u0430\u0440\u0442\u0430\u043B</div><select class="ie-select" data-ie="quarter"><option value="Q1 2026"' + (it.quarter === 'Q1 2026' ? ' selected' : '') + '>Q1 2026</option><option value="Q2 2026"' + (it.quarter === 'Q2 2026' ? ' selected' : '') + '>Q2 2026</option><option value="Q3 2026"' + (it.quarter === 'Q3 2026' ? ' selected' : '') + '>Q3 2026</option><option value="Q4 2026"' + (it.quarter === 'Q4 2026' ? ' selected' : '') + '>Q4 2026</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">PM</div><input class="ie-input" data-ie="pm" value="' + esc(it.pm || '') + '"></div>';
+
+      // RICE parameters
+      html += '<div class="ie-group full"><div class="ie-lbl">RICE-\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B</div>';
+      var riceParams = [
+        {key:'R', field:'r', val: it.r || 5},
+        {key:'I', field:'i', val: it.i || 5},
+        {key:'C', field:'c', val: it.c || 5},
+        {key:'E', field:'e', val: it.e || 5}
+      ];
+      for (var ri = 0; ri < riceParams.length; ri++) {
+        var rp = riceParams[ri];
+        html += '<div class="ie-rice-row"><span class="ie-rice-lbl">' + rp.key + '</span><input type="range" class="ie-rice-slider" data-ie="' + rp.field + '" min="1" max="10" value="' + rp.val + '"><span class="ie-rice-val">' + rp.val + '</span></div>';
+      }
+      html += '<div class="ie-score-preview" data-ie-score>RICE: ' + rice + '</div>';
+      html += '</div>';
+
+      // Goal link
+      var productGoals = getProductGoals();
+      html += '<div class="ie-group"><div class="ie-lbl">\u0412\u043A\u043B\u0430\u0434 \u0432 \u0446\u0435\u043B\u044C</div><select class="ie-select" data-ie="goalId"><option value="">-- \u043D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E --</option>';
+      for (var ggi = 0; ggi < productGoals.length; ggi++) {
+        html += '<option value="' + esc(productGoals[ggi].id) + '"' + (it.goalId === productGoals[ggi].id ? ' selected' : '') + '>' + esc(productGoals[ggi].title) + '</option>';
+      }
+      html += '</select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0412\u043B\u0438\u044F\u043D\u0438\u0435</div><select class="ie-select" data-ie="influence"><option value="high"' + (it.influence === 'high' ? ' selected' : '') + '>High</option><option value="medium"' + ((it.influence === 'medium' || !it.influence) ? ' selected' : '') + '>Medium</option><option value="low"' + (it.influence === 'low' ? ' selected' : '') + '>Low</option></select></div>';
+      html += '</div>';
+
+      // Footer with actions
+      html += '<div class="ie-footer">';
+      html += '<button class="btn-save-sm" data-action="save-init">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button>';
+      html += '<button class="btn-cancel-sm" data-action="cancel-init">\u041E\u0442\u043C\u0435\u043D\u0430</button>';
+      if (canApprove()) {
+        html += '<button class="btn-approve" data-action="approve-init" style="margin-left:auto">\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u0442\u044C</button>';
+        html += '<button class="btn-danger" data-action="reject-init">\u041E\u0442\u043A\u043B\u043E\u043D\u0438\u0442\u044C</button>';
+      }
+      if (canDelete()) {
+        html += '<button class="btn-danger" data-action="delete-init" style="margin-left:8px">\u0423\u0434\u0430\u043B\u0438\u0442\u044C</button>';
+      }
+      html += '</div>';
+      html += '</div>';
+    }
+
+    html += '</div>';
+    return html;
+  }
+
+  // ── TAB: GOALS ──
+  function renderGoals(goals, initiatives, editable) {
     var html = '';
+
+    // Create button
+    if (editable && isPM()) {
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">';
+      html += '<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">\u0426\u0435\u043B\u0438 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430</div>';
+      html += '<button class="btn-action" id="btn-create-goal">+ \u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0446\u0435\u043B\u044C</button>';
+      html += '</div>';
+
+      // Inline create form
+      html += '<div class="inline-form" id="form-create-goal">';
+      html += '<div class="if-title">\u041D\u043E\u0432\u0430\u044F \u0446\u0435\u043B\u044C</div>';
+      html += '<div class="ie-grid">';
+      html += '<div class="ie-group full"><div class="ie-lbl">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div><input class="ie-input" id="new-goal-title" placeholder="\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0446\u0435\u043B\u0438"></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0422\u0438\u043F</div><select class="ie-select" id="new-goal-type"><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u0430\u044F</option><option value="strategic">\u0421\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u0447\u0435\u0441\u043A\u0430\u044F</option><option value="growth">\u0420\u043E\u0441\u0442</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u041F\u0435\u0440\u0438\u043E\u0434</div><select class="ie-select" id="new-goal-period"><option value="H1 2026">H1 2026</option><option value="H2 2026">H2 2026</option><option value="H1 2027">H1 2027</option></select></div>';
+      html += '</div>';
+      html += '<div style="display:flex;gap:8px;margin-top:12px">';
+      html += '<button class="btn-save-sm" id="btn-save-new-goal">\u0421\u043E\u0437\u0434\u0430\u0442\u044C</button>';
+      html += '<button class="btn-cancel-sm" id="btn-cancel-new-goal">\u041E\u0442\u043C\u0435\u043D\u0430</button>';
+      html += '</div>';
+      html += '</div>';
+    }
 
     if (!goals.length) {
       html += '<div class="placeholder-card">';
-      html += '<h3>Нет целей</h3>';
-      html += '<p>Для этого продукта пока нет установленных целей.</p>';
+      html += '<h3>\u041D\u0435\u0442 \u0446\u0435\u043B\u0435\u0439</h3>';
+      html += '<p>\u0414\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u043D\u044B\u0445 \u0446\u0435\u043B\u0435\u0439.</p>';
       html += '</div>';
       return html;
     }
 
+    // Group by period
+    var periods = {};
+    var periodOrder = [];
     for (var i = 0; i < goals.length; i++) {
-      var g = goals[i];
-      var typeCls = g.type === 'product' ? 'gt-product' : g.type === 'strategic' ? 'gt-strategic' : 'gt-growth';
-      var typeLabel = g.type === 'product' ? 'Продуктовая' : g.type === 'strategic' ? 'Стратегическая' : g.type === 'growth' ? 'Рост' : g.type || '--';
+      var p = goals[i].period || 'Без периода';
+      if (!periods[p]) { periods[p] = []; periodOrder.push(p); }
+      periods[p].push(goals[i]);
+    }
 
-      html += '<div class="goal-card">';
-      html += '<div class="goal-title">' + esc(g.title) + '</div>';
-      html += '<div class="goal-meta">';
-      html += '<span class="goal-tag ' + typeCls + '">' + esc(typeLabel) + '</span>';
-      if (g.period) html += '<span style="font-size:11px;color:var(--muted);font-weight:600">' + esc(g.period) + '</span>';
-      if (g.owner) html += '<span style="font-size:11px;color:var(--muted)">' + esc(g.owner) + '</span>';
-      if (g.status) {
-        var gStLabel = STATUS_LABELS[g.status] || g.status;
-        html += '<span style="font-size:10px;font-weight:700;color:var(--teal)">' + esc(gStLabel) + '</span>';
+    for (var pi = 0; pi < periodOrder.length; pi++) {
+      var period = periodOrder[pi];
+      var pGoals = periods[period];
+
+      html += '<div class="goal-period-group">';
+      html += '<div class="goal-period-label">' + esc(period) + '</div>';
+
+      for (var gi = 0; gi < pGoals.length; gi++) {
+        var g = pGoals[gi];
+        var typeCls = GOAL_TYPE_CLS[g.type] || 'gt-product';
+        var typeLabel = GOAL_TYPE_LABELS[g.type] || g.type || '--';
+        var apprSt = g.approvalStatus || 'pending';
+        var apprStCls = APPROVAL_CLS[apprSt] || 'ab-pending';
+        var apprStLabel = APPROVAL_LABELS[apprSt] || 'pending';
+
+        html += '<div class="goal-card" data-goal-id="' + esc(g.id) + '">';
+        html += '<div class="goal-title"><span>' + esc(g.title) + '</span>';
+        html += '<span class="approval-badge ' + apprStCls + '">' + esc(apprStLabel) + '</span>';
+        html += '</div>';
+        html += '<div class="goal-meta">';
+        html += '<span class="goal-tag ' + typeCls + '">' + esc(typeLabel) + '</span>';
+        if (g.owner) html += '<span style="font-size:11px;color:var(--muted)">' + esc(g.owner) + '</span>';
+        if (canApprove() && apprSt !== 'approved') {
+          html += '<button class="btn-approve btn-sm" data-goal-approve="' + esc(g.id) + '" style="padding:3px 10px;font-size:10px">\u0423\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C</button>';
+        }
+        html += '</div>';
+
+        // Key Results
+        if (g.keyResults && g.keyResults.length) {
+          html += '<div class="kr-list">';
+          for (var ki = 0; ki < g.keyResults.length; ki++) {
+            var kr = g.keyResults[ki];
+            var pct = kr.target > 0 ? Math.min(100, Math.round((kr.current / kr.target) * 100)) : 0;
+
+            html += '<div class="kr-item">';
+            html += '<div class="kr-top">';
+            html += '<div class="kr-text">' + esc(kr.text) + '</div>';
+            html += '<div class="kr-progress"><div class="kr-progress-fill" style="width:' + pct + '%"></div></div>';
+            html += '<div class="kr-pct">' + pct + '%</div>';
+            html += '</div>';
+
+            // Linked initiatives with influence
+            var linked = findLinkedInitiatives(g.id, initiatives);
+            if (linked.length) {
+              html += '<div class="kr-linked">';
+              for (var li = 0; li < linked.length; li++) {
+                var inf = linked[li].influence || 'medium';
+                var infCls = inf === 'high' ? 'inf-high' : inf === 'low' ? 'inf-low' : 'inf-medium';
+                html += '<span class="kr-linked-item">' + esc(linked[li].id) + ' <span class="kr-influence ' + infCls + '">' + esc(inf) + '</span></span>';
+              }
+              html += '</div>';
+            }
+            html += '</div>';
+          }
+          html += '</div>';
+        }
+
+        html += '</div>';
       }
       html += '</div>';
+    }
 
-      // Key Results
-      if (g.keyResults && g.keyResults.length) {
-        html += '<div class="kr-list">';
-        for (var k = 0; k < g.keyResults.length; k++) {
-          var kr = g.keyResults[k];
-          var pct = kr.target > 0 ? Math.min(100, Math.round((kr.current / kr.target) * 100)) : 0;
+    return html;
+  }
 
-          html += '<div class="kr-item">';
-          html += '<div class="kr-text">' + esc(kr.text) + '</div>';
-          html += '<div class="kr-progress"><div class="kr-progress-fill" style="width:' + pct + '%"></div></div>';
-          html += '<div class="kr-pct">' + pct + '%</div>';
-          html += '</div>';
+  function findLinkedInitiatives(goalId, initiatives) {
+    var result = [];
+    for (var i = 0; i < initiatives.length; i++) {
+      if (initiatives[i].goalId === goalId) {
+        result.push(initiatives[i]);
+      }
+    }
+    return result;
+  }
 
-          // Linked initiatives
-          if (kr.initiativeIds && kr.initiativeIds.length) {
-            var linked = [];
-            for (var li = 0; li < kr.initiativeIds.length; li++) {
-              for (var ii = 0; ii < initiatives.length; ii++) {
-                if (initiatives[ii].id === kr.initiativeIds[li]) {
-                  linked.push(initiatives[ii].id + ' ' + (initiatives[ii].name || ''));
-                  break;
-                }
-              }
-            }
-            if (linked.length) {
-              html += '<div class="kr-linked">Связанные: ' + linked.map(function(l) { return esc(l); }).join(', ') + '</div>';
-            }
-          }
-        }
+  // ── TAB: CALENDAR ──
+  function renderCalendar(editable) {
+    var html = '';
+    var events = _product.events || [];
+
+    if (editable && isPM()) {
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">';
+      html += '<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">\u041A\u0430\u043B\u0435\u043D\u0434\u0430\u0440\u044C \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430</div>';
+      html += '<button class="btn-action" id="btn-create-event">+ \u0421\u043E\u0431\u044B\u0442\u0438\u0435</button>';
+      html += '</div>';
+
+      // Inline create form
+      html += '<div class="inline-form" id="form-create-event">';
+      html += '<div class="if-title">\u041D\u043E\u0432\u043E\u0435 \u0441\u043E\u0431\u044B\u0442\u0438\u0435</div>';
+      html += '<div class="ie-grid">';
+      html += '<div class="ie-group full"><div class="ie-lbl">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div><input class="ie-input" id="new-evt-title" placeholder="\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435"></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0422\u0438\u043F</div><select class="ie-select" id="new-evt-type"><option value="gate_review">Gate Review</option><option value="deadline">\u0414\u0435\u0434\u043B\u0430\u0439\u043D</option><option value="release">\u0420\u0435\u043B\u0438\u0437</option><option value="planning">\u041F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0414\u0430\u0442\u0430</div><input class="ie-input" type="date" id="new-evt-date" value="2026-04-15"></div>';
+      html += '</div>';
+      html += '<div style="display:flex;gap:8px;margin-top:12px">';
+      html += '<button class="btn-save-sm" id="btn-save-new-event">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C</button>';
+      html += '<button class="btn-cancel-sm" id="btn-cancel-new-event">\u041E\u0442\u043C\u0435\u043D\u0430</button>';
+      html += '</div>';
+      html += '</div>';
+    }
+
+    // Timeline visualization
+    html += '<div class="cal-timeline-wrap">';
+    html += '<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px">Timeline</div>';
+
+    if (events.length === 0) {
+      html += '<div style="text-align:center;padding:30px;color:var(--muted);font-size:13px">\u041D\u0435\u0442 \u0441\u043E\u0431\u044B\u0442\u0438\u0439</div>';
+    } else {
+      // Sort events by date
+      var sorted = events.slice().sort(function(a, b) {
+        return (a.date || '').localeCompare(b.date || '');
+      });
+
+      // Find date range
+      var minDate = sorted[0].date || '2026-01-01';
+      var maxDate = sorted[sorted.length - 1].date || '2026-12-31';
+      var minTs = new Date(minDate).getTime();
+      var maxTs = new Date(maxDate).getTime();
+      var range = maxTs - minTs;
+      if (range < 86400000 * 30) range = 86400000 * 90; // min 3 months
+
+      var timelineWidth = Math.max(600, events.length * 100);
+      html += '<div class="cal-timeline" style="min-width:' + timelineWidth + 'px;height:100px">';
+      html += '<div class="cal-axis"></div>';
+
+      // Month markers
+      var startMonth = new Date(minDate);
+      startMonth.setDate(1);
+      var endMonth = new Date(maxDate);
+      endMonth.setMonth(endMonth.getMonth() + 1);
+      var monthNames = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+
+      var cursor = new Date(startMonth);
+      while (cursor <= endMonth) {
+        var monthTs = cursor.getTime();
+        var leftPct = range > 0 ? Math.max(0, Math.min(100, ((monthTs - minTs) / range) * 100)) : 0;
+        html += '<div class="cal-month" style="left:' + leftPct + '%">' + monthNames[cursor.getMonth()] + ' ' + cursor.getFullYear() + '</div>';
+        cursor.setMonth(cursor.getMonth() + 1);
+      }
+
+      // Event markers
+      for (var ei = 0; ei < sorted.length; ei++) {
+        var evt = sorted[ei];
+        var evtTs = new Date(evt.date).getTime();
+        var leftPctE = range > 0 ? Math.max(2, Math.min(98, ((evtTs - minTs) / range) * 100)) : (ei / sorted.length) * 100;
+
+        html += '<div class="cal-marker" style="left:' + leftPctE + '%">';
+        html += '<div class="cal-marker-dot type-' + (evt.type || 'deadline') + '"></div>';
+        html += '<div class="cal-marker-label" title="' + esc(evt.title) + '">' + esc(evt.title) + '</div>';
+        html += '<div class="cal-marker-date">' + esc(evt.date) + '</div>';
         html += '</div>';
       }
 
       html += '</div>';
     }
 
+    // Legend
+    html += '<div class="cal-legend">';
+    html += '<div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--violet)"></div>Gate Review</div>';
+    html += '<div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--amber)"></div>\u0414\u0435\u0434\u043B\u0430\u0439\u043D</div>';
+    html += '<div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green)"></div>\u0420\u0435\u043B\u0438\u0437</div>';
+    html += '<div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--blue)"></div>\u041F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435</div>';
+    html += '</div>';
+    html += '</div>';
+
+    // Events list
+    if (events.length) {
+      html += '<div class="cal-events-list" id="cal-events-list">';
+      var sortedList = events.slice().sort(function(a, b) {
+        return (a.date || '').localeCompare(b.date || '');
+      });
+      for (var eli = 0; eli < sortedList.length; eli++) {
+        var ev = sortedList[eli];
+        var typeColor = EVENT_TYPE_COLORS[ev.type] || 'var(--muted)';
+        html += '<div class="cal-event-row" data-evt-id="' + esc(ev.id) + '">';
+        html += '<div class="cal-event-type" style="background:' + typeColor + '"></div>';
+        html += '<div class="cal-event-title">' + esc(ev.title) + '</div>';
+        html += '<div style="font-size:10px;color:var(--muted);font-weight:600">' + esc(EVENT_TYPE_LABELS[ev.type] || ev.type) + '</div>';
+        html += '<div class="cal-event-date">' + esc(ev.date) + '</div>';
+        if (editable && isPM()) {
+          html += '<div class="cal-event-actions"><button class="btn-danger" data-action="delete-event" data-evt-id="' + esc(ev.id) + '" style="padding:3px 8px;font-size:9px">\u00D7</button></div>';
+        }
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+
     return html;
   }
 
-  // ── Render: Calendar (placeholder) ───────────────────────
-  function renderCalendar() {
-    return '<div class="placeholder-card">'
-      + '<h3>Календарь</h3>'
-      + '<p>Ключевые даты: Gate Review, дедлайны инициатив, релизы.</p>'
-      + '<p style="color:var(--amber);margin-top:12px;font-size:12px;font-weight:700">TODO: реализовать в W4-023</p>'
-      + '</div>';
-  }
+  // ── TAB: DOCUMENTS ──
+  function renderDocs(editable) {
+    var html = '';
+    var artifacts = _product.artifacts || [];
+    if (!artifacts.length) artifacts = copyDefaults();
+    var gateNum = _product.gate || 0;
 
-  // ── Render: Docs (placeholder) ───────────────────────────
-  function renderDocs(product) {
-    var gateNum = product.gate || 0;
-    var artifacts = [
-      { gate: 0, name: 'Product Brief', status: gateNum >= 0 ? 'available' : 'locked' },
-      { gate: 1, name: 'CustDev Report', status: gateNum >= 1 ? 'available' : 'locked' },
-      { gate: 1, name: 'PSF (Problem-Solution Fit)', status: gateNum >= 1 ? 'available' : 'locked' },
-      { gate: 2, name: 'MVP Spec', status: gateNum >= 2 ? 'available' : 'locked' },
-      { gate: 2, name: 'Unit Economics v1', status: gateNum >= 2 ? 'available' : 'locked' },
-      { gate: 3, name: 'Growth Plan', status: gateNum >= 3 ? 'available' : 'locked' },
-      { gate: 3, name: 'P&L Model', status: gateNum >= 3 ? 'available' : 'locked' },
-      { gate: 4, name: 'Ecosystem Integration Plan', status: gateNum >= 4 ? 'available' : 'locked' },
-      { gate: 5, name: 'Maturity Assessment', status: gateNum >= 5 ? 'available' : 'locked' }
-    ];
+    // Checklist for current gate
+    var required = 0, ready = 0;
+    for (var ci = 0; ci < artifacts.length; ci++) {
+      if (artifacts[ci].gate <= gateNum) {
+        required++;
+        if (artifacts[ci].status === 'done') ready++;
+      }
+    }
+    var checkPct = required > 0 ? Math.round((ready / required) * 100) : 0;
 
-    var html = '<div class="placeholder-card">';
-    html += '<h3>Документация по Gate</h3>';
-    html += '<p style="margin-bottom:16px">Артефакты, необходимые для прохождения Gate Review.</p>';
-    html += '<p style="color:var(--amber);margin-bottom:20px;font-size:12px;font-weight:700">TODO: добавить реальные ссылки на артефакты (W4-024)</p>';
+    html += '<div class="doc-checklist">';
+    html += '<div class="doc-checklist-title">\u0413\u043E\u0442\u043E\u0432\u043D\u043E\u0441\u0442\u044C \u043A Gate Review \u041E\xB7' + gateNum + '</div>';
+    html += '<div class="doc-checklist-bar"><div class="doc-checklist-fill" style="width:' + checkPct + '%"></div></div>';
+    html += '<div class="doc-checklist-text">' + ready + ' \u0438\u0437 ' + required + ' \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u0430\u0440\u0442\u0435\u0444\u0430\u043A\u0442\u043E\u0432 \u0433\u043E\u0442\u043E\u0432\u043E (' + checkPct + '%)</div>';
+    html += '</div>';
 
-    html += '<div style="text-align:left;max-width:500px;margin:0 auto">';
-    for (var a = 0; a < artifacts.length; a++) {
-      var art = artifacts[a];
-      var iconColor = art.status === 'available' ? 'var(--green)' : 'var(--muted)';
-      var icon = art.status === 'available' ? '&#10003;' : '&#9711;';
-      html += '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">';
-      html += '<span style="font-size:10px;font-weight:700;color:var(--muted);font-family:var(--mono);width:30px">О·' + art.gate + '</span>';
-      html += '<span style="color:' + iconColor + ';font-size:14px">' + icon + '</span>';
-      html += '<span style="font-size:13px;color:' + (art.status === 'available' ? '#E8E8F0' : 'var(--muted)') + '">' + esc(art.name) + '</span>';
+    // Artifacts list
+    html += '<div class="doc-list" id="doc-list">';
+    for (var di = 0; di < artifacts.length; di++) {
+      var art = artifacts[di];
+      var statusIcon = DOC_STATUS_ICONS[art.status] || DOC_STATUS_ICONS.none;
+      var statusColor = art.status === 'done' ? 'var(--green)' : art.status === 'wip' ? 'var(--amber)' : 'var(--muted)';
+
+      html += '<div class="doc-row" data-doc-idx="' + di + '">';
+      html += '<div class="doc-gate">\u041E\xB7' + art.gate + '</div>';
+      html += '<div class="doc-status-icon" style="color:' + statusColor + '">' + statusIcon + '</div>';
+      html += '<div class="doc-name">' + esc(art.name) + '</div>';
+
+      if (editable && isPM()) {
+        html += '<select class="ie-select" data-doc-status="' + di + '" style="width:120px;font-size:11px;padding:5px 8px"><option value="none"' + (art.status === 'none' ? ' selected' : '') + '>\u041D\u0435\u0442</option><option value="wip"' + (art.status === 'wip' ? ' selected' : '') + '>\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option><option value="done"' + (art.status === 'done' ? ' selected' : '') + '>\u0413\u043E\u0442\u043E\u0432</option></select>';
+        html += '<input class="doc-url-input" data-doc-url="' + di + '" value="' + esc(art.url || '') + '" placeholder="URL \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430">';
+      } else {
+        html += '<span style="font-size:10px;font-weight:700;color:' + statusColor + '">' + esc(DOC_STATUS_LABELS[art.status] || '--') + '</span>';
+        if (art.url) {
+          html += '<a class="doc-url-link" href="' + esc(art.url) + '" target="_blank">\u041E\u0442\u043A\u0440\u044B\u0442\u044C</a>';
+        }
+      }
       html += '</div>';
     }
     html += '</div>';
 
-    html += '</div>';
     return html;
   }
 
-  // ── Init: Tabs ───────────────────────────────────────────
-  function initTabs(guest) {
+  // ── TAB: LOG ──
+  function renderLog() {
+    var logs = getProductLogs();
+    var html = '';
+
+    html += '<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px">\u041B\u043E\u0433 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0439</div>';
+
+    if (!logs.length) {
+      html += '<div class="placeholder-card">';
+      html += '<h3>\u041D\u0435\u0442 \u0437\u0430\u043F\u0438\u0441\u0435\u0439</h3>';
+      html += '<p>\u0418\u0441\u0442\u043E\u0440\u0438\u044F \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0439 \u043F\u043E\u044F\u0432\u0438\u0442\u0441\u044F \u043F\u043E\u0441\u043B\u0435 \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F.</p>';
+      html += '</div>';
+      return html;
+    }
+
+    // Group by date
+    var groups = {};
+    var groupOrder = [];
+    for (var i = 0; i < logs.length; i++) {
+      var dateKey = formatDate(logs[i].timestamp);
+      if (!groups[dateKey]) { groups[dateKey] = []; groupOrder.push(dateKey); }
+      groups[dateKey].push(logs[i]);
+    }
+
+    html += '<div class="log-list">';
+    for (var di = 0; di < groupOrder.length; di++) {
+      var dk = groupOrder[di];
+      html += '<div class="log-date-group">' + esc(dk) + '</div>';
+      var entries = groups[dk];
+      for (var ei = 0; ei < entries.length; ei++) {
+        var entry = entries[ei];
+        html += '<div class="log-entry">';
+        html += '<div class="log-time">' + formatTime(entry.timestamp) + '</div>';
+        html += '<div class="log-user">' + esc(entry.userName) + '</div>';
+        html += '<div class="log-action">' + esc(entry.action) + '</div>';
+        html += '<div class="log-details">' + esc(entry.details) + '</div>';
+        html += '</div>';
+      }
+    }
+    html += '</div>';
+
+    return html;
+  }
+
+  // ── INIT: Tabs ──
+  function initTabs() {
     var tabsContainer = document.getElementById('pc-tabs');
     if (!tabsContainer) return;
 
     tabsContainer.addEventListener('click', function(e) {
       var btn = e.target;
+      if (btn.classList.contains('tab-count')) btn = btn.parentNode;
       if (!btn.classList.contains('tab')) return;
 
       var tabName = btn.getAttribute('data-tab');
       if (!tabName) return;
+      _activeTab = tabName;
 
-      // Deactivate all tabs
       var allTabs = tabsContainer.querySelectorAll('.tab');
       for (var t = 0; t < allTabs.length; t++) {
         allTabs[t].classList.remove('active');
       }
       btn.classList.add('active');
 
-      // Hide all panels
       var allPanels = document.querySelectorAll('.tab-panel');
       for (var p = 0; p < allPanels.length; p++) {
         allPanels[p].classList.remove('active');
       }
 
-      // Show target panel
       var target = document.getElementById('panel-' + tabName);
       if (target) target.classList.add('active');
     });
   }
 
-  // ── Init: Share Button ───────────────────────────────────
+  // ── INIT: Share ──
   function initShareButton() {
     var btn = document.getElementById('btn-share');
     if (!btn) return;
-
     btn.addEventListener('click', function() {
       var url = window.location.href;
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(function() {
-          showToast('Ссылка скопирована');
-        });
+        navigator.clipboard.writeText(url).then(function() { showToast('\u0421\u0441\u044B\u043B\u043A\u0430 \u0441\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u0430'); });
       } else {
-        // Fallback
-        var input = document.createElement('input');
-        input.value = url;
-        document.body.appendChild(input);
-        input.select();
-        try { document.execCommand('copy'); showToast('Ссылка скопирована'); } catch(e) {}
-        document.body.removeChild(input);
+        var inp = document.createElement('input');
+        inp.value = url;
+        document.body.appendChild(inp);
+        inp.select();
+        try { document.execCommand('copy'); showToast('\u0421\u0441\u044B\u043B\u043A\u0430 \u0441\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u0430'); } catch(ex) {}
+        document.body.removeChild(inp);
       }
     });
+  }
+
+  // ── INIT: Overview editable ──
+  function initOverviewEditable(editable) {
+    if (!editable || isGuest()) return;
+
+    var fields = ['desc', 'utp', 'audience'];
+    for (var fi = 0; fi < fields.length; fi++) {
+      var el = document.getElementById('ov-' + fields[fi]);
+      if (el) {
+        (function(field, elem) {
+          elem.addEventListener('blur', function() {
+            var newVal = elem.textContent.trim();
+            if (_product[field] !== newVal) {
+              var old = _product[field] || '';
+              _product[field] = newVal;
+              saveProducts();
+              addLog('product_edit', field + ': "' + old + '" \u2192 "' + newVal + '"', 'product', productId);
+              showToast('\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043E');
+            }
+          });
+        })(fields[fi], el);
+      }
+    }
+  }
+
+  // ── INIT: Initiatives ──
+  function initInitiatives(initiatives, editable) {
+    // Create button
+    var btnCreate = document.getElementById('btn-create-init');
+    var formCreate = document.getElementById('form-create-init');
+    if (btnCreate && formCreate) {
+      btnCreate.addEventListener('click', function() {
+        formCreate.classList.toggle('visible');
+      });
+
+      var btnCancel = document.getElementById('btn-cancel-new-init');
+      if (btnCancel) {
+        btnCancel.addEventListener('click', function() {
+          formCreate.classList.remove('visible');
+        });
+      }
+
+      var btnSave = document.getElementById('btn-save-new-init');
+      if (btnSave) {
+        btnSave.addEventListener('click', function() {
+          var name = document.getElementById('new-init-name').value.trim();
+          if (!name) { showToast('\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'); return; }
+
+          var newInit = {
+            id: genId('I'),
+            name: name,
+            desc: document.getElementById('new-init-desc').value.trim(),
+            segment: document.getElementById('new-init-seg').value,
+            status: document.getElementById('new-init-status').value,
+            quarter: document.getElementById('new-init-quarter').value,
+            pm: document.getElementById('new-init-pm').value.trim(),
+            productId: productId,
+            project: productId,
+            r: 5, i: 5, c: 5, e: 5,
+            approval: 'pending',
+            goalId: '',
+            influence: 'medium'
+          };
+
+          _backlog.push(newInit);
+          saveBacklog();
+          addLog('initiative_create', '\u0421\u043E\u0437\u0434\u0430\u043D\u0430: ' + name, 'initiative', newInit.id);
+          showToast('\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430 \u0441\u043E\u0437\u0434\u0430\u043D\u0430');
+          renderApp();
+        });
+      }
+    }
+
+    // Filters
+    var filterSeg = document.getElementById('filter-init-seg');
+    var filterStatus = document.getElementById('filter-init-status');
+    var filterQuarter = document.getElementById('filter-init-quarter');
+
+    function applyFilters() {
+      var seg = filterSeg ? filterSeg.value : '';
+      var st = filterStatus ? filterStatus.value : '';
+      var q = filterQuarter ? filterQuarter.value : '';
+
+      var cards = document.querySelectorAll('.init-card');
+      for (var ci = 0; ci < cards.length; ci++) {
+        var card = cards[ci];
+        var initId = card.getAttribute('data-init-id');
+        var init = null;
+        for (var bi = 0; bi < _backlog.length; bi++) {
+          if (_backlog[bi].id === initId) { init = _backlog[bi]; break; }
+        }
+        if (!init) { card.style.display = 'none'; continue; }
+
+        var show = true;
+        if (seg && init.segment !== seg) show = false;
+        if (st && init.status !== st) show = false;
+        if (q && init.quarter !== q) show = false;
+        card.style.display = show ? '' : 'none';
+      }
+    }
+
+    if (filterSeg) filterSeg.addEventListener('change', applyFilters);
+    if (filterStatus) filterStatus.addEventListener('change', applyFilters);
+    if (filterQuarter) filterQuarter.addEventListener('change', applyFilters);
+
+    // Click to expand/collapse
+    var initList = document.getElementById('init-list');
+    if (initList) {
+      initList.addEventListener('click', function(e) {
+        var target = e.target;
+
+        // Handle action buttons
+        var actionBtn = target.closest('[data-action]');
+        if (actionBtn) {
+          var action = actionBtn.getAttribute('data-action');
+          var card = actionBtn.closest('.init-card');
+          var initId = card ? card.getAttribute('data-init-id') : null;
+          if (!initId) return;
+
+          if (action === 'save-init') {
+            saveInitiative(card, initId);
+            return;
+          }
+          if (action === 'cancel-init') {
+            _expandedInit = null;
+            renderApp();
+            return;
+          }
+          if (action === 'approve-init') {
+            setInitApproval(initId, 'approved');
+            return;
+          }
+          if (action === 'reject-init') {
+            setInitApproval(initId, 'rejected');
+            return;
+          }
+          if (action === 'delete-init') {
+            deleteInitiative(initId);
+            return;
+          }
+          return;
+        }
+
+        // Handle RICE slider updates
+        if (target.classList && target.classList.contains('ie-rice-slider')) {
+          var valEl = target.nextElementSibling;
+          if (valEl) valEl.textContent = target.value;
+          // Update RICE score preview
+          var cardEl = target.closest('.init-card');
+          if (cardEl) updateRicePreview(cardEl);
+          return;
+        }
+
+        // Toggle expand
+        var head = target.closest('.init-card-head');
+        if (head) {
+          var parentCard = head.closest('.init-card');
+          var iid = parentCard ? parentCard.getAttribute('data-init-id') : null;
+          if (iid) {
+            _expandedInit = (_expandedInit === iid) ? null : iid;
+            renderApp();
+          }
+        }
+      });
+
+      // Also listen for input events on RICE sliders
+      initList.addEventListener('input', function(e) {
+        if (e.target.classList && e.target.classList.contains('ie-rice-slider')) {
+          var valEl = e.target.nextElementSibling;
+          if (valEl) valEl.textContent = e.target.value;
+          var cardEl = e.target.closest('.init-card');
+          if (cardEl) updateRicePreview(cardEl);
+        }
+      });
+    }
+  }
+
+  function updateRicePreview(card) {
+    var sliders = card.querySelectorAll('.ie-rice-slider');
+    var vals = {};
+    for (var si = 0; si < sliders.length; si++) {
+      vals[sliders[si].getAttribute('data-ie')] = parseInt(sliders[si].value, 10);
+    }
+    var score = (vals.e && vals.e > 0) ? Math.round((vals.r * vals.i * vals.c) / vals.e) : 0;
+    var preview = card.querySelector('[data-ie-score]');
+    if (preview) preview.textContent = 'RICE: ' + score;
+  }
+
+  function saveInitiative(card, initId) {
+    var init = null;
+    var idx = -1;
+    for (var i = 0; i < _backlog.length; i++) {
+      if (_backlog[i].id === initId) { init = _backlog[i]; idx = i; break; }
+    }
+    if (!init) return;
+
+    var changes = [];
+    var fields = card.querySelectorAll('[data-ie]');
+    for (var fi = 0; fi < fields.length; fi++) {
+      var field = fields[fi].getAttribute('data-ie');
+      var val;
+      if (fields[fi].tagName === 'SELECT') val = fields[fi].value;
+      else if (fields[fi].tagName === 'TEXTAREA') val = fields[fi].value.trim();
+      else if (fields[fi].type === 'range') val = parseInt(fields[fi].value, 10);
+      else val = fields[fi].value.trim();
+
+      var oldVal = init[field];
+      if (field === 'r' || field === 'i' || field === 'c' || field === 'e') {
+        val = parseInt(val, 10) || 5;
+      }
+      if (String(oldVal) !== String(val)) {
+        changes.push(field + ': ' + oldVal + ' \u2192 ' + val);
+      }
+      init[field] = val;
+    }
+
+    _backlog[idx] = init;
+    saveBacklog();
+
+    if (changes.length) {
+      addLog('initiative_edit', initId + ': ' + changes.join(', '), 'initiative', initId);
+    }
+
+    _expandedInit = null;
+    showToast('\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0430');
+    renderApp();
+  }
+
+  function setInitApproval(initId, status) {
+    for (var i = 0; i < _backlog.length; i++) {
+      if (_backlog[i].id === initId) {
+        var old = _backlog[i].approval || 'pending';
+        _backlog[i].approval = status;
+        saveBacklog();
+        addLog('initiative_approval', initId + ': ' + old + ' \u2192 ' + status, 'initiative', initId);
+        showToast(status === 'approved' ? '\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u043E' : '\u041E\u0442\u043A\u043B\u043E\u043D\u0435\u043D\u043E');
+        renderApp();
+        return;
+      }
+    }
+  }
+
+  function deleteInitiative(initId) {
+    var newBacklog = [];
+    var deleted = null;
+    for (var i = 0; i < _backlog.length; i++) {
+      if (_backlog[i].id === initId) {
+        deleted = _backlog[i];
+      } else {
+        newBacklog.push(_backlog[i]);
+      }
+    }
+    if (deleted) {
+      _backlog = newBacklog;
+      saveBacklog();
+      addLog('initiative_delete', '\u0423\u0434\u0430\u043B\u0435\u043D\u0430: ' + (deleted.name || initId), 'initiative', initId);
+      showToast('\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430 \u0443\u0434\u0430\u043B\u0435\u043D\u0430');
+      _expandedInit = null;
+      renderApp();
+    }
+  }
+
+  // ── INIT: Goals ──
+  function initGoals(goals, initiatives, editable) {
+    // Create button
+    var btnCreate = document.getElementById('btn-create-goal');
+    var formCreate = document.getElementById('form-create-goal');
+    if (btnCreate && formCreate) {
+      btnCreate.addEventListener('click', function() {
+        formCreate.classList.toggle('visible');
+      });
+
+      var btnCancel = document.getElementById('btn-cancel-new-goal');
+      if (btnCancel) {
+        btnCancel.addEventListener('click', function() {
+          formCreate.classList.remove('visible');
+        });
+      }
+
+      var btnSave = document.getElementById('btn-save-new-goal');
+      if (btnSave) {
+        btnSave.addEventListener('click', function() {
+          var title = document.getElementById('new-goal-title').value.trim();
+          if (!title) { showToast('\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'); return; }
+
+          var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+          var newGoal = {
+            id: genId('G'),
+            title: title,
+            type: document.getElementById('new-goal-type').value,
+            period: document.getElementById('new-goal-period').value,
+            productId: productId,
+            owner: user ? user.name : '--',
+            approvalStatus: 'pending',
+            keyResults: []
+          };
+
+          _goals.push(newGoal);
+          saveGoals();
+          addLog('goal_create', '\u0421\u043E\u0437\u0434\u0430\u043D\u0430: ' + title, 'goal', newGoal.id);
+          showToast('\u0426\u0435\u043B\u044C \u0441\u043E\u0437\u0434\u0430\u043D\u0430');
+          renderApp();
+        });
+      }
+    }
+
+    // Goal approval buttons
+    var approvalBtns = document.querySelectorAll('[data-goal-approve]');
+    for (var ai = 0; ai < approvalBtns.length; ai++) {
+      (function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var goalId = btn.getAttribute('data-goal-approve');
+          for (var gi = 0; gi < _goals.length; gi++) {
+            if (_goals[gi].id === goalId) {
+              _goals[gi].approvalStatus = 'approved';
+              saveGoals();
+              addLog('goal_approval', goalId + ': pending \u2192 approved', 'goal', goalId);
+              showToast('\u0426\u0435\u043B\u044C \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0430');
+              renderApp();
+              return;
+            }
+          }
+        });
+      })(approvalBtns[ai]);
+    }
+  }
+
+  // ── INIT: Calendar ──
+  function initCalendar(editable) {
+    // Create event
+    var btnCreate = document.getElementById('btn-create-event');
+    var formCreate = document.getElementById('form-create-event');
+    if (btnCreate && formCreate) {
+      btnCreate.addEventListener('click', function() {
+        formCreate.classList.toggle('visible');
+      });
+
+      var btnCancel = document.getElementById('btn-cancel-new-event');
+      if (btnCancel) {
+        btnCancel.addEventListener('click', function() {
+          formCreate.classList.remove('visible');
+        });
+      }
+
+      var btnSave = document.getElementById('btn-save-new-event');
+      if (btnSave) {
+        btnSave.addEventListener('click', function() {
+          var title = document.getElementById('new-evt-title').value.trim();
+          var date = document.getElementById('new-evt-date').value;
+          if (!title) { showToast('\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'); return; }
+          if (!date) { showToast('\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0434\u0430\u0442\u0443'); return; }
+
+          var newEvent = {
+            id: genId('evt'),
+            type: document.getElementById('new-evt-type').value,
+            title: title,
+            date: date,
+            initiativeId: null
+          };
+
+          if (!_product.events) _product.events = [];
+          _product.events.push(newEvent);
+          saveProducts();
+          addLog('event_create', '\u0421\u043E\u0431\u044B\u0442\u0438\u0435: ' + title + ' (' + date + ')', 'event', newEvent.id);
+          showToast('\u0421\u043E\u0431\u044B\u0442\u0438\u0435 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u043E');
+          renderApp();
+        });
+      }
+    }
+
+    // Delete events
+    var eventsList = document.getElementById('cal-events-list');
+    if (eventsList) {
+      eventsList.addEventListener('click', function(e) {
+        var btn = e.target.closest('[data-action="delete-event"]');
+        if (!btn) return;
+        var evtId = btn.getAttribute('data-evt-id');
+        if (!evtId || !_product.events) return;
+
+        var newEvents = [];
+        for (var i = 0; i < _product.events.length; i++) {
+          if (_product.events[i].id !== evtId) {
+            newEvents.push(_product.events[i]);
+          }
+        }
+        _product.events = newEvents;
+        saveProducts();
+        addLog('event_delete', '\u0423\u0434\u0430\u043B\u0435\u043D\u043E \u0441\u043E\u0431\u044B\u0442\u0438\u0435: ' + evtId, 'event', evtId);
+        showToast('\u0421\u043E\u0431\u044B\u0442\u0438\u0435 \u0443\u0434\u0430\u043B\u0435\u043D\u043E');
+        renderApp();
+      });
+    }
+  }
+
+  // ── INIT: Documents ──
+  function initDocs(editable) {
+    if (!editable || !isPM()) return;
+    var docList = document.getElementById('doc-list');
+    if (!docList) return;
+
+    // Status selects
+    var statusSelects = docList.querySelectorAll('[data-doc-status]');
+    for (var si = 0; si < statusSelects.length; si++) {
+      (function(sel) {
+        sel.addEventListener('change', function() {
+          var idx = parseInt(sel.getAttribute('data-doc-status'), 10);
+          if (!_product.artifacts || !_product.artifacts[idx]) return;
+          var old = _product.artifacts[idx].status;
+          _product.artifacts[idx].status = sel.value;
+          saveProducts();
+          addLog('artifact_status', _product.artifacts[idx].name + ': ' + old + ' \u2192 ' + sel.value, 'artifact', _product.artifacts[idx].name);
+          showToast('\u0421\u0442\u0430\u0442\u0443\u0441 \u043E\u0431\u043D\u043E\u0432\u043B\u0451\u043D');
+          renderApp();
+        });
+      })(statusSelects[si]);
+    }
+
+    // URL inputs
+    var urlInputs = docList.querySelectorAll('[data-doc-url]');
+    for (var ui = 0; ui < urlInputs.length; ui++) {
+      (function(inp) {
+        inp.addEventListener('blur', function() {
+          var idx = parseInt(inp.getAttribute('data-doc-url'), 10);
+          if (!_product.artifacts || !_product.artifacts[idx]) return;
+          var old = _product.artifacts[idx].url || '';
+          var newUrl = inp.value.trim();
+          if (old !== newUrl) {
+            _product.artifacts[idx].url = newUrl;
+            saveProducts();
+            addLog('artifact_url', _product.artifacts[idx].name + ': URL \u043E\u0431\u043D\u043E\u0432\u043B\u0451\u043D', 'artifact', _product.artifacts[idx].name);
+            showToast('\u0421\u0441\u044B\u043B\u043A\u0430 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0430');
+          }
+        });
+      })(urlInputs[ui]);
+    }
   }
 
 })();
