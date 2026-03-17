@@ -185,8 +185,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .tag-infra{background:var(--red-dim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
 .ptag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap;border:1px solid transparent}
 .pt-P01{background:rgba(255,133,192,.14);color:#FF85C0;border-color:rgba(255,133,192,.3)}
-.pt-P02{background:var(--blue-dim);color:#93C5FD;border-color:rgba(59,130,246,.3)}
-.pt-P03{background:rgba(0,212,180,.14);color:var(--teal);border-color:rgba(0,212,180,.3)}
+.pt-P02{background:rgba(79,195,247,.14);color:#4FC3F7;border-color:rgba(79,195,247,.3)}
+.pt-P03{background:rgba(0,212,180,.14);color:#00D4B4;border-color:rgba(0,212,180,.3)}
 .aud{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border)}
 .rice{display:flex;flex-direction:column;gap:2px}
 .rrow{display:flex;align-items:center;gap:5px;font-size:10px}
@@ -1430,9 +1430,43 @@ const STAGES = [
 // DATA
 // ════════════════════════════════════════════
 const PROJECTS_DEFAULT = [
-  { id:'P01', name:'WB Kids', desc:'Образовательные программы для детей', gate:3, status:'on-track', cat:'b2c', catLabel:'B2C', owner:'PM Team', layer:'B2C', color:'#FF85C0', release:'Q1 2026' },
-  { id:'P02', name:'WB Встречи', desc:'Видеоконференции для бизнеса', gate:2, status:'on-track', cat:'b2b', catLabel:'B2B', owner:'PM Team', layer:'B2B', color:'#4FC3F7', release:'Q1 2026' },
-  { id:'P03', name:'EdTech Platform', desc:'Образовательные продукты экосистемы', gate:1, status:'at-risk', cat:'b2c', catLabel:'B2C', owner:'PM Team', layer:'B2C', color:'#00D4B4', release:'Q2 2026', pilot:true },
+  {
+    id: 'P01', name: 'Маркетплейс К',
+    desc: 'Маркетплейс для детской аудитории — товары, контент, обучение',
+    gate: 3, status: 'on-track', cat: 'b2c', catLabel: 'B2C',
+    owner: 'PM Team', color: '#FF85C0', release: 'Q1 2026',
+    updated: '2026-03-17', quarter: 'Q1 2026', pilot: true,
+    trackerUrl: '', trackerType: 'youtrack',
+    kpi: [
+      { icon: 'users', value: '12K', label: 'MAU' },
+      { icon: 'trending-up', value: '34%', label: 'Retention D30' },
+      { icon: 'star', value: '42', label: 'NPS' }
+    ],
+    initiatives: ['I001','I002','I003']
+  },
+  {
+    id: 'P02', name: 'Генератор О',
+    desc: 'Сервис генерации обучающего контента на базе AI',
+    gate: 1, status: 'on-track', cat: 'b2b', catLabel: 'B2B',
+    owner: 'PM Team', color: '#4FC3F7', release: 'Q2 2026',
+    updated: '2026-03-17', quarter: 'Q1 2026', pilot: true,
+    trackerUrl: '', trackerType: 'youtrack',
+    kpi: [
+      { icon: 'zap', value: '7', label: 'CustDev' },
+      { icon: 'file-text', value: 'Draft', label: 'PSF' }
+    ],
+    initiatives: ['I004','I005']
+  },
+  {
+    id: 'P03', name: 'Сервис З',
+    desc: 'Сервис для знакомств в экосистеме WB',
+    gate: 0, status: 'at-risk', cat: 'b2c', catLabel: 'B2C',
+    owner: 'PM Team', color: '#00D4B4', release: 'Q2 2026',
+    updated: '2026-03-17', quarter: 'Q1 2026', pilot: true,
+    trackerUrl: '', trackerType: '',
+    kpi: [],
+    initiatives: ['I006','I007']
+  }
 ];
 let PROJECTS = (() => {
   const raw = window.PT ? PT.load(PT.KEY_PRODUCTS) : null;
@@ -1444,41 +1478,55 @@ let gateChecklist = {};
 try { gateChecklist = (window.PT ? PT.load('ECOTECH_GATE_CHECKLIST') : JSON.parse(localStorage.getItem('ECOTECH_GATE_CHECKLIST'))) || {}; } catch(e) {}
 
 const BACKLOG_DEFAULT = [
-  { id:'I001', productId:'P01', project:'P01', track:'delivery', name:'Геймификация обучения', desc:'Добавить игровые механики в учебные модули', cat:'feature', segment:'product', r:8, i:7, c:6, e:5, status:'wip' },
-  { id:'I002', productId:'P01', project:'P01', track:'discovery', name:'Родительский кабинет', desc:'Исследование потребности родителей в мониторинге', cat:'feature', segment:'product', r:7, i:6, c:4, e:3, status:'planned' },
-  { id:'I003', productId:'P02', project:'P02', track:'delivery', name:'Интеграция с WB ID', desc:'Единая авторизация через WB ID', cat:'infra', segment:'tech', r:9, i:8, c:8, e:6, status:'wip' },
-  { id:'I004', productId:'P02', project:'P02', track:'discovery', name:'Запись встреч', desc:'Автоматическая запись и транскрипция встреч', cat:'feature', segment:'product', r:6, i:7, c:5, e:7, status:'backlog' },
-  { id:'I005', productId:'P03', project:'P03', track:'discovery', name:'Платформа курсов', desc:'MVP платформы онлайн-курсов для EdTech', cat:'feature', segment:'business', r:8, i:8, c:5, e:8, status:'planned' },
+  { id:'I001', productId:'P01', project:'P01', track:'delivery', name:'Геймификация покупок', desc:'Игровые механики для увеличения retention', cat:'feature', segment:'product', r:8, i:7, c:7, e:4, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I002', productId:'P01', project:'P01', track:'review', name:'NPS-опрос и анализ', desc:'Ежемесячный NPS-замер + action plan по детракторам', cat:'process', segment:'product', r:10, i:6, c:8, e:2, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I003', productId:'P01', project:'P01', track:'discovery', name:'Unit economics модель', desc:'P&L модель + CAC/LTV расчёт для Gate 4', cat:'process', segment:'business', r:8, i:9, c:6, e:3, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I004', productId:'P02', project:'P02', track:'discovery', name:'CustDev образовательных учреждений', desc:'7-10 интервью с учителями и методистами', cat:'process', segment:'product', r:9, i:8, c:5, e:3, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I005', productId:'P02', project:'P02', track:'delivery', name:'MVP генератора контента', desc:'Прототип AI-генератора учебных материалов', cat:'feature', segment:'tech', r:8, i:9, c:4, e:7, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I006', productId:'P03', project:'P03', track:'discovery', name:'Product Brief Сервис З', desc:'Заполнить бриф: проблема, ЦА, RICE, OKR', cat:'process', segment:'product', r:7, i:7, c:8, e:1, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I007', productId:'P03', project:'P03', track:'discovery', name:'Анализ рынка знакомств', desc:'Конкуренты, TAM/SAM, позиционирование', cat:'process', segment:'business', r:6, i:6, c:5, e:2, status:'backlog', created:'2026-03-17', updated:'2026-03-17' }
 ];
 
 // ════════════════════════════════════════════
 // GOALS & EPICS DATA
 // ════════════════════════════════════════════
 const GOALS_DEFAULT = [
-  { id:'G001', title:'Запустить WB Kids через Gate 3', type:'product',
-    period:'Q2 2026', owner:'CPO', status:'active', productId:'P01',
-    keyResults:[
-      { id:'KR1', text:'Activation Rate >= 30%', target:30, current:18, unit:'%', initiativeIds:['I001','I002'] },
-      { id:'KR2', text:'NPS >= 40', target:40, current:32, unit:'pts', initiativeIds:[] }
+  {
+    id: 'G001', title: 'Маркетплейс К: выход на Gate 4 (Экосистема)',
+    type: 'product', period: 'H1 2026', owner: 'CPO', status: 'active', productId: 'P01',
+    keyResults: [
+      { id: 'KR1', text: 'Retention D30 >= 40%', target: 40, current: 34, unit: '%', initiativeIds: ['I001'] },
+      { id: 'KR2', text: 'NPS >= 50', target: 50, current: 42, unit: 'pts', initiativeIds: ['I002'] },
+      { id: 'KR3', text: 'CAC < LTV', target: 1, current: 0, unit: 'да/нет', initiativeIds: ['I003'] }
     ]
   },
-  { id:'G002', title:'EdTech MVP в production', type:'strategic',
-    period:'Q1 2026', owner:'CPO', status:'active', productId:'P03',
-    keyResults:[
-      { id:'KR1', text:'MVP запущен', target:1, current:0, unit:'продукт', initiativeIds:['I005'] }
+  {
+    id: 'G002', title: 'Генератор О: подтвердить PSF и запустить MVP',
+    type: 'product', period: 'Q2 2026', owner: 'CPO', status: 'active', productId: 'P02',
+    keyResults: [
+      { id: 'KR1', text: 'PSF подтверждён (7+ интервью)', target: 7, current: 4, unit: 'интервью', initiativeIds: ['I004'] },
+      { id: 'KR2', text: 'MVP в production', target: 1, current: 0, unit: 'продукт', initiativeIds: ['I005'] }
+    ]
+  },
+  {
+    id: 'G003', title: 'Сервис З: пройти Gate 0 и начать Разведку',
+    type: 'strategic', period: 'Q1 2026', owner: 'CPO', status: 'active', productId: 'P03',
+    keyResults: [
+      { id: 'KR1', text: 'Product Brief заполнен', target: 1, current: 0, unit: 'бриф', initiativeIds: ['I006'] },
+      { id: 'KR2', text: 'RICE >= 100', target: 100, current: 0, unit: 'score', initiativeIds: ['I007'] }
     ]
   }
 ];
 
 const EPICS_DEFAULT = [
-  { id:'E001', title:'Геймификация WB Kids',       productId:'P01', goalId:'G001', status:'active',  gate:3 },
-  { id:'E002', title:'MVP EdTech Platform',         productId:'P03', goalId:'G002', status:'planned', gate:1 },
+  { id:'E001', title:'Геймификация Q1', productId:'P01', goalId:'G001', status:'active', gate:3 },
+  { id:'E002', title:'CustDev волна 1', productId:'P02', goalId:'G002', status:'active', gate:1 }
 ];
 
 // Epic assignments for existing BACKLOG items (used in migration)
 const EPIC_ASSIGNMENTS = {
-  I001:'E001', I002:'E001',
-  I005:'E002',
+  I001:'E001',
+  I004:'E002'
 };
 
 // ════════════════════════════════════════════
