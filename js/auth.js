@@ -1,7 +1,7 @@
 /**
- * ОРБИТА — MVP Авторизация
- * Роли: admin, pmo, pm, viewer
- * Хранение: ECOTECH_AUTH в localStorage
+ * ОРБИТА — Единая архитектура прав (W4-010)
+ * Роли: admin, pmo_lead, pmo, pm, lead, guest
+ * Хранение: ECOTECH_AUTH / ECOTECH_USERS в localStorage
  */
 (function() {
   'use strict';
@@ -9,21 +9,49 @@
   var AUTH_KEY = 'ECOTECH_AUTH';
   var USERS_KEY = 'ECOTECH_USERS';
 
-  // Дефолтные пользователи (для пилота)
+  // ── Расширенная ролевая модель ─────────────────────────────────────
+  var ROLES = {
+    admin:     { label: 'Администратор',   color: '#FF2D8A', canCreate: true,  canEdit: true,  canDelete: true,  canApprove: true,  canArchive: true,  canDeactivate: true,  canTransitionGate: true,  canAssignPM: true,  canReview: true,  canManageUsers: true  },
+    pmo_lead:  { label: 'Руководитель ПО', color: '#FFB830', canCreate: true,  canEdit: true,  canDelete: true,  canApprove: true,  canArchive: true,  canDeactivate: true,  canTransitionGate: true,  canAssignPM: true,  canReview: true,  canManageUsers: true  },
+    pmo:       { label: 'PMO-менеджер',    color: '#FFB830', canCreate: true,  canEdit: true,  canDelete: false, canApprove: true,  canArchive: false, canDeactivate: false, canTransitionGate: true,  canAssignPM: false, canReview: true,  canManageUsers: false },
+    pm:        { label: 'Product Manager', color: '#00D4B4', canCreate: true,  canEdit: true,  canDelete: false, canApprove: false, canArchive: false, canDeactivate: false, canTransitionGate: false, canAssignPM: false, canReview: false, canManageUsers: false },
+    lead:      { label: 'Руководитель',    color: '#4FC3F7', canCreate: false, canEdit: false, canDelete: false, canApprove: false, canArchive: false, canDeactivate: false, canTransitionGate: false, canAssignPM: false, canReview: true,  canManageUsers: false },
+    guest:     { label: 'Гость',           color: '#7A7A9D', canCreate: false, canEdit: false, canDelete: false, canApprove: false, canArchive: false, canDeactivate: false, canTransitionGate: false, canAssignPM: false, canReview: false, canManageUsers: false }
+  };
+
+  // ── Seed-данные (W4-011) ───────────────────────────────────────────
   var DEFAULT_USERS = [
-    { id: 'U001', name: 'Администратор', role: 'admin', email: 'admin@rwb.ru', productIds: [], contact: '', team: 'Проектный офис' },
-    { id: 'U002', name: 'PM ECO-01', role: 'pm', email: 'pm1@rwb.ru', productIds: ['ECO-01'], contact: '', team: 'Продукт' },
-    { id: 'U003', name: 'PM ECO-02', role: 'pm', email: 'pm2@rwb.ru', productIds: ['ECO-02'], contact: '', team: 'Продукт' },
-    { id: 'U004', name: 'PM ECO-03', role: 'pm', email: 'pm3@rwb.ru', productIds: ['ECO-03'], contact: '', team: 'Продукт' },
-    { id: 'U005', name: 'Наблюдатель', role: 'viewer', email: 'viewer@rwb.ru', productIds: [], contact: '', team: '' }
+    { id: 'U001', name: 'Администратор',  email: 'admin@rwb.ru',           role: 'admin',    assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
+    { id: 'U002', name: 'Виктор',         email: 'sorval.viktor@rwb.ru',   role: 'pmo_lead', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
+    { id: 'GUEST', name: 'Гость',         email: 'demo@orbita.demo',       role: 'guest',    assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: ['ECO-00'], contact: '', team: 'Демо' }
   ];
 
-  var ROLES = {
-    admin:  { label: 'Администратор', color: '#FF2D8A', canCreate: true, canEdit: true, canApprove: true, canDelete: true },
-    pmo:    { label: 'PMO', color: '#FFB830', canCreate: true, canEdit: true, canApprove: true, canDelete: false },
-    pm:     { label: 'PM', color: '#00D4B4', canCreate: true, canEdit: true, canApprove: false, canDelete: false },
-    viewer: { label: 'Наблюдатель', color: '#7A7A9D', canCreate: false, canEdit: false, canApprove: false, canDelete: false }
-  };
+  // ── Миграция старых пользователей ──────────────────────────────────
+  function migrateUser(u) {
+    // Добавить недостающие поля
+    if (typeof u.active === 'undefined') u.active = true;
+    if (!u.createdBy) u.createdBy = 'system';
+    if (!u.createdAt) u.createdAt = '2026-03-17';
+    if (!u.assignments) u.assignments = [];
+
+    // Миграция роли viewer → guest
+    if (u.role === 'viewer') u.role = 'guest';
+
+    // Миграция productIds → assignments (если assignments пуст, а productIds есть)
+    if (u.assignments.length === 0 && u.productIds && u.productIds.length) {
+      u.assignments = u.productIds.map(function(pid) {
+        return { productId: pid, scope: 'all' };
+      });
+    }
+    // Сохраняем productIds для обратной совместимости
+    if (!u.productIds) u.productIds = [];
+
+    return u;
+  }
+
+  function migrateUsers(users) {
+    return users.map(migrateUser);
+  }
 
   var Auth = {
     ROLES: ROLES,
@@ -32,8 +60,13 @@
     getUsers: function() {
       try {
         var stored = JSON.parse(localStorage.getItem(USERS_KEY));
-        return (stored && stored.length) ? stored : DEFAULT_USERS;
-      } catch(e) { return DEFAULT_USERS; }
+        if (stored && stored.length) {
+          return migrateUsers(stored);
+        }
+        return migrateUsers(DEFAULT_USERS.map(function(u) { return JSON.parse(JSON.stringify(u)); }));
+      } catch(e) {
+        return migrateUsers(DEFAULT_USERS.map(function(u) { return JSON.parse(JSON.stringify(u)); }));
+      }
     },
 
     // Сохранить пользователей
@@ -47,19 +80,26 @@
         var auth = JSON.parse(localStorage.getItem(AUTH_KEY));
         if (auth && auth.id) {
           var users = this.getUsers();
-          return users.find(function(u) { return u.id === auth.id; }) || null;
+          var user = null;
+          for (var i = 0; i < users.length; i++) {
+            if (users[i].id === auth.id) { user = users[i]; break; }
+          }
+          return user || null;
         }
         return null;
       } catch(e) { return null; }
     },
 
-    // Войти по email @rwb.ru
+    // Войти по email
     login: function(email) {
       email = (email || '').trim().toLowerCase();
-      if (!email.endsWith('@rwb.ru')) return { ok: false, error: 'Только корпоративная почта @rwb.ru' };
       var users = this.getUsers();
-      var user = users.find(function(u) { return u.email === email; });
-      if (!user) return { ok: false, error: 'Пользователь не найден. Обратитесь к администратору.' };
+      var user = null;
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].email === email) { user = users[i]; break; }
+      }
+      if (!user) return { ok: false, error: 'Пользователь не найден. Обратитесь к администратору для получения доступа.' };
+      if (!user.active) return { ok: false, error: 'Учётная запись деактивирована. Обратитесь к администратору.' };
       // Генерируем простой код (MVP — без реальной отправки на почту)
       var code = String(Math.floor(1000 + Math.random() * 9000));
       localStorage.setItem('ECOTECH_OTP', JSON.stringify({ email: email, code: code, ts: Date.now() }));
@@ -74,7 +114,10 @@
       if (Date.now() - otp.ts > 300000) return { ok: false, error: 'Код истёк. Запросите новый.' };
       if (otp.code !== inputCode) return { ok: false, error: 'Неверный код.' };
       var users = this.getUsers();
-      var user = users.find(function(u) { return u.email === otp.email; });
+      var user = null;
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].email === otp.email) { user = users[i]; break; }
+      }
       if (!user) return { ok: false, error: 'Пользователь не найден.' };
       localStorage.setItem(AUTH_KEY, JSON.stringify({ id: user.id, ts: Date.now() }));
       localStorage.removeItem('ECOTECH_OTP');
@@ -86,7 +129,7 @@
       localStorage.removeItem(AUTH_KEY);
     },
 
-    // Проверка прав
+    // Проверка прав (универсальная)
     can: function(action) {
       var user = this.getCurrentUser();
       if (!user) return false;
@@ -95,21 +138,101 @@
       return !!role[action];
     },
 
-    // Проверка: может ли редактировать конкретный продукт
-    canEditProduct: function(productId) {
-      var user = this.getCurrentUser();
+    // ── Новые вспомогательные функции (W4-010) ──────────────────────
+
+    // Может ли пользователь редактировать продукт
+    canEditProduct: function(productId, userOverride) {
+      var user = userOverride || this.getCurrentUser();
       if (!user) return false;
-      if (user.role === 'admin' || user.role === 'pmo') return true;
-      if (user.role === 'pm') {
-        return !user.productIds.length || user.productIds.indexOf(productId) >= 0;
+      var role = ROLES[user.role];
+      if (!role || !role.canEdit) return false;
+      // admin, pmo_lead, pmo — могут редактировать все продукты
+      if (user.role === 'admin' || user.role === 'pmo_lead' || user.role === 'pmo') return true;
+      // PM — по привязке assignments
+      if (user.assignments && user.assignments.length) {
+        for (var i = 0; i < user.assignments.length; i++) {
+          if (user.assignments[i].productId === productId) return true;
+        }
+      }
+      // Обратная совместимость — productIds
+      if (user.productIds && user.productIds.length) {
+        return user.productIds.indexOf(productId) >= 0;
+      }
+      // PM без привязок — может всё (для пилота)
+      if (user.role === 'pm' && (!user.assignments || !user.assignments.length) && (!user.productIds || !user.productIds.length)) {
+        return true;
       }
       return false;
     },
 
+    // Может ли пользователь редактировать инициативу
+    canEditInitiative: function(productId, initiativeId, userOverride) {
+      var user = userOverride || this.getCurrentUser();
+      if (!user) return false;
+      var role = ROLES[user.role];
+      if (!role || !role.canEdit) return false;
+      // admin, pmo_lead, pmo — могут всё
+      if (user.role === 'admin' || user.role === 'pmo_lead' || user.role === 'pmo') return true;
+      // PM — по привязке assignments с scope
+      if (user.assignments && user.assignments.length) {
+        for (var i = 0; i < user.assignments.length; i++) {
+          var a = user.assignments[i];
+          if (a.productId === productId) {
+            if (a.scope === 'all') return true;
+            if (Array.isArray(a.scope) && a.scope.indexOf(initiativeId) >= 0) return true;
+          }
+        }
+      }
+      // Обратная совместимость — productIds (полный доступ к продукту)
+      if (user.productIds && user.productIds.indexOf(productId) >= 0) return true;
+      // PM без привязок — может всё (для пилота)
+      if (user.role === 'pm' && (!user.assignments || !user.assignments.length) && (!user.productIds || !user.productIds.length)) {
+        return true;
+      }
+      return false;
+    },
+
+    // Список продуктов пользователя
+    getUserProducts: function(userOverride) {
+      var user = userOverride || this.getCurrentUser();
+      if (!user) return [];
+      // admin, pmo_lead, pmo — все продукты
+      if (user.role === 'admin' || user.role === 'pmo_lead' || user.role === 'pmo') return ['*'];
+      var ids = [];
+      if (user.assignments && user.assignments.length) {
+        for (var i = 0; i < user.assignments.length; i++) {
+          ids.push(user.assignments[i].productId);
+        }
+      }
+      // Обратная совместимость
+      if (user.productIds && user.productIds.length) {
+        for (var j = 0; j < user.productIds.length; j++) {
+          if (ids.indexOf(user.productIds[j]) < 0) {
+            ids.push(user.productIds[j]);
+          }
+        }
+      }
+      return ids;
+    },
+
     // Получить роль текущего пользователя
-    getRole: function() {
+    getUserRole: function() {
       var user = this.getCurrentUser();
       return user ? user.role : null;
+    },
+
+    // Проверить конкретное право текущего пользователя
+    hasPermission: function(permission) {
+      var user = this.getCurrentUser();
+      if (!user) return false;
+      var role = ROLES[user.role];
+      if (!role) return false;
+      return !!role[permission];
+    },
+
+    // Получить роль текущего пользователя (alias — обратная совместимость)
+    getRole: function() {
+      return this.getUserRole();
     },
 
     // Получить лейбл роли
@@ -132,6 +255,33 @@
     // Залогинен ли
     isLoggedIn: function() {
       return !!this.getCurrentUser();
+    },
+
+    // Гостевой вход — авто
+    loginAsGuest: function() {
+      var users = this.getUsers();
+      var guestUser = null;
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].id === 'GUEST') { guestUser = users[i]; break; }
+      }
+      if (!guestUser) {
+        guestUser = {
+          id: 'GUEST',
+          name: 'Гость',
+          role: 'guest',
+          email: 'demo@orbita.demo',
+          assignments: [],
+          active: true,
+          createdBy: 'system',
+          createdAt: '2026-03-17',
+          productIds: ['ECO-00'],
+          contact: '',
+          team: 'Демо'
+        };
+        users.push(guestUser);
+        this.saveUsers(users);
+      }
+      localStorage.setItem(AUTH_KEY, JSON.stringify({ id: 'GUEST', ts: Date.now() }));
     }
   };
 

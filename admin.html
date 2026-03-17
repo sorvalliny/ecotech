@@ -54,6 +54,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* role badges */
 .role-badge{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700;font-family:var(--head);letter-spacing:.04em}
 
+/* status badges */
+.status-active{color:#34D399}
+.status-inactive{color:#F87171}
+
 /* buttons */
 .btn{padding:7px 16px;border-radius:8px;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px;border:none;color:#fff}
 .btn-primary{background:var(--violet)}
@@ -64,6 +68,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .btn-ghost:hover{border-color:var(--border-hi);color:var(--text)}
 .btn-teal{background:var(--teal);color:var(--dark)}
 .btn-teal:hover{opacity:.85}
+.btn-amber{background:var(--amber);color:var(--dark)}
+.btn-amber:hover{opacity:.85}
 .btn-sm{padding:4px 10px;font-size:10px}
 
 /* modal */
@@ -137,14 +143,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <body>
 
 <div class="app">
-  <!-- Access denied (shown if not admin) -->
+  <!-- Access denied (shown if not admin/pmo_lead) -->
   <div id="access-denied" class="access-denied" style="display:none">
     <div class="access-denied-title">Доступ запрещен</div>
-    <div class="access-denied-msg">Эта страница доступна только администраторам платформы. Войдите с учетной записью администратора.</div>
+    <div class="access-denied-msg">Эта страница доступна только администраторам и руководителям ПО. Войдите с соответствующей учетной записью.</div>
     <a href="index.html" class="btn btn-ghost" style="margin-top:8px">На главную</a>
   </div>
 
-  <!-- Admin content (shown only for admin) -->
+  <!-- Admin content (shown only for admin/pmo_lead) -->
   <div id="admin-content" style="display:none">
     <div class="pg-head">
       <div class="pg-head-title">Администрирование</div>
@@ -167,7 +173,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="sec">
           <table class="adm-table">
             <thead>
-              <tr><th>Имя</th><th>Email</th><th>Роль</th><th>Продукты</th><th>Действия</th></tr>
+              <tr><th>Имя</th><th>Email</th><th>Роль</th><th>Продукты</th><th>Статус</th><th>Действия</th></tr>
             </thead>
             <tbody id="users-tbody"></tbody>
           </table>
@@ -229,20 +235,22 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <input type="text" id="user-name" placeholder="Имя Фамилия">
     </div>
     <div class="field">
+      <label>Email</label>
+      <input type="email" id="user-email" placeholder="user@rwb.ru">
+    </div>
+    <div class="field">
       <label>Роль</label>
       <select id="user-role">
         <option value="admin">Администратор</option>
-        <option value="pmo">PMO</option>
-        <option value="pm">PM</option>
-        <option value="viewer">Наблюдатель</option>
+        <option value="pmo_lead">Руководитель ПО</option>
+        <option value="pmo">PMO-менеджер</option>
+        <option value="pm">Product Manager</option>
+        <option value="lead">Руководитель</option>
+        <option value="guest">Гость</option>
       </select>
     </div>
     <div class="field">
-      <label>Email</label>
-      <input type="email" id="user-email" placeholder="user@example.com">
-    </div>
-    <div class="field">
-      <label>Продукты</label>
+      <label>Привязка к продуктам</label>
       <div class="multi-check" id="user-products-list"></div>
     </div>
     <div style="display:flex;gap:8px;margin-top:16px">
@@ -299,29 +307,33 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
   var SETTINGS_KEY = 'ECOTECH_SETTINGS';
 
-  // ── Role colors ──
+  // ── Role colors & labels (расширенные) ──
   var ROLE_COLORS = {
-    admin: { bg: 'rgba(255,45,138,.12)', color: '#FF2D8A', border: 'rgba(255,45,138,.3)' },
-    pmo:   { bg: 'rgba(255,184,48,.1)',  color: '#FFB830', border: 'rgba(255,184,48,.25)' },
-    pm:    { bg: 'rgba(0,212,180,.1)',   color: '#00D4B4', border: 'rgba(0,212,180,.25)' },
-    viewer:{ bg: 'rgba(122,122,157,.12)',color: '#7A7A9D', border: 'rgba(122,122,157,.25)' }
+    admin:    { bg: 'rgba(255,45,138,.12)',  color: '#FF2D8A', border: 'rgba(255,45,138,.3)' },
+    pmo_lead: { bg: 'rgba(255,184,48,.12)',  color: '#FFB830', border: 'rgba(255,184,48,.3)' },
+    pmo:      { bg: 'rgba(255,184,48,.08)',  color: '#FFB830', border: 'rgba(255,184,48,.2)' },
+    pm:       { bg: 'rgba(0,212,180,.1)',    color: '#00D4B4', border: 'rgba(0,212,180,.25)' },
+    lead:     { bg: 'rgba(79,195,247,.1)',   color: '#4FC3F7', border: 'rgba(79,195,247,.25)' },
+    guest:    { bg: 'rgba(122,122,157,.12)', color: '#7A7A9D', border: 'rgba(122,122,157,.25)' }
   };
 
   var ROLE_LABELS = {
-    admin: 'Администратор',
-    pmo: 'PMO',
-    pm: 'PM',
-    viewer: 'Наблюдатель'
+    admin:    'Администратор',
+    pmo_lead: 'Руководитель ПО',
+    pmo:      'PMO-менеджер',
+    pm:       'Product Manager',
+    lead:     'Руководитель',
+    guest:    'Гость'
   };
 
-  // ── Access check ──
+  // ── Access check: admin или pmo_lead ──
   function checkAccess() {
-    // Wait for OrbAuth to be available
     if (typeof OrbAuth === 'undefined') {
       setTimeout(checkAccess, 50);
       return;
     }
-    if (OrbAuth.getRole() === 'admin') {
+    var role = OrbAuth.getRole();
+    if (role === 'admin' || role === 'pmo_lead') {
       document.getElementById('admin-content').style.display = '';
       init();
     } else {
@@ -340,15 +352,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   // ── Tabs ──
   function initTabs() {
     var btns = document.querySelectorAll('.tab-btn');
-    btns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        btns.forEach(function(b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
-        var target = document.getElementById('tab-' + btn.getAttribute('data-tab'));
-        if (target) target.classList.add('active');
-      });
-    });
+    for (var i = 0; i < btns.length; i++) {
+      (function(btn) {
+        btn.addEventListener('click', function() {
+          for (var j = 0; j < btns.length; j++) { btns[j].classList.remove('active'); }
+          btn.classList.add('active');
+          var tabs = document.querySelectorAll('.tab-content');
+          for (var k = 0; k < tabs.length; k++) { tabs[k].classList.remove('active'); }
+          var target = document.getElementById('tab-' + btn.getAttribute('data-tab'));
+          if (target) target.classList.add('active');
+        });
+      })(btns[i]);
+    }
   }
 
   // ── Users ──
@@ -367,34 +382,63 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     empty.style.display = 'none';
 
     var html = '';
-    users.forEach(function(u) {
-      var rc = ROLE_COLORS[u.role] || ROLE_COLORS.viewer;
+    for (var ui = 0; ui < users.length; ui++) {
+      var u = users[ui];
+      var rc = ROLE_COLORS[u.role] || ROLE_COLORS.guest;
       var rl = ROLE_LABELS[u.role] || u.role;
 
-      // Product names
+      // Product names from assignments + productIds
       var prodNames = '';
-      if (u.productIds && u.productIds.length && products.length) {
-        prodNames = u.productIds.map(function(pid) {
-          var p = products.find(function(pr) { return pr.id === pid; });
-          return p ? p.name : pid;
-        }).join(', ');
+      var allPids = [];
+      if (u.assignments && u.assignments.length) {
+        for (var ai = 0; ai < u.assignments.length; ai++) {
+          if (allPids.indexOf(u.assignments[ai].productId) < 0) {
+            allPids.push(u.assignments[ai].productId);
+          }
+        }
+      }
+      if (u.productIds && u.productIds.length) {
+        for (var pi = 0; pi < u.productIds.length; pi++) {
+          if (allPids.indexOf(u.productIds[pi]) < 0) {
+            allPids.push(u.productIds[pi]);
+          }
+        }
+      }
+
+      if (allPids.length && products.length) {
+        var names = [];
+        for (var ni = 0; ni < allPids.length; ni++) {
+          var found = null;
+          for (var fi = 0; fi < products.length; fi++) {
+            if (products[fi].id === allPids[ni]) { found = products[fi]; break; }
+          }
+          names.push(found ? found.name : allPids[ni]);
+        }
+        prodNames = names.join(', ');
+      } else if (allPids.length) {
+        prodNames = allPids.join(', ');
       } else {
         prodNames = '<span style="color:var(--muted)">--</span>';
       }
 
       var isSelf = currentUser && currentUser.id === u.id;
+      var isActive = u.active !== false;
 
       html += '<tr>'
         + '<td style="font-weight:600;color:#fff">' + escHtml(u.name) + (isSelf ? ' <span style="font-size:9px;color:var(--violet)">(вы)</span>' : '') + '</td>'
         + '<td style="color:var(--muted)">' + (u.email ? escHtml(u.email) : '--') + '</td>'
         + '<td><span class="role-badge" style="background:' + rc.bg + ';color:' + rc.color + ';border:1px solid ' + rc.border + '">' + rl + '</span></td>'
         + '<td>' + prodNames + '</td>'
-        + '<td>'
+        + '<td><span class="' + (isActive ? 'status-active' : 'status-inactive') + '" style="font-size:11px;font-weight:600;">' + (isActive ? 'Активен' : 'Неактивен') + '</span></td>'
+        + '<td style="white-space:nowrap;">'
         +   '<button class="btn btn-ghost btn-sm" onclick="AdminApp.editUser(\'' + u.id + '\')">Ред.</button> '
+        +   (isSelf ? '' : (isActive
+              ? '<button class="btn btn-ghost btn-sm" onclick="AdminApp.toggleUserActive(\'' + u.id + '\', false)" title="Деактивировать" style="color:var(--amber);">Деакт.</button> '
+              : '<button class="btn btn-ghost btn-sm" onclick="AdminApp.toggleUserActive(\'' + u.id + '\', true)" title="Активировать" style="color:var(--green);">Акт.</button> '))
         +   (isSelf ? '' : '<button class="btn btn-danger btn-sm" onclick="AdminApp.deleteUser(\'' + u.id + '\')">Удл.</button>')
         + '</td>'
         + '</tr>';
-    });
+    }
     tbody.innerHTML = html;
   }
 
@@ -406,9 +450,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     // Populate product checkboxes
     var plHtml = '';
     if (products.length) {
-      products.forEach(function(p) {
-        plHtml += '<label><input type="checkbox" value="' + p.id + '"> ' + escHtml(p.name) + '</label>';
-      });
+      for (var i = 0; i < products.length; i++) {
+        var p = products[i];
+        plHtml += '<label><input type="checkbox" value="' + p.id + '"> ' + escHtml(p.name || p.id) + '</label>';
+      }
     } else {
       plHtml = '<span style="color:var(--muted);font-size:11px">Нет продуктов</span>';
     }
@@ -418,25 +463,39 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       // Edit mode
       titleEl.textContent = 'Редактировать пользователя';
       var users = OrbAuth.getUsers();
-      var user = users.find(function(u) { return u.id === userId; });
+      var user = null;
+      for (var j = 0; j < users.length; j++) {
+        if (users[j].id === userId) { user = users[j]; break; }
+      }
       if (!user) return;
       document.getElementById('user-edit-id').value = userId;
       document.getElementById('user-name').value = user.name;
       document.getElementById('user-role').value = user.role;
       document.getElementById('user-email').value = user.email || '';
-      // Check products
+      // Check products from assignments + productIds
+      var checkedPids = [];
+      if (user.assignments) {
+        for (var ai = 0; ai < user.assignments.length; ai++) {
+          checkedPids.push(user.assignments[ai].productId);
+        }
+      }
       if (user.productIds) {
-        var checkboxes = document.querySelectorAll('#user-products-list input[type=checkbox]');
-        checkboxes.forEach(function(cb) {
-          cb.checked = user.productIds.indexOf(cb.value) >= 0;
-        });
+        for (var pi = 0; pi < user.productIds.length; pi++) {
+          if (checkedPids.indexOf(user.productIds[pi]) < 0) {
+            checkedPids.push(user.productIds[pi]);
+          }
+        }
+      }
+      var checkboxes = document.querySelectorAll('#user-products-list input[type=checkbox]');
+      for (var ci = 0; ci < checkboxes.length; ci++) {
+        checkboxes[ci].checked = checkedPids.indexOf(checkboxes[ci].value) >= 0;
       }
     } else {
       // Create mode
       titleEl.textContent = 'Новый пользователь';
       document.getElementById('user-edit-id').value = '';
       document.getElementById('user-name').value = '';
-      document.getElementById('user-role').value = 'viewer';
+      document.getElementById('user-role').value = 'pm';
       document.getElementById('user-email').value = '';
     }
     modal.classList.add('open');
@@ -445,30 +504,48 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   function saveUser() {
     var name = document.getElementById('user-name').value.trim();
     var role = document.getElementById('user-role').value;
-    var email = document.getElementById('user-email').value.trim();
+    var email = document.getElementById('user-email').value.trim().toLowerCase();
     var editId = document.getElementById('user-edit-id').value;
 
     if (!name) { showToast('Укажите имя'); return; }
+    if (!email) { showToast('Укажите email'); return; }
 
     // Collect product IDs
     var productIds = [];
     var checkboxes = document.querySelectorAll('#user-products-list input[type=checkbox]');
-    checkboxes.forEach(function(cb) {
-      if (cb.checked) productIds.push(cb.value);
-    });
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) productIds.push(checkboxes[i].value);
+    }
+
+    // Build assignments from productIds
+    var assignments = [];
+    for (var j = 0; j < productIds.length; j++) {
+      assignments.push({ productId: productIds[j], scope: 'all' });
+    }
 
     var users = OrbAuth.getUsers();
+    var currentUser = OrbAuth.getCurrentUser();
 
     if (editId) {
       // Update existing
-      var idx = users.findIndex(function(u) { return u.id === editId; });
-      if (idx >= 0) {
-        users[idx].name = name;
-        users[idx].role = role;
-        users[idx].email = email;
-        users[idx].productIds = productIds;
+      for (var k = 0; k < users.length; k++) {
+        if (users[k].id === editId) {
+          users[k].name = name;
+          users[k].role = role;
+          users[k].email = email;
+          users[k].productIds = productIds;
+          users[k].assignments = assignments;
+          break;
+        }
       }
     } else {
+      // Check duplicate email
+      for (var d = 0; d < users.length; d++) {
+        if (users[d].email === email) {
+          showToast('Пользователь с таким email уже существует');
+          return;
+        }
+      }
       // Create new
       var newId = 'U' + String(Date.now()).slice(-6);
       users.push({
@@ -476,7 +553,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         name: name,
         role: role,
         email: email,
-        productIds: productIds
+        productIds: productIds,
+        assignments: assignments,
+        active: true,
+        createdBy: currentUser ? currentUser.id : 'system',
+        createdAt: new Date().toISOString().slice(0, 10),
+        contact: '',
+        team: ''
       });
     }
 
@@ -497,10 +580,27 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       return;
     }
     if (!confirm('Удалить пользователя?')) return;
-    var users = OrbAuth.getUsers().filter(function(u) { return u.id !== userId; });
-    OrbAuth.saveUsers(users);
+    var users = OrbAuth.getUsers();
+    var filtered = [];
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].id !== userId) filtered.push(users[i]);
+    }
+    OrbAuth.saveUsers(filtered);
     renderUsers();
     showToast('Пользователь удален');
+  }
+
+  function toggleUserActive(userId, active) {
+    var users = OrbAuth.getUsers();
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].id === userId) {
+        users[i].active = active;
+        break;
+      }
+    }
+    OrbAuth.saveUsers(users);
+    renderUsers();
+    showToast(active ? 'Пользователь активирован' : 'Пользователь деактивирован');
   }
 
   // ── Products ──
@@ -524,16 +624,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     };
 
     var html = '';
-    products.forEach(function(p) {
+    for (var i = 0; i < products.length; i++) {
+      var p = products[i];
       var orbit = String(p.orbit || '1');
       var oc = orbitColors[orbit] || orbitColors['1'];
 
       // Find owner
       var ownerName = '--';
       if (p.owner) {
-        var owner = users.find(function(u) { return u.id === p.owner; });
-        if (owner) ownerName = owner.name;
-        else ownerName = p.owner;
+        for (var j = 0; j < users.length; j++) {
+          if (users[j].id === p.owner) { ownerName = users[j].name; break; }
+        }
+        if (ownerName === '--') ownerName = p.owner;
       }
 
       html += '<div class="prod-card">'
@@ -543,21 +645,24 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         +   '<div class="prod-meta">' + escHtml(p.category || '') + (ownerName !== '--' ? ' / ' + escHtml(ownerName) : '') + '</div>'
         + '</div>'
         + '</div>';
-    });
+    }
     container.innerHTML = html;
   }
 
   function openProductModal() {
     var modal = document.getElementById('modal-product');
     var users = OrbAuth.getUsers();
-    var pms = users.filter(function(u) { return u.role === 'pm'; });
+    var pms = [];
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].role === 'pm') pms.push(users[i]);
+    }
 
     // Populate owner select
     var ownerSelect = document.getElementById('prod-owner');
     var optHtml = '<option value="">-- Не назначен --</option>';
-    pms.forEach(function(u) {
-      optHtml += '<option value="' + u.id + '">' + escHtml(u.name) + '</option>';
-    });
+    for (var j = 0; j < pms.length; j++) {
+      optHtml += '<option value="' + pms[j].id + '">' + escHtml(pms[j].name) + '</option>';
+    }
     ownerSelect.innerHTML = optHtml;
 
     document.getElementById('prod-name').value = '';
@@ -593,14 +698,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       PT.save(PT.KEY_PRODUCTS, products);
     }
 
-    // If owner assigned, add product to owner's productIds
+    // If owner assigned, add product to owner's productIds & assignments
     if (owner) {
       var users = OrbAuth.getUsers();
-      var ownerUser = users.find(function(u) { return u.id === owner; });
-      if (ownerUser) {
-        if (!ownerUser.productIds) ownerUser.productIds = [];
-        ownerUser.productIds.push(newId);
-        OrbAuth.saveUsers(users);
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].id === owner) {
+          if (!users[i].productIds) users[i].productIds = [];
+          users[i].productIds.push(newId);
+          if (!users[i].assignments) users[i].assignments = [];
+          users[i].assignments.push({ productId: newId, scope: 'all' });
+          OrbAuth.saveUsers(users);
+          break;
+        }
       }
     }
 
@@ -640,7 +749,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         keys.push(k);
       }
     }
-    keys.forEach(function(k) { localStorage.removeItem(k); });
+    for (var j = 0; j < keys.length; j++) { localStorage.removeItem(keys[j]); }
 
     showToast('Данные сброшены. Страница перезагрузится...');
     setTimeout(function() { location.reload(); }, 1500);
@@ -693,6 +802,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     saveUser: saveUser,
     editUser: editUser,
     deleteUser: deleteUser,
+    toggleUserActive: toggleUserActive,
     openProductModal: openProductModal,
     saveProduct: saveProduct,
     saveSetting: saveSetting,

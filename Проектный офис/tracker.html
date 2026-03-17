@@ -40,19 +40,78 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .tab.active{background:var(--violet);color:#fff}
 .tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.06)}
 
-/* ── CONTEXT BAR ── */
-.context-bar { display:flex; align-items:center; gap:12px; padding:8px 20px; border-bottom:1px solid var(--border); flex-wrap:wrap; background:rgba(7,7,15,.85); }
-.ctx-product { display:flex; align-items:center; gap:6px; }
-.ctx-label { font-family:var(--font-head); font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
-.ctx-select { background:var(--surface2); border:1px solid var(--border); border-radius:8px; color:#E8E8F0; font-family:var(--font); font-size:12px; padding:6px 10px; outline:none; cursor:pointer; min-width:160px; }
-.ctx-select:focus { border-color:rgba(0,212,180,.4); }
-.ctx-filters { display:flex; gap:3px; flex-wrap:wrap; }
-.ctx-right { margin-left:auto; display:flex; align-items:center; gap:8px; }
-.ctx-search { background:var(--surface2); border:1px solid var(--border); border-radius:8px; color:#E8E8F0; font-family:var(--font); font-size:12px; padding:6px 12px; outline:none; width:140px; }
-.ctx-search:focus { border-color:rgba(0,212,180,.4); }
-.cfbtn { padding:4px 10px; border:1px solid var(--border); border-radius:6px; background:transparent; color:var(--muted); font-family:var(--font); font-size:10px; font-weight:600; cursor:pointer; transition:all .15s; white-space:nowrap; }
-.cfbtn:hover { color:#E8E8F0; border-color:var(--bhi); }
-.cfbtn.active { background:var(--tdim); color:var(--teal); border-color:rgba(0,212,180,.4); }
+/* ── FILTER BAR ── */
+.filter-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7,7,15,.9);
+  backdrop-filter: blur(20px);
+  flex-wrap: wrap;
+}
+.filter-group { display: flex; flex-direction: column; gap: 4px; }
+.filter-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.filter-select {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: #E8E8F0;
+  font-family: var(--font);
+  font-size: 12px;
+  padding: 7px 12px;
+  outline: none;
+  cursor: pointer;
+  min-width: 140px;
+}
+.filter-select:focus { border-color: rgba(0,212,180,.4); }
+.filter-input {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: #E8E8F0;
+  font-family: var(--font);
+  font-size: 12px;
+  padding: 7px 12px;
+  outline: none;
+  min-width: 160px;
+}
+.filter-input:focus { border-color: rgba(0,212,180,.4); }
+.filter-input::placeholder { color: var(--muted); }
+.filter-reset {
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filter-reset:hover { color: #E8E8F0; border-color: var(--bhi); }
+.filter-views { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.filter-found { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: flex;
+  gap: 24px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7,7,15,.85);
+}
+.stat-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.stat-value { font-size: 18px; font-weight: 800; color: var(--teal); }
+.stat-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
 
 /* ── APP SHELL ── */
 .app{display:flex;height:calc(100vh - 52px);overflow:hidden;position:relative;z-index:1}
@@ -540,24 +599,86 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   </div>
 </div>
 
-<div class="context-bar" id="context-bar">
-  <div class="ctx-product">
-    <label class="ctx-label">Контекст:</label>
-    <select class="ctx-select" id="ctx-product" onchange="setContext(this.value)">
+<div class="filter-bar" id="filter-bar">
+  <div class="filter-group">
+    <label class="filter-label">Продукт</label>
+    <select class="filter-select" id="filter-product" onchange="onFilterChange()">
       <option value="">Все продукты</option>
     </select>
   </div>
-  <div class="ctx-quarter">
-    <select class="ctx-select" id="ctx-quarter" onchange="filterByQuarter(this.value)" style="min-width:100px">
-      <option value="">Все кварталы</option>
-      <option value="Q1 2026">Q1 2026</option>
-      <option value="Q2 2026">Q2 2026</option>
+  <div class="filter-group">
+    <label class="filter-label">Орбита</label>
+    <select class="filter-select" id="filter-orbit" onchange="onFilterChange()">
+      <option value="">Все</option>
+      <option value="O0">О·0 Заявка</option>
+      <option value="O1">О·1 Разведка</option>
+      <option value="O2">О·2 Прототип</option>
+      <option value="O3">О·3 Разгон</option>
+      <option value="O4">О·4 Экосистема</option>
+      <option value="O5">О·5 Плато</option>
     </select>
   </div>
-  <div class="ctx-filters" id="ctx-filters"></div>
-  <div class="ctx-right">
+  <div class="filter-group">
+    <label class="filter-label">Статус</label>
+    <select class="filter-select" id="filter-status" onchange="onFilterChange()">
+      <option value="">Все</option>
+      <option value="active">Активный</option>
+      <option value="pending">На согласовании</option>
+      <option value="paused">На паузе</option>
+      <option value="archived">Архив</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label class="filter-label">Период</label>
+    <select class="filter-select" id="filter-period" onchange="onFilterChange()">
+      <option value="">Все</option>
+      <option value="Q1-2026">Q1 2026</option>
+      <option value="Q2-2026">Q2 2026</option>
+      <option value="Q3-2026">Q3 2026</option>
+      <option value="Q4-2026">Q4 2026</option>
+      <option value="H1-2026">H1 2026</option>
+      <option value="H2-2026">H2 2026</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label class="filter-label">Тип</label>
+    <select class="filter-select" id="filter-type" onchange="onFilterChange()">
+      <option value="">Все</option>
+      <option value="business">Бизнес</option>
+      <option value="product">Продуктовые</option>
+      <option value="technical">Технические</option>
+    </select>
+  </div>
+  <div class="filter-group filter-search">
+    <input type="text" class="filter-input" id="filter-search" placeholder="Поиск..." oninput="onFilterChange()">
+  </div>
+  <button class="filter-reset" id="filter-reset" title="Сбросить фильтры" onclick="resetFilters()">Сброс</button>
+  <div class="filter-views">
+    <span class="filter-found" id="filter-found"></span>
     <div class="view-switch" id="active-views"></div>
-    <input class="ctx-search" id="ctx-search" type="text" placeholder="Поиск..." oninput="onContextSearch()">
+  </div>
+</div>
+
+<div class="stats-bar" id="stats-bar">
+  <div class="stat-item">
+    <span class="stat-value" id="stat-total">0</span>
+    <span class="stat-label">Всего</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-value" id="stat-active">0</span>
+    <span class="stat-label">Активных</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-value" id="stat-review">0</span>
+    <span class="stat-label">На Gate Review</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-value" id="stat-blocked">0</span>
+    <span class="stat-label">Блокеров</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-value" id="stat-rice">0</span>
+    <span class="stat-label">Ср. RICE</span>
   </div>
 </div>
 
@@ -1740,6 +1861,18 @@ function renderChangelog() {
 
 let filters = { cat:'all', status:'all', audience:'all', project:'all', track:'all' };
 let gateFilter = null; // null = all, 0-5 = filter by gate
+
+// ════════════════════════════════════════════
+// UNIFIED FILTERS (W4-013)
+// ════════════════════════════════════════════
+var FILTERS = {
+  product: '',
+  orbit: '',
+  status: '',
+  period: '',
+  type: '',
+  search: ''
+};
 let sortBy = 'score';
 let editId = null;
 let curTab = (window.OrbAuth && OrbAuth.getRole() === 'pm') ? 'backlog' : 'portfolio';
@@ -1763,53 +1896,246 @@ document.addEventListener('click', function(e) {
 });
 
 // ════════════════════════════════════════════
-// CONTEXT BAR
+// FILTER BAR (W4-013)
 // ════════════════════════════════════════════
 function setContext(productId) {
   contextProduct = productId;
   filters.project = productId || 'all';
-  renderContextFilters();
+  FILTERS.product = productId;
   if (curTab === 'portfolio') renderPortfolio();
   if (curTab === 'backlog') renderBL();
   if (curTab === 'goals') renderGoals();
+  updateStats();
+}
+
+function onFilterChange() {
+  var fp = document.getElementById('filter-product');
+  var fo = document.getElementById('filter-orbit');
+  var fs = document.getElementById('filter-status');
+  var fpe = document.getElementById('filter-period');
+  var ft = document.getElementById('filter-type');
+  var fq = document.getElementById('filter-search');
+
+  FILTERS.product = fp ? fp.value : '';
+  FILTERS.orbit   = fo ? fo.value : '';
+  FILTERS.status  = fs ? fs.value : '';
+  FILTERS.period  = fpe ? fpe.value : '';
+  FILTERS.type    = ft ? ft.value : '';
+  FILTERS.search  = fq ? fq.value : '';
+
+  // Sync legacy filters
+  contextProduct = FILTERS.product;
+  filters.project = FILTERS.product || 'all';
+
+  // Sync orbit → gateFilter
+  if (FILTERS.orbit) {
+    gateFilter = parseInt(FILTERS.orbit.replace('O',''), 10);
+  } else {
+    gateFilter = null;
+  }
+
+  // Sync legacy status for backlog
+  if (FILTERS.status === 'active') { filters.status = 'wip'; }
+  else if (FILTERS.status === 'paused') { filters.status = 'all'; }
+  else if (FILTERS.status === 'archived') { filters.status = 'done'; }
+  else if (FILTERS.status === 'pending') { filters.status = 'planned'; }
+  else { filters.status = 'all'; }
+
+  // Sync type filter → track
+  if (FILTERS.type === 'business') { filters.track = 'delivery'; }
+  else if (FILTERS.type === 'product') { filters.track = 'discovery'; }
+  else if (FILTERS.type === 'technical') { filters.track = 'review'; }
+  else { filters.track = 'all'; }
+
+  // Render current tab
+  if (curTab === 'portfolio') { renderPortfolio(); renderLifecycle(); applyGateFilter(); }
+  if (curTab === 'backlog') renderBL();
+  if (curTab === 'goals') renderGoals();
+  updateStats();
+}
+
+function resetFilters() {
+  FILTERS.product = '';
+  FILTERS.orbit = '';
+  FILTERS.status = '';
+  FILTERS.period = '';
+  FILTERS.type = '';
+  FILTERS.search = '';
+
+  var fp = document.getElementById('filter-product');
+  var fo = document.getElementById('filter-orbit');
+  var fs = document.getElementById('filter-status');
+  var fpe = document.getElementById('filter-period');
+  var ft = document.getElementById('filter-type');
+  var fq = document.getElementById('filter-search');
+  if (fp) fp.value = '';
+  if (fo) fo.value = '';
+  if (fs) fs.value = '';
+  if (fpe) fpe.value = '';
+  if (ft) ft.value = '';
+  if (fq) fq.value = '';
+
+  // Reset legacy
+  contextProduct = '';
+  filters = { cat:'all', status:'all', audience:'all', project:'all', track:'all' };
+  gateFilter = null;
+  quarterFilter = '';
+
+  onFilterChange();
+}
+
+function applyFilters(items) {
+  return items.filter(function(item) {
+    // Product filter
+    if (FILTERS.product && (item.productId || item.project) !== FILTERS.product) return false;
+
+    // Orbit filter — check product gate
+    if (FILTERS.orbit) {
+      var orbitGate = parseInt(FILTERS.orbit.replace('O',''), 10);
+      var proj = PROJECTS.find(function(p) { return p.id === (item.productId || item.project); });
+      if (proj && proj.gate !== orbitGate) return false;
+    }
+
+    // Status filter
+    if (FILTERS.status) {
+      if (FILTERS.status === 'active' && item.status !== 'wip') return false;
+      if (FILTERS.status === 'pending' && item.status !== 'planned') return false;
+      if (FILTERS.status === 'paused' && item.status !== 'backlog') return false;
+      if (FILTERS.status === 'archived' && item.status !== 'done') return false;
+    }
+
+    // Period filter
+    if (FILTERS.period) {
+      var rel = (item.release || '').replace(/\s+/g, '-');
+      var period = FILTERS.period;
+      // Handle half-year periods
+      if (period === 'H1-2026' && (rel === 'Q1-2026' || rel === 'Q2-2026')) { /* match */ }
+      else if (period === 'H2-2026' && (rel === 'Q3-2026' || rel === 'Q4-2026')) { /* match */ }
+      else if (rel !== period) return false;
+    }
+
+    // Type filter
+    if (FILTERS.type) {
+      var seg = item.segment || item.cat || '';
+      if (FILTERS.type === 'business' && seg !== 'business' && item.track !== 'delivery') return false;
+      if (FILTERS.type === 'product' && seg !== 'product' && item.track !== 'discovery') return false;
+      if (FILTERS.type === 'technical' && seg !== 'tech' && item.track !== 'review') return false;
+    }
+
+    // Search filter
+    if (FILTERS.search) {
+      var q = FILTERS.search.toLowerCase();
+      var haystack = ((item.name || '') + ' ' + (item.desc || '') + ' ' + (item.id || '')).toLowerCase();
+      if (haystack.indexOf(q) === -1) return false;
+    }
+
+    return true;
+  });
+}
+
+function updateStats() {
+  var items;
+  if (curTab === 'portfolio') {
+    // Stats based on projects + their initiatives
+    var visibleProjects = PROJECTS.filter(function(p) {
+      if (FILTERS.product && p.id !== FILTERS.product) return false;
+      if (FILTERS.orbit) {
+        var orbitGate = parseInt(FILTERS.orbit.replace('O',''), 10);
+        if (p.gate !== orbitGate) return false;
+      }
+      if (FILTERS.period) {
+        var rel = (p.release || p.quarter || '').replace(/\s+/g, '-');
+        var period = FILTERS.period;
+        if (period === 'H1-2026' && rel !== 'Q1-2026' && rel !== 'Q2-2026') return false;
+        if (period === 'H2-2026' && rel !== 'Q3-2026' && rel !== 'Q4-2026') return false;
+        if (period !== 'H1-2026' && period !== 'H2-2026' && rel !== period) return false;
+      }
+      if (FILTERS.search) {
+        var q = FILTERS.search.toLowerCase();
+        if ((p.name + ' ' + p.desc + ' ' + p.id).toLowerCase().indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+    items = applyFilters(backlog);
+    var totalEl = document.getElementById('stat-total');
+    var activeEl = document.getElementById('stat-active');
+    var reviewEl = document.getElementById('stat-review');
+    var blockedEl = document.getElementById('stat-blocked');
+    var riceEl = document.getElementById('stat-rice');
+    var foundEl = document.getElementById('filter-found');
+    if (totalEl) totalEl.textContent = visibleProjects.length;
+    if (activeEl) activeEl.textContent = visibleProjects.filter(function(p) { return p.status === 'on-track' || p.status === 'wip'; }).length;
+    if (reviewEl) reviewEl.textContent = visibleProjects.filter(function(p) { return p.nextGateDate && new Date(p.nextGateDate) <= new Date(Date.now() + 30*24*60*60*1000); }).length;
+    if (blockedEl) blockedEl.textContent = visibleProjects.filter(function(p) { return p.blockers && p.blockers.length > 0; }).length;
+    var avgRice = items.length ? (items.reduce(function(a, i) { return a + sc(i); }, 0) / items.length).toFixed(1) : '0';
+    if (riceEl) riceEl.textContent = avgRice;
+    if (foundEl) foundEl.textContent = 'Найдено: ' + visibleProjects.length;
+  } else if (curTab === 'backlog') {
+    items = applyFilters(backlog);
+    var totalEl2 = document.getElementById('stat-total');
+    var activeEl2 = document.getElementById('stat-active');
+    var reviewEl2 = document.getElementById('stat-review');
+    var blockedEl2 = document.getElementById('stat-blocked');
+    var riceEl2 = document.getElementById('stat-rice');
+    var foundEl2 = document.getElementById('filter-found');
+    if (totalEl2) totalEl2.textContent = items.length;
+    if (activeEl2) activeEl2.textContent = items.filter(function(i) { return i.status === 'wip'; }).length;
+    if (reviewEl2) reviewEl2.textContent = items.filter(function(i) { return i.track === 'review'; }).length;
+    if (blockedEl2) blockedEl2.textContent = items.filter(function(i) { return i.blocked; }).length;
+    var avgRice2 = items.length ? (items.reduce(function(a, i) { return a + sc(i); }, 0) / items.length).toFixed(1) : '0';
+    if (riceEl2) riceEl2.textContent = avgRice2;
+    if (foundEl2) foundEl2.textContent = 'Найдено: ' + items.length;
+  } else if (curTab === 'goals') {
+    var filteredGoals = goals.filter(function(g) {
+      if (FILTERS.search) {
+        var q = FILTERS.search.toLowerCase();
+        if ((g.title + ' ' + g.id).toLowerCase().indexOf(q) === -1) return false;
+      }
+      if (FILTERS.period) {
+        var gp = (g.period || '').replace(/\s+/g, '-');
+        if (gp.indexOf(FILTERS.period) === -1) return false;
+      }
+      return true;
+    });
+    var totalEl3 = document.getElementById('stat-total');
+    var activeEl3 = document.getElementById('stat-active');
+    var foundEl3 = document.getElementById('filter-found');
+    if (totalEl3) totalEl3.textContent = filteredGoals.length;
+    if (activeEl3) activeEl3.textContent = filteredGoals.filter(function(g) { return g.status === 'active'; }).length;
+    if (foundEl3) foundEl3.textContent = 'Найдено: ' + filteredGoals.length;
+  }
+}
+
+function renderFilterBar() {
+  var sel = document.getElementById('filter-product');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">Все продукты</option>' +
+    PROJECTS.map(function(p) { return '<option value="'+p.id+'"'+(FILTERS.product===p.id?' selected':'')+'>'+escHtml(p.name)+'</option>'; }).join('');
+  renderContextViewSwitch();
+  updateStats();
 }
 
 function renderContextBar() {
-  var sel = document.getElementById('ctx-product');
-  if (!sel) return;
-  sel.innerHTML = '<option value="">Все продукты</option>' +
-    PROJECTS.map(function(p) { return '<option value="'+p.id+'"'+(contextProduct===p.id?' selected':'')+'>'+escHtml(p.name)+'</option>'; }).join('');
-  renderContextFilters();
-  renderContextViewSwitch();
+  renderFilterBar();
 }
 
 function renderContextFilters() {
-  var el = document.getElementById('ctx-filters');
-  if (!el) return;
-  if (curTab === 'backlog') {
-    el.innerHTML =
-      '<button class="cfbtn'+(filters.track==='all'?' active':'')+'" onclick="setF(\'track\',\'all\',this)">Все</button>' +
-      '<button class="cfbtn'+(filters.track==='discovery'?' active':'')+'" onclick="setF(\'track\',\'discovery\',this)">Исследование</button>' +
-      '<button class="cfbtn'+(filters.track==='delivery'?' active':'')+'" onclick="setF(\'track\',\'delivery\',this)">Разработка</button>' +
-      '<button class="cfbtn'+(filters.track==='review'?' active':'')+'" onclick="setF(\'track\',\'review\',this)">Оценка</button>' +
-      '<span style="width:1px;height:16px;background:var(--border);margin:0 4px"></span>' +
-      '<button class="cfbtn'+(filters.status==='all'?' active':'')+'" onclick="setF(\'status\',\'all\',this)">Все</button>' +
-      '<button class="cfbtn'+(filters.status==='backlog'?' active':'')+'" onclick="setF(\'status\',\'backlog\',this)">Бэклог</button>' +
-      '<button class="cfbtn'+(filters.status==='planned'?' active':'')+'" onclick="setF(\'status\',\'planned\',this)">Запланировано</button>' +
-      '<button class="cfbtn'+(filters.status==='wip'?' active':'')+'" onclick="setF(\'status\',\'wip\',this)">В работе</button>' +
-      '<button class="cfbtn'+(filters.status==='done'?' active':'')+'" onclick="setF(\'status\',\'done\',this)">Готово</button>';
-  } else if (curTab === 'portfolio') {
-    el.innerHTML = STAGES.map(function(s,i) {
-      return '<button class="cfbtn'+(gateFilter===i?' active':'')+'" onclick="filterGate('+i+')">'+s.name+'</button>';
-    }).join('');
-  } else {
-    el.innerHTML = '';
-  }
+  // Legacy stub — filters now in select elements
 }
 
 function filterGate(idx) {
   setGateFilter(idx);
-  renderContextFilters();
+  // Sync to FILTERS
+  if (gateFilter !== null) {
+    FILTERS.orbit = 'O' + gateFilter;
+    var fo = document.getElementById('filter-orbit');
+    if (fo) fo.value = FILTERS.orbit;
+  } else {
+    FILTERS.orbit = '';
+    var fo2 = document.getElementById('filter-orbit');
+    if (fo2) fo2.value = '';
+  }
+  updateStats();
 }
 
 function renderContextViewSwitch() {
@@ -1831,6 +2157,7 @@ function renderContextViewSwitch() {
 }
 
 function onContextSearch() {
+  // Legacy compatibility — now handled via onFilterChange
   if (curTab === 'backlog') renderBL();
 }
 
@@ -1910,6 +2237,7 @@ function switchTab(tab, btn) {
   if (tab === 'backlog') setBacklogView(backlogView, null);
   renderContextFilters();
   renderContextViewSwitch();
+  updateStats();
 }
 
 // ════════════════════════════════════════════
@@ -1967,9 +2295,25 @@ function renderPortfolio() {
   var userRole = window.OrbAuth ? OrbAuth.getRole() : null;
   var userId = window.OrbAuth ? (OrbAuth.getCurrentUser()||{}).id : '';
   var visibleProjects = PROJECTS.filter(function(p) {
-    if (p.status !== 'pending') return true;
-    if (userRole === 'admin' || userRole === 'pmo') return true;
-    return false; // pending скрыт от PM/viewer
+    if (p.status === 'pending' && userRole !== 'admin' && userRole !== 'pmo') return false;
+    // Apply FILTERS
+    if (FILTERS.product && p.id !== FILTERS.product) return false;
+    if (FILTERS.orbit) {
+      var orbitGate = parseInt(FILTERS.orbit.replace('O',''), 10);
+      if (p.gate !== orbitGate) return false;
+    }
+    if (FILTERS.period) {
+      var rel = (p.release || p.quarter || '').replace(/\s+/g, '-');
+      var period = FILTERS.period;
+      if (period === 'H1-2026' && rel !== 'Q1-2026' && rel !== 'Q2-2026') return false;
+      if (period === 'H2-2026' && rel !== 'Q3-2026' && rel !== 'Q4-2026') return false;
+      if (period !== 'H1-2026' && period !== 'H2-2026' && rel !== period) return false;
+    }
+    if (FILTERS.search) {
+      var q = FILTERS.search.toLowerCase();
+      if ((p.name + ' ' + p.desc + ' ' + p.id).toLowerCase().indexOf(q) === -1) return false;
+    }
+    return true;
   });
   const stCnt = {wip:0,planned:0,backlog:0,done:0};
   visibleProjects.forEach(p => stCnt[p.status]++);
@@ -2189,16 +2533,15 @@ function initSidebar() {
 }
 
 function getFiltered() {
-  const q = (document.getElementById('ctx-search')||document.getElementById('bl-q')||{value:''}).value.toLowerCase();
-  return backlog.filter(item => {
-    if (filters.project !== 'all' && (item.productId||item.project) !== filters.project) return false;
+  var filtered = applyFilters(backlog);
+  // Also apply legacy sidebar filters that may still be active
+  var q = (document.getElementById('filter-search')||document.getElementById('bl-q')||{value:''}).value.toLowerCase();
+  filtered = filtered.filter(function(item) {
     if (filters.cat     !== 'all' && item.cat     !== filters.cat)     return false;
-    if (filters.status  !== 'all' && item.status  !== filters.status)  return false;
     if (filters.audience!== 'all' && item.audience!== filters.audience)return false;
-    if (filters.track   !== 'all' && item.track   !== filters.track)   return false;
-    if (q && !item.name.toLowerCase().includes(q) && !item.desc.toLowerCase().includes(q) && !item.id.toLowerCase().includes(q)) return false;
     return true;
-  }).sort((a,b) => {
+  });
+  return filtered.sort(function(a,b) {
     if (sortBy === 'score') return sc(b)-sc(a);
     if (sortBy === 'name') return a.name.localeCompare(b.name);
     if (sortBy === 'effort') return a.e-b.e;
