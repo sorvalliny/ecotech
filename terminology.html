@@ -109,9 +109,9 @@ body{font-family:var(--font-body);background:var(--dark);color:var(--text);line-
 
 <script>
 (function(){
-  const CATEGORY_ORDER = ['методология','продукт','процесс','метрики','роли','инвестиции'];
+  const CATEGORY_ORDER = ['методология','стадии','сущности','продукт','процесс','метрики','роли','инвестиции'];
   const CATEGORY_LABELS = {
-    'методология':'Методология','продукт':'Продукт','процесс':'Процесс',
+    'методология':'Методология','стадии':'Стадии','сущности':'Сущности','продукт':'Продукт','процесс':'Процесс',
     'метрики':'Метрики','роли':'Роли','инвестиции':'Инвестиции'
   };
 
@@ -121,7 +121,7 @@ body{font-family:var(--font-body);background:var(--dark);color:var(--text);line-
     const xhr = new XMLHttpRequest();
     xhr.open('GET','data/terminology.json',true);
     xhr.onload = function(){
-      if(xhr.status === 200){
+      if(xhr.status === 200 || xhr.status === 0){
         allTerms = JSON.parse(xhr.responseText);
         render(allTerms);
       }

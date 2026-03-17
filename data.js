@@ -164,7 +164,7 @@ window.ECOTECH_DATA = {
   "portfolio": [
     {
       "code": "EDU-0",
-      "name": "ОРБИТА",
+      "name": "ОРБИТА (ДЕМО)",
       "meta": "Платформа развития Экосистемы",
       "type": "platform",
       "pilot": false

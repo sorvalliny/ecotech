@@ -1465,7 +1465,7 @@ const STAGES = [
 // ════════════════════════════════════════════
 const PROJECTS_DEFAULT = [
   {
-    id: 'ECO-00', name: 'ОРБИТА',
+    id: 'ECO-00', name: 'ОРБИТА (ДЕМО)',
     desc: 'Платформа управления портфелем. Эталонный продукт-пример для онбординга команд.',
     gate: 2, status: 'on-track', cat: 'internal', catLabel: 'Платформа',
     owner: 'Проектный офис', color: '#7B2FFF', release: 'Q1 2026',
@@ -1905,8 +1905,9 @@ function switchTab(tab, btn) {
   else { if (tab !== 'portfolio') { closeEP(); closeProductPRD(); } }
   if (tab === 'tracker') renderTracker(curRole);
   if (tab === 'goals')   renderGoals();
-  if (tab === 'portfolio') renderPortfolio();
+  if (tab === 'portfolio') { renderPortfolio(); setPortfolioView(portfolioView, null); }
   if (tab === 'changelog') renderChangelog();
+  if (tab === 'backlog') setBacklogView(backlogView, null);
   renderContextFilters();
   renderContextViewSwitch();
 }
@@ -3300,7 +3301,7 @@ function deleteGoalConfirm() {
 // ════════════════════════════════════════════
 let portfolioView='cards';
 function setPortfolioView(view,btn){portfolioView=view;document.querySelectorAll('#active-views .view-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('portfolio-cards').style.display=view==='cards'?'':'none';document.getElementById('portfolio-table').style.display=view==='table'?'':'none';document.getElementById('portfolio-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderPortfolioTable();if(view==='kanban')renderPortfolioKanban();}
-function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Продукт</th><th>Орбита</th><th>Статус</th><th>Владелец</th><th>Целей</th><th>Инициатив</th></tr></thead><tbody>';PROJECTS.forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pGoals=goals.filter(function(g){return g.productId===p.id;});var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});html+='<tr onclick="togglePC(\''+p.id+'\')"><td><strong>'+escHtml(p.name)+'</strong></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+escHtml(p.owner||'\u2014')+'</td><td>'+pGoals.length+'</td><td>'+pInits.length+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
+function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Название</th><th>Орбита</th><th>Статус</th><th>RICE</th><th>PM</th></tr></thead><tbody>';PROJECTS.forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});var avgRice=pInits.length?(pInits.reduce(function(a,i){return a+sc(i);},0)/pInits.length).toFixed(1):'\u2014';html+='<tr onclick="togglePC(\''+p.id+'\')"><td><strong>'+escHtml(p.name)+'</strong></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+avgRice+'</td><td>'+escHtml(p.owner||'\u2014')+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
 function renderPortfolioKanban(){var el=document.getElementById('portfolio-kanban');var html='<div class="kanban-board">';STAGES.forEach(function(s,idx){var prods=PROJECTS.filter(function(p){return p.gate===idx;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+s.color+'"><span class="kanban-col-name">'+s.name+'</span><span class="kanban-col-count">'+prods.length+'</span></div><div class="kanban-col-body">';prods.forEach(function(p){html+='<div class="kanban-card" onclick="togglePC(\''+p.id+'\')"><div class="kanban-card-name">'+escHtml(p.name)+'</div><div class="kanban-card-meta">'+escHtml(p.owner||'')+' \u00b7 '+p.status+'</div></div>';});if(!prods.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
 let backlogView='list';
 function setBacklogView(view,btn){backlogView=view;document.querySelectorAll('#active-views .view-btn').forEach(function(b){b.classList.remove('active');});if(btn)btn.classList.add('active');document.getElementById('backlog-list-wrap').style.display=view==='list'?'':'none';document.getElementById('backlog-table-wrap').style.display=view==='table'?'':'none';document.getElementById('backlog-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderBacklogTable();if(view==='kanban')renderBacklogKanban();}

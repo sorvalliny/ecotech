@@ -63,9 +63,13 @@
   window.closeAuthModal = function() {
     var overlay = document.getElementById('auth-overlay');
     if (overlay) overlay.remove();
-    // Если на защищённой странице — редирект на главную
+    // Если на защищённой странице — назад или на главную
     if (!isPublicPage()) {
-      window.location.href = window.location.pathname.indexOf('/') > 0 ? '../index.html' : 'index.html';
+      if (history.length > 1) {
+        history.back();
+      } else {
+        window.location.href = window.location.origin + '/';
+      }
     }
   };
 
