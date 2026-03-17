@@ -11,11 +11,11 @@
 
   // Дефолтные пользователи (для пилота)
   var DEFAULT_USERS = [
-    { id: 'U001', name: 'Администратор', role: 'admin', email: '', productIds: [] },
-    { id: 'U002', name: 'PM Маркетплейс К', role: 'pm', email: '', productIds: ['P01'] },
-    { id: 'U003', name: 'PM Генератор О', role: 'pm', email: '', productIds: ['P02'] },
-    { id: 'U004', name: 'PM Сервис З', role: 'pm', email: '', productIds: ['P03'] },
-    { id: 'U005', name: 'Наблюдатель', role: 'viewer', email: '', productIds: [] }
+    { id: 'U001', name: 'Администратор', role: 'admin', email: '', productIds: [], contact: '', team: 'Проектный офис' },
+    { id: 'U002', name: 'PM Маркетплейс К', role: 'pm', email: '', productIds: ['P01'], contact: '', team: 'Маркетплейс' },
+    { id: 'U003', name: 'PM Генератор О', role: 'pm', email: '', productIds: ['P02'], contact: '', team: 'Генератор' },
+    { id: 'U004', name: 'PM Сервис З', role: 'pm', email: '', productIds: ['P03'], contact: '', team: 'Сервис' },
+    { id: 'U005', name: 'Наблюдатель', role: 'viewer', email: '', productIds: [], contact: '', team: '' }
   ];
 
   var ROLES = {

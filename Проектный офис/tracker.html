@@ -1225,6 +1225,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           <div class="ep-lbl">Заметки PM</div>
           <textarea class="ep-textarea" id="ep-notes" placeholder="Контекст, блокеры, решения…"></textarea>
         </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Команды реализации</div>
+          <input class="ep-select" type="text" id="ep-teams" placeholder="Backend, Frontend, Design..." style="padding:8px 10px">
+        </div>
       </div>
       <div class="ep-foot">
         <button class="btn-save" id="btn-save-rice" onclick="saveEP()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить</button>
@@ -2664,6 +2668,7 @@ function updEP() {
 
 function saveEP() {
   if (!editId) return;
+  if (window.OrbAuth && !OrbAuth.can('canEdit')) { showToast('Недостаточно прав для редактирования'); return; }
   const item = backlog.find(i => i.id === editId);
   if (!item) return;
   item.r=+document.getElementById('ep-r').value;
@@ -2680,6 +2685,7 @@ function saveEP() {
   item.goalId = document.getElementById('ep-goal-sel').value || null;
   item.epicId = document.getElementById('ep-epic-sel').value || null;
   item.segment = document.getElementById('ep-segment').value || 'product';
+  item.teams = document.getElementById('ep-teams').value;
   item.updated = new Date().toISOString().slice(0,10);
   if (window.PT) PT.save(PT.KEY_BACKLOG, backlog); else localStorage.setItem('ECOTECH_BACKLOG', JSON.stringify(backlog));
   logChange('initiative', item.id, item.name, 'update', 'rice', '', 'R'+item.r+' I'+item.i+' C'+item.c+' E'+item.e);
@@ -2715,6 +2721,7 @@ function openPRD(id) {
   document.getElementById('ep-status').value = item.status;
   document.getElementById('ep-release').value = item.release || 'backlog';
   document.getElementById('ep-notes').value = item.notes || '';
+  document.getElementById('ep-teams').value = item.teams || '';
   updEP();
   // Close product PRD panel if open
   closeProductPRD();
@@ -2773,6 +2780,7 @@ function savePRD() {
   item.prd.recommendation = document.getElementById('prd-recommend').value;
   item.goalId = document.getElementById('ep-goal-sel').value || null;
   item.epicId = document.getElementById('ep-epic-sel').value || null;
+  item.teams = document.getElementById('ep-teams').value;
   item.updated = new Date().toISOString().slice(0,10);
   if (window.PT) PT.save(PT.KEY_BACKLOG, backlog);
   else localStorage.setItem('ECOTECH_BACKLOG', JSON.stringify(backlog));
@@ -2907,6 +2915,7 @@ function closeProdModal() {
 }
 
 function saveProdModal() {
+  if (window.OrbAuth && !OrbAuth.can('canCreate')) { showToast('Только Admin может создавать продукты'); return; }
   const nameEl = document.getElementById('prodm-name');
   const name = nameEl.value.trim();
   if (!name) { nameEl.style.borderColor = '#F87171'; nameEl.focus(); return; }
@@ -2976,6 +2985,7 @@ function editEpicUrl(epicId) {
 }
 
 function addInitiative(projectId) {
+  if (window.OrbAuth && !OrbAuth.can('canCreate')) { showToast('Недостаточно прав'); return; }
   const existingIds = backlog.map(i => i.id);
   let newId = 'N01';
   for (let n = 1; n <= 99; n++) {
@@ -3228,6 +3238,14 @@ function renderBacklogKanban(){var items=getFiltered();var el=document.getElemen
 renderPortfolio();
 initSidebar();
 renderContextBar();
+
+// Скрыть кнопку «Создать» для viewer
+(function() {
+  var createBtn = document.querySelector('.tt-create-btn');
+  if (createBtn && window.OrbAuth && OrbAuth.getRole() === 'viewer') {
+    createBtn.style.display = 'none';
+  }
+})();
 
 // Восстановление UI-состояния и hash-навигация
 (function() {

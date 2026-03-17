@@ -313,137 +313,48 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
     </div>
 
     <div class="slides-wrapper">
-      <!-- SLIDE 1: Обложка -->
+      <!-- SLIDE 1: Портфель продуктов -->
       <div class="slide active" data-slide="1">
-        <div class="slide-num-badge">01 / 10 · Обложка</div>
-        <div class="slide-title">ОРБИТА<br><span class="acc">Инхаус-инкубатор</span><br>WB Экосистемы</div>
-        <div class="slide-body">Проектный офис · WB Экосистема · Март 2026<br><strong>Версия v1.0 · Ранний этап тестирования</strong></div>
+        <div class="slide-num-badge">01 / 04 · Портфель продуктов</div>
+        <div class="slide-title">Активные продукты<br><span class="acc">в портфеле</span></div>
+        <div class="slide-body">Карточки продуктов синхронизированы с трекером. Данные обновляются в реальном времени.</div>
+        <div class="slide-gate-row" id="slide-products-live"></div>
       </div>
 
-      <!-- SLIDE 2: Миссия -->
+      <!-- SLIDE 2: Gate-модель (7 стадий) -->
       <div class="slide" data-slide="2">
-        <div class="slide-num-badge">02 / 10 · Миссия</div>
-        <div class="slide-title">Зачем Product OS<br>нужен <span class="acc">экосистеме</span></div>
-        <div class="slide-body">
-          <strong>Проблема:</strong> продукты запускаются без единой методологии — нет прозрачности, нет Gate-критериев, решения дублируются.<br><br>
-          <strong>Решение:</strong> ОРБИТА — операционная система для управления продуктовым портфелем. Единый фреймворк от идеи до зрелости, инструменты для команд, прозрачность для бизнеса. Координируется <abbr class="term" tabindex="0" data-tip="Project Management Office — Проектный офис. Координирует Gate-ревью, помогает командам с методологией, отвечает за стандарты и шаблоны платформы.">PMO</abbr>.
+        <div class="slide-num-badge">02 / 04 · Gate-модель</div>
+        <div class="slide-title">7 стадий зрелости:<br><span class="acc">от заявки до архива</span></div>
+        <div class="slide-gate-row">
+          <div class="slide-gate"><strong style="color:#8B8BAE;">O0</strong>Заявка</div>
+          <div class="slide-gate"><strong style="color:#B3E5FC;">O1</strong>Концепция</div>
+          <div class="slide-gate"><strong style="color:#3B82F6;">O2</strong>MVP</div>
+          <div class="slide-gate"><strong style="color:#FFB830;">O3</strong>Разработка</div>
+          <div class="slide-gate"><strong style="color:#FF2D8A;">O4</strong>Разгон</div>
+          <div class="slide-gate"><strong style="color:#34D399;">O5</strong>Плато</div>
+          <div class="slide-gate"><strong style="color:#7A7A9D;">O6</strong>Архив</div>
         </div>
       </div>
 
-      <!-- SLIDE 3: Что создаём -->
+      <!-- SLIDE 3: Пилот (3 продукта) -->
       <div class="slide" data-slide="3">
-        <div class="slide-num-badge">03 / 10 · Что создаём</div>
-        <div class="slide-title">Цифровые продукты<br>в трёх <span class="acc">сегментах</span></div>
-        <div class="slide-cols">
-          <div class="slide-col">
-            <div class="slide-col-label" style="color:#B3E5FC;">B2C</div>
-            <div class="slide-col-body">Потребительские продукты и сервисы для физических лиц. Платёжный сервис, Образовательная платформа, Маркетплейс К.</div>
-          </div>
-          <div class="slide-col">
-            <div class="slide-col-label" style="color:#00D4B4;">B2B</div>
-            <div class="slide-col-body">Бизнес-решения для продавцов и партнёров. WB Seller Portal, WB Logistics, WB Analytics Pro.</div>
-          </div>
-          <div class="slide-col">
-            <div class="slide-col-label" style="color:#FFB830;">B2G</div>
-            <div class="slide-col-body">Государственные закупки и регуляторная отчётность. WB Gov Procurement — ФЗ-44/223.</div>
-          </div>
+        <div class="slide-num-badge">03 / 04 · Пилот</div>
+        <div class="slide-title">3 продукта<br>в <span class="acc">пилоте</span></div>
+        <div class="slide-gate-row" id="slide-pilot-products">
+          <div class="slide-gate"><strong style="color:#00D4B4;">Маркетплейс К</strong>Gate 2 · В работе</div>
+          <div class="slide-gate"><strong style="color:#FFB830;">Генератор О</strong>Gate 1 · Исследование</div>
+          <div class="slide-gate"><strong style="color:#B3E5FC;">Сервис З</strong>Gate 0 · Заявка</div>
         </div>
       </div>
 
-      <!-- SLIDE 4: Жизненный цикл -->
+      <!-- SLIDE 4: CTA -->
       <div class="slide" data-slide="4">
-        <div class="slide-num-badge">04 / 10 · Жизненный цикл</div>
-        <div class="slide-title">От заявки<br>до <span class="acc">плато</span></div>
-        <div class="slide-body">Единый цикл разработки продукта в четыре фазы:</div>
-        <div class="slide-cols">
-          <div class="slide-col"><div class="slide-col-label" style="color:#4FC3F7;">Исследование</div><div class="slide-col-body">Валидация проблемы, CustDev, PSF</div></div>
-          <div class="slide-col"><div class="slide-col-label" style="color:#00D4B4;">Разработка</div><div class="slide-col-body">MVP, спринты, Gate-review</div></div>
-          <div class="slide-col"><div class="slide-col-label" style="color:#34D399;">Launch</div><div class="slide-col-body">GTM, метрики, масштабирование</div></div>
-        </div>
-      </div>
-
-      <!-- SLIDE 5: Gate-система -->
-      <div class="slide" data-slide="5">
-        <div class="slide-num-badge">05 / 10 · Gate-система</div>
-        <div class="slide-title">Gate 0→5:<br><span class="acc">6 этапов зрелости</span></div>
-        <div class="slide-body">Каждый Gate — чёткие критерии перехода и состав артефактов:</div>
-        <div class="slide-gate-row">
-          <div class="slide-gate"><strong style="color:#8B8BAE;"><abbr class="term" tabindex="0" data-tip="Скрининг заявки. Критерии: описание проблемы, целевая аудитория, гипотеза ценности. Решение: Go/No-Go за 5 дней.">G0</abbr></strong>Заявка · Скрининг</div>
-          <div class="slide-gate"><strong style="color:#B3E5FC;"><abbr class="term" tabindex="0" data-tip="Валидация концепции. Критерии: Problem-Solution Fit подтверждён через CustDev (≥10 интервью), конкурентный анализ завершён.">G1</abbr></strong>Концепция · PSF</div>
-          <div class="slide-gate"><strong style="color:#3B82F6;"><abbr class="term" tabindex="0" data-tip="Прототип и MVP. Критерии: MVP запущен, первые пользователи, базовые метрики собираются, unit-экономика смоделирована.">G2</abbr></strong>Прототип · MVP</div>
-          <div class="slide-gate"><strong style="color:#FFB830;"><abbr class="term" tabindex="0" data-tip="Активная разработка. Критерии: Product-Market Fit подтверждён (retention D30 ≥ 30%), NPS ≥ 40, команда укомплектована.">G3</abbr></strong>Разработка</div>
-          <div class="slide-gate"><strong style="color:#FF2D8A;"><abbr class="term" tabindex="0" data-tip="Разгон и Go-to-Market. Критерии: P&amp;L положительный или с прогнозом breakeven, GTM-стратегия утверждена Инвест-комитетом.">G4</abbr></strong>Разгон · GTM</div>
-          <div class="slide-gate"><strong style="color:#34D399;"><abbr class="term" tabindex="0" data-tip="Экосистемная интеграция. Критерии: продукт самодостаточен, выбрана форма (Платформа / P&amp;L-центр / Интеграция), Tech Strategy на 1–3 года.">G5</abbr></strong>Экосистема</div>
-        </div>
-      </div>
-
-      <!-- SLIDE 6: Портфель -->
-      <div class="slide" data-slide="6">
-        <div class="slide-num-badge">06 / 10 · Портфель</div>
-        <div class="slide-title">Текущие продукты<br><span class="acc">в портфеле</span></div>
-        <div class="slide-gate-row">
-          <div class="slide-gate"><strong style="color:#00D4B4;">WB Seller Portal</strong>Gate 4 · B2B</div>
-          <div class="slide-gate"><strong style="color:#B3E5FC;">WB Pay</strong>Gate 3 · B2C</div>
-          <div class="slide-gate"><strong style="color:#00D4B4;">WB Logistics B2B</strong>Gate 2 · B2B</div>
-          <div class="slide-gate"><strong style="color:#FFB830;">WB Gov Procurement</strong>Gate 1 · B2G</div>
-          <div class="slide-gate"><strong style="color:#00D4B4;">WB Analytics Pro</strong>Gate 2 · B2B</div>
-          <div class="slide-gate"><strong style="color:#B3E5FC;">WB Academy</strong>Gate 1 · B2C</div>
-        </div>
-      </div>
-
-      <!-- SLIDE 7: Метрики -->
-      <div class="slide" data-slide="7">
-        <div class="slide-num-badge">07 / 10 · Метрики</div>
-        <div class="slide-title">Метрики<br>и <span class="acc">здоровье продукта</span></div>
-        <div class="slide-cols">
-          <div class="slide-col"><div class="slide-col-label" style="color:#4FC3F7;">North Star</div><div class="slide-col-body">Главная метрика: ценность, которую продукт создаёт для пользователя</div></div>
-          <div class="slide-col"><div class="slide-col-label" style="color:#34D399;">NPS</div><div class="slide-col-body">Net Promoter Score — готовность рекомендовать. Цель ≥ 40</div></div>
-          <div class="slide-col"><div class="slide-col-label" style="color:#00D4B4;">Retention</div><div class="slide-col-body">D30 удержание. Здоровый продукт: ≥ 30% через 30 дней</div></div>
-        </div>
-      </div>
-
-      <!-- SLIDE 8: Команда -->
-      <div class="slide" data-slide="8">
-        <div class="slide-num-badge">08 / 10 · Команда</div>
-        <div class="slide-title">Роли<br>и <span class="acc">ответственности</span></div>
-        <div class="slide-role-row">
-          <div class="slide-role"><div class="slide-role-icon">PM</div><div class="slide-role-name">Product Manager</div><div class="slide-role-desc">Видение, roadmap, Gate-артефакты, приоритизация</div></div>
-          <div class="slide-role"><div class="slide-role-icon">TL</div><div class="slide-role-name">Tech Lead</div><div class="slide-role-desc">Архитектура, техдолг, декомпозиция, оценки</div></div>
-          <div class="slide-role"><div class="slide-role-icon">DES</div><div class="slide-role-name">Designer</div><div class="slide-role-desc">UX/UI, прототипы, CustDev, дизайн-система</div></div>
-          <div class="slide-role"><div class="slide-role-icon">DA</div><div class="slide-role-name">Data Analyst</div><div class="slide-role-desc">Метрики, A/B тесты, когортный анализ</div></div>
-        </div>
-      </div>
-
-      <!-- SLIDE 9: Как начать -->
-      <div class="slide" data-slide="9">
-        <div class="slide-num-badge">09 / 10 · Как начать</div>
-        <div class="slide-title">3 шага<br>до <span class="acc"><abbr class="term" tabindex="0" data-tip="Скрининг идеи — первый Gate в системе зрелости. Проектный офис проводит оценку за 5 рабочих дней. Результат: Go или No-Go.">Gate 0</abbr></span></div>
-        <div class="slide-steps">
-          <div class="slide-step">
-            <div class="slide-step-n">01</div>
-            <div class="slide-step-title">Заявка</div>
-            <div class="slide-step-body">Напишите директору департамента. Опишите идею в 2–3 предложениях</div>
-          </div>
-          <div class="slide-step">
-            <div class="slide-step-n">02</div>
-            <div class="slide-step-title">Бриф</div>
-            <div class="slide-step-body">Заполните шаблон брифа: проблема, ЦА, сегмент, потенциал</div>
-          </div>
-          <div class="slide-step">
-            <div class="slide-step-n">03</div>
-            <div class="slide-step-title">Скрининг Gate 0</div>
-            <div class="slide-step-body">Проектный офис проводит скрининг за 5 дней. Результат: Go/No-Go</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SLIDE 10: CTA -->
-      <div class="slide" data-slide="10">
-        <div class="slide-num-badge">10 / 10 · Контакты</div>
-        <div class="slide-title">Давайте создадим<br><span class="acc">продукт вместе</span></div>
+        <div class="slide-num-badge">04 / 04 · Подать заявку</div>
+        <div class="slide-title">Подайте заявку<br>на <span class="acc">запуск продукта</span></div>
         <div class="slide-body">
           <strong>ОРБИТА</strong> · Проектный офис · WB Экосистема<br><br>
-          Написать: <strong>IKoval@rwb.ru</strong>
+          Написать: <strong>IKoval@rwb.ru</strong><br><br>
+          Скрининг Gate 0 занимает 5 рабочих дней. Результат: Go / No-Go.
         </div>
       </div>
 
@@ -451,8 +362,8 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
       <div class="slide-nav">
         <button class="slide-btn" id="btn-prev-slide">←</button>
         <button class="slide-btn" id="btn-next-slide">→</button>
-        <div class="slide-progress"><div class="slide-progress-bar" id="slide-progress-bar" style="width:10%;"></div></div>
-        <span class="slide-counter" id="slide-counter">1 / 10</span>
+        <div class="slide-progress"><div class="slide-progress-bar" id="slide-progress-bar" style="width:25%;"></div></div>
+        <span class="slide-counter" id="slide-counter">1 / 4</span>
         <div class="slide-dots" id="slide-dots"></div>
       </div>
     </div>
@@ -501,7 +412,7 @@ body.admin-mode .footer-admin-btn{opacity:1;color:var(--amber);}
 
 <script>
 // ── SLIDE DECK ──
-var TOTAL_SLIDES = 10;
+var TOTAL_SLIDES = 4;
 var currentSlide = 1;
 
 function updateSlider() {
@@ -613,6 +524,17 @@ function renderProducts() {
     ProductCard.render(grid, list, function(idx, product) {
       openProductModal(ACTIVE_PRODUCTS.indexOf(product));
     });
+  }
+  // Update slide 1 live products
+  var slideEl = document.getElementById('slide-products-live');
+  if (slideEl && ACTIVE_PRODUCTS.length) {
+    var html = '';
+    ACTIVE_PRODUCTS.slice(0, 6).forEach(function(p) {
+      var gate = parseInt(p.gate, 10) || 0;
+      var colors = ['#8B8BAE','#B3E5FC','#3B82F6','#FFB830','#FF2D8A','#34D399','#7A7A9D'];
+      html += '<div class="slide-gate"><strong style="color:' + (colors[gate] || '#4FC3F7') + ';">' + (p.name || 'N/A') + '</strong>Gate ' + gate + ' · ' + (p.catLabel || p.segment || '') + '</div>';
+    });
+    slideEl.innerHTML = html;
   }
 }
 
