@@ -1149,3 +1149,22 @@ html[data-theme] .bc-bar {
 [data-theme="light"] .vl-item.vl-selected .vl-label {
   color: #0288D1 !important;
 }
+
+/* ── Dashboard (dashboard.html) ── */
+[data-theme="light"] .dash-header h1,
+[data-theme="light"] .kpi-v,
+[data-theme="light"] .funnel-label,
+[data-theme="light"] .port-name,
+[data-theme="light"] .att-title,
+[data-theme="light"] .detail-goal-title,
+[data-theme="light"] .detail-init-name {
+  color: #0A1929 !important;
+}
+[data-theme="light"] .kpi-card,
+[data-theme="light"] .funnel-bar,
+[data-theme="light"] .port-detail,
+[data-theme="light"] .att-card,
+[data-theme="light"] .act-item {
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+}
