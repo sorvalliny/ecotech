@@ -137,6 +137,7 @@
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Бизнесу</a>'
     +   '<div class="en-drop-menu" role="menu">'
     +     a('business.html', 'Для бизнеса')
+    +     a('dashboard.html', 'Статус портфеля')
     +   '</div>'
     + '</div>'
 
