@@ -9,7 +9,9 @@
 /* Тёмная тема, центрированный layout */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#03080F;--card:#061525;--surface:#0d2a40;--border:rgba(79,195,247,.12);--text:#E8F4FD;--muted:#7A9DB8;--violet:#4FC3F7;--teal:#00D4B4;--amber:#FFB830;--green:#34D399}
-body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:80px 20px 40px}
+
+/* Навбар сверху занимает ~48px, padding-top компенсирует */
 
 .landing{max-width:640px;width:100%;text-align:center}
 .logo{font-family:'Orbitron',sans-serif;font-size:36px;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:-1px}

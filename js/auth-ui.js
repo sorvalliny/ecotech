@@ -53,12 +53,21 @@
 
     var modal = document.createElement('div');
     modal.id = 'auth-modal';
-    modal.style.cssText = 'background:#061525;border:1px solid rgba(79,195,247,0.25);border-radius:16px;padding:36px;max-width:400px;width:92%;text-align:center;';
+    modal.style.cssText = 'background:#061525;border:1px solid rgba(79,195,247,0.25);border-radius:16px;padding:36px;max-width:400px;width:92%;text-align:center;position:relative;';
 
     modal.innerHTML = renderChoiceStep();
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
   }
+
+  window.closeAuthModal = function() {
+    var overlay = document.getElementById('auth-overlay');
+    if (overlay) overlay.remove();
+    // Если на защищённой странице — редирект на главную
+    if (!isPublicPage()) {
+      window.location.href = window.location.pathname.indexOf('/') > 0 ? '../index.html' : 'index.html';
+    }
+  };
 
   function setModalContent(html) {
     var modal = document.getElementById('auth-modal');
@@ -71,6 +80,7 @@
 
   function renderChoiceStep() {
     return '' +
+      '<button onclick="closeAuthModal()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#7A9DB8;font-size:18px;cursor:pointer;padding:4px 8px;transition:color .15s;" onmouseover="this.style.color=\'#fff\'" onmouseout="this.style.color=\'#7A9DB8\'" title="Закрыть">✕</button>' +
       '<div style="font-family:Orbitron,sans-serif;font-size:20px;font-weight:900;color:#fff;margin-bottom:6px;">ОРБИТА</div>' +
       '<div style="font-size:12px;color:#7A9DB8;margin-bottom:28px;">Платформа управления портфелем продуктов</div>' +
 
