@@ -11,11 +11,11 @@
 
   // Дефолтные пользователи (для пилота)
   var DEFAULT_USERS = [
-    { id: 'U001', name: 'Администратор', role: 'admin', email: '', productIds: [], contact: '', team: 'Проектный офис' },
-    { id: 'U002', name: 'PM Маркетплейс К', role: 'pm', email: '', productIds: ['P01'], contact: '', team: 'Маркетплейс' },
-    { id: 'U003', name: 'PM Генератор О', role: 'pm', email: '', productIds: ['P02'], contact: '', team: 'Генератор' },
-    { id: 'U004', name: 'PM Сервис З', role: 'pm', email: '', productIds: ['P03'], contact: '', team: 'Сервис' },
-    { id: 'U005', name: 'Наблюдатель', role: 'viewer', email: '', productIds: [], contact: '', team: '' }
+    { id: 'U001', name: 'Администратор', role: 'admin', email: 'admin@rwb.ru', productIds: [], contact: '', team: 'Проектный офис' },
+    { id: 'U002', name: 'PM ECO-01', role: 'pm', email: 'pm1@rwb.ru', productIds: ['ECO-01'], contact: '', team: 'Продукт' },
+    { id: 'U003', name: 'PM ECO-02', role: 'pm', email: 'pm2@rwb.ru', productIds: ['ECO-02'], contact: '', team: 'Продукт' },
+    { id: 'U004', name: 'PM ECO-03', role: 'pm', email: 'pm3@rwb.ru', productIds: ['ECO-03'], contact: '', team: 'Продукт' },
+    { id: 'U005', name: 'Наблюдатель', role: 'viewer', email: 'viewer@rwb.ru', productIds: [], contact: '', team: '' }
   ];
 
   var ROLES = {
@@ -53,13 +53,32 @@
       } catch(e) { return null; }
     },
 
-    // Войти
-    login: function(userId) {
+    // Войти по email @rwb.ru
+    login: function(email) {
+      email = (email || '').trim().toLowerCase();
+      if (!email.endsWith('@rwb.ru')) return { ok: false, error: 'Только корпоративная почта @rwb.ru' };
       var users = this.getUsers();
-      var user = users.find(function(u) { return u.id === userId; });
-      if (!user) return false;
+      var user = users.find(function(u) { return u.email === email; });
+      if (!user) return { ok: false, error: 'Пользователь не найден. Обратитесь к администратору.' };
+      // Генерируем простой код (MVP — без реальной отправки на почту)
+      var code = String(Math.floor(1000 + Math.random() * 9000));
+      localStorage.setItem('ECOTECH_OTP', JSON.stringify({ email: email, code: code, ts: Date.now() }));
+      return { ok: true, code: code, userName: user.name };
+    },
+
+    // Проверка OTP-кода
+    verifyOTP: function(inputCode) {
+      var otp = null;
+      try { otp = JSON.parse(localStorage.getItem('ECOTECH_OTP')); } catch(e) {}
+      if (!otp) return { ok: false, error: 'Код не найден. Запросите новый.' };
+      if (Date.now() - otp.ts > 300000) return { ok: false, error: 'Код истёк. Запросите новый.' };
+      if (otp.code !== inputCode) return { ok: false, error: 'Неверный код.' };
+      var users = this.getUsers();
+      var user = users.find(function(u) { return u.email === otp.email; });
+      if (!user) return { ok: false, error: 'Пользователь не найден.' };
       localStorage.setItem(AUTH_KEY, JSON.stringify({ id: user.id, ts: Date.now() }));
-      return true;
+      localStorage.removeItem('ECOTECH_OTP');
+      return { ok: true, user: user };
     },
 
     // Выйти
@@ -99,6 +118,15 @@
       if (!user) return '';
       var role = ROLES[user.role];
       return role ? role.label : user.role;
+    },
+
+    // Демо-продукт — доступен всем (для онбординга)
+    DEMO_PRODUCT_ID: 'ECO-00',
+
+    // Может ли видеть продукт (демо — всем, остальные — авторизованным)
+    canViewProduct: function(productId) {
+      if (productId === this.DEMO_PRODUCT_ID) return true;
+      return this.isLoggedIn();
     },
 
     // Залогинен ли
