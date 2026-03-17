@@ -1950,10 +1950,17 @@ function setGateFilter(g) {
 function renderPortfolio() {
   // Preserve open state before re-render
   const wasOpen = new Set([...document.querySelectorAll('.pcard.open')].map(c => c.id));
+  var userRole = window.OrbAuth ? OrbAuth.getRole() : null;
+  var userId = window.OrbAuth ? (OrbAuth.getCurrentUser()||{}).id : '';
+  var visibleProjects = PROJECTS.filter(function(p) {
+    if (p.status !== 'pending') return true;
+    if (userRole === 'admin' || userRole === 'pmo') return true;
+    return false; // pending скрыт от PM/viewer
+  });
   const stCnt = {wip:0,planned:0,backlog:0,done:0};
-  PROJECTS.forEach(p => stCnt[p.status]++);
+  visibleProjects.forEach(p => stCnt[p.status]++);
   document.getElementById('pstats').innerHTML = `
-    <div class="pstat"><div class="pstat-num" style="color:#fff">${PROJECTS.length}</div><div class="pstat-lbl">Продуктов</div></div>
+    <div class="pstat"><div class="pstat-num" style="color:#fff">${visibleProjects.length}</div><div class="pstat-lbl">Продуктов</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--teal)">${stCnt.wip}</div><div class="pstat-lbl">В работе</div></div>
     <div class="pstat"><div class="pstat-num" style="color:#C4B5FD">${stCnt.planned}</div><div class="pstat-lbl">Запланировано</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--muted)">${stCnt.backlog}</div><div class="pstat-lbl">Беклог</div></div>
@@ -1962,7 +1969,7 @@ function renderPortfolio() {
     <button class="btn-add-product" onclick="openProdModal(null)">${EI.svg('plus',14)} Добавить продукт</button>
   `;
 
-  document.getElementById('portfolio-cards').innerHTML = PROJECTS.map(p => {
+  document.getElementById('portfolio-cards').innerHTML = visibleProjects.map(p => {
     const items = backlog.filter(i => (i.productId||i.project) === p.id);
     const sorted = [...items].sort((a,b) => sc(b)-sc(a));
     const avg = items.length ? (items.reduce((a,i)=>a+sc(i),0)/items.length).toFixed(1) : '—';
@@ -2974,6 +2981,9 @@ function saveProdModal() {
       newId = 'PR' + String(n).padStart(2, '0');
       if (!existingIds.has(newId)) break;
     }
+    var userRole = window.OrbAuth ? OrbAuth.getRole() : 'admin';
+    var initialStatus = (userRole === 'admin' || userRole === 'pmo') ? 'on-track' : 'pending';
+    commonFields.status = initialStatus;
     PROJECTS.push(Object.assign({ id: newId, release: commonFields.release || 'backlog' }, commonFields));
   }
   var isNewProduct = !curEditPid;
@@ -3006,6 +3016,16 @@ function deleteProductConfirm() {
   closeProdModal();
 }
 
+function approveProduct(pid) {
+  var p = PROJECTS.find(x => x.id === pid);
+  if (p) { p.status = 'on-track'; saveProjects(); logChange('product', pid, p.name, 'approve', 'status', 'pending', 'on-track'); renderPortfolio(); showToast('Продукт одобрен'); }
+}
+function rejectProduct(pid) {
+  if (!confirm('Отклонить продукт?')) return;
+  var idx = PROJECTS.findIndex(x => x.id === pid);
+  if (idx >= 0) { var name = PROJECTS[idx].name; PROJECTS.splice(idx, 1); saveProjects(); logChange('product', pid, name, 'reject', '', '', ''); renderPortfolio(); showToast('Продукт отклонён'); }
+}
+
 function editEpicUrl(epicId) {
   if (window.OrbAuth && !OrbAuth.can('canEdit')) { showToast('Недостаточно прав'); return; }
   const epic = epics.find(e => e.id === epicId);
@@ -3026,6 +3046,8 @@ function addInitiative(projectId) {
     const candidate = 'N' + String(n).padStart(2, '0');
     if (!existingIds.includes(candidate)) { newId = candidate; break; }
   }
+  var userRole = window.OrbAuth ? OrbAuth.getRole() : 'admin';
+  var initialStatus = (userRole === 'admin' || userRole === 'pmo') ? 'backlog' : 'pending';
   const newItem = {
     id: newId,
     productId: projectId,
@@ -3037,7 +3059,7 @@ function addInitiative(projectId) {
     segment: 'product',
     audience: 'PM',
     r:5, i:5, c:5, e:5,
-    status: 'backlog',
+    status: initialStatus,
     release: 'backlog',
     notes: '',
     goalId: null,
@@ -3225,13 +3247,15 @@ function saveGoalEdit() {
       if (keyResults.length) goal.keyResults = keyResults;
     }
   } else {
+    var userRole = window.OrbAuth ? OrbAuth.getRole() : 'admin';
+    var initialStatus = (userRole === 'admin' || userRole === 'pmo') ? 'active' : 'draft';
     goals.push({
       id: 'G' + String(goals.length + 1).padStart(3, '0'),
       title: title,
       type: document.getElementById('gm-type').value,
       period: document.getElementById('gm-period').value,
       owner: document.getElementById('gm-owner').value,
-      status: document.getElementById('gm-status').value,
+      status: initialStatus,
       description: document.getElementById('gm-desc').value,
       productId: document.getElementById('gm-product').value || null,
       keyResults: keyResults.length ? keyResults : [{ id:'KR1', text:'\u041a\u043b\u044e\u0447\u0435\u0432\u043e\u0439 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442', target:10, current:0, unit:'\u0435\u0434.' }]
