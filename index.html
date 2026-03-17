@@ -3,224 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ОРБИТА</title>
+<title>ОРБИТА — Управление портфелем продуктов</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#F7F6FF;--surface:#FFFFFF;
-  --border:rgba(0,0,0,.07);--border-hi:rgba(0,0,0,.12);
-  --text:#0D0C1F;--muted:#6B6B8A;--muted2:#9898B4;
-  --violet:#4FC3F7;--violet-dim:rgba(79,195,247,.08);
-  --pink:#FF2D8A;
-  --teal:#00B89E;--teal-dim:rgba(0,184,158,.08);
-  --amber:#F59E0B;
-  --head:'Orbitron',sans-serif;--body:'Exo 2',sans-serif;
-  --shadow-sm:0 1px 4px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.04);
-  --shadow:0 4px 20px rgba(0,0,0,.07),0 0 0 1px rgba(0,0,0,.05);
-  --shadow-lg:0 12px 48px rgba(0,0,0,.1),0 0 0 1px rgba(0,0,0,.05);
-}
-html{height:100%}
-body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:100%;display:flex;flex-direction:column;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.018;pointer-events:none;z-index:0}
+/* Тёмная тема, центрированный layout */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#03080F;--card:#061525;--surface:#0d2a40;--border:rgba(79,195,247,.12);--text:#E8F4FD;--muted:#7A9DB8;--violet:#4FC3F7;--teal:#00D4B4;--amber:#FFB830;--green:#34D399}
+body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
 
-/* ── LAYOUT ── */
-.wrap{max-width:960px;margin:0 auto;padding:0 28px;position:relative;z-index:1;width:100%}
+.landing{max-width:640px;width:100%;text-align:center}
+.logo{font-family:'Orbitron',sans-serif;font-size:36px;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:-1px}
+.tagline{font-size:14px;color:var(--muted);margin-bottom:40px}
 
-/* ── HERO ── */
-.hero{padding:64px 0 48px;text-align:center;display:flex;flex-direction:column;align-items:center}
-.hero-mark{
-  width:88px;height:88px;
-  background:linear-gradient(135deg,#4FC3F7 0%,#FF2D8A 100%);
-  border-radius:24px;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:32px;
-  box-shadow:0 8px 40px rgba(79,195,247,.3),0 2px 8px rgba(0,0,0,.1);
-  position:relative;
-  animation:hero-pulse 4s ease-in-out infinite;
-}
-.hero-mark::after{
-  content:'';position:absolute;inset:-10px;border-radius:30px;
-  border:1px solid rgba(79,195,247,.18);pointer-events:none;
-}
-@keyframes hero-pulse{
-  0%,100%{box-shadow:0 8px 40px rgba(79,195,247,.3),0 2px 8px rgba(0,0,0,.1)}
-  50%{box-shadow:0 8px 56px rgba(79,195,247,.45),0 2px 12px rgba(0,0,0,.12)}
-}
-.hero-eyebrow{
-  font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--violet);margin-bottom:14px;
-  display:flex;align-items:center;gap:10px;
-}
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';height:1px;width:20px;background:var(--violet);opacity:.35}
-.hero-h1{font-family:var(--head);font-size:46px;font-weight:900;line-height:1.04;letter-spacing:-2px;color:var(--text);margin-bottom:16px}
-.hero-h1 .accent{background:linear-gradient(135deg,#4FC3F7,#FF2D8A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:16px;color:var(--muted);max-width:460px;line-height:1.7}
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px}
+.path{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-decoration:none;transition:all .18s;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer}
+.path:hover{border-color:rgba(79,195,247,.35);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.path-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.path-name{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:900;color:#fff}
+.path-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.path-tag{font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.04em}
+.tag-open{background:rgba(0,212,180,.1);color:var(--teal)}
+.tag-auth{background:rgba(79,195,247,.1);color:var(--violet)}
 
-/* ── DIVIDER ── */
-.choose-label{display:flex;align-items:center;gap:16px;margin:52px 0 28px;color:var(--muted2);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;width:100%}
-.choose-label::before,.choose-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-block{display:flex;gap:10px;justify-content:center;margin-bottom:24px}
+.auth-btn{padding:10px 24px;border-radius:10px;font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.auth-primary{background:linear-gradient(135deg,var(--teal),var(--violet));border:none;color:#fff}
+.auth-primary:hover{opacity:.85}
+.auth-ghost{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--muted)}
+.auth-ghost:hover{border-color:rgba(255,255,255,.2);color:#fff}
 
-/* ── ROLE CARDS ── */
-.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;margin-bottom:52px}
-.role-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column}
-.role-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
-.role-card-top{padding:36px 32px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
-.role-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;flex-shrink:0}
-.role-title{font-family:var(--head);font-size:26px;font-weight:900;line-height:1.05;letter-spacing:-0.8px}
-.role-who{font-size:13px;color:var(--muted);font-weight:500;margin-top:2px}
-.role-features{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:2px}
-.role-features li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--muted);line-height:1.45}
-.role-features li::before{content:'';min-width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
-.role-card-foot{padding:18px 32px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
-.role-cta{font-family:var(--head);font-size:11px;font-weight:900;letter-spacing:.01em;padding:9px 18px;border-radius:9px;display:inline-flex;align-items:center;gap:7px;transition:opacity .15s,transform .15s;white-space:nowrap}
-.role-cta:hover{opacity:.85;transform:translateX(2px)}
-.role-cta-hint{font-size:11px;color:var(--muted2);white-space:nowrap}
+.footer{font-size:10px;color:rgba(255,255,255,.2);margin-top:auto;padding-top:40px}
+.footer a{color:rgba(255,255,255,.3);text-decoration:none}
 
-/* ── Бизнесу ── */
-.card-biz .role-icon{background:rgba(79,195,247,.08);color:#5720C8}
-.card-biz .role-title{color:var(--text)}
-.card-biz .role-features li::before{background:#9040FF}
-.card-biz .role-cta{background:linear-gradient(135deg,#5720C8,#4FC3F7);color:#fff}
-.card-biz:hover{border-color:rgba(79,195,247,.28)}
-.card-biz .role-card-top{background:linear-gradient(155deg,rgba(87,32,200,.06) 0%,var(--surface) 55%)}
-
-/* ── Продукту ── */
-.card-prod .role-icon{background:var(--violet-dim);color:var(--violet)}
-.card-prod .role-title{background:linear-gradient(135deg,#4FC3F7,#FF2D8A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.card-prod .role-features li::before{background:var(--violet)}
-.card-prod .role-cta{background:linear-gradient(135deg,#4FC3F7,#FF2D8A);color:#fff}
-.card-prod:hover{border-color:rgba(79,195,247,.28)}
-.card-prod .role-card-top{background:linear-gradient(155deg,rgba(79,195,247,.06) 0%,var(--surface) 55%)}
-
-/* ── FOOTER ── */
-footer{margin-top:auto;border-top:1px solid var(--border);background:var(--surface)}
-.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:16px 28px;max-width:960px;margin:0 auto;font-size:11px;color:var(--muted)}
-.foot-inner strong{color:rgba(0,0,0,.4)}
-.foot-brand{display:inline-flex;align-items:center;gap:7px}
-.foot-logo{width:18px;height:18px;background:linear-gradient(135deg,#4FC3F7,#FF2D8A);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-
-@media(max-width:700px){
-  .hero{padding:44px 0 36px}
-  .hero-h1{font-size:32px;letter-spacing:-1.2px}
-  .hero-mark{width:72px;height:72px;border-radius:20px}
-  .role-grid{grid-template-columns:1fr}
-  .role-card-top{padding:28px 24px 22px}
-  .role-card-foot{padding:16px 24px}
-  .role-title{font-size:22px}
-  .wrap{padding:0 20px}
-}
+@media(max-width:500px){.paths{grid-template-columns:1fr}}
 </style>
 <script src="icons.js"></script>
-<script src="nav.js"></script>
+<script src="platform.js"></script>
+<script src="js/auth.js"></script>
 </head>
 <body>
 
-<main style="flex:1;position:relative;z-index:1">
-<div class="wrap">
+<div class="landing">
+  <div class="logo">ОРБИТА</div>
+  <div class="tagline">Управление портфелем продуктов экосистемы</div>
 
-  <!-- ── HERO ── -->
-  <section class="hero">
-    <div class="hero-mark">
-      <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="12,2.5 20.2,7.25 20.2,16.75 12,21.5 3.8,16.75 3.8,7.25"
-                 stroke="rgba(255,255,255,.45)" stroke-width="1.2" fill="rgba(255,255,255,.08)"/>
-        <line x1="12" y1="11.5" x2="12" y2="4.1"   stroke="rgba(255,255,255,.6)" stroke-width="1.1"/>
-        <line x1="12" y1="11.5" x2="18.9" y2="16.1" stroke="rgba(255,255,255,.6)" stroke-width="1.1"/>
-        <line x1="12" y1="11.5" x2="5.1"  y2="16.1" stroke="rgba(255,255,255,.6)" stroke-width="1.1"/>
-        <circle cx="12"   cy="12"    r="2.6" fill="white"/>
-        <circle cx="12"   cy="2.5"   r="1.6" fill="rgba(255,255,255,.88)"/>
-        <circle cx="20.2" cy="16.75" r="1.6" fill="rgba(255,255,255,.88)"/>
-        <circle cx="3.8"  cy="16.75" r="1.6" fill="rgba(255,255,255,.88)"/>
-      </svg>
-    </div>
-    <div class="hero-eyebrow">Платформа развития инноваций и экосистемы</div>
-    <h1 class="hero-h1">ОРБИТА</h1>
-    <p class="hero-sub">Единая операционная система для управления продуктовым портфелем, командами и стратегией экосистемы RWB</p>
-  </section>
-
-  <!-- ── ROLE CTA ── -->
-  <div class="choose-label">Выберите ваш раздел</div>
-
-  <div class="role-grid">
-
-    <!-- Бизнесу -->
-    <a class="role-card card-biz" href="business.html">
-      <div class="role-card-top">
-        <div class="role-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="7" width="20" height="14" rx="2"/>
-            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-            <line x1="12" y1="12" x2="12" y2="16"/>
-            <line x1="10" y1="14" x2="14" y2="14"/>
-          </svg>
-        </div>
-        <div>
-          <div class="role-title">Бизнесу</div>
-          <div class="role-who">Для топ-менеджмента и заказчиков</div>
-        </div>
-        <ul class="role-features">
-          <li>Портфель продуктов — что в проде и что строится</li>
-          <li>Метрики, статусы и прогнозы <abbr class="term" tabindex="0" data-tip="Profit &amp; Loss — отчёт о прибылях и убытках продукта. Показывает выручку, расходы и маржинальность за период.">P&amp;L</abbr></li>
-          <li>Управляющий совет и <abbr class="term" tabindex="0" data-tip="Орган, принимающий инвестиционные решения по продуктам. Состав: CEO, CPO, CFO, директора направлений. Рассматривает бизнес-планы и P&amp;L на Gate 3–4." data-href="Проектный офис/council.html">инвест-комитет</abbr></li>
-        </ul>
-      </div>
-      <div class="role-card-foot">
-        <span class="role-cta">Открыть портфель →</span>
-        <span class="role-cta-hint">CEO · CPO · COO</span>
-      </div>
+  <div class="paths">
+    <a class="path" href="business.html">
+      <div class="path-icon" style="background:rgba(0,212,180,.1)"><svg class="ei" width="22" height="22" style="color:var(--teal)"><use href="#ic-package"/></svg></div>
+      <div class="path-name">Каталог продуктов</div>
+      <div class="path-desc">Что в проде, что в разработке, идеи и статусы</div>
+      <span class="path-tag tag-open">Открытый доступ</span>
     </a>
 
-    <!-- Продукту -->
-    <a class="role-card card-prod" href="product.html">
-      <div class="role-card-top">
-        <div class="role-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-            <polyline points="2 17 12 22 22 17"/>
-            <polyline points="2 12 12 17 22 12"/>
-          </svg>
-        </div>
-        <div>
-          <div class="role-title">Продукту</div>
-          <div class="role-who">Для продуктовых команд</div>
-        </div>
-        <ul class="role-features">
-          <li>Продуктовый фреймворк <abbr class="term" tabindex="0" data-tip="Система из 6 стадий зрелости продукта: от скрининга идеи (Gate 0) до масштабирования (Gate 5). Каждый Gate — контрольная точка с чек-листом критериев." data-href="Фреймворк/framework-lite.html">Gate 0 → 5</abbr></li>
-          <li>Инструменты: <abbr class="term" tabindex="0" data-tip="Фреймворк приоритизации: Reach (охват) × Impact (влияние) × Confidence (уверенность) ÷ Effort (трудозатраты). Чем выше Score, тем выше приоритет." data-href="Продукту/brief.html">RICE</abbr>, трекер, стратегия, артефакты</li>
-          <li>Шаблоны и стандарты для каждой стадии</li>
-        </ul>
-      </div>
-      <div class="role-card-foot">
-        <span class="role-cta">Открыть платформу →</span>
-        <span class="role-cta-hint">PM · Tech Lead · UX</span>
-      </div>
+    <a class="path" href="Проектный офис/tracker.html">
+      <div class="path-icon" style="background:rgba(79,195,247,.1)"><svg class="ei" width="22" height="22" style="color:var(--violet)"><use href="#ic-layers"/></svg></div>
+      <div class="path-name">Реестр</div>
+      <div class="path-desc">Продукты, цели, инициативы — управление портфелем</div>
+      <span class="path-tag tag-auth">Авторизация</span>
     </a>
 
+    <a class="path" href="Продукту/brief.html">
+      <div class="path-icon" style="background:rgba(255,184,48,.1)"><svg class="ei" width="22" height="22" style="color:var(--amber)"><use href="#ic-file-text"/></svg></div>
+      <div class="path-name">Подать заявку</div>
+      <div class="path-desc">Новый продукт: бриф + RICE-оценка за 15 минут</div>
+      <span class="path-tag tag-open">Открытый доступ</span>
+    </a>
+
+    <a class="path" href="dashboard.html">
+      <div class="path-icon" style="background:rgba(52,211,153,.1)"><svg class="ei" width="22" height="22" style="color:var(--green)"><use href="#ic-trending-up"/></svg></div>
+      <div class="path-name">Статус портфеля</div>
+      <div class="path-desc">Сроки, риски, compliance — для руководителей</div>
+      <span class="path-tag tag-auth">Авторизация</span>
+    </a>
   </div>
 
-
+  <div class="auth-block">
+    <button class="auth-btn auth-primary" onclick="if(window.OrbAuth&&OrbAuth.isLoggedIn()){location.href='Проектный офис/tracker.html'}else if(window.showAuthModal){showAuthModal()}else{location.href='Проектный офис/tracker.html'}">Войти</button>
+    <button class="auth-btn auth-ghost" onclick="if(window.authGuestLogin){authGuestLogin()}else{location.href='business.html'}">Гостевой доступ (демо)</button>
+  </div>
 </div>
-</main>
 
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="foot-inner">
-    <span class="foot-brand">
-      <span class="foot-logo">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
-          <polygon points="12,2.5 20.2,7.25 20.2,16.75 12,21.5 3.8,16.75 3.8,7.25" stroke="rgba(255,255,255,.55)" stroke-width="1.5" fill="rgba(255,255,255,.1)"/>
-          <circle cx="12" cy="12" r="2.8" fill="white"/>
-          <circle cx="12" cy="2.5" r="1.7" fill="rgba(255,255,255,.85)"/>
-          <circle cx="20.2" cy="16.75" r="1.7" fill="rgba(255,255,255,.85)"/>
-          <circle cx="3.8" cy="16.75" r="1.7" fill="rgba(255,255,255,.85)"/>
-        </svg>
-      </span>
-      <strong>ОРБИТА</strong> · Проектный офис RWB
-    </span>
-    <span>Март 2026 · v2.0</span>
-  </div>
-</footer>
+<div class="footer">
+  ОРБИТА · Проектный офис · WB Экосистема · 2026
+</div>
 
+<script src="nav.js"></script>
 </body>
 </html>

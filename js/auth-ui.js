@@ -243,6 +243,10 @@
     var role = OrbAuth.ROLES[user.role] || { label: user.role, color: '#7A7A9D' };
     var isGuest = user.id === 'GUEST';
 
+    // Base path (тот же подход что в nav.js)
+    var scripts = document.querySelectorAll('script[src*="auth"]');
+    var base = scripts.length ? scripts[0].getAttribute('src').replace(/js\/auth.*$/, '') : '';
+
     function tryInsert() {
       var nav = document.querySelector('.ecotech-nav');
       if (!nav) { setTimeout(tryInsert, 100); return; }
@@ -251,19 +255,21 @@
       var badge = document.createElement('div');
       badge.id = 'auth-badge';
       badge.style.cssText = 'display:flex;align-items:center;gap:6px;margin-left:8px;padding:4px 10px;' +
-        'background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;cursor:pointer;flex-shrink:0;';
+        'background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;cursor:pointer;flex-shrink:0;position:relative;';
       badge.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + role.color + '"></span>' +
         '<span style="font-size:10px;color:#E8E6FF;font-weight:600;white-space:nowrap;">' + escH(user.name) + '</span>' +
         '<span style="font-size:9px;color:' + role.color + '">' + (isGuest ? 'Демо' : role.label) + '</span>';
-      badge.title = isGuest ? 'Гостевой режим. Клик — войти.' : 'Клик — сменить пользователя';
-      badge.onclick = function() {
+      badge.title = isGuest ? 'Гостевой режим. Клик — войти.' : 'Клик — профиль';
+      badge.onclick = function(e) {
+        e.stopPropagation();
         if (isGuest) {
           OrbAuth.logout();
           showAuthModal();
-        } else if (confirm('Сменить пользователя?')) {
-          OrbAuth.logout();
-          location.reload();
+          return;
         }
+        var existing = document.getElementById('auth-profile-dropdown');
+        if (existing) { existing.remove(); return; }
+        showProfileDropdown(badge, user, role, base);
       };
 
       var rwb = nav.querySelector('.en-rwb');
@@ -271,6 +277,51 @@
       else nav.appendChild(badge);
     }
     tryInsert();
+  }
+
+  function showProfileDropdown(anchor, user, role, base) {
+    var dd = document.createElement('div');
+    dd.id = 'auth-profile-dropdown';
+    dd.style.cssText = 'position:absolute;top:calc(100% + 8px);right:0;background:#061525;border:1px solid rgba(79,195,247,0.25);border-radius:12px;padding:12px;min-width:240px;z-index:99999;box-shadow:0 12px 40px rgba(0,0,0,.5);';
+
+    var productsHtml = '';
+    if (user.productIds && user.productIds.length) {
+      productsHtml = user.productIds.map(function(pid) {
+        return '<span style="display:inline-block;font-size:10px;padding:2px 8px;margin:2px;border-radius:6px;background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2);color:#00D4B4;">' + escH(pid) + '</span>';
+      }).join('');
+    } else {
+      productsHtml = '<span style="font-size:11px;color:#7A9DB8;">Нет назначенных продуктов</span>';
+    }
+
+    var adminLink = user.role === 'admin'
+      ? '<a class="ap-link ap-admin" href="' + base + 'admin.html" style="display:block;font-size:12px;color:#FF2D8A;text-decoration:none;padding:6px 0;transition:opacity .15s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">Управление доступами</a>'
+      : '';
+
+    dd.innerHTML =
+      '<div class="ap-header">' +
+        '<div class="ap-name" style="font-size:14px;font-weight:700;color:#E8F4FD;font-family:Orbitron,sans-serif;">' + escH(user.name) + '</div>' +
+        '<div class="ap-role" style="font-size:11px;color:#7A9DB8;margin-top:2px;">' + escH(role.label) + ' · ' + escH(user.email) + '</div>' +
+      '</div>' +
+      '<div class="ap-section" style="font-size:10px;color:#4FC3F7;text-transform:uppercase;letter-spacing:1px;margin-top:10px;margin-bottom:4px;">Мои продукты</div>' +
+      '<div class="ap-products" style="margin-bottom:8px;">' + productsHtml + '</div>' +
+      '<div class="ap-divider" style="border-top:1px solid rgba(255,255,255,0.08);margin:8px 0;"></div>' +
+      '<a class="ap-link" href="' + base + '\u041f\u0440\u043e\u0435\u043a\u0442\u043d\u044b\u0439 \u043e\u0444\u0438\u0441/tracker.html#tab=backlog" style="display:block;font-size:12px;color:#4FC3F7;text-decoration:none;padding:6px 0;transition:opacity .15s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">Мои инициативы</a>' +
+      adminLink +
+      '<div class="ap-divider" style="border-top:1px solid rgba(255,255,255,0.08);margin:8px 0;"></div>' +
+      '<button class="ap-logout" style="width:100%;padding:8px;background:transparent;border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#7A9DB8;font-size:11px;cursor:pointer;transition:all .15s;font-family:Exo 2,sans-serif;" onclick="OrbAuth.logout();location.reload();">Сменить пользователя</button>';
+
+    anchor.appendChild(dd);
+
+    // Закрытие при клике вне
+    function closeDropdown(e) {
+      if (!dd.contains(e.target) && e.target !== dd) {
+        dd.remove();
+        document.removeEventListener('click', closeDropdown);
+      }
+    }
+    setTimeout(function() {
+      document.addEventListener('click', closeDropdown);
+    }, 0);
   }
 
   // ═══════════════════════════════════════════════

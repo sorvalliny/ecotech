@@ -3287,6 +3287,15 @@ renderContextBar();
   }
   if (_hash.create === 'goal') { setTimeout(function(){ openGoalEditor(null); }, 500); }
   if (_hash.create === 'initiative') { setTimeout(function(){ addInitiative(contextProduct||''); }, 500); }
+  if (_hash.product) {
+    contextProduct = _hash.product;
+    setTimeout(function() {
+      renderContextBar();
+      setContext(_hash.product);
+      switchTab('portfolio', document.querySelector('.tab'));
+      setTimeout(function() { togglePC(_hash.product); }, 300);
+    }, 500);
+  }
   if (_ui.tracker_filters && _tab === 'backlog') {
     Object.assign(filters, _ui.tracker_filters);
     renderBL();
