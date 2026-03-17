@@ -348,6 +348,16 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .card-goal-id{font-family:var(--font-head);font-size:9px;font-weight:700;color:var(--amber)}
 .card-goal-title{color:var(--text);flex:1}
 .card-goal-progress{font-family:var(--font-head);font-size:9px;color:var(--muted)}
+.card-changelog { margin-top:8px; padding-top:8px; border-top:1px solid var(--border); }
+.cl-entry { display:flex; gap:6px; align-items:center; font-size:10px; color:var(--muted); padding:2px 0; }
+.cl-time { color:var(--muted); min-width:60px; }
+.cl-user { color:var(--teal); font-weight:600; }
+.cl-action { flex:1; }
+.chlog-row { display:flex; gap:8px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--border); font-size:11px; }
+.chlog-icon { flex-shrink:0; }
+.chlog-time { color:var(--muted); min-width:120px; font-size:10px; }
+.chlog-user { color:var(--teal); font-weight:600; min-width:80px; }
+.chlog-desc { color:var(--text); flex:1; }
 
 /* ── PRODUCT PRD PANEL ── */
 .prod-prd-panel{position:fixed;top:96px;right:0;bottom:0;width:480px;background:var(--card);border-left:1px solid var(--border);z-index:140;transform:translateX(100%);transition:transform .2s;overflow:hidden;display:flex;flex-direction:column}
@@ -487,6 +497,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <button class="tab active" onclick="switchTab('portfolio',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Продукты</button>
     <button class="tab" onclick="switchTab('backlog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-layers"/></svg> Инициативы</button>
     <button class="tab" onclick="switchTab('goals',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цели</button>
+    <button class="tab" onclick="switchTab('changelog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clock"/></svg> История</button>
   </div>
   <div class="tt-right">
     <div class="tt-create-wrap">
@@ -1046,6 +1057,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div id="trk-content"></div>
     </div>
 
+    <!-- CHANGELOG -->
+    <div id="pg-changelog" style="display:none">
+      <div id="changelog-list"></div>
+    </div>
+
   </div>
 
   <!-- EDIT PANEL -->
@@ -1498,6 +1514,57 @@ backlog.forEach(item => {
   if (!('recommendation' in item.prd)) item.prd.recommendation = '';
 });
 
+var changelog = [];
+try { changelog = (window.PT ? PT.load('ECOTECH_CHANGELOG') : JSON.parse(localStorage.getItem('ECOTECH_CHANGELOG'))) || []; } catch(e) { changelog = []; }
+
+function logChange(entityType, entityId, entityName, action, field, oldValue, newValue) {
+  var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+  var entry = {
+    id: 'LOG' + Date.now().toString(36),
+    ts: new Date().toISOString(),
+    userId: user ? user.id : '',
+    userName: user ? user.name : 'Аноним',
+    entityType: entityType,
+    entityId: entityId,
+    entityName: entityName,
+    action: action,
+    field: field || '',
+    oldValue: String(oldValue || ''),
+    newValue: String(newValue || '')
+  };
+  changelog.unshift(entry);
+  if (changelog.length > 500) changelog = changelog.slice(0, 500);
+  if (window.PT) PT.save('ECOTECH_CHANGELOG', changelog);
+  else localStorage.setItem('ECOTECH_CHANGELOG', JSON.stringify(changelog));
+}
+
+function getTimeAgo(ts) {
+  var diff = Date.now() - new Date(ts).getTime();
+  var min = Math.floor(diff / 60000);
+  if (min < 1) return 'только что';
+  if (min < 60) return min + ' мин назад';
+  var hrs = Math.floor(min / 60);
+  if (hrs < 24) return hrs + 'ч назад';
+  var days = Math.floor(hrs / 24);
+  return days + 'д назад';
+}
+
+function renderChangelog() {
+  var el = document.getElementById('changelog-list');
+  if (!el) return;
+  var filtered = contextProduct ? changelog.filter(function(l) {
+    if (l.entityType === 'product') return l.entityId === contextProduct;
+    if (l.entityType === 'initiative') return backlog.some(function(i) { return i.id === l.entityId && (i.productId||i.project) === contextProduct; });
+    return true;
+  }) : changelog;
+
+  el.innerHTML = filtered.slice(0, 50).map(function(l) {
+    var icon = l.action === 'create' ? 'plus' : 'edit';
+    var color = l.action === 'create' ? 'var(--green)' : 'var(--violet)';
+    return '<div class="chlog-row"><span class="chlog-icon" style="color:'+color+'">'+EI.svg(icon,12)+'</span><span class="chlog-time">'+new Date(l.ts).toLocaleString('ru')+'</span><span class="chlog-user">'+l.userName+'</span><span class="chlog-desc">'+l.action+' '+l.entityType+': '+l.entityName+(l.field?' ('+l.field+': '+l.oldValue+' → '+l.newValue+')':'')+'</span></div>';
+  }).join('') || '<div style="padding:40px;text-align:center;color:var(--muted)">Нет записей</div>';
+}
+
 let filters = { cat:'all', status:'all', audience:'all', project:'all', track:'all' };
 let gateFilter = null; // null = all, 0-5 = filter by gate
 let sortBy = 'score';
@@ -1638,11 +1705,13 @@ function switchTab(tab, btn) {
   document.getElementById('pg-backlog').style.display   = tab === 'backlog'   ? '' : 'none';
   document.getElementById('pg-tracker').style.display   = tab === 'tracker'   ? '' : 'none';
   document.getElementById('pg-goals').style.display     = tab === 'goals'     ? '' : 'none';
+  document.getElementById('pg-changelog').style.display = tab === 'changelog' ? '' : 'none';
   if (tab === 'backlog') { renderBL(); }
   else { if (tab !== 'portfolio') { closeEP(); closeProductPRD(); } }
   if (tab === 'tracker') renderTracker(curRole);
   if (tab === 'goals')   renderGoals();
   if (tab === 'portfolio') renderPortfolio();
+  if (tab === 'changelog') renderChangelog();
   renderContextFilters();
   renderContextViewSwitch();
 }
@@ -1846,6 +1915,19 @@ function renderPortfolio() {
               </div>`;
             }).join('')}
           </div>`;
+        })()}
+        ${(() => {
+          var productLogs = changelog.filter(function(l) {
+            return (l.entityType === 'product' && l.entityId === p.id) ||
+                   (l.entityType === 'initiative' && backlog.some(function(i) { return i.id === l.entityId && (i.productId||i.project) === p.id; }));
+          }).slice(0, 3);
+          if (!productLogs.length) return '';
+          return '<div class="card-changelog">' +
+            productLogs.map(function(l) {
+              var timeAgo = getTimeAgo(l.ts);
+              return '<div class="cl-entry"><span class="cl-time">' + timeAgo + '</span><span class="cl-user">' + l.userName + '</span><span class="cl-action">' + l.action + ' ' + l.entityName + (l.field ? ' \u2192 ' + l.field : '') + '</span></div>';
+            }).join('') +
+          '</div>';
         })()}
       </div>
     </div>`;
@@ -2446,6 +2528,7 @@ function saveEP() {
   item.epicId = document.getElementById('ep-epic-sel').value || null;
   item.segment = document.getElementById('ep-segment').value || 'product';
   if (window.PT) PT.save(PT.KEY_BACKLOG, backlog); else localStorage.setItem('rwb_os_backlog', JSON.stringify(backlog));
+  logChange('initiative', item.id, item.name, 'update', 'rice', '', 'R'+item.r+' I'+item.i+' C'+item.c+' E'+item.e);
   if (curTab === 'backlog') renderBL();
   renderPortfolio();
   const btn = document.getElementById('btn-save-rice');
@@ -2538,6 +2621,7 @@ function savePRD() {
   item.epicId = document.getElementById('ep-epic-sel').value || null;
   if (window.PT) PT.save(PT.KEY_BACKLOG, backlog);
   else localStorage.setItem('rwb_os_backlog', JSON.stringify(backlog));
+  logChange('initiative', item.id, item.name, 'update', 'prd', '', 'PRD обновлён');
   renderPortfolio();
   if (curTab === 'backlog') renderBL();
   const btn = document.getElementById('btn-save-prd');
@@ -2693,6 +2777,11 @@ function saveProdModal() {
     PROJECTS.push(Object.assign({ id: newId, release: commonFields.release || 'backlog' }, commonFields));
   }
   var isNewProduct = !curEditPid;
+  if (isNewProduct) {
+    logChange('product', newId, name, 'create', '', '', 'Создан продукт');
+  } else {
+    logChange('product', curEditPid, name, 'update', '', '', 'Продукт обновлён');
+  }
   saveProjects();
   renderPortfolio();
   initSidebar();
@@ -2756,6 +2845,7 @@ function addInitiative(projectId) {
   };
   backlog.push(newItem);
   if (window.PT) PT.save(PT.KEY_BACKLOG, backlog);
+  logChange('initiative', newItem.id, newItem.name, 'create', '', '', 'Создана инициатива');
   renderPortfolio();
   const pc = document.getElementById('pc-' + projectId);
   if (pc && !pc.classList.contains('open')) togglePC(projectId);
@@ -2945,8 +3035,10 @@ function saveGoalEdit() {
     });
   }
   var isNewGoal = !curGoalId;
+  var savedGoal = isNewGoal ? goals[goals.length - 1] : goals.find(function(g) { return g.id === curGoalId; });
   var savedProductId = document.getElementById('gm-product').value || contextProduct || '';
   if (window.PT) PT.save(PT.KEY_GOALS, goals);
+  if (savedGoal) logChange('goal', savedGoal.id, savedGoal.title, isNewGoal ? 'create' : 'update', '', '', isNewGoal ? 'Создана цель' : 'Цель обновлена');
   closeGoalModal();
   renderGoals();
   if (isNewGoal && confirm('Цель создана. Добавить инициативу?')) {
