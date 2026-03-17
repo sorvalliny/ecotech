@@ -162,7 +162,7 @@
     +   '</div>'
     + '</div>'
 
-    + (function(){ try { var a = JSON.parse(localStorage.getItem('ECOTECH_AUTH')); var u = JSON.parse(localStorage.getItem('ECOTECH_USERS')); if(a&&u){ var cu=u.find(function(x){return x.id===a.id}); if(cu&&cu.role==='admin') return '<a class="en-link" href="'+base+'admin.html">Admin</a>'; } } catch(e){} return ''; })()
+    + (function(){ try { var a = JSON.parse(localStorage.getItem('ECOTECH_AUTH')); var u = JSON.parse(localStorage.getItem('ECOTECH_USERS')); if(a&&u){ var cu=u.find(function(x){return x.id===a.id}); if(cu&&(cu.role==='admin'||cu.role==='pmo_lead')) return '<a class="en-link" href="'+base+'admin.html">Admin</a>'; } } catch(e){} return ''; })()
     + '</div>'
     + '<button id="en-theme-btn" class="en-theme-btn" onclick="EcoTheme.toggle()" title="Переключить тему" aria-label="Переключить тему"></button>'
     + '<a class="en-rwb" href="https://rwb.ru" target="_blank" rel="noopener">' + RWB_SVG + '</a>'
