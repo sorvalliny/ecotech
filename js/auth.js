@@ -11,11 +11,11 @@
 
   // Дефолтные пользователи (для пилота)
   var DEFAULT_USERS = [
-    { id: 'U001', name: 'Виктор Сорвал', role: 'admin', email: 'sorval.viktor@rwb.ru', productIds: [] },
-    { id: 'U002', name: 'PM WB Kids', role: 'pm', email: '', productIds: ['P01'] },
-    { id: 'U003', name: 'PM WB Встречи', role: 'pm', email: '', productIds: ['P02'] },
-    { id: 'U004', name: 'PM EdTech', role: 'pm', email: '', productIds: ['P03'] },
-    { id: 'U005', name: 'Viewer', role: 'viewer', email: '', productIds: [] }
+    { id: 'U001', name: 'Администратор', role: 'admin', email: '', productIds: [] },
+    { id: 'U002', name: 'PM Маркетплейс К', role: 'pm', email: '', productIds: ['P01'] },
+    { id: 'U003', name: 'PM Генератор О', role: 'pm', email: '', productIds: ['P02'] },
+    { id: 'U004', name: 'PM Сервис З', role: 'pm', email: '', productIds: ['P03'] },
+    { id: 'U005', name: 'Наблюдатель', role: 'viewer', email: '', productIds: [] }
   ];
 
   var ROLES = {

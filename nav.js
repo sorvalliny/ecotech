@@ -11,6 +11,15 @@
   // e.g. '' for root pages, '../' for subdirectory pages
   var base = src.replace(/[^/\\]*$/, '').replace(/^\.\//, '');
 
+  // ── CSP meta-tag ────────────────────────────────────────────
+  if (!document.getElementById('en-csp')) {
+    var csp = document.createElement('meta');
+    csp.id = 'en-csp';
+    csp.httpEquiv = 'Content-Security-Policy';
+    csp.content = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'";
+    document.head.insertBefore(csp, document.head.firstChild);
+  }
+
   // ── load Google Fonts (Orbitron + Exo 2) ────────────────────
   if (!document.getElementById('en-google-fonts')) {
     var gf = document.createElement('link');

@@ -1319,9 +1319,9 @@ const STAGES = [
 // DATA
 // ════════════════════════════════════════════
 const PROJECTS_DEFAULT = [
-  { id:'P01', name:'WB Kids', desc:'Образовательные программы для детей', gate:3, status:'on-track', cat:'b2c', catLabel:'B2C', owner:'PM Team', layer:'B2C', color:'#FF85C0', release:'Q1 2026' },
-  { id:'P02', name:'WB Встречи', desc:'Видеоконференции для бизнеса', gate:2, status:'on-track', cat:'b2b', catLabel:'B2B', owner:'PM Team', layer:'B2B', color:'#4FC3F7', release:'Q1 2026' },
-  { id:'P03', name:'EdTech Platform', desc:'Образовательные продукты экосистемы', gate:1, status:'at-risk', cat:'b2c', catLabel:'B2C', owner:'PM Team', layer:'B2C', color:'#00D4B4', release:'Q2 2026', pilot:true },
+  { id:'P01', name:'Маркетплейс К', desc:'Маркетплейс для детской аудитории — товары, контент, обучение', gate:3, status:'on-track', cat:'b2c', catLabel:'B2C', owner:'PM Team', layer:'B2C', color:'#FF85C0', release:'Q1 2026' },
+  { id:'P02', name:'Генератор О', desc:'Видеоконференции для бизнеса', gate:2, status:'on-track', cat:'b2b', catLabel:'B2B', owner:'PM Team', layer:'B2B', color:'#4FC3F7', release:'Q1 2026' },
+  { id:'P03', name:'Сервис З', desc:'Образовательные продукты экосистемы', gate:1, status:'at-risk', cat:'b2c', catLabel:'B2C', owner:'PM Team', layer:'B2C', color:'#00D4B4', release:'Q2 2026', pilot:true },
 ];
 let PROJECTS = (() => {
   const raw = window.PT ? PT.load(PT.KEY_PRODUCTS) : null;
@@ -1334,21 +1334,21 @@ const BACKLOG_DEFAULT = [
   { id:'I002', productId:'P01', project:'P01', track:'discovery', name:'Родительский кабинет', desc:'Исследование потребности родителей в мониторинге', cat:'feature', r:7, i:6, c:4, e:3, status:'planned' },
   { id:'I003', productId:'P02', project:'P02', track:'delivery', name:'Интеграция с WB ID', desc:'Единая авторизация через WB ID', cat:'infra', r:9, i:8, c:8, e:6, status:'wip' },
   { id:'I004', productId:'P02', project:'P02', track:'discovery', name:'Запись встреч', desc:'Автоматическая запись и транскрипция встреч', cat:'feature', r:6, i:7, c:5, e:7, status:'backlog' },
-  { id:'I005', productId:'P03', project:'P03', track:'discovery', name:'Платформа курсов', desc:'MVP платформы онлайн-курсов для EdTech', cat:'feature', r:8, i:8, c:5, e:8, status:'planned' },
+  { id:'I005', productId:'P03', project:'P03', track:'discovery', name:'Платформа курсов', desc:'MVP платформы онлайн-курсов для образовательного контура', cat:'feature', r:8, i:8, c:5, e:8, status:'planned' },
 ];
 
 // ════════════════════════════════════════════
 // GOALS & EPICS DATA
 // ════════════════════════════════════════════
 const GOALS_DEFAULT = [
-  { id:'G001', title:'Запустить WB Kids через Gate 3', type:'product',
+  { id:'G001', title:'Запустить Маркетплейс К через Gate 3', type:'product',
     period:'Q2 2026', owner:'CPO', status:'active', productId:'P01',
     keyResults:[
       { id:'KR1', text:'Activation Rate >= 30%', target:30, current:18, unit:'%' },
       { id:'KR2', text:'NPS >= 40', target:40, current:32, unit:'pts' }
     ]
   },
-  { id:'G002', title:'EdTech MVP в production', type:'strategic',
+  { id:'G002', title:'Сервис З MVP в production', type:'strategic',
     period:'Q1 2026', owner:'CPO', status:'active', productId:'P03',
     keyResults:[
       { id:'KR1', text:'MVP запущен', target:1, current:0, unit:'продукт' }
@@ -1357,8 +1357,8 @@ const GOALS_DEFAULT = [
 ];
 
 const EPICS_DEFAULT = [
-  { id:'E001', title:'Геймификация WB Kids',       productId:'P01', goalId:'G001', status:'active',  gate:3 },
-  { id:'E002', title:'MVP EdTech Platform',         productId:'P03', goalId:'G002', status:'planned', gate:1 },
+  { id:'E001', title:'Геймификация Маркетплейс К',   productId:'P01', goalId:'G001', status:'active',  gate:3 },
+  { id:'E002', title:'MVP Сервис З',                productId:'P03', goalId:'G002', status:'planned', gate:1 },
 ];
 
 // Epic assignments for existing BACKLOG items (used in migration)

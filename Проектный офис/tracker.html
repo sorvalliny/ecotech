@@ -1413,6 +1413,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 </div>
 
 <script>
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
 // ════════════════════════════════════════════
 // STAGE-GATE MODEL
 // ════════════════════════════════════════════
@@ -1609,7 +1614,7 @@ function renderChangelog() {
   el.innerHTML = filtered.slice(0, 50).map(function(l) {
     var icon = l.action === 'create' ? 'plus' : 'edit';
     var color = l.action === 'create' ? 'var(--green)' : 'var(--violet)';
-    return '<div class="chlog-row"><span class="chlog-icon" style="color:'+color+'">'+EI.svg(icon,12)+'</span><span class="chlog-time">'+new Date(l.ts).toLocaleString('ru')+'</span><span class="chlog-user">'+l.userName+'</span><span class="chlog-desc">'+l.action+' '+l.entityType+': '+l.entityName+(l.field?' ('+l.field+': '+l.oldValue+' → '+l.newValue+')':'')+'</span></div>';
+    return '<div class="chlog-row"><span class="chlog-icon" style="color:'+color+'">'+EI.svg(icon,12)+'</span><span class="chlog-time">'+new Date(l.ts).toLocaleString('ru')+'</span><span class="chlog-user">'+escHtml(l.userName)+'</span><span class="chlog-desc">'+escHtml(l.action)+' '+escHtml(l.entityType)+': '+escHtml(l.entityName)+(l.field?' ('+escHtml(l.field)+': '+escHtml(l.oldValue)+' → '+escHtml(l.newValue)+')':'')+'</span></div>';
   }).join('') || '<div style="padding:40px;text-align:center;color:var(--muted)">Нет записей</div>';
 }
 
@@ -1653,7 +1658,7 @@ function renderContextBar() {
   var sel = document.getElementById('ctx-product');
   if (!sel) return;
   sel.innerHTML = '<option value="">Все продукты</option>' +
-    PROJECTS.map(function(p) { return '<option value="'+p.id+'"'+(contextProduct===p.id?' selected':'')+'>'+p.name+'</option>'; }).join('');
+    PROJECTS.map(function(p) { return '<option value="'+p.id+'"'+(contextProduct===p.id?' selected':'')+'>'+escHtml(p.name)+'</option>'; }).join('');
   renderContextFilters();
   renderContextViewSwitch();
 }
@@ -1862,7 +1867,7 @@ function renderPortfolio() {
         : `<span class="track-v">${EI.svg('rocket',12)} Разработка</span>`;
       return `<div class="irow" onclick="openPRD('${item.id}')">
         <div class="iid"><span class="ilist-seg" title="${segLabel}">${EI.svg(segIcon,10)}</span> ${item.id}</div>
-        <div><div class="iname">${item.name}</div><div class="isub">${item.desc.substring(0,52)}${item.desc.length>52?'…':''}</div></div>
+        <div><div class="iname">${escHtml(item.name)}</div><div class="isub">${escHtml(item.desc.substring(0,52))}${item.desc.length>52?'…':''}</div></div>
         <div>${trackHtml}</div>
         <div><div class="iscore ${scClass(s)}">${s.toFixed(1)}</div><div class="iscl">RICE</div></div>
         <div style="text-align:right"><span class="ist ${ST_CLS[item.status]}">${ST_ICO[item.status]} ${ST_LBL[item.status]}</span></div>
@@ -1888,7 +1893,7 @@ function renderPortfolio() {
         initRows += `<div class="epic-section">
           <div class="epic-header">
             <span class="epic-icon">${EI.svg('map-pin',13)}</span>
-            <span class="epic-name">${epic.title}</span>
+            <span class="epic-name">${escHtml(epic.title)}</span>
             <span class="sdot ${ST_CLS[stCls]}" style="font-size:9px;padding:2px 6px">${epic.status}</span>
             <span class="epic-meta">G${epic.gate}</span>
             ${epicGoal ? `<span class="epic-goal-tag">↗ ${epicGoal.id}</span>` : ''}
@@ -1926,8 +1931,8 @@ function renderPortfolio() {
           <span class="player">${p.layer}</span>
           <button class="pcard-edit-btn" onclick="event.stopPropagation();openProdModal('${p.id}')" title="Редактировать продукт">${EI.svg('edit',12)}</button>
         </div>
-        <div class="pname">${p.name}</div>
-        <div class="pdesc">${p.desc}</div>
+        <div class="pname">${escHtml(p.name)}</div>
+        <div class="pdesc">${escHtml(p.desc)}</div>
         <div class="gate-bar">${gateBar}</div>
         <div class="gate-label-row">
           <span>G0 Заявка</span><span>G1 Концепт</span><span>G2 Прото</span><span>G3 Dev</span><span>G4 Разгон</span><span>G5 Экосист</span>
@@ -1958,7 +1963,7 @@ function renderPortfolio() {
               const doneKR = g.keyResults.filter(kr => kr.current >= kr.target).length;
               return `<div class="card-goal-item">
                 <span class="card-goal-id">${g.id}</span>
-                <span class="card-goal-title">${g.title}</span>
+                <span class="card-goal-title">${escHtml(g.title)}</span>
                 <span class="card-goal-progress">${doneKR}/${totalKR} KR</span>
               </div>`;
             }).join('')}
@@ -1973,7 +1978,7 @@ function renderPortfolio() {
           return '<div class="card-changelog">' +
             productLogs.map(function(l) {
               var timeAgo = getTimeAgo(l.ts);
-              return '<div class="cl-entry"><span class="cl-time">' + timeAgo + '</span><span class="cl-user">' + l.userName + '</span><span class="cl-action">' + l.action + ' ' + l.entityName + (l.field ? ' \u2192 ' + l.field : '') + '</span></div>';
+              return '<div class="cl-entry"><span class="cl-time">' + timeAgo + '</span><span class="cl-user">' + escHtml(l.userName) + '</span><span class="cl-action">' + escHtml(l.action) + ' ' + escHtml(l.entityName) + (l.field ? ' \u2192 ' + escHtml(l.field) : '') + '</span></div>';
             }).join('') +
           '</div>';
         })()}
@@ -2019,16 +2024,16 @@ function initSidebar() {
   const pf = document.getElementById('proj-filters');
   pf.innerHTML = `<button class="fbtn active" onclick="setF('project','all',this)"><span>Все продукты</span></button>` +
     PROJECTS.map(p => `<button class="fbtn" onclick="setF('project','${p.id}',this)">
-      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${p.color};margin-right:5px;vertical-align:middle"></span>${p.name}</span>
+      <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${p.color};margin-right:5px;vertical-align:middle"></span>${escHtml(p.name)}</span>
       <span class="fcount" id="fcp-${p.id}"></span>
     </button>`).join('');
 
   const sel = document.getElementById('ep-proj');
-  sel.innerHTML = PROJECTS.map(p => `<option value="${p.id}">${p.id} — ${p.name}</option>`).join('');
+  sel.innerHTML = PROJECTS.map(p => `<option value="${p.id}">${p.id} — ${escHtml(p.name)}</option>`).join('');
 
   document.getElementById('legend').innerHTML = PROJECTS.map(p => `
     <div class="leg-item" onclick="setF('project','${p.id}',null)">
-      <div class="leg-dot" style="background:${p.color}"></div>${p.id} · ${p.name}
+      <div class="leg-dot" style="background:${p.color}"></div>${p.id} · ${escHtml(p.name)}
     </div>`).join('');
 }
 
@@ -2096,8 +2101,8 @@ function renderItem(item, rank) {
   return `<div class="item${editId===item.id?' editing':''}" onclick="openPRD('${item.id}')">
     <div class="item-rank">#${rank}</div>
     <div class="item-main">
-      <div class="item-name">${item.name}</div>
-      <div class="item-desc">${item.desc}</div>
+      <div class="item-name">${escHtml(item.name)}</div>
+      <div class="item-desc">${escHtml(item.desc)}</div>
       <div class="item-meta">
         <span class="tag tag-${item.cat}">${CAT_LBL[item.cat]||item.cat}</span>
         ${trackTag}
@@ -2698,11 +2703,11 @@ function renderGoals() {
       const pct = Math.min(100, kr.target > 0 ? Math.round(kr.current / kr.target * 100) : 0);
       return `<div class="kr-row">
         <div class="kr-label">
-          <span class="kr-text">${kr.id}: ${kr.text}</span>
+          <span class="kr-text">${kr.id}: ${escHtml(kr.text)}</span>
           <span class="kr-progress">${kr.current}/${kr.target} ${kr.unit}</span>
         </div>
         <div class="kr-bar"><div class="kr-bar-fill" style="width:${pct}%"></div></div>
-        <div class="kr-inits">${((kr.initiativeIds || []).map(id => backlog.find(i => i.id === id)).filter(Boolean)).map(init => `<span class="kr-init-chip ${ST_CLS[init.status]}">${init.name}</span>`).join('')}</div>
+        <div class="kr-inits">${((kr.initiativeIds || []).map(id => backlog.find(i => i.id === id)).filter(Boolean)).map(init => `<span class="kr-init-chip ${ST_CLS[init.status]}">${escHtml(init.name)}</span>`).join('')}</div>
       </div>`;
     }).join('');
     return `<div class="goal-card">
@@ -2711,11 +2716,11 @@ function renderGoals() {
         <div class="goal-info">
           <div class="goal-meta">
             <span class="goal-type ${typeCls}">${goal.type}</span>
-            <span class="goal-period">${goal.period}</span>
-            <span class="goal-owner">${goal.owner}</span>
+            <span class="goal-period">${escHtml(goal.period)}</span>
+            <span class="goal-owner">${escHtml(goal.owner)}</span>
             ${statusDot}
           </div>
-          <div class="goal-title">${goal.title}</div>
+          <div class="goal-title">${escHtml(goal.title)}</div>
         </div>
       </div>
       <div class="kr-list">${krRows}</div>
@@ -2967,13 +2972,13 @@ function renderGoalPreview(goalId) {
     const pct = Math.min(100, kr.target > 0 ? Math.round(kr.current / kr.target * 100) : 0);
     return `<div class="goal-preview-kr">
       <div class="goal-preview-kr-label">
-        <span class="goal-preview-kr-text">${kr.id}: ${kr.text}</span>
+        <span class="goal-preview-kr-text">${kr.id}: ${escHtml(kr.text)}</span>
         <span class="goal-preview-kr-val">${kr.current}/${kr.target}</span>
       </div>
       <div class="goal-preview-bar"><div class="goal-preview-bar-fill" style="width:${pct}%"></div></div>
     </div>`;
   }).join('');
-  container.innerHTML = `<div class="goal-preview-title">${goal.id} \u00B7 ${goal.title}</div>${krHtml}`;
+  container.innerHTML = `<div class="goal-preview-title">${goal.id} \u00B7 ${escHtml(goal.title)}</div>${krHtml}`;
   container.style.display = 'flex';
 }
 
@@ -3108,12 +3113,12 @@ function deleteGoalConfirm() {
 // ════════════════════════════════════════════
 let portfolioView='cards';
 function setPortfolioView(view,btn){portfolioView=view;document.querySelectorAll('#active-views .view-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('portfolio-cards').style.display=view==='cards'?'':'none';document.getElementById('portfolio-table').style.display=view==='table'?'':'none';document.getElementById('portfolio-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderPortfolioTable();if(view==='kanban')renderPortfolioKanban();}
-function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Продукт</th><th>Орбита</th><th>Статус</th><th>Владелец</th><th>Целей</th><th>Инициатив</th></tr></thead><tbody>';PROJECTS.forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pGoals=goals.filter(function(g){return g.productId===p.id;});var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});html+='<tr onclick="togglePC(\''+p.id+'\')"><td><strong>'+p.name+'</strong></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+(p.owner||'\u2014')+'</td><td>'+pGoals.length+'</td><td>'+pInits.length+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
-function renderPortfolioKanban(){var el=document.getElementById('portfolio-kanban');var html='<div class="kanban-board">';STAGES.forEach(function(s,idx){var prods=PROJECTS.filter(function(p){return p.gate===idx;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+s.color+'"><span class="kanban-col-name">'+s.name+'</span><span class="kanban-col-count">'+prods.length+'</span></div><div class="kanban-col-body">';prods.forEach(function(p){html+='<div class="kanban-card" onclick="togglePC(\''+p.id+'\')"><div class="kanban-card-name">'+p.name+'</div><div class="kanban-card-meta">'+(p.owner||'')+' \u00b7 '+p.status+'</div></div>';});if(!prods.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
+function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Продукт</th><th>Орбита</th><th>Статус</th><th>Владелец</th><th>Целей</th><th>Инициатив</th></tr></thead><tbody>';PROJECTS.forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pGoals=goals.filter(function(g){return g.productId===p.id;});var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});html+='<tr onclick="togglePC(\''+p.id+'\')"><td><strong>'+escHtml(p.name)+'</strong></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+escHtml(p.owner||'\u2014')+'</td><td>'+pGoals.length+'</td><td>'+pInits.length+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
+function renderPortfolioKanban(){var el=document.getElementById('portfolio-kanban');var html='<div class="kanban-board">';STAGES.forEach(function(s,idx){var prods=PROJECTS.filter(function(p){return p.gate===idx;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+s.color+'"><span class="kanban-col-name">'+s.name+'</span><span class="kanban-col-count">'+prods.length+'</span></div><div class="kanban-col-body">';prods.forEach(function(p){html+='<div class="kanban-card" onclick="togglePC(\''+p.id+'\')"><div class="kanban-card-name">'+escHtml(p.name)+'</div><div class="kanban-card-meta">'+escHtml(p.owner||'')+' \u00b7 '+p.status+'</div></div>';});if(!prods.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
 let backlogView='list';
 function setBacklogView(view,btn){backlogView=view;document.querySelectorAll('#active-views .view-btn').forEach(function(b){b.classList.remove('active');});if(btn)btn.classList.add('active');document.getElementById('backlog-list-wrap').style.display=view==='list'?'':'none';document.getElementById('backlog-table-wrap').style.display=view==='table'?'':'none';document.getElementById('backlog-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderBacklogTable();if(view==='kanban')renderBacklogKanban();}
-function renderBacklogTable(){var items=getFiltered();var el=document.getElementById('backlog-table-wrap');var html='<table class="ptr-table"><thead><tr><th>ID</th><th>Название</th><th>Продукт</th><th>Статус</th><th>Трек</th><th>RICE</th></tr></thead><tbody>';items.forEach(function(item){var s=sc(item);html+='<tr onclick="openPRD(\''+item.id+'\')"><td style="font-family:var(--mono);font-size:10px;color:var(--muted)">'+item.id+'</td><td><strong>'+item.name+'</strong></td><td>'+(item.productId||item.project)+'</td><td><span class="sdot '+ST_CLS[item.status]+'">'+ST_LBL[item.status]+'</span></td><td>'+(item.track==='discovery'?'Исследование':'Разработка')+'</td><td><span class="iscore '+scClass(s)+'">'+s.toFixed(1)+'</span></td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
-function renderBacklogKanban(){var items=getFiltered();var el=document.getElementById('backlog-kanban');var cols=[{key:'backlog',label:'Бэклог',color:'var(--muted)'},{key:'planned',label:'Запланировано',color:'#C4B5FD'},{key:'wip',label:'В работе',color:'var(--teal)'},{key:'done',label:'Готово',color:'var(--green)'}];var html='<div class="kanban-board">';cols.forEach(function(col){var colItems=items.filter(function(i){return i.status===col.key;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+col.color+'"><span class="kanban-col-name">'+col.label+'</span><span class="kanban-col-count">'+colItems.length+'</span></div><div class="kanban-col-body">';colItems.forEach(function(item){var s=sc(item);html+='<div class="kanban-card" onclick="openPRD(\''+item.id+'\')"><div class="kanban-card-name">'+item.name+'</div><div class="kanban-card-meta">'+(item.productId||item.project)+' \u00b7 RICE '+s.toFixed(1)+'</div></div>';});if(!colItems.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
+function renderBacklogTable(){var items=getFiltered();var el=document.getElementById('backlog-table-wrap');var html='<table class="ptr-table"><thead><tr><th>ID</th><th>Название</th><th>Продукт</th><th>Статус</th><th>Трек</th><th>RICE</th></tr></thead><tbody>';items.forEach(function(item){var s=sc(item);html+='<tr onclick="openPRD(\''+item.id+'\')"><td style="font-family:var(--mono);font-size:10px;color:var(--muted)">'+item.id+'</td><td><strong>'+escHtml(item.name)+'</strong></td><td>'+(item.productId||item.project)+'</td><td><span class="sdot '+ST_CLS[item.status]+'">'+ST_LBL[item.status]+'</span></td><td>'+(item.track==='discovery'?'Исследование':'Разработка')+'</td><td><span class="iscore '+scClass(s)+'">'+s.toFixed(1)+'</span></td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
+function renderBacklogKanban(){var items=getFiltered();var el=document.getElementById('backlog-kanban');var cols=[{key:'backlog',label:'Бэклог',color:'var(--muted)'},{key:'planned',label:'Запланировано',color:'#C4B5FD'},{key:'wip',label:'В работе',color:'var(--teal)'},{key:'done',label:'Готово',color:'var(--green)'}];var html='<div class="kanban-board">';cols.forEach(function(col){var colItems=items.filter(function(i){return i.status===col.key;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+col.color+'"><span class="kanban-col-name">'+col.label+'</span><span class="kanban-col-count">'+colItems.length+'</span></div><div class="kanban-col-body">';colItems.forEach(function(item){var s=sc(item);html+='<div class="kanban-card" onclick="openPRD(\''+item.id+'\')"><div class="kanban-card-name">'+escHtml(item.name)+'</div><div class="kanban-card-meta">'+(item.productId||item.project)+' \u00b7 RICE '+s.toFixed(1)+'</div></div>';});if(!colItems.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
 renderPortfolio();
 initSidebar();
 renderContextBar();
