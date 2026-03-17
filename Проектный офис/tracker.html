@@ -2,7 +2,7 @@
 
 <html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ОРБИТА · Трекер продуктов и инициатив</title>
+<title>ОРБИТА · Реестр</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -185,10 +185,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .tag-content{background:var(--pink-dim);color:#F9A8D4;border-color:rgba(255,45,138,.3)}
 .tag-infra{background:var(--red-dim);color:#FCA5A5;border-color:rgba(239,68,68,.3)}
 .ptag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap;border:1px solid transparent}
-.pt-DEMO{background:rgba(123,47,255,0.12);border-color:rgba(123,47,255,0.3);color:#A78BFA}
-.pt-P01{background:rgba(255,133,192,.14);color:#FF85C0;border-color:rgba(255,133,192,.3)}
-.pt-P02{background:rgba(79,195,247,.14);color:#4FC3F7;border-color:rgba(79,195,247,.3)}
-.pt-P03{background:rgba(0,212,180,.14);color:#00D4B4;border-color:rgba(0,212,180,.3)}
+.pt-ECO-00{background:rgba(123,47,255,0.12);border-color:rgba(123,47,255,0.3);color:#A78BFA}
+.pt-ECO-01{background:rgba(255,133,192,.14);color:#FF85C0;border-color:rgba(255,133,192,.3)}
+.pt-ECO-02{background:rgba(79,195,247,.14);color:#4FC3F7;border-color:rgba(79,195,247,.3)}
+.pt-ECO-03{background:rgba(0,212,180,.14);color:#00D4B4;border-color:rgba(0,212,180,.3)}
 .aud{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border)}
 .rice{display:flex;flex-direction:column;gap:2px}
 .rrow{display:flex;align-items:center;gap:5px;font-size:10px}
@@ -311,8 +311,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .epic-inits{padding-left:10px}
 .no-epic-header{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;margin-bottom:5px}
 .no-epic-header .epic-name{color:var(--muted)}
-.add-init-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:7px 12px;border:1px dashed rgba(79,195,247,.3);border-radius:8px;background:none;color:var(--muted);font-size:11px;font-family:var(--font);font-weight:600;cursor:pointer;margin-top:8px;transition:all .15s}
-.add-init-btn:hover{border-color:var(--violet);color:#C4B5FD;background:var(--violet-dim)}
 
 /* ── GOAL CARDS ── */
 .goals-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
@@ -497,6 +495,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 </style>
   <script src="../icons.js"></script>
   <script src="../platform.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/auth-ui.js"></script>
 <script src="../nav.js"></script>
 </head>
 <body>
@@ -1461,12 +1461,14 @@ const STAGES = [
 // ════════════════════════════════════════════
 const PROJECTS_DEFAULT = [
   {
-    id: 'DEMO', name: '\u{1F4A1} ОРБИТА Демо',
-    desc: 'Эталонный продукт-пример. Показывает как заполнять карточку, ставить цели, вести инициативы и проходить Gate.',
-    gate: 2, status: 'on-track', cat: 'internal', catLabel: 'Демо',
+    id: 'ECO-00', name: 'ОРБИТА',
+    desc: 'Платформа управления портфелем. Эталонный продукт-пример для онбординга команд.',
+    gate: 2, status: 'on-track', cat: 'internal', catLabel: 'Платформа',
     owner: 'Проектный офис', color: '#7B2FFF', release: 'Q1 2026',
     updated: '2026-03-17', quarter: 'Q1 2026', pilot: false,
-    trackerUrl: 'https://youtrack.example.com/project/DEMO', trackerType: 'youtrack',
+    trackerUrl: '', trackerType: '',
+    teamSize: 5, requiredSize: 5, launchDate: '2026-04-01', nextGateDate: '2026-04-10',
+    blockers: '', pmoVerified: { date: '2026-03-17', by: 'U001', status: 'verified' },
     kpi: [
       { icon: 'users', value: '500', label: 'Activation' },
       { icon: 'trending-up', value: '28%', label: 'Retention D7' },
@@ -1475,12 +1477,15 @@ const PROJECTS_DEFAULT = [
     initiatives: ['D001','D002','D003','D004','D005','D006']
   },
   {
-    id: 'P01', name: 'Маркетплейс К',
-    desc: 'Маркетплейс для детской аудитории — товары, контент, обучение',
+    id: 'ECO-01', name: 'ECO-01',
+    desc: 'Маркетплейс для детской аудитории',
+    fullName: '', // Заполняется админом, видно только admin/pmo
     gate: 3, status: 'on-track', cat: 'b2c', catLabel: 'B2C',
     owner: 'PM Team', color: '#FF85C0', release: 'Q1 2026',
     updated: '2026-03-17', quarter: 'Q1 2026', pilot: true,
     trackerUrl: '', trackerType: 'youtrack',
+    teamSize: 8, requiredSize: 10, launchDate: '2026-06-01', nextGateDate: '2026-04-15',
+    blockers: '', pmoVerified: { date: '2026-03-15', by: 'U001', status: 'verified' },
     kpi: [
       { icon: 'users', value: '12K', label: 'MAU' },
       { icon: 'trending-up', value: '34%', label: 'Retention D30' },
@@ -1489,12 +1494,15 @@ const PROJECTS_DEFAULT = [
     initiatives: ['I001','I002','I003']
   },
   {
-    id: 'P02', name: 'Генератор О',
-    desc: 'Сервис генерации обучающего контента на базе AI',
+    id: 'ECO-02', name: 'ECO-02',
+    desc: 'Сервис генерации обучающего контента',
+    fullName: '', // Заполняется админом, видно только admin/pmo
     gate: 1, status: 'on-track', cat: 'b2b', catLabel: 'B2B',
-    owner: 'PM Team', color: '#4FC3F7', release: 'Q2 2026',
+    owner: 'PM Team', color: '#4FC3F7', release: 'Q1 2026',
     updated: '2026-03-17', quarter: 'Q1 2026', pilot: true,
     trackerUrl: '', trackerType: 'youtrack',
+    teamSize: 4, requiredSize: 6, launchDate: '2026-09-01', nextGateDate: '2026-05-01',
+    blockers: 'Ждём результаты CustDev', pmoVerified: { date: '2026-03-10', by: 'U001', status: 'issues' },
     kpi: [
       { icon: 'zap', value: '7', label: 'CustDev' },
       { icon: 'file-text', value: 'Draft', label: 'PSF' }
@@ -1502,12 +1510,15 @@ const PROJECTS_DEFAULT = [
     initiatives: ['I004','I005']
   },
   {
-    id: 'P03', name: 'Сервис З',
-    desc: 'Сервис для знакомств в экосистеме WB',
+    id: 'ECO-03', name: 'ECO-03',
+    desc: 'Сервис для знакомств в экосистеме',
+    fullName: '', // Заполняется админом, видно только admin/pmo
     gate: 0, status: 'at-risk', cat: 'b2c', catLabel: 'B2C',
-    owner: 'PM Team', color: '#00D4B4', release: 'Q2 2026',
+    owner: 'PM Team', color: '#00D4B4', release: 'Q1 2026',
     updated: '2026-03-17', quarter: 'Q1 2026', pilot: true,
     trackerUrl: '', trackerType: '',
+    teamSize: 2, requiredSize: 4, launchDate: '', nextGateDate: '',
+    blockers: 'Brief не заполнен', pmoVerified: { date: '', by: '', status: 'pending' },
     kpi: [],
     initiatives: ['I006','I007']
   }
@@ -1522,19 +1533,19 @@ let gateChecklist = {};
 try { gateChecklist = (window.PT ? PT.load('ECOTECH_GATE_CHECKLIST') : JSON.parse(localStorage.getItem('ECOTECH_GATE_CHECKLIST'))) || {}; } catch(e) {}
 
 const BACKLOG_DEFAULT = [
-  { id:'D001', productId:'DEMO', project:'DEMO', track:'delivery', name:'Онбординг-флоу для новых юзеров', desc:'Пошаговый wizard при первом входе \u2192 рост Retention D7', cat:'feature', segment:'product', r:9, i:8, c:7, e:4, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
-  { id:'D002', productId:'DEMO', project:'DEMO', track:'review', name:'NPS-опрос + action plan', desc:'Ежемесячный NPS-замер, анализ детракторов, план улучшений', cat:'process', segment:'product', r:10, i:6, c:8, e:2, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
-  { id:'D003', productId:'DEMO', project:'DEMO', track:'discovery', name:'A/B тест лендинга', desc:'3 варианта лендинга, замер конверсии в регистрацию', cat:'feature', segment:'product', r:8, i:7, c:6, e:3, status:'planned', created:'2026-03-05', updated:'2026-03-17' },
-  { id:'D004', productId:'DEMO', project:'DEMO', track:'delivery', name:'Push-уведомления', desc:'Триггерные пуши для возврата неактивных юзеров', cat:'feature', segment:'tech', r:7, i:6, c:5, e:5, status:'backlog', created:'2026-03-10', updated:'2026-03-17' },
-  { id:'D005', productId:'DEMO', project:'DEMO', track:'discovery', name:'P&L модель 3 сценария', desc:'Финансовая модель: базовый, оптимистичный, пессимистичный', cat:'process', segment:'business', r:8, i:9, c:7, e:3, status:'planned', created:'2026-03-10', updated:'2026-03-17' },
-  { id:'D006', productId:'DEMO', project:'DEMO', track:'discovery', name:'Unit economics: CAC и LTV', desc:'Расчёт стоимости привлечения и жизненной ценности клиента', cat:'process', segment:'business', r:7, i:8, c:5, e:4, status:'backlog', created:'2026-03-12', updated:'2026-03-17' },
-  { id:'I001', productId:'P01', project:'P01', track:'delivery', name:'Геймификация покупок', desc:'Игровые механики для увеличения retention', cat:'feature', segment:'product', r:8, i:7, c:7, e:4, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I002', productId:'P01', project:'P01', track:'review', name:'NPS-опрос и анализ', desc:'Ежемесячный NPS-замер + action plan по детракторам', cat:'process', segment:'product', r:10, i:6, c:8, e:2, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I003', productId:'P01', project:'P01', track:'discovery', name:'Unit economics модель', desc:'P&L модель + CAC/LTV расчёт для Gate 4', cat:'process', segment:'business', r:8, i:9, c:6, e:3, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I004', productId:'P02', project:'P02', track:'discovery', name:'CustDev образовательных учреждений', desc:'7-10 интервью с учителями и методистами', cat:'process', segment:'product', r:9, i:8, c:5, e:3, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I005', productId:'P02', project:'P02', track:'delivery', name:'MVP генератора контента', desc:'Прототип AI-генератора учебных материалов', cat:'feature', segment:'tech', r:8, i:9, c:4, e:7, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I006', productId:'P03', project:'P03', track:'discovery', name:'Product Brief Сервис З', desc:'Заполнить бриф: проблема, ЦА, RICE, OKR', cat:'process', segment:'product', r:7, i:7, c:8, e:1, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I007', productId:'P03', project:'P03', track:'discovery', name:'Анализ рынка знакомств', desc:'Конкуренты, TAM/SAM, позиционирование', cat:'process', segment:'business', r:6, i:6, c:5, e:2, status:'backlog', created:'2026-03-17', updated:'2026-03-17' }
+  { id:'D001', productId:'ECO-00', project:'ECO-00', track:'delivery', name:'Онбординг-флоу для новых юзеров', desc:'Пошаговый wizard при первом входе \u2192 рост Retention D7', cat:'feature', segment:'product', r:9, i:8, c:7, e:4, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
+  { id:'D002', productId:'ECO-00', project:'ECO-00', track:'review', name:'NPS-опрос + action plan', desc:'Ежемесячный NPS-замер, анализ детракторов, план улучшений', cat:'process', segment:'product', r:10, i:6, c:8, e:2, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
+  { id:'D003', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'A/B тест лендинга', desc:'3 варианта лендинга, замер конверсии в регистрацию', cat:'feature', segment:'product', r:8, i:7, c:6, e:3, status:'planned', created:'2026-03-05', updated:'2026-03-17' },
+  { id:'D004', productId:'ECO-00', project:'ECO-00', track:'delivery', name:'Push-уведомления', desc:'Триггерные пуши для возврата неактивных юзеров', cat:'feature', segment:'tech', r:7, i:6, c:5, e:5, status:'backlog', created:'2026-03-10', updated:'2026-03-17' },
+  { id:'D005', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'P&L модель 3 сценария', desc:'Финансовая модель: базовый, оптимистичный, пессимистичный', cat:'process', segment:'business', r:8, i:9, c:7, e:3, status:'planned', created:'2026-03-10', updated:'2026-03-17' },
+  { id:'D006', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'Unit economics: CAC и LTV', desc:'Расчёт стоимости привлечения и жизненной ценности клиента', cat:'process', segment:'business', r:7, i:8, c:5, e:4, status:'backlog', created:'2026-03-12', updated:'2026-03-17' },
+  { id:'I001', productId:'ECO-01', project:'ECO-01', track:'delivery', name:'Геймификация покупок', desc:'Игровые механики для увеличения retention', cat:'feature', segment:'product', r:8, i:7, c:7, e:4, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I002', productId:'ECO-01', project:'ECO-01', track:'review', name:'NPS-опрос и анализ', desc:'Ежемесячный NPS-замер + action plan по детракторам', cat:'process', segment:'product', r:10, i:6, c:8, e:2, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I003', productId:'ECO-01', project:'ECO-01', track:'discovery', name:'Unit economics модель', desc:'P&L модель + CAC/LTV расчёт для Gate 4', cat:'process', segment:'business', r:8, i:9, c:6, e:3, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I004', productId:'ECO-02', project:'ECO-02', track:'discovery', name:'CustDev образовательных учреждений', desc:'7-10 интервью с учителями и методистами', cat:'process', segment:'product', r:9, i:8, c:5, e:3, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I005', productId:'ECO-02', project:'ECO-02', track:'delivery', name:'MVP генератора контента', desc:'Прототип AI-генератора учебных материалов', cat:'feature', segment:'tech', r:8, i:9, c:4, e:7, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I006', productId:'ECO-03', project:'ECO-03', track:'discovery', name:'Product Brief Сервис З', desc:'Заполнить бриф: проблема, ЦА, RICE, OKR', cat:'process', segment:'product', r:7, i:7, c:8, e:1, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I007', productId:'ECO-03', project:'ECO-03', track:'discovery', name:'Анализ рынка знакомств', desc:'Конкуренты, TAM/SAM, позиционирование', cat:'process', segment:'business', r:6, i:6, c:5, e:2, status:'backlog', created:'2026-03-17', updated:'2026-03-17' }
 ];
 
 // ════════════════════════════════════════════
@@ -1543,7 +1554,7 @@ const BACKLOG_DEFAULT = [
 const GOALS_DEFAULT = [
   {
     id: 'GD01', title: '\u{1F3AF} Демо: подтвердить PMF и выйти на Gate 3',
-    type: 'product', period: 'Q1 2026', owner: 'PM Демо', status: 'active', productId: 'DEMO',
+    type: 'product', period: 'Q1 2026', owner: 'PM Демо', status: 'active', productId: 'ECO-00',
     keyResults: [
       { id: 'KR1', text: 'Retention D7 >= 35%', target: 35, current: 28, unit: '%', initiativeIds: ['D001'], history:{'2026-01':15,'2026-02':22,'2026-03':28} },
       { id: 'KR2', text: 'NPS >= 40', target: 40, current: 35, unit: 'pts', initiativeIds: ['D002'], history:{'2026-01':20,'2026-02':28,'2026-03':35} },
@@ -1552,7 +1563,7 @@ const GOALS_DEFAULT = [
   },
   {
     id: 'GD02', title: '\u{1F3AF} Демо: подготовить P&L для инвест-комитета',
-    type: 'strategic', period: 'Q2 2026', owner: 'Бизнес-лид', status: 'active', productId: 'DEMO',
+    type: 'strategic', period: 'Q2 2026', owner: 'Бизнес-лид', status: 'active', productId: 'ECO-00',
     keyResults: [
       { id: 'KR1', text: 'P&L модель готова (3 сценария)', target: 1, current: 0, unit: 'документ', initiativeIds: ['D005'], history:{} },
       { id: 'KR2', text: 'CAC < LTV подтверждён', target: 1, current: 0, unit: 'да/нет', initiativeIds: ['D006'], history:{} }
@@ -1560,7 +1571,7 @@ const GOALS_DEFAULT = [
   },
   {
     id: 'G001', title: 'Маркетплейс К: выход на Gate 4 (Экосистема)',
-    type: 'product', period: 'H1 2026', owner: 'CPO', status: 'active', productId: 'P01',
+    type: 'product', period: 'H1 2026', owner: 'CPO', status: 'active', productId: 'ECO-01',
     keyResults: [
       { id: 'KR1', text: 'Retention D30 >= 40%', target: 40, current: 34, unit: '%', initiativeIds: ['I001'], history:{'2026-01':22,'2026-02':28,'2026-03':34} },
       { id: 'KR2', text: 'NPS >= 50', target: 50, current: 42, unit: 'pts', initiativeIds: ['I002'], history:{'2026-01':30,'2026-02':36,'2026-03':42} },
@@ -1569,7 +1580,7 @@ const GOALS_DEFAULT = [
   },
   {
     id: 'G002', title: 'Генератор О: подтвердить PSF и запустить MVP',
-    type: 'product', period: 'Q2 2026', owner: 'CPO', status: 'active', productId: 'P02',
+    type: 'product', period: 'Q2 2026', owner: 'CPO', status: 'active', productId: 'ECO-02',
     keyResults: [
       { id: 'KR1', text: 'PSF подтверждён (7+ интервью)', target: 7, current: 4, unit: 'интервью', initiativeIds: ['I004'], history:{'2026-01':1,'2026-02':3,'2026-03':4} },
       { id: 'KR2', text: 'MVP в production', target: 1, current: 0, unit: 'продукт', initiativeIds: ['I005'], history:{} }
@@ -1577,7 +1588,7 @@ const GOALS_DEFAULT = [
   },
   {
     id: 'G003', title: 'Сервис З: пройти Gate 0 и начать Разведку',
-    type: 'strategic', period: 'Q1 2026', owner: 'CPO', status: 'active', productId: 'P03',
+    type: 'strategic', period: 'Q1 2026', owner: 'CPO', status: 'active', productId: 'ECO-03',
     keyResults: [
       { id: 'KR1', text: 'Product Brief заполнен', target: 1, current: 0, unit: 'бриф', initiativeIds: ['I006'], history:{} },
       { id: 'KR2', text: 'RICE >= 100', target: 100, current: 0, unit: 'score', initiativeIds: ['I007'], history:{} }
@@ -1586,10 +1597,10 @@ const GOALS_DEFAULT = [
 ];
 
 const EPICS_DEFAULT = [
-  { id:'ED01', title:'Retention Sprint Q1', productId:'DEMO', goalId:'GD01', status:'active', gate:2, initiativeId:null, phase:'delivery', priority:1, quarter:'Q1 2026', owner:'', dorDone:false, dodDone:false },
-  { id:'ED02', title:'P&L подготовка', productId:'DEMO', goalId:'GD02', status:'planned', gate:2, initiativeId:null, phase:'delivery', priority:1, quarter:'Q1 2026', owner:'', dorDone:false, dodDone:false },
-  { id:'E001', title:'Геймификация Q1', productId:'P01', goalId:'G001', status:'active', gate:3, initiativeId:null, phase:'delivery', priority:1, quarter:'Q1 2026', owner:'', dorDone:false, dodDone:false },
-  { id:'E002', title:'CustDev волна 1', productId:'P02', goalId:'G002', status:'active', gate:1, initiativeId:null, phase:'delivery', priority:1, quarter:'Q1 2026', owner:'', dorDone:false, dodDone:false }
+  { id:'ED01', title:'Retention Sprint Q1', productId:'ECO-00', goalId:'GD01', status:'active', gate:2, initiativeId:null, phase:'delivery', priority:1, quarter:'Q1 2026', owner:'', dorDone:false, dodDone:false },
+  { id:'ED02', title:'P&L подготовка', productId:'ECO-00', goalId:'GD02', status:'planned', gate:2, initiativeId:null, phase:'delivery', priority:1, quarter:'Q1 2026', owner:'', dorDone:false, dodDone:false },
+  { id:'E001', title:'Геймификация Q1', productId:'ECO-01', goalId:'G001', status:'active', gate:3, initiativeId:null, phase:'delivery', priority:1, quarter:'Q1 2026', owner:'', dorDone:false, dodDone:false },
+  { id:'E002', title:'CustDev волна 1', productId:'ECO-02', goalId:'G002', status:'active', gate:1, initiativeId:null, phase:'delivery', priority:1, quarter:'Q1 2026', owner:'', dorDone:false, dodDone:false }
 ];
 
 // Epic assignments for existing BACKLOG items (used in migration)
@@ -1632,6 +1643,16 @@ goals.forEach(g => {
 backlog.forEach(item => {
   if (!('businessMetric' in item.prd)) item.prd.businessMetric = '';
   if (!('recommendation' in item.prd)) item.prd.recommendation = '';
+});
+
+// Migrate CEO dashboard fields
+PROJECTS.forEach(function(p) {
+  if (!p.teamSize) p.teamSize = 0;
+  if (!p.requiredSize) p.requiredSize = 0;
+  if (!p.launchDate) p.launchDate = '';
+  if (!p.nextGateDate) p.nextGateDate = '';
+  if (!p.blockers) p.blockers = '';
+  if (!p.pmoVerified) p.pmoVerified = { date:'', by:'', status:'pending' };
 });
 
 var changelog = [];
@@ -2056,7 +2077,6 @@ function renderPortfolio() {
           Инициативы (${items.length}) · по RICE score
         </div>
         <div class="ilist">${initRows}</div>
-        <button class="add-init-btn" onclick="event.stopPropagation();addInitiative('${p.id}')">+ Добавить инициативу</button>
         ${(() => {
           const productGoals = goals.filter(g => g.productId === p.id);
           if (!productGoals.length) return '';
@@ -2671,6 +2691,7 @@ function saveEP() {
   if (window.OrbAuth && !OrbAuth.can('canEdit')) { showToast('Недостаточно прав для редактирования'); return; }
   const item = backlog.find(i => i.id === editId);
   if (!item) return;
+  if (window.OrbAuth && !OrbAuth.canEditProduct(item.productId || item.project)) { showToast('Нет прав на этот продукт'); return; }
   item.r=+document.getElementById('ep-r').value;
   item.i=+document.getElementById('ep-i').value;
   item.c=+document.getElementById('ep-c').value;
@@ -2799,7 +2820,7 @@ function renderGoals() {
   const container = document.getElementById('goals-list');
   if (!container) return;
   if (!goals.length) {
-    container.innerHTML = '<div class="empty">Нет целей — нажмите [+ Добавить цель]</div>';
+    container.innerHTML = '<div class="empty">Нет целей — используйте [+ Создать] в панели инструментов</div>';
     return;
   }
   container.innerHTML = goals.map(goal => {
@@ -2915,7 +2936,12 @@ function closeProdModal() {
 }
 
 function saveProdModal() {
-  if (window.OrbAuth && !OrbAuth.can('canCreate')) { showToast('Только Admin может создавать продукты'); return; }
+  if (curEditPid) {
+    if (window.OrbAuth && !OrbAuth.can('canEdit')) { showToast('Недостаточно прав для редактирования'); return; }
+    if (window.OrbAuth && !OrbAuth.canEditProduct(curEditPid)) { showToast('Нет прав на этот продукт'); return; }
+  } else {
+    if (window.OrbAuth && !OrbAuth.can('canCreate')) { showToast('Только Admin может создавать продукты'); return; }
+  }
   const nameEl = document.getElementById('prodm-name');
   const name = nameEl.value.trim();
   if (!name) { nameEl.style.borderColor = '#F87171'; nameEl.focus(); return; }
@@ -2975,6 +3001,7 @@ function deleteProductConfirm() {
 }
 
 function editEpicUrl(epicId) {
+  if (window.OrbAuth && !OrbAuth.can('canEdit')) { showToast('Недостаточно прав'); return; }
   const epic = epics.find(e => e.id === epicId);
   if (!epic) return;
   const url = prompt('Ссылка на таск-трекер команды (Jira, YouTrack…):', epic.trackerUrl || '');
@@ -2986,6 +3013,7 @@ function editEpicUrl(epicId) {
 
 function addInitiative(projectId) {
   if (window.OrbAuth && !OrbAuth.can('canCreate')) { showToast('Недостаточно прав'); return; }
+  if (window.OrbAuth && !OrbAuth.canEditProduct(projectId)) { showToast('Нет прав на этот продукт'); return; }
   const existingIds = backlog.map(i => i.id);
   let newId = 'N01';
   for (let n = 1; n <= 99; n++) {
@@ -3268,13 +3296,13 @@ renderContextBar();
 // ── ONBOARDING ──
 var OB_STEPS = [
   {
-    title: 'Добро пожаловать в Трекер ОРБИТА!',
+    title: 'Добро пожаловать в Реестр ОРБИТА!',
     body: 'Здесь отслеживается статус Gate для каждого продукта и инициативы. Все данные хранятся в вашем браузере.',
     anchor: null
   },
   {
     title: 'Вкладки навигации',
-    body: 'Используй вкладки: <strong>Портфель</strong> — продукты и инициативы, <strong>Беклог</strong> — список инициатив, <strong>Трекер</strong> — Gate-прогресс, <strong>Цели</strong> — OKR.',
+    body: 'Используй вкладки: <strong>Портфель</strong> — продукты и инициативы, <strong>Беклог</strong> — список инициатив, <strong>Реестр</strong> — Gate-прогресс, <strong>Цели</strong> — OKR.',
     anchor: '.tt-left'
   },
   {

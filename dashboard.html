@@ -12,9 +12,9 @@
   --border:rgba(255,255,255,.07);--border-hi:rgba(255,255,255,.14);
   --violet:#4FC3F7;--vdim:rgba(79,195,247,.12);--vborder:rgba(79,195,247,.35);
   --pink:#FF2D8A;--teal:#00D4B4;--tdim:rgba(0,212,180,.10);
-  --amber:#FFB830;--adim:rgba(255,184,48,.10);
+  --amber:#FFB830;--adim:rgba(255,184,48,.10);--aborder:rgba(255,184,48,.3);
   --green:#34D399;--gdim:rgba(52,211,153,.10);--gborder:rgba(52,211,153,.3);
-  --red:#F87171;--rdim:rgba(248,113,113,.10);
+  --red:#F87171;--rdim:rgba(248,113,113,.10);--rborder:rgba(248,113,113,.3);
   --text:#E8E6FF;--muted:#7A7A9D;--white:#fff;
   --font:'Exo 2',sans-serif;--head:'Orbitron',sans-serif;--mono:monospace;
   --nav-h:48px;
@@ -23,128 +23,102 @@ html,body{height:100%}
 body{font-family:var(--font);background:var(--dark);color:var(--text);display:flex;flex-direction:column;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.02;pointer-events:none;z-index:0}
 
-/* ── Layout ───────────────────────────────────── */
+/* ── Layout ─────────────────────────────── */
 .page{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:24px 32px 64px;width:100%}
 .dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
 .dash-title{font-family:var(--head);font-size:16px;font-weight:700;letter-spacing:.04em;color:var(--white)}
 .dash-title span{color:var(--violet);margin-right:6px}
 .dash-meta{font-size:12px;color:var(--muted);font-weight:400}
 
-/* ── Access denied ────────────────────────────── */
+/* ── Access denied ──────────────────────── */
 .access-denied{text-align:center;padding:120px 20px;color:var(--muted)}
 .access-denied h2{font-family:var(--head);font-size:18px;color:var(--red);margin-bottom:12px}
 
-/* ── KPI Strip ────────────────────────────────── */
-.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+/* ── KPI Strip ──────────────────────────── */
+.kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px}
 .kpi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:6px;transition:border-color .2s}
 .kpi-card:hover{border-color:var(--border-hi)}
-.kpi-value{font-family:var(--head);font-size:28px;font-weight:900;color:var(--white)}
+.kpi-value{font-family:var(--head);font-size:26px;font-weight:900;color:var(--white)}
 .kpi-label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
 .kpi-card.kpi-violet .kpi-value{color:var(--violet)}
 .kpi-card.kpi-teal .kpi-value{color:var(--teal)}
 .kpi-card.kpi-amber .kpi-value{color:var(--amber)}
 .kpi-card.kpi-green .kpi-value{color:var(--green)}
+.kpi-card.kpi-red .kpi-value{color:var(--red)}
+.kpi-sub{font-size:10px;color:var(--muted)}
 
-/* ── Section ──────────────────────────────────── */
+/* ── Section ────────────────────────────── */
 .section{margin-bottom:28px}
 .section-head{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .section-head .ei{opacity:.6}
 
-/* ── Gate Funnel ──────────────────────────────── */
-.funnel-bar{display:flex;height:40px;border-radius:10px;overflow:hidden;background:var(--card);border:1px solid var(--border)}
-.funnel-seg{display:flex;align-items:center;justify-content:center;min-width:32px;font-family:var(--head);font-size:10px;font-weight:700;color:rgba(0,0,0,.8);transition:flex .3s}
-.funnel-seg:hover{filter:brightness(1.15)}
-.funnel-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px}
-.funnel-leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
-.funnel-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
-
-/* ── Filter bar ───────────────────────────────── */
-.filter-bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
-.filter-btn{font-size:11px;font-weight:600;padding:5px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;font-family:var(--font)}
-.filter-btn:hover{border-color:var(--border-hi);color:var(--text)}
-.filter-btn.active{background:var(--vdim);border-color:var(--vborder);color:var(--violet)}
-.filter-count{font-size:10px;color:var(--muted);margin-left:auto}
-
-/* ── Portfolio Table ──────────────────────────── */
+/* ── Portfolio Table ────────────────────── */
 .ptable{width:100%;border-collapse:collapse}
-.ptable th{font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap}
-.ptable th:hover{color:var(--violet)}
+.ptable th{font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
 .ptable td{font-size:12px;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
-.ptable tr.row-product{cursor:pointer;transition:background .15s}
+.ptable tr.row-product{transition:background .15s}
 .ptable tr.row-product:hover{background:rgba(79,195,247,.04)}
-.ptable tr.row-product.at-risk{background:var(--rdim)}
-.ptable tr.row-product.at-risk:hover{background:rgba(248,113,113,.15)}
-.ptable tr.row-product.blocked{background:rgba(248,113,113,.06)}
 
 /* status pills */
 .st{display:inline-block;padding:2px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
 .st-on-track{background:var(--gdim);color:var(--green);border:1px solid var(--gborder)}
-.st-at-risk{background:var(--rdim);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+.st-at-risk{background:var(--rdim);color:var(--red);border:1px solid var(--rborder)}
 .st-blocked{background:rgba(248,113,113,.06);color:var(--red);border:1px solid rgba(248,113,113,.2)}
-.st-paused{background:var(--adim);color:var(--amber);border:1px solid rgba(255,184,48,.3)}
+.st-paused{background:var(--adim);color:var(--amber);border:1px solid var(--aborder)}
 .st-done{background:var(--vdim);color:var(--violet);border:1px solid var(--vborder)}
 .st-draft{background:rgba(122,122,157,.1);color:var(--muted);border:1px solid rgba(122,122,157,.2)}
-
 .orbit-badge{font-family:var(--head);font-size:10px;font-weight:700;color:var(--violet);background:var(--vdim);padding:2px 8px;border-radius:5px;border:1px solid var(--vborder);white-space:nowrap}
 
-/* ── Expandable detail row ────────────────────── */
-.row-detail{display:none}
-.row-detail.open{display:table-row}
-.row-detail td{padding:0}
-.detail-inner{background:var(--mid);border:1px solid var(--border);border-radius:10px;margin:6px 12px 14px;padding:20px 24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
-.detail-col h4{font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);margin-bottom:10px}
-.detail-item{margin-bottom:10px}
-.detail-item .d-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px}
-.detail-item .d-sub{font-size:10px;color:var(--muted)}
+/* ── Alert cards ────────────────────────── */
+.alert-list{display:flex;flex-direction:column;gap:8px}
+.alert-card{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:12px;cursor:pointer;transition:border-color .15s}
+.alert-card:hover{border-color:var(--border-hi)}
+.alert-card.alert-red{border-left:3px solid var(--red)}
+.alert-card.alert-yellow{border-left:3px solid var(--amber)}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.alert-dot.dot-red{background:var(--red)}
+.alert-dot.dot-yellow{background:var(--amber)}
+.alert-product{font-weight:600;color:var(--violet);white-space:nowrap;min-width:80px}
+.alert-msg{color:var(--text);flex:1}
+.alert-empty{font-size:11px;color:var(--muted);padding:12px 0}
 
-/* progress bar */
-.prog-wrap{height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-top:4px}
-.prog-fill{height:100%;border-radius:3px;transition:width .3s}
-.prog-fill.pg-green{background:var(--green)}
-.prog-fill.pg-amber{background:var(--amber)}
-.prog-fill.pg-red{background:var(--red)}
-.prog-fill.pg-violet{background:var(--violet)}
+/* ── PMO table ──────────────────────────── */
+.pmo-table{width:100%;border-collapse:collapse}
+.pmo-table th{font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border)}
+.pmo-table td{font-size:12px;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.pmo-verified{color:var(--green);font-weight:600}
+.pmo-issues{color:var(--amber);font-weight:600}
+.pmo-pending{color:var(--red);font-weight:600}
+.btn-verify{font-size:10px;font-weight:600;padding:4px 12px;border-radius:6px;border:1px solid var(--vborder);background:var(--vdim);color:var(--violet);cursor:pointer;font-family:var(--font);transition:all .15s}
+.btn-verify:hover{background:var(--violet);color:var(--dark)}
 
-.rice-val{font-family:var(--mono);font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;display:inline-block}
-.rice-top{background:rgba(255,45,138,.12);color:var(--pink)}
-.rice-high{background:var(--gdim);color:var(--green)}
-.rice-med{background:var(--adim);color:var(--amber)}
-.rice-low{background:rgba(122,122,157,.1);color:var(--muted)}
+/* ── Compliance bar ─────────────────────── */
+.compliance-wrap{display:flex;align-items:center;gap:8px}
+.compliance-bar{flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;max-width:120px}
+.compliance-fill{height:100%;border-radius:4px;transition:width .3s}
+.compliance-fill.cmp-green{background:var(--green)}
+.compliance-fill.cmp-amber{background:var(--amber)}
+.compliance-fill.cmp-red{background:var(--red)}
+.compliance-pct{font-family:var(--mono);font-size:11px;font-weight:700;min-width:36px}
+.compliance-pct.cmp-green{color:var(--green)}
+.compliance-pct.cmp-amber{color:var(--amber)}
+.compliance-pct.cmp-red{color:var(--red)}
 
-/* ── Activity feed ────────────────────────────── */
-.feed{display:flex;flex-direction:column;gap:6px}
-.feed-item{display:flex;align-items:flex-start;gap:10px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:12px;transition:border-color .15s}
-.feed-item:hover{border-color:var(--border-hi)}
-.feed-time{font-size:10px;color:var(--muted);white-space:nowrap;min-width:80px;font-family:var(--mono)}
-.feed-who{color:var(--violet);font-weight:600;white-space:nowrap}
-.feed-what{color:var(--text)}
+/* ── Date helpers ───────────────────────── */
+.date-overdue{color:var(--red);font-weight:600}
+.date-ok{color:var(--text)}
+.team-deficit{color:var(--amber);font-weight:600}
+.team-ok{color:var(--text)}
 
-/* ── Attention block ──────────────────────────── */
-.attn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
-.attn-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px}
-.attn-card h4{font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
-.attn-card h4.attn-red{color:var(--red)}
-.attn-card h4.attn-amber{color:var(--amber)}
-.attn-card h4.attn-violet{color:var(--violet)}
-.attn-list{list-style:none;padding:0}
-.attn-list li{font-size:12px;padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
-.attn-list li:last-child{border-bottom:none}
-.attn-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.attn-dot.dot-red{background:var(--red)}
-.attn-dot.dot-amber{background:var(--amber)}
-.attn-dot.dot-violet{background:var(--violet)}
-.attn-empty{font-size:11px;color:var(--muted);padding:8px 0}
-
-/* ── Responsive ───────────────────────────────── */
+/* ── Responsive ─────────────────────────── */
 @media(max-width:1100px){
-  .kpi-strip{grid-template-columns:repeat(2,1fr)}
-  .detail-inner{grid-template-columns:1fr}
+  .kpi-strip{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:768px){
   .page{padding:16px}
-  .kpi-strip{grid-template-columns:1fr}
-  .ptable{font-size:11px}
-  .ptable th,.ptable td{padding:8px 6px}
+  .kpi-strip{grid-template-columns:1fr 1fr}
+  .ptable,.pmo-table{font-size:11px}
+  .ptable th,.ptable td,.pmo-table th,.pmo-table td{padding:8px 6px}
   .dash-header{flex-direction:column;align-items:flex-start}
 }
 </style>
@@ -159,12 +133,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <script src="platform.js"></script>
 <script src="stages.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/auth-ui.js"></script>
 <script src="nav.js"></script>
 <script>
 (function(){
   'use strict';
 
-  // ── Access check ──────────────────────────────
+  // ── Access check ────────────────────────────
   var role = window.OrbAuth ? OrbAuth.getRole() : null;
   var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
   var page = document.getElementById('dashPage');
@@ -178,56 +153,38 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     return;
   }
 
-  // ── Data loading ──────────────────────────────
+  // ── Data loading ────────────────────────────
   var products  = PT.load(PT.KEY_PRODUCTS) || [];
   var goals     = PT.load(PT.KEY_GOALS) || [];
   var backlog   = PT.load(PT.KEY_BACKLOG) || [];
   var changelog = PT.load('ECOTECH_CHANGELOG') || [];
+  var gateChecklist = {};
+  try { gateChecklist = PT.load('ECOTECH_GATE_CHECKLIST') || {}; } catch(e) {}
 
   // Legacy compat
   backlog.forEach(function(item){
     if (item.project && !item.productId) item.productId = item.project;
   });
 
-  // ── Helpers ───────────────────────────────────
+  // Migrate CEO fields
+  products.forEach(function(p) {
+    if (!p.teamSize) p.teamSize = 0;
+    if (!p.requiredSize) p.requiredSize = 0;
+    if (!p.launchDate) p.launchDate = '';
+    if (!p.nextGateDate) p.nextGateDate = '';
+    if (!p.blockers) p.blockers = '';
+    if (!p.pmoVerified) p.pmoVerified = { date:'', by:'', status:'pending' };
+  });
+
+  // ── Helpers ─────────────────────────────────
   var EIS = window.EI ? EI.svg : function(){ return ''; };
 
-  var GATE_COLORS = [
-    '#FFB830','#B3E5FC','#4FC3F7','#00D4B4','#34D399','#7B2FFF','#FF2D8A'
-  ];
   var GATE_NAMES = ['О·0 Заявка','О·1 Разведка','О·2 Прототип','О·3 Разгон','О·4 Экосистема','О·5 Плато','О·6 Архив'];
-
-  function rice(item){
-    var r=item.r||0, i=item.i||0, c=item.c||5, e=item.e||1;
-    return e > 0 ? Math.round((r * i * (c/10)) / e) : 0;
-  }
-  function riceClass(v){
-    if(v>=1000) return 'rice-top';
-    if(v>=500) return 'rice-high';
-    if(v>=100) return 'rice-med';
-    return 'rice-low';
-  }
 
   function statusPill(s){
     var cls = 'st st-' + (s||'draft');
-    var labels = {'on-track':'On Track','at-risk':'At Risk','blocked':'Blocked','paused':'Paused','done':'Done','draft':'Draft','active':'Active','achieved':'Achieved','cancelled':'Cancelled'};
+    var labels = {'on-track':'On Track','at-risk':'At Risk','blocked':'Blocked','paused':'Paused','done':'Done','draft':'Draft'};
     return '<span class="' + cls + '">' + (labels[s] || s || '--') + '</span>';
-  }
-
-  function relativeTime(dateStr){
-    if(!dateStr) return '--';
-    var d = new Date(dateStr);
-    var now = new Date();
-    var diff = now - d;
-    var mins = Math.floor(diff/60000);
-    if(mins < 1) return 'только что';
-    if(mins < 60) return mins + ' мин назад';
-    var hrs = Math.floor(mins/60);
-    if(hrs < 24) return hrs + ' ч назад';
-    var days = Math.floor(hrs/24);
-    if(days < 7) return days + ' дн назад';
-    var weeks = Math.floor(days/7);
-    return weeks + ' нед назад';
   }
 
   function formatDate(str){
@@ -236,345 +193,365 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short',year:'numeric'});
   }
 
-  function goalsByProduct(pid){
-    return goals.filter(function(g){ return g.productId === pid; });
+  function daysDiff(dateStr){
+    if(!dateStr) return null;
+    var d = new Date(dateStr);
+    var now = new Date();
+    now.setHours(0,0,0,0);
+    d.setHours(0,0,0,0);
+    return Math.floor((d.getTime() - now.getTime()) / 86400000);
   }
-  function backlogByProduct(pid){
-    return backlog.filter(function(b){ return (b.productId||b.project) === pid; });
+
+  function escHtml(s){
+    if(!s) return '';
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-  function krProgress(g){
-    if(!g.keyResults || !g.keyResults.length) return 0;
-    var sum = 0;
-    g.keyResults.forEach(function(kr){
-      var t = kr.target || 1;
-      sum += Math.min((kr.current || 0) / t, 1);
-    });
-    return Math.round((sum / g.keyResults.length) * 100);
+
+  // ── Compliance Score ────────────────────────
+  function calcCompliance(p) {
+    var checks = 0, total = 0;
+    total++; if (p.desc) checks++;
+    total++; if (goals.some(function(g){ return g.productId === p.id; })) checks++;
+    total++; if (backlog.some(function(i){ return (i.productId||i.project) === p.id; })) checks++;
+    total++; if (backlog.filter(function(i){ return (i.productId||i.project) === p.id; }).every(function(i){ return i.r && i.i && i.c && i.e; })) checks++;
+    total++; if (p.launchDate) checks++;
+    total++; if (p.teamSize > 0) checks++;
+    total++; if (p.pmoVerified && p.pmoVerified.status === 'verified') checks++;
+    var gc = gateChecklist[p.id] || {};
+    var gateChecks = gc['gate'+p.gate] || [];
+    total++; if (gateChecks.length && gateChecks.filter(Boolean).length === gateChecks.length) checks++;
+    return Math.round(checks / total * 100);
   }
-  function productKRProgress(pid){
-    var pg = goalsByProduct(pid);
-    if(!pg.length) return '--';
-    var total = 0, count = 0;
-    pg.forEach(function(g){
-      if(g.keyResults && g.keyResults.length){
-        g.keyResults.forEach(function(kr){
-          var t = kr.target || 1;
-          total += Math.min((kr.current||0)/t, 1);
-          count++;
-        });
+
+  function complianceClass(pct){
+    if(pct >= 80) return 'cmp-green';
+    if(pct >= 50) return 'cmp-amber';
+    return 'cmp-red';
+  }
+
+  // ── Risk Alerts ─────────────────────────────
+  function getAlerts() {
+    var alerts = [];
+    products.forEach(function(p) {
+      var pGoals = goals.filter(function(g){ return g.productId === p.id; });
+      var pInits = backlog.filter(function(i){ return (i.productId||i.project) === p.id; });
+      // No data
+      if (!pGoals.length) alerts.push({ type:'red', product:p.name, productId:p.id, msg:'Нет целей — продукт не исполняет поручение' });
+      if (!pInits.length) alerts.push({ type:'red', product:p.name, productId:p.id, msg:'Нет инициатив' });
+      // Stale
+      var lastLog = null;
+      for (var li = changelog.length - 1; li >= 0; li--) {
+        var l = changelog[li];
+        if ((l.entityType==='product' && l.entityId===p.id) || (l.entityType==='initiative' && pInits.some(function(ini){ return ini.id===l.entityId; }))) {
+          lastLog = l;
+          break;
+        }
+      }
+      var daysSinceUpdate = lastLog ? Math.floor((Date.now() - new Date(lastLog.ts).getTime()) / 86400000) : 999;
+      if (daysSinceUpdate > 14) alerts.push({ type:'red', product:p.name, productId:p.id, msg:'Нет обновлений '+daysSinceUpdate+' дней' });
+      // Status
+      if (p.status === 'at-risk') alerts.push({ type:'red', product:p.name, productId:p.id, msg:'At Risk' + (p.blockers ? ': '+p.blockers : '') });
+      if (p.status === 'blocked') alerts.push({ type:'red', product:p.name, productId:p.id, msg:'Заблокирован' + (p.blockers ? ': '+p.blockers : '') });
+      // Resources
+      if (p.teamSize < p.requiredSize) alerts.push({ type:'yellow', product:p.name, productId:p.id, msg:'Команда '+p.teamSize+'/'+p.requiredSize+' — дефицит' });
+      // Deadlines
+      if (p.launchDate && new Date(p.launchDate) < new Date() && p.gate < 3) alerts.push({ type:'red', product:p.name, productId:p.id, msg:'Дата запуска просрочена: '+p.launchDate });
+      // PMO not verified
+      if (!p.pmoVerified || !p.pmoVerified.date) {
+        alerts.push({ type:'yellow', product:p.name, productId:p.id, msg:'Не сверено PMO' });
+      } else {
+        var daysSinceVerify = Math.floor((Date.now() - new Date(p.pmoVerified.date).getTime()) / 86400000);
+        if (daysSinceVerify > 7) alerts.push({ type:'yellow', product:p.name, productId:p.id, msg:'Сверка PMO устарела ('+daysSinceVerify+' дней)' });
       }
     });
-    return count > 0 ? Math.round((total/count)*100) + '%' : '--';
+    // Sort: red first, then yellow
+    alerts.sort(function(a,b){
+      if(a.type === 'red' && b.type !== 'red') return -1;
+      if(a.type !== 'red' && b.type === 'red') return 1;
+      return 0;
+    });
+    return alerts;
   }
-  function progBarClass(pct){
-    if(pct >= 70) return 'pg-green';
-    if(pct >= 30) return 'pg-amber';
-    return 'pg-red';
-  }
 
-  // ── Computed metrics ──────────────────────────
-  var totalProducts = products.length;
-  var activeInitiatives = backlog.filter(function(b){ return b.status === 'wip'; }).length;
-  var activeGoals = goals.filter(function(g){ return g.status === 'active'; }).length;
+  // ── PMO Verify ──────────────────────────────
+  window.verifyProduct = function(productId) {
+    var u = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+    if (!u || (u.role !== 'admin' && u.role !== 'pmo')) return;
+    var prods = PT.load(PT.KEY_PRODUCTS) || [];
+    var p = prods.find(function(x){ return x.id === productId; });
+    if (p) {
+      p.pmoVerified = { date: new Date().toISOString().slice(0,10), by: u.id, status: 'verified' };
+      PT.save(PT.KEY_PRODUCTS, prods);
+      products = prods;
+      renderDashboard();
+    }
+  };
 
-  // Gate funnel
-  var gateCounts = [0,0,0,0,0,0,0];
-  products.forEach(function(p){
-    var g = parseInt(p.gate,10);
-    if(g >= 0 && g <= 6) gateCounts[g]++;
-  });
-
-  // Sort products: by gate desc, at-risk first
-  var statusOrder = {'at-risk':0,'blocked':1,'on-track':2,'paused':3,'done':4,'draft':5};
-  var sortedProducts = products.slice().sort(function(a,b){
-    var gd = (b.gate||0) - (a.gate||0);
-    if(gd !== 0) return gd;
-    return (statusOrder[a.status]||9) - (statusOrder[b.status]||9);
-  });
-
-  // Current user name and date
+  // ── Computed ────────────────────────────────
   var userName = user ? user.name : 'CEO';
   var today = new Date();
   var dateStr = today.toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
 
-  // Current filter
-  var currentFilter = 'all';
+  // ── Main Render ─────────────────────────────
+  function renderDashboard(){
+    // Recalculate metrics
+    var totalProducts = products.length;
+    var onTrack = 0, atRisk = 0, blocked = 0;
+    products.forEach(function(p){
+      if(p.status === 'on-track') onTrack++;
+      else if(p.status === 'at-risk') atRisk++;
+      else if(p.status === 'blocked') blocked++;
+    });
 
-  // ── Render ────────────────────────────────────
-  function render(){
-    var filtered = currentFilter === 'all'
-      ? sortedProducts
-      : sortedProducts.filter(function(p){ return p.status === currentFilter; });
+    // Average compliance
+    var totalCompliance = 0;
+    var complianceScores = {};
+    products.forEach(function(p){
+      var sc = calcCompliance(p);
+      complianceScores[p.id] = sc;
+      totalCompliance += sc;
+    });
+    var avgCompliance = totalProducts > 0 ? Math.round(totalCompliance / totalProducts) : 0;
+
+    // Nearest gate date
+    var nearestGate = null;
+    var nearestGateDate = null;
+    products.forEach(function(p){
+      if(p.nextGateDate){
+        var d = new Date(p.nextGateDate);
+        if(!nearestGateDate || d < nearestGateDate){
+          nearestGateDate = d;
+          nearestGate = p;
+        }
+      }
+    });
+    var nearestGateStr = nearestGateDate ? formatDate(nearestGate.nextGateDate) : '--';
+
+    var alerts = getAlerts();
 
     var html = '';
 
-    // Header
+    // ── Header ──────────────────────────────
     html += '<div class="dash-header">'
       + '<div class="dash-title"><span>ОРБИТА</span> · Статус портфеля</div>'
-      + '<div class="dash-meta">' + userName + ' · ' + dateStr + '</div>'
+      + '<div class="dash-meta">' + escHtml(userName) + ' · ' + dateStr + '</div>'
       + '</div>';
 
-    // KPI Strip
-    html += '<div class="kpi-strip">'
-      + '<div class="kpi-card kpi-violet"><div class="kpi-value">' + totalProducts + '</div><div class="kpi-label">Всего продуктов</div></div>'
-      + '<div class="kpi-card kpi-teal"><div class="kpi-value">' + activeInitiatives + '</div><div class="kpi-label">Активных инициатив (WIP)</div></div>'
-      + '<div class="kpi-card kpi-amber"><div class="kpi-value">' + activeGoals + '</div><div class="kpi-label">Целей в работе</div></div>'
-      + '<div class="kpi-card kpi-green"><div class="kpi-value">--</div><div class="kpi-label">Среднее время на стадии</div></div>'
-      + '</div>';
-
-    // Gate Funnel
-    html += '<div class="section">'
-      + '<div class="section-head">' + EIS('layers',14) + ' Gate-воронка</div>';
-
-    var totalForFunnel = Math.max(totalProducts, 1);
-    html += '<div class="funnel-bar">';
-    for(var gi=0; gi<=6; gi++){
-      var pct = Math.max((gateCounts[gi]/totalForFunnel)*100, gateCounts[gi]>0?6:0);
-      html += '<div class="funnel-seg" style="flex:' + pct + ';background:' + GATE_COLORS[gi] + '" title="' + GATE_NAMES[gi] + ': ' + gateCounts[gi] + '">'
-        + (gateCounts[gi]>0 ? gateCounts[gi] : '')
-        + '</div>';
-    }
-    html += '</div>';
-    html += '<div class="funnel-legend">';
-    for(var gi2=0; gi2<=6; gi2++){
-      html += '<div class="funnel-leg"><div class="funnel-dot" style="background:' + GATE_COLORS[gi2] + '"></div>' + GATE_NAMES[gi2] + ' (' + gateCounts[gi2] + ')</div>';
-    }
-    html += '</div></div>';
-
-    // Filter bar
-    var filterOpts = [
-      {key:'all',label:'Все'},
-      {key:'on-track',label:'On Track'},
-      {key:'at-risk',label:'At Risk'},
-      {key:'blocked',label:'Blocked'},
-      {key:'paused',label:'Paused'},
-      {key:'done',label:'Done'}
-    ];
-    html += '<div class="section">'
-      + '<div class="section-head">' + EIS('package',14) + ' Портфель продуктов</div>'
-      + '<div class="filter-bar">';
-    filterOpts.forEach(function(f){
-      var cnt = f.key === 'all' ? products.length : products.filter(function(p){return p.status===f.key}).length;
-      html += '<button class="filter-btn' + (currentFilter===f.key?' active':'') + '" data-filter="' + f.key + '">' + f.label + ' (' + cnt + ')</button>';
-    });
-    html += '<div class="filter-count">' + filtered.length + ' из ' + products.length + '</div>';
+    // ── Секция 1: KPI Strip ─────────────────
+    html += '<div class="kpi-strip">';
+    html += '<div class="kpi-card kpi-violet"><div class="kpi-value">' + totalProducts + '</div><div class="kpi-label">Продуктов в портфеле</div></div>';
+    html += '<div class="kpi-card kpi-green"><div class="kpi-value">' + onTrack + '</div><div class="kpi-label">On Track</div></div>';
+    html += '<div class="kpi-card kpi-amber"><div class="kpi-value">' + atRisk + '</div><div class="kpi-label">At Risk</div></div>';
+    html += '<div class="kpi-card kpi-red"><div class="kpi-value">' + blocked + '</div><div class="kpi-label">Blocked</div></div>';
+    var avgCls = complianceClass(avgCompliance);
+    html += '<div class="kpi-card"><div class="kpi-value ' + avgCls.replace('cmp-','kpi-') + '" style="color:var(--' + (avgCompliance>=80?'green':avgCompliance>=50?'amber':'red') + ')">' + avgCompliance + '%</div><div class="kpi-label">Ср. Compliance</div>'
+      + '<div class="kpi-sub">Gate: ' + nearestGateStr + '</div></div>';
     html += '</div>';
 
-    // Portfolio table
+    // ── Секция 2: Сроки и запуски ───────────
+    html += '<div class="section">'
+      + '<div class="section-head">' + EIS('calendar',14) + ' Сроки и запуски</div>';
+
     html += '<table class="ptable"><thead><tr>'
-      + '<th>Продукт</th><th>Орбита</th><th>Статус</th><th>Целей</th><th>Инициатив</th><th>KR прогресс</th><th>Последнее изменение</th>'
+      + '<th>Продукт</th><th>Орбита</th><th>Статус</th><th>Запуск</th><th>Отклонение</th><th>Команда</th><th>Gate Review</th><th>Compliance</th>'
       + '</tr></thead><tbody>';
 
-    filtered.forEach(function(p){
-      var pid = p.id;
-      var pg = goalsByProduct(pid);
-      var pb = backlogByProduct(pid);
-      var krProg = productKRProgress(pid);
-      var rowCls = 'row-product';
-      if(p.status === 'at-risk') rowCls += ' at-risk';
-      if(p.status === 'blocked') rowCls += ' blocked';
+    // Sort: at-risk/blocked first, then by gate desc
+    var statusOrder = {'blocked':0,'at-risk':1,'on-track':2,'paused':3,'done':4,'draft':5};
+    var sorted = products.slice().sort(function(a,b){
+      var sd = (statusOrder[a.status]||9) - (statusOrder[b.status]||9);
+      if(sd !== 0) return sd;
+      return (b.gate||0) - (a.gate||0);
+    });
 
-      html += '<tr class="' + rowCls + '" data-pid="' + pid + '">'
-        + '<td><strong>' + (p.name||pid) + '</strong></td>'
+    sorted.forEach(function(p){
+      var rowCls = 'row-product';
+      // Launch date
+      var launchDays = daysDiff(p.launchDate);
+      var launchCls = '';
+      var launchText = p.launchDate ? formatDate(p.launchDate) : '--';
+      if(p.launchDate && launchDays !== null && launchDays < 0) launchCls = 'date-overdue';
+      else launchCls = 'date-ok';
+
+      // Deviation
+      var deviationText = '--';
+      if(p.launchDate && launchDays !== null){
+        if(launchDays < 0) deviationText = '<span class="date-overdue">' + Math.abs(launchDays) + ' дн. просрочка</span>';
+        else if(launchDays <= 30) deviationText = '<span style="color:var(--amber)">' + launchDays + ' дн.</span>';
+        else deviationText = '<span style="color:var(--green)">' + launchDays + ' дн.</span>';
+      }
+
+      // Team
+      var teamText = p.teamSize + '/' + p.requiredSize;
+      var teamCls = (p.requiredSize > 0 && p.teamSize < p.requiredSize) ? 'team-deficit' : 'team-ok';
+
+      // Gate review
+      var gateText = p.nextGateDate ? formatDate(p.nextGateDate) : '--';
+      var gateDays = daysDiff(p.nextGateDate);
+      var gateCls = '';
+      if(gateDays !== null && gateDays < 0) gateCls = 'date-overdue';
+
+      // Compliance
+      var cScore = complianceScores[p.id] || 0;
+      var cCls = complianceClass(cScore);
+
+      html += '<tr class="' + rowCls + '">'
+        + '<td><strong>' + escHtml(p.name||p.id) + '</strong></td>'
         + '<td><span class="orbit-badge">О·' + (p.gate||0) + '</span></td>'
         + '<td>' + statusPill(p.status) + '</td>'
-        + '<td>' + pg.length + '</td>'
-        + '<td>' + pb.length + '</td>'
-        + '<td>' + krProg + '</td>'
-        + '<td style="font-size:11px;color:var(--muted)">' + relativeTime(p.updated) + '</td>'
+        + '<td class="' + launchCls + '">' + launchText + '</td>'
+        + '<td>' + deviationText + '</td>'
+        + '<td class="' + teamCls + '">' + teamText + '</td>'
+        + '<td class="' + gateCls + '">' + gateText + '</td>'
+        + '<td><div class="compliance-wrap">'
+          + '<div class="compliance-bar"><div class="compliance-fill ' + cCls + '" style="width:' + cScore + '%"></div></div>'
+          + '<span class="compliance-pct ' + cCls + '">' + cScore + '%</span>'
+        + '</div></td>'
         + '</tr>';
-
-      // Detail row
-      html += '<tr class="row-detail" data-detail="' + pid + '"><td colspan="7"><div class="detail-inner">';
-
-      // Col 1: Goals + KR
-      html += '<div class="detail-col"><h4>Цели и Key Results</h4>';
-      if(pg.length === 0){
-        html += '<div class="attn-empty">Нет привязанных целей</div>';
-      } else {
-        pg.forEach(function(g){
-          var pct = krProgress(g);
-          html += '<div class="detail-item"><div class="d-title">' + (g.title||'--') + ' ' + statusPill(g.status) + '</div>';
-          if(g.keyResults && g.keyResults.length){
-            g.keyResults.forEach(function(kr){
-              var kpct = kr.target ? Math.round(Math.min((kr.current||0)/kr.target,1)*100) : 0;
-              html += '<div class="d-sub">' + (kr.text||kr.id) + ': ' + (kr.current||0) + '/' + (kr.target||'?') + ' ' + (kr.unit||'') + '</div>'
-                + '<div class="prog-wrap"><div class="prog-fill ' + progBarClass(kpct) + '" style="width:' + kpct + '%"></div></div>';
-            });
-          }
-          html += '</div>';
-        });
-      }
-      html += '</div>';
-
-      // Col 2: Top-3 initiatives by RICE
-      html += '<div class="detail-col"><h4>Топ инициативы (RICE)</h4>';
-      var topInit = pb.slice().sort(function(a,b){ return rice(b)-rice(a); }).slice(0,3);
-      if(topInit.length === 0){
-        html += '<div class="attn-empty">Нет инициатив</div>';
-      } else {
-        topInit.forEach(function(ini){
-          var rv = rice(ini);
-          html += '<div class="detail-item">'
-            + '<div class="d-title">' + (ini.name||ini.id) + ' <span class="rice-val ' + riceClass(rv) + '">' + rv + '</span></div>'
-            + '<div class="d-sub">' + (ini.status||'--') + ' · ' + (ini.track||'--') + '</div>'
-            + '</div>';
-        });
-      }
-      html += '</div>';
-
-      // Col 3: Last 3 changelog entries
-      html += '<div class="detail-col"><h4>Последние изменения</h4>';
-      var pChanges = changelog.filter(function(c){ return c.productId === pid; }).slice(-3).reverse();
-      if(pChanges.length === 0){
-        html += '<div class="attn-empty">Нет записей</div>';
-      } else {
-        pChanges.forEach(function(c){
-          html += '<div class="detail-item">'
-            + '<div class="d-title">' + (c.action||c.type||'--') + '</div>'
-            + '<div class="d-sub">' + relativeTime(c.date||c.ts) + ' · ' + (c.user||c.who||'--') + '</div>'
-            + '</div>';
-        });
-      }
-      html += '</div>';
-
-      html += '</div></td></tr>';
     });
 
     html += '</tbody></table></div>';
 
-    // Activity feed
+    // ── Секция 3: Сигналы риска ─────────────
     html += '<div class="section">'
-      + '<div class="section-head">' + EIS('activity',14) + ' Последние изменения</div>'
-      + '<div class="feed">';
-    var recentChanges = changelog.slice(-10).reverse();
-    if(recentChanges.length === 0){
-      html += '<div class="attn-empty">Нет записей в changelog</div>';
+      + '<div class="section-head">' + EIS('alert-triangle',14) + ' Сигналы риска</div>';
+
+    if(alerts.length === 0){
+      html += '<div class="alert-empty">Нет активных сигналов</div>';
     } else {
-      recentChanges.forEach(function(c){
-        html += '<div class="feed-item">'
-          + '<div class="feed-time">' + relativeTime(c.date||c.ts) + '</div>'
-          + '<div class="feed-who">' + (c.user||c.who||'--') + '</div>'
-          + '<div class="feed-what">' + (c.action||c.type||'--') + (c.details ? ': ' + c.details : '') + '</div>'
+      html += '<div class="alert-list">';
+      alerts.forEach(function(a){
+        var dotCls = a.type === 'red' ? 'dot-red' : 'dot-yellow';
+        var cardCls = a.type === 'red' ? 'alert-red' : 'alert-yellow';
+        html += '<div class="alert-card ' + cardCls + '" onclick="window.location.href=\'Проектный офис/tracker.html#product=' + a.productId + '\'">'
+          + '<span class="alert-dot ' + dotCls + '"></span>'
+          + '<span class="alert-product">' + escHtml(a.product) + '</span>'
+          + '<span class="alert-msg">' + escHtml(a.msg) + '</span>'
           + '</div>';
       });
+      html += '</div>';
     }
-    html += '</div></div>';
+    html += '</div>';
 
-    // Attention block
+    // ── Секция 4: Сверка PMO ────────────────
     html += '<div class="section">'
-      + '<div class="section-head">' + EIS('alert-triangle',14) + ' Требует внимания</div>'
-      + '<div class="attn-grid">';
+      + '<div class="section-head">' + EIS('check-circle',14) + ' Сверка PMO</div>';
 
-    // At-risk products
-    var atRisk = products.filter(function(p){ return p.status === 'at-risk' || p.status === 'blocked'; });
-    html += '<div class="attn-card"><h4 class="attn-red">Продукты At-Risk / Blocked</h4><ul class="attn-list">';
-    if(atRisk.length === 0){
-      html += '<li class="attn-empty">Все продукты в норме</li>';
-    } else {
-      atRisk.forEach(function(p){
-        html += '<li><span class="attn-dot dot-red"></span>' + (p.name||p.id) + ' ' + statusPill(p.status) + ' · О·' + (p.gate||0) + '</li>';
-      });
-    }
-    html += '</ul></div>';
+    html += '<table class="pmo-table"><thead><tr>'
+      + '<th>Продукт</th><th>Последняя сверка</th><th>Статус</th><th>Действие</th>'
+      + '</tr></thead><tbody>';
 
-    // WIP > 2 weeks
-    var twoWeeksAgo = new Date();
-    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
-    var staleWip = backlog.filter(function(b){
-      if(b.status !== 'wip') return false;
-      var d = new Date(b.updated || b.created);
-      return d < twoWeeksAgo;
+    sorted.forEach(function(p){
+      var pv = p.pmoVerified || {};
+      var statusText = '';
+      var statusCls = '';
+      if(pv.status === 'verified'){
+        statusText = 'Сверено';
+        statusCls = 'pmo-verified';
+      } else if(pv.status === 'issues'){
+        statusText = 'Есть замечания';
+        statusCls = 'pmo-issues';
+      } else {
+        statusText = 'Не сверено';
+        statusCls = 'pmo-pending';
+      }
+
+      var dateText = pv.date ? formatDate(pv.date) : '--';
+      var daysSince = pv.date ? Math.floor((Date.now() - new Date(pv.date).getTime()) / 86400000) : null;
+      if(daysSince !== null && daysSince > 7) {
+        dateText += ' <span style="color:var(--amber);font-size:10px">(' + daysSince + ' дн. назад)</span>';
+      }
+
+      var canVerify = user && (user.role === 'admin' || user.role === 'pmo');
+      var actionHtml = canVerify
+        ? '<button class="btn-verify" onclick="verifyProduct(\'' + p.id + '\')">' + EIS('check',12) + ' Подтвердить</button>'
+        : '<span style="color:var(--muted);font-size:10px">--</span>';
+
+      html += '<tr>'
+        + '<td><strong>' + escHtml(p.name||p.id) + '</strong></td>'
+        + '<td>' + dateText + '</td>'
+        + '<td><span class="' + statusCls + '">' + statusText + '</span></td>'
+        + '<td>' + actionHtml + '</td>'
+        + '</tr>';
     });
-    html += '<div class="attn-card"><h4 class="attn-amber">WIP дольше 2 недель</h4><ul class="attn-list">';
-    if(staleWip.length === 0){
-      html += '<li class="attn-empty">Нет застрявших инициатив</li>';
-    } else {
-      staleWip.forEach(function(b){
-        html += '<li><span class="attn-dot dot-amber"></span>' + (b.name||b.id) + ' · ' + relativeTime(b.updated||b.created) + '</li>';
-      });
-    }
-    html += '</ul></div>';
 
-    // KR < 30%
-    var lowKR = [];
-    goals.forEach(function(g){
-      if(g.status !== 'active' || !g.keyResults) return;
-      g.keyResults.forEach(function(kr){
-        var pct = kr.target ? Math.round(Math.min((kr.current||0)/kr.target,1)*100) : 0;
-        if(pct < 30){
-          lowKR.push({goal:g.title, kr:kr.text||kr.id, pct:pct, productId:g.productId});
-        }
-      });
+    html += '</tbody></table></div>';
+
+    // ── Секция 5: Compliance Score ──────────
+    html += '<div class="section">'
+      + '<div class="section-head">' + EIS('shield',14) + ' Compliance Score по продуктам</div>';
+
+    html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px">';
+
+    sorted.forEach(function(p){
+      var cScore = complianceScores[p.id] || 0;
+      var cCls = complianceClass(cScore);
+      var pGoals = goals.filter(function(g){ return g.productId === p.id; });
+      var pInits = backlog.filter(function(i){ return (i.productId||i.project) === p.id; });
+      var allRICE = pInits.length > 0 && pInits.every(function(i){ return i.r && i.i && i.c && i.e; });
+      var gc = gateChecklist[p.id] || {};
+      var gateChecks = gc['gate'+p.gate] || [];
+      var gateOk = gateChecks.length > 0 && gateChecks.filter(Boolean).length === gateChecks.length;
+
+      function checkRow(ok, label){
+        var icon = ok ? '<span style="color:var(--green)">&#10003;</span>' : '<span style="color:var(--red)">&#10007;</span>';
+        return '<div style="display:flex;align-items:center;gap:6px;font-size:11px;padding:2px 0">' + icon + ' ' + label + '</div>';
+      }
+
+      html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px">';
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
+      html += '<div style="font-weight:600;font-size:13px">' + escHtml(p.name||p.id) + ' <span class="orbit-badge" style="margin-left:6px">О·' + (p.gate||0) + '</span></div>';
+      html += '<span class="compliance-pct ' + cCls + '" style="font-size:16px">' + cScore + '%</span>';
+      html += '</div>';
+
+      // Full-width progress bar
+      html += '<div style="height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;margin-bottom:12px">'
+        + '<div class="compliance-fill ' + cCls + '" style="width:' + cScore + '%"></div>'
+        + '</div>';
+
+      // Checklist
+      html += checkRow(!!p.desc, 'Описание продукта');
+      html += checkRow(pGoals.length > 0, 'Есть цель');
+      html += checkRow(pInits.length > 0, 'Есть инициатива');
+      html += checkRow(allRICE, 'RICE-оценки');
+      html += checkRow(!!p.launchDate, 'Дата запуска');
+      html += checkRow(p.teamSize > 0, 'Команда назначена');
+      html += checkRow(p.pmoVerified && p.pmoVerified.status === 'verified', 'PMO сверка');
+      html += checkRow(gateOk, 'Gate-чеклист 100%');
+
+      html += '</div>';
     });
-    html += '<div class="attn-card"><h4 class="attn-violet">KR с прогрессом &lt; 30%</h4><ul class="attn-list">';
-    if(lowKR.length === 0){
-      html += '<li class="attn-empty">Все KR в норме</li>';
-    } else {
-      lowKR.slice(0,8).forEach(function(k){
-        html += '<li><span class="attn-dot dot-violet"></span>' + (k.kr||'--') + ' <span style="color:var(--muted);font-size:10px">(' + k.pct + '%) · ' + (k.goal||'') + '</span></li>';
-      });
-    }
-    html += '</ul></div>';
 
     html += '</div></div>';
 
     page.innerHTML = html;
-    bindEvents();
   }
 
-  // ── Events ────────────────────────────────────
-  function bindEvents(){
-    // Filter buttons
-    var filterBtns = page.querySelectorAll('.filter-btn');
-    filterBtns.forEach(function(btn){
-      btn.addEventListener('click', function(){
-        currentFilter = this.getAttribute('data-filter');
-        render();
-      });
-    });
+  // ── Initial render ──────────────────────────
+  renderDashboard();
 
-    // Expandable rows
-    var rows = page.querySelectorAll('.row-product');
-    rows.forEach(function(row){
-      row.addEventListener('click', function(){
-        var pid = this.getAttribute('data-pid');
-        var detail = page.querySelector('[data-detail="' + pid + '"]');
-        if(detail){
-          detail.classList.toggle('open');
-        }
-      });
-    });
-  }
-
-  // ── Initial render ────────────────────────────
-  render();
-
-  // ── Cross-tab sync ────────────────────────────
+  // ── Cross-tab sync (auto-refresh) ───────────
   window.addEventListener('storage', function(e){
-    if(e.key === PT.KEY_PRODUCTS || e.key === PT.KEY_GOALS || e.key === PT.KEY_BACKLOG || e.key === 'ECOTECH_CHANGELOG'){
+    if(e.key === PT.KEY_PRODUCTS || e.key === PT.KEY_GOALS || e.key === PT.KEY_BACKLOG || e.key === 'ECOTECH_CHANGELOG' || e.key === 'ECOTECH_GATE_CHECKLIST'){
       products  = PT.load(PT.KEY_PRODUCTS) || [];
       goals     = PT.load(PT.KEY_GOALS) || [];
       backlog   = PT.load(PT.KEY_BACKLOG) || [];
       changelog = PT.load('ECOTECH_CHANGELOG') || [];
+      try { gateChecklist = PT.load('ECOTECH_GATE_CHECKLIST') || {}; } catch(ex) {}
+
       backlog.forEach(function(item){
         if(item.project && !item.productId) item.productId = item.project;
       });
-
-      totalProducts = products.length;
-      activeInitiatives = backlog.filter(function(b){ return b.status === 'wip'; }).length;
-      activeGoals = goals.filter(function(g){ return g.status === 'active'; }).length;
-      gateCounts = [0,0,0,0,0,0,0];
       products.forEach(function(p){
-        var g = parseInt(p.gate,10);
-        if(g >= 0 && g <= 6) gateCounts[g]++;
+        if(!p.teamSize) p.teamSize = 0;
+        if(!p.requiredSize) p.requiredSize = 0;
+        if(!p.launchDate) p.launchDate = '';
+        if(!p.nextGateDate) p.nextGateDate = '';
+        if(!p.blockers) p.blockers = '';
+        if(!p.pmoVerified) p.pmoVerified = { date:'', by:'', status:'pending' };
       });
-      sortedProducts = products.slice().sort(function(a,b){
-        var gd = (b.gate||0) - (a.gate||0);
-        if(gd !== 0) return gd;
-        return (statusOrder[a.status]||9) - (statusOrder[b.status]||9);
-      });
-      render();
+
+      renderDashboard();
     }
   });
 
