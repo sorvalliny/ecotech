@@ -336,6 +336,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .kr-progress{font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap;flex-shrink:0}
 .kr-bar{height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin-top:2px}
 .kr-bar-fill{height:100%;border-radius:2px;background:var(--violet);transition:width .3s}
+.kr-history{display:flex;gap:4px;margin-top:6px}
+.krh-cell{flex:1;text-align:center}
+.krh-month{font-size:8px;color:var(--muted)}
+.krh-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin:2px 0}
+.krh-val{font-size:9px;color:var(--text);font-weight:700}
+.stats-toggle-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:var(--font);font-size:11px;padding:6px 14px;cursor:pointer;margin-bottom:10px;transition:all .15s}
+.stats-toggle-btn:hover{border-color:rgba(0,212,180,.4);color:#E8E8F0}
 .goal-stats{display:flex;gap:14px;padding-top:12px;border-top:1px solid var(--border);align-items:center;flex-wrap:wrap}
 .goal-stat{font-size:11px;color:var(--muted)}
 .goal-stat b{color:#E8E8F0;font-weight:700}
@@ -536,6 +543,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <option value="">Все продукты</option>
     </select>
   </div>
+  <div class="ctx-quarter">
+    <select class="ctx-select" id="ctx-quarter" onchange="filterByQuarter(this.value)" style="min-width:100px">
+      <option value="">Все кварталы</option>
+      <option value="Q1 2026">Q1 2026</option>
+      <option value="Q2 2026">Q2 2026</option>
+    </select>
+  </div>
   <div class="ctx-filters" id="ctx-filters"></div>
   <div class="ctx-right">
     <div class="view-switch" id="active-views"></div>
@@ -589,6 +603,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
     <!-- PORTFOLIO -->
     <div id="pg-portfolio">
+      <button class="stats-toggle-btn" id="stats-toggle" onclick="toggleStats()">Статистика ▾</button>
+      <div id="stats-wrap" style="display:none">
       <div class="pstats" id="pstats">
     <div class="pstat"><div class="pstat-num" style="color:#fff">6</div><div class="pstat-lbl">Продуктов</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--teal)">3</div><div class="pstat-lbl">В работе</div></div>
@@ -597,6 +613,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <div class="pstat"><div class="pstat-num" style="color:var(--amber)">38</div><div class="pstat-lbl">Инициатив</div></div>
     <div class="pstat"><div class="pstat-num" style="color:var(--green)">38</div><div class="pstat-lbl">High priority</div></div>
   </div>
+      </div>
       <!-- Visual Lifecycle -->
       <div class="visual-lifecycle" id="visual-lifecycle"></div>
       <div class="divlabel">Продукты экосистемы — 6 продуктов, 38 инициатив</div>
@@ -1524,42 +1541,42 @@ const GOALS_DEFAULT = [
     id: 'GD01', title: '\u{1F3AF} Демо: подтвердить PMF и выйти на Gate 3',
     type: 'product', period: 'Q1 2026', owner: 'PM Демо', status: 'active', productId: 'DEMO',
     keyResults: [
-      { id: 'KR1', text: 'Retention D7 >= 35%', target: 35, current: 28, unit: '%', initiativeIds: ['D001'] },
-      { id: 'KR2', text: 'NPS >= 40', target: 40, current: 35, unit: 'pts', initiativeIds: ['D002'] },
-      { id: 'KR3', text: 'Activation Rate >= 30%', target: 30, current: 22, unit: '%', initiativeIds: ['D003','D004'] }
+      { id: 'KR1', text: 'Retention D7 >= 35%', target: 35, current: 28, unit: '%', initiativeIds: ['D001'], history:{'2026-01':15,'2026-02':22,'2026-03':28} },
+      { id: 'KR2', text: 'NPS >= 40', target: 40, current: 35, unit: 'pts', initiativeIds: ['D002'], history:{'2026-01':20,'2026-02':28,'2026-03':35} },
+      { id: 'KR3', text: 'Activation Rate >= 30%', target: 30, current: 22, unit: '%', initiativeIds: ['D003','D004'], history:{'2026-01':10,'2026-02':16,'2026-03':22} }
     ]
   },
   {
     id: 'GD02', title: '\u{1F3AF} Демо: подготовить P&L для инвест-комитета',
     type: 'strategic', period: 'Q2 2026', owner: 'Бизнес-лид', status: 'active', productId: 'DEMO',
     keyResults: [
-      { id: 'KR1', text: 'P&L модель готова (3 сценария)', target: 1, current: 0, unit: 'документ', initiativeIds: ['D005'] },
-      { id: 'KR2', text: 'CAC < LTV подтверждён', target: 1, current: 0, unit: 'да/нет', initiativeIds: ['D006'] }
+      { id: 'KR1', text: 'P&L модель готова (3 сценария)', target: 1, current: 0, unit: 'документ', initiativeIds: ['D005'], history:{} },
+      { id: 'KR2', text: 'CAC < LTV подтверждён', target: 1, current: 0, unit: 'да/нет', initiativeIds: ['D006'], history:{} }
     ]
   },
   {
     id: 'G001', title: 'Маркетплейс К: выход на Gate 4 (Экосистема)',
     type: 'product', period: 'H1 2026', owner: 'CPO', status: 'active', productId: 'P01',
     keyResults: [
-      { id: 'KR1', text: 'Retention D30 >= 40%', target: 40, current: 34, unit: '%', initiativeIds: ['I001'] },
-      { id: 'KR2', text: 'NPS >= 50', target: 50, current: 42, unit: 'pts', initiativeIds: ['I002'] },
-      { id: 'KR3', text: 'CAC < LTV', target: 1, current: 0, unit: 'да/нет', initiativeIds: ['I003'] }
+      { id: 'KR1', text: 'Retention D30 >= 40%', target: 40, current: 34, unit: '%', initiativeIds: ['I001'], history:{'2026-01':22,'2026-02':28,'2026-03':34} },
+      { id: 'KR2', text: 'NPS >= 50', target: 50, current: 42, unit: 'pts', initiativeIds: ['I002'], history:{'2026-01':30,'2026-02':36,'2026-03':42} },
+      { id: 'KR3', text: 'CAC < LTV', target: 1, current: 0, unit: 'да/нет', initiativeIds: ['I003'], history:{} }
     ]
   },
   {
     id: 'G002', title: 'Генератор О: подтвердить PSF и запустить MVP',
     type: 'product', period: 'Q2 2026', owner: 'CPO', status: 'active', productId: 'P02',
     keyResults: [
-      { id: 'KR1', text: 'PSF подтверждён (7+ интервью)', target: 7, current: 4, unit: 'интервью', initiativeIds: ['I004'] },
-      { id: 'KR2', text: 'MVP в production', target: 1, current: 0, unit: 'продукт', initiativeIds: ['I005'] }
+      { id: 'KR1', text: 'PSF подтверждён (7+ интервью)', target: 7, current: 4, unit: 'интервью', initiativeIds: ['I004'], history:{'2026-01':1,'2026-02':3,'2026-03':4} },
+      { id: 'KR2', text: 'MVP в production', target: 1, current: 0, unit: 'продукт', initiativeIds: ['I005'], history:{} }
     ]
   },
   {
     id: 'G003', title: 'Сервис З: пройти Gate 0 и начать Разведку',
     type: 'strategic', period: 'Q1 2026', owner: 'CPO', status: 'active', productId: 'P03',
     keyResults: [
-      { id: 'KR1', text: 'Product Brief заполнен', target: 1, current: 0, unit: 'бриф', initiativeIds: ['I006'] },
-      { id: 'KR2', text: 'RICE >= 100', target: 100, current: 0, unit: 'score', initiativeIds: ['I007'] }
+      { id: 'KR1', text: 'Product Brief заполнен', target: 1, current: 0, unit: 'бриф', initiativeIds: ['I006'], history:{} },
+      { id: 'KR2', text: 'RICE >= 100', target: 100, current: 0, unit: 'score', initiativeIds: ['I007'], history:{} }
     ]
   }
 ];
@@ -1599,10 +1616,11 @@ let goals = (window.PT ? PT.load(PT.KEY_GOALS) : null) || GOALS_DEFAULT;
 let epics = (window.PT ? PT.load(PT.KEY_EPICS) : null) || EPICS_DEFAULT;
 let productsPRD = (window.PT ? PT.load(PT.KEY_PRODUCTS_PRD) : null) || {};
 
-// Migrate KR initiativeIds
+// Migrate KR initiativeIds & history
 goals.forEach(g => {
   (g.keyResults || []).forEach(kr => {
     if (!kr.initiativeIds) kr.initiativeIds = [];
+    if (!kr.history) kr.history = {};
   });
 });
 
@@ -1634,6 +1652,21 @@ function logChange(entityType, entityId, entityName, action, field, oldValue, ne
   if (changelog.length > 500) changelog = changelog.slice(0, 500);
   if (window.PT) PT.save('ECOTECH_CHANGELOG', changelog);
   else localStorage.setItem('ECOTECH_CHANGELOG', JSON.stringify(changelog));
+  showToast(entry.userName + ': ' + entry.action + ' ' + entry.entityName);
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(6,21,37,.96);border:1px solid rgba(0,212,180,.3);border-radius:10px;padding:10px 20px;font-size:12px;font-weight:700;color:var(--teal);z-index:9999;opacity:0;transition:opacity .2s,transform .2s;white-space:nowrap;pointer-events:none';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(function(){ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(20px)'; }, 3000);
 }
 
 function getTimeAgo(ts) {
@@ -1757,6 +1790,28 @@ function renderContextViewSwitch() {
 
 function onContextSearch() {
   if (curTab === 'backlog') renderBL();
+}
+
+function toggleStats() {
+  var el = document.getElementById('stats-wrap');
+  var btn = document.getElementById('stats-toggle');
+  if (el.style.display === 'none') { el.style.display = ''; btn.textContent = 'Скрыть статистику ▴'; }
+  else { el.style.display = 'none'; btn.textContent = 'Статистика ▾'; }
+}
+
+let quarterFilter = '';
+function filterByQuarter(val) {
+  quarterFilter = val;
+  document.querySelectorAll('.pcard').forEach(function(card) {
+    var pid = card.id.replace('pc-','');
+    var p = PROJECTS.find(function(x) { return x.id === pid; });
+    if (!p) return;
+    if (val && p.quarter !== val) {
+      card.classList.add('gf-dim');
+    } else {
+      card.classList.remove('gf-dim');
+    }
+  });
 }
 
 // ════════════════════════════════════════════
@@ -2755,6 +2810,10 @@ function renderGoals() {
         </div>
         <div class="kr-bar"><div class="kr-bar-fill" style="width:${pct}%"></div></div>
         <div class="kr-inits">${((kr.initiativeIds || []).map(id => backlog.find(i => i.id === id)).filter(Boolean)).map(init => `<span class="kr-init-chip ${ST_CLS[init.status]}">${escHtml(init.name)}</span>`).join('')}</div>
+        <div class="kr-history">${Object.entries(kr.history || {}).map(([month, val]) => {
+          const pct = Math.min(100, kr.target > 0 ? Math.round(val / kr.target * 100) : 0);
+          return `<div class="krh-cell"><div class="krh-month">${month.slice(5)}</div><div class="krh-bar"><div style="width:${pct}%;background:var(--teal);height:100%;border-radius:2px"></div></div><div class="krh-val">${val}</div></div>`;
+        }).join('')}</div>
       </div>`;
     }).join('');
     return `<div class="goal-card">
