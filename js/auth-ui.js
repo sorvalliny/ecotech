@@ -267,9 +267,39 @@
           showAuthModal();
           return;
         }
-        var existing = document.getElementById('auth-profile-dropdown');
+        var existing = document.getElementById('profile-dropdown');
         if (existing) { existing.remove(); return; }
-        showProfileDropdown(badge, user, role, base);
+
+        var dd = document.createElement('div');
+        dd.id = 'profile-dropdown';
+        dd.style.cssText = 'position:absolute;top:calc(100% + 8px);right:0;background:#061525;border:1px solid rgba(79,195,247,0.25);border-radius:12px;padding:16px;min-width:220px;z-index:100000;box-shadow:0 12px 40px rgba(0,0,0,.5);';
+
+        var adminLink = (user.role === 'admin') ?
+          '<a href="' + (window.location.pathname.indexOf('/') > 0 ? '../' : '') + 'admin.html" style="display:block;padding:8px 12px;border-radius:7px;background:rgba(255,45,138,.08);border:1px solid rgba(255,45,138,.2);color:#FF85C0;font-size:11px;font-weight:600;text-decoration:none;margin-bottom:6px;text-align:center;transition:all .15s;">Управление доступами →</a>' : '';
+
+        dd.innerHTML =
+          '<div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;">' + escH(user.name) + '</div>' +
+          '<div style="font-size:11px;color:#7A9DB8;margin-bottom:4px;">' + escH(user.email) + '</div>' +
+          '<div style="display:flex;gap:4px;margin-bottom:12px;">' +
+            '<span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(79,195,247,.1);color:' + role.color + ';font-weight:700;">' + role.label + '</span>' +
+            (user.team ? '<span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.04);color:#7A9DB8;">' + escH(user.team) + '</span>' : '') +
+          '</div>' +
+          (user.productIds && user.productIds.length ? '<div style="font-size:10px;color:#7A9DB8;margin-bottom:10px;">Продукты: ' + user.productIds.join(', ') + '</div>' : '') +
+          adminLink +
+          '<button onclick="OrbAuth.logout();location.reload();" style="width:100%;padding:8px;background:transparent;border:1px solid rgba(255,255,255,.08);border-radius:7px;color:#7A9DB8;font-size:11px;cursor:pointer;">Выйти</button>';
+
+        badge.style.position = 'relative';
+        badge.appendChild(dd);
+
+        // Закрыть при клике вне
+        setTimeout(function() {
+          document.addEventListener('click', function closeDD(ev) {
+            if (!dd.contains(ev.target) && ev.target !== badge) {
+              dd.remove();
+              document.removeEventListener('click', closeDD);
+            }
+          });
+        }, 10);
       };
 
       var rwb = nav.querySelector('.en-rwb');
