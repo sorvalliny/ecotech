@@ -65,29 +65,15 @@ body{font-family:var(--font-body);background:var(--dark);color:var(--text);line-
 .page-footer strong{color:rgba(255,255,255,0.3);}
 
 /* ═══════════════════════════════════════════════════════════
-   LIGHT THEME OVERRIDES
+   LIGHT THEME OVERRIDES  (lean — uses theme-vars.css tokens)
    ═══════════════════════════════════════════════════════════ */
-[data-theme="light"] body { background:var(--bg,#F0F7FC); color:#0A1929; }
-[data-theme="light"] .page-header h1 { color:#0A1929 !important; }
-[data-theme="light"] .page-header .subtitle { color:#4A7A9B; }
-[data-theme="light"] .search-input { background:#FFFFFF; border-color:var(--border); color:#0A1929; }
-[data-theme="light"] .search-input::placeholder { color:#6A98B4; }
-[data-theme="light"] .search-input:focus { border-color:rgba(2,136,209,.30); }
-[data-theme="light"] .search-icon { color:#6A98B4; }
-[data-theme="light"] .category-name { color:#0288D1; }
-[data-theme="light"] .category-count { color:#4A7A9B; background:rgba(2,136,209,.06); border-color:var(--border); }
-[data-theme="light"] .category-line { background:var(--border); }
-[data-theme="light"] .term-card { background:#FFFFFF; border-color:var(--border); }
-[data-theme="light"] .term-card:hover { border-color:rgba(2,136,209,.30); box-shadow:0 8px 28px rgba(2,136,209,.06); }
-[data-theme="light"] .term-display { color:#0A1929 !important; }
-[data-theme="light"] .term-original { color:#6A98B4; }
-[data-theme="light"] .term-short { color:#4A7A9B; }
-[data-theme="light"] .term-full { color:#4A7A9B; border-top-color:var(--border); }
-[data-theme="light"] .term-toggle { color:#0288D1; }
-[data-theme="light"] .term-tag { color:#0288D1; background:rgba(2,136,209,.06); border-color:rgba(2,136,209,.15); }
-[data-theme="light"] .term-tag:hover { background:rgba(2,136,209,.12); border-color:rgba(2,136,209,.25); }
-[data-theme="light"] .no-results { color:#6A98B4; }
-[data-theme="light"] .page-footer { color:#4A7A9B; border-top-color:var(--border); }
+[data-theme="light"] .search-input:focus { border-color:var(--violet); }
+[data-theme="light"] .category-name { color:var(--violet); }
+[data-theme="light"] .category-count { color:var(--muted); background:var(--violet-dimmer); }
+[data-theme="light"] .term-card:hover { border-color:var(--violet-border); box-shadow:var(--shadow); }
+[data-theme="light"] .term-toggle { color:var(--violet); }
+[data-theme="light"] .term-tag { color:var(--violet); background:var(--violet-dimmer); border-color:var(--violet-border); }
+[data-theme="light"] .term-tag:hover { background:var(--violet-dim); border-color:var(--violet-border); }
 [data-theme="light"] .page-footer strong { color:rgba(0,0,0,.3) !important; }
 
 /* ── RESPONSIVE ── */
