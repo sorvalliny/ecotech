@@ -65,16 +65,14 @@
   var CHEVRON = '<svg class="bc-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
 
   // ── CSS ─────────────────────────────────────────────────
-  var CSS = '.bc-bar{display:flex;align-items:center;gap:0;padding:8px 24px;font-family:var(--font-body,"Exo 2",sans-serif);font-size:12px;background:var(--color-bg-mid,#F3F0FF);border-bottom:1px solid var(--color-border,rgba(79,195,247,.10));min-height:36px;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}'
+  var CSS = '.bc-bar{display:flex;align-items:center;gap:0;padding:8px 24px;font-family:var(--font,Inter,sans-serif);font-size:12px;background:var(--mid,#1E2D42);border-bottom:1px solid var(--border,rgba(255,255,255,.08));min-height:36px;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}'
     + '\n.bc-bar::-webkit-scrollbar{display:none}'
     + '\n.bc-item{display:flex;align-items:center;gap:0;flex-shrink:0}'
-    + '\n.bc-link{color:var(--color-text-muted,#7A7A9D);text-decoration:none;padding:2px 4px;border-radius:4px;transition:color .15s,background .15s;font-weight:500}'
-    + '\n.bc-link:hover{color:var(--color-text-primary,#1A1040);background:rgba(79,195,247,.06)}'
-    + '\n.bc-current{color:var(--color-text-primary,#1A1040);font-weight:700;padding:2px 4px}'
-    + '\n.bc-chevron{margin:0 2px;color:var(--color-text-dimmed,#B0B0C8);flex-shrink:0}'
-    + '\n.bc-ellipsis{color:var(--color-text-dimmed,#B0B0C8);padding:2px 4px;display:none}'
-    + '\n[data-theme="dark"] .bc-bar{background:var(--color-bg-mid,#061525);border-bottom-color:var(--color-border,rgba(255,255,255,.06))}'
-    + '\n[data-theme="dark"] .bc-link:hover{color:var(--color-text-primary,#F0ECFF);background:rgba(255,255,255,.06)}'
+    + '\n.bc-link{color:var(--muted,#8899AA);text-decoration:none;padding:2px 4px;border-radius:4px;transition:color .15s,background .15s;font-weight:500}'
+    + '\n.bc-link:hover{color:var(--text,#E2E8F0);background:var(--surface2,rgba(255,255,255,.06))}'
+    + '\n.bc-current{color:var(--text,#E2E8F0);font-weight:700;padding:2px 4px}'
+    + '\n.bc-chevron{margin:0 2px;color:var(--gray,#94A3B8);flex-shrink:0}'
+    + '\n.bc-ellipsis{color:var(--gray,#94A3B8);padding:2px 4px;display:none}'
     + '\n@media(max-width:640px){.bc-hide-mobile{display:none!important}.bc-ellipsis{display:inline}}';
 
   // ── parse URL into crumbs ───────────────────────────────
