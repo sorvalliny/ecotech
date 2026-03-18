@@ -23,7 +23,9 @@
   var DEFAULT_USERS = [
     { id: 'U001', name: 'Администратор',  email: 'admin@rwb.ru',           role: 'admin',    assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
     { id: 'U002', name: 'Виктор',         email: 'sorval.viktor@rwb.ru',   role: 'pmo_lead', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
-    { id: 'GUEST', name: 'Гость',         email: 'demo@orbita.demo',       role: 'guest',    assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: ['ECO-00'], contact: '', team: 'Демо' }
+    { id: 'GUEST', name: 'Гость',         email: 'demo@orbita.demo',       role: 'guest',    assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: ['ECO-00'], contact: '', team: 'Демо' },
+    { id: 'U010', name: 'Петров И.',     email: 'petrov@rwb.ru',          role: 'pm',       assignments: [{ productId: 'ECO-01', scope: 'all' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' },
+    { id: 'U011', name: 'Сидоров К.',    email: 'sidorov@rwb.ru',         role: 'pm',       assignments: [{ productId: 'ECO-01', scope: ['I-004', 'I-005'] }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' }
   ];
 
   // ── Миграция старых пользователей ──────────────────────────────────
@@ -297,6 +299,47 @@
       return item.id || item.code || 'N/A';
     }
     return item.name || item.title || item.id;
+  };
+
+  // ── W4-025: Несколько PM на один продукт ────────────────────────
+  // Возвращает массив {name, email, scope} всех активных PM, привязанных к productId
+  Auth.getProductPMs = function(productId) {
+    var users = Auth.getUsers();
+    var pms = [];
+    for (var i = 0; i < users.length; i++) {
+      var u = users[i];
+      if (u.role !== 'pm' || !u.active) continue;
+      if (!u.assignments) continue;
+      for (var j = 0; j < u.assignments.length; j++) {
+        if (u.assignments[j].productId === productId) {
+          pms.push({ name: u.name, email: u.email, scope: u.assignments[j].scope });
+          break;
+        }
+      }
+    }
+    return pms;
+  };
+
+  // Форматирует scope для отображения: "все" или "I-004, I-005"
+  Auth.formatScope = function(scope) {
+    if (!scope || scope === 'all') return 'все';
+    if (Array.isArray(scope)) return scope.join(', ');
+    return String(scope);
+  };
+
+  // Определяет PM для конкретной инициативы из массива PMs продукта
+  Auth.getInitiativePM = function(productId, initiativeId) {
+    var pms = Auth.getProductPMs(productId);
+    var result = [];
+    for (var i = 0; i < pms.length; i++) {
+      var s = pms[i].scope;
+      if (s === 'all') {
+        result.push(pms[i]);
+      } else if (Array.isArray(s) && s.indexOf(initiativeId) >= 0) {
+        result.push(pms[i]);
+      }
+    }
+    return result;
   };
 
   window.OrbAuth = Auth;

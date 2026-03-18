@@ -16,6 +16,35 @@
     KEY_USERS:    'ECOTECH_USERS',
     KEY_CHANGELOG:'ECOTECH_CHANGELOG',
 
+    // ── Типы инициатив ──────────────────────────────────────────────
+    // Подтипы (для будущего расширения):
+    //   business:  маркетинг, партнёрства, монетизация
+    //   product:   UX, фичи, рост, аналитика
+    //   technical: инфраструктура, QA, безопасность, DevOps, SDK
+    INITIATIVE_TYPES: {
+      business:  { label: 'Бизнес',       color: 'var(--amber)',  bg: 'var(--adim)' },
+      product:   { label: 'Продуктовые',  color: 'var(--teal)',   bg: 'var(--tdim)' },
+      technical: { label: 'Технические',  color: 'var(--violet)', bg: 'var(--vdim)' }
+    },
+
+    // Хелпер: получить тип инициативы (дефолт — product)
+    getInitType: function(item) {
+      var t = item.type || '';
+      if (this.INITIATIVE_TYPES[t]) return t;
+      // Fallback по segment/cat
+      var seg = item.segment || item.cat || '';
+      if (seg === 'business') return 'business';
+      if (seg === 'tech') return 'technical';
+      return 'product';
+    },
+
+    // Хелпер: бейдж типа инициативы
+    initTypeBadge: function(item) {
+      var t = this.getInitType(item);
+      var meta = this.INITIATIVE_TYPES[t] || this.INITIATIVE_TYPES.product;
+      return '<span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;color:' + meta.color + ';background:' + meta.bg + '">' + meta.label + '</span>';
+    },
+
     // ── Storage helpers ─────────────────────────────────────────────
     load: function(key) {
       try { return JSON.parse(localStorage.getItem(key)); } catch(e) { return null; }
@@ -79,7 +108,7 @@
     },
 
     // ── Data version — increment to force refresh from portfolio.json ──
-    DATA_VERSION: 3,
+    DATA_VERSION: 4,
 
     // ── Ensure products loaded (seed from portfolio.json if empty or outdated) ──
     ensureProducts: function(cb) {

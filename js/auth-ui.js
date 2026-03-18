@@ -268,6 +268,8 @@
         var adminLink = canManage ?
           '<a href="' + (window.location.pathname.indexOf('/') > 0 ? '../' : '') + 'admin.html" style="display:block;padding:8px 12px;border-radius:7px;background:rgba(255,45,138,.08);border:1px solid rgba(255,45,138,.2);color:#FF85C0;font-size:11px;font-weight:600;text-decoration:none;margin-bottom:6px;text-align:center;transition:all .15s;">Управление доступами &#8594;</a>' : '';
 
+        var productsSection = buildProductsSection(user);
+
         dd.innerHTML =
           '<div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;">' + escH(user.name) + '</div>' +
           '<div style="font-size:11px;color:#7A9DB8;margin-bottom:4px;">' + escH(user.email) + '</div>' +
@@ -275,9 +277,9 @@
             '<span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(79,195,247,.1);color:' + role.color + ';font-weight:700;">' + role.label + '</span>' +
             (user.team ? '<span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.04);color:#7A9DB8;">' + escH(user.team) + '</span>' : '') +
           '</div>' +
-          (user.productIds && user.productIds.length ? '<div style="font-size:10px;color:#7A9DB8;margin-bottom:10px;">Продукты: ' + user.productIds.join(', ') + '</div>' : '') +
           adminLink +
-          '<button onclick="OrbAuth.logout();location.reload();" style="width:100%;padding:8px;background:transparent;border:1px solid rgba(255,255,255,.08);border-radius:7px;color:#7A9DB8;font-size:11px;cursor:pointer;">Выйти</button>';
+          productsSection +
+          '<button onclick="OrbAuth.logout();location.reload();" style="width:100%;padding:8px;background:transparent;border:1px solid rgba(255,255,255,.08);border-radius:7px;color:#7A9DB8;font-size:11px;cursor:pointer;margin-top:12px;">Выйти</button>';
 
         badge.style.position = 'relative';
         badge.appendChild(dd);
@@ -298,6 +300,128 @@
       else nav.appendChild(badge);
     }
     tryInsert();
+  }
+
+  // ═══════════════════════════════════════════════
+  // МОИ ПРОДУКТЫ (W4-021)
+  // ═══════════════════════════════════════════════
+
+  function getBasePath() {
+    var path = window.location.pathname;
+    var parts = path.split('/');
+    var filename = parts.pop() || '';
+    var dir = parts.join('/');
+    // Если страница в подпапке (не в корне) — нужен ../
+    // Определяем по наличию nav.js с src="../nav.js"
+    var navScript = document.querySelector('script[src*="nav.js"]');
+    if (navScript) {
+      var src = navScript.getAttribute('src') || '';
+      return src.replace(/nav\.js$/, '');
+    }
+    return '';
+  }
+
+  function buildProductsSection(user) {
+    if (!user) return '';
+    var role = user.role;
+
+    // guest / lead — не показываем
+    if (role === 'guest' || role === 'lead') return '';
+
+    var basePath = getBasePath();
+    var html = '';
+
+    // Стили секции
+    var sectionStyle = 'border-top:1px solid rgba(255,255,255,0.06);margin-top:12px;padding-top:12px;';
+    var titleStyle = 'font-size:9px;text-transform:uppercase;color:var(--muted,#7A9DB8);letter-spacing:1.2px;margin-bottom:8px;font-weight:600;';
+    var itemStyle = 'display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.04);text-decoration:none;border-radius:6px;transition:background .15s;';
+    var nameStyle = 'font-size:12px;color:#E8E8F0;';
+    var countStyle = 'font-size:10px;color:var(--muted,#7A9DB8);white-space:nowrap;margin-left:8px;';
+
+    // admin / pmo_lead — ссылка на реестр
+    if (role === 'admin' || role === 'pmo_lead') {
+      html += '<div style="' + sectionStyle + '">' +
+        '<div style="' + titleStyle + '">Продукты</div>' +
+        '<a href="' + basePath + 'business.html" style="' + itemStyle + '" ' +
+          'onmouseover="this.style.background=\'rgba(255,255,255,0.04)\'" onmouseout="this.style.background=\'none\'">' +
+          '<span style="' + nameStyle + '">Все продукты</span>' +
+          '<span style="' + countStyle + '">реестр &#8594;</span>' +
+        '</a>' +
+      '</div>';
+      return html;
+    }
+
+    // pm / pmo — загружаем продукты и инициативы
+    var products = (window.PT && PT.load(PT.KEY_PRODUCTS)) || [];
+    var backlog = (window.PT && PT.load(PT.KEY_BACKLOG)) || [];
+
+    var userProductIds = [];
+    if (role === 'pmo') {
+      // PMO — все продукты
+      userProductIds = products.map(function(p) { return p.id; });
+    } else if (role === 'pm') {
+      // PM — по assignments
+      if (user.assignments && user.assignments.length) {
+        for (var i = 0; i < user.assignments.length; i++) {
+          userProductIds.push(user.assignments[i].productId);
+        }
+      }
+      // Обратная совместимость — productIds
+      if (user.productIds && user.productIds.length) {
+        for (var j = 0; j < user.productIds.length; j++) {
+          if (userProductIds.indexOf(user.productIds[j]) < 0) {
+            userProductIds.push(user.productIds[j]);
+          }
+        }
+      }
+    }
+
+    if (userProductIds.length === 0) return '';
+
+    // Считаем активные инициативы по продуктам
+    var initCounts = {};
+    for (var b = 0; b < backlog.length; b++) {
+      var item = backlog[b];
+      if (item.status === 'wip' || item.status === 'planned') {
+        var pid = item.productId || '';
+        if (!initCounts[pid]) initCounts[pid] = 0;
+        initCounts[pid]++;
+      }
+    }
+
+    // Собираем карточки продуктов
+    var productItems = '';
+    for (var k = 0; k < userProductIds.length; k++) {
+      var prodId = userProductIds[k];
+      var prod = null;
+      for (var m = 0; m < products.length; m++) {
+        if (products[m].id === prodId) { prod = products[m]; break; }
+      }
+      var prodName = prod ? (prodId + ' \u00b7 ' + escH(OrbAuth.getDisplayName(prod, 'product'))) : prodId;
+      var cnt = initCounts[prodId] || 0;
+      var cntText = cnt > 0 ? (cnt + ' ' + pluralInit(cnt)) : 'нет инициатив';
+
+      productItems += '<a href="' + basePath + 'product-card.html?id=' + encodeURIComponent(prodId) + '" style="' + itemStyle + '" ' +
+        'onmouseover="this.style.background=\'rgba(255,255,255,0.04)\'" onmouseout="this.style.background=\'none\'">' +
+        '<span style="' + nameStyle + '">' + prodName + '</span>' +
+        '<span style="' + countStyle + '">' + cntText + '</span>' +
+      '</a>';
+    }
+
+    html += '<div style="' + sectionStyle + '">' +
+      '<div style="' + titleStyle + '">Мои продукты</div>' +
+      '<div style="max-height:200px;overflow-y:auto;">' + productItems + '</div>' +
+    '</div>';
+
+    return html;
+  }
+
+  function pluralInit(n) {
+    var mod10 = n % 10;
+    var mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return 'инициатива';
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return 'инициативы';
+    return 'инициатив';
   }
 
   // ═══════════════════════════════════════════════

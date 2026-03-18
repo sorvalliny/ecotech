@@ -249,6 +249,30 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .placeholder-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:40px;text-align:center;color:var(--muted)}
 .placeholder-card h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:8px}
 
+/* ── REVIEW PANEL ── */
+.review-panel{border-top:1px solid var(--border);padding:14px 18px;background:rgba(0,0,0,.08)}
+.review-panel-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.review-actions{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.review-btn{padding:7px 16px;border-radius:7px;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.review-btn-go{border:1px solid rgba(52,211,153,.4);background:var(--gdim);color:var(--green)}
+.review-btn-go:hover{background:rgba(52,211,153,.22)}
+.review-btn-nogo{border:1px solid rgba(239,68,68,.4);background:var(--rdim);color:var(--red)}
+.review-btn-nogo:hover{background:rgba(239,68,68,.22)}
+.review-btn-revise{border:1px solid rgba(255,184,48,.4);background:var(--adim);color:var(--amber)}
+.review-btn-revise:hover{background:rgba(255,184,48,.22)}
+.review-comment-input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:#E8E8F0;font-family:var(--font);font-size:12px;padding:8px 10px;outline:none;resize:vertical;min-height:48px;margin-bottom:10px}
+.review-comment-input:focus{border-color:var(--vborder)}
+.review-history{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.review-history-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.review-entry{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:var(--card2);border:1px solid var(--border);border-radius:8px}
+.review-entry-date{font-family:var(--mono);font-size:10px;color:var(--muted);flex-shrink:0;width:80px;padding-top:1px}
+.review-entry-user{font-size:11px;font-weight:700;color:var(--violet);flex-shrink:0;width:100px}
+.review-entry-action{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0}
+.ra-go{color:var(--green);background:var(--gdim);border:1px solid rgba(52,211,153,.3)}
+.ra-no-go{color:var(--red);background:var(--rdim);border:1px solid rgba(239,68,68,.3)}
+.ra-revise{color:var(--amber);background:var(--adim);border:1px solid rgba(255,184,48,.3)}
+.review-entry-comment{font-size:12px;color:#E8E8F0;flex:1;line-height:1.4}
+
 /* ── TOAST ── */
 .pc-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--teal);color:#fff;padding:10px 20px;border-radius:50px;font-size:12px;font-weight:600;z-index:9999;transition:transform .3s cubic-bezier(.22,1,.36,1);pointer-events:none}
 .pc-toast.show{transform:translateX(-50%) translateY(0)}
@@ -266,6 +290,72 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   .pc-title{font-size:22px}
   .gate-label{font-size:8px}
 }
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHT THEME OVERRIDES
+   ═══════════════════════════════════════════════════════════ */
+[data-theme="light"] body { background:var(--bg); color:#0A1929; }
+[data-theme="light"] .pc-title { color:#0A1929 !important; }
+[data-theme="light"] .pc-team span { color:#0A1929; }
+[data-theme="light"] .pc-team { color:#4A7A9B; }
+[data-theme="light"] .btn-back { background:rgba(2,136,209,.04); border-color:var(--border); color:#4A7A9B; }
+[data-theme="light"] .btn-back:hover { color:#0288D1; border-color:rgba(2,136,209,.25); background:rgba(2,136,209,.08); }
+[data-theme="light"] .sb-paused,
+[data-theme="light"] .sb-archived { background:rgba(0,0,0,.04); border-color:var(--border); }
+[data-theme="light"] .tab { color:#4A7A9B; }
+[data-theme="light"] .tab.active { color:#fff !important; }
+[data-theme="light"] .tab:hover:not(.active) { color:#0A1929; background:rgba(2,136,209,.06); }
+[data-theme="light"] .tab-count { background:rgba(2,136,209,.08); color:#4A7A9B; }
+[data-theme="light"] .pc-tabs { border-bottom-color:var(--border); }
+[data-theme="light"] .gate-dot { background:var(--card); border-color:var(--border); color:#4A7A9B; }
+[data-theme="light"] .gate-dot.done+.gate-label,
+[data-theme="light"] .gate-dot.current+.gate-label { color:#0A1929; }
+[data-theme="light"] .gate-line { background:var(--border); }
+[data-theme="light"] .gate-label { color:#4A7A9B; }
+[data-theme="light"] .ov-card { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .ov-card-title { color:#4A7A9B; }
+[data-theme="light"] .ov-card-value { color:#0A1929; }
+[data-theme="light"] .ov-card-value[contenteditable="true"] { border-color:rgba(2,136,209,.15); }
+[data-theme="light"] .ov-card-value[contenteditable="true"]:focus { border-color:rgba(2,136,209,.30); background:rgba(2,136,209,.04); }
+[data-theme="light"] .ov-kpi-val { color:#0A1929 !important; }
+[data-theme="light"] .ov-kpi-lbl { color:#4A7A9B; }
+[data-theme="light"] .filter-sel { background:var(--card); border-color:var(--border); color:#0A1929; }
+[data-theme="light"] .init-card { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .init-name { color:#0A1929; }
+[data-theme="light"] .init-edit { background:rgba(2,136,209,.03); border-top-color:var(--border); }
+[data-theme="light"] .ie-input,
+[data-theme="light"] .ie-textarea,
+[data-theme="light"] .ie-select { background:#FFFFFF !important; color:#0A1929 !important; border-color:rgba(2,136,209,.15) !important; }
+[data-theme="light"] .ie-rice-val { color:#0A1929 !important; }
+[data-theme="light"] .ie-score-preview { background:rgba(2,136,209,.04); border-color:var(--border); }
+[data-theme="light"] .if-title { color:#0A1929 !important; }
+[data-theme="light"] .inline-form { background:var(--card); border-color:rgba(2,136,209,.25); }
+[data-theme="light"] .goal-card { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .goal-title { color:#0A1929 !important; }
+[data-theme="light"] .kr-text { color:#0A1929; }
+[data-theme="light"] .kr-progress { background:var(--border); }
+[data-theme="light"] .kr-linked-item { background:rgba(2,136,209,.04); border-color:var(--border); }
+[data-theme="light"] .cal-timeline-wrap { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .cal-axis { background:var(--border); }
+[data-theme="light"] .cal-marker-label { color:#0A1929; }
+[data-theme="light"] .cal-event-row { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .cal-event-title { color:#0A1929; }
+[data-theme="light"] .doc-checklist { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .doc-checklist-title { color:#0A1929 !important; }
+[data-theme="light"] .doc-checklist-bar { background:var(--border); }
+[data-theme="light"] .doc-row { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .doc-name { color:#0A1929; }
+[data-theme="light"] .doc-url-input { background:#FFFFFF; border-color:rgba(2,136,209,.15); color:#0288D1; }
+[data-theme="light"] .log-entry { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .log-details { color:#0A1929; }
+[data-theme="light"] .not-found h2 { color:#0A1929 !important; }
+[data-theme="light"] .placeholder-card { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .placeholder-card h3 { color:#0A1929 !important; }
+[data-theme="light"] .btn-save-sm { color:#fff !important; }
+[data-theme="light"] .btn-cancel-sm:hover { color:#0A1929; border-color:var(--border-hi); }
+[data-theme="light"] .review-entry { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .review-entry-comment { color:#0A1929; }
+[data-theme="light"] .review-comment-input { background:#FFFFFF; color:#0A1929; border-color:rgba(2,136,209,.15); }
 </style>
 </head>
 <body>
@@ -362,6 +452,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
   function isLead() {
     return getRole() === 'lead';
+  }
+
+  function canReview() {
+    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+    if (!user) return false;
+    var r = user.role;
+    return r === 'admin' || r === 'pmo_lead' || r === 'pmo' || r === 'lead';
   }
 
   function displayName(product) {
@@ -524,8 +621,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     // Team line
     html += '<div class="pc-team">';
     html += 'PMO: <span>' + esc(_product.pmo || _product.owner || '--') + '</span>';
-    if (_product.pm) {
-      html += ' | PM: <span>' + esc(_product.pm) + '</span>';
+    var _headerPMs = OrbAuth.getProductPMs(_product.id);
+    if (_headerPMs.length) {
+      var _pmParts = [];
+      for (var pi = 0; pi < _headerPMs.length; pi++) {
+        var _pm = _headerPMs[pi];
+        var _pmName = OrbAuth.getDisplayName({name: _pm.name, id: _pm.email}, 'user');
+        var _pmScope = OrbAuth.formatScope(_pm.scope);
+        _pmParts.push(esc(_pmName) + ' <span style="color:var(--muted)">(' + esc(_pmScope) + ')</span>');
+      }
+      html += ' | PM: ' + _pmParts.join(', ');
+    } else {
+      html += ' | PM: <span style="color:var(--muted)">не назначен</span>';
     }
     if (_product.stakeholders) {
       html += ' | \u0421\u0442\u0435\u0439\u043A\u0445\u043E\u043B\u0434\u0435\u0440\u044B: <span>' + esc(_product.stakeholders) + '</span>';
@@ -640,7 +747,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     html += '<div class="ov-card-title">\u041A\u043E\u043C\u0430\u043D\u0434\u0430</div>';
     html += '<div style="display:flex;gap:24px;flex-wrap:wrap">';
     html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">PMO-\u043C\u0435\u043D\u0435\u0434\u0436\u0435\u0440</div><div style="font-size:13px;font-weight:700;color:#fff">' + esc(_product.pmo || _product.owner || '--') + '</div></div>';
-    html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">Product Manager</div><div style="font-size:13px;font-weight:700;color:#fff">' + esc(_product.pm || '--') + '</div></div>';
+    var _cardPMs = OrbAuth.getProductPMs(_product.id);
+    if (_cardPMs.length) {
+      for (var cpi = 0; cpi < _cardPMs.length; cpi++) {
+        var _cpm = _cardPMs[cpi];
+        var _cpmName = OrbAuth.getDisplayName({name: _cpm.name, id: _cpm.email}, 'user');
+        var _cpmScope = OrbAuth.formatScope(_cpm.scope);
+        html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">Product Manager</div>';
+        html += '<div style="font-size:13px;font-weight:700;color:#fff">' + esc(_cpmName) + ' <span style="font-size:11px;font-weight:400;color:var(--muted)">(' + esc(_cpmScope) + ')</span></div></div>';
+      }
+    } else {
+      html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">Product Manager</div><div style="font-size:13px;font-weight:400;color:var(--muted)">не назначен</div></div>';
+    }
     html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">\u0421\u0442\u0435\u0439\u043A\u0445\u043E\u043B\u0434\u0435\u0440\u044B</div><div style="font-size:13px;font-weight:700;color:#fff">' + esc(_product.stakeholders || '--') + '</div></div>';
     html += '</div>';
     html += '</div>';
@@ -751,7 +869,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       html += '<div class="ie-grid">';
       html += '<div class="ie-group full"><div class="ie-lbl">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div><input class="ie-input" id="new-init-name" placeholder="\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B"></div>';
       html += '<div class="ie-group full"><div class="ie-lbl">\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</div><textarea class="ie-textarea" id="new-init-desc" placeholder="\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435"></textarea></div>';
-      html += '<div class="ie-group"><div class="ie-lbl">\u0422\u0438\u043F</div><select class="ie-select" id="new-init-seg"><option value="business">\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442</option><option value="tech">\u0422\u0435\u0445\u043D\u0438\u043A\u0430</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0421\u0435\u0433\u043C\u0435\u043D\u0442</div><select class="ie-select" id="new-init-seg"><option value="business">\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442</option><option value="tech">\u0422\u0435\u0445\u043D\u0438\u043A\u0430</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0422\u0438\u043F \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B</div><select class="ie-select" id="new-init-type"><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0435</option><option value="business">\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="technical">\u0422\u0435\u0445\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0435</option></select></div>';
       html += '<div class="ie-group"><div class="ie-lbl">\u041A\u0432\u0430\u0440\u0442\u0430\u043B</div><select class="ie-select" id="new-init-quarter"><option value="Q1 2026">Q1 2026</option><option value="Q2 2026" selected>Q2 2026</option><option value="Q3 2026">Q3 2026</option><option value="Q4 2026">Q4 2026</option><option value="H1 2026">H1 2026</option><option value="H2 2026">H2 2026</option></select></div>';
       html += '<div class="ie-group"><div class="ie-lbl">\u0421\u0442\u0430\u0442\u0443\u0441</div><select class="ie-select" id="new-init-status"><option value="backlog">\u0411\u044D\u043A\u043B\u043E\u0433</option><option value="planned">\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043E</option><option value="wip">\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option></select></div>';
       html += '<div class="ie-group"><div class="ie-lbl">PM</div><input class="ie-input" id="new-init-pm" placeholder="\u041E\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439"></div>';
@@ -765,7 +884,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
     // Filters
     html += '<div class="filter-row">';
-    html += '<select class="filter-sel" id="filter-init-seg"><option value="">\u0412\u0441\u0435 \u0442\u0438\u043F\u044B</option><option value="business">\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442</option><option value="tech">\u0422\u0435\u0445\u043D\u0438\u043A\u0430</option></select>';
+    html += '<select class="filter-sel" id="filter-init-seg"><option value="">\u0412\u0441\u0435 \u0441\u0435\u0433\u043C\u0435\u043D\u0442\u044B</option><option value="business">\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442</option><option value="tech">\u0422\u0435\u0445\u043D\u0438\u043A\u0430</option></select>';
+    html += '<select class="filter-sel" id="filter-init-type"><option value="">\u0412\u0441\u0435 \u0442\u0438\u043F\u044B</option><option value="business">\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0435</option><option value="technical">\u0422\u0435\u0445\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0435</option></select>';
     html += '<select class="filter-sel" id="filter-init-status"><option value="">\u0412\u0441\u0435 \u0441\u0442\u0430\u0442\u0443\u0441\u044B</option><option value="backlog">\u0411\u044D\u043A\u043B\u043E\u0433</option><option value="planned">\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043E</option><option value="wip">\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option><option value="done">\u0413\u043E\u0442\u043E\u0432\u043E</option></select>';
     html += '<select class="filter-sel" id="filter-init-quarter"><option value="">\u0412\u0441\u0435 \u043A\u0432\u0430\u0440\u0442\u0430\u043B\u044B</option><option value="Q1 2026">Q1 2026</option><option value="Q2 2026">Q2 2026</option><option value="Q3 2026">Q3 2026</option><option value="Q4 2026">Q4 2026</option></select>';
     html += '</div>';
@@ -805,10 +925,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     var html = '<div class="init-card' + (isExpanded ? ' expanded' : '') + '" data-init-id="' + esc(it.id) + '">';
 
     // Head row
+    var typeBadgeHtml = window.PT ? PT.initTypeBadge(it) : '';
     html += '<div class="init-card-head">';
     html += '<div class="init-id">' + esc(it.id) + '</div>';
     html += '<div>';
-    html += '<div class="init-name">' + esc(it.name) + '</div>';
+    html += '<div class="init-name">' + esc(it.name) + ' ' + typeBadgeHtml + '</div>';
     if (it.pm) html += '<div class="init-sub">' + esc(it.pm) + '</div>';
     html += '</div>';
     html += '<div><span class="init-seg ' + segCls + '">' + esc(segLabel) + '</span></div>';
@@ -823,7 +944,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       html += '<div class="ie-grid">';
       html += '<div class="ie-group full"><div class="ie-lbl">\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</div><input class="ie-input" data-ie="name" value="' + esc(it.name) + '"></div>';
       html += '<div class="ie-group full"><div class="ie-lbl">\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</div><textarea class="ie-textarea" data-ie="desc">' + esc(it.desc || '') + '</textarea></div>';
-      html += '<div class="ie-group"><div class="ie-lbl">\u0422\u0438\u043F</div><select class="ie-select" data-ie="segment"><option value="business"' + (it.segment === 'business' ? ' selected' : '') + '>\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product"' + (it.segment === 'product' ? ' selected' : '') + '>\u041F\u0440\u043E\u0434\u0443\u043A\u0442</option><option value="tech"' + (it.segment === 'tech' ? ' selected' : '') + '>\u0422\u0435\u0445\u043D\u0438\u043A\u0430</option></select></div>';
+      html += '<div class="ie-group"><div class="ie-lbl">\u0421\u0435\u0433\u043C\u0435\u043D\u0442</div><select class="ie-select" data-ie="segment"><option value="business"' + (it.segment === 'business' ? ' selected' : '') + '>\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product"' + (it.segment === 'product' ? ' selected' : '') + '>\u041F\u0440\u043E\u0434\u0443\u043A\u0442</option><option value="tech"' + (it.segment === 'tech' ? ' selected' : '') + '>\u0422\u0435\u0445\u043D\u0438\u043A\u0430</option></select></div>';
+      var _itType = window.PT ? PT.getInitType(it) : (it.type || 'product');
+      html += '<div class="ie-group"><div class="ie-lbl">\u0422\u0438\u043F \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B</div><select class="ie-select" data-ie="type"><option value="product"' + (_itType === 'product' ? ' selected' : '') + '>\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0435</option><option value="business"' + (_itType === 'business' ? ' selected' : '') + '>\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="technical"' + (_itType === 'technical' ? ' selected' : '') + '>\u0422\u0435\u0445\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0435</option></select></div>';
       html += '<div class="ie-group"><div class="ie-lbl">\u0421\u0442\u0430\u0442\u0443\u0441</div><select class="ie-select" data-ie="status"><option value="backlog"' + (it.status === 'backlog' ? ' selected' : '') + '>\u0411\u044D\u043A\u043B\u043E\u0433</option><option value="planned"' + (it.status === 'planned' ? ' selected' : '') + '>\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043E</option><option value="wip"' + (it.status === 'wip' ? ' selected' : '') + '>\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option><option value="done"' + (it.status === 'done' ? ' selected' : '') + '>\u0413\u043E\u0442\u043E\u0432\u043E</option></select></div>';
       html += '<div class="ie-group"><div class="ie-lbl">\u041A\u0432\u0430\u0440\u0442\u0430\u043B</div><select class="ie-select" data-ie="quarter"><option value="Q1 2026"' + (it.quarter === 'Q1 2026' ? ' selected' : '') + '>Q1 2026</option><option value="Q2 2026"' + (it.quarter === 'Q2 2026' ? ' selected' : '') + '>Q2 2026</option><option value="Q3 2026"' + (it.quarter === 'Q3 2026' ? ' selected' : '') + '>Q3 2026</option><option value="Q4 2026"' + (it.quarter === 'Q4 2026' ? ' selected' : '') + '>Q4 2026</option></select></div>';
       html += '<div class="ie-group"><div class="ie-lbl">PM</div><input class="ie-input" data-ie="pm" value="' + esc(it.pm || '') + '"></div>';
@@ -865,6 +988,38 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         html += '<button class="btn-danger" data-action="delete-init" style="margin-left:8px">\u0423\u0434\u0430\u043B\u0438\u0442\u044C</button>';
       }
       html += '</div>';
+      html += '</div>';
+    }
+
+    // Review panel (for leads and approvers, shown when expanded)
+    if (isExpanded && canReview()) {
+      html += '<div class="review-panel">';
+      html += '<div class="review-panel-title">Ревью инициативы</div>';
+      html += '<textarea class="review-comment-input" data-review-comment="' + esc(it.id) + '" placeholder="Комментарий к ревью..."></textarea>';
+      html += '<div class="review-actions">';
+      html += '<button class="review-btn review-btn-go" data-review-action="go" data-review-init="' + esc(it.id) + '">&#10003; Go</button>';
+      html += '<button class="review-btn review-btn-nogo" data-review-action="no-go" data-review-init="' + esc(it.id) + '">&#10007; No-Go</button>';
+      html += '<button class="review-btn review-btn-revise" data-review-action="revise" data-review-init="' + esc(it.id) + '">&#8634; Revise</button>';
+      html += '</div>';
+
+      // Review history
+      var reviews = it.reviews || [];
+      if (reviews.length) {
+        html += '<div class="review-history">';
+        html += '<div class="review-history-title">История ревью</div>';
+        for (var rv = reviews.length - 1; rv >= 0; rv--) {
+          var rev = reviews[rv];
+          var actionCls = rev.action === 'go' ? 'ra-go' : (rev.action === 'no-go' ? 'ra-no-go' : 'ra-revise');
+          var actionLabel = rev.action === 'go' ? 'Go' : (rev.action === 'no-go' ? 'No-Go' : 'Revise');
+          html += '<div class="review-entry">';
+          html += '<div class="review-entry-date">' + esc(formatDate(rev.date)) + '</div>';
+          html += '<div class="review-entry-user">' + esc(rev.userName || '--') + '</div>';
+          html += '<div class="review-entry-action ' + actionCls + '">' + esc(actionLabel) + '</div>';
+          html += '<div class="review-entry-comment">' + esc(rev.comment || '') + '</div>';
+          html += '</div>';
+        }
+        html += '</div>';
+      }
       html += '</div>';
     }
 
@@ -1296,11 +1451,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           var name = document.getElementById('new-init-name').value.trim();
           if (!name) { showToast('\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'); return; }
 
+          var typeEl = document.getElementById('new-init-type');
           var newInit = {
             id: genId('I'),
             name: name,
             desc: document.getElementById('new-init-desc').value.trim(),
             segment: document.getElementById('new-init-seg').value,
+            type: typeEl ? typeEl.value : 'product',
             status: document.getElementById('new-init-status').value,
             quarter: document.getElementById('new-init-quarter').value,
             pm: document.getElementById('new-init-pm').value.trim(),
@@ -1323,11 +1480,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
     // Filters
     var filterSeg = document.getElementById('filter-init-seg');
+    var filterType = document.getElementById('filter-init-type');
     var filterStatus = document.getElementById('filter-init-status');
     var filterQuarter = document.getElementById('filter-init-quarter');
 
     function applyFilters() {
       var seg = filterSeg ? filterSeg.value : '';
+      var tp = filterType ? filterType.value : '';
       var st = filterStatus ? filterStatus.value : '';
       var q = filterQuarter ? filterQuarter.value : '';
 
@@ -1343,6 +1502,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
         var show = true;
         if (seg && init.segment !== seg) show = false;
+        if (tp) {
+          var initType = window.PT ? PT.getInitType(init) : (init.type || 'product');
+          if (initType !== tp) show = false;
+        }
         if (st && init.status !== st) show = false;
         if (q && init.quarter !== q) show = false;
         card.style.display = show ? '' : 'none';
@@ -1350,6 +1513,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     }
 
     if (filterSeg) filterSeg.addEventListener('change', applyFilters);
+    if (filterType) filterType.addEventListener('change', applyFilters);
     if (filterStatus) filterStatus.addEventListener('change', applyFilters);
     if (filterQuarter) filterQuarter.addEventListener('change', applyFilters);
 
@@ -1387,6 +1551,17 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           if (action === 'delete-init') {
             deleteInitiative(initId);
             return;
+          }
+          return;
+        }
+
+        // Handle review buttons
+        var reviewBtn = target.closest('[data-review-action]');
+        if (reviewBtn) {
+          var reviewAction = reviewBtn.getAttribute('data-review-action');
+          var reviewInitId = reviewBtn.getAttribute('data-review-init');
+          if (reviewAction && reviewInitId) {
+            submitReview(reviewInitId, reviewAction);
           }
           return;
         }
@@ -1507,6 +1682,50 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       showToast('\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430 \u0443\u0434\u0430\u043B\u0435\u043D\u0430');
       _expandedInit = null;
       renderApp();
+    }
+  }
+
+  function submitReview(initId, action) {
+    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+    if (!user) return;
+
+    var commentEl = document.querySelector('[data-review-comment="' + initId + '"]');
+    var comment = commentEl ? commentEl.value.trim() : '';
+
+    // Comment required for no-go and revise
+    if ((action === 'no-go' || action === 'revise') && !comment) {
+      showToast('Укажите комментарий для ' + (action === 'no-go' ? 'No-Go' : 'Revise'));
+      if (commentEl) commentEl.focus();
+      return;
+    }
+
+    for (var i = 0; i < _backlog.length; i++) {
+      if (_backlog[i].id === initId) {
+        var init = _backlog[i];
+        var approvalMap = {'go':'approved', 'no-go':'rejected', 'revise':'pending'};
+        var oldApproval = init.approval || 'pending';
+        init.approval = approvalMap[action] || 'pending';
+
+        if (!init.reviews) init.reviews = [];
+        init.reviews.push({
+          userId: user.id || user.login || '',
+          userName: user.name || user.login || '--',
+          action: action,
+          comment: comment,
+          date: new Date().toISOString()
+        });
+
+        _backlog[i] = init;
+        saveBacklog();
+
+        var logMsg = initId + ': ' + action.toUpperCase() + (comment ? ' — ' + comment : '');
+        addLog('review', logMsg, 'initiative', initId);
+
+        var toastMap = {'go':'Go — Согласовано', 'no-go':'No-Go — Отклонено', 'revise':'Revise — На доработку'};
+        showToast(toastMap[action] || 'Ревью сохранено');
+        renderApp();
+        return;
+      }
     }
   }
 

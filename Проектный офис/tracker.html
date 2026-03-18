@@ -548,6 +548,25 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .kanban-card-name { font-size:12px; font-weight:700; color:var(--text); margin-bottom:3px; }
 .kanban-card-meta { font-size:10px; color:var(--muted); }
 .kanban-empty { font-size:11px; color:var(--muted); text-align:center; padding:16px; }
+
+/* ── DRAG-N-DROP KANBAN ── */
+.kanban-col.drag-over { border:2px dashed var(--violet); background:rgba(79,195,247,0.05); border-radius:8px; }
+.kanban-card.dragging { opacity:0.5; }
+.kanban-card[draggable="true"] { cursor:grab; }
+.kanban-card[draggable="true"]:active { cursor:grabbing; }
+.drag-confirm-overlay { position:fixed; inset:0; background:rgba(3,8,15,0.82); backdrop-filter:blur(8px); z-index:9000; display:flex; align-items:center; justify-content:center; }
+.drag-confirm-modal { background:var(--card); border:1px solid var(--bhi); border-radius:14px; padding:28px 32px; max-width:420px; width:90%; box-shadow:0 16px 48px rgba(0,0,0,0.5); }
+.drag-confirm-modal h3 { font-size:15px; font-weight:700; color:#E8E8F0; margin-bottom:12px; }
+.drag-confirm-modal p { font-size:13px; color:var(--muted); margin-bottom:20px; line-height:1.6; }
+.drag-confirm-actions { display:flex; gap:8px; justify-content:flex-end; }
+.drag-confirm-actions button { padding:8px 18px; border-radius:8px; font-family:var(--font); font-size:12px; font-weight:700; cursor:pointer; transition:all .15s; border:none; }
+.drag-confirm-btn-ok { background:var(--violet); color:#fff; }
+.drag-confirm-btn-ok:hover { opacity:0.85; }
+.drag-confirm-btn-cancel { background:transparent; border:1px solid var(--border) !important; color:var(--muted); }
+.drag-confirm-btn-cancel:hover { border-color:var(--bhi) !important; color:#fff; }
+.drag-confirm-btn-warn { background:var(--amber); color:#000; }
+.drag-confirm-btn-warn:hover { opacity:0.85; }
+
 .stage-help-link { font-size:10px; color:var(--violet); text-decoration:none; display:inline-flex; align-items:center; gap:3px; transition:color .15s; }
 .stage-help-link:hover { color:var(--teal); }
 .share-link-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:2px;transition:color .15s}
@@ -555,6 +574,80 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .approve-btn{padding:4px 12px;border:1px solid rgba(52,211,153,.3);border-radius:6px;background:rgba(52,211,153,.1);color:#34D399;font-size:10px;font-weight:700;cursor:pointer}
 .reject-btn{padding:4px 12px;border:1px solid rgba(248,113,113,.3);border-radius:6px;background:rgba(248,113,113,.1);color:#F87171;font-size:10px;font-weight:700;cursor:pointer}
 .gate-check-link { display:inline-flex; align-items:center; gap:2px; }
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHT THEME OVERRIDES
+   ═══════════════════════════════════════════════════════════ */
+[data-theme="light"] body { background:var(--bg); color:#0A1929; }
+[data-theme="light"] .app { color:#0A1929; }
+[data-theme="light"] .pg-head { border-bottom-color:var(--border); }
+[data-theme="light"] .pg-head-title { color:#0A1929 !important; }
+[data-theme="light"] .pg-head-sub { color:#4A7A9B; }
+[data-theme="light"] .tab-btn { color:#4A7A9B; border-color:var(--border); }
+[data-theme="light"] .tab-btn:hover { color:#0A1929; border-color:var(--border-hi); }
+[data-theme="light"] .tab-btn.active { background:rgba(2,136,209,.08); color:#0288D1; border-color:rgba(2,136,209,.25); }
+[data-theme="light"] .sec { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .adm-table th { color:#4A7A9B; border-bottom-color:var(--border); }
+[data-theme="light"] .adm-table td { border-bottom-color:var(--border); color:#0A1929; }
+[data-theme="light"] .adm-table tr:hover td { background:rgba(2,136,209,.04); }
+[data-theme="light"] .ptr-table th { color:#4A7A9B; border-bottom-color:var(--border); }
+[data-theme="light"] .ptr-table td { color:#0A1929; border-bottom-color:var(--border); }
+[data-theme="light"] .ptr-table tr:hover td { background:rgba(2,136,209,.04); }
+[data-theme="light"] .prod-card { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .prod-name { color:#0A1929 !important; }
+[data-theme="light"] .field input,
+[data-theme="light"] .field textarea,
+[data-theme="light"] .field select { background:#FFFFFF !important; color:#0A1929 !important; border-color:rgba(2,136,209,.15) !important; }
+[data-theme="light"] .field label { color:#4A7A9B; }
+[data-theme="light"] .field select option { background:#FFFFFF; }
+[data-theme="light"] .modal-overlay { background:rgba(0,0,0,.35); }
+[data-theme="light"] .modal { background:#FFFFFF; border-color:var(--border); }
+[data-theme="light"] .modal-title { color:#0A1929 !important; }
+[data-theme="light"] .btn-ghost { color:#4A7A9B; border-color:var(--border); }
+[data-theme="light"] .btn-ghost:hover { color:#0A1929; border-color:var(--border-hi); }
+[data-theme="light"] .btn-primary { color:#fff !important; }
+[data-theme="light"] .btn-teal { color:#fff !important; }
+[data-theme="light"] .setting-label { color:#0A1929; }
+[data-theme="light"] .setting-row { border-bottom-color:var(--border); }
+[data-theme="light"] .toggle-slider { background:var(--surface2); border-color:var(--border); }
+[data-theme="light"] .multi-check { background:#FFFFFF; border-color:var(--border); }
+[data-theme="light"] .multi-check label { color:#0A1929; }
+[data-theme="light"] .toast { background:rgba(255,255,255,.96); border-color:rgba(5,150,105,.25); color:#059669; }
+[data-theme="light"] .proto-badge { background:rgba(245,158,11,.08); color:#D97706; border-color:rgba(245,158,11,.20); }
+[data-theme="light"] .ob-tooltip { background:rgba(255,255,255,.98) !important; border-color:rgba(2,136,209,.25) !important; }
+[data-theme="light"] .ob-title { color:#0A1929 !important; }
+[data-theme="light"] .ob-body { color:#4A7A9B !important; }
+[data-theme="light"] .ob-btn-skip { border-color:var(--border); color:#4A7A9B; }
+[data-theme="light"] .ob-btn-skip:hover { color:#0A1929; }
+[data-theme="light"] .visual-lifecycle { background:rgba(2,136,209,.03); border-color:var(--border); }
+[data-theme="light"] .vl-dot { background:#FFFFFF !important; border-color:rgba(2,136,209,.15) !important; color:#4A7A9B !important; }
+[data-theme="light"] .vl-item.vl-selected .vl-dot { border-color:#0288D1 !important; background:rgba(2,136,209,.08) !important; color:#0288D1 !important; }
+[data-theme="light"] .vl-label { color:#4A7A9B !important; }
+[data-theme="light"] .vl-item.vl-selected .vl-label { color:#0288D1 !important; }
+[data-theme="light"] .vl-item::after { background:rgba(2,136,209,.10); }
+[data-theme="light"] .vl-cnt { color:#4A7A9B; }
+[data-theme="light"] .vl-sublabel { color:#6A98B4; }
+[data-theme="light"] .view-switch { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .view-btn { color:#4A7A9B; }
+[data-theme="light"] .view-btn:hover { color:#0A1929; }
+[data-theme="light"] .view-btn.active { background:rgba(0,184,158,.08); color:#059669; }
+[data-theme="light"] .kanban-col-head { background:var(--mid); }
+[data-theme="light"] .kanban-col-name { color:#0A1929; }
+[data-theme="light"] .kanban-card { background:var(--card); border-color:var(--border); }
+[data-theme="light"] .kanban-card:hover { border-color:rgba(0,184,158,.25); }
+[data-theme="light"] .kanban-card-name { color:#0A1929; }
+[data-theme="light"] .kanban-empty { color:#4A7A9B; }
+[data-theme="light"] .prod-filter-btn { color:#4A7A9B; border-color:var(--border); }
+[data-theme="light"] .prod-filter-btn:hover { color:#0A1929; border-color:var(--border-hi); }
+[data-theme="light"] .prod-filter-btn.active { background:rgba(2,136,209,.08); color:#0288D1; border-color:rgba(2,136,209,.25); }
+[data-theme="light"] .drag-confirm-overlay { background:rgba(255,255,255,.7); }
+[data-theme="light"] .drag-confirm-modal { background:#FFFFFF; border-color:var(--border); }
+[data-theme="light"] .drag-confirm-modal h3 { color:#0A1929; }
+[data-theme="light"] .drag-confirm-modal p { color:#4A7A9B; }
+[data-theme="light"] .drag-confirm-btn-cancel { color:#4A7A9B; }
+[data-theme="light"] .drag-confirm-btn-cancel:hover { color:#0A1929; }
+[data-theme="light"] .access-denied-msg { color:#4A7A9B; }
+[data-theme="light"] .empty-state { color:#4A7A9B; }
 </style>
   <script src="../icons.js"></script>
   <script src="../platform.js"></script>
@@ -1322,6 +1415,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         </div>
         <div class="ep-group">
           <div class="ep-lbl">Тип инициативы</div>
+          <select class="ep-select" id="ep-type">
+            <option value="product">Продуктовые</option>
+            <option value="business">Бизнес</option>
+            <option value="technical">Технические</option>
+          </select>
+        </div>
+        <div class="ep-group">
+          <div class="ep-lbl">Трек</div>
           <select class="ep-select" id="ep-track">
             <option value="delivery">Разработка — разрабатываем</option>
             <option value="discovery">Исследование — исследуем</option>
@@ -1649,7 +1750,7 @@ const PROJECTS_DEFAULT = [
   }
 ];
 let PROJECTS = (() => {
-  const DATA_VER = 3;
+  const DATA_VER = 4;
   const curVer = parseInt(localStorage.getItem('ECOTECH_DATA_VERSION') || '0', 10);
   if (curVer < DATA_VER) {
     // Версия устарела — перезаписать из defaults
@@ -1671,19 +1772,19 @@ let gateChecklist = {};
 try { gateChecklist = (window.PT ? PT.load('ECOTECH_GATE_CHECKLIST') : JSON.parse(localStorage.getItem('ECOTECH_GATE_CHECKLIST'))) || {}; } catch(e) {}
 
 const BACKLOG_DEFAULT = [
-  { id:'D001', productId:'ECO-00', project:'ECO-00', track:'delivery', name:'Онбординг-флоу для новых юзеров', desc:'Пошаговый wizard при первом входе \u2192 рост Retention D7', cat:'feature', segment:'product', r:9, i:8, c:7, e:4, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
-  { id:'D002', productId:'ECO-00', project:'ECO-00', track:'review', name:'NPS-опрос + action plan', desc:'Ежемесячный NPS-замер, анализ детракторов, план улучшений', cat:'process', segment:'product', r:10, i:6, c:8, e:2, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
-  { id:'D003', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'A/B тест лендинга', desc:'3 варианта лендинга, замер конверсии в регистрацию', cat:'feature', segment:'product', r:8, i:7, c:6, e:3, status:'planned', created:'2026-03-05', updated:'2026-03-17' },
-  { id:'D004', productId:'ECO-00', project:'ECO-00', track:'delivery', name:'Push-уведомления', desc:'Триггерные пуши для возврата неактивных юзеров', cat:'feature', segment:'tech', r:7, i:6, c:5, e:5, status:'backlog', created:'2026-03-10', updated:'2026-03-17' },
-  { id:'D005', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'P&L модель 3 сценария', desc:'Финансовая модель: базовый, оптимистичный, пессимистичный', cat:'process', segment:'business', r:8, i:9, c:7, e:3, status:'planned', created:'2026-03-10', updated:'2026-03-17' },
-  { id:'D006', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'Unit economics: CAC и LTV', desc:'Расчёт стоимости привлечения и жизненной ценности клиента', cat:'process', segment:'business', r:7, i:8, c:5, e:4, status:'backlog', created:'2026-03-12', updated:'2026-03-17' },
-  { id:'I001', productId:'ECO-01', project:'ECO-01', track:'delivery', name:'Геймификация покупок', desc:'Игровые механики для увеличения retention', cat:'feature', segment:'product', r:8, i:7, c:7, e:4, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I002', productId:'ECO-01', project:'ECO-01', track:'review', name:'NPS-опрос и анализ', desc:'Ежемесячный NPS-замер + action plan по детракторам', cat:'process', segment:'product', r:10, i:6, c:8, e:2, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I003', productId:'ECO-01', project:'ECO-01', track:'discovery', name:'Unit economics модель', desc:'P&L модель + CAC/LTV расчёт для Gate 4', cat:'process', segment:'business', r:8, i:9, c:6, e:3, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I004', productId:'ECO-02', project:'ECO-02', track:'discovery', name:'CustDev образовательных учреждений', desc:'7-10 интервью с учителями и методистами', cat:'process', segment:'product', r:9, i:8, c:5, e:3, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I005', productId:'ECO-02', project:'ECO-02', track:'delivery', name:'MVP генератора контента', desc:'Прототип AI-генератора учебных материалов', cat:'feature', segment:'tech', r:8, i:9, c:4, e:7, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I006', productId:'ECO-03', project:'ECO-03', track:'discovery', name:'Product Brief Сервис З', desc:'Заполнить бриф: проблема, ЦА, RICE, OKR', cat:'process', segment:'product', r:7, i:7, c:8, e:1, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I007', productId:'ECO-03', project:'ECO-03', track:'discovery', name:'Анализ рынка знакомств', desc:'Конкуренты, TAM/SAM, позиционирование', cat:'process', segment:'business', r:6, i:6, c:5, e:2, status:'backlog', created:'2026-03-17', updated:'2026-03-17' }
+  { id:'D001', productId:'ECO-00', project:'ECO-00', track:'delivery', name:'Онбординг-флоу для новых юзеров', desc:'Пошаговый wizard при первом входе \u2192 рост Retention D7', cat:'feature', segment:'product', type:'product', r:9, i:8, c:7, e:4, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
+  { id:'D002', productId:'ECO-00', project:'ECO-00', track:'review', name:'NPS-опрос + action plan', desc:'Ежемесячный NPS-замер, анализ детракторов, план улучшений', cat:'process', segment:'product', type:'product', r:10, i:6, c:8, e:2, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
+  { id:'D003', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'A/B тест лендинга', desc:'3 варианта лендинга, замер конверсии в регистрацию', cat:'feature', segment:'product', type:'product', r:8, i:7, c:6, e:3, status:'planned', created:'2026-03-05', updated:'2026-03-17' },
+  { id:'D004', productId:'ECO-00', project:'ECO-00', track:'delivery', name:'Push-уведомления', desc:'Триггерные пуши для возврата неактивных юзеров', cat:'feature', segment:'tech', type:'technical', r:7, i:6, c:5, e:5, status:'backlog', created:'2026-03-10', updated:'2026-03-17' },
+  { id:'D005', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'P&L модель 3 сценария', desc:'Финансовая модель: базовый, оптимистичный, пессимистичный', cat:'process', segment:'business', type:'business', r:8, i:9, c:7, e:3, status:'planned', created:'2026-03-10', updated:'2026-03-17' },
+  { id:'D006', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'Unit economics: CAC и LTV', desc:'Расчёт стоимости привлечения и жизненной ценности клиента', cat:'process', segment:'business', type:'business', r:7, i:8, c:5, e:4, status:'backlog', created:'2026-03-12', updated:'2026-03-17' },
+  { id:'I001', productId:'ECO-01', project:'ECO-01', track:'delivery', name:'Геймификация покупок', desc:'Игровые механики для увеличения retention', cat:'feature', segment:'product', type:'product', r:8, i:7, c:7, e:4, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I002', productId:'ECO-01', project:'ECO-01', track:'review', name:'NPS-опрос и анализ', desc:'Ежемесячный NPS-замер + action plan по детракторам', cat:'process', segment:'product', type:'product', r:10, i:6, c:8, e:2, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I003', productId:'ECO-01', project:'ECO-01', track:'discovery', name:'Unit economics модель', desc:'P&L модель + CAC/LTV расчёт для Gate 4', cat:'process', segment:'business', type:'business', r:8, i:9, c:6, e:3, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I004', productId:'ECO-02', project:'ECO-02', track:'discovery', name:'CustDev образовательных учреждений', desc:'7-10 интервью с учителями и методистами', cat:'process', segment:'product', type:'product', r:9, i:8, c:5, e:3, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I005', productId:'ECO-02', project:'ECO-02', track:'delivery', name:'MVP генератора контента', desc:'Прототип AI-генератора учебных материалов', cat:'feature', segment:'tech', type:'technical', r:8, i:9, c:4, e:7, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I006', productId:'ECO-03', project:'ECO-03', track:'discovery', name:'Product Brief Сервис З', desc:'Заполнить бриф: проблема, ЦА, RICE, OKR', cat:'process', segment:'product', type:'product', r:7, i:7, c:8, e:1, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I007', productId:'ECO-03', project:'ECO-03', track:'discovery', name:'Анализ рынка знакомств', desc:'Конкуренты, TAM/SAM, позиционирование', cat:'process', segment:'business', type:'business', r:6, i:6, c:5, e:2, status:'backlog', created:'2026-03-17', updated:'2026-03-17' }
 ];
 
 // ════════════════════════════════════════════
@@ -1941,11 +2042,7 @@ function onFilterChange() {
   else if (FILTERS.status === 'pending') { filters.status = 'planned'; }
   else { filters.status = 'all'; }
 
-  // Sync type filter → track
-  if (FILTERS.type === 'business') { filters.track = 'delivery'; }
-  else if (FILTERS.type === 'product') { filters.track = 'discovery'; }
-  else if (FILTERS.type === 'technical') { filters.track = 'review'; }
-  else { filters.track = 'all'; }
+  // Type фильтр не синхронизируется с track — они независимы
 
   // Render current tab
   if (curTab === 'portfolio') { renderPortfolio(); renderLifecycle(); applyGateFilter(); }
@@ -2014,12 +2111,10 @@ function applyFilters(items) {
       else if (rel !== period) return false;
     }
 
-    // Type filter
+    // Type filter (initiative type: business / product / technical)
     if (FILTERS.type) {
-      var seg = item.segment || item.cat || '';
-      if (FILTERS.type === 'business' && seg !== 'business' && item.track !== 'delivery') return false;
-      if (FILTERS.type === 'product' && seg !== 'product' && item.track !== 'discovery') return false;
-      if (FILTERS.type === 'technical' && seg !== 'tech' && item.track !== 'review') return false;
+      var initType = window.PT ? PT.getInitType(item) : (item.type || 'product');
+      if (initType !== FILTERS.type) return false;
     }
 
     // Search filter
@@ -2359,9 +2454,10 @@ function renderPortfolio() {
       const trackHtml = item.track === 'discovery'
         ? `<span class="track-d">${EI.svg('search',12)} Исследование</span>`
         : `<span class="track-v">${EI.svg('rocket',12)} Разработка</span>`;
+      var typeBadge = window.PT ? PT.initTypeBadge(item) : '';
       return `<div class="irow" onclick="openPRD('${item.id}')">
         <div class="iid"><span class="ilist-seg" title="${segLabel}">${EI.svg(segIcon,10)}</span> ${item.id}</div>
-        <div><div class="iname">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div><div class="isub">${escHtml(item.desc.substring(0,52))}${item.desc.length>52?'…':''}</div></div>
+        <div><div class="iname">${escHtml(OrbAuth.getDisplayName(item,'initiative'))} ${typeBadge}</div><div class="isub">${escHtml(item.desc.substring(0,52))}${item.desc.length>52?'…':''}</div></div>
         <div>${trackHtml}</div>
         <div><div class="iscore ${scClass(s)}">${s.toFixed(1)}</div><div class="iscl">RICE</div></div>
         <div style="text-align:right"><span class="ist ${ST_CLS[item.status]}">${ST_ICO[item.status]} ${ST_LBL[item.status]}</span></div>
@@ -2592,10 +2688,11 @@ function renderItem(item, rank) {
     : item.track === 'review'
     ? `<span class="track-d" style="color:#FFB830;border-color:rgba(255,184,48,.25);background:rgba(255,184,48,.1)">${EI.svg('trending-up',12)} Оценка и ретро</span>`
     : `<span class="track-v">${EI.svg('rocket',12)} Разработка</span>`;
+  var typeBadgeHtml = window.PT ? PT.initTypeBadge(item) : '';
   return `<div class="item${editId===item.id?' editing':''}" onclick="openPRD('${item.id}')">
     <div class="item-rank">#${rank}</div>
     <div class="item-main">
-      <div class="item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div>
+      <div class="item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))} ${typeBadgeHtml}</div>
       <div class="item-desc">${escHtml(item.desc)}</div>
       <div class="item-meta">
         <span class="tag tag-${item.cat}">${CAT_LBL[item.cat]||item.cat}</span>
@@ -2718,10 +2815,11 @@ function renderPMProject(pid) {
 
   const mkItems = (arr) => arr.slice(0,6).map(item => {
     const s = sc(item);
+    var _tb = window.PT ? PT.initTypeBadge(item) : '';
     return `<div class="trk-item">
       <div class="trk-item-id">${item.id}</div>
       <div>
-        <div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div>
+        <div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))} ${_tb}</div>
         <div style="font-size:10px;color:var(--muted);margin-top:2px">${ST_ICO[item.status]} ${ST_LBL[item.status]} · ${item.release||'—'}</div>
       </div>
       <div class="trk-item-score ${scClass(s)}">${s.toFixed(0)}</div>
@@ -2912,10 +3010,11 @@ function renderCPO() {
           ${[...backlog].sort((a,b)=>sc(b)-sc(a)).slice(0,5).map(item => {
             const s = sc(item);
             const proj = PROJECTS.find(p=>p.id===(item.productId||item.project));
+            var _tb2 = window.PT ? PT.initTypeBadge(item) : '';
             return `<div class="trk-item">
               <div class="trk-item-id">${item.id}</div>
               <div style="flex:1">
-                <div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div>
+                <div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))} ${_tb2}</div>
                 <div style="display:flex;gap:5px;margin-top:2px">
                   <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${proj?proj.color:'#888'};flex-shrink:0;margin-top:3px"></span>
                   <span style="font-size:9px;color:var(--muted)">${proj?escHtml(OrbAuth.getDisplayName(proj,'product')):'—'}</span>
@@ -2978,9 +3077,10 @@ function renderCEO() {
         <div class="trk-section">
           ${backlog.filter(i=>i.status==='planned').slice(0,5).map(item=>{
             const proj = PROJECTS.find(p=>p.id===(item.productId||item.project));
+            var _tb3 = window.PT ? PT.initTypeBadge(item) : '';
             return `<div class="trk-item">
               <div class="trk-item-id">${item.id}</div>
-              <div style="flex:1"><div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div>
+              <div style="flex:1"><div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))} ${_tb3}</div>
                 <div style="font-size:9px;color:var(--muted);margin-top:1px">${proj?escHtml(OrbAuth.getDisplayName(proj,'product')):'—'} · ${item.release}</div>
               </div>
               <span class="sdot st-planned" style="flex-shrink:0;font-size:9px">${EI.svg('map-pin',12)}</span>
@@ -2995,9 +3095,10 @@ function renderCEO() {
             const s = sc(item);
             const proj = PROJECTS.find(p=>p.id===(item.productId||item.project));
             const gate = STAGES[proj?proj.gate:0];
+            var _tb4 = window.PT ? PT.initTypeBadge(item) : '';
             return `<div class="trk-item">
               <div class="trk-item-id">${item.id}</div>
-              <div style="flex:1"><div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))}</div>
+              <div style="flex:1"><div class="trk-item-name">${escHtml(OrbAuth.getDisplayName(item,'initiative'))} ${_tb4}</div>
                 <div style="font-size:9px;color:var(--muted);margin-top:1px">${proj?escHtml(OrbAuth.getDisplayName(proj,'product')):'—'}</div>
               </div>
               <div class="trk-item-score ${scClass(s)}">${s.toFixed(0)}</div>
@@ -3026,6 +3127,7 @@ function openEP(id) {
   document.getElementById('ep-e-v').textContent = item.e;
   document.getElementById('ep-proj').value = item.productId || item.project || 'P01';
   document.getElementById('ep-segment').value = item.segment || 'product';
+  document.getElementById('ep-type').value = window.PT ? PT.getInitType(item) : (item.type || 'product');
   document.getElementById('ep-track').value = item.track || 'delivery';
   document.getElementById('ep-status').value = item.status;
   document.getElementById('ep-release').value = item.release || 'backlog';
@@ -3069,6 +3171,7 @@ function saveEP() {
   item.productId=document.getElementById('ep-proj').value;
   item.project=item.productId;
   item.segment=document.getElementById('ep-segment').value;
+  item.type=document.getElementById('ep-type').value;
   item.track=document.getElementById('ep-track').value;
   item.status=document.getElementById('ep-status').value;
   item.release=document.getElementById('ep-release').value;
@@ -3108,6 +3211,7 @@ function openPRD(id) {
   document.getElementById('ep-e-v').textContent = item.e;
   document.getElementById('ep-proj').value = item.productId || item.project || 'P01';
   document.getElementById('ep-segment').value = item.segment || 'product';
+  document.getElementById('ep-type').value = window.PT ? PT.getInitType(item) : (item.type || 'product');
   document.getElementById('ep-track').value = item.track || 'delivery';
   document.getElementById('ep-status').value = item.status;
   document.getElementById('ep-release').value = item.release || 'backlog';
@@ -3414,6 +3518,7 @@ function addInitiative(projectId) {
     desc: '',
     cat: 'feature',
     segment: 'product',
+    type: 'product',
     audience: 'PM',
     r:5, i:5, c:5, e:5,
     status: initialStatus,
@@ -3645,11 +3750,258 @@ function deleteGoalConfirm() {
 let portfolioView='cards';
 function setPortfolioView(view,btn){portfolioView=view;document.querySelectorAll('#active-views .view-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('portfolio-cards').style.display=view==='cards'?'':'none';document.getElementById('portfolio-table').style.display=view==='table'?'':'none';document.getElementById('portfolio-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderPortfolioTable();if(view==='kanban')renderPortfolioKanban();}
 function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Название</th><th>Орбита</th><th>Статус</th><th>RICE</th><th>PM</th></tr></thead><tbody>';PROJECTS.forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});var avgRice=pInits.length?(pInits.reduce(function(a,i){return a+sc(i);},0)/pInits.length).toFixed(1):'\u2014';html+='<tr style="cursor:pointer" onclick="window.location.href=\'../product-card.html?id='+p.id+'\'">'+'<td><a href="../product-card.html?id='+p.id+'" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;font-weight:700">'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</a></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+avgRice+'</td><td>'+escHtml(p.owner||'\u2014')+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
-function renderPortfolioKanban(){var el=document.getElementById('portfolio-kanban');var html='<div class="kanban-board">';STAGES.forEach(function(s,idx){var prods=PROJECTS.filter(function(p){return p.gate===idx;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+s.color+'"><span class="kanban-col-name">'+s.name+'</span><span class="kanban-col-count">'+prods.length+'</span></div><div class="kanban-col-body">';prods.forEach(function(p){html+='<div class="kanban-card" onclick="window.location.href=\'../product-card.html?id='+p.id+'\'"><div class="kanban-card-name">'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</div><div class="kanban-card-meta">'+escHtml(p.owner||'')+' \u00b7 '+p.status+'</div></div>';});if(!prods.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
+function renderPortfolioKanban(){
+  var el=document.getElementById('portfolio-kanban');
+  var userRole = window.OrbAuth ? OrbAuth.getRole() : 'guest';
+  var canDragPortfolio = (userRole === 'admin' || userRole === 'pmo_lead');
+  var html='<div class="kanban-board">';
+  STAGES.forEach(function(s,idx){
+    var prods=PROJECTS.filter(function(p){return p.gate===idx;});
+    html+='<div class="kanban-col" data-portfolio-gate="'+idx+'">';
+    html+='<div class="kanban-col-head" style="border-top:3px solid '+s.color+'"><span class="kanban-col-name">'+s.name+'</span><span class="kanban-col-count">'+prods.length+'</span></div>';
+    html+='<div class="kanban-col-body">';
+    prods.forEach(function(p){
+      var draggable = canDragPortfolio ? ' draggable="true"' : '';
+      html+='<div class="kanban-card"'+draggable+' data-product-id="'+p.id+'" onclick="window.location.href=\'../product-card.html?id='+p.id+'\'">';
+      html+='<div class="kanban-card-name">'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</div>';
+      html+='<div class="kanban-card-meta">'+escHtml(p.owner||'')+' \u00b7 '+p.status+'</div></div>';
+    });
+    if(!prods.length) html+='<div class="kanban-empty">\u2014</div>';
+    html+='</div></div>';
+  });
+  html+='</div>';
+  el.innerHTML=html;
+  if(canDragPortfolio) initPortfolioKanbanDrag();
+}
 let backlogView='list';
 function setBacklogView(view,btn){backlogView=view;document.querySelectorAll('#active-views .view-btn').forEach(function(b){b.classList.remove('active');});if(btn)btn.classList.add('active');document.getElementById('backlog-list-wrap').style.display=view==='list'?'':'none';document.getElementById('backlog-table-wrap').style.display=view==='table'?'':'none';document.getElementById('backlog-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderBacklogTable();if(view==='kanban')renderBacklogKanban();}
 function renderBacklogTable(){var items=getFiltered();var el=document.getElementById('backlog-table-wrap');var html='<table class="ptr-table"><thead><tr><th>ID</th><th>Название</th><th>Продукт</th><th>Статус</th><th>Трек</th><th>RICE</th></tr></thead><tbody>';items.forEach(function(item){var s=sc(item);html+='<tr onclick="openPRD(\''+item.id+'\')"><td style="font-family:var(--mono);font-size:10px;color:var(--muted)">'+item.id+'</td><td><strong>'+escHtml(OrbAuth.getDisplayName(item,'initiative'))+'</strong></td><td>'+(item.productId||item.project)+'</td><td><span class="sdot '+ST_CLS[item.status]+'">'+ST_LBL[item.status]+'</span></td><td>'+(item.track==='discovery'?'Исследование':'Разработка')+'</td><td><span class="iscore '+scClass(s)+'">'+s.toFixed(1)+'</span></td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
-function renderBacklogKanban(){var items=getFiltered();var el=document.getElementById('backlog-kanban');var cols=[{key:'backlog',label:'Бэклог',color:'var(--muted)'},{key:'planned',label:'Запланировано',color:'#C4B5FD'},{key:'wip',label:'В работе',color:'var(--teal)'},{key:'done',label:'Готово',color:'var(--green)'}];var html='<div class="kanban-board">';cols.forEach(function(col){var colItems=items.filter(function(i){return i.status===col.key;});html+='<div class="kanban-col"><div class="kanban-col-head" style="border-top:3px solid '+col.color+'"><span class="kanban-col-name">'+col.label+'</span><span class="kanban-col-count">'+colItems.length+'</span></div><div class="kanban-col-body">';colItems.forEach(function(item){var s=sc(item);html+='<div class="kanban-card" onclick="openPRD(\''+item.id+'\')"><div class="kanban-card-name">'+escHtml(OrbAuth.getDisplayName(item,'initiative'))+'</div><div class="kanban-card-meta">'+(item.productId||item.project)+' \u00b7 RICE '+s.toFixed(1)+'</div></div>';});if(!colItems.length)html+='<div class="kanban-empty">\u2014</div>';html+='</div></div>';});html+='</div>';el.innerHTML=html;}
+function renderBacklogKanban(){
+  var items=getFiltered();
+  var el=document.getElementById('backlog-kanban');
+  var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+  var userRole = user ? user.role : 'guest';
+  var canEditGlobal = (userRole === 'admin' || userRole === 'pmo_lead' || userRole === 'pmo');
+  var cols=[{key:'backlog',label:'Бэклог',color:'var(--muted)'},{key:'planned',label:'Запланировано',color:'#C4B5FD'},{key:'wip',label:'В работе',color:'var(--teal)'},{key:'done',label:'Готово',color:'var(--green)'}];
+  var html='<div class="kanban-board">';
+  cols.forEach(function(col){
+    var colItems=items.filter(function(i){return i.status===col.key;});
+    html+='<div class="kanban-col" data-backlog-status="'+col.key+'">';
+    html+='<div class="kanban-col-head" style="border-top:3px solid '+col.color+'"><span class="kanban-col-name">'+col.label+'</span><span class="kanban-col-count">'+colItems.length+'</span></div>';
+    html+='<div class="kanban-col-body">';
+    colItems.forEach(function(item){
+      var s=sc(item);
+      var canDrag = canEditGlobal;
+      if(!canDrag && userRole === 'pm') {
+        var productId = item.productId || item.project;
+        canDrag = window.OrbAuth && OrbAuth.canEditProduct(productId);
+      }
+      var draggable = canDrag ? ' draggable="true"' : '';
+      html+='<div class="kanban-card"'+draggable+' data-init-id="'+item.id+'" onclick="openPRD(\''+item.id+'\')">';
+      html+='<div class="kanban-card-name">'+escHtml(OrbAuth.getDisplayName(item,'initiative'))+'</div>';
+      html+='<div class="kanban-card-meta">'+(item.productId||item.project)+' \u00b7 RICE '+s.toFixed(1)+'</div></div>';
+    });
+    if(!colItems.length) html+='<div class="kanban-empty">\u2014</div>';
+    html+='</div></div>';
+  });
+  html+='</div>';
+  el.innerHTML=html;
+  initBacklogKanbanDrag();
+}
+// ════════════════════════════════════════════
+// DRAG-N-DROP: Confirmation modal
+// ════════════════════════════════════════════
+function showDragConfirm(opts) {
+  // opts: { title, message, okText, cancelText, warnText, onOk, onCancel, onWarn }
+  var overlay = document.createElement('div');
+  overlay.className = 'drag-confirm-overlay';
+  var modal = document.createElement('div');
+  modal.className = 'drag-confirm-modal';
+  modal.innerHTML = '<h3>' + escHtml(opts.title || 'Подтверждение') + '</h3>' +
+    '<p>' + (opts.message || '') + '</p>' +
+    '<div class="drag-confirm-actions"></div>';
+  var actions = modal.querySelector('.drag-confirm-actions');
+
+  if (opts.warnText) {
+    var warnBtn = document.createElement('button');
+    warnBtn.className = 'drag-confirm-btn-warn';
+    warnBtn.textContent = opts.warnText;
+    warnBtn.onclick = function() { document.body.removeChild(overlay); if (opts.onWarn) opts.onWarn(); };
+    actions.appendChild(warnBtn);
+  }
+
+  var cancelBtn = document.createElement('button');
+  cancelBtn.className = 'drag-confirm-btn-cancel';
+  cancelBtn.textContent = opts.cancelText || 'Отмена';
+  cancelBtn.onclick = function() { document.body.removeChild(overlay); if (opts.onCancel) opts.onCancel(); };
+  actions.appendChild(cancelBtn);
+
+  var okBtn = document.createElement('button');
+  okBtn.className = 'drag-confirm-btn-ok';
+  okBtn.textContent = opts.okText || 'Перенести';
+  okBtn.onclick = function() { document.body.removeChild(overlay); if (opts.onOk) opts.onOk(); };
+  actions.appendChild(okBtn);
+
+  overlay.appendChild(modal);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) { document.body.removeChild(overlay); if (opts.onCancel) opts.onCancel(); }
+  });
+  document.body.appendChild(overlay);
+}
+
+// ════════════════════════════════════════════
+// DRAG-N-DROP: Backlog kanban
+// ════════════════════════════════════════════
+function initBacklogKanbanDrag() {
+  var board = document.querySelector('#backlog-kanban .kanban-board');
+  if (!board) return;
+  var cards = board.querySelectorAll('.kanban-card[draggable="true"]');
+  var cols = board.querySelectorAll('.kanban-col[data-backlog-status]');
+
+  cards.forEach(function(card) {
+    card.addEventListener('dragstart', function(e) {
+      e.dataTransfer.setData('text/plain', card.getAttribute('data-init-id'));
+      e.dataTransfer.effectAllowed = 'move';
+      card.classList.add('dragging');
+      // Prevent click navigation during drag
+      card._dragStarted = true;
+      setTimeout(function() { card.style.opacity = '0.5'; }, 0);
+    });
+    card.addEventListener('dragend', function() {
+      card.classList.remove('dragging');
+      card.style.opacity = '';
+      card._dragStarted = false;
+      cols.forEach(function(c) { c.classList.remove('drag-over'); });
+    });
+    // Suppress click when drag occurred
+    card.addEventListener('click', function(e) {
+      if (card._dragStarted) { e.stopImmediatePropagation(); e.preventDefault(); }
+    }, true);
+  });
+
+  cols.forEach(function(col) {
+    col.addEventListener('dragover', function(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; col.classList.add('drag-over'); });
+    col.addEventListener('dragleave', function(e) {
+      if (!col.contains(e.relatedTarget)) col.classList.remove('drag-over');
+    });
+    col.addEventListener('drop', function(e) {
+      e.preventDefault();
+      col.classList.remove('drag-over');
+      var initId = e.dataTransfer.getData('text/plain');
+      var newStatus = col.getAttribute('data-backlog-status');
+      if (!initId) return;
+      var item = backlog.find(function(i) { return i.id === initId; });
+      if (!item || item.status === newStatus) return;
+
+      var oldStatus = item.status;
+      var statusLabels = {backlog:'Бэклог', planned:'Запланировано', wip:'В работе', done:'Готово'};
+      var itemName = window.OrbAuth ? OrbAuth.getDisplayName(item, 'initiative') : (item.name || item.id);
+
+      if (newStatus === 'done') {
+        showDragConfirm({
+          title: 'Завершение инициативы',
+          message: 'Переместить <strong>' + escHtml(itemName) + '</strong> в <strong>' + statusLabels[newStatus] + '</strong>?<br><br>Все артефакты соблюдены?',
+          okText: 'Перенести',
+          warnText: 'Вернуть на доработку',
+          cancelText: 'Отмена',
+          onOk: function() {
+            applyBacklogStatusChange(item, oldStatus, newStatus, statusLabels);
+          },
+          onWarn: function() {
+            applyBacklogStatusChange(item, oldStatus, 'wip', statusLabels);
+          }
+        });
+      } else {
+        showDragConfirm({
+          title: 'Перемещение инициативы',
+          message: 'Переместить <strong>' + escHtml(itemName) + '</strong> в <strong>' + statusLabels[newStatus] + '</strong>?',
+          okText: 'Перенести',
+          cancelText: 'Отмена',
+          onOk: function() {
+            applyBacklogStatusChange(item, oldStatus, newStatus, statusLabels);
+          }
+        });
+      }
+    });
+  });
+}
+
+function applyBacklogStatusChange(item, oldStatus, newStatus, statusLabels) {
+  item.status = newStatus;
+  if (window.PT) PT.save(PT.KEY_BACKLOG, backlog);
+  else localStorage.setItem('ECOTECH_BACKLOG', JSON.stringify(backlog));
+  var productId = item.productId || item.project;
+  if (window.PT) PT.addLog(productId, 'status_change', 'Инициатива перемещена: ' + (statusLabels[oldStatus]||oldStatus) + ' \u2192 ' + (statusLabels[newStatus]||newStatus), 'initiative', item.id);
+  logChange('initiative', item.id, (item.name||item.id), 'status_change', 'status', oldStatus, newStatus);
+  renderBacklogKanban();
+  renderBL();
+}
+
+// ════════════════════════════════════════════
+// DRAG-N-DROP: Portfolio kanban (gate transitions)
+// ════════════════════════════════════════════
+function initPortfolioKanbanDrag() {
+  var board = document.querySelector('#portfolio-kanban .kanban-board');
+  if (!board) return;
+  var cards = board.querySelectorAll('.kanban-card[draggable="true"]');
+  var cols = board.querySelectorAll('.kanban-col[data-portfolio-gate]');
+
+  cards.forEach(function(card) {
+    card.addEventListener('dragstart', function(e) {
+      e.dataTransfer.setData('text/plain', card.getAttribute('data-product-id'));
+      e.dataTransfer.effectAllowed = 'move';
+      card.classList.add('dragging');
+      card._dragStarted = true;
+      setTimeout(function() { card.style.opacity = '0.5'; }, 0);
+    });
+    card.addEventListener('dragend', function() {
+      card.classList.remove('dragging');
+      card.style.opacity = '';
+      card._dragStarted = false;
+      cols.forEach(function(c) { c.classList.remove('drag-over'); });
+    });
+    card.addEventListener('click', function(e) {
+      if (card._dragStarted) { e.stopImmediatePropagation(); e.preventDefault(); }
+    }, true);
+  });
+
+  cols.forEach(function(col) {
+    col.addEventListener('dragover', function(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; col.classList.add('drag-over'); });
+    col.addEventListener('dragleave', function(e) {
+      if (!col.contains(e.relatedTarget)) col.classList.remove('drag-over');
+    });
+    col.addEventListener('drop', function(e) {
+      e.preventDefault();
+      col.classList.remove('drag-over');
+      var productId = e.dataTransfer.getData('text/plain');
+      var newGate = parseInt(col.getAttribute('data-portfolio-gate'), 10);
+      if (!productId) return;
+      var product = PROJECTS.find(function(p) { return p.id === productId; });
+      if (!product || product.gate === newGate) return;
+
+      var oldGate = product.gate;
+      var oldStageName = (STAGES[oldGate] || STAGES[0]).name;
+      var newStageName = (STAGES[newGate] || STAGES[0]).name;
+      var productName = window.OrbAuth ? OrbAuth.getDisplayName(product, 'product') : (product.name || product.id);
+
+      showDragConfirm({
+        title: 'Перевод продукта',
+        message: 'Перевести <strong>' + escHtml(productName) + '</strong> на <strong>' + escHtml(newStageName) + '</strong>?<br><br>Все артефакты соблюдены?',
+        okText: 'Перевести',
+        cancelText: 'Отмена',
+        onOk: function() {
+          product.gate = newGate;
+          saveProjects();
+          if (window.PT) PT.addLog(productId, 'gate_change', 'Продукт переведён: ' + oldStageName + ' \u2192 ' + newStageName, 'product', productId);
+          logChange('product', productId, (product.name||productId), 'gate_change', 'gate', oldStageName, newStageName);
+          renderPortfolioKanban();
+          renderPortfolio();
+        }
+      });
+    });
+  });
+}
+
 renderPortfolio();
 initSidebar();
 renderContextBar();
