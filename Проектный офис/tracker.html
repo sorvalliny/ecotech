@@ -106,12 +106,16 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── STATS BAR ── */
 .stats-bar {
-  display: flex;
+  display: none;
   gap: 24px;
   padding: 10px 20px;
   border-bottom: 1px solid var(--border);
   background: rgba(7,7,15,.85);
 }
+.stats-bar.visible { display: flex; }
+#stats-toggle-btn { padding:6px 14px; border:1px solid var(--border); border-radius:8px; background:transparent; color:var(--muted); font-family:var(--font); font-size:11px; font-weight:600; cursor:pointer; transition:all .15s; }
+#stats-toggle-btn:hover { border-color:rgba(0,212,180,.4); color:#E8E8F0; }
+#stats-toggle-btn.active { background:var(--vdim); border-color:var(--vborder); color:var(--violet); }
 .stat-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .stat-value { font-size: 18px; font-weight: 800; color: var(--teal); }
 .stat-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
@@ -134,11 +138,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── MAIN ── */
 .main{flex:1;overflow-y:auto;padding:20px 24px;min-width:0}
 
-/* ── PORTFOLIO STATS ── */
-.pstats{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
-.pstat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;display:flex;flex-direction:column;gap:2px;min-width:100px}
-.pstat-num{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1}
-.pstat-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+/* ── PORTFOLIO STATS (removed — replaced by stats-bar) ── */
 
 /* ── DIVLABEL ── */
 .divlabel{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;padding:14px 0 10px;display:flex;align-items:center;gap:10px}
@@ -156,10 +156,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pcard-edit-btn{margin-left:auto;width:26px;height:26px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);border-radius:7px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;opacity:0;pointer-events:none;flex-shrink:0}
 .pcard:hover .pcard-edit-btn{opacity:1;pointer-events:auto}
 .pcard-edit-btn:hover{background:var(--violet-dim);color:#C4B5FD;border-color:var(--violet-border)}
-.epic-tracker-link{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#93C5FD;text-decoration:none;padding:1px 7px;border-radius:4px;border:1px solid rgba(59,130,246,.25);background:rgba(59,130,246,.06);transition:all .15s;white-space:nowrap}
-.epic-tracker-link:hover{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.5)}
-.epic-add-url{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--muted);padding:1px 7px;border-radius:4px;border:1px dashed rgba(255,255,255,.1);background:none;cursor:pointer;transition:all .15s;opacity:.35}
-.epic-add-url:hover{opacity:1;border-color:rgba(59,130,246,.3);color:#93C5FD}
+.stream-tracker-link{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#93C5FD;text-decoration:none;padding:1px 7px;border-radius:4px;border:1px solid rgba(59,130,246,.25);background:rgba(59,130,246,.06);transition:all .15s;white-space:nowrap}
+.stream-tracker-link:hover{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.5)}
+.stream-add-url{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--muted);padding:1px 7px;border-radius:4px;border:1px dashed rgba(255,255,255,.1);background:none;cursor:pointer;transition:all .15s;opacity:.35}
+.stream-add-url:hover{opacity:1;border-color:rgba(59,130,246,.3);color:#93C5FD}
 .btn-add-product{margin-left:auto;padding:6px 14px;background:var(--violet-dim);border:1px solid var(--violet-border);border-radius:8px;color:#C4B5FD;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
 .btn-add-product:hover{background:var(--violet);color:#fff;border-color:var(--violet)}
 /* ── PRODUCT MODAL ── */
@@ -363,16 +363,16 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .ep-tab-panel .ep-body{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:14px}
 .ep-tab-panel .ep-foot{padding:14px 18px;border-top:1px solid var(--border);flex-shrink:0}
 
-/* ── EPIC SECTIONS IN PORTFOLIO ── */
-.epic-section{margin-bottom:10px}
-.epic-header{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(79,195,247,.06);border:1px solid rgba(79,195,247,.2);border-radius:8px;margin-bottom:5px}
-.epic-icon{font-size:13px;flex-shrink:0}
-.epic-name{font-size:12px;font-weight:700;color:#C4B5FD;flex:1;min-width:0}
-.epic-meta{font-size:9px;color:var(--muted);font-family:var(--mono);white-space:nowrap}
-.epic-goal-tag{font-size:9px;color:var(--amber);font-weight:700;white-space:nowrap;padding:1px 5px;border-radius:4px;background:rgba(255,184,48,.1);border:1px solid rgba(255,184,48,.2)}
-.epic-inits{padding-left:10px}
-.no-epic-header{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;margin-bottom:5px}
-.no-epic-header .epic-name{color:var(--muted)}
+/* ── STREAM SECTIONS IN PORTFOLIO ── */
+.stream-section{margin-bottom:10px}
+.stream-header{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(79,195,247,.06);border:1px solid rgba(79,195,247,.2);border-radius:8px;margin-bottom:5px}
+.stream-icon{font-size:13px;flex-shrink:0}
+.stream-name{font-size:12px;font-weight:700;color:#C4B5FD;flex:1;min-width:0}
+.stream-meta{font-size:9px;color:var(--muted);font-family:var(--mono);white-space:nowrap}
+.stream-goal-tag{font-size:9px;color:var(--amber);font-weight:700;white-space:nowrap;padding:1px 5px;border-radius:4px;background:rgba(255,184,48,.1);border:1px solid rgba(255,184,48,.2)}
+.stream-inits{padding-left:10px}
+.no-stream-header{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;margin-bottom:5px}
+.no-stream-header .stream-name{color:var(--muted)}
 
 /* ── GOAL CARDS ── */
 .goals-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
@@ -401,8 +401,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .krh-month{font-size:8px;color:var(--muted)}
 .krh-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin:2px 0}
 .krh-val{font-size:9px;color:var(--text);font-weight:700}
-.stats-toggle-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:var(--font);font-size:11px;padding:6px 14px;cursor:pointer;margin-bottom:10px;transition:all .15s}
-.stats-toggle-btn:hover{border-color:rgba(0,212,180,.4);color:#E8E8F0}
+
 .goal-stats{display:flex;gap:14px;padding-top:12px;border-top:1px solid var(--border);align-items:center;flex-wrap:wrap}
 .goal-stat{font-size:11px;color:var(--muted)}
 .goal-stat b{color:#E8E8F0;font-weight:700}
@@ -676,6 +675,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <button onclick="addInitiative(contextProduct||'');hideCreateMenu()"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-zap"/></svg> Инициативу</button>
       </div>
     </div>
+    <button class="btn-ghost btn-sm" onclick="toggleStats()" id="stats-toggle-btn" title="Статистика">Stats</button>
     <button class="ob-help-btn" onclick="startOnboarding()" title="Справка / онбординг">?</button>
   </div>
 </div>
@@ -832,17 +832,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
     <!-- PORTFOLIO -->
     <div id="pg-portfolio">
-      <button class="stats-toggle-btn" id="stats-toggle" onclick="toggleStats()">Статистика ▾</button>
-      <div id="stats-wrap" style="display:none">
-      <div class="pstats" id="pstats">
-    <div class="pstat"><div class="pstat-num" style="color:#fff">6</div><div class="pstat-lbl">Продуктов</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:var(--teal)">3</div><div class="pstat-lbl">В работе</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:#C4B5FD">2</div><div class="pstat-lbl">Запланировано</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:var(--muted)">1</div><div class="pstat-lbl">Беклог</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:var(--amber)">38</div><div class="pstat-lbl">Инициатив</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:var(--green)">38</div><div class="pstat-lbl">High priority</div></div>
-  </div>
-      </div>
+
       <!-- Visual Lifecycle -->
       <div class="visual-lifecycle" id="visual-lifecycle"></div>
       <div class="divlabel">Продукты экосистемы — 6 продуктов, 38 инициатив</div>
@@ -1030,7 +1020,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
       </div><div class="irow" onclick="goEdit(&#39;F11&#39;)">
         <div class="iid">F11</div>
-        <div><div class="iname">Роадмап продукта</div><div class="isub">Now/Next/Later, эпики, релизы, зависимости. Экспорт …</div></div>
+        <div><div class="iname">Роадмап продукта</div><div class="isub">Now/Next/Later, направления, релизы, зависимости. Экспорт …</div></div>
         <div><span class="track-v"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-rocket"/></svg> Разработка</span></div>
         <div><div class="iscore s-hi">36.8</div><div class="iscl">RICE</div></div>
         <div style="text-align:right"><span class="ist st-backlog"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-inbox"/></svg> Бэклог</span></div>
@@ -1340,9 +1330,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           <div id="goal-preview" class="goal-preview" style="display:none"></div>
         </div>
         <div class="ep-group">
-          <div class="ep-lbl"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Эпик</div>
+          <div class="ep-lbl"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Направление</div>
           <select class="ep-select" id="ep-epic-sel">
-            <option value="">— Без эпика —</option>
+            <option value="">— Без направления —</option>
           </select>
         </div>
         <div class="prd-divider">— КОНТЕКСТ —</div>
@@ -2319,10 +2309,11 @@ function onContextSearch() {
 }
 
 function toggleStats() {
-  var el = document.getElementById('stats-wrap');
-  var btn = document.getElementById('stats-toggle');
-  if (el.style.display === 'none') { el.style.display = ''; btn.textContent = 'Скрыть статистику ▴'; }
-  else { el.style.display = 'none'; btn.textContent = 'Статистика ▾'; }
+  var bar = document.getElementById('stats-bar');
+  var btn = document.getElementById('stats-toggle-btn');
+  var visible = bar.classList.toggle('visible');
+  if (btn) btn.classList.toggle('active', visible);
+  if (window.PT) PT.setUIState({statsVisible: visible});
 }
 
 let quarterFilter = '';
@@ -2452,17 +2443,7 @@ function renderPortfolio() {
   var userRole = window.OrbAuth ? OrbAuth.getRole() : null;
   var userId = window.OrbAuth ? (OrbAuth.getCurrentUser()||{}).id : '';
   var visibleProjects = getFilteredProjects();
-  const stCnt = {wip:0,planned:0,backlog:0,done:0};
-  visibleProjects.forEach(p => stCnt[p.status]++);
-  document.getElementById('pstats').innerHTML = `
-    <div class="pstat"><div class="pstat-num" style="color:#fff">${visibleProjects.length}</div><div class="pstat-lbl">Продуктов</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:var(--teal)">${stCnt.wip}</div><div class="pstat-lbl">В работе</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:#C4B5FD">${stCnt.planned}</div><div class="pstat-lbl">Запланировано</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:var(--muted)">${stCnt.backlog}</div><div class="pstat-lbl">Беклог</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:var(--amber)">${backlog.length}</div><div class="pstat-lbl">Инициатив</div></div>
-    <div class="pstat"><div class="pstat-num" style="color:var(--green)">${backlog.filter(i=>sc(i)>20).length}</div><div class="pstat-lbl">High priority</div></div>
-    <button class="btn-add-product" onclick="openProdModal(null)">${EI.svg('plus',14)} Добавить продукт</button>
-  `;
+
 
   document.getElementById('portfolio-cards').innerHTML = visibleProjects.map(p => {
     const items = backlog.filter(i => (i.productId||i.project) === p.id);
@@ -2487,7 +2468,7 @@ function renderPortfolio() {
       let cls = idx < p.gate ? 'done' : idx === p.gate ? 'current' : '';
       return `<div class="gate-step ${cls}" title="G${idx}: ${s.name}"></div>`;
     }).join('');
-    // Build epic-grouped initiative rows
+    // Build stream-grouped initiative rows
     const mkIRow = item => {
       const s = sc(item);
       const seg = item.segment || item.cat || 'product';
@@ -2522,30 +2503,30 @@ function renderPortfolio() {
         const epicItems = byEpic[epic.id] || [];
         const epicGoal  = goals.find(g => g.id === epic.goalId);
         const stCls     = epicStatusCls[epic.status] || 'backlog';
-        initRows += `<div class="epic-section">
-          <div class="epic-header">
-            <span class="epic-icon">${EI.svg('map-pin',13)}</span>
-            <span class="epic-name">${escHtml(epic.title)}</span>
+        initRows += `<div class="stream-section">
+          <div class="stream-header">
+            <span class="stream-icon">${EI.svg('map-pin',13)}</span>
+            <span class="stream-name">${escHtml(epic.title)}</span>
             <span class="sdot ${ST_CLS[stCls]}" style="font-size:9px;padding:2px 6px">${epic.status}</span>
-            <span class="epic-meta">G${epic.gate}</span>
-            ${epicGoal ? `<span class="epic-goal-tag">↗ ${epicGoal.id}</span>` : ''}
+            <span class="stream-meta">G${epic.gate}</span>
+            ${epicGoal ? `<span class="stream-goal-tag">↗ ${epicGoal.id}</span>` : ''}
             ${epic.trackerUrl
-              ? `<a class="epic-tracker-link" href="${epic.trackerUrl}" target="_blank" onclick="event.stopPropagation()">${EI.svg('external-link',10)} Трекер</a>`
-              : `<button class="epic-add-url" onclick="event.stopPropagation();editEpicUrl('${epic.id}')" title="Добавить ссылку на таск-трекер">${EI.svg('link',10)} Трекер</button>`}
+              ? `<a class="stream-tracker-link" href="${epic.trackerUrl}" target="_blank" onclick="event.stopPropagation()">${EI.svg('external-link',10)} Трекер</a>`
+              : `<button class="stream-add-url" onclick="event.stopPropagation();editEpicUrl('${epic.id}')" title="Добавить ссылку на таск-трекер">${EI.svg('link',10)} Трекер</button>`}
           </div>
-          <div class="epic-inits">
+          <div class="stream-inits">
             ${epicItems.length ? epicItems.map(mkIRow).join('') : '<div style="font-size:11px;color:var(--muted);padding:5px 0 3px">Нет инициатив</div>'}
           </div>
         </div>`;
       });
       if (noEpic.length) {
-        initRows += `<div class="epic-section">
-          <div class="no-epic-header epic-header">
-            <span class="epic-icon">${EI.svg('clipboard',13)}</span>
-            <span class="epic-name">Без эпика</span>
-            <span class="epic-meta">${noEpic.length}</span>
+        initRows += `<div class="stream-section">
+          <div class="no-stream-header stream-header">
+            <span class="stream-icon">${EI.svg('clipboard',13)}</span>
+            <span class="stream-name">Без направления</span>
+            <span class="stream-meta">${noEpic.length}</span>
           </div>
-          <div class="epic-inits">${noEpic.map(mkIRow).join('')}</div>
+          <div class="stream-inits">${noEpic.map(mkIRow).join('')}</div>
         </div>`;
       }
     } else {
@@ -3283,7 +3264,7 @@ function openPRD(id) {
   // Epic select (show all epics, mark current project's)
   const epicSel = document.getElementById('ep-epic-sel');
   if (epicSel) {
-    epicSel.innerHTML = '<option value="">— Без эпика —</option>' +
+    epicSel.innerHTML = '<option value="">— Без направления —</option>' +
       epics.map(e => {
         const proj = e.productId === (item.productId||item.project) ? '' : ` (${e.productId})`;
         return `<option value="${e.id}"${item.epicId===e.id?' selected':''}>${e.id} · ${e.title}${proj}</option>`;
@@ -3396,7 +3377,7 @@ function renderGoals() {
       <div class="kr-list">${krRows}</div>
       <div class="goal-stats">
         <div class="goal-stat">Инициатив: <b>${goalInits.length}</b></div>
-        <div class="goal-stat">Эпиков: <b>${goalEpics.length}</b></div>
+        <div class="goal-stat">Направлений: <b>${goalEpics.length}</b></div>
         <div style="flex:1"></div>
         <button class="exbtn" onclick="openGoalEditor('${goal.id}')">${EI.svg('edit',14)} Редактировать</button>
       </div>
@@ -4102,6 +4083,13 @@ renderContextBar();
   if (_ui.tracker_filters && _tab === 'backlog') {
     Object.assign(filters, _ui.tracker_filters);
     renderBL();
+  }
+  // Restore stats bar visibility (default: hidden)
+  if (_ui.statsVisible) {
+    var sb = document.getElementById('stats-bar');
+    var stBtn = document.getElementById('stats-toggle-btn');
+    if (sb) sb.classList.add('visible');
+    if (stBtn) stBtn.classList.add('active');
   }
 })();
 
