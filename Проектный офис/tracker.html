@@ -98,6 +98,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   transition: all 0.15s;
 }
 .filter-reset:hover { color: #E8E8F0; border-color: var(--bhi); }
+.dept-badge { font-size:9px; padding:2px 6px; border-radius:4px; font-weight:600; }
+.dept-innovation { color:#7B2FFF; background:rgba(123,47,255,0.1); }
+.dept-education { color:#4FC3F7; background:rgba(79,195,247,0.1); }
 .filter-views { margin-left: auto; display: flex; align-items: center; gap: 10px; }
 .filter-found { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; }
 
@@ -693,6 +696,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 </div>
 
 <div class="filter-bar" id="filter-bar">
+  <div class="filter-group">
+    <label class="filter-label">Департамент</label>
+    <select class="filter-select" id="filter-dept" onchange="onFilterChange()">
+      <option value="">Все департаменты</option>
+      <option value="innovation">Инновации и экосистема</option>
+      <option value="education">Обучение</option>
+    </select>
+  </div>
   <div class="filter-group">
     <label class="filter-label">Продукт</label>
     <select class="filter-select" id="filter-product" onchange="onFilterChange()">
@@ -1967,6 +1978,7 @@ let gateFilter = null; // null = all, 0-5 = filter by gate
 // UNIFIED FILTERS (W4-013)
 // ════════════════════════════════════════════
 var FILTERS = {
+  dept: '',
   product: '',
   orbit: '',
   status: '',
@@ -2010,6 +2022,7 @@ function setContext(productId) {
 }
 
 function onFilterChange() {
+  var fd = document.getElementById('filter-dept');
   var fp = document.getElementById('filter-product');
   var fo = document.getElementById('filter-orbit');
   var fs = document.getElementById('filter-status');
@@ -2017,6 +2030,7 @@ function onFilterChange() {
   var ft = document.getElementById('filter-type');
   var fq = document.getElementById('filter-search');
 
+  FILTERS.dept    = fd ? fd.value : '';
   FILTERS.product = fp ? fp.value : '';
   FILTERS.orbit   = fo ? fo.value : '';
   FILTERS.status  = fs ? fs.value : '';
@@ -2052,6 +2066,7 @@ function onFilterChange() {
 }
 
 function resetFilters() {
+  FILTERS.dept = '';
   FILTERS.product = '';
   FILTERS.orbit = '';
   FILTERS.status = '';
@@ -2059,12 +2074,14 @@ function resetFilters() {
   FILTERS.type = '';
   FILTERS.search = '';
 
+  var fd = document.getElementById('filter-dept');
   var fp = document.getElementById('filter-product');
   var fo = document.getElementById('filter-orbit');
   var fs = document.getElementById('filter-status');
   var fpe = document.getElementById('filter-period');
   var ft = document.getElementById('filter-type');
   var fq = document.getElementById('filter-search');
+  if (fd) fd.value = '';
   if (fp) fp.value = '';
   if (fo) fo.value = '';
   if (fs) fs.value = '';
@@ -2083,6 +2100,17 @@ function resetFilters() {
 
 function applyFilters(items) {
   return items.filter(function(item) {
+    // Department filter
+    if (FILTERS.dept) {
+      var itemProductId = item.productId || item.project || '';
+      var itemProduct = null;
+      for (var dp = 0; dp < PROJECTS.length; dp++) {
+        if (PROJECTS[dp].id === itemProductId) { itemProduct = PROJECTS[dp]; break; }
+      }
+      if (itemProduct && itemProduct.department && itemProduct.department !== FILTERS.dept) return false;
+      if (!itemProduct && FILTERS.dept) return false;
+    }
+
     // Product filter
     if (FILTERS.product && (item.productId || item.project) !== FILTERS.product) return false;
 
@@ -2133,6 +2161,9 @@ function updateStats() {
   if (curTab === 'portfolio') {
     // Stats based on projects + their initiatives
     var visibleProjects = PROJECTS.filter(function(p) {
+      if (FILTERS.dept) {
+        if (!p.department || p.department !== FILTERS.dept) return false;
+      }
       if (FILTERS.product && p.id !== FILTERS.product) return false;
       if (FILTERS.orbit) {
         var orbitGate = parseInt(FILTERS.orbit.replace('O',''), 10);
@@ -2202,6 +2233,25 @@ function updateStats() {
 }
 
 function renderFilterBar() {
+  // Auto-set department filter on first render
+  var deptSel = document.getElementById('filter-dept');
+  if (deptSel && !FILTERS.dept && window.OrbAuth && OrbAuth.getUserDepartment) {
+    var userDept = OrbAuth.getUserDepartment();
+    if (userDept) {
+      FILTERS.dept = userDept;
+      deptSel.value = userDept;
+    }
+  }
+  // Restrict dept filter change for non-admin/pmo_lead
+  if (deptSel) {
+    var userRole = window.OrbAuth ? OrbAuth.getRole() : null;
+    if (userRole !== 'admin' && userRole !== 'pmo_lead' && FILTERS.dept) {
+      deptSel.disabled = true;
+    } else {
+      deptSel.disabled = false;
+    }
+  }
+
   var sel = document.getElementById('filter-product');
   if (!sel) return;
   sel.innerHTML = '<option value="">Все продукты</option>' +
@@ -2392,6 +2442,9 @@ function renderPortfolio() {
   var visibleProjects = PROJECTS.filter(function(p) {
     if (p.status === 'pending' && userRole !== 'admin' && userRole !== 'pmo') return false;
     // Apply FILTERS
+    if (FILTERS.dept) {
+      if (!p.department || p.department !== FILTERS.dept) return false;
+    }
     if (FILTERS.product && p.id !== FILTERS.product) return false;
     if (FILTERS.orbit) {
       var orbitGate = parseInt(FILTERS.orbit.replace('O',''), 10);

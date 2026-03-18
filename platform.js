@@ -38,6 +38,24 @@
       return 'product';
     },
 
+    // ── Департаменты ───────────────────────────────────────────────
+    DEPARTMENTS: {
+      innovation: { label: 'Инновации и экосистема', color: '#7B2FFF' },
+      education:  { label: 'Обучение', color: '#4FC3F7' }
+    },
+
+    // Хелпер: получить label департамента (или сам ключ, если неизвестный)
+    getDeptLabel: function(dept) {
+      var d = this.DEPARTMENTS[dept];
+      return d ? d.label : dept;
+    },
+
+    // Хелпер: HTML-бейдж департамента
+    deptBadge: function(dept) {
+      var label = this.getDeptLabel(dept);
+      return '<span class="dept-badge dept-' + dept + '">' + label + '</span>';
+    },
+
     // Хелпер: бейдж типа инициативы
     initTypeBadge: function(item) {
       var t = this.getInitType(item);
@@ -108,7 +126,7 @@
     },
 
     // ── Data version — increment to force refresh from portfolio.json ──
-    DATA_VERSION: 4,
+    DATA_VERSION: 5,
 
     // ── Ensure products loaded (seed from portfolio.json if empty or outdated) ──
     ensureProducts: function(cb) {
@@ -134,6 +152,10 @@
         if (xhr.status === 200) {
           try {
             products = JSON.parse(xhr.responseText);
+            // Миграция: добавить department если отсутствует
+            products.forEach(function(p) {
+              if (!p.department) p.department = 'innovation';
+            });
             self.save(self.KEY_PRODUCTS, products);
             localStorage.setItem('ECOTECH_DATA_VERSION', String(self.DATA_VERSION));
           } catch(e) { products = []; }

@@ -3,6 +3,7 @@
     "id": "ECO-00", "name": "ОРБИТА (ДЕМО)", "desc": "Платформа управления портфелем. Эталонный продукт-пример для онбординга команд.",
     "gate": 2, "status": "on-track", "cat": "internal", "catLabel": "Платформа",
     "owner": "Проектный офис", "color": "#7B2FFF", "updated": "2026-03-17", "quarter": "Q1 2026",
+    "department": "innovation",
     "pilot": false, "trackerUrl": "", "trackerType": "",
     "kpi": [{"icon":"users","value":"500","label":"Activation"},{"icon":"trending-up","value":"28%","label":"Retention D7"},{"icon":"star","value":"35","label":"NPS"}],
     "initiatives": ["D001","D002","D003","D004","D005","D006"]
@@ -11,6 +12,7 @@
     "id": "ECO-01", "name": "ECO-01", "desc": "Маркетплейс для детской аудитории",
     "gate": 3, "status": "on-track", "cat": "b2c", "catLabel": "B2C",
     "owner": "PM Team", "color": "#FF85C0", "updated": "2026-03-17", "quarter": "Q1 2026",
+    "department": "innovation",
     "pilot": true, "trackerUrl": "", "trackerType": "youtrack",
     "kpi": [{"icon":"users","value":"12K","label":"MAU"},{"icon":"trending-up","value":"34%","label":"Retention D30"},{"icon":"star","value":"42","label":"NPS"}],
     "initiatives": ["I001","I002","I003"]
@@ -19,6 +21,7 @@
     "id": "ECO-02", "name": "ECO-02", "desc": "Сервис генерации обучающего контента",
     "gate": 1, "status": "on-track", "cat": "b2b", "catLabel": "B2B",
     "owner": "PM Team", "color": "#4FC3F7", "updated": "2026-03-17", "quarter": "Q1 2026",
+    "department": "education",
     "pilot": true, "trackerUrl": "", "trackerType": "youtrack",
     "kpi": [{"icon":"zap","value":"7","label":"CustDev"},{"icon":"file-text","value":"Draft","label":"PSF"}],
     "initiatives": ["I004","I005"]
@@ -27,6 +30,7 @@
     "id": "ECO-03", "name": "ECO-03", "desc": "Сервис для знакомств в экосистеме",
     "gate": 0, "status": "at-risk", "cat": "b2c", "catLabel": "B2C",
     "owner": "PM Team", "color": "#00D4B4", "updated": "2026-03-17", "quarter": "Q1 2026",
+    "department": "innovation",
     "pilot": true, "trackerUrl": "", "trackerType": "",
     "kpi": [],
     "initiatives": ["I006","I007"]

@@ -65,6 +65,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .prod-status-archived{background:rgba(122,122,157,.1);color:var(--muted);border:1px solid rgba(122,122,157,.25)}
 .prod-status-inactive{background:var(--rdim);color:var(--red);border:1px solid rgba(248,113,113,.3)}
 
+/* department badges */
+.dept-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
+.dept-innovation{color:#7B2FFF;background:rgba(123,47,255,0.1)}
+.dept-education{color:#4FC3F7;background:rgba(79,195,247,0.1)}
+
 /* product filter bar */
 .prod-filter-bar{display:flex;gap:6px;flex-wrap:wrap}
 .prod-filter-btn{padding:4px 12px;border-radius:6px;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .15s}
@@ -230,7 +235,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="sec">
           <table class="adm-table">
             <thead>
-              <tr><th>Имя</th><th>Email</th><th>Роль</th><th>Продукты</th><th>Статус</th><th>Действия</th></tr>
+              <tr><th>Имя</th><th>Email</th><th>Роль</th><th>Департамент</th><th>Продукты</th><th>Статус</th><th>Действия</th></tr>
             </thead>
             <tbody id="users-tbody"></tbody>
           </table>
@@ -256,7 +261,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="sec">
           <table class="adm-table">
             <thead>
-              <tr><th>ID</th><th>Название</th><th>Орбита</th><th>Статус</th><th>Владелец</th><th>Действия</th></tr>
+              <tr><th>ID</th><th>Название</th><th>Департамент</th><th>Орбита</th><th>Статус</th><th>Владелец</th><th>Действия</th></tr>
             </thead>
             <tbody id="products-tbody"></tbody>
           </table>
@@ -323,6 +328,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </select>
     </div>
     <div class="field">
+      <label>Департамент</label>
+      <select id="user-dept">
+        <option value="">Все (admin)</option>
+        <option value="innovation">Инновации и экосистема</option>
+        <option value="education">Обучение</option>
+      </select>
+    </div>
+    <div class="field">
       <label>Привязка к продуктам</label>
       <div class="multi-check" id="user-products-list"></div>
     </div>
@@ -364,6 +377,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           <option value="3">3 — Эксперимент</option>
         </select>
       </div>
+    </div>
+    <div class="field">
+      <label>Департамент</label>
+      <select id="prod-dept">
+        <option value="innovation">Инновации и экосистема</option>
+        <option value="education">Обучение</option>
+      </select>
     </div>
     <div class="field">
       <label>Владелец (PMO)</label>
@@ -502,10 +522,16 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       var isSelf = currentUser && currentUser.id === u.id;
       var isActive = u.active !== false;
 
+      var deptLabel = '--';
+      var deptCss = '';
+      if (u.department === 'innovation') { deptLabel = 'Инновации'; deptCss = 'dept-badge dept-innovation'; }
+      else if (u.department === 'education') { deptLabel = 'Обучение'; deptCss = 'dept-badge dept-education'; }
+
       html += '<tr>'
         + '<td style="font-weight:600;color:#fff">' + escHtml(u.name) + (isSelf ? ' <span style="font-size:9px;color:var(--violet)">(вы)</span>' : '') + '</td>'
         + '<td style="color:var(--muted)">' + (u.email ? escHtml(u.email) : '--') + '</td>'
         + '<td><span class="role-badge" style="background:' + rc.bg + ';color:' + rc.color + ';border:1px solid ' + rc.border + '">' + rl + '</span></td>'
+        + '<td>' + (deptCss ? '<span class="' + deptCss + '">' + deptLabel + '</span>' : '<span style="color:var(--muted)">--</span>') + '</td>'
         + '<td>' + prodNames + '</td>'
         + '<td><span class="' + (isActive ? 'status-active' : 'status-inactive') + '" style="font-size:11px;font-weight:600;">' + (isActive ? 'Активен' : 'Неактивен') + '</span></td>'
         + '<td style="white-space:nowrap;">'
@@ -549,6 +575,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       document.getElementById('user-edit-id').value = userId;
       document.getElementById('user-name').value = user.name;
       document.getElementById('user-role').value = user.role;
+      document.getElementById('user-dept').value = user.department || '';
       document.getElementById('user-email').value = user.email || '';
       // Check products from assignments + productIds
       var checkedPids = [];
@@ -574,6 +601,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       document.getElementById('user-edit-id').value = '';
       document.getElementById('user-name').value = '';
       document.getElementById('user-role').value = 'pm';
+      document.getElementById('user-dept').value = '';
       document.getElementById('user-email').value = '';
     }
     modal.classList.add('open');
@@ -582,6 +610,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   function saveUser() {
     var name = document.getElementById('user-name').value.trim();
     var role = document.getElementById('user-role').value;
+    var department = document.getElementById('user-dept').value;
     var email = document.getElementById('user-email').value.trim().toLowerCase();
     var editId = document.getElementById('user-edit-id').value;
 
@@ -610,6 +639,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         if (users[k].id === editId) {
           users[k].name = name;
           users[k].role = role;
+          users[k].department = department;
           users[k].email = email;
           users[k].productIds = productIds;
           users[k].assignments = assignments;
@@ -630,6 +660,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         id: newId,
         name: name,
         role: role,
+        department: department,
         email: email,
         productIds: productIds,
         assignments: assignments,
@@ -817,9 +848,15 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         actions += '<button class="btn btn-danger btn-sm" onclick="AdminApp.deleteProduct(\'' + pid + '\')" title="Удалить">Удл.</button>';
       }
 
+      var pDeptLabel = '--';
+      var pDeptCss = '';
+      if (p.department === 'innovation') { pDeptLabel = 'Инновации'; pDeptCss = 'dept-badge dept-innovation'; }
+      else if (p.department === 'education') { pDeptLabel = 'Обучение'; pDeptCss = 'dept-badge dept-education'; }
+
       html += '<tr>'
         + '<td style="font-family:var(--mono);font-size:11px;color:var(--muted)">' + escHtml(p.id) + '</td>'
         + '<td style="font-weight:600;color:#fff">' + escHtml(p.name || p.id) + '</td>'
+        + '<td>' + (pDeptCss ? '<span class="' + pDeptCss + '">' + pDeptLabel + '</span>' : '<span style="color:var(--muted)">--</span>') + '</td>'
         + '<td><span class="prod-orbit" style="background:' + oc.bg + ';color:' + oc.color + ';border:1px solid ' + oc.border + '">O' + orbit + '</span></td>'
         + '<td><span class="prod-status ' + statusCss + '">' + statusLabel + '</span></td>'
         + '<td>' + escHtml(ownerName) + '</td>'
@@ -916,6 +953,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       document.getElementById('prod-name').value = prod.name || '';
       document.getElementById('prod-desc').value = prod.desc || prod.description || '';
       document.getElementById('prod-category').value = prod.category || prod.cat || 'product';
+      document.getElementById('prod-dept').value = prod.department || 'innovation';
       document.getElementById('prod-orbit').value = String(prod.orbit || prod.gate || '2');
 
       // Match owner by id or name
@@ -937,6 +975,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       document.getElementById('prod-name').value = '';
       document.getElementById('prod-desc').value = '';
       document.getElementById('prod-category').value = 'product';
+      document.getElementById('prod-dept').value = 'innovation';
       document.getElementById('prod-orbit').value = '2';
     }
 
@@ -947,6 +986,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     var name = document.getElementById('prod-name').value.trim();
     var desc = document.getElementById('prod-desc').value.trim();
     var category = document.getElementById('prod-category').value;
+    var department = document.getElementById('prod-dept').value;
     var orbit = parseInt(document.getElementById('prod-orbit').value, 10);
     var owner = document.getElementById('prod-owner').value;
     var editId = document.getElementById('prod-edit-id').value;
@@ -963,6 +1003,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           products[k].desc = desc;
           products[k].category = category;
           products[k].cat = category;
+          products[k].department = department;
           products[k].orbit = orbit;
           products[k].owner = owner;
           break;
@@ -983,6 +1024,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         desc: desc,
         category: category,
         cat: category,
+        department: department,
         orbit: orbit,
         owner: owner,
         stage: 'discovery',

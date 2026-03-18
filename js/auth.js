@@ -19,13 +19,19 @@
     guest:     { label: 'Гость',           color: '#7A7A9D', canCreate: false, canEdit: false, canDelete: false, canApprove: false, canArchive: false, canDeactivate: false, canTransitionGate: false, canAssignPM: false, canReview: false, canManageUsers: false }
   };
 
+  // ── Департаменты (портфели) ────────────────────────────────────────
+  var DEPARTMENTS = {
+    innovation: { label: 'Инновации и экосистема', color: '#7B2FFF' },
+    education:  { label: 'Обучение', color: '#4FC3F7' }
+  };
+
   // ── Seed-данные (W4-011) ───────────────────────────────────────────
   var DEFAULT_USERS = [
-    { id: 'U001', name: 'Администратор',  email: 'admin@rwb.ru',           role: 'admin',    assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
-    { id: 'U002', name: 'Виктор',         email: 'sorval.viktor@rwb.ru',   role: 'pmo_lead', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
-    { id: 'GUEST', name: 'Гость',         email: 'demo@orbita.demo',       role: 'guest',    assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: ['ECO-00'], contact: '', team: 'Демо' },
-    { id: 'U010', name: 'Петров И.',     email: 'petrov@rwb.ru',          role: 'pm',       assignments: [{ productId: 'ECO-01', scope: 'all' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' },
-    { id: 'U011', name: 'Сидоров К.',    email: 'sidorov@rwb.ru',         role: 'pm',       assignments: [{ productId: 'ECO-01', scope: ['I-004', 'I-005'] }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' }
+    { id: 'U001', name: 'Администратор',  email: 'admin@rwb.ru',           role: 'admin',    department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
+    { id: 'U002', name: 'Виктор',         email: 'sorval.viktor@rwb.ru',   role: 'pmo_lead', department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
+    { id: 'GUEST', name: 'Гость',         email: 'demo@orbita.demo',       role: 'guest',    department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: ['ECO-00'], contact: '', team: 'Демо' },
+    { id: 'U010', name: 'Петров И.',     email: 'petrov@rwb.ru',          role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-01', scope: 'all' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' },
+    { id: 'U011', name: 'Сидоров К.',    email: 'sidorov@rwb.ru',         role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-01', scope: ['I-004', 'I-005'] }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' }
   ];
 
   // ── Миграция старых пользователей ──────────────────────────────────
@@ -48,6 +54,9 @@
     // Сохраняем productIds для обратной совместимости
     if (!u.productIds) u.productIds = [];
 
+    // Миграция department
+    if (typeof u.department === 'undefined') u.department = '';
+
     return u;
   }
 
@@ -57,6 +66,7 @@
 
   var Auth = {
     ROLES: ROLES,
+    DEPARTMENTS: DEPARTMENTS,
 
     // Получить список пользователей
     getUsers: function() {
@@ -143,12 +153,15 @@
     // ── Новые вспомогательные функции (W4-010) ──────────────────────
 
     // Может ли пользователь редактировать продукт
-    canEditProduct: function(productId, userOverride) {
+    canEditProduct: function(productId, userOverride, product) {
       var user = userOverride || this.getCurrentUser();
       if (!user) return false;
       var role = ROLES[user.role];
       if (!role || !role.canEdit) return false;
-      // admin, pmo_lead, pmo — могут редактировать все продукты
+      // Проверка департамента: если у пользователя задан department, он может редактировать только свой
+      var dept = user.department || '';
+      if (dept && product && product.department && product.department !== dept) return false;
+      // admin, pmo_lead, pmo — могут редактировать все продукты (в рамках своего департамента)
       if (user.role === 'admin' || user.role === 'pmo_lead' || user.role === 'pmo') return true;
       // PM — по привязке assignments
       if (user.assignments && user.assignments.length) {
@@ -198,8 +211,11 @@
     getUserProducts: function(userOverride) {
       var user = userOverride || this.getCurrentUser();
       if (!user) return [];
-      // admin, pmo_lead, pmo — все продукты
-      if (user.role === 'admin' || user.role === 'pmo_lead' || user.role === 'pmo') return ['*'];
+      // admin, pmo_lead, pmo — все продукты (но с учётом департамента)
+      if (user.role === 'admin' || user.role === 'pmo_lead' || user.role === 'pmo') {
+        // Если у пользователя задан департамент, возвращаем '*' + department для фильтрации на уровне вызова
+        return ['*'];
+      }
       var ids = [];
       if (user.assignments && user.assignments.length) {
         for (var i = 0; i < user.assignments.length; i++) {
@@ -245,13 +261,45 @@
       return role ? role.label : user.role;
     },
 
+    // Департамент текущего пользователя ('' = все)
+    getUserDepartment: function() {
+      var user = this.getCurrentUser();
+      return user ? (user.department || '') : '';
+    },
+
     // Демо-продукт — доступен всем (для онбординга)
     DEMO_PRODUCT_ID: 'ECO-00',
 
-    // Может ли видеть продукт (демо — всем, остальные — авторизованным)
-    canViewProduct: function(productId) {
+    // Может ли видеть продукт (демо — всем, department-фильтр для привязанных)
+    canViewProduct: function(productId, product) {
       if (productId === this.DEMO_PRODUCT_ID) return true;
-      return this.isLoggedIn();
+      if (!this.isLoggedIn()) return false;
+      var dept = this.getUserDepartment();
+      // Пустой department — видит все
+      if (!dept) return true;
+      // Если передан объект продукта — проверяем department
+      if (product && product.department) {
+        return product.department === dept;
+      }
+      return true;
+    },
+
+    // Фильтрация массива продуктов по департаменту пользователя
+    getVisibleProducts: function(products) {
+      if (!products || !products.length) return [];
+      var dept = this.getUserDepartment();
+      // Пустой department — видит все
+      if (!dept) return products;
+      var result = [];
+      for (var i = 0; i < products.length; i++) {
+        var p = products[i];
+        // Демо-продукт — всегда видим
+        if (p.id === this.DEMO_PRODUCT_ID) { result.push(p); continue; }
+        if (!p.department || p.department === dept) {
+          result.push(p);
+        }
+      }
+      return result;
     },
 
     // Залогинен ли
