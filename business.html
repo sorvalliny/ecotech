@@ -7,7 +7,7 @@
 <style>
 /* Стиль как tracker — тёмная тема */
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#03080F;--card:#061525;--surface:#0d2a40;--border:rgba(79,195,247,.12);--text:#E8F4FD;--muted:#7A9DB8;--violet:#4FC3F7;--teal:#00D4B4;--amber:#FFB830;--green:#34D399;--pink:#FF2D8A;--red:#F87171}
+:root{--bg:#1B2638;--card:#243447;--surface:#243447;--surface2:#2A3E55;--border:rgba(255,255,255,0.08);--border-hi:rgba(255,255,255,0.15);--text:#E2E8F0;--muted:#8899AA;--violet:#579DFF;--violet-dim:rgba(87,157,255,0.12);--teal:#4BCE97;--teal-dim:rgba(75,206,151,0.10);--teal-border:rgba(75,206,151,0.30);--amber:#F5CD47;--amber-dim:rgba(245,205,71,0.10);--green:#4BCE97;--green-dim:rgba(75,206,151,0.10);--pink:#E774BB;--red:#F87171}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 
 .page{max-width:960px;margin:0 auto;padding:32px 24px 80px;position:relative;z-index:1}
@@ -18,13 +18,13 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 /* Фильтры */
 .filters{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}
 .fbtn{padding:6px 14px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
-.fbtn:hover{color:var(--text);border-color:rgba(79,195,247,.25)}
-.fbtn.active{background:rgba(0,212,180,.1);color:var(--teal);border-color:rgba(0,212,180,.3)}
+.fbtn:hover{color:var(--text);border-color:var(--violet-dim)}
+.fbtn.active{background:var(--teal-dim);color:var(--teal);border-color:var(--teal-border)}
 
 /* Карточки */
 .catalog{display:flex;flex-direction:column;gap:10px}
 .pcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .15s,transform .15s;cursor:pointer;text-decoration:none}
-.pcard:hover{border-color:rgba(79,195,247,.3);transform:translateY(-2px)}
+.pcard:hover{border-color:var(--violet-dim);transform:translateY(-2px)}
 .pcard-left{flex:1}
 .pcard-name{font-family:'Inter',sans-serif;font-size:14px;font-weight:900;color:#fff;margin-bottom:4px}
 .pcard-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:8px}
@@ -36,10 +36,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .pcard-team{font-size:10px;color:var(--muted)}
 .pcard-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px}
 
-.st-ontrack{background:rgba(52,211,153,.1);color:var(--green)}
-.st-atrisk{background:rgba(255,184,48,.1);color:var(--amber)}
+.st-ontrack{background:var(--green-dim);color:var(--green)}
+.st-atrisk{background:var(--amber-dim);color:var(--amber)}
 .st-blocked{background:rgba(248,113,113,.1);color:var(--red)}
-.st-pending{background:rgba(79,195,247,.1);color:var(--violet)}
+.st-pending{background:var(--violet-dim);color:var(--violet)}
 
 .empty{text-align:center;padding:60px;color:var(--muted);font-size:13px}
 
@@ -47,7 +47,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .cta-btn{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:linear-gradient(135deg,var(--teal),var(--violet));border:none;border-radius:10px;color:#fff;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;transition:opacity .15s}
 .cta-btn:hover{opacity:.85}
 
-.footer{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:10px;color:rgba(255,255,255,.2);margin-top:40px}
+.footer{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:10px;color:var(--muted);margin-top:40px}
 
 @media(max-width:640px){.pcard{flex-direction:column}.pcard-right{align-items:flex-start;min-width:auto}}
 </style>
@@ -147,7 +147,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
     if (!filtered.length) { el.innerHTML = '<div class="empty">Нет продуктов по фильтру</div>'; return; }
 
     el.innerHTML = filtered.map(function(p) {
-      var s = STAGES[p.gate] || STAGES[0] || {name:'?',color:'#7A7A9D',colorDim:'rgba(122,122,157,.1)'};
+      var s = STAGES[p.gate] || STAGES[0] || {name:'?',color:'#94A3B8',colorDim:'rgba(148,163,184,.1)'};
       var statusCls = p.status === 'on-track' ? 'st-ontrack' : p.status === 'at-risk' ? 'st-atrisk' : p.status === 'blocked' ? 'st-blocked' : 'st-pending';
       var statusLabel = p.status === 'on-track' ? 'On Track' : p.status === 'at-risk' ? 'At Risk' : p.status === 'blocked' ? 'Blocked' : p.status === 'pending' ? 'На рассмотрении' : p.status;
       var launchText = p.launchDate ? p.launchDate : '—';
@@ -160,7 +160,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
           '<div class="pcard-desc">' + esc(p.desc) + '</div>' +
           '<div class="pcard-meta">' +
             '<span class="pcard-badge" style="background:'+s.colorDim+';color:'+s.color+'">О·'+p.gate+' '+s.name+'</span>' +
-            '<span class="pcard-badge" style="background:rgba(79,195,247,.08);color:var(--violet)">'+(p.catLabel||p.cat||'')+'</span>' +
+            '<span class="pcard-badge" style="background:var(--violet-dim);color:var(--violet)">'+(p.catLabel||p.cat||'')+'</span>' +
           '</div>' +
         '</div>' +
         '<div class="pcard-right">' +
