@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОРБИТА — Интеграция ИИ в продуктовый фреймворк</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system.css">
+<style>
+/* ═══ BASE ═══ */
+:root {
+  --violet:#4FC3F7;--violet-dim:rgba(79,195,247,0.12);--violet-border:rgba(79,195,247,0.35);
+  --pink:#FF2D8A;--pink-dim:rgba(255,45,138,0.10);--pink-border:rgba(255,45,138,0.3);
+  --teal:#00D4B4;--teal-dim:rgba(0,212,180,0.10);--teal-border:rgba(0,212,180,0.3);
+  --amber:#FFB830;--amber-dim:rgba(255,184,48,0.10);--amber-border:rgba(255,184,48,0.3);
+  --blue:#3B82F6;--blue-dim:rgba(59,130,246,0.10);--blue-border:rgba(59,130,246,0.3);
+  --dark:#03080F;--mid:#040f1a;--card:#061525;--surface2:#0d2a40;
+  --text:#E8E6FF;--muted:#7A7A9D;--gray:#8B8BAE;--gray2:#C4C4D8;
+  --border:rgba(255,255,255,0.07);--border-hi:rgba(255,255,255,0.14);
+  --font-head:'Orbitron',sans-serif;--font-body:'Exo 2',sans-serif;
+  --radius:14px;--radius-sm:8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.65;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.025;pointer-events:none;z-index:0;}
+
+/* ═══ LAYOUT ═══ */
+.page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:48px 28px 80px;}
+
+/* ═══ HEADER ═══ */
+.page-header{margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.page-title{font-family:var(--font-head);font-size:26px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:8px;}
+.page-sub{font-size:14px;color:var(--muted);line-height:1.5;}
+
+/* ═══ SECTIONS ═══ */
+.section{margin-bottom:56px;}
+.section-title{font-family:var(--font-head);font-size:16px;font-weight:800;color:#fff;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+.section-title::before{content:'';display:inline-block;width:4px;height:20px;border-radius:2px;background:var(--violet);flex-shrink:0;}
+.section-desc{font-size:13px;color:var(--muted);margin-bottom:20px;}
+
+/* ═══ PRINCIPLE CARDS ═══ */
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.p-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:transform 0.2s,box-shadow 0.2s;}
+.p-card:hover{transform:translateY(-3px);box-shadow:0 4px 24px rgba(0,0,0,0.4);}
+.p-card-num{font-family:var(--font-head);font-size:28px;font-weight:900;color:var(--violet);opacity:0.25;margin-bottom:8px;line-height:1;}
+.p-card-title{font-family:var(--font-head);font-size:12px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.35;}
+.p-card-text{font-size:13px;color:var(--gray2);line-height:1.6;}
+
+/* ═══ MATRIX TABLE ═══ */
+.table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);background:var(--card);}
+.matrix-table{width:100%;border-collapse:collapse;font-size:12px;}
+.matrix-table thead{background:var(--surface2);}
+.matrix-table th{font-family:var(--font-head);font-size:10px;font-weight:700;color:var(--violet);letter-spacing:0.06em;text-transform:uppercase;padding:12px 14px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--border-hi);}
+.matrix-table td{padding:10px 14px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:top;}
+.matrix-table tbody tr:nth-child(even){background:rgba(255,255,255,0.02);}
+.matrix-table tbody tr:nth-child(odd){background:transparent;}
+.matrix-table tbody tr:hover{background:rgba(79,195,247,0.05);}
+.matrix-table tbody tr:last-child td{border-bottom:none;}
+.badge-phase{display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:10px;font-weight:700;width:24px;height:24px;border-radius:50%;line-height:1;}
+.badge-phase-1{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);}
+.badge-phase-2{background:var(--violet-dim);color:var(--violet);border:1px solid var(--violet-border);}
+.badge-phase-3{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);}
+.effect-tag{font-size:11px;font-weight:600;color:var(--teal);white-space:nowrap;}
+
+/* ═══ PHASE CARDS (ROADMAP) ═══ */
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.phase-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;padding-left:28px;border-left:4px solid var(--teal);position:relative;}
+.phase-card--2{border-left-color:var(--violet);}
+.phase-card--3{border-left-color:var(--amber);}
+.phase-label{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;}
+.phase-label--1{color:var(--teal);}
+.phase-label--2{color:var(--violet);}
+.phase-label--3{color:var(--amber);}
+.phase-title{font-family:var(--font-head);font-size:13px;font-weight:800;color:#fff;margin-bottom:14px;}
+.phase-list{list-style:none;padding:0;margin:0;}
+.phase-list li{font-size:12px;color:var(--gray2);padding:4px 0;padding-left:16px;position:relative;line-height:1.55;}
+.phase-list li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;border:1.5px solid var(--muted);}
+.phase-card .phase-list li::before{border-color:var(--teal);}
+.phase-card--2 .phase-list li::before{border-color:var(--violet);}
+.phase-card--3 .phase-list li::before{border-color:var(--amber);}
+
+/* ═══ CATALOG TABLE ═══ */
+.catalog-table{width:100%;border-collapse:collapse;font-size:12px;}
+.catalog-table thead{background:var(--surface2);}
+.catalog-table th{font-family:var(--font-head);font-size:10px;font-weight:700;color:var(--violet);letter-spacing:0.06em;text-transform:uppercase;padding:12px 14px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--border-hi);}
+.catalog-table td{padding:10px 14px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:top;}
+.catalog-table tbody tr:nth-child(even){background:rgba(255,255,255,0.02);}
+.catalog-table tbody tr:hover{background:rgba(79,195,247,0.05);}
+.catalog-table tbody tr:last-child td{border-bottom:none;}
+.status-planned{font-size:11px;font-weight:600;color:var(--amber);}
+.status-active{font-size:11px;font-weight:600;color:var(--teal);}
+
+/* ═══ METRIC CARDS ═══ */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.m-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;text-align:center;transition:transform 0.2s,box-shadow 0.2s;}
+.m-card:hover{transform:translateY(-3px);box-shadow:0 4px 24px rgba(0,0,0,0.4);}
+.m-card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;background:var(--violet-dim);border:1px solid var(--violet-border);}
+.m-card-icon svg{width:20px;height:20px;}
+.m-card:nth-child(2) .m-card-icon{background:var(--teal-dim);border-color:var(--teal-border);}
+.m-card:nth-child(3) .m-card-icon{background:var(--pink-dim);border-color:var(--pink-border);}
+.m-card:nth-child(4) .m-card-icon{background:var(--amber-dim);border-color:var(--amber-border);}
+.m-card-title{font-family:var(--font-head);font-size:11px;font-weight:700;color:#fff;margin-bottom:6px;}
+.m-card-text{font-size:12px;color:var(--gray2);line-height:1.55;margin-bottom:10px;}
+.m-card-target{font-family:var(--font-head);font-size:10px;font-weight:700;color:var(--violet);letter-spacing:0.04em;}
+.m-card:nth-child(2) .m-card-target{color:var(--teal);}
+.m-card:nth-child(3) .m-card-target{color:var(--pink);}
+.m-card:nth-child(4) .m-card-target{color:var(--amber);}
+
+/* ═══ REPORTING ═══ */
+.report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.report-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;border-top:3px solid var(--teal);}
+.report-card:nth-child(2){border-top-color:var(--violet);}
+.report-card:nth-child(3){border-top-color:var(--amber);}
+.report-cadence{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
+.report-card:nth-child(1) .report-cadence{color:var(--teal);}
+.report-card:nth-child(2) .report-cadence{color:var(--violet);}
+.report-card:nth-child(3) .report-cadence{color:var(--amber);}
+.report-text{font-size:13px;color:var(--gray2);line-height:1.6;}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  .principles,.phases,.report-grid{grid-template-columns:1fr;}
+  .metrics{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:600px){
+  .page{padding:24px 16px 60px;}
+  .page-title{font-size:20px;}
+  .metrics{grid-template-columns:1fr;}
+}
+
+/* ═══ LIGHT THEME ═══ */
+[data-theme="light"]{
+  --dark:#F4F5F7;
+  --mid:#EBEDF0;
+  --card:#FFFFFF;
+  --surface2:#F0F1F4;
+  --text:#1A1A2E;
+  --muted:#6B6B8D;
+  --gray:#8B8BAE;
+  --gray2:#4A4A6A;
+  --border:rgba(0,0,0,0.08);
+  --border-hi:rgba(0,0,0,0.14);
+}
+[data-theme="light"] body{background:var(--dark);color:var(--text);}
+[data-theme="light"] body::before{opacity:0.015;}
+[data-theme="light"] .page-title{color:var(--text);}
+[data-theme="light"] .p-card-title,
+[data-theme="light"] .phase-title,
+[data-theme="light"] .m-card-title{color:var(--text);}
+[data-theme="light"] .matrix-table thead,
+[data-theme="light"] .catalog-table thead{background:var(--surface2);}
+[data-theme="light"] .matrix-table tbody tr:nth-child(even),
+[data-theme="light"] .catalog-table tbody tr:nth-child(even){background:rgba(0,0,0,0.02);}
+[data-theme="light"] .matrix-table tbody tr:hover,
+[data-theme="light"] .catalog-table tbody tr:hover{background:rgba(79,195,247,0.07);}
+[data-theme="light"] .p-card,
+[data-theme="light"] .phase-card,
+[data-theme="light"] .m-card,
+[data-theme="light"] .report-card,
+[data-theme="light"] .table-wrap{box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+</style>
+</head>
+<body>
+<script src="../nav.js"></script>
+
+<main class="page" id="main-content">
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="page-header">
+    <h1 class="page-title">Интеграция ИИ в продуктовый фреймворк</h1>
+    <p class="page-sub">Концепция внедрения ИИ-инструментов в процессы ОРБИТА &middot; v1.0</p>
+  </header>
+
+  <!-- ═══ 1. СТРАТЕГИЧЕСКОЕ ВИДЕНИЕ ═══ -->
+  <section class="section">
+    <h2 class="section-title">Стратегическое видение</h2>
+    <p class="section-desc">Три принципа, определяющих подход к интеграции ИИ в продуктовый фреймворк ОРБИТА</p>
+
+    <div class="principles">
+      <div class="p-card">
+        <div class="p-card-num">01</div>
+        <div class="p-card-title">ИИ как ускоритель, не замена процесса</div>
+        <p class="p-card-text">ИИ автоматизирует рутину, освобождая PM/PMO для стратегических решений. Фреймворк остается источником истины.</p>
+      </div>
+      <div class="p-card">
+        <div class="p-card-num">02</div>
+        <div class="p-card-title">Поэтапное внедрение</div>
+        <p class="p-card-text">Пилот &rarr; Масштабирование &rarr; Оптимизация штата. Каждый этап с измеримыми метриками эффекта.</p>
+      </div>
+      <div class="p-card">
+        <div class="p-card-num">03</div>
+        <div class="p-card-title">CTO-стек как фундамент</div>
+        <p class="p-card-text">Инструменты CTO (стек ИИ-решений) встраиваются в фреймворк ОРБИТА. Единый каталог, единые правила.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2. МАТРИЦА «РОЛЬ x ИИ-ИНСТРУМЕНТ x ПРОЦЕСС» ═══ -->
+  <section class="section">
+    <h2 class="section-title">Матрица &laquo;Роль &times; ИИ-инструмент &times; Процесс&raquo;</h2>
+    <p class="section-desc">Какие процессы автоматизируются, какими инструментами и с каким эффектом</p>
+
+    <div class="table-wrap">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Роль</th>
+            <th>Процесс</th>
+            <th>ИИ-инструмент</th>
+            <th>Что автоматизируется</th>
+            <th>Эффект</th>
+            <th>Фаза</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PM</td>
+            <td>Написание брифа</td>
+            <td>LLM (Claude/GPT)</td>
+            <td>Генерация структуры брифа по шаблону, заполнение секций по описанию</td>
+            <td><span class="effect-tag">-70% времени на документацию</span></td>
+            <td><span class="badge-phase badge-phase-1">1</span></td>
+          </tr>
+          <tr>
+            <td>PM</td>
+            <td>CustDev анализ</td>
+            <td>LLM + транскрибация</td>
+            <td>Расшифровка интервью, извлечение инсайтов, кластеризация паттернов</td>
+            <td><span class="effect-tag">-50% времени анализа</span></td>
+            <td><span class="badge-phase badge-phase-1">1</span></td>
+          </tr>
+          <tr>
+            <td>PM</td>
+            <td>RICE-оценка</td>
+            <td>LLM + данные</td>
+            <td>Предложение оценок на основе исторических данных и описания инициативы</td>
+            <td><span class="effect-tag">Объективность +30%</span></td>
+            <td><span class="badge-phase badge-phase-2">2</span></td>
+          </tr>
+          <tr>
+            <td>PM</td>
+            <td>Конкурентный анализ</td>
+            <td>LLM + поиск</td>
+            <td>Автосбор данных о конкурентах, сравнительная матрица</td>
+            <td><span class="effect-tag">-80% ручной работы</span></td>
+            <td><span class="badge-phase badge-phase-1">1</span></td>
+          </tr>
+          <tr>
+            <td>PMO</td>
+            <td>Подготовка к комитету</td>
+            <td>LLM</td>
+            <td>Автогенерация повестки, сводки статусов, выделение рисков</td>
+            <td><span class="effect-tag">-60% подготовки</span></td>
+            <td><span class="badge-phase badge-phase-1">1</span></td>
+          </tr>
+          <tr>
+            <td>PMO</td>
+            <td>Портфельный отчет</td>
+            <td>LLM + данные ОРБИТА</td>
+            <td>Автоматический отчет по данным реестра: статусы, блокеры, тренды</td>
+            <td><span class="effect-tag">-80% ручной работы</span></td>
+            <td><span class="badge-phase badge-phase-2">2</span></td>
+          </tr>
+          <tr>
+            <td>Lead</td>
+            <td>Ревью инициатив</td>
+            <td>LLM</td>
+            <td>Pre-review: проверка полноты артефактов, соответствие методологии</td>
+            <td><span class="effect-tag">Качество ревью +40%</span></td>
+            <td><span class="badge-phase badge-phase-2">2</span></td>
+          </tr>
+          <tr>
+            <td>Аналитик</td>
+            <td>Анализ метрик</td>
+            <td>LLM + BI</td>
+            <td>Автоматические инсайты по дашбордам, аномалии, рекомендации</td>
+            <td><span class="effect-tag">Скорость реакции +50%</span></td>
+            <td><span class="badge-phase badge-phase-2">2</span></td>
+          </tr>
+          <tr>
+            <td>Архитектор</td>
+            <td>Техническое ревью</td>
+            <td>LLM + код</td>
+            <td>Автоанализ архитектурных решений, проверка на паттерны</td>
+            <td><span class="effect-tag">-40% времени ревью</span></td>
+            <td><span class="badge-phase badge-phase-3">3</span></td>
+          </tr>
+          <tr>
+            <td>Все</td>
+            <td>Поиск по базе знаний</td>
+            <td>RAG (Retrieval)</td>
+            <td>Ответы на вопросы по фреймворку, методологии, артефактам</td>
+            <td><span class="effect-tag">Онбординг -70%</span></td>
+            <td><span class="badge-phase badge-phase-1">1</span></td>
+          </tr>
+          <tr>
+            <td>Все</td>
+            <td>Генерация документов</td>
+            <td>LLM + шаблоны</td>
+            <td>PRD, release notes, протоколы -- по шаблону с данными из ОРБИТА</td>
+            <td><span class="effect-tag">-60% документации</span></td>
+            <td><span class="badge-phase badge-phase-2">2</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══ 3. ДОРОЖНАЯ КАРТА ВНЕДРЕНИЯ ═══ -->
+  <section class="section">
+    <h2 class="section-title">Дорожная карта внедрения</h2>
+    <p class="section-desc">Три фазы: от пилота до полной интеграции ИИ в процессы фреймворка</p>
+
+    <div class="phases">
+      <div class="phase-card">
+        <div class="phase-label phase-label--1">Фаза 1</div>
+        <div class="phase-title">Пилот (Q2 2026)</div>
+        <ul class="phase-list">
+          <li>LLM-ассистент для PM: брифы, CustDev, конкурентный анализ</li>
+          <li>RAG по базе знаний ОРБИТА (хэндбук, фреймворк, шаблоны)</li>
+          <li>Автогенерация повестки комитета для PMO</li>
+          <li>Метрики: время на документацию, NPS пользователей ИИ</li>
+          <li>Участники: 2-3 PM из пилотных продуктов + 1 PMO</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-card--2">
+        <div class="phase-label phase-label--2">Фаза 2</div>
+        <div class="phase-title">Масштабирование (Q3 2026)</div>
+        <ul class="phase-list">
+          <li>ИИ-подсказки в ОРБИТА UI: рекомендации по RICE, проверка артефактов</li>
+          <li>Автоотчеты по портфелю из данных реестра</li>
+          <li>Pre-review для руководителей: автопроверка полноты перед Gate</li>
+          <li>Метрики: adoption rate, экономия часов, качество артефактов</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-card--3">
+        <div class="phase-label phase-label--3">Фаза 3</div>
+        <div class="phase-title">Оптимизация (Q4 2026+)</div>
+        <ul class="phase-list">
+          <li>Полуавтоматическое ведение карточек продуктов (ИИ обновляет, PMO подтверждает)</li>
+          <li>Прогнозирование рисков по паттернам портфеля</li>
+          <li>Рекомендательная система: &laquo;какие инициативы запустить&raquo; на основе целей</li>
+          <li>Метрики: % автоматизированных процессов, FTE-эквивалент сэкономленный</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4. КАТАЛОГ ИИ-ИНСТРУМЕНТОВ CTO ═══ -->
+  <section class="section">
+    <h2 class="section-title">Каталог ИИ-инструментов CTO</h2>
+    <p class="section-desc">Единый реестр ИИ-инструментов, одобренных для использования в процессах фреймворка</p>
+
+    <div class="table-wrap">
+      <table class="catalog-table">
+        <thead>
+          <tr>
+            <th>Инструмент</th>
+            <th>Категория</th>
+            <th>Назначение</th>
+            <th>Лицензия</th>
+            <th>Статус</th>
+            <th>Ответственный</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>[от CTO]</td>
+            <td>LLM</td>
+            <td>Генерация текста</td>
+            <td>[уточнить]</td>
+            <td><span class="status-planned">Планируется</span></td>
+            <td>CTO</td>
+          </tr>
+          <tr>
+            <td>[от CTO]</td>
+            <td>RAG</td>
+            <td>Поиск по базе знаний</td>
+            <td>[уточнить]</td>
+            <td><span class="status-planned">Планируется</span></td>
+            <td>CTO</td>
+          </tr>
+          <tr>
+            <td>[от CTO]</td>
+            <td>Транскрибация</td>
+            <td>CustDev интервью</td>
+            <td>[уточнить]</td>
+            <td><span class="status-planned">Планируется</span></td>
+            <td>CTO</td>
+          </tr>
+          <tr>
+            <td>[от CTO]</td>
+            <td>BI/Analytics</td>
+            <td>Метрики и дашборды</td>
+            <td>[уточнить]</td>
+            <td><span class="status-planned">Планируется</span></td>
+            <td>CTO</td>
+          </tr>
+          <tr>
+            <td>Claude Code</td>
+            <td>Вайбкодинг</td>
+            <td>Разработка платформы ОРБИТА</td>
+            <td>Anthropic</td>
+            <td><span class="status-active">Активен</span></td>
+            <td>ПО</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══ 5. МЕТРИКИ ЭФФЕКТА ═══ -->
+  <section class="section">
+    <h2 class="section-title">Метрики эффекта</h2>
+    <p class="section-desc">Ключевые показатели для оценки результативности интеграции ИИ</p>
+
+    <div class="metrics">
+      <div class="m-card">
+        <div class="m-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="m-card-title">Экономия времени</div>
+        <p class="m-card-text">Часы, сэкономленные на документации и рутине</p>
+        <div class="m-card-target">Цель: -50% к Q4 2026</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00D4B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div class="m-card-title">Качество артефактов</div>
+        <p class="m-card-text">% артефактов, прошедших автопроверку с первого раза</p>
+        <div class="m-card-target">Цель: 80%+</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FF2D8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="m-card-title">Adoption Rate</div>
+        <p class="m-card-text">% команд, использующих ИИ-инструменты регулярно</p>
+        <div class="m-card-target">Цель: 90% к Q3 2026</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FFB830" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+          </svg>
+        </div>
+        <div class="m-card-title">FTE-эквивалент</div>
+        <p class="m-card-text">Сколько FTE &laquo;высвобождено&raquo; автоматизацией. Отчет ежеквартально</p>
+        <div class="m-card-target">Отчет каждый квартал</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 6. РЕГУЛЯРНАЯ ОТЧЁТНОСТЬ ═══ -->
+  <section class="section">
+    <h2 class="section-title">Регулярная отчетность</h2>
+    <p class="section-desc">Каденция и формат отчетности по результатам ИИ-интеграции</p>
+
+    <div class="report-grid">
+      <div class="report-card">
+        <div class="report-cadence">Еженедельно</div>
+        <p class="report-text">Метрики adoption в Slack/отчете</p>
+      </div>
+      <div class="report-card">
+        <div class="report-cadence">Ежемесячно</div>
+        <p class="report-text">Отчет эффекта ИИ на статусе руководителя: часы, качество, кейсы</p>
+      </div>
+      <div class="report-card">
+        <div class="report-cadence">Ежеквартально</div>
+        <p class="report-text">FTE-эквивалент, ROI инвестиций в ИИ, план следующей фазы</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>

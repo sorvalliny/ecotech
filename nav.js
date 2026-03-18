@@ -159,6 +159,7 @@
     +     sep()
     +     grp('Справочник')
     +     a('terminology.html',                         'Глоссарий')
+    +     a('%D0%A5%D1%8D%D0%BD%D0%B4%D0%B1%D1%83%D0%BA/roles.html', 'Матрица ролей')
     +   '</div>'
     + '</div>'
 
