@@ -20,7 +20,7 @@
     'фреймворк':       'Методология',
     'проектный офис':  'Управление',
     'бизнесу':         'Бизнесу',
-    'хэндбук':         'Хэндбук',
+    'хэндбук':         'Справочник',
     'витрина':         'Витрина',
     'design-system':   'Design System',
     'components':      'Компоненты',
@@ -41,12 +41,24 @@
     'rwb-product-os-2026-03-03.html': 'Операционный справочник',
     'artifacts.html':          'Артефакты',
     'tokens-preview.html':     'Design Tokens',
-    'badge-demo.html':         'Badge Demo',
     'dashboard.html':          'Статус портфеля',
     'tracker.html':            'Реестр',
     'gate-checklist.html':     'Gate-чеклист',
     'admin.html':              'Администрирование',
-    'terminology.html':        'Глоссарий'
+    'terminology.html':        'Глоссарий',
+    'roles.html':              'Матрица ролей',
+    'ai-integration.html':     'Интеграция ИИ',
+    'product-card.html':       'Карточка продукта'
+  };
+
+  // ── landing page for directories without index.html ────
+  var DIR_LANDING = {
+    'Фреймворк':              'Фреймворк/framework-lite.html',
+    'Проектный офис':         'Проектный офис/tracker.html',
+    'Хэндбук':                'Хэндбук/roles.html',
+    'Продукту':               'Продукту/index.html',
+    'design-system':          'design-system/tokens-preview.html',
+    'design-system-storybook':'design-system-storybook/index.html'
   };
 
   // ── chevron SVG ─────────────────────────────────────────
@@ -129,8 +141,10 @@
         // Directory
         var dirName = DIR_NAMES[segLower] || seg;
         hrefParts.push(seg);
-        // Link to directory index if exists, otherwise just label
-        var dirHref = base + hrefParts.join('/') + '/index.html';
+        // Link to directory landing page (prefer DIR_LANDING, fallback to index.html)
+        var dirHref = DIR_LANDING[seg]
+          ? base + DIR_LANDING[seg]
+          : base + hrefParts.join('/') + '/index.html';
         crumbs.push({ label: dirName, href: dirHref });
       }
     }

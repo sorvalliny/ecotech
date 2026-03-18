@@ -2156,32 +2156,44 @@ function applyFilters(items) {
   });
 }
 
+function getFilteredProjects() {
+  var userRole = window.OrbAuth ? OrbAuth.getRole() : null;
+  return PROJECTS.filter(function(p) {
+    if (p.status === 'pending' && userRole !== 'admin' && userRole !== 'pmo') return false;
+    if (FILTERS.dept) {
+      if (!p.department || p.department !== FILTERS.dept) return false;
+    }
+    if (FILTERS.product && p.id !== FILTERS.product) return false;
+    if (FILTERS.orbit) {
+      var orbitGate = parseInt(FILTERS.orbit.replace('O',''), 10);
+      if (p.gate !== orbitGate) return false;
+    }
+    if (FILTERS.status) {
+      var st = p.status || '';
+      if (FILTERS.status === 'active' && st !== 'on-track' && st !== 'active' && st !== 'wip') return false;
+      if (FILTERS.status === 'at-risk' && st !== 'at-risk') return false;
+      if (FILTERS.status === 'blocked' && st !== 'blocked') return false;
+    }
+    if (FILTERS.period) {
+      var rel = (p.release || p.quarter || '').replace(/\s+/g, '-');
+      var period = FILTERS.period;
+      if (period === 'H1-2026' && rel !== 'Q1-2026' && rel !== 'Q2-2026') return false;
+      if (period === 'H2-2026' && rel !== 'Q3-2026' && rel !== 'Q4-2026') return false;
+      if (period !== 'H1-2026' && period !== 'H2-2026' && rel !== period) return false;
+    }
+    if (FILTERS.search) {
+      var q = FILTERS.search.toLowerCase();
+      if ((p.name + ' ' + (p.desc||'') + ' ' + p.id).toLowerCase().indexOf(q) === -1) return false;
+    }
+    return true;
+  });
+}
+
 function updateStats() {
   var items;
   if (curTab === 'portfolio') {
     // Stats based on projects + their initiatives
-    var visibleProjects = PROJECTS.filter(function(p) {
-      if (FILTERS.dept) {
-        if (!p.department || p.department !== FILTERS.dept) return false;
-      }
-      if (FILTERS.product && p.id !== FILTERS.product) return false;
-      if (FILTERS.orbit) {
-        var orbitGate = parseInt(FILTERS.orbit.replace('O',''), 10);
-        if (p.gate !== orbitGate) return false;
-      }
-      if (FILTERS.period) {
-        var rel = (p.release || p.quarter || '').replace(/\s+/g, '-');
-        var period = FILTERS.period;
-        if (period === 'H1-2026' && rel !== 'Q1-2026' && rel !== 'Q2-2026') return false;
-        if (period === 'H2-2026' && rel !== 'Q3-2026' && rel !== 'Q4-2026') return false;
-        if (period !== 'H1-2026' && period !== 'H2-2026' && rel !== period) return false;
-      }
-      if (FILTERS.search) {
-        var q = FILTERS.search.toLowerCase();
-        if ((p.name + ' ' + p.desc + ' ' + p.id).toLowerCase().indexOf(q) === -1) return false;
-      }
-      return true;
-    });
+    var visibleProjects = getFilteredProjects();
     items = applyFilters(backlog);
     var totalEl = document.getElementById('stat-total');
     var activeEl = document.getElementById('stat-active');
@@ -2439,30 +2451,7 @@ function renderPortfolio() {
   const wasOpen = new Set([...document.querySelectorAll('.pcard.open')].map(c => c.id));
   var userRole = window.OrbAuth ? OrbAuth.getRole() : null;
   var userId = window.OrbAuth ? (OrbAuth.getCurrentUser()||{}).id : '';
-  var visibleProjects = PROJECTS.filter(function(p) {
-    if (p.status === 'pending' && userRole !== 'admin' && userRole !== 'pmo') return false;
-    // Apply FILTERS
-    if (FILTERS.dept) {
-      if (!p.department || p.department !== FILTERS.dept) return false;
-    }
-    if (FILTERS.product && p.id !== FILTERS.product) return false;
-    if (FILTERS.orbit) {
-      var orbitGate = parseInt(FILTERS.orbit.replace('O',''), 10);
-      if (p.gate !== orbitGate) return false;
-    }
-    if (FILTERS.period) {
-      var rel = (p.release || p.quarter || '').replace(/\s+/g, '-');
-      var period = FILTERS.period;
-      if (period === 'H1-2026' && rel !== 'Q1-2026' && rel !== 'Q2-2026') return false;
-      if (period === 'H2-2026' && rel !== 'Q3-2026' && rel !== 'Q4-2026') return false;
-      if (period !== 'H1-2026' && period !== 'H2-2026' && rel !== period) return false;
-    }
-    if (FILTERS.search) {
-      var q = FILTERS.search.toLowerCase();
-      if ((p.name + ' ' + p.desc + ' ' + p.id).toLowerCase().indexOf(q) === -1) return false;
-    }
-    return true;
-  });
+  var visibleProjects = getFilteredProjects();
   const stCnt = {wip:0,planned:0,backlog:0,done:0};
   visibleProjects.forEach(p => stCnt[p.status]++);
   document.getElementById('pstats').innerHTML = `
@@ -3346,11 +3335,30 @@ function savePRD() {
 function renderGoals() {
   const container = document.getElementById('goals-list');
   if (!container) return;
-  if (!goals.length) {
+  var filteredGoals = goals.filter(function(g) {
+    if (FILTERS.product && g.productId !== FILTERS.product) return false;
+    if (FILTERS.dept) {
+      var gProd = null;
+      for (var dp = 0; dp < PROJECTS.length; dp++) {
+        if (PROJECTS[dp].id === g.productId) { gProd = PROJECTS[dp]; break; }
+      }
+      if (gProd && gProd.department && gProd.department !== FILTERS.dept) return false;
+    }
+    if (FILTERS.search) {
+      var q = FILTERS.search.toLowerCase();
+      if ((g.title + ' ' + (g.id||'')).toLowerCase().indexOf(q) === -1) return false;
+    }
+    if (FILTERS.period) {
+      var gp = (g.period || '').replace(/\s+/g, '-');
+      if (gp && gp !== FILTERS.period) return false;
+    }
+    return true;
+  });
+  if (!filteredGoals.length) {
     container.innerHTML = '<div class="empty">Нет целей — используйте [+ Создать] в панели инструментов</div>';
     return;
   }
-  container.innerHTML = goals.map(goal => {
+  container.innerHTML = filteredGoals.map(goal => {
     const goalInits  = backlog.filter(i => i.goalId === goal.id);
     const goalEpics  = epics.filter(e => e.goalId === goal.id);
     const typeCls    = goal.type === 'strategic' ? 'goal-type-strategic' : 'goal-type-product';
@@ -3802,14 +3810,14 @@ function deleteGoalConfirm() {
 // ════════════════════════════════════════════
 let portfolioView='cards';
 function setPortfolioView(view,btn){portfolioView=view;document.querySelectorAll('#active-views .view-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('portfolio-cards').style.display=view==='cards'?'':'none';document.getElementById('portfolio-table').style.display=view==='table'?'':'none';document.getElementById('portfolio-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderPortfolioTable();if(view==='kanban')renderPortfolioKanban();}
-function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Название</th><th>Орбита</th><th>Статус</th><th>RICE</th><th>PM</th></tr></thead><tbody>';PROJECTS.forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});var avgRice=pInits.length?(pInits.reduce(function(a,i){return a+sc(i);},0)/pInits.length).toFixed(1):'\u2014';html+='<tr style="cursor:pointer" onclick="window.location.href=\'../product-card.html?id='+p.id+'\'">'+'<td><a href="../product-card.html?id='+p.id+'" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;font-weight:700">'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</a></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+avgRice+'</td><td>'+escHtml(p.owner||'\u2014')+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
+function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Название</th><th>Орбита</th><th>Статус</th><th>RICE</th><th>PM</th></tr></thead><tbody>';getFilteredProjects().forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});var avgRice=pInits.length?(pInits.reduce(function(a,i){return a+sc(i);},0)/pInits.length).toFixed(1):'\u2014';html+='<tr style="cursor:pointer" onclick="window.location.href=\'../product-card.html?id='+p.id+'\'">'+'<td><a href="../product-card.html?id='+p.id+'" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;font-weight:700">'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</a></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+avgRice+'</td><td>'+escHtml(p.owner||'\u2014')+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
 function renderPortfolioKanban(){
   var el=document.getElementById('portfolio-kanban');
   var userRole = window.OrbAuth ? OrbAuth.getRole() : 'guest';
   var canDragPortfolio = (userRole === 'admin' || userRole === 'pmo_lead');
   var html='<div class="kanban-board">';
   STAGES.forEach(function(s,idx){
-    var prods=PROJECTS.filter(function(p){return p.gate===idx;});
+    var prods=getFilteredProjects().filter(function(p){return p.gate===idx;});
     html+='<div class="kanban-col" data-portfolio-gate="'+idx+'">';
     html+='<div class="kanban-col-head" style="border-top:3px solid '+s.color+'"><span class="kanban-col-name">'+s.name+'</span><span class="kanban-col-count">'+prods.length+'</span></div>';
     html+='<div class="kanban-col-body">';

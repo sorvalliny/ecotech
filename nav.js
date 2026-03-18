@@ -93,8 +93,8 @@
   function has(s) { return p.indexOf(s.toLowerCase()) !== -1; }
 
   // ── active group detection ──────────────────────────────────
-  var bizActive  = (has('business') || has('бизнесу') || has('dashboard') || has('brief')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('rice') || has('tracker') || has('gate-checklist') || has('terminology')) ? ' en-active' : '';
+  var bizActive  = (has('business') || has('dashboard') || has('brief')) ? ' en-active' : '';
+  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('tracker') || has('gate-checklist') || has('terminology')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
