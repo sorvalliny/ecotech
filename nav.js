@@ -16,16 +16,16 @@
     var csp = document.createElement('meta');
     csp.id = 'en-csp';
     csp.httpEquiv = 'Content-Security-Policy';
-    csp.content = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'";
+    csp.content = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'";
     document.head.insertBefore(csp, document.head.firstChild);
   }
 
-  // ── load Google Fonts (Orbitron + Exo 2) ────────────────────
-  if (!document.getElementById('en-google-fonts')) {
-    var gf = document.createElement('link');
-    gf.id = 'en-google-fonts'; gf.rel = 'stylesheet';
-    gf.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@400;500;600;700&display=swap';
-    document.head.appendChild(gf);
+  // ── load self-hosted fonts via design-system.css ────────────
+  if (!document.getElementById('en-ds-css')) {
+    var ds = document.createElement('link');
+    ds.id = 'en-ds-css'; ds.rel = 'stylesheet';
+    ds.href = base + 'design-system/design-system.css';
+    document.head.appendChild(ds);
   }
 
   // ── load tokens.css + theme.js ────────────────────────────
@@ -110,19 +110,19 @@
 
   // ── RWB logo SVG (right side of nav) ────────────────────────
   var RWB_SVG = '<svg width="62" height="21" viewBox="0 0 83 28" fill="none" xmlns="http://www.w3.org/2000/svg">'
-    + '<path fill="rgba(255,255,255,.7)" d="M23.514 27.096h-5.318l-3.34-5.88H0v-4.222h16.722c1.925 0 3.485-1.545 3.485-3.451s-1.56-3.452-3.485-3.452H0V5.88h17.36c4.276 0 7.743 3.433 7.743 7.668 0 3.339-2.159 6.171-5.167 7.224zm23.306-5.88h-2.707l-4.227-7.47-4.23 7.47H32.95L24.266 5.88h5.314l4.723 8.335 4.722-8.335h1.72l4.722 8.334 4.722-8.334h5.314zm27.478 0h-17.36v-4.222H73.66c1.925 0 3.486-1.545 3.486-3.451s-1.56-3.451-3.486-3.451H56.938V0h5.183v5.88h12.177c4.276 0 7.743 3.433 7.743 7.668s-3.467 7.668-7.743 7.668"/>'
+    + '<path fill="currentColor" d="M23.514 27.096h-5.318l-3.34-5.88H0v-4.222h16.722c1.925 0 3.485-1.545 3.485-3.451s-1.56-3.452-3.485-3.452H0V5.88h17.36c4.276 0 7.743 3.433 7.743 7.668 0 3.339-2.159 6.171-5.167 7.224zm23.306-5.88h-2.707l-4.227-7.47-4.23 7.47H32.95L24.266 5.88h5.314l4.723 8.335 4.722-8.335h1.72l4.722 8.334 4.722-8.334h5.314zm27.478 0h-17.36v-4.222H73.66c1.925 0 3.486-1.545 3.486-3.451s-1.56-3.451-3.486-3.451H56.938V0h5.183v5.88h12.177c4.276 0 7.743 3.433 7.743 7.668s-3.467 7.668-7.743 7.668"/>'
     + '</svg>';
 
   // ── logo icon SVG (hexagon network hub) ─────────────────────
   var MARK_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
-    + '<polygon points="12,2.5 20.2,7.25 20.2,16.75 12,21.5 3.8,16.75 3.8,7.25" stroke="rgba(255,255,255,.52)" stroke-width="1.2" fill="rgba(255,255,255,.07)"/>'
-    + '<line x1="12" y1="11.5" x2="12" y2="4.1"   stroke="rgba(255,255,255,.7)" stroke-width="1.1"/>'
-    + '<line x1="12" y1="11.5" x2="18.9" y2="16.1" stroke="rgba(255,255,255,.7)" stroke-width="1.1"/>'
-    + '<line x1="12" y1="11.5" x2="5.1"  y2="16.1" stroke="rgba(255,255,255,.7)" stroke-width="1.1"/>'
-    + '<circle cx="12"   cy="12"    r="2.5" fill="white"/>'
-    + '<circle cx="12"   cy="2.5"   r="1.6" fill="rgba(255,255,255,.9)"/>'
-    + '<circle cx="20.2" cy="16.75" r="1.6" fill="rgba(255,255,255,.9)"/>'
-    + '<circle cx="3.8"  cy="16.75" r="1.6" fill="rgba(255,255,255,.9)"/>'
+    + '<polygon points="12,2.5 20.2,7.25 20.2,16.75 12,21.5 3.8,16.75 3.8,7.25" stroke="currentColor" stroke-opacity=".52" stroke-width="1.2" fill="currentColor" fill-opacity=".07"/>'
+    + '<line x1="12" y1="11.5" x2="12" y2="4.1"   stroke="currentColor" stroke-opacity=".7" stroke-width="1.1"/>'
+    + '<line x1="12" y1="11.5" x2="18.9" y2="16.1" stroke="currentColor" stroke-opacity=".7" stroke-width="1.1"/>'
+    + '<line x1="12" y1="11.5" x2="5.1"  y2="16.1" stroke="currentColor" stroke-opacity=".7" stroke-width="1.1"/>'
+    + '<circle cx="12"   cy="12"    r="2.5" fill="currentColor"/>'
+    + '<circle cx="12"   cy="2.5"   r="1.6" fill="currentColor" fill-opacity=".9"/>'
+    + '<circle cx="20.2" cy="16.75" r="1.6" fill="currentColor" fill-opacity=".9"/>'
+    + '<circle cx="3.8"  cy="16.75" r="1.6" fill="currentColor" fill-opacity=".9"/>'
     + '</svg>';
 
   // ── nav HTML ────────────────────────────────────────────────
@@ -172,38 +172,38 @@
 
   // ── CSS ─────────────────────────────────────────────────────
   var CSS = [
-    /* nav bar — asymmetric cosmic blue gradient, stands out on light + dark pages */
-    '.ecotech-nav{position:sticky;top:0;z-index:var(--z-nav,9999);height:48px;background:linear-gradient(105deg,#020810 0%,#041830 36%,#0a3560 62%,#0d5090 82%,#4FC3F7 100%);backdrop-filter:blur(24px);border-bottom:1px solid rgba(79,195,247,.22);display:flex;align-items:center;padding:0 24px;gap:0;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 2px 20px rgba(2,136,209,.35)}',
+    /* nav bar — clean flat enterprise style (Jira-like) */
+    '.ecotech-nav{position:sticky;top:0;z-index:var(--z-nav,9999);height:48px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:0}',
     /* logo */
-    ".en-logo{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:8px}",
-    '.en-logo span{color:rgba(180,225,255,.85)}',
-    /* frosted-glass logo mark */
-    '.en-logo-mark{width:28px;height:28px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;backdrop-filter:blur(8px)}',
+    ".en-logo{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-.3px;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:8px}",
+    '.en-logo span{color:var(--muted)}',
+    /* logo mark */
+    '.en-logo-mark{width:28px;height:28px;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--violet)}',
     /* separator */
-    '.en-sep{width:1px;height:18px;background:rgba(255,255,255,.15);margin:0 16px;flex-shrink:0}',
+    '.en-sep{width:1px;height:18px;background:var(--border);margin:0 16px;flex-shrink:0}',
     '.en-links{display:flex;gap:2px;align-items:center}',
     '.en-drop{position:relative}',
-    /* nav items — lighter text for contrast on cosmic blue */
-    '.en-drop-trigger{font-size:12px;font-weight:700;color:rgba(180,220,255,.6);padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap;display:flex;align-items:center;gap:3px;cursor:default;letter-spacing:.01em;text-decoration:none}',
+    /* nav items */
+    '.en-drop-trigger{font-size:13px;font-weight:500;color:var(--muted);padding:5px 11px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;display:flex;align-items:center;gap:3px;cursor:default;letter-spacing:.01em;text-decoration:none}',
     ".en-drop-trigger::after{content:'▾';font-size:9px;opacity:.5;margin-left:1px}",
-    '.en-drop.is-open .en-drop-trigger,.en-drop-trigger:hover{color:#fff;background:rgba(255,255,255,.1)}',
-    '.en-drop.en-active .en-drop-trigger{color:#fff;background:rgba(255,255,255,.14)}',
+    '.en-drop.is-open .en-drop-trigger,.en-drop-trigger:hover{color:var(--text);background:var(--surface)}',
+    '.en-drop.en-active .en-drop-trigger{color:var(--violet);background:var(--surface)}',
     /* dropdown panel */
-    '.en-drop-menu{position:absolute;top:calc(100% + 6px);left:0;background:rgba(2,8,16,.97);backdrop-filter:blur(24px);border:1px solid rgba(79,195,247,.25);border-radius:12px;padding:6px;min-width:240px;display:flex;flex-direction:column;gap:1px;z-index:var(--z-modal,10000);box-shadow:0 12px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-5px);transition:opacity .15s,transform .15s,visibility .15s}',
+    '.en-drop-menu{position:absolute;top:calc(100% + 4px);left:0;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px;min-width:240px;display:flex;flex-direction:column;gap:1px;z-index:var(--z-modal,10000);box-shadow:0 8px 24px rgba(0,0,0,.12),0 1px 3px rgba(0,0,0,.08);visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-5px);transition:opacity .15s,transform .15s,visibility .15s}',
     '.en-drop.is-open .en-drop-menu{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0)}',
-    '.en-drop-menu a{font-size:12px;font-weight:500;color:#9090B8;text-decoration:none;padding:7px 11px;border-radius:8px;transition:color .15s,background .15s;white-space:nowrap;display:block}',
-    '.en-drop-menu a:hover{color:#fff;background:rgba(255,255,255,.07)}',
-    '.en-drop-menu a.en-active{color:#81D4FA;background:rgba(79,195,247,.18)}',
-    '.en-drop-sep{height:1px;background:rgba(79,195,247,.15);margin:4px 6px}',
-    ".en-drop-grp{font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(79,195,247,.7);padding:6px 11px 3px;pointer-events:none}",
-    '.en-link{font-size:12px;font-weight:700;color:rgba(180,220,255,.6);text-decoration:none;padding:5px 11px;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}',
-    '.en-link:hover{color:#fff;background:rgba(255,255,255,.1)}',
-    '.en-link.en-active{color:#fff;background:rgba(255,255,255,.14)}',
+    '.en-drop-menu a{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;padding:7px 11px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;display:block}',
+    '.en-drop-menu a:hover{color:var(--text);background:var(--surface)}',
+    '.en-drop-menu a.en-active{color:var(--violet);background:var(--surface)}',
+    '.en-drop-sep{height:1px;background:var(--border);margin:4px 6px}',
+    ".en-drop-grp{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 11px 3px;pointer-events:none}",
+    '.en-link{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;padding:5px 11px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap}',
+    '.en-link:hover{color:var(--text);background:var(--surface)}',
+    '.en-link.en-active{color:var(--violet);background:var(--surface)}',
     /* theme toggle */
-    '.en-theme-btn{margin-left:auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(180,220,255,.7);transition:color .15s,background .15s,border-color .15s;flex-shrink:0;padding:0}',
-    '.en-theme-btn:hover{color:#fff;background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25)}',
+    '.en-theme-btn{margin-left:auto;background:var(--surface);border:1px solid var(--border);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);transition:color .15s,background .15s,border-color .15s;flex-shrink:0;padding:0}',
+    '.en-theme-btn:hover{color:var(--text);background:var(--surface);border-color:var(--border-hi)}',
     /* RWB logo — right side */
-    '.en-rwb{margin-left:12px;display:flex;align-items:center;opacity:.7;transition:opacity .15s;flex-shrink:0}',
+    '.en-rwb{margin-left:12px;display:flex;align-items:center;color:var(--muted);opacity:.7;transition:opacity .15s;flex-shrink:0}',
     '.en-rwb:hover{opacity:1}'
   ].join('\n');
 

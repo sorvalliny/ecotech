@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА — Как мы работаем по стадиям</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../design-system.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -17,7 +16,7 @@
   --dark:#03080F;--mid:#040f1a;--card:#061525;--surface2:#0d2a40;
   --text:#E8E6FF;--muted:#7A7A9D;--gray:#8B8BAE;--gray2:#C4C4D8;
   --border:rgba(255,255,255,0.07);--border-hi:rgba(255,255,255,0.14);
-  --font-head:'Orbitron',sans-serif;--font-body:'Exo 2',sans-serif;
+  --font-head:'Inter',sans-serif;--font-body:'Inter',sans-serif;
   --radius:14px;--radius-sm:8px;
   /* stage colours */
   --c0:#8B8BAE;--c0-dim:rgba(139,139,174,0.10);--c0-border:rgba(139,139,174,0.3);
@@ -410,9 +409,9 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 }
 .planning-flow { display:flex; flex-direction:column; gap:4px; }
 .pf-step { display:flex; gap:14px; padding:14px 16px; background:var(--card, #061525); border:1px solid var(--border, rgba(255,255,255,.07)); border-radius:10px; }
-.pf-step-num { width:28px; height:28px; border-radius:50%; background:rgba(255,184,48,0.12); color:#FFB830; display:flex; align-items:center; justify-content:center; font-family:var(--font-head, 'Orbitron'); font-size:12px; font-weight:900; flex-shrink:0; }
+.pf-step-num { width:28px; height:28px; border-radius:50%; background:rgba(255,184,48,0.12); color:#FFB830; display:flex; align-items:center; justify-content:center; font-family:var(--font-head, 'Inter'); font-size:12px; font-weight:900; flex-shrink:0; }
 .pf-step-content { flex:1; }
-.pf-step-title { font-family:var(--font-head, 'Orbitron'); font-size:12px; font-weight:900; color:var(--white, #fff); margin-bottom:4px; }
+.pf-step-title { font-family:var(--font-head, 'Inter'); font-size:12px; font-weight:900; color:var(--white, #fff); margin-bottom:4px; }
 .pf-step-desc { font-size:12px; color:var(--muted, #7A7A9D); line-height:1.5; margin-bottom:6px; }
 .pf-step-who, .pf-step-when { font-size:10px; color:var(--muted, #7A7A9D); }
 .pf-step-who strong, .pf-step-when strong { color:var(--text, #E8E6FF); }
@@ -424,7 +423,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 /* ── TRACKS GRID (F-03) ── */
 .tracks-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px; }
 .track-card { padding:14px; background:var(--card,#061525); border:1px solid var(--border,rgba(255,255,255,.07)); border-radius:10px; }
-.track-head { font-family:var(--font-head,'Orbitron'); font-size:10px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.track-head { font-family:var(--font-head,'Inter'); font-size:10px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
 .track-icon { font-size:12px; }
 .track-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
 .track-list li { font-size:11px; color:var(--muted,#7A7A9D); line-height:1.4; padding-left:10px; position:relative; }
@@ -433,10 +432,10 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 
 /* ── VITOK BLOCK (F-04) ── */
 .vitok-block { margin-top:14px; padding:14px 16px; background:rgba(0,212,180,0.04); border:1px solid rgba(0,212,180,0.15); border-radius:10px; }
-.vitok-title { font-family:var(--font-head,'Orbitron'); font-size:10px; font-weight:700; color:var(--teal,#00D4B4); margin-bottom:10px; letter-spacing:.06em; text-transform:uppercase; }
+.vitok-title { font-family:var(--font-head,'Inter'); font-size:10px; font-weight:700; color:var(--teal,#00D4B4); margin-bottom:10px; letter-spacing:.06em; text-transform:uppercase; }
 .vitok-phases { display:flex; align-items:flex-start; gap:8px; flex-wrap:wrap; }
 .vitok-phase { flex:1; min-width:140px; padding:10px; background:var(--card,#061525); border:1px solid var(--border,rgba(255,255,255,.07)); border-radius:8px; }
-.vp-name { font-family:var(--font-head,'Orbitron'); font-size:9px; font-weight:700; color:var(--text,#E8E6FF); display:block; margin-bottom:4px; }
+.vp-name { font-family:var(--font-head,'Inter'); font-size:9px; font-weight:700; color:var(--text,#E8E6FF); display:block; margin-bottom:4px; }
 .vp-desc { font-size:10px; color:var(--muted,#7A7A9D); display:block; line-height:1.4; margin-bottom:4px; }
 .vp-time { font-size:9px; color:var(--teal,#00D4B4); font-weight:600; }
 .vitok-arrow { color:var(--muted,#7A7A9D); font-size:16px; display:flex; align-items:center; padding-top:10px; }
@@ -1539,12 +1538,12 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 
   <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
     <div style="padding:14px;background:var(--card,#061525);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:10px;">
-      <div style="font-family:var(--font-head,'Orbitron');font-size:11px;font-weight:900;color:var(--white,#fff);margin-bottom:6px;">Путь 1: Новый продукт</div>
+      <div style="font-family:var(--font-head,'Inter');font-size:11px;font-weight:900;color:var(--white,#fff);margin-bottom:6px;">Путь 1: Новый продукт</div>
       <div style="font-size:11px;color:var(--muted,#7A7A9D);line-height:1.5;">Заявка на продукт → PMO скрининг → Gate 0 → Появляется в портфеле</div>
       <a href="../Продукту/brief.html" style="display:inline-block;margin-top:8px;font-size:10px;color:#4FC3F7;text-decoration:none;">Подать заявку →</a>
     </div>
     <div style="padding:14px;background:var(--card,#061525);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:10px;">
-      <div style="font-family:var(--font-head,'Orbitron');font-size:11px;font-weight:900;color:var(--white,#fff);margin-bottom:6px;">Путь 2: Новая инициатива</div>
+      <div style="font-family:var(--font-head,'Inter');font-size:11px;font-weight:900;color:var(--white,#fff);margin-bottom:6px;">Путь 2: Новая инициатива</div>
       <div style="font-size:11px;color:var(--muted,#7A7A9D);line-height:1.5;">PM создаёт инициативу в реестре → Привязывает к продукту и цели → Проходит витки</div>
       <a href="../Проектный офис/tracker.html#tab=backlog" style="display:inline-block;margin-top:8px;font-size:10px;color:#00D4B4;text-decoration:none;">Открыть реестр →</a>
     </div>
