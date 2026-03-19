@@ -763,8 +763,8 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
 
-  <!-- Hierarchy diagram -->
-  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:32px;font-size:12px;color:var(--text);line-height:2;font-family:var(--font-body);">
+  <!-- Hierarchy + Responsibility zones -->
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:20px;font-size:12px;color:var(--text);line-height:2;font-family:var(--font-body);">
     <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Иерархия</div>
     <div><strong style="color:var(--muted);">Портфель</strong></div>
     <div style="padding-left:16px;border-left:2px solid var(--violet-dim);">
@@ -776,6 +776,86 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Responsibility zones per entity -->
+  <div class="sec-header">
+    <div class="sec-eyebrow">Зоны ответственности</div>
+    <div class="sec-title">Кто что делает с каждой сущностью</div>
+  </div>
+  <div style="overflow-x:auto;margin-bottom:16px;">
+    <table style="width:100%;border-collapse:collapse;font-size:11px;color:var(--text);">
+      <thead>
+        <tr style="border-bottom:2px solid var(--border);">
+          <th style="text-align:left;padding:10px 12px;color:var(--muted);font-weight:600;">Действие</th>
+          <th style="text-align:center;padding:10px 8px;color:var(--violet);font-weight:700;min-width:70px;">Продукт</th>
+          <th style="text-align:center;padding:10px 8px;color:var(--amber);font-weight:700;min-width:70px;">Тех.решение</th>
+          <th style="text-align:center;padding:10px 8px;color:var(--teal);font-weight:700;min-width:60px;">Цель</th>
+          <th style="text-align:center;padding:10px 8px;color:var(--pink);font-weight:700;min-width:70px;">Инициатива</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:8px 12px;font-weight:600;">Создание</td>
+          <td style="text-align:center;padding:8px;">PMO Lead</td>
+          <td style="text-align:center;padding:8px;">CTO / Архитектор</td>
+          <td style="text-align:center;padding:8px;">PM (владелец)</td>
+          <td style="text-align:center;padding:8px;">PM / Участник</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);">
+          <td style="padding:8px 12px;font-weight:600;">Владелец</td>
+          <td style="text-align:center;padding:8px;color:var(--violet);">PM</td>
+          <td style="text-align:center;padding:8px;color:var(--amber);">Tech Lead</td>
+          <td style="text-align:center;padding:8px;color:var(--teal);">PM (владелец)</td>
+          <td style="text-align:center;padding:8px;color:var(--pink);">PM / назначенный</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:8px 12px;font-weight:600;">Редактирование</td>
+          <td style="text-align:center;padding:8px;">PM + PMO</td>
+          <td style="text-align:center;padding:8px;">Tech Lead + CTO</td>
+          <td style="text-align:center;padding:8px;">PM (владелец)</td>
+          <td style="text-align:center;padding:8px;">PM / участник (по скоупу)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);">
+          <td style="padding:8px 12px;font-weight:600;">Согласование Gate</td>
+          <td style="text-align:center;padding:8px;">PMO Lead + комитет</td>
+          <td style="text-align:center;padding:8px;">CTO + тех.комитет</td>
+          <td style="text-align:center;padding:8px;">—</td>
+          <td style="text-align:center;padding:8px;">—</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:8px 12px;font-weight:600;">Ревью</td>
+          <td style="text-align:center;padding:8px;">Lead (Go/No-Go)</td>
+          <td style="text-align:center;padding:8px;">Архитектор (Go/No-Go)</td>
+          <td style="text-align:center;padding:8px;">PMO (согласование)</td>
+          <td style="text-align:center;padding:8px;">Lead (Go/No-Go/Revise)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);">
+          <td style="padding:8px 12px;font-weight:600;">Мониторинг</td>
+          <td style="text-align:center;padding:8px;">PMO-менеджер</td>
+          <td style="text-align:center;padding:8px;">PMO-менеджер</td>
+          <td style="text-align:center;padding:8px;">PMO-менеджер</td>
+          <td style="text-align:center;padding:8px;">PMO + Заказчик</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:8px 12px;font-weight:600;">Просмотр статуса</td>
+          <td style="text-align:center;padding:8px;">Все роли</td>
+          <td style="text-align:center;padding:8px;">Все роли</td>
+          <td style="text-align:center;padding:8px;">PM + PMO + Lead</td>
+          <td style="text-align:center;padding:8px;">PM + PMO + Lead + Заказчик</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;font-weight:600;">Архивация / удаление</td>
+          <td style="text-align:center;padding:8px;">PMO Lead / Admin</td>
+          <td style="text-align:center;padding:8px;">CTO / Admin</td>
+          <td style="text-align:center;padding:8px;">PM (владелец)</td>
+          <td style="text-align:center;padding:8px;">PM (владелец)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:32px;line-height:1.6;">
+    Полная матрица ролей и RACI — <a href="../Хэндбук/roles.html" style="color:var(--violet);text-decoration:underline;">Матрица ролей ОРБИТА</a>. Роли в системе управляются через <a href="../admin.html" style="color:var(--violet);text-decoration:underline;">Администрирование</a>.
   </div>
 
   <!-- Lifecycle flow diagram -->
