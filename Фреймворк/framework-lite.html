@@ -639,6 +639,41 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 .tool-guide-features li{font-size:12px;color:var(--text);display:flex;gap:8px;line-height:1.45;}
 .tool-guide-features li::before{content:'\2014';color:var(--muted);flex-shrink:0;}
 [data-theme="light"] .tool-guide-title{color:var(--text) !important;}
+
+/* ── UX AUDIT: NEW ELEMENTS ── */
+.owners-bar { display:flex; gap:16px; padding:12px 16px; background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius-sm); margin-bottom:20px; flex-wrap:wrap; }
+.owner-item { font-size:12px; color:var(--text); }
+.owner-role { color:var(--muted); font-weight:500; }
+.owner-name { font-weight:700; }
+.directions-block { margin:24px 0; }
+.dir-title { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:12px; }
+.dir-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.dir-card { padding:14px; border:1px solid var(--border); border-radius:var(--radius-sm); border-top:3px solid var(--muted); }
+.dir-card.dir-business { border-top-color:var(--amber); }
+.dir-card.dir-product { border-top-color:var(--violet); }
+.dir-card.dir-tech { border-top-color:var(--teal); }
+.dir-card-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:6px; }
+.dir-card-body { font-size:11px; color:var(--muted); line-height:1.6; }
+.gate-checklist { display:flex; flex-direction:column; gap:6px; }
+.gc-item { display:flex; align-items:flex-start; gap:8px; font-size:12px; color:var(--text); padding:6px 10px; background:var(--card); border:1px solid var(--border); border-radius:6px; }
+.gc-item::before { content:'\2610'; color:var(--muted); flex-shrink:0; }
+.stage-timeline { display:flex; align-items:center; gap:4px; padding:12px 16px; background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius-sm); margin-top:16px; overflow-x:auto; flex-wrap:nowrap; }
+.st-step { display:flex; flex-direction:column; align-items:center; min-width:80px; }
+.st-week { font-size:10px; font-weight:700; color:var(--violet); }
+.st-label { font-size:10px; color:var(--muted); text-align:center; }
+.st-arrow { color:var(--muted); font-size:12px; flex-shrink:0; }
+.cross-roles-block { margin:24px 0; padding:16px 20px; background:var(--card); border:1px solid var(--border); border-left:3px solid var(--amber); border-radius:var(--radius-sm); }
+.cross-roles-block .cr-title { font-size:12px; font-weight:700; color:#fff; margin-bottom:10px; }
+.cross-roles-block .cr-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.cross-roles-block .cr-list li { font-size:12px; color:var(--text); display:flex; gap:8px; line-height:1.45; }
+.cross-roles-block .cr-list li::before { content:'\2014'; color:var(--muted); flex-shrink:0; }
+.verification-note { margin:16px 0 24px; padding:14px 18px; background:rgba(75,206,151,0.06); border:1px solid rgba(75,206,151,0.15); border-radius:var(--radius-sm); font-size:12px; color:var(--text); line-height:1.6; }
+.verification-note strong { color:var(--teal); }
+@media(max-width:900px){
+  .dir-grid { grid-template-columns:1fr; }
+  .owners-bar { flex-direction:column; gap:8px; }
+  .stage-timeline { flex-wrap:wrap; }
+}
 </style>
 <script src="../stages.js"></script>
 <script src="../nav.js"></script>
@@ -890,6 +925,25 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
 
+  <!-- Сквозные роли -->
+  <div class="grad-line"></div>
+  <div class="cross-roles-block">
+    <div class="cr-title">Сквозные роли (на всех стадиях)</div>
+    <ul class="cr-list">
+      <li><strong>PMO Lead</strong> — общий контроль портфеля, утверждение Gate на всех стадиях</li>
+      <li><strong>PMO-менеджер</strong> — координация по своему департаменту</li>
+      <li><strong>ИБ</strong> — аудит безопасности (О·2, О·3, О·4)</li>
+      <li><strong>Юрист</strong> — правовая экспертиза (О·1, О·2)</li>
+    </ul>
+  </div>
+
+  <div class="verification-note">
+    <strong>Верификация фреймворка:</strong> После завершения описания фреймворка — сбор рабочей группы для верификации:<br>
+    — Проверка соответствия процессов реальной работе команд<br>
+    — Обеспечение работы процессов вне ОРБИТА (в операционном слое)<br>
+    — Итерация фреймворка по обратной связи от пилотных команд
+  </div>
+
 </div>
 <!-- /overview -->
 
@@ -906,16 +960,21 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">PMO-менеджер</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">Заказчик/PM</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">PMO Lead</span></div>
+    </div>
     <div class="stage-grid s0">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
         <ol class="sg-list numbered">
           <li>Заказчик заполняет <strong>Бриф инициативы</strong>: проблема, аудитория, ожидаемый эффект, связь с OKR</li>
-          <li>PMO проверяет полноту брифа, ищет дубли в реестре инициатив</li>
+          <li><abbr class="term" tabindex="0" data-tip="Project Management Office — Проектный офис. Координирует Gate-ревью, помогает командам с методологией и стандартами.">PMO</abbr> (Project Management Office) проверяет полноту брифа, ищет дубли в реестре инициатив</li>
           <li>Скоринг по матрице приоритетов (<abbr class="term" tabindex="0" data-tip="Reach × Impact × Confidence ÷ Effort. Фреймворк приоритизации: чем выше Score, тем выше приоритет инициативы." data-href="../Продукту/brief.html">RICE</abbr> / T-shirt size)</li>
           <li>Поиск и согласование команды: PM, TL, дизайнер, DA</li>
           <li>Калибровка на Продуктовом синке или Проектном комитете</li>
-          <li><strong><abbr class="term" tabindex="0" data-tip="Скрининг идеи — первый Gate. Критерии: описание проблемы, ЦА, гипотеза ценности. Решение PMO: Go / No-Go за 5 рабочих дней.">Gate 0</abbr></strong> — решение <abbr class="term" tabindex="0" data-tip="Project Management Office — Проектный офис. Координирует Gate-ревью, помогает командам с методологией и стандартами.">PMO</abbr> за 5 рабочих дней</li>
+          <li><strong><abbr class="term" tabindex="0" data-tip="Скрининг идеи — первый Gate. Критерии: описание проблемы, ЦА, гипотеза ценности. Решение PMO: Go / No-Go за 5 рабочих дней.">Gate 0</abbr></strong> — решение PMO за 5 рабочих дней</li>
         </ol>
       </div>
       <div class="sg-card">
@@ -931,7 +990,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
         <div class="sg-card-title">Инструменты</div>
         <ul class="sg-list">
           <li><span class="sg-marker">→</span><span>Форма брифа (шаблон PMO)</span></li>
-          <li><span class="sg-marker">→</span><span>Реестр инициатив · ПИ Реестр</span></li>
+          <li><span class="sg-marker">→</span><span>Реестр инициатив · ПИ (Платформа Инноваций — ОРБИТА) Реестр</span></li>
           <li><span class="sg-marker">→</span><span>Матрица RICE / ICE для скоринга</span></li>
           <li><span class="sg-marker">→</span><span>Notion / Confluence для карточки</span></li>
           <li><span class="sg-marker">→</span><span>WB Messenger / Почта для коммуникации</span></li>
@@ -941,13 +1000,13 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="gate-card s0">
       <div>
         <div class="gate-label">Gate 0 → Орбита 1 · Критерии</div>
-        <ul class="gate-criteria-list">
-          <li>Проблема описана одним предложением и понятна заказчику</li>
-          <li>Целевая аудитория определена (сегмент + объём)</li>
-          <li>Связь с OKR компании или департамента подтверждена</li>
-          <li>Нет дублей в реестре инициатив</li>
-          <li>Команда найдена или путь к поиску согласован</li>
-        </ul>
+        <div class="gate-checklist">
+          <div class="gc-item">Проблема описана одним предложением и понятна заказчику</div>
+          <div class="gc-item">Целевая аудитория определена (сегмент + объём)</div>
+          <div class="gc-item">Связь с OKR компании или департамента подтверждена</div>
+          <div class="gc-item">Нет дублей в реестре инициатив</div>
+          <div class="gc-item">Команда найдена или путь к поиску согласован</div>
+        </div>
       </div>
       <div>
         <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">PMO</div></div>
@@ -987,11 +1046,37 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (1, не повторяется)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Изучить проблему, провести первичный анализ рынка, определить ЦА и объём</span><span class="vp-time">1–2 дня</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование (День 1-2)</span><span class="vp-desc"><strong>Заказчик + PM</strong> изучают проблему, проводят первичный анализ рынка, определяют ЦА и объём</span><span class="vp-time">1–2 дня</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Написать бриф инициативы, провести RICE-оценку, найти команду (PM, TL, дизайнер)</span><span class="vp-time">1 день</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка (День 2-3)</span><span class="vp-desc"><strong>Заказчик + PMO-менеджер</strong> пишут бриф инициативы, проводят RICE-оценку, ищут команду (PM, TL, дизайнер)</span><span class="vp-time">1 день</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Скрининг PMO, проверка дублей в реестре, решение Go/No-Go за 5 рабочих дней</span><span class="vp-time">до 5 дней</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро (День 4-5)</span><span class="vp-desc"><strong>PMO Lead + PMO-менеджер</strong> скрининг, проверка дублей в реестре, решение Go/No-Go за 5 рабочих дней</span><span class="vp-time">до 5 дней</span></div>
+      </div>
+      <div class="stage-timeline">
+        <div class="st-step"><span class="st-week">День 1</span><span class="st-label">Бриф</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">День 2-3</span><span class="st-label">RICE + проверка</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">День 4</span><span class="st-label">Синк PMO</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">День 5</span><span class="st-label">Gate 0</span></div>
+      </div>
+    </div>
+    <div class="directions-block">
+      <div class="dir-title">Особенности по направлениям</div>
+      <div class="dir-grid">
+        <div class="dir-card dir-business">
+          <div class="dir-card-title">Бизнес-инициативы</div>
+          <div class="dir-card-body">Фокус на бизнес-модель, ROI, рынок. Обязательно: финансовая оценка.</div>
+        </div>
+        <div class="dir-card dir-product">
+          <div class="dir-card-title">Продуктовые</div>
+          <div class="dir-card-body">Фокус на пользовательскую проблему, метрики. Обязательно: описание ЦА.</div>
+        </div>
+        <div class="dir-card dir-tech">
+          <div class="dir-card-title">Технические</div>
+          <div class="dir-card-body">Фокус на тех.потребность команд, SLA (Service Level Agreement). Обязательно: список заказчиков.</div>
+        </div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1018,6 +1103,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">PM</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">PM + Designer + Analyst</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">PMO-менеджер</span></div>
+    </div>
     <div class="stage-grid s1">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
@@ -1056,13 +1146,13 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="gate-card s1">
       <div>
         <div class="gate-label">Gate 1 → Орбита 2 · Критерии</div>
-        <ul class="gate-criteria-list">
-          <li>Problem-Solution Fit подтверждён данными (мин. 7 интервью)</li>
-          <li>Техническая реализуемость подтверждена (ADR написан)</li>
-          <li>Scope и сроки MVP зафиксированы и согласованы с TL</li>
-          <li>Бюджет предварительно согласован с Финансами</li>
-          <li>Discovery Report утверждён PM и TL</li>
-        </ul>
+        <div class="gate-checklist">
+          <div class="gc-item">PSF (Problem-Solution Fit) подтверждён данными (мин. 7 интервью)</div>
+          <div class="gc-item">Техническая реализуемость подтверждена (ADR написан)</div>
+          <div class="gc-item">Scope и сроки MVP зафиксированы и согласованы с TL</div>
+          <div class="gc-item">Бюджет предварительно согласован с Финансами</div>
+          <div class="gc-item">Discovery Report утверждён PM и TL</div>
+        </div>
       </div>
       <div>
         <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">PMO + Инвест. директор</div></div>
@@ -1110,11 +1200,37 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (1–2, повтор если PSF не подтверждён)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">CustDev 7–10 интервью, конкурентный анализ, JTBD-синтез, карта болей</span><span class="vp-time">2–3 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование (Нед 1-3)</span><span class="vp-desc"><strong>PM + Analyst</strong> проводят CustDev 7–10 интервью, конкурентный анализ, JTBD-синтез, карту болей</span><span class="vp-time">2–3 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">PSF-документ, бизнес-кейс, Product Brief, прототип Figma, ADR</span><span class="vp-time">1–2 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка (Нед 4-5)</span><span class="vp-desc"><strong>PM + Designer + TL</strong> создают PSF-документ, бизнес-кейс, Product Brief, прототип Figma, ADR</span><span class="vp-time">1–2 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Gate Review комитет, валидация проблемы, Discovery Report → Go/No-Go</span><span class="vp-time">3 дня</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро (Нед 6)</span><span class="vp-desc"><strong>PMO-менеджер + Committee</strong> Gate Review комитет, валидация проблемы, Discovery Report → Go/No-Go</span><span class="vp-time">3 дня</span></div>
+      </div>
+      <div class="stage-timeline">
+        <div class="st-step"><span class="st-week">Нед 1</span><span class="st-label">Kick-off</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Нед 2-4</span><span class="st-label">CustDev</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Нед 5</span><span class="st-label">Синтез</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Нед 6</span><span class="st-label">Gate 1</span></div>
+      </div>
+    </div>
+    <div class="directions-block">
+      <div class="dir-title">Особенности по направлениям</div>
+      <div class="dir-grid">
+        <div class="dir-card dir-business">
+          <div class="dir-card-title">Бизнес-инициативы</div>
+          <div class="dir-card-body">CustDev с ЛПР (5-7 интервью), конкурентный анализ рынка, бизнес-кейс с P&amp;L</div>
+        </div>
+        <div class="dir-card dir-product">
+          <div class="dir-card-title">Продуктовые</div>
+          <div class="dir-card-body">CustDev с пользователями (7-10 интервью), UX-исследование, прототип low-fi</div>
+        </div>
+        <div class="dir-card dir-tech">
+          <div class="dir-card-title">Технические</div>
+          <div class="dir-card-body">Анализ альтернатив (build vs buy), PoC (Proof of Concept), benchmark производительности</div>
+        </div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1141,11 +1257,16 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">PM</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">PM + Tech Lead + Designer</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">PMO-менеджер + Архитектор</span></div>
+    </div>
     <div class="stage-grid s2">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
         <ol class="sg-list numbered">
-          <li>PRD — Product Requirements Document: требования, user stories, DoD</li>
+          <li>PRD — Product Requirements Document: требования, user stories, DoD (Definition of Done)</li>
           <li>Sprint 0: инфраструктура, архитектура, CI/CD, настройка среды</li>
           <li>Итеративная разработка (спринты 1–N): DoR → Dev → Review → DoD</li>
           <li>UAT / Staging: тест с пилотными пользователями</li>
@@ -1179,13 +1300,13 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="gate-card s2">
       <div>
         <div class="gate-label">Gate 2 → Орбита 3 · Критерии</div>
-        <ul class="gate-criteria-list">
-          <li>MVP запущен в production (stable, 0 критических P0/P1 багов)</li>
-          <li>Базовые метрики зафиксированы (есть baseline для сравнения)</li>
-          <li>Первичный фидбек получен (NPS / опрос / интервью с первыми юзерами)</li>
-          <li>Unit economics рассчитаны предварительно (CAC, LTV)</li>
-          <li>Команда сформирована для стадии Роста</li>
-        </ul>
+        <div class="gate-checklist">
+          <div class="gc-item">MVP запущен в production (stable, 0 критических P0/P1 багов)</div>
+          <div class="gc-item">Базовые метрики зафиксированы (есть baseline для сравнения)</div>
+          <div class="gc-item">Первичный фидбек получен (NPS / опрос / интервью с первыми юзерами)</div>
+          <div class="gc-item">Unit economics рассчитаны предварительно (CAC, LTV)</div>
+          <div class="gc-item">Команда сформирована для стадии Роста</div>
+        </div>
       </div>
       <div>
         <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">Проектный комитет + CPO</div></div>
@@ -1234,11 +1355,37 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (2–4, спринты)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Юзер-тестирование, техническое ревью, UAT-фидбек, анализ метрик запуска</span><span class="vp-time">2–3 дня</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование (2-3 дня)</span><span class="vp-desc"><strong>PM + Designer</strong> проводят юзер-тестирование, техническое ревью, UAT-фидбек, анализ метрик запуска</span><span class="vp-time">2–3 дня</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">MVP-скоуп, Sprint (PRD → Dev → Review → DoD), прототип, первые метрики</span><span class="vp-time">1–2 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка (1-2 нед)</span><span class="vp-desc"><strong>Tech Lead + Team</strong> реализуют MVP-скоуп, Sprint (PRD → Dev → Review → DoD), прототип, первые метрики</span><span class="vp-time">1–2 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Gate Review: MVP работает? Sprint Review + ретро, baseline метрик</span><span class="vp-time">1 день</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро (1 день)</span><span class="vp-desc"><strong>PMO-менеджер + Архитектор</strong> Gate Review: MVP работает? Sprint Review + ретро, baseline метрик</span><span class="vp-time">1 день</span></div>
+      </div>
+      <div class="stage-timeline">
+        <div class="st-step"><span class="st-week">Нед 1-2</span><span class="st-label">Sprint 0</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Нед 3-8</span><span class="st-label">Sprints 1-3</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Нед 9</span><span class="st-label">Soft launch</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Нед 10-11</span><span class="st-label">Gate 2</span></div>
+      </div>
+    </div>
+    <div class="directions-block">
+      <div class="dir-title">Особенности по направлениям</div>
+      <div class="dir-grid">
+        <div class="dir-card dir-business">
+          <div class="dir-card-title">Бизнес-инициативы</div>
+          <div class="dir-card-body">MVP с фокусом на монетизацию, тестирование ценообразования</div>
+        </div>
+        <div class="dir-card dir-product">
+          <div class="dir-card-title">Продуктовые</div>
+          <div class="dir-card-body">MVP с фокусом на UX, A/B тест ключевой фичи, метрики retention</div>
+        </div>
+        <div class="dir-card dir-tech">
+          <div class="dir-card-title">Технические</div>
+          <div class="dir-card-body">Alpha-версия SDK/API, документация разработчика, integration test</div>
+        </div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1265,11 +1412,16 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">PM</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">PM + Growth + Marketing</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">PMO Lead + CPO</span></div>
+    </div>
     <div class="stage-grid s3">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
         <ol class="sg-list numbered">
-          <li>Установка baseline: retention, DAU/MAU, NPS, funnel конверсии</li>
+          <li>Установка baseline: retention, DAU/MAU (Daily/Monthly Active Users), NPS, funnel конверсии</li>
           <li>Анализ воронки: где теряем пользователей, точки оттока</li>
           <li>Формирование Growth Backlog: гипотезы роста (JTBD + данные)</li>
           <li>A/B тестирование: 2–3 параллельных эксперимента</li>
@@ -1302,13 +1454,13 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="gate-card s3">
       <div>
         <div class="gate-label">Gate 3 → Орбита 4 · Критерии</div>
-        <ul class="gate-criteria-list">
-          <li>PMF достигнут: Retention D30 ≥ бенчмарк, NPS ≥ целевого</li>
-          <li>Unit economics позитивны: CAC &lt; LTV, Payback Period &lt; 12 мес</li>
-          <li>Маркетинговые каналы определены, CAC измерен по каждому</li>
-          <li>Команда готова к масштабированию (найм, процессы)</li>
-          <li>Roadmap экосистемного развития согласован с CPO</li>
-        </ul>
+        <div class="gate-checklist">
+          <div class="gc-item">PMF (Product-Market Fit) достигнут: Retention D30 ≥ бенчмарк, NPS ≥ целевого</div>
+          <div class="gc-item">Unit economics позитивны: CAC &lt; LTV, Payback Period &lt; 12 мес</div>
+          <div class="gc-item">Маркетинговые каналы определены, CAC измерен по каждому</div>
+          <div class="gc-item">Команда готова к масштабированию (найм, процессы)</div>
+          <div class="gc-item">Roadmap экосистемного развития согласован с CPO</div>
+        </div>
       </div>
       <div>
         <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">CPO + CFO + CEO BU</div></div>
@@ -1355,11 +1507,35 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (3–7, параллельные эксперименты)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">A/B тесты, анализ воронки и точек оттока, метрики запуска (Retention, DAU, NPS)</span><span class="vp-time">1 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование (1 нед)</span><span class="vp-desc"><strong>PM + Analyst</strong> проводят A/B тесты, анализ воронки и точек оттока, метрики запуска (Retention, DAU, NPS)</span><span class="vp-time">1 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">GTM-план, rollout, масштабирование каналов, Growth Backlog + фичи</span><span class="vp-time">2 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка (2 нед)</span><span class="vp-desc"><strong>PM + Growth + Marketing</strong> создают GTM-план, rollout, масштабирование каналов, Growth Backlog + фичи</span><span class="vp-time">2 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Gate Review: метрики достигнуты? Kill/Scale/Iterate, Growth Review</span><span class="vp-time">2–3 дня</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро (2-3 дня)</span><span class="vp-desc"><strong>PMO Lead + CPO</strong> Gate Review: метрики достигнуты? Kill/Scale/Iterate, Growth Review</span><span class="vp-time">2–3 дня</span></div>
+      </div>
+      <div class="stage-timeline">
+        <div class="st-step"><span class="st-week">Мес 1</span><span class="st-label">GTM</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Мес 2-3</span><span class="st-label">Growth experiments</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Мес 3</span><span class="st-label">Gate 3 (quarterly)</span></div>
+      </div>
+    </div>
+    <div class="directions-block">
+      <div class="dir-title">Особенности по направлениям</div>
+      <div class="dir-grid">
+        <div class="dir-card dir-business">
+          <div class="dir-card-title">Бизнес-инициативы</div>
+          <div class="dir-card-body">GTM-стратегия, продажи, партнёрства, unit-economics</div>
+        </div>
+        <div class="dir-card dir-product">
+          <div class="dir-card-title">Продуктовые</div>
+          <div class="dir-card-body">Growth hacking, viral loops, retention optimization, onboarding</div>
+        </div>
+        <div class="dir-card dir-tech">
+          <div class="dir-card-title">Технические</div>
+          <div class="dir-card-body">Adoption programme, migration guides, developer portal</div>
+        </div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1386,6 +1562,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">Архитектор</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">Tech Lead + PM</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">CTO + PMO Lead</span></div>
+    </div>
     <div class="stage-grid s4">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
@@ -1422,13 +1603,13 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="gate-card s4">
       <div>
         <div class="gate-label">Gate 4 · Критерии экосистемной зрелости</div>
-        <ul class="gate-criteria-list">
-          <li>Экосистемная ценность подтверждена — синергии измерены количественно</li>
-          <li>Продукт интегрирован в 2+ других продукта экосистемы</li>
-          <li>Shared services переданы в платформу (нет дублирования)</li>
-          <li>Бизнес-кейс экосистемного масштабирования одобрен CFO</li>
-          <li>Команда платформы принята, roadmap согласован с CPO</li>
-        </ul>
+        <div class="gate-checklist">
+          <div class="gc-item">Экосистемная ценность подтверждена — синергии измерены количественно</div>
+          <div class="gc-item">Продукт интегрирован в 2+ других продукта экосистемы</div>
+          <div class="gc-item">Shared services переданы в платформу (нет дублирования)</div>
+          <div class="gc-item">Бизнес-кейс экосистемного масштабирования одобрен CFO</div>
+          <div class="gc-item">Команда платформы принята, roadmap согласован с CPO</div>
+        </div>
       </div>
       <div>
         <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">CPO + Инвест. Комитет</div></div>
@@ -1473,11 +1654,35 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (2–4, интеграционные циклы)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Анализ интеграционных возможностей, API-потребности партнёров, cross-product синергии</span><span class="vp-time">1–2 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование (1-2 нед)</span><span class="vp-desc"><strong>Tech Lead + Архитектор</strong> анализируют интеграционные возможности, API-потребности партнёров, cross-product синергии</span><span class="vp-time">1–2 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">API-контракты, интеграции, партнёрства, Platform features, shared services</span><span class="vp-time">3–6 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка (3-6 нед)</span><span class="vp-desc"><strong>Tech Lead + PM + Team</strong> создают API-контракты, интеграции, партнёрства, Platform features, shared services</span><span class="vp-time">3–6 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Экосистемный ревью: интеграция завершена? Ecosystem metrics + партнёрский фидбек</span><span class="vp-time">1 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро (1 нед)</span><span class="vp-desc"><strong>CTO + PMO Lead</strong> экосистемный ревью: интеграция завершена? Ecosystem metrics + партнёрский фидбек</span><span class="vp-time">1 нед</span></div>
+      </div>
+      <div class="stage-timeline">
+        <div class="st-step"><span class="st-week">Мес 1-2</span><span class="st-label">Strategy</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Мес 3-6</span><span class="st-label">Integration cycles</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Мес 6+</span><span class="st-label">Gate 4</span></div>
+      </div>
+    </div>
+    <div class="directions-block">
+      <div class="dir-title">Особенности по направлениям</div>
+      <div class="dir-grid">
+        <div class="dir-card dir-business">
+          <div class="dir-card-title">Бизнес-инициативы</div>
+          <div class="dir-card-body">Партнёрские интеграции, cross-sell, revenue sharing</div>
+        </div>
+        <div class="dir-card dir-product">
+          <div class="dir-card-title">Продуктовые</div>
+          <div class="dir-card-body">Platform features, API для партнёров, marketplace</div>
+        </div>
+        <div class="dir-card dir-tech">
+          <div class="dir-card-title">Технические</div>
+          <div class="dir-card-body">Service mesh, shared infrastructure, observability</div>
+        </div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1504,6 +1709,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">PMO Lead</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">PM + Analyst</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">CPO + CEO</span></div>
+    </div>
     <div class="stage-grid s5">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
@@ -1540,13 +1750,13 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="gate-card s5">
       <div>
         <div class="gate-label">Gate 5 · Ежегодный стратегический ревью</div>
-        <ul class="gate-criteria-list">
-          <li>P&amp;L стабилен или положительный за последние 4 квартала</li>
-          <li>NPS не деградирует: стабилен или растёт</li>
-          <li>Есть понятный план следующей стадии (Разведка или монетизация)</li>
-          <li>Техдолг не блокирует развитие продукта</li>
-          <li>Команда укомплектована на ≥80%</li>
-        </ul>
+        <div class="gate-checklist">
+          <div class="gc-item">P&amp;L стабилен или положительный за последние 4 квартала</div>
+          <div class="gc-item">NPS не деградирует: стабилен или растёт</div>
+          <div class="gc-item">Есть понятный план следующей стадии (Разведка или монетизация)</div>
+          <div class="gc-item">Техдолг не блокирует развитие продукта</div>
+          <div class="gc-item">Команда укомплектована на ≥80%</div>
+        </div>
       </div>
       <div>
         <div class="gate-meta-row"><div class="gate-meta-label">Кто принимает решение</div><div class="gate-meta-val">CPO + CFO + CEO BU</div></div>
@@ -1589,11 +1799,35 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (1–2 в квартал, стратегические итерации)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Unit-экономика, анализ здоровья продукта, P&amp;L, NPS-тренд, стратегические опции</span><span class="vp-time">2 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование (2 нед)</span><span class="vp-desc"><strong>PM + Analyst</strong> анализируют unit-экономику, здоровье продукта, P&amp;L, NPS-тренд, стратегические опции</span><span class="vp-time">2 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Оптимизация воронки, масштабирование, автоматизация, погашение техдолга</span><span class="vp-time">4–6 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка (4-6 нед)</span><span class="vp-desc"><strong>PM + Team</strong> проводят оптимизацию воронки, масштабирование, автоматизацию, погашение техдолга</span><span class="vp-time">4–6 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Стратегический ревью: Scale / Optimize / Sunset? QBR → решение</span><span class="vp-time">1 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро (1 нед)</span><span class="vp-desc"><strong>CPO + CEO</strong> стратегический ревью: Scale / Optimize / Sunset? QBR → решение</span><span class="vp-time">1 нед</span></div>
+      </div>
+      <div class="stage-timeline">
+        <div class="st-step"><span class="st-week">Q1-Q2</span><span class="st-label">Optimize</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Q3-Q4</span><span class="st-label">Strategic review</span></div>
+        <div class="st-arrow">→</div>
+        <div class="st-step"><span class="st-week">Annual</span><span class="st-label">Gate 5</span></div>
+      </div>
+    </div>
+    <div class="directions-block">
+      <div class="dir-title">Особенности по направлениям</div>
+      <div class="dir-grid">
+        <div class="dir-card dir-business">
+          <div class="dir-card-title">Бизнес-инициативы</div>
+          <div class="dir-card-body">P&amp;L оптимизация, new markets, strategic partnerships</div>
+        </div>
+        <div class="dir-card dir-product">
+          <div class="dir-card-title">Продуктовые</div>
+          <div class="dir-card-body">Feature maturity, technical debt payoff, next-gen planning</div>
+        </div>
+        <div class="dir-card dir-tech">
+          <div class="dir-card-title">Технические</div>
+          <div class="dir-card-body">Performance optimization, cost reduction, sunset legacy</div>
+        </div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1620,6 +1854,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">PMO Lead</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">PM + Tech Lead</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">PMO-менеджер</span></div>
+    </div>
     <div class="stage-grid s6">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
@@ -1645,7 +1884,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
       <div class="sg-card">
         <div class="sg-card-title">Kill-условия (экстренная архивация)</div>
         <ul class="sg-list">
-          <li><span class="sg-marker">✗</span><span>North Star падает &gt;30% три месяца подряд</span></li>
+          <li><span class="sg-marker">✗</span><span>North Star (Ключевая метрика продукта) падает &gt;30% три месяца подряд</span></li>
           <li><span class="sg-marker">✗</span><span>NPS &lt; 0 и не восстанавливается</span></li>
           <li><span class="sg-marker">✗</span><span>Команда &lt;50% укомплектована &gt;2 месяцев</span></li>
           <li><span class="sg-marker">✗</span><span>P&amp;L отрицательный &gt;6 месяцев без плана</span></li>
@@ -1656,13 +1895,13 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="gate-card s6">
       <div>
         <div class="gate-label">Архивация завершена · Чеклист</div>
-        <ul class="gate-criteria-list">
-          <li>100% пользователей уведомлены и получили инструкцию</li>
-          <li>Данные архивированы согласно политике хранения</li>
-          <li>Инфраструктура освобождена, затраты обнулены</li>
-          <li>Post-mortem проведён и задокументирован в базе PMO</li>
-          <li>Команда перераспределена или уведомлена</li>
-        </ul>
+        <div class="gate-checklist">
+          <div class="gc-item">100% пользователей уведомлены и получили инструкцию</div>
+          <div class="gc-item">Данные архивированы согласно политике хранения</div>
+          <div class="gc-item">Инфраструктура освобождена, затраты обнулены</div>
+          <div class="gc-item">Post-mortem проведён и задокументирован в базе PMO</div>
+          <div class="gc-item">Команда перераспределена или уведомлена</div>
+        </div>
       </div>
       <div>
         <div class="gate-meta-row"><div class="gate-meta-label">Ответственный</div><div class="gate-meta-val">PM + PMO</div></div>
@@ -1703,11 +1942,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (1, финальный)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Аудит зависимостей + план миграции</span><span class="vp-time">1 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование (1 нед)</span><span class="vp-desc"><strong>PM + Tech Lead</strong> проводят аудит зависимостей + составляют план миграции</span><span class="vp-time">1 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Offboarding + отключение</span><span class="vp-time">2–3 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка (2-3 нед)</span><span class="vp-desc"><strong>Tech Lead + Team</strong> выполняют offboarding пользователей + отключение инфраструктуры</span><span class="vp-time">2–3 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Post-mortem + закрытие</span><span class="vp-time">1 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро (1 нед)</span><span class="vp-desc"><strong>PMO-менеджер + PM</strong> проводят post-mortem + закрытие записи в реестре</span><span class="vp-time">1 нед</span></div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1767,6 +2006,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body" style="border-color:var(--amber-border);">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">Архитектор</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">Tech Lead</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">CTO</span></div>
+    </div>
     <div class="stage-grid">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
@@ -1817,11 +2061,16 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body" style="border-color:var(--amber-border);">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">Архитектор</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">Tech Lead + Архитектор</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">CTO</span></div>
+    </div>
     <div class="stage-grid">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
         <ol class="sg-list numbered">
-          <li>Архитектурный анализ, PoC, выбор стека</li>
+          <li>Архитектурный анализ, PoC (Proof of Concept), выбор стека</li>
           <li>Архитектурный документ, API-контракты, план интеграции</li>
           <li>Архитектурное ревью, согласование с командами-заказчиками</li>
         </ol>
@@ -1832,7 +2081,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
           <li><span class="sg-marker">·</span><span><strong>Архитектурный документ</strong></span></li>
           <li><span class="sg-marker">·</span><span><strong>API spec</strong> (OpenAPI / Swagger)</span></li>
           <li><span class="sg-marker">·</span><span><strong>План интеграции</strong></span></li>
-          <li><span class="sg-marker">·</span><span><strong>SLA-обязательства</strong></span></li>
+          <li><span class="sg-marker">·</span><span><strong>SLA (Service Level Agreement) — обязательства</strong></span></li>
         </ul>
       </div>
       <div class="sg-card">
@@ -1868,6 +2117,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body" style="border-color:var(--amber-border);">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">Tech Lead</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">Dev Team + QA</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">Архитектор + ИБ</span></div>
+    </div>
     <div class="stage-grid">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
@@ -1920,6 +2174,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
   <div class="stage-body" style="border-color:var(--amber-border);">
+    <div class="owners-bar">
+      <div class="owner-item"><span class="owner-role">Владелец стадии:</span> <span class="owner-name">Tech Lead</span></div>
+      <div class="owner-item"><span class="owner-role">Исполнитель:</span> <span class="owner-name">Tech Lead + DevRel</span></div>
+      <div class="owner-item"><span class="owner-role">Контролёр:</span> <span class="owner-name">CTO</span></div>
+    </div>
     <div class="stage-grid">
       <div class="sg-card">
         <div class="sg-card-title">Процесс</div>
