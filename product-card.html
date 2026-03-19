@@ -294,9 +294,86 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
 .pc-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--teal);color:#fff;padding:10px 20px;border-radius:50px;font-size:12px;font-weight:600;z-index:9999;transition:transform .3s cubic-bezier(.22,1,.36,1);pointer-events:none}
 .pc-toast.show{transform:translateX(-50%) translateY(0)}
 
+/* ── BREADCRUMB ── */
+.pc-breadcrumb{display:flex;align-items:center;gap:6px;margin-bottom:16px;font-size:11px;font-weight:600}
+.pc-breadcrumb a{color:var(--muted);text-decoration:none;transition:color .15s}
+.pc-breadcrumb a:hover{color:var(--violet)}
+.pc-breadcrumb .bc-sep{color:rgba(255,255,255,.15)}
+.pc-breadcrumb .bc-current{color:#E8E8F0}
+
+/* ── PRODUCT PASSPORT GRID ── */
+.passport-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.passport-grid .ov-card{display:flex;flex-direction:column}
+.passport-field{display:flex;flex-direction:column;gap:2px;margin-bottom:10px}
+.passport-field:last-child{margin-bottom:0}
+.passport-field-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.passport-field-value{font-size:13px;font-weight:600;color:#E8E8F0;line-height:1.5}
+.passport-field-value.editable{cursor:text;border:1px dashed rgba(79,195,247,.2);border-radius:6px;padding:4px 8px;min-height:28px;outline:none;transition:border-color .15s}
+.passport-field-value.editable:focus{border-color:var(--vborder);background:rgba(79,195,247,.04)}
+.passport-field-value.placeholder{color:var(--muted);font-style:italic;font-weight:400}
+.team-member{display:flex;flex-direction:column;gap:1px;padding:8px 10px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;margin-bottom:6px}
+.team-member-role{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.team-member-name{font-size:13px;font-weight:700;color:#fff}
+.team-member-scope{font-size:11px;color:var(--muted)}
+.doc-links-list{display:flex;flex-direction:column;gap:6px}
+.doc-link-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;text-decoration:none;transition:border-color .15s}
+.doc-link-item:hover{border-color:var(--vborder)}
+.doc-link-icon{font-size:14px;flex-shrink:0}
+.doc-link-text{font-size:12px;font-weight:600;color:var(--violet)}
+.doc-link-sub{font-size:10px;color:var(--muted)}
+.nsm-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:16px;margin-bottom:10px}
+.nsm-value{font-family:var(--mono);font-size:24px;font-weight:800;color:var(--teal)}
+.nsm-label{font-size:11px;color:var(--muted);font-weight:600}
+.nsm-name{font-size:13px;font-weight:700;color:#fff}
+
+/* ── INITIATIVE GROUP BY TYPE ── */
+.init-type-group{margin-bottom:20px}
+.init-type-header{display:flex;align-items:center;gap:10px;padding:10px 0 8px;cursor:pointer;user-select:none}
+.init-type-header:hover .init-type-label{color:#fff}
+.init-type-icon{font-size:12px;color:var(--muted);transition:transform .2s;width:16px}
+.init-type-header.collapsed .init-type-icon{transform:rotate(-90deg)}
+.init-type-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;transition:color .15s}
+.init-type-count{font-family:var(--mono);font-size:9px;background:rgba(255,255,255,.08);padding:1px 6px;border-radius:8px;color:var(--muted)}
+.init-type-header::after{content:'';flex:1;height:1px;background:var(--border)}
+.init-type-body{overflow:hidden;transition:max-height .3s ease}
+.init-type-header.collapsed+.init-type-body{max-height:0 !important;overflow:hidden}
+
+/* ── RICE VIEW TOGGLE ── */
+.rice-view-bar{display:flex;align-items:center;gap:6px;margin-top:4px}
+.rice-view-fill{height:6px;border-radius:3px;background:var(--teal);transition:width .3s}
+.rice-view-track{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.07)}
+
+/* ── VIEW TOGGLE BTN ── */
+.view-toggle{display:inline-flex;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.view-toggle-btn{padding:6px 14px;font-family:var(--font);font-size:11px;font-weight:700;border:none;cursor:pointer;background:transparent;color:var(--muted);transition:all .15s}
+.view-toggle-btn.active{background:var(--vdim);color:var(--violet)}
+.view-toggle-btn:hover:not(.active){color:#fff;background:rgba(255,255,255,.04)}
+
+/* ── CREATE DROPDOWN ── */
+.create-dropdown-wrap{position:relative;display:inline-block}
+.create-dropdown{position:absolute;top:100%;right:0;margin-top:4px;background:var(--card2);border:1px solid var(--bhi);border-radius:8px;min-width:180px;z-index:100;display:none;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.create-dropdown.open{display:block}
+.create-dropdown-item{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:12px;font-weight:600;color:#E8E8F0;cursor:pointer;transition:background .12s;border:none;background:none;width:100%;font-family:var(--font);text-align:left}
+.create-dropdown-item:hover{background:var(--vdim);color:var(--violet)}
+.create-dropdown-item .cdi-icon{font-size:14px}
+
+/* ── Q-PLAN TABLE ── */
+.qplan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.qplan-col{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px;min-height:80px}
+.qplan-col-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;text-align:center}
+.qplan-item{font-size:11px;padding:6px 8px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;color:#E8E8F0;font-weight:600}
+
+/* ── PLANNING PROCESS ── */
+.plan-steps{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.plan-step{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px}
+.plan-step-num{font-family:var(--mono);font-size:18px;font-weight:800;color:var(--violet);flex-shrink:0;width:28px;text-align:center}
+.plan-step-text{font-size:12px;color:#E8E8F0;font-weight:600;line-height:1.4}
+
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .ov-grid{grid-template-columns:1fr}
+  .passport-grid{grid-template-columns:1fr}
+  .qplan-grid{grid-template-columns:1fr 1fr}
   .init-card-head{grid-template-columns:1fr;gap:6px}
   .init-rice,.init-status{justify-self:start}
   .pc-header{flex-direction:column}
@@ -328,6 +405,15 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
 [data-theme="light"] .doc-url-input { background:var(--card); border-color:var(--violet-border); color:var(--violet); }
 [data-theme="light"] .btn-save-sm { color:#fff !important; }
 [data-theme="light"] .review-comment-input { background:var(--card); color:var(--text); border-color:var(--violet-border); }
+[data-theme="light"] .passport-field-value.editable { border-color:var(--violet-border); }
+[data-theme="light"] .passport-field-value.editable:focus { border-color:var(--violet); background:var(--violet-dimmer); }
+[data-theme="light"] .team-member { background:var(--violet-dimmer); }
+[data-theme="light"] .doc-link-item { background:var(--violet-dimmer); }
+[data-theme="light"] .doc-link-item:hover { border-color:var(--violet); }
+[data-theme="light"] .qplan-item { background:var(--violet-dimmer); }
+[data-theme="light"] .plan-step { background:var(--card); }
+[data-theme="light"] .create-dropdown { background:var(--card); border-color:var(--violet-border); }
+[data-theme="light"] .create-dropdown-item:hover { background:var(--violet-dimmer); }
 </style>
 </head>
 <body>
@@ -579,6 +665,15 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     var statusCls = STATUS_CLS[_product.status] || 'sb-paused';
     var statusLabel = STATUS_LABELS[_product.status] || _product.status || '--';
 
+    // ── BREADCRUMB ──
+    html += '<div class="pc-breadcrumb">';
+    html += '<a href="./index.html">\u041E\u0420\u0411\u0418\u0422\u0410</a>';
+    html += '<span class="bc-sep">/</span>';
+    html += '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/tracker.html">\u0420\u0435\u0435\u0441\u0442\u0440</a>';
+    html += '<span class="bc-sep">/</span>';
+    html += '<span class="bc-current">' + esc(_product.id) + '</span>';
+    html += '</div>';
+
     html += '<div class="pc-header">';
     html += '<div class="pc-header-left">';
     html += '<div class="pc-meta">';
@@ -586,6 +681,9 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     html += '<span class="status-badge ' + statusCls + '">' + esc(statusLabel) + '</span>';
     if (_product.catLabel) {
       html += '<span style="font-size:10px;font-weight:700;color:var(--violet);background:var(--vdim);padding:2px 8px;border-radius:5px;border:1px solid var(--vborder)">' + esc(_product.catLabel) + '</span>';
+    }
+    if (_product.department) {
+      html += '<span style="font-size:10px;font-weight:600;color:var(--muted);background:rgba(255,255,255,.04);padding:2px 8px;border-radius:5px;border:1px solid var(--border)">' + esc(_product.department) + '</span>';
     }
     html += '</div>';
     html += '<div class="pc-title">' + esc(displayName(_product)) + '</div>';
@@ -604,7 +702,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
       }
       html += ' | PM: ' + _pmParts.join(', ');
     } else {
-      html += ' | PM: <span style="color:var(--muted)">не назначен</span>';
+      html += ' | PM: <span style="color:var(--muted)">\u043D\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D</span>';
     }
     if (_product.stakeholders) {
       html += ' | \u0421\u0442\u0435\u0439\u043A\u0445\u043E\u043B\u0434\u0435\u0440\u044B: <span>' + esc(_product.stakeholders) + '</span>';
@@ -613,6 +711,16 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     html += '</div>';
 
     html += '<div class="pc-header-actions">';
+    // Create dropdown (for PM)
+    if (editable && isPM()) {
+      html += '<div class="create-dropdown-wrap">';
+      html += '<button class="btn-action" id="btn-create-main">+ \u0421\u043E\u0437\u0434\u0430\u0442\u044C</button>';
+      html += '<div class="create-dropdown" id="create-dropdown">';
+      html += '<button class="create-dropdown-item" data-create-type="initiative"><span class="cdi-icon">\u{1F4CB}</span> \u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0443</button>';
+      html += '<button class="create-dropdown-item" data-create-type="goal"><span class="cdi-icon">\u{1F3AF}</span> \u0426\u0435\u043B\u044C</button>';
+      html += '</div>';
+      html += '</div>';
+    }
     html += '<button class="btn-share" id="btn-share">\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F</button>';
     html += '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/tracker.html" class="btn-back">\u2190 \u0420\u0435\u0435\u0441\u0442\u0440</a>';
     html += '</div>';
@@ -620,9 +728,9 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
 
     // ── TABS ──
     html += '<div class="pc-tabs" id="pc-tabs">';
-    html += '<button class="tab' + (_activeTab === 'overview' ? ' active' : '') + '" data-tab="overview">\u041E\u0431\u0437\u043E\u0440</button>';
+    html += '<button class="tab' + (_activeTab === 'overview' ? ' active' : '') + '" data-tab="overview">\u041F\u0430\u0441\u043F\u043E\u0440\u0442</button>';
     html += '<button class="tab' + (_activeTab === 'initiatives' ? ' active' : '') + '" data-tab="initiatives">\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B<span class="tab-count">' + initiatives.length + '</span></button>';
-    html += '<button class="tab' + (_activeTab === 'goals' ? ' active' : '') + '" data-tab="goals">\u0426\u0435\u043B\u0438<span class="tab-count">' + goals.length + '</span></button>';
+    html += '<button class="tab' + (_activeTab === 'goals' ? ' active' : '') + '" data-tab="goals">\u0426\u0435\u043B\u0438 \u0438 \u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435<span class="tab-count">' + goals.length + '</span></button>';
     if (!guest) {
       html += '<button class="tab' + (_activeTab === 'calendar' ? ' active' : '') + '" data-tab="calendar">\u041A\u0430\u043B\u0435\u043D\u0434\u0430\u0440\u044C</button>';
       html += '<button class="tab' + (_activeTab === 'docs' ? ' active' : '') + '" data-tab="docs">\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B</button>';
@@ -660,6 +768,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     app.innerHTML = html;
     initTabs();
     initShareButton();
+    initCreateDropdown(editable);
     initInitiatives(initiatives, editable);
     if (!guest) {
       initCalendar(editable);
@@ -671,17 +780,23 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
 
   // ── NOT FOUND ──
   function renderNotFound() {
-    return '<div class="not-found">'
+    return '<div class="pc-breadcrumb">'
+      + '<a href="./index.html">\u041E\u0420\u0411\u0418\u0422\u0410</a>'
+      + '<span class="bc-sep">/</span>'
+      + '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/tracker.html">\u0420\u0435\u0435\u0441\u0442\u0440</a>'
+      + '</div>'
+      + '<div class="not-found">'
       + '<h2>\u041F\u0440\u043E\u0434\u0443\u043A\u0442 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D</h2>'
       + '<p>\u041F\u0440\u043E\u0434\u0443\u043A\u0442 \u0441 ID "' + esc(productId || '') + '" \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D \u0432 \u0440\u0435\u0435\u0441\u0442\u0440\u0435.</p>'
       + '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/tracker.html" class="btn-back" style="display:inline-flex">\u2190 \u041D\u0430\u0437\u0430\u0434 \u0432 \u0440\u0435\u0435\u0441\u0442\u0440</a>'
       + '</div>';
   }
 
-  // ── TAB: OVERVIEW ──
+  // ── TAB: OVERVIEW (Product Passport) ──
   function renderOverview(initiatives, goals, editable) {
     var html = '';
     var gateNum = _product.gate || 0;
+    var isEdit = editable && !isGuest();
 
     // Gate Progress Timeline
     html += '<div class="ov-card" style="margin-bottom:24px">';
@@ -689,56 +804,144 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     html += renderGateTimeline(gateNum);
     html += '</div>';
 
-    // Description, UTP, Audience
-    html += '<div class="ov-grid">';
+    // ═══ PASSPORT GRID: Product Info + Team ═══
+    html += '<div class="passport-grid">';
+
+    // ── Card 1: Паспорт продукта ──
     html += '<div class="ov-card">';
-    html += '<div class="ov-card-title">\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</div>';
-    if (editable && !isGuest()) {
-      html += '<div class="ov-card-value" contenteditable="true" data-field="desc" id="ov-desc">' + esc(_product.desc || '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E') + '</div>';
-    } else {
-      html += '<div class="ov-card-value">' + esc(_product.desc || '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E') + '</div>';
-    }
-    html += '</div>';
-    html += '<div class="ov-card">';
-    html += '<div class="ov-card-title">\u0423\u0422\u041F / \u0426\u0435\u043B\u0435\u0432\u0430\u044F \u0430\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u044F</div>';
-    if (editable && !isGuest()) {
-      html += '<div class="ov-card-value" contenteditable="true" data-field="utp" id="ov-utp">' + esc(_product.utp || '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0423\u0422\u041F') + '</div>';
-      html += '<div style="margin-top:8px"><div class="ov-card-title">\u0410\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u044F</div>';
-      html += '<div class="ov-card-value" contenteditable="true" data-field="audience" id="ov-audience">' + esc(_product.audience || '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0430\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u044E') + '</div></div>';
-    } else {
-      html += '<div class="ov-card-value">' + esc(_product.utp || '--') + '</div>';
-      if (_product.audience) {
-        html += '<div style="margin-top:8px;font-size:12px;color:var(--muted)">\u0410\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u044F: ' + esc(_product.audience) + '</div>';
-      }
-    }
-    html += '</div>';
+    html += '<div class="ov-card-title">\u041F\u0430\u0441\u043F\u043E\u0440\u0442 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430</div>';
+
+    // ID + Stage + Status row
+    html += '<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px">';
+    html += '<div class="passport-field"><div class="passport-field-label">ID</div><div class="passport-field-value" style="font-family:var(--mono)">' + esc(_product.id) + '</div></div>';
+    html += '<div class="passport-field"><div class="passport-field-label">\u0421\u0442\u0430\u0434\u0438\u044F (Gate)</div><div class="passport-field-value" style="color:' + orbitColor(gateNum) + '">' + esc(GATE_NAMES[gateNum] || '\u041E\xB7' + gateNum) + '</div></div>';
+    var statusLabel = STATUS_LABELS[_product.status] || _product.status || '--';
+    var statusCls2 = STATUS_CLS[_product.status] || 'sb-paused';
+    html += '<div class="passport-field"><div class="passport-field-label">\u0421\u0442\u0430\u0442\u0443\u0441</div><div><span class="status-badge ' + statusCls2 + '">' + esc(statusLabel) + '</span></div></div>';
     html += '</div>';
 
-    // Team card
-    html += '<div class="ov-card" style="margin-bottom:24px">';
+    // Department
+    html += '<div class="passport-field">';
+    html += '<div class="passport-field-label">\u0414\u0435\u043F\u0430\u0440\u0442\u0430\u043C\u0435\u043D\u0442</div>';
+    if (isEdit) {
+      html += '<div class="passport-field-value editable" contenteditable="true" data-field="department" id="ov-department">' + esc(_product.department || '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0434\u0435\u043F\u0430\u0440\u0442\u0430\u043C\u0435\u043D\u0442') + '</div>';
+    } else {
+      html += '<div class="passport-field-value">' + esc(_product.department || '--') + '</div>';
+    }
+    html += '</div>';
+
+    // Description
+    html += '<div class="passport-field">';
+    html += '<div class="passport-field-label">\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430</div>';
+    if (isEdit) {
+      html += '<div class="passport-field-value editable" contenteditable="true" data-field="desc" id="ov-desc">' + esc(_product.desc || '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E') + '</div>';
+    } else {
+      html += '<div class="passport-field-value">' + esc(_product.desc || '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E') + '</div>';
+    }
+    html += '</div>';
+
+    // UTP
+    html += '<div class="passport-field">';
+    html += '<div class="passport-field-label">\u0423\u0422\u041F (\u0423\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u0435 \u0442\u043E\u0440\u0433\u043E\u0432\u043E\u0435 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435)</div>';
+    if (isEdit) {
+      html += '<div class="passport-field-value editable" contenteditable="true" data-field="utp" id="ov-utp">' + esc(_product.utp || '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0423\u0422\u041F') + '</div>';
+    } else {
+      html += '<div class="passport-field-value">' + esc(_product.utp || '--') + '</div>';
+    }
+    html += '</div>';
+
+    // Target audience
+    html += '<div class="passport-field">';
+    html += '<div class="passport-field-label">\u0426\u0435\u043B\u0435\u0432\u0430\u044F \u0430\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u044F</div>';
+    if (isEdit) {
+      html += '<div class="passport-field-value editable" contenteditable="true" data-field="audience" id="ov-audience">' + esc(_product.audience || '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0430\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u044E') + '</div>';
+    } else {
+      html += '<div class="passport-field-value">' + esc(_product.audience || '--') + '</div>';
+    }
+    html += '</div>';
+
+    // Business model
+    html += '<div class="passport-field">';
+    html += '<div class="passport-field-label">\u0411\u0438\u0437\u043D\u0435\u0441-\u043C\u043E\u0434\u0435\u043B\u044C</div>';
+    if (isEdit) {
+      html += '<div class="passport-field-value editable" contenteditable="true" data-field="businessModel" id="ov-businessModel">' + esc(_product.businessModel || '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0431\u0438\u0437\u043D\u0435\u0441-\u043C\u043E\u0434\u0435\u043B\u044C') + '</div>';
+    } else {
+      html += '<div class="passport-field-value">' + esc(_product.businessModel || '--') + '</div>';
+    }
+    html += '</div>';
+
+    html += '</div>'; // end passport card
+
+    // ── Card 2: Team ──
+    html += '<div class="ov-card">';
     html += '<div class="ov-card-title">\u041A\u043E\u043C\u0430\u043D\u0434\u0430</div>';
-    html += '<div style="display:flex;gap:24px;flex-wrap:wrap">';
-    html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">PMO-\u043C\u0435\u043D\u0435\u0434\u0436\u0435\u0440</div><div style="font-size:13px;font-weight:700;color:#fff">' + esc(_product.pmo || _product.owner || '--') + '</div></div>';
+
+    // PMO
+    html += '<div class="team-member">';
+    html += '<div class="team-member-role">PMO-\u043C\u0435\u043D\u0435\u0434\u0436\u0435\u0440</div>';
+    html += '<div class="team-member-name">' + esc(_product.pmo || _product.owner || '--') + '</div>';
+    html += '</div>';
+
+    // PMs
     var _cardPMs = OrbAuth.getProductPMs(_product.id);
     if (_cardPMs.length) {
       for (var cpi = 0; cpi < _cardPMs.length; cpi++) {
         var _cpm = _cardPMs[cpi];
         var _cpmName = OrbAuth.getDisplayName({name: _cpm.name, id: _cpm.email}, 'user');
         var _cpmScope = OrbAuth.formatScope(_cpm.scope);
-        html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">Product Manager</div>';
-        html += '<div style="font-size:13px;font-weight:700;color:#fff">' + esc(_cpmName) + ' <span style="font-size:11px;font-weight:400;color:var(--muted)">(' + esc(_cpmScope) + ')</span></div></div>';
+        html += '<div class="team-member">';
+        html += '<div class="team-member-role">Product Manager</div>';
+        html += '<div class="team-member-name">' + esc(_cpmName) + '</div>';
+        html += '<div class="team-member-scope">' + esc(_cpmScope) + '</div>';
+        html += '</div>';
       }
     } else {
-      html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">Product Manager</div><div style="font-size:13px;font-weight:400;color:var(--muted)">не назначен</div></div>';
+      html += '<div class="team-member">';
+      html += '<div class="team-member-role">Product Manager</div>';
+      html += '<div class="team-member-name" style="color:var(--muted);font-weight:400">\u043D\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D</div>';
+      html += '</div>';
     }
-    html += '<div><div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:2px">\u0421\u0442\u0435\u0439\u043A\u0445\u043E\u043B\u0434\u0435\u0440\u044B</div><div style="font-size:13px;font-weight:700;color:#fff">' + esc(_product.stakeholders || '--') + '</div></div>';
-    html += '</div>';
+
+    // Stakeholders
+    html += '<div class="team-member">';
+    html += '<div class="team-member-role">\u0421\u0442\u0435\u0439\u043A\u0445\u043E\u043B\u0434\u0435\u0440\u044B</div>';
+    if (isEdit) {
+      html += '<div class="team-member-name passport-field-value editable" contenteditable="true" data-field="stakeholders" id="ov-stakeholders">' + esc(_product.stakeholders || '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0441\u0442\u0435\u0439\u043A\u0445\u043E\u043B\u0434\u0435\u0440\u043E\u0432') + '</div>';
+    } else {
+      html += '<div class="team-member-name">' + esc(_product.stakeholders || '--') + '</div>';
+    }
     html += '</div>';
 
-    // KPI
+    // Add team member link
+    if (isEdit) {
+      html += '<div style="margin-top:8px"><a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/team.html" style="font-size:11px;color:var(--violet);text-decoration:none;font-weight:600">\u2192 \u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u0439</a></div>';
+    }
+    html += '</div>'; // end team card
+
+    html += '</div>'; // end passport-grid
+
+    // ═══ METRICS CARD ═══
+    html += '<div class="ov-card" style="margin-bottom:24px">';
+    html += '<div class="ov-card-title">\u041C\u0435\u0442\u0440\u0438\u043A\u0438</div>';
+
+    // North Star Metric
+    html += '<div class="nsm-card">';
+    html += '<div>';
+    html += '<div class="nsm-label">North Star Metric</div>';
+    if (isEdit) {
+      html += '<div class="nsm-name passport-field-value editable" contenteditable="true" data-field="northStar" id="ov-northStar" style="font-size:14px;font-weight:700;color:var(--teal)">' + esc(_product.northStar || '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 NSM') + '</div>';
+    } else {
+      html += '<div class="nsm-name" style="color:var(--teal)">' + esc(_product.northStar || '--') + '</div>';
+    }
+    html += '</div>';
+    if (_product.northStarValue) {
+      html += '<div class="nsm-value">' + esc(_product.northStarValue) + '</div>';
+    }
+    html += '</div>';
+
+    // KPI grid
     if (_product.kpi && _product.kpi.length) {
-      html += '<div class="ov-card" style="margin-bottom:24px">';
-      html += '<div class="ov-card-title">\u041A\u043B\u044E\u0447\u0435\u0432\u044B\u0435 \u043C\u0435\u0442\u0440\u0438\u043A\u0438</div>';
+      html += '<div style="margin-top:12px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">KPI</div>';
       html += '<div class="ov-kpi-grid">';
       for (var k = 0; k < _product.kpi.length; k++) {
         var kpi = _product.kpi[k];
@@ -748,10 +951,58 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
         html += '</div>';
       }
       html += '</div>';
+    } else if (isEdit) {
+      html += '<div style="margin-top:8px;font-size:11px;color:var(--muted);font-style:italic">KPI \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u044B. \u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0432 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430\u0445 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430.</div>';
+    }
+
+    // Goals connection
+    var goalsApproved = 0, goalsPending = 0;
+    for (var gi = 0; gi < goals.length; gi++) {
+      if (goals[gi].approvalStatus === 'approved') goalsApproved++;
+      else goalsPending++;
+    }
+    if (goals.length) {
+      html += '<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">';
+      html += '<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">\u0421\u0432\u044F\u0437\u044C \u0441 \u0446\u0435\u043B\u044F\u043C\u0438</div>';
+      html += '<div style="font-size:12px;color:#E8E8F0">' + goals.length + ' \u0446\u0435\u043B\u0435\u0439 (' + goalsApproved + ' \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u043E, ' + goalsPending + ' \u043D\u0430 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u0438)</div>';
       html += '</div>';
     }
 
-    // Approval status + planning
+    html += '</div>'; // end metrics card
+
+    // ═══ BOTTOM ROW: Documentation Links + Status ═══
+    html += '<div class="ov-grid">';
+
+    // Documentation links
+    html += '<div class="ov-card">';
+    html += '<div class="ov-card-title">\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u0446\u0438\u044F</div>';
+    html += '<div class="doc-links-list">';
+    html += '<a class="doc-link-item" href="./brief.html?product=' + esc(_product.id) + '">';
+    html += '<span class="doc-link-icon">\u{1F4DD}</span>';
+    html += '<div><div class="doc-link-text">\u0411\u0440\u0438\u0444 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430</div><div class="doc-link-sub">Product Brief</div></div>';
+    html += '</a>';
+    html += '<a class="doc-link-item" href="./gate-checklist.html?product=' + esc(_product.id) + '">';
+    html += '<span class="doc-link-icon">\u2705</span>';
+    html += '<div><div class="doc-link-text">Gate-\u0447\u0435\u043A\u043B\u0438\u0441\u0442</div><div class="doc-link-sub">\u0413\u043E\u0442\u043E\u0432\u043D\u043E\u0441\u0442\u044C \u043A \u041E\xB7' + gateNum + '</div></div>';
+    html += '</a>';
+    if (_product.trackerUrl) {
+      html += '<a class="doc-link-item" href="' + esc(_product.trackerUrl) + '" target="_blank">';
+      html += '<span class="doc-link-icon">\u{1F517}</span>';
+      html += '<div><div class="doc-link-text">\u0422\u0440\u0435\u043A\u0435\u0440</div><div class="doc-link-sub">YouTrack / Shiva</div></div>';
+      html += '</a>';
+    } else if (isEdit) {
+      html += '<div class="passport-field" style="margin-top:8px">';
+      html += '<div class="passport-field-label">\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u0442\u0440\u0435\u043A\u0435\u0440</div>';
+      html += '<div class="passport-field-value editable" contenteditable="true" data-field="trackerUrl" id="ov-trackerUrl" style="font-size:11px;color:var(--violet)">' + esc(_product.trackerUrl || '\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 URL') + '</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+    html += '</div>';
+
+    // Status / Planning summary
+    html += '<div class="ov-card">';
+    html += '<div class="ov-card-title">\u0421\u0442\u0430\u0442\u0443\u0441 \u0438 \u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435</div>';
+
     var approved = 0, pending = 0, rejected = 0;
     for (var ai = 0; ai < initiatives.length; ai++) {
       var appr = initiatives[ai].approval || 'pending';
@@ -759,28 +1010,8 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
       else if (appr === 'rejected') rejected++;
       else pending++;
     }
-    var goalsApproved = 0, goalsPending = 0;
-    for (var gi = 0; gi < goals.length; gi++) {
-      if (goals[gi].approvalStatus === 'approved') goalsApproved++;
-      else goalsPending++;
-    }
 
-    html += '<div class="ov-grid">';
-    html += '<div class="ov-card">';
-    html += '<div class="ov-card-title">\u0421\u0442\u0430\u0442\u0443\u0441 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u044F</div>';
-    html += '<div class="approval-summary">';
-    html += '<div class="approval-item"><div class="approval-dot" style="background:var(--green)"></div><span style="font-size:12px;color:#E8E8F0;font-weight:600">' + approved + ' \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 approved</span></div>';
-    html += '<div class="approval-item"><div class="approval-dot" style="background:var(--amber)"></div><span style="font-size:12px;color:#E8E8F0;font-weight:600">' + pending + ' pending</span></div>';
-    if (rejected > 0) {
-      html += '<div class="approval-item"><div class="approval-dot" style="background:var(--red)"></div><span style="font-size:12px;color:#E8E8F0;font-weight:600">' + rejected + ' rejected</span></div>';
-    }
-    html += '</div>';
-    html += '<div style="margin-top:10px;font-size:11px;color:var(--muted)">\u0426\u0435\u043B\u0438: ' + goalsApproved + ' \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u043E, ' + goalsPending + ' \u043D\u0430 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u0438</div>';
-    html += '</div>';
-
-    html += '<div class="ov-card">';
-    html += '<div class="ov-card-title">\u041F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435</div>';
-    html += '<div class="ov-kpi-grid">';
+    html += '<div class="ov-kpi-grid" style="margin-bottom:14px">';
     html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--amber)">' + initiatives.length + '</div><div class="ov-kpi-lbl">\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432</div></div>';
     var wip = 0, done = 0;
     for (var si = 0; si < initiatives.length; si++) {
@@ -790,8 +1021,19 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--teal)">' + wip + '</div><div class="ov-kpi-lbl">\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</div></div>';
     html += '<div class="ov-kpi"><div class="ov-kpi-val" style="color:var(--green)">' + done + '</div><div class="ov-kpi-lbl">\u0413\u043E\u0442\u043E\u0432\u043E</div></div>';
     html += '</div>';
+
+    // Approval summary
+    html += '<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u0435</div>';
+    html += '<div class="approval-summary" style="margin-bottom:10px">';
+    html += '<div class="approval-item"><div class="approval-dot" style="background:var(--green)"></div><span style="font-size:11px;color:#E8E8F0;font-weight:600">' + approved + ' approved</span></div>';
+    html += '<div class="approval-item"><div class="approval-dot" style="background:var(--amber)"></div><span style="font-size:11px;color:#E8E8F0;font-weight:600">' + pending + ' pending</span></div>';
+    if (rejected > 0) {
+      html += '<div class="approval-item"><div class="approval-dot" style="background:var(--red)"></div><span style="font-size:11px;color:#E8E8F0;font-weight:600">' + rejected + ' rejected</span></div>';
+    }
+    html += '</div>';
+
     if (_product.quarter) {
-      html += '<div style="margin-top:10px;font-size:12px;color:var(--muted);font-weight:600">\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D \u043D\u0430: <span style="color:var(--violet)">' + esc(_product.quarter) + '</span></div>';
+      html += '<div style="font-size:12px;color:var(--muted);font-weight:600">\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D \u043D\u0430: <span style="color:var(--violet)">' + esc(_product.quarter) + '</span></div>';
     }
     html += '</div>';
     html += '</div>';
@@ -825,6 +1067,8 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
   }
 
   // ── TAB: INITIATIVES ──
+  var _initView = 'grouped'; // 'grouped' or 'rice'
+
   function renderInitiatives(initiatives, editable) {
     var html = '';
 
@@ -854,12 +1098,16 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
       html += '</div>';
     }
 
-    // Filters
+    // Filters + View toggle
     html += '<div class="filter-row">';
     html += '<select class="filter-sel" id="filter-init-seg"><option value="">\u0412\u0441\u0435 \u0441\u0435\u0433\u043C\u0435\u043D\u0442\u044B</option><option value="business">\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442</option><option value="tech">\u0422\u0435\u0445\u043D\u0438\u043A\u0430</option></select>';
     html += '<select class="filter-sel" id="filter-init-type"><option value="">\u0412\u0441\u0435 \u0442\u0438\u043F\u044B</option><option value="business">\u0411\u0438\u0437\u043D\u0435\u0441</option><option value="product">\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0435</option><option value="technical">\u0422\u0435\u0445\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0435</option></select>';
     html += '<select class="filter-sel" id="filter-init-status"><option value="">\u0412\u0441\u0435 \u0441\u0442\u0430\u0442\u0443\u0441\u044B</option><option value="backlog">\u0411\u044D\u043A\u043B\u043E\u0433</option><option value="planned">\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043E</option><option value="wip">\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option><option value="done">\u0413\u043E\u0442\u043E\u0432\u043E</option></select>';
     html += '<select class="filter-sel" id="filter-init-quarter"><option value="">\u0412\u0441\u0435 \u043A\u0432\u0430\u0440\u0442\u0430\u043B\u044B</option><option value="Q1 2026">Q1 2026</option><option value="Q2 2026">Q2 2026</option><option value="Q3 2026">Q3 2026</option><option value="Q4 2026">Q4 2026</option></select>';
+    html += '<div style="margin-left:auto" class="view-toggle" id="init-view-toggle">';
+    html += '<button class="view-toggle-btn' + (_initView === 'grouped' ? ' active' : '') + '" data-view="grouped">\u041F\u043E \u0442\u0438\u043F\u0443</button>';
+    html += '<button class="view-toggle-btn' + (_initView === 'rice' ? ' active' : '') + '" data-view="rice">RICE</button>';
+    html += '</div>';
     html += '</div>';
 
     if (!initiatives.length) {
@@ -867,17 +1115,102 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
       html += '<h3>\u041D\u0435\u0442 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432</h3>';
       html += '<p>\u0414\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432. \u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u043F\u0435\u0440\u0432\u0443\u044E!</p>';
       html += '</div>';
+      return html;
     }
-
-    // Sort by RICE desc
-    var sorted = initiatives.slice().sort(function(a, b) {
-      return riceScore(b) - riceScore(a);
-    });
 
     html += '<div class="init-list" id="init-list">';
-    for (var i = 0; i < sorted.length; i++) {
-      html += renderInitCard(sorted[i], editable);
+
+    if (_initView === 'rice') {
+      // ── RICE Prioritization View ──
+      var sorted = initiatives.slice().sort(function(a, b) {
+        return riceScore(b) - riceScore(a);
+      });
+      var maxRice = sorted.length ? riceScore(sorted[0]) : 1;
+      if (maxRice < 1) maxRice = 1;
+
+      for (var ri = 0; ri < sorted.length; ri++) {
+        var it = sorted[ri];
+        var rice = riceScore(it);
+        var pct = Math.round((rice / maxRice) * 100);
+        var riceColor = rice > 20 ? 'var(--green)' : rice >= 10 ? 'var(--amber)' : 'var(--red)';
+
+        html += renderInitCard(it, editable);
+      }
+    } else {
+      // ── Grouped by type view ──
+      var TYPE_ORDER = ['business', 'product', 'technical'];
+      var TYPE_LABELS = {
+        'business': '\u{1F4BC} \u0411\u0438\u0437\u043D\u0435\u0441-\u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B',
+        'product': '\u{1F4E6} \u041F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u044B\u0435 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B',
+        'technical': '\u2699\uFE0F \u0422\u0435\u0445\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B'
+      };
+      var TYPE_COLORS = {
+        'business': 'var(--amber)',
+        'product': 'var(--teal)',
+        'technical': 'var(--blue)'
+      };
+
+      // Group initiatives by type
+      var groups = {};
+      for (var gi = 0; gi < initiatives.length; gi++) {
+        var initType = window.PT ? PT.getInitType(initiatives[gi]) : (initiatives[gi].type || 'product');
+        if (!groups[initType]) groups[initType] = [];
+        groups[initType].push(initiatives[gi]);
+      }
+
+      // Sort each group by RICE desc
+      for (var gk in groups) {
+        if (groups.hasOwnProperty(gk)) {
+          groups[gk].sort(function(a, b) { return riceScore(b) - riceScore(a); });
+        }
+      }
+
+      for (var ti = 0; ti < TYPE_ORDER.length; ti++) {
+        var typeKey = TYPE_ORDER[ti];
+        var typeItems = groups[typeKey];
+        if (!typeItems || !typeItems.length) continue;
+
+        var typeColor = TYPE_COLORS[typeKey] || 'var(--muted)';
+        html += '<div class="init-type-group">';
+        html += '<div class="init-type-header" data-type-toggle="' + typeKey + '">';
+        html += '<span class="init-type-icon">\u25BC</span>';
+        html += '<span class="init-type-label" style="color:' + typeColor + '">' + (TYPE_LABELS[typeKey] || typeKey) + '</span>';
+        html += '<span class="init-type-count">' + typeItems.length + '</span>';
+        html += '</div>';
+        html += '<div class="init-type-body">';
+        for (var ii = 0; ii < typeItems.length; ii++) {
+          html += renderInitCard(typeItems[ii], editable);
+        }
+        html += '</div>';
+        html += '</div>';
+      }
+
+      // Any items with unknown type
+      var otherItems = [];
+      for (var ok in groups) {
+        if (groups.hasOwnProperty(ok) && TYPE_ORDER.indexOf(ok) === -1) {
+          for (var oi = 0; oi < groups[ok].length; oi++) {
+            otherItems.push(groups[ok][oi]);
+          }
+        }
+      }
+      if (otherItems.length) {
+        otherItems.sort(function(a, b) { return riceScore(b) - riceScore(a); });
+        html += '<div class="init-type-group">';
+        html += '<div class="init-type-header" data-type-toggle="other">';
+        html += '<span class="init-type-icon">\u25BC</span>';
+        html += '<span class="init-type-label">\u041F\u0440\u043E\u0447\u0435\u0435</span>';
+        html += '<span class="init-type-count">' + otherItems.length + '</span>';
+        html += '</div>';
+        html += '<div class="init-type-body">';
+        for (var oti = 0; oti < otherItems.length; oti++) {
+          html += renderInitCard(otherItems[oti], editable);
+        }
+        html += '</div>';
+        html += '</div>';
+      }
     }
+
     html += '</div>';
 
     return html;
@@ -999,7 +1332,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     return html;
   }
 
-  // ── TAB: GOALS ──
+  // ── TAB: GOALS & PLANNING ──
   function renderGoals(goals, initiatives, editable) {
     var html = '';
 
@@ -1025,14 +1358,15 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
       html += '</div>';
     }
 
+    // ═══ SECTION 1: Goals H1/H2 ═══
     if (!goals.length) {
-      html += '<div class="placeholder-card">';
+      html += '<div class="placeholder-card" style="margin-bottom:24px">';
       html += '<h3>\u041D\u0435\u0442 \u0446\u0435\u043B\u0435\u0439</h3>';
       html += '<p>\u0414\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u043D\u044B\u0445 \u0446\u0435\u043B\u0435\u0439.</p>';
       html += '</div>';
-      return html;
     }
 
+    if (goals.length) {
     // Group by period
     var periods = {};
     var periodOrder = [];
@@ -1146,6 +1480,64 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
       }
       html += '</div>';
     }
+    } // end if (goals.length)
+
+    // ═══ SECTION 2: Q-plan (initiatives mapped to quarters) ═══
+    html += '<div class="ov-card" style="margin-bottom:24px;margin-top:24px">';
+    html += '<div class="ov-card-title">Q-\u043F\u043B\u0430\u043D \u2014 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B \u043F\u043E \u043A\u0432\u0430\u0440\u0442\u0430\u043B\u0430\u043C</div>';
+    var quarters = ['Q1 2026', 'Q2 2026', 'Q3 2026', 'Q4 2026'];
+    var qMap = {};
+    for (var qi = 0; qi < quarters.length; qi++) qMap[quarters[qi]] = [];
+    for (var ini = 0; ini < initiatives.length; ini++) {
+      var q = initiatives[ini].quarter || '';
+      if (qMap[q]) qMap[q].push(initiatives[ini]);
+    }
+    html += '<div class="qplan-grid">';
+    for (var qqi = 0; qqi < quarters.length; qqi++) {
+      var qKey = quarters[qqi];
+      var qItems = qMap[qKey];
+      html += '<div class="qplan-col">';
+      html += '<div class="qplan-col-title">' + esc(qKey) + '</div>';
+      if (qItems.length) {
+        for (var qii = 0; qii < qItems.length; qii++) {
+          var qit = qItems[qii];
+          var qRice = riceScore(qit);
+          var qStCls = INIT_STATUS_CLS[qit.status] || 'is-backlog';
+          html += '<div class="qplan-item" style="border-left:3px solid ' + (qit.segment === 'business' ? 'var(--amber)' : qit.segment === 'tech' ? 'var(--blue)' : 'var(--teal)') + '">';
+          html += '<div style="font-size:11px;font-weight:700;color:#E8E8F0">' + esc(qit.name) + '</div>';
+          html += '<div style="display:flex;justify-content:space-between;margin-top:3px">';
+          html += '<span style="font-family:var(--mono);font-size:9px;color:var(--muted)">' + esc(qit.id) + '</span>';
+          html += '<span style="font-family:var(--mono);font-size:9px;color:var(--teal)">R:' + qRice + '</span>';
+          html += '</div>';
+          html += '</div>';
+        }
+      } else {
+        html += '<div style="font-size:11px;color:var(--muted);font-style:italic;text-align:center;padding:12px 0">\u041D\u0435\u0442 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432</div>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+    html += '</div>';
+
+    // ═══ SECTION 3: Planning process ═══
+    html += '<div class="ov-card">';
+    html += '<div class="ov-card-title">\u041F\u0440\u043E\u0446\u0435\u0441\u0441 \u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F</div>';
+    html += '<div class="plan-steps">';
+    var steps = [
+      '\u041E\u043F\u0440\u0435\u0434\u0435\u043B\u0438\u0442\u044C \u0446\u0435\u043B\u0438 \u043D\u0430 \u043F\u043E\u043B\u0443\u0433\u043E\u0434\u0438\u0435 (H1/H2) \u2014 \u0441\u0432\u044F\u0437\u0430\u0442\u044C \u0441 \u0441\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u043C\u0438 \u0446\u0435\u043B\u044F\u043C\u0438 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438',
+      '\u0414\u0435\u043A\u043E\u043C\u043F\u043E\u0437\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0432 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B \u043D\u0430 \u043A\u0432\u0430\u0440\u0442\u0430\u043B \u2014 \u043A\u043E\u043D\u043A\u0440\u0435\u0442\u043D\u044B\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F \u0438 \u0433\u0438\u043F\u043E\u0442\u0435\u0437\u044B',
+      '\u041E\u0446\u0435\u043D\u0438\u0442\u044C RICE \u2014 \u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0438\u0437\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043F\u043E Reach, Impact, Confidence, Effort',
+      '\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u0442\u044C \u0441 PMO \u2014 \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C Go / No-Go / Revise \u043D\u0430 \u043A\u0430\u0436\u0434\u0443\u044E \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0443',
+      '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0432 \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u043E\u043D\u043D\u044B\u0439 \u0441\u043B\u043E\u0439 \u2014 \u043F\u0435\u0440\u0435\u0434\u0430\u0442\u044C \u0432 YouTrack / Shiva \u0434\u043B\u044F \u0438\u0441\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F'
+    ];
+    for (var psi = 0; psi < steps.length; psi++) {
+      html += '<div class="plan-step">';
+      html += '<div class="plan-step-num">' + (psi + 1) + '</div>';
+      html += '<div class="plan-step-text">' + esc(steps[psi]) + '</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+    html += '</div>';
 
     return html;
   }
@@ -1423,7 +1815,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
   function initOverviewEditable(editable) {
     if (!editable || isGuest()) return;
 
-    var fields = ['desc', 'utp', 'audience'];
+    var fields = ['desc', 'utp', 'audience', 'department', 'businessModel', 'northStar', 'stakeholders', 'trackerUrl'];
     for (var fi = 0; fi < fields.length; fi++) {
       var el = document.getElementById('ov-' + fields[fi]);
       if (el) {
@@ -1441,6 +1833,45 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
         })(fields[fi], el);
       }
     }
+  }
+
+  // ── INIT: Create Dropdown ──
+  function initCreateDropdown(editable) {
+    var btn = document.getElementById('btn-create-main');
+    var dropdown = document.getElementById('create-dropdown');
+    if (!btn || !dropdown) return;
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    });
+
+    document.addEventListener('click', function() {
+      dropdown.classList.remove('open');
+    });
+
+    dropdown.addEventListener('click', function(e) {
+      var item = e.target.closest('[data-create-type]');
+      if (!item) return;
+      var type = item.getAttribute('data-create-type');
+      dropdown.classList.remove('open');
+
+      if (type === 'initiative') {
+        _activeTab = 'initiatives';
+        renderApp();
+        setTimeout(function() {
+          var form = document.getElementById('form-create-init');
+          if (form) { form.classList.add('visible'); form.scrollIntoView({behavior:'smooth',block:'center'}); }
+        }, 100);
+      } else if (type === 'goal') {
+        _activeTab = 'goals';
+        renderApp();
+        setTimeout(function() {
+          var form = document.getElementById('form-create-goal');
+          if (form) { form.classList.add('visible'); form.scrollIntoView({behavior:'smooth',block:'center'}); }
+        }, 100);
+      }
+    });
   }
 
   // ── INIT: Initiatives ──
@@ -1531,6 +1962,29 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     if (filterType) filterType.addEventListener('change', applyFilters);
     if (filterStatus) filterStatus.addEventListener('change', applyFilters);
     if (filterQuarter) filterQuarter.addEventListener('change', applyFilters);
+
+    // View toggle (grouped vs RICE)
+    var viewToggle = document.getElementById('init-view-toggle');
+    if (viewToggle) {
+      viewToggle.addEventListener('click', function(e) {
+        var btn = e.target.closest('.view-toggle-btn');
+        if (!btn) return;
+        var view = btn.getAttribute('data-view');
+        if (view && view !== _initView) {
+          _initView = view;
+          renderApp();
+        }
+      });
+    }
+
+    // Type group collapse/expand
+    var typeHeaders = document.querySelectorAll('[data-type-toggle]');
+    for (var thi = 0; thi < typeHeaders.length; thi++) {
+      typeHeaders[thi].addEventListener('click', function(e) {
+        var header = e.currentTarget;
+        header.classList.toggle('collapsed');
+      });
+    }
 
     // Click to expand/collapse
     var initList = document.getElementById('init-list');
