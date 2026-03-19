@@ -2653,7 +2653,7 @@ function renderPortfolio() {
           <span class="gbadge ${gateClass(p.gate)}">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</span>
           ${checkProgress}
           ${stageLink}
-          <button class="share-link-btn" onclick="event.stopPropagation();navigator.clipboard.writeText(window.location.origin+window.location.pathname+'#product=${p.id}');showToast('Ссылка скопирована')" title="Скопировать ссылку">${EI.svg('link',10)}</button>
+          <button class="share-link-btn" onclick="event.stopPropagation();navigator.clipboard.writeText(window.location.origin+'/product-card.html?id=${p.id}');showToast('Ссылка скопирована')" title="Скопировать ссылку на пространство продукта">${EI.svg('link',10)}</button>
           <span class="player">${p.layer||''}</span>
           ${p.status === 'pending' && (function(){ var r = window.OrbAuth ? OrbAuth.getRole() : 'admin'; return r === 'admin' || r === 'pmo'; })() ? '<button class="approve-btn" onclick="event.stopPropagation();approveProduct(\''+p.id+'\')">✓ Одобрить</button><button class="reject-btn" onclick="event.stopPropagation();rejectProduct(\''+p.id+'\')">✗ Отклонить</button>' : ''}
           <button class="pcard-edit-btn" onclick="event.stopPropagation();openProdModal('${p.id}')" title="Редактировать продукт">${EI.svg('edit',12)}</button>
