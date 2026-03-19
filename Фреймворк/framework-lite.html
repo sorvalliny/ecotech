@@ -727,27 +727,55 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <p class="fw-hero-sub">ОРБИТА -- система управления продуктовым портфелем для экосистемы RWB. Каждый продукт проходит 7 орбит зрелости: от заявки до масштабирования. На каждой орбите работает цикл ВИТОК (Исследование / Разработка / Оценка), а переход на следующую орбиту возможен только через Gate Review.</p>
   </div>
 
-  <!-- Entities: 3 compact cards -->
+  <!-- Entities: two-level model -->
   <div class="sec-header">
     <div class="sec-eyebrow">Модель данных</div>
     <div class="sec-title">Сущности ОРБИТА</div>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px;">
-    <div class="entity-card" style="margin:0;">
-      <div class="entity-card-title">Продукт</div>
-      <div class="entity-card-desc">Цифровое решение в экосистеме RWB. Имеет стадию зрелости (О·0 -- О·5), команду, цели и инициативы.</div>
+
+  <!-- Level 1: Portfolio objects -->
+  <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Уровень 1 — Объекты портфеля</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
+    <div class="entity-card" style="margin:0;border-top:3px solid var(--violet);">
+      <div class="entity-card-title" style="color:var(--violet);">Продукт</div>
+      <div class="entity-card-desc">Цифровое решение для пользователей экосистемы. 7 орбит зрелости (O·0–O·5). Владелец — Product Manager.</div>
+      <div class="entity-card-sub">Стадии: Заявка → Разведка → Прототип → Разгон → Экосистема → Плато</div>
     </div>
-    <div class="entity-card" style="margin:0;">
-      <div class="entity-card-title">Инициатива</div>
-      <div class="entity-card-desc">Единица работы внутри продукта. Типы: бизнес, продуктовые, технические. RICE-оценка, привязка к цели.</div>
-    </div>
-    <div class="entity-card" style="margin:0;">
-      <div class="entity-card-title">Цель</div>
-      <div class="entity-card-desc">Измеримый результат на полугодие (H1/H2). Привязана к OKR компании. Key Results = метрики достижения.</div>
+    <div class="entity-card" style="margin:0;border-top:3px solid var(--amber);">
+      <div class="entity-card-title" style="color:var(--amber);">Тех.решение</div>
+      <div class="entity-card-desc">Внутренний инструмент, SDK, API или инфраструктурный сервис. 4 стадии (T·0–T·3). Владелец — Tech Lead.</div>
+      <div class="entity-card-sub">Стадии: Заявка → Проектирование → Реализация → Приёмка</div>
     </div>
   </div>
-  <div style="background:var(--amber-dim);border:1px solid var(--amber-border);border-radius:var(--radius-sm);padding:14px 18px;margin-bottom:32px;font-size:13px;color:var(--text);line-height:1.6;">
-    В ОРБИТЕ также живут <strong style="color:var(--amber)">тех.решения</strong> — внутренние SDK, API и инфраструктурные сервисы. Они проходят укороченный путь T·0–T·3 (Заявка → Проектирование → Реализация → Приёмка). Подробнее — таб <a href="#" onclick="showSec('tech',null);return false" style="color:var(--amber);text-decoration:underline">Тех.решения</a>.
+
+  <!-- Level 2: Planning objects -->
+  <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Уровень 2 — Объекты планирования (внутри продукта/решения)</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+    <div class="entity-card" style="margin:0;border-top:3px solid var(--teal);">
+      <div class="entity-card-title" style="color:var(--teal);">Цель</div>
+      <div class="entity-card-desc">Измеримый результат на полугодие (H1/H2). Привязана к OKR компании. Декомпозируется в инициативы.</div>
+      <div class="entity-card-sub">Горизонт: полугодие. Содержит: Key Results (метрики достижения).</div>
+    </div>
+    <div class="entity-card" style="margin:0;border-top:3px solid var(--pink);">
+      <div class="entity-card-title" style="color:var(--pink);">Инициатива</div>
+      <div class="entity-card-desc">Единица работы на квартал. Типы: бизнес, продуктовые, технические. RICE-оценка определяет приоритет.</div>
+      <div class="entity-card-sub">Горизонт: квартал. Привязана к цели. Связана с внешним трекером (эпики, задачи).</div>
+    </div>
+  </div>
+
+  <!-- Hierarchy diagram -->
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:32px;font-size:12px;color:var(--text);line-height:2;font-family:var(--font-body);">
+    <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Иерархия</div>
+    <div><strong style="color:var(--muted);">Портфель</strong></div>
+    <div style="padding-left:16px;border-left:2px solid var(--violet-dim);">
+      <span style="color:var(--violet);font-weight:700;">Продукт</span> <span style="color:var(--muted);">(O·0–O·5)</span> или <span style="color:var(--amber);font-weight:700;">Тех.решение</span> <span style="color:var(--muted);">(T·0–T·3)</span>
+      <div style="padding-left:16px;border-left:2px solid var(--teal-dim);">
+        <span style="color:var(--teal);font-weight:700;">Цели</span> <span style="color:var(--muted);">(H1/H2)</span> → Key Results
+        <div style="padding-left:16px;border-left:2px solid var(--pink-dim);">
+          <span style="color:var(--pink);font-weight:700;">Инициативы</span> <span style="color:var(--muted);">(Q1–Q4, RICE)</span> → Внешний трекер <span style="color:var(--muted);">(эпики, задачи)</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Lifecycle flow diagram -->
