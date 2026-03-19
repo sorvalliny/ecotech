@@ -455,6 +455,9 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
 
   // ── Helpers ──
   var GATE_NAMES = ['O\xB70 Заявка','O\xB71 Разведка','O\xB72 Прототип','O\xB73 Разгон','O\xB74 Экосистема','O\xB75 Плато'];
+  var TECH_GATE_NAMES = ['T\xB70 Заявка','T\xB71 Проектирование','T\xB72 Реализация','T\xB73 Приёмка'];
+  function isTechSolution() { return _product && _product.type === 'tech_solution'; }
+  function getActiveGateNames() { return isTechSolution() ? TECH_GATE_NAMES : GATE_NAMES; }
   var STATUS_LABELS = {'on-track':'Активен','at-risk':'Риск','blocked':'Заблокирован','paused':'Paused','done':'Done','active':'Активен','pending':'Ожидает','archived':'Archived','draft':'Draft','wip':'В работе','planned':'Запланировано','backlog':'Бэклог','screening':'На скрининге'};
   var STATUS_CLS = {'on-track':'sb-on-track','at-risk':'sb-at-risk','blocked':'sb-blocked','paused':'sb-paused','done':'sb-done','active':'sb-active','pending':'sb-pending','archived':'sb-archived','draft':'sb-paused','screening':'sb-pending'};
   var SEGMENT_LABELS = {'business':'Бизнес','product':'Продукт','tech':'Техника'};
@@ -700,7 +703,13 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     html += '<div class="pc-header">';
     html += '<div class="pc-header-left">';
     html += '<div class="pc-meta">';
-    html += '<span class="orbit-badge" style="color:' + gateColor + ';background:rgba(255,255,255,.06);border:1px solid ' + gateColor + '">\u041E\xB7' + gateNum + '</span>';
+    if (isTechSolution()) {
+      html += '<span class="orbit-badge" style="color:var(--amber);background:rgba(245,205,71,.08);border:1px solid var(--amber)">T\xB7' + gateNum + '</span>';
+      html += '<span style="font-size:10px;font-weight:700;color:var(--amber);background:rgba(245,205,71,.10);padding:2px 8px;border-radius:5px;border:1px solid rgba(245,205,71,.30)">Тех.решение</span>';
+    } else {
+      html += '<span class="orbit-badge" style="color:' + gateColor + ';background:rgba(255,255,255,.06);border:1px solid ' + gateColor + '">\u041E\xB7' + gateNum + '</span>';
+      html += '<span style="font-size:10px;font-weight:700;color:var(--violet);background:var(--vdim);padding:2px 8px;border-radius:5px;border:1px solid var(--vborder)">Продукт</span>';
+    }
     html += '<span class="status-badge ' + statusCls + '">' + esc(statusLabel) + '</span>';
     if (_product.catLabel) {
       html += '<span style="font-size:10px;font-weight:700;color:var(--violet);background:var(--vdim);padding:2px 8px;border-radius:5px;border:1px solid var(--vborder)">' + esc(_product.catLabel) + '</span>';
@@ -840,7 +849,9 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     // ID + Stage + Status row
     html += '<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px">';
     html += '<div class="passport-field"><div class="passport-field-label">ID</div><div class="passport-field-value" style="font-family:var(--mono)">' + esc(_product.id) + '</div></div>';
-    html += '<div class="passport-field"><div class="passport-field-label">\u0421\u0442\u0430\u0434\u0438\u044F (Gate)</div><div class="passport-field-value" style="color:' + orbitColor(gateNum) + '">' + esc(GATE_NAMES[gateNum] || '\u041E\xB7' + gateNum) + '</div></div>';
+    var _activeGateNames = getActiveGateNames();
+    var _gatePrefix = isTechSolution() ? 'T\xB7' : '\u041E\xB7';
+    html += '<div class="passport-field"><div class="passport-field-label">\u0421\u0442\u0430\u0434\u0438\u044F (Gate)</div><div class="passport-field-value" style="color:' + orbitColor(gateNum) + '">' + esc(_activeGateNames[gateNum] || _gatePrefix + gateNum) + '</div></div>';
     var statusLabel = STATUS_LABELS[_product.status] || _product.status || '--';
     var statusCls2 = STATUS_CLS[_product.status] || 'sb-paused';
     html += '<div class="passport-field"><div class="passport-field-label">\u0421\u0442\u0430\u0442\u0443\u0441</div><div><span class="status-badge ' + statusCls2 + '">' + esc(statusLabel) + '</span></div></div>';
@@ -1096,7 +1107,9 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
   // ── Gate Timeline ──
   function renderGateTimeline(currentGate) {
     var html = '';
-    var total = 6;
+    var _isTech = isTechSolution();
+    var _names = _isTech ? TECH_GATE_NAMES : GATE_NAMES;
+    var total = _isTech ? 4 : 6;
     var fillPct = currentGate > 0 ? (currentGate / (total - 1)) * 100 : 0;
 
     html += '<div class="gate-timeline" style="position:relative;padding:0 10px">';
@@ -1110,7 +1123,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
 
       html += '<div class="gate-point">';
       html += '<div class="' + dotCls + '">' + g + '</div>';
-      html += '<div class="gate-label">' + (GATE_NAMES[g] || '\u041E\xB7' + g) + '</div>';
+      html += '<div class="gate-label">' + (_names[g] || (_isTech ? 'T\xB7' : '\u041E\xB7') + g) + '</div>';
       html += '</div>';
     }
 

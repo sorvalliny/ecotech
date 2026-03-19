@@ -1,6 +1,6 @@
 /**
  * ОРБИТА — Единая архитектура прав (W4-010)
- * Роли: admin, pmo_lead, pmo, pm, lead, guest
+ * Роли: admin, pmo_lead, pmo, pm, lead, stakeholder, guest
  * Хранение: ECOTECH_AUTH / ECOTECH_USERS в localStorage
  */
 (function() {
@@ -15,8 +15,9 @@
     pmo_lead:  { label: 'Руководитель ПО', color: '#FFB830', canCreate: true,  canEdit: true,  canDelete: true,  canApprove: true,  canArchive: true,  canDeactivate: true,  canTransitionGate: true,  canAssignPM: true,  canReview: true,  canManageUsers: true  },
     pmo:       { label: 'PMO-менеджер',    color: '#FFB830', canCreate: true,  canEdit: true,  canDelete: false, canApprove: true,  canArchive: false, canDeactivate: false, canTransitionGate: true,  canAssignPM: false, canReview: true,  canManageUsers: false },
     pm:        { label: 'Product Manager', color: '#00D4B4', canCreate: true,  canEdit: true,  canDelete: false, canApprove: false, canArchive: false, canDeactivate: false, canTransitionGate: false, canAssignPM: false, canReview: false, canManageUsers: false },
-    lead:      { label: 'Руководитель',    color: '#4FC3F7', canCreate: false, canEdit: false, canDelete: false, canApprove: false, canArchive: false, canDeactivate: false, canTransitionGate: false, canAssignPM: false, canReview: true,  canManageUsers: false },
-    guest:     { label: 'Гость',           color: '#7A7A9D', canCreate: false, canEdit: false, canDelete: false, canApprove: false, canArchive: false, canDeactivate: false, canTransitionGate: false, canAssignPM: false, canReview: false, canManageUsers: false }
+    lead:        { label: 'Руководитель',    color: '#4FC3F7', canCreate: false, canEdit: false, canDelete: false, canApprove: false, canArchive: false, canDeactivate: false, canTransitionGate: false, canAssignPM: false, canReview: true,  canManageUsers: false },
+    stakeholder: { label: 'Заказчик',       color: '#F5CD47', canCreate: false, canEdit: false, canDelete: false, canApprove: false, canArchive: false, canDeactivate: false, canTransitionGate: false, canAssignPM: false, canReview: false, canManageUsers: false },
+    guest:       { label: 'Гость',           color: '#7A7A9D', canCreate: false, canEdit: false, canDelete: false, canApprove: false, canArchive: false, canDeactivate: false, canTransitionGate: false, canAssignPM: false, canReview: false, canManageUsers: false }
   };
 
   // ── Департаменты (портфели) ────────────────────────────────────────
@@ -476,6 +477,47 @@
       }
     }
     return members;
+  };
+
+  // ── Stakeholder: получить инициативы, где пользователь — заказчик ──
+  // Возвращает массив { productId, initiativeId } по assignments пользователя с ролью stakeholder
+  Auth.getStakeholderInitiatives = function(userId) {
+    var users = Auth.getUsers();
+    var user = null;
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].id === userId) { user = users[i]; break; }
+    }
+    if (!user || user.role !== 'stakeholder') return [];
+    var results = [];
+    if (user.assignments && user.assignments.length) {
+      for (var j = 0; j < user.assignments.length; j++) {
+        var a = user.assignments[j];
+        if (a.scope === 'all') {
+          results.push({ productId: a.productId, scope: 'all' });
+        } else if (Array.isArray(a.scope)) {
+          for (var k = 0; k < a.scope.length; k++) {
+            results.push({ productId: a.productId, initiativeId: a.scope[k] });
+          }
+        }
+      }
+    }
+    return results;
+  };
+
+  // Stakeholder can view products/initiatives they are linked to via assignments
+  Auth.canStakeholderView = function(productId, initiativeId) {
+    var user = Auth.getCurrentUser();
+    if (!user || user.role !== 'stakeholder') return false;
+    if (!user.assignments) return false;
+    for (var i = 0; i < user.assignments.length; i++) {
+      var a = user.assignments[i];
+      if (a.productId === productId) {
+        if (!initiativeId) return true; // product-level view
+        if (a.scope === 'all') return true;
+        if (Array.isArray(a.scope) && a.scope.indexOf(initiativeId) >= 0) return true;
+      }
+    }
+    return false;
   };
 
   window.OrbAuth = Auth;

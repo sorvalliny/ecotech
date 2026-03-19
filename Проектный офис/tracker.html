@@ -837,6 +837,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
       <option value="technical">Технические</option>
     </select>
   </div>
+  <div class="filter-group">
+    <label class="filter-label">Сущность</label>
+    <select class="filter-select" id="filter-entity-type" onchange="onFilterChange()">
+      <option value="">Все</option>
+      <option value="product">Продукты</option>
+      <option value="tech_solution">Тех.решения</option>
+    </select>
+  </div>
   <div class="filter-group filter-search">
     <input type="text" class="filter-input" id="filter-search" placeholder="Поиск..." oninput="onFilterChange()">
   </div>
@@ -2081,6 +2089,7 @@ var FILTERS = {
   status: '',
   period: '',
   type: '',
+  entityType: '',
   search: ''
 };
 let sortBy = 'score';
@@ -2133,6 +2142,8 @@ function onFilterChange() {
   FILTERS.status  = fs ? fs.value : '';
   FILTERS.period  = fpe ? fpe.value : '';
   FILTERS.type    = ft ? ft.value : '';
+  var fet = document.getElementById('filter-entity-type');
+  FILTERS.entityType = fet ? fet.value : '';
   FILTERS.search  = fq ? fq.value : '';
 
   // Sync legacy filters
@@ -2297,6 +2308,11 @@ function getFilteredProjects() {
     if (FILTERS.search) {
       var q = FILTERS.search.toLowerCase();
       if ((p.name + ' ' + (p.desc||'') + ' ' + p.id).toLowerCase().indexOf(q) === -1) return false;
+    }
+    // Entity type filter (product vs tech_solution)
+    if (FILTERS.entityType) {
+      var et = FILTERS.entityType;
+      if (p.type !== et && !(et === 'product' && !p.type)) return false;
     }
     return true;
   }).sort(function(a, b) {

@@ -47,6 +47,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 .stab.s6.active{color:var(--c6);background:var(--c6-dim);}
 .stab-sep{width:1px;height:16px;background:var(--border);margin:0 6px;flex-shrink:0;}
 
+/* ── ENTITY SWITCHER (Product / Tech Solution) ── */
+.entity-switcher { display:flex; gap:2px; padding:4px; background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius-sm); margin:16px 24px 0; max-width:300px; }
+.entity-btn { flex:1; padding:8px 16px; border:none; border-radius:6px; background:transparent; color:var(--muted); font-family:var(--font-body); font-size:13px; font-weight:600; cursor:pointer; transition:all .15s; }
+.entity-btn.active { background:var(--card); color:var(--text); box-shadow:var(--shadow-sm); }
+
 /* ── LAYOUT ── */
 .fw-wrap{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
 .fw-section{display:none;animation:fadeIn .2s ease;}
@@ -682,20 +687,25 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 
 <!-- ═══ ECOTECH NAV ═══ -->
 
+<!-- ═══ ENTITY SWITCHER ═══ -->
+<div class="entity-switcher">
+  <button class="entity-btn active" onclick="switchEntity('product', this)">Продукт</button>
+  <button class="entity-btn" onclick="switchEntity('tech', this)">Тех.решение</button>
+</div>
+
 <!-- ═══ STAGE TABS ═══ -->
 <div class="stage-tabs">
   <div class="stage-tabs-inner">
     <button class="stab active" onclick="showSec('overview',this)">Обзор</button>
     <div class="stab-sep"></div>
-    <button class="stab s0" onclick="showSec('s0',this)" id="stab-s0">О·0 &nbsp;Заявка</button>
-    <button class="stab s1" onclick="showSec('s1',this)" id="stab-s1">О·1 &nbsp;Разведка</button>
-    <button class="stab s2" onclick="showSec('s2',this)" id="stab-s2">О·2 &nbsp;Прототип</button>
-    <button class="stab s3" onclick="showSec('s3',this)" id="stab-s3">О·3 &nbsp;Разгон</button>
-    <button class="stab s4" onclick="showSec('s4',this)" id="stab-s4">О·4 &nbsp;Экосистема</button>
-    <button class="stab s5" onclick="showSec('s5',this)" id="stab-s5">О·5 &nbsp;Плато</button>
-    <button class="stab s6" onclick="showSec('s6',this)" id="stab-s6">О·6 &nbsp;Архив</button>
-    <div class="stab-sep"></div>
-    <button class="stab" onclick="showSec('tech',this)" style="color:var(--amber)">Тех.решения</button>
+    <button class="stab stab-product s0" onclick="showSec('s0',this)" id="stab-s0">О·0 &nbsp;Заявка</button>
+    <button class="stab stab-product s1" onclick="showSec('s1',this)" id="stab-s1">О·1 &nbsp;Разведка</button>
+    <button class="stab stab-product s2" onclick="showSec('s2',this)" id="stab-s2">О·2 &nbsp;Прототип</button>
+    <button class="stab stab-product s3" onclick="showSec('s3',this)" id="stab-s3">О·3 &nbsp;Разгон</button>
+    <button class="stab stab-product s4" onclick="showSec('s4',this)" id="stab-s4">О·4 &nbsp;Экосистема</button>
+    <button class="stab stab-product s5" onclick="showSec('s5',this)" id="stab-s5">О·5 &nbsp;Плато</button>
+    <button class="stab stab-product s6" onclick="showSec('s6',this)" id="stab-s6">О·6 &nbsp;Архив</button>
+    <button class="stab stab-tech" onclick="showSec('tech',this)" style="color:var(--amber);display:none">Тех.решения</button>
     <div class="stab-sep"></div>
     <button class="stab" onclick="showSec('planning',this)">★ Цели</button>
     <button class="stab" onclick="window.location.href='../Продукту/templates.html'">Шаблоны →</button>
@@ -2533,6 +2543,40 @@ function showSec(id, btn) {
     });
   }
   window.scrollTo({top: document.querySelector('.stage-tabs').getBoundingClientRect().top + window.pageYOffset - 50, behavior:'smooth'});
+}
+
+// ══ ENTITY SWITCHER (Product / Tech Solution) ══
+var _currentEntity = 'product';
+function switchEntity(type, btn) {
+  _currentEntity = type;
+  document.querySelectorAll('.entity-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+
+  var productTabs = document.querySelectorAll('.stab-product');
+  var techTabs = document.querySelectorAll('.stab-tech');
+  var productSeps = []; // separators between product tabs — handled via visibility
+
+  if (type === 'product') {
+    productTabs.forEach(function(t) { t.style.display = ''; });
+    techTabs.forEach(function(t) { t.style.display = 'none'; });
+  } else {
+    productTabs.forEach(function(t) { t.style.display = 'none'; });
+    techTabs.forEach(function(t) { t.style.display = ''; });
+  }
+
+  // Update overview hero text based on entity type
+  var heroTitle = document.querySelector('.fw-hero-title');
+  var heroSub = document.querySelector('.fw-hero-sub');
+  if (type === 'tech' && heroTitle && heroSub) {
+    heroTitle.innerHTML = 'Как мы работаем <em>с тех.решениями</em>';
+    heroSub.textContent = 'Технические решения в ОРБИТЕ — внутренние SDK, API и инфраструктурные сервисы экосистемы. Они проходят укороченный путь из 4 стадий: T\u00B70 Заявка \u2192 T\u00B71 Проектирование \u2192 T\u00B72 Реализация \u2192 T\u00B73 Приёмка. На каждой стадии работает цикл ВИТОК.';
+  } else if (heroTitle && heroSub) {
+    heroTitle.innerHTML = 'Как мы работаем <em>по стадиям</em>';
+    heroSub.textContent = 'ОРБИТА -- система управления продуктовым портфелем для экосистемы RWB. Каждый продукт проходит 7 орбит зрелости: от заявки до масштабирования. На каждой орбите работает цикл ВИТОК (Исследование / Разработка / Оценка), а переход на следующую орбиту возможен только через Gate Review.';
+  }
+
+  // Switch to overview
+  showSec('overview', null);
 }
 
 // ══ TEMPLATE DATA ══
