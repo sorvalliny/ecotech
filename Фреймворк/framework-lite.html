@@ -858,12 +858,14 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     Полная матрица ролей и RACI — <a href="../Хэндбук/roles.html" style="color:var(--violet);text-decoration:underline;">Матрица ролей ОРБИТА</a>. Роли в системе управляются через <a href="../admin.html" style="color:var(--violet);text-decoration:underline;">Администрирование</a>.
   </div>
 
-  <!-- Lifecycle flow diagram -->
+  <!-- Lifecycle flow diagram — switches with entity-switcher -->
   <div class="sec-header">
-    <div class="sec-eyebrow">Полный путь продукта</div>
-    <div class="sec-title">Жизненный цикл в ОРБИТЕ</div>
+    <div class="sec-eyebrow" id="lc-eyebrow">Полный путь</div>
+    <div class="sec-title" id="lc-title">Жизненный цикл в ОРБИТЕ</div>
   </div>
-  <div class="lc-flow" id="lc-flow">
+
+  <!-- PRODUCT lifecycle (visible by default) -->
+  <div class="lc-flow" id="lc-flow-product">
     <div class="lc-step s0" onclick="showSec('s0',null)" title="Перейти к О·0">
       <div class="lc-num">ОРБИТА 0</div>
       <div class="lc-name">Заявка</div>
@@ -907,26 +909,25 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
       <span class="lc-dur">2–4 нед</span>
     </div>
   </div>
-  <!-- Tech solutions short lifecycle -->
-  <div style="display:flex;align-items:center;gap:10px;margin:-20px 0 28px;">
-    <span style="font-size:10px;font-weight:700;color:var(--amber);letter-spacing:.1em;white-space:nowrap;">ТЕХ.РЕШЕНИЯ</span>
-    <div class="lc-flow" style="margin:0;flex:1;" onclick="showSec('tech',null)">
-      <div class="lc-step" style="border-top:2px solid var(--amber);cursor:pointer;" title="Перейти к Тех.решения">
-        <div class="lc-num" style="color:var(--amber)">T·0</div>
-        <div class="lc-name">Заявка</div>
-        <div class="lc-tagline">ТЗ → Скрининг</div>
-        <span class="lc-dur" style="background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);">1–2 нед</span>
-      </div>
-      <div class="lc-step" style="border-top:2px solid var(--amber);cursor:pointer;" title="Перейти к Тех.решения">
-        <div class="lc-num" style="color:var(--amber)">T·1</div>
-        <div class="lc-name">Проектирование</div>
-        <div class="lc-tagline">Архитектура → API</div>
-        <span class="lc-dur" style="background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);">2–4 нед</span>
-      </div>
-      <div class="lc-step" style="border-top:2px solid var(--amber);cursor:pointer;" title="Перейти к Тех.решения">
-        <div class="lc-num" style="color:var(--amber)">T·2</div>
-        <div class="lc-name">Реализация</div>
-        <div class="lc-tagline">Код → Тесты → ИБ</div>
+
+  <!-- TECH SOLUTION lifecycle (hidden by default, shown when entity-switcher = tech) -->
+  <div class="lc-flow" id="lc-flow-tech" style="display:none;">
+    <div class="lc-step" style="border-top:3px solid var(--amber);cursor:pointer;" onclick="showSec('tech',null)">
+      <div class="lc-num" style="color:var(--amber)">T·0</div>
+      <div class="lc-name">Заявка</div>
+      <div class="lc-tagline">ТЗ → Скрининг</div>
+      <span class="lc-dur" style="background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);">1–2 нед</span>
+    </div>
+    <div class="lc-step" style="border-top:3px solid var(--amber);cursor:pointer;" onclick="showSec('tech',null)">
+      <div class="lc-num" style="color:var(--amber)">T·1</div>
+      <div class="lc-name">Проектирование</div>
+      <div class="lc-tagline">Архитектура → API</div>
+      <span class="lc-dur" style="background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);">2–4 нед</span>
+    </div>
+    <div class="lc-step" style="border-top:3px solid var(--amber);cursor:pointer;" onclick="showSec('tech',null)">
+      <div class="lc-num" style="color:var(--amber)">T·2</div>
+      <div class="lc-name">Реализация</div>
+      <div class="lc-tagline">Код → Тесты → ИБ</div>
         <span class="lc-dur" style="background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);">4–12 нед</span>
       </div>
       <div class="lc-step" style="border-top:2px solid var(--amber);cursor:pointer;" title="Перейти к Тех.решения">
@@ -2681,6 +2682,25 @@ function switchEntity(type, btn) {
   } else if (heroTitle && heroSub) {
     heroTitle.innerHTML = 'Как мы работаем <em>по стадиям</em>';
     heroSub.textContent = 'ОРБИТА -- система управления продуктовым портфелем для экосистемы RWB. Каждый продукт проходит 7 орбит зрелости: от заявки до масштабирования. На каждой орбите работает цикл ВИТОК (Исследование / Разработка / Оценка), а переход на следующую орбиту возможен только через Gate Review.';
+  }
+
+  // Toggle lifecycle diagrams in overview
+  var lcProduct = document.getElementById('lc-flow-product');
+  var lcTech = document.getElementById('lc-flow-tech');
+  var lcEyebrow = document.getElementById('lc-eyebrow');
+  var lcTitle = document.getElementById('lc-title');
+  if (lcProduct && lcTech) {
+    if (type === 'product') {
+      lcProduct.style.display = '';
+      lcTech.style.display = 'none';
+      if (lcEyebrow) lcEyebrow.textContent = 'Полный путь продукта';
+      if (lcTitle) lcTitle.textContent = 'Жизненный цикл продукта';
+    } else {
+      lcProduct.style.display = 'none';
+      lcTech.style.display = '';
+      if (lcEyebrow) lcEyebrow.textContent = 'Путь тех.решения';
+      if (lcTitle) lcTitle.textContent = 'Жизненный цикл тех.решения';
+    }
   }
 
   // Switch to overview
