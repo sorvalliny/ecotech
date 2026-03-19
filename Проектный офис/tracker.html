@@ -359,16 +359,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .ep-tab-panel .ep-body{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:14px}
 .ep-tab-panel .ep-foot{padding:14px 18px;border-top:1px solid var(--border);flex-shrink:0}
 
-/* ── STREAM SECTIONS IN PORTFOLIO ── */
+/* ── STREAM SECTIONS IN PORTFOLIO (type grouping) ── */
 .stream-section{margin-bottom:10px}
-.stream-header{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(87,157,255,0.06);border:1px solid rgba(87,157,255,0.20);border-radius:8px;margin-bottom:5px}
+.stream-header{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;margin-bottom:5px;cursor:pointer;user-select:none;transition:background .15s}
+.stream-header:hover{filter:brightness(1.1)}
 .stream-icon{font-size:13px;flex-shrink:0}
-.stream-name{font-size:12px;font-weight:700;color:#94BFFF;flex:1;min-width:0}
+.stream-name{font-size:12px;font-weight:700;flex:1;min-width:0}
 .stream-meta{font-size:9px;color:var(--muted);font-family:var(--mono);white-space:nowrap}
 .stream-goal-tag{font-size:9px;color:var(--amber);font-weight:700;white-space:nowrap;padding:1px 5px;border-radius:4px;background:rgba(245,205,71,0.10);border:1px solid rgba(245,205,71,0.20)}
 .stream-inits{padding-left:10px}
-.no-stream-header{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;margin-bottom:5px}
-.no-stream-header .stream-name{color:var(--muted)}
+.stream-toggle{font-size:10px;color:var(--muted);flex-shrink:0;transition:transform .2s}
+.stream-section.collapsed .stream-inits{display:none}
+.stream-section.collapsed .stream-toggle{transform:rotate(-90deg)}
+/* Type-specific border colors */
+.stream-header.type-business{background:rgba(245,205,71,0.06);border:1px solid rgba(245,205,71,0.20);border-left:3px solid var(--amber)}
+.stream-header.type-business .stream-name{color:var(--amber)}
+.stream-header.type-product{background:rgba(87,157,255,0.06);border:1px solid rgba(87,157,255,0.20);border-left:3px solid var(--violet)}
+.stream-header.type-product .stream-name{color:#94BFFF}
+.stream-header.type-technical{background:rgba(75,206,151,0.06);border:1px solid rgba(75,206,151,0.20);border-left:3px solid var(--teal)}
+.stream-header.type-technical .stream-name{color:var(--teal)}
 
 /* ── GOAL CARDS ── */
 .goals-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
@@ -716,6 +725,41 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .plan-empty { text-align: center; color: var(--muted); font-size: 12px; padding: 32px 16px; }
 @media (max-width: 900px) { .plan-grid { grid-template-columns: 1fr 1fr; } .half-grid { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { .plan-grid { grid-template-columns: 1fr; } }
+
+/* ── MODE SWITCHER ── */
+.mode-switcher { display: flex; gap: 4px; padding: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xs, 8px); margin-bottom: 0; flex-shrink: 0; }
+.mode-btn { padding: 8px 20px; border: none; border-radius: var(--radius-xs, 8px); background: transparent; color: var(--muted); font-family: var(--font); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; }
+.mode-btn.active { background: var(--vdim); color: var(--violet); }
+.mode-btn:hover:not(.active) { background: var(--card2); color: var(--text, #fff); }
+[data-theme="light"] .mode-btn.active { background: var(--violet-dim); color: var(--violet); }
+[data-theme="light"] .mode-btn:hover:not(.active) { background: var(--surface2); color: var(--text); }
+
+/* ── MY PRODUCT SELECT ── */
+.my-product-select { background: var(--card2); border: 1px solid var(--border); border-radius: 8px; color: var(--text, #fff); font-family: var(--font); font-size: 12px; font-weight: 600; padding: 7px 12px; outline: none; cursor: pointer; min-width: 200px; }
+.my-product-select:focus { border-color: var(--vborder); }
+[data-theme="light"] .my-product-select { color: var(--text); background: var(--card); }
+
+/* ── MY PRODUCT OVERVIEW ── */
+.mp-overview { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mp-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+.mp-card h3 { font-size: 13px; font-weight: 800; color: var(--text, #fff); margin: 0 0 12px; }
+.mp-kpi-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+.mp-kpi { flex: 1; min-width: 80px; text-align: center; }
+.mp-kpi-val { font-family: var(--mono); font-size: 18px; font-weight: 700; }
+.mp-kpi-lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+
+/* ── MY INITIATIVES GROUPS ── */
+.mi-group { margin-bottom: 16px; }
+.mi-group-header { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; user-select: none; transition: background .15s; }
+.mi-group-header:hover { background: rgba(255,255,255,.06); }
+.mi-group-arrow { font-size: 10px; color: var(--muted); transition: transform .15s; flex-shrink: 0; }
+.mi-group-header.collapsed .mi-group-arrow { transform: rotate(-90deg); }
+.mi-group-name { font-size: 12px; font-weight: 700; color: var(--text, #fff); flex: 1; }
+.mi-group-count { font-size: 10px; color: var(--muted); font-family: var(--mono); }
+.mi-group-body { padding-left: 4px; margin-top: 6px; }
+.mi-group-header.collapsed + .mi-group-body { display: none; }
+
+@media (max-width: 700px) { .mp-overview { grid-template-columns: 1fr; } }
 </style>
   <script src="../icons.js"></script>
   <script src="../platform.js"></script>
@@ -725,25 +769,35 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 </head>
 <body>
 
-<div class="tracker-toolbar">
-  <div class="tt-left">
-    <button class="tab active" onclick="switchTab('portfolio',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Продукты</button>
-    <button class="tab" onclick="switchTab('backlog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-layers"/></svg> Инициативы</button>
-    <button class="tab" onclick="switchTab('goals',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цели</button>
-    <button class="tab" id="tab-changelog" onclick="switchTab('changelog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clock"/></svg> История</button>
-    <button class="tab" onclick="switchTab('planning',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Планирование</button>
-  </div>
-  <div class="tt-right">
-    <div class="tt-create-wrap">
-      <button class="tt-create-btn" onclick="toggleCreateMenu()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-plus"/></svg> Создать</button>
-      <div class="tt-create-menu" id="create-menu" style="display:none">
-        <button onclick="openProdModal();hideCreateMenu()"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-package"/></svg> Продукт</button>
-        <button onclick="openGoalEditor(null);hideCreateMenu()"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-target"/></svg> Цель</button>
-        <button onclick="addInitiative(contextProduct||'');hideCreateMenu()"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-zap"/></svg> Инициативу</button>
-      </div>
+<div class="tracker-toolbar" style="flex-direction:column;gap:0;padding:0">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-bottom:1px solid var(--border);gap:8px;flex-wrap:wrap">
+    <div class="mode-switcher" id="mode-switcher">
+      <button class="mode-btn active" onclick="setMode('portfolio', this)" id="mode-portfolio">Портфель</button>
+      <button class="mode-btn" onclick="setMode('myproduct', this)" id="mode-myproduct">Мой продукт</button>
     </div>
-    <button class="btn-ghost btn-sm" onclick="toggleStats()" id="stats-toggle-btn" title="Статистика">Stats</button>
-    <button class="ob-help-btn" onclick="startOnboarding()" title="Справка / онбординг">?</button>
+    <select class="my-product-select" id="my-product-select" onchange="onMyProductChange()" style="display:none">
+      <option value="">Выберите продукт</option>
+    </select>
+    <div class="tt-right">
+      <div class="tt-create-wrap">
+        <button class="tt-create-btn" onclick="toggleCreateMenu()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-plus"/></svg> Создать</button>
+        <div class="tt-create-menu" id="create-menu" style="display:none">
+          <button onclick="openProdModal();hideCreateMenu()"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-package"/></svg> Продукт</button>
+          <button onclick="openGoalEditor(null);hideCreateMenu()"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-target"/></svg> Цель</button>
+          <button onclick="addInitiative(contextProduct||'');hideCreateMenu()"><svg class="ei ei-12" aria-hidden="true"><use href="#ic-zap"/></svg> Инициативу</button>
+        </div>
+      </div>
+      <button class="btn-ghost btn-sm" onclick="toggleStats()" id="stats-toggle-btn" title="Статистика">Stats</button>
+      <button class="ob-help-btn" onclick="startOnboarding()" title="Справка / онбординг">?</button>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;padding:8px 20px;gap:8px;flex-wrap:wrap" id="tabs-row">
+    <div class="tt-left" id="tt-left">
+      <button class="tab active" onclick="switchTab('portfolio',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Продукты</button>
+      <button class="tab" onclick="switchTab('backlog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-layers"/></svg> Инициативы</button>
+      <button class="tab" onclick="switchTab('planning',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Планирование</button>
+      <button class="tab" id="tab-changelog" onclick="switchTab('changelog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clock"/></svg> История</button>
+    </div>
   </div>
 </div>
 
@@ -1377,6 +1431,26 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
       <div id="changelog-list"></div>
     </div>
 
+    <!-- MY PRODUCT: OVERVIEW -->
+    <div id="pg-mp-overview" style="display:none">
+      <div id="mp-overview-content"></div>
+    </div>
+
+    <!-- MY PRODUCT: MY INITIATIVES -->
+    <div id="pg-mp-initiatives" style="display:none">
+      <div id="mp-initiatives-content"></div>
+    </div>
+
+    <!-- MY PRODUCT: MY PLANNING -->
+    <div id="pg-mp-planning" style="display:none">
+      <div class="planning-views">
+        <button class="plan-view-btn active" onclick="setPlanView('quarter',this)">Квартал</button>
+        <button class="plan-view-btn" onclick="setPlanView('half',this)">Полугодие</button>
+      </div>
+      <div id="mp-plan-quarter"></div>
+      <div id="mp-plan-half" style="display:none"></div>
+    </div>
+
   </div>
 
   <!-- EDIT PANEL -->
@@ -1405,12 +1479,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
             <option value="">— Без цели —</option>
           </select>
           <div id="goal-preview" class="goal-preview" style="display:none"></div>
-        </div>
-        <div class="ep-group">
-          <div class="ep-lbl"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-map-pin"/></svg> Направление</div>
-          <select class="ep-select" id="ep-epic-sel">
-            <option value="">— Без направления —</option>
-          </select>
         </div>
         <div class="prd-divider">— КОНТЕКСТ —</div>
         <div class="ep-group">
@@ -2073,7 +2141,7 @@ var FILTERS = {
 };
 let sortBy = 'score';
 let editId = null;
-let curTab = (window.OrbAuth && OrbAuth.getRole() === 'pm') ? 'backlog' : 'portfolio';
+let curTab = 'portfolio';
 let curRole = 'pm';
 let curPid = null;     // current product ID for #pp panel
 let curGoalId = null;  // current goal ID for modal
@@ -2464,27 +2532,94 @@ const ST_ICO  = {
 const ST_CLS  = { backlog:'st-backlog', planned:'st-planned', wip:'st-wip', done:'st-done', 'on-track':'st-wip', 'at-risk':'st-planned', 'blocked':'st-backlog', 'paused':'st-backlog' };
 
 // ════════════════════════════════════════════
+// MODE SWITCHER
+// ════════════════════════════════════════════
+var currentMode = 'portfolio';
+var myProductId = '';
+function setMode(mode, btn) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  var sel = document.getElementById('my-product-select');
+  if (mode === 'myproduct') {
+    populateMyProductSelect(); sel.style.display = '';
+    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+    var role = user ? user.role : 'guest';
+    if (role === 'pm' && typeof OrbAuth !== 'undefined' && typeof OrbAuth.getUserProducts === 'function') {
+      var up = OrbAuth.getUserProducts();
+      if (up && up.length === 1) { myProductId = up[0].id; sel.value = myProductId; }
+    }
+    if (!myProductId && PROJECTS.length > 0) { myProductId = PROJECTS[0].id; sel.value = myProductId; }
+  } else { sel.style.display = 'none'; }
+  updateTabsForMode(mode);
+  if (window.PT) PT.setUIState({trackerMode: mode});
+}
+function populateMyProductSelect() {
+  var sel = document.getElementById('my-product-select');
+  var prods = PROJECTS;
+  if (typeof OrbAuth !== 'undefined' && typeof OrbAuth.getUserProducts === 'function') {
+    var up = OrbAuth.getUserProducts();
+    if (up && up.length > 0) prods = up;
+  }
+  var html = '<option value="">Выберите продукт</option>';
+  prods.forEach(function(p){
+    var nm = (typeof OrbAuth !== 'undefined' && OrbAuth.getDisplayName) ? OrbAuth.getDisplayName(p,'product') : p.name;
+    html += '<option value="'+p.id+'"'+(p.id===myProductId?' selected':'')+'>'+escHtml(nm)+'</option>';
+  });
+  sel.innerHTML = html;
+}
+function onMyProductChange() {
+  myProductId = document.getElementById('my-product-select').value;
+  if (curTab === 'mp-overview') renderMPOverview();
+  else if (curTab === 'mp-initiatives') renderMPInitiatives();
+  else if (curTab === 'mp-planning') { renderMPPlanQuarter(); renderMPPlanHalf(); }
+}
+function updateTabsForMode(mode) {
+  var ttLeft = document.getElementById('tt-left');
+  if (mode === 'portfolio') {
+    ttLeft.innerHTML =
+      '<button class="tab active" onclick="switchTab(\'portfolio\',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Продукты</button>'+
+      '<button class="tab" onclick="switchTab(\'backlog\',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-layers"/></svg> Инициативы</button>'+
+      '<button class="tab" onclick="switchTab(\'planning\',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Планирование</button>'+
+      '<button class="tab" id="tab-changelog" onclick="switchTab(\'changelog\',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clock"/></svg> История</button>';
+    switchTab('portfolio', ttLeft.querySelector('.tab'));
+  } else {
+    ttLeft.innerHTML =
+      '<button class="tab active" onclick="switchTab(\'mp-overview\',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Обзор</button>'+
+      '<button class="tab" onclick="switchTab(\'mp-initiatives\',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-layers"/></svg> Мои инициативы</button>'+
+      '<button class="tab" onclick="switchTab(\'mp-planning\',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Планирование</button>';
+    switchTab('mp-overview', ttLeft.querySelector('.tab'));
+  }
+}
+function initMode() {
+  var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+  var role = user ? user.role : 'guest';
+  if (role === 'pm') setMode('myproduct', document.getElementById('mode-myproduct'));
+  if (role === 'guest') document.getElementById('mode-switcher').style.display = 'none';
+}
+
+// ════════════════════════════════════════════
 // TABS
 // ════════════════════════════════════════════
+var ALL_PAGE_IDS = ['pg-portfolio','pg-backlog','pg-tracker','pg-goals','pg-changelog','pg-planning','pg-mp-overview','pg-mp-initiatives','pg-mp-planning'];
 function switchTab(tab, btn) {
   curTab = tab;
   if (window.PT) PT.setUIState({tracker_tab: tab});
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
   if (btn) btn.classList.add('active');
-  document.getElementById('pg-portfolio').style.display = tab === 'portfolio' ? '' : 'none';
-  document.getElementById('pg-backlog').style.display   = tab === 'backlog'   ? '' : 'none';
-  document.getElementById('pg-tracker').style.display   = tab === 'tracker'   ? '' : 'none';
-  document.getElementById('pg-goals').style.display     = tab === 'goals'     ? '' : 'none';
-  document.getElementById('pg-changelog').style.display = tab === 'changelog' ? '' : 'none';
-  document.getElementById('pg-planning').style.display  = tab === 'planning'  ? '' : 'none';
-  if (tab === 'backlog') { renderBL(); }
-  else { if (tab !== 'portfolio') { closeEP(); closeProductPRD(); } }
+  ALL_PAGE_IDS.forEach(function(id){ var e=document.getElementById(id); if(e) e.style.display='none'; });
+  var pm = {'portfolio':'pg-portfolio','backlog':'pg-backlog','tracker':'pg-tracker','goals':'pg-goals','changelog':'pg-changelog','planning':'pg-planning','mp-overview':'pg-mp-overview','mp-initiatives':'pg-mp-initiatives','mp-planning':'pg-mp-planning'};
+  if (pm[tab]) { var te=document.getElementById(pm[tab]); if(te) te.style.display=''; }
+  if (tab === 'backlog') { renderBL(); setBacklogView(backlogView, null); }
+  else { if (tab !== 'portfolio' && tab !== 'mp-overview') { closeEP(); closeProductPRD(); } }
   if (tab === 'tracker') renderTracker(curRole);
   if (tab === 'goals')   renderGoals();
   if (tab === 'portfolio') { renderPortfolio(); setPortfolioView(portfolioView, null); }
   if (tab === 'changelog') renderChangelog();
   if (tab === 'planning') { renderPlanQuarter(); renderPlanHalf(); }
-  if (tab === 'backlog') setBacklogView(backlogView, null);
+  if (tab === 'mp-overview') renderMPOverview();
+  if (tab === 'mp-initiatives') renderMPInitiatives();
+  if (tab === 'mp-planning') { renderMPPlanQuarter(); renderMPPlanHalf(); }
   renderContextFilters();
   renderContextViewSwitch();
   updateStats();
@@ -2589,51 +2724,33 @@ function renderPortfolio() {
       </div>`;
     };
 
-    const projectEpics = epics.filter(e => e.productId === p.id);
+    // Group initiatives by TYPE (business / product / technical)
     let initRows = '';
-    if (projectEpics.length) {
-      // Group by epic
-      const byEpic = {};
-      const noEpic = [];
-      sorted.forEach(item => {
-        const eid = item.epicId && epics.find(e=>e.id===item.epicId&&e.productId===p.id) ? item.epicId : null;
-        if (eid) { if (!byEpic[eid]) byEpic[eid]=[]; byEpic[eid].push(item); }
-        else noEpic.push(item);
+    const byType = {business:[], product:[], technical:[]};
+    sorted.forEach(item => {
+      const t = window.PT ? PT.getInitType(item) : (item.type || 'product');
+      if (byType[t]) byType[t].push(item); else byType.product.push(item);
+    });
+    const typeLabels = {business:'\u0411\u0438\u0437\u043d\u0435\u0441-\u0438\u043d\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044b', product:'\u041f\u0440\u043e\u0434\u0443\u043a\u0442\u043e\u0432\u044b\u0435', technical:'\u0422\u0435\u0445\u043d\u0438\u0447\u0435\u0441\u043a\u0438\u0435'};
+    const typeIcons  = {business:'trending-up', product:'box', technical:'cpu'};
+    ['business','product','technical'].forEach(tKey => {
+      const group = byType[tKey];
+      if (!group.length) return;
+      group.sort((a,b) => {
+        const sa = (a.r*a.i*a.c/a.e)||0, sb = (b.r*b.i*b.c/b.e)||0;
+        return sb - sa;
       });
-      const epicStatusCls = {planned:'planned', active:'wip', backlog:'backlog'};
-      projectEpics.forEach(epic => {
-        const epicItems = byEpic[epic.id] || [];
-        const epicGoal  = goals.find(g => g.id === epic.goalId);
-        const stCls     = epicStatusCls[epic.status] || 'backlog';
-        initRows += `<div class="stream-section">
-          <div class="stream-header">
-            <span class="stream-icon">${EI.svg('map-pin',13)}</span>
-            <span class="stream-name">${escHtml(epic.title)}</span>
-            <span class="sdot ${ST_CLS[stCls]}" style="font-size:9px;padding:2px 6px">${epic.status}</span>
-            <span class="stream-meta">G${epic.gate}</span>
-            ${epicGoal ? `<span class="stream-goal-tag">↗ ${epicGoal.id}</span>` : ''}
-            ${epic.trackerUrl
-              ? `<a class="stream-tracker-link" href="${epic.trackerUrl}" target="_blank" onclick="event.stopPropagation()">${EI.svg('external-link',10)} Трекер</a>`
-              : `<button class="stream-add-url" onclick="event.stopPropagation();editEpicUrl('${epic.id}')" title="Добавить ссылку на таск-трекер">${EI.svg('link',10)} Трекер</button>`}
-          </div>
-          <div class="stream-inits">
-            ${epicItems.length ? epicItems.map(mkIRow).join('') : '<div style="font-size:11px;color:var(--muted);padding:5px 0 3px">Нет инициатив</div>'}
-          </div>
-        </div>`;
-      });
-      if (noEpic.length) {
-        initRows += `<div class="stream-section">
-          <div class="no-stream-header stream-header">
-            <span class="stream-icon">${EI.svg('clipboard',13)}</span>
-            <span class="stream-name">Без направления</span>
-            <span class="stream-meta">${noEpic.length}</span>
-          </div>
-          <div class="stream-inits">${noEpic.map(mkIRow).join('')}</div>
-        </div>`;
-      }
-    } else {
-      initRows = sorted.map(mkIRow).join('');
-    }
+      const secId = `type-${tKey}-${p.id}`;
+      initRows += `<div class="stream-section" id="${secId}">
+        <div class="stream-header type-${tKey}" onclick="document.getElementById('${secId}').classList.toggle('collapsed')">
+          <span class="stream-icon">${EI.svg(typeIcons[tKey],13)}</span>
+          <span class="stream-name">${typeLabels[tKey]}</span>
+          <span class="stream-meta">${group.length}</span>
+          <span class="stream-toggle">${EI.svg('chevron-down',12)}</span>
+        </div>
+        <div class="stream-inits">${group.map(mkIRow).join('')}</div>
+      </div>`;
+    });
 
     return `<div class="pcard" id="pc-${p.id}" data-gate="${p.gate}">
       <div class="pcard-head" onclick="togglePC('${p.id}')">
@@ -2995,7 +3112,7 @@ function renderPMO() {
     const gateDots = STAGES.map((s,idx) => {
       let cls = idx < p.gate ? 'g-done' : idx === p.gate ? 'g-cur' : 'g-todo';
       const fwUrl = window.PT ? PT.buildUrl('../Фреймворк/framework-lite.html', {orbit:idx}) : '#';
-      return `<a class="pmo-gate-dot ${cls}" title="G${idx}: ${s.name} → Фреймворк" href="${fwUrl}" style="text-decoration:none;cursor:pointer">${idx}</a>`;
+      return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><a class="pmo-gate-dot ${cls}" title="G${idx}: ${s.name} → Фреймворк" href="${fwUrl}" style="text-decoration:none;cursor:pointer">${idx}</a><span style="font-size:7px;color:var(--muted);white-space:nowrap">${s.name}</span></div>`;
     }).join('');
     return `<tr>
       <td style="min-width:160px">
@@ -3302,7 +3419,7 @@ function saveEP() {
   item.release=document.getElementById('ep-release').value;
   item.notes=document.getElementById('ep-notes').value;
   item.goalId = document.getElementById('ep-goal-sel').value || null;
-  item.epicId = document.getElementById('ep-epic-sel').value || null;
+  // epicId kept on item for backward compat, but no longer editable in UI
   item.segment = document.getElementById('ep-segment').value || 'product';
   item.teams = document.getElementById('ep-teams').value;
   item.updated = new Date().toISOString().slice(0,10);
@@ -3363,15 +3480,7 @@ function openPRD(id) {
       goals.map(g => `<option value="${g.id}"${item.goalId===g.id?' selected':''}>${g.id} · ${g.title}</option>`).join('');
   }
   renderGoalPreview(item.goalId || '');
-  // Epic select (show all epics, mark current project's)
-  const epicSel = document.getElementById('ep-epic-sel');
-  if (epicSel) {
-    epicSel.innerHTML = '<option value="">— Без направления —</option>' +
-      epics.map(e => {
-        const proj = e.productId === (item.productId||item.project) ? '' : ` (${e.productId})`;
-        return `<option value="${e.id}"${item.epicId===e.id?' selected':''}>${e.id} · ${e.title}${proj}</option>`;
-      }).join('');
-  }
+  // Epic select removed — grouping by type only
   switchEPTab('prd');
   document.getElementById('ep').classList.add('open');
   if (curTab === 'backlog') renderBL();
@@ -3399,7 +3508,7 @@ function savePRD() {
   item.prd.risks          = document.getElementById('prd-risks').value;
   item.prd.recommendation = document.getElementById('prd-recommend').value;
   item.goalId = document.getElementById('ep-goal-sel').value || null;
-  item.epicId = document.getElementById('ep-epic-sel').value || null;
+  // epicId kept for backward compat, no longer editable in UI
   item.teams = document.getElementById('ep-teams').value;
   item.updated = new Date().toISOString().slice(0,10);
   if (window.PT) PT.save(PT.KEY_BACKLOG, backlog);
@@ -3443,7 +3552,9 @@ function renderGoals() {
   }
   container.innerHTML = filteredGoals.map(goal => {
     const goalInits  = backlog.filter(i => i.goalId === goal.id);
-    const goalEpics  = epics.filter(e => e.goalId === goal.id);
+    const _giBiz = goalInits.filter(i => (window.PT ? PT.getInitType(i) : (i.type||'product')) === 'business').length;
+    const _giProd = goalInits.filter(i => (window.PT ? PT.getInitType(i) : (i.type||'product')) === 'product').length;
+    const _giTech = goalInits.filter(i => (window.PT ? PT.getInitType(i) : (i.type||'product')) === 'technical').length;
     const typeCls    = goal.type === 'strategic' ? 'goal-type-strategic' : 'goal-type-product';
     const statusDot  = goal.status === 'active'
       ? `<span class="sdot st-wip" style="font-size:9px;padding:2px 7px">${EI.svg('refresh',12)} Активна</span>`
@@ -3479,7 +3590,7 @@ function renderGoals() {
       <div class="kr-list">${krRows}</div>
       <div class="goal-stats">
         <div class="goal-stat">Инициатив: <b>${goalInits.length}</b></div>
-        <div class="goal-stat">Направлений: <b>${goalEpics.length}</b></div>
+        <div class="goal-stat">Бизнес: <b>${_giBiz}</b>, Продукт: <b>${_giProd}</b>, Тех: <b>${_giTech}</b></div>
         <div style="flex:1"></div>
         <button class="exbtn" onclick="event.stopPropagation();openGoalDetail('${goal.id}')">${EI.svg('search',14)} Подробнее</button>
       </div>
@@ -4289,10 +4400,16 @@ renderContextBar();
   const tabBtns = document.querySelectorAll('.tab');
   const _hash = window.PT ? PT.parseHash() : {};
   const _ui   = window.PT ? PT.getUIState() : {};
-  const _tab  = _hash.tab || _ui.tracker_tab || 'portfolio';
-  const _tabIdx = ['portfolio','backlog','goals'].indexOf(_tab);
-  if (_tabIdx >= 0 && tabBtns[_tabIdx]) {
-    switchTab(_tab, tabBtns[_tabIdx]);
+  var _savedMode = _ui.trackerMode || 'portfolio';
+  var _tab  = _hash.tab || _ui.tracker_tab || 'portfolio';
+  // Restore mode first, then tab
+  if (_savedMode === 'myproduct') {
+    setMode('myproduct', document.getElementById('mode-myproduct'));
+  } else {
+    var _tabIdx = ['portfolio','backlog','planning','changelog'].indexOf(_tab);
+    if (_tabIdx >= 0 && tabBtns[_tabIdx]) {
+      switchTab(_tab, tabBtns[_tabIdx]);
+    }
   }
   if (_hash.create === 'goal') { setTimeout(function(){ openGoalEditor(null); }, 500); }
   if (_hash.create === 'initiative') { setTimeout(function(){ addInitiative(contextProduct||''); }, 500); }
@@ -4330,7 +4447,7 @@ var OB_STEPS = [
   },
   {
     title: 'Вкладки навигации',
-    body: 'Используй вкладки: <strong>Портфель</strong> — продукты и инициативы, <strong>Беклог</strong> — список инициатив, <strong>Реестр</strong> — Gate-прогресс, <strong>Цели</strong> — OKR.',
+    body: 'Два режима: <strong>Портфель</strong> (все продукты, инициативы, планирование) и <strong>Мой продукт</strong> (обзор, мои инициативы, планирование). Переключай режимы наверху.',
     anchor: '.tt-left'
   },
   {
@@ -4463,10 +4580,23 @@ function setPlanView(view, btn) {
           (view === 'half' && b.textContent.trim() === 'Полугодие')) b.classList.add('active');
     });
   }
-  document.getElementById('plan-quarter').style.display = view === 'quarter' ? '' : 'none';
-  document.getElementById('plan-half').style.display    = view === 'half'    ? '' : 'none';
-  if (view === 'quarter') renderPlanQuarter();
-  if (view === 'half') renderPlanHalf();
+  // Portfolio planning
+  var pq = document.getElementById('plan-quarter');
+  var ph = document.getElementById('plan-half');
+  if (pq) pq.style.display = view === 'quarter' ? '' : 'none';
+  if (ph) ph.style.display  = view === 'half'    ? '' : 'none';
+  // My Product planning
+  var mpq = document.getElementById('mp-plan-quarter');
+  var mph = document.getElementById('mp-plan-half');
+  if (mpq) mpq.style.display = view === 'quarter' ? '' : 'none';
+  if (mph) mph.style.display  = view === 'half'    ? '' : 'none';
+  if (curTab === 'mp-planning') {
+    if (view === 'quarter') renderMPPlanQuarter();
+    if (view === 'half') renderMPPlanHalf();
+  } else {
+    if (view === 'quarter') renderPlanQuarter();
+    if (view === 'half') renderPlanHalf();
+  }
 }
 
 function getQuarterFromRelease(item) {
@@ -4642,6 +4772,225 @@ function renderPlanHalf() {
   html += '</div>';
   container.innerHTML = html;
 }
+
+// ════════════════════════════════════════════
+// MY PRODUCT: OVERVIEW
+// ════════════════════════════════════════════
+function renderMPOverview() {
+  var el = document.getElementById('mp-overview-content');
+  if (!el) return;
+  if (!myProductId) { el.innerHTML = '<div class="plan-empty">Выберите продукт</div>'; return; }
+  var p = PROJECTS.find(function(pr){ return pr.id === myProductId; });
+  if (!p) { el.innerHTML = '<div class="plan-empty">Продукт не найден</div>'; return; }
+  var items = backlog.filter(function(i){ return (i.productId||i.project) === p.id; });
+  var avg = items.length ? (items.reduce(function(a,i){ return a+sc(i); },0)/items.length).toFixed(1) : '—';
+  var wipCount = items.filter(function(i){ return i.status==='wip'; }).length;
+  var doneCount = items.filter(function(i){ return i.status==='done'; }).length;
+  var stage = STAGES[p.gate] || STAGES[0];
+  var productGoals = goals.filter(function(g){ return g.productId === p.id; });
+  var gateBar = STAGES.map(function(s,idx){
+    var cls = idx < p.gate ? 'done' : idx === p.gate ? 'current' : '';
+    return '<div class="gate-step '+cls+'" title="G'+idx+': '+s.name+'"></div>';
+  }).join('');
+  var name = (typeof OrbAuth !== 'undefined' && OrbAuth.getDisplayName) ? OrbAuth.getDisplayName(p,'product') : p.name;
+  var html = '<div class="mp-overview">';
+  // Left: product card
+  html += '<div class="mp-card" style="grid-column:1/-1">';
+  html += '<h3>'+escHtml(name)+'</h3>';
+  html += '<div style="font-size:12px;color:var(--muted);margin-bottom:12px">'+escHtml(p.desc||'')+'</div>';
+  html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">';
+  html += '<span class="gbadge '+gateClass(p.gate)+'">'+EI.svg(stage.icon,14)+' G'+p.gate+' · '+stage.name+'</span>';
+  html += '<span class="sdot '+ST_CLS[p.status]+'">'+ST_ICO[p.status]+' '+ST_LBL[p.status]+'</span>';
+  html += '</div>';
+  html += '<div class="gate-bar">'+gateBar+'</div>';
+  html += '<div class="gate-label-row"><span>G0 Заявка</span><span>G1 Разведка</span><span>G2 Прототип</span><span>G3 Разгон</span><span>G4 Экосист.</span><span>G5 Плато</span><span>G6 Архив</span></div>';
+  html += '<div class="mp-kpi-row">';
+  html += '<div class="mp-kpi"><div class="mp-kpi-val" style="color:var(--text)">'+items.length+'</div><div class="mp-kpi-lbl">Инициатив</div></div>';
+  html += '<div class="mp-kpi"><div class="mp-kpi-val" style="color:var(--teal)">'+wipCount+'</div><div class="mp-kpi-lbl">В работе</div></div>';
+  html += '<div class="mp-kpi"><div class="mp-kpi-val" style="color:var(--green)">'+doneCount+'</div><div class="mp-kpi-lbl">Готово</div></div>';
+  html += '<div class="mp-kpi"><div class="mp-kpi-val" style="color:var(--violet)">'+avg+'</div><div class="mp-kpi-lbl">Ср. RICE</div></div>';
+  html += '<div class="mp-kpi"><div class="mp-kpi-val" style="color:var(--amber)">'+productGoals.length+'</div><div class="mp-kpi-lbl">Целей</div></div>';
+  html += '</div>';
+  if (p.kpi && p.kpi.length) {
+    html += '<div class="mp-kpi-row" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">';
+    p.kpi.forEach(function(k){ html += '<div class="mp-kpi"><div class="mp-kpi-val" style="color:var(--teal)">'+escHtml(k.value)+'</div><div class="mp-kpi-lbl">'+escHtml(k.label)+'</div></div>'; });
+    html += '</div>';
+  }
+  html += '</div>';
+  // Goals summary
+  if (productGoals.length) {
+    html += '<div class="mp-card">';
+    html += '<h3>Цели продукта</h3>';
+    productGoals.forEach(function(g){
+      var totalKR = g.keyResults ? g.keyResults.length : 0;
+      var doneKR = totalKR > 0 ? g.keyResults.filter(function(kr){ return kr.current >= kr.target; }).length : 0;
+      html += '<div style="padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer" onclick="openGoalDetail(\''+g.id+'\')">';
+      html += '<div style="font-size:12px;font-weight:700;color:var(--text)">'+escHtml(g.title)+'</div>';
+      html += '<div style="font-size:10px;color:var(--muted);margin-top:2px">'+escHtml(g.period)+' · '+doneKR+'/'+totalKR+' KR</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+  // Recent changelog
+  var pLogs = changelog.filter(function(l){
+    return (l.entityType==='product' && l.entityId===p.id) ||
+           (l.entityType==='initiative' && backlog.some(function(i){ return i.id===l.entityId && (i.productId||i.project)===p.id; }));
+  }).slice(0,5);
+  if (pLogs.length) {
+    html += '<div class="mp-card">';
+    html += '<h3>Последние изменения</h3>';
+    pLogs.forEach(function(l){
+      html += '<div class="cl-entry"><span class="cl-time">'+getTimeAgo(l.ts)+'</span><span class="cl-user">'+escHtml(l.userName)+'</span><span class="cl-action">'+escHtml(l.action)+' '+escHtml(l.entityName)+'</span></div>';
+    });
+    html += '</div>';
+  }
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+// ════════════════════════════════════════════
+// MY PRODUCT: MY INITIATIVES (grouped by segment)
+// ════════════════════════════════════════════
+function renderMPInitiatives() {
+  var el = document.getElementById('mp-initiatives-content');
+  if (!el) return;
+  if (!myProductId) { el.innerHTML = '<div class="plan-empty">Выберите продукт</div>'; return; }
+  var items = backlog.filter(function(i){ return (i.productId||i.project) === myProductId; });
+  if (!items.length) { el.innerHTML = '<div class="plan-empty">Нет инициатив</div>'; return; }
+  var groups = { business: [], product: [], tech: [] };
+  var groupLabels = { business: 'Бизнес', product: 'Продукт', tech: 'Техника' };
+  var groupColors = { business: 'var(--amber)', product: 'var(--teal)', tech: 'var(--blue, #579DFF)' };
+  items.forEach(function(item){
+    var seg = item.segment || 'product';
+    if (!groups[seg]) groups[seg] = [];
+    groups[seg].push(item);
+  });
+  // Sort each group by RICE
+  Object.keys(groups).forEach(function(k){ groups[k].sort(function(a,b){ return sc(b)-sc(a); }); });
+  var html = '<div style="margin-bottom:12px;font-size:11px;color:var(--muted)">Всего инициатив: '+items.length+'</div>';
+  ['business','product','tech'].forEach(function(seg){
+    var gItems = groups[seg];
+    if (!gItems || !gItems.length) return;
+    html += '<div class="mi-group">';
+    html += '<div class="mi-group-header" onclick="this.classList.toggle(\'collapsed\');this.nextElementSibling.style.display=this.classList.contains(\'collapsed\')?\'none\':\'\'">';
+    html += '<span class="mi-group-arrow">&#9660;</span>';
+    html += '<span class="mi-group-name" style="color:'+groupColors[seg]+'">'+groupLabels[seg]+'</span>';
+    html += '<span class="mi-group-count">'+gItems.length+'</span>';
+    html += '</div>';
+    html += '<div class="mi-group-body">';
+    gItems.forEach(function(item){
+      var s = sc(item);
+      var trackHtml = item.track === 'discovery'
+        ? '<span class="track-d">'+EI.svg('search',12)+' Исследование</span>'
+        : '<span class="track-v">'+EI.svg('rocket',12)+' Разработка</span>';
+      html += '<div class="irow" onclick="openPRD(\''+item.id+'\')">';
+      html += '<div class="iid">'+item.id+'</div>';
+      html += '<div><div class="iname">'+escHtml(item.name)+'</div><div class="isub">'+escHtml((item.desc||'').substring(0,52))+'</div></div>';
+      html += '<div>'+trackHtml+'</div>';
+      html += '<div><div class="iscore '+scClass(s)+'">'+s.toFixed(1)+'</div><div class="iscl">RICE</div></div>';
+      html += '<div style="text-align:right"><span class="ist '+(ST_CLS[item.status]||'')+'">'+ST_LBL[item.status]+'</span></div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  el.innerHTML = html;
+}
+
+// ════════════════════════════════════════════
+// MY PRODUCT: PLANNING (scoped to selected product)
+// ════════════════════════════════════════════
+function renderMPPlanQuarter() {
+  var container = document.getElementById('mp-plan-quarter');
+  if (!container) return;
+  if (!myProductId) { container.innerHTML = '<div class="plan-empty">Выберите продукт</div>'; return; }
+  var filtered = backlog.filter(function(i){ return (i.productId||i.project) === myProductId; });
+  var year = 2026;
+  var quarters = [1,2,3,4];
+  var grouped = {1:[],2:[],3:[],4:[]};
+  filtered.forEach(function(item){
+    var qInfo = getQuarterFromRelease(item);
+    if (qInfo && qInfo.year === year && grouped[qInfo.q]) grouped[qInfo.q].push(item);
+  });
+  quarters.forEach(function(q){ grouped[q].sort(function(a,b){ return sc(b)-sc(a); }); });
+  var html = '<div class="plan-grid">';
+  quarters.forEach(function(q){
+    var items = grouped[q];
+    var avgRice = items.length > 0 ? (items.reduce(function(s,it){ return s+sc(it); },0)/items.length).toFixed(1) : '—';
+    html += '<div class="plan-col">';
+    html += '<div class="plan-col-header"><span>Q'+q+' '+year+'</span><span class="plan-col-count">'+items.length+' иниц.</span></div>';
+    html += '<div class="plan-col-stats">Ср. RICE: '+avgRice+'</div>';
+    if (!items.length) { html += '<div class="plan-empty">Нет инициатив</div>'; }
+    else {
+      items.forEach(function(item){
+        var riceScore = sc(item).toFixed(1);
+        html += '<div class="plan-item" onclick="openEP(\''+item.id+'\')">';
+        html += '<div class="plan-item-name">'+escHtml(item.id)+' '+escHtml(item.name)+'</div>';
+        html += '<div class="plan-item-meta"><span class="plan-item-rice">RICE '+riceScore+'</span><span class="sdot '+(ST_CLS[item.status]||'')+'" style="font-size:9px;padding:1px 6px">'+(ST_LBL[item.status]||item.status)+'</span></div>';
+        html += '</div>';
+      });
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function renderMPPlanHalf() {
+  var container = document.getElementById('mp-plan-half');
+  if (!container) return;
+  if (!myProductId) { container.innerHTML = '<div class="plan-empty">Выберите продукт</div>'; return; }
+  var filteredItems = backlog.filter(function(i){ return (i.productId||i.project) === myProductId; });
+  var filteredGoals = goals.filter(function(g){ return g.productId === myProductId; });
+  var year = 2026;
+  var halves = [1,2];
+  var goalsByHalf = {1:[],2:[]};
+  filteredGoals.forEach(function(goal){
+    var hInfo = getHalfFromPeriod(goal.period);
+    if (hInfo && hInfo.year === year && goalsByHalf[hInfo.h]) goalsByHalf[hInfo.h].push(goal);
+  });
+  var html = '<div class="half-grid">';
+  halves.forEach(function(h){
+    html += '<div class="half-col">';
+    html += '<div class="half-col-title">H'+h+' '+year+'</div>';
+    var hGoals = goalsByHalf[h];
+    if (!hGoals.length) { html += '<div class="plan-empty">Нет целей</div>'; }
+    else {
+      hGoals.forEach(function(goal){
+        var typeCls = goal.type === 'strategic' ? 'strategic' : 'product';
+        var totalKR = goal.keyResults ? goal.keyResults.length : 0;
+        var completedKR = 0, avgKRPct = 0;
+        if (totalKR > 0) {
+          var sumPct = 0;
+          goal.keyResults.forEach(function(kr){ var pct = kr.target>0 ? Math.round(kr.current/kr.target*100) : 0; sumPct += Math.min(100,pct); if(pct>=100) completedKR++; });
+          avgKRPct = Math.round(sumPct/totalKR);
+        }
+        var linkedInits = filteredItems.filter(function(it){ return it.goalId === goal.id; });
+        html += '<div class="half-goal" style="cursor:pointer" onclick="openGoalDetail(\''+goal.id+'\')">';
+        html += '<div class="half-goal-title">'+escHtml(goal.title)+'</div>';
+        html += '<div class="half-goal-meta"><span class="half-goal-type '+typeCls+'">'+goal.type+'</span><span>'+escHtml(goal.period)+'</span><span>'+totalKR+' KR ('+completedKR+' done)</span></div>';
+        html += '<div class="half-kr-bar"><div class="half-kr-bar-fill" style="width:'+avgKRPct+'%"></div></div>';
+        if (linkedInits.length) {
+          linkedInits.forEach(function(init){
+            var inf = init.influence || '';
+            var infCls = inf==='high'?'high':inf==='medium'?'medium':'low';
+            html += '<div class="half-init"><span>'+escHtml(init.id)+' '+escHtml(init.name)+' <span style="color:var(--muted);font-size:9px">RICE '+sc(init).toFixed(1)+'</span></span>';
+            if (inf) html += '<span class="half-init-influence '+infCls+'">'+inf.charAt(0).toUpperCase()+inf.slice(1)+' влияние</span>';
+            html += '</div>';
+          });
+        } else { html += '<div class="half-no-inits">Нет привязанных инициатив</div>'; }
+        html += '</div>';
+      });
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+// ════════════════════════════════════════════
+// INIT MODE (role-based default)
+// ════════════════════════════════════════════
+setTimeout(function(){ initMode(); }, 100);
 
 // Auto-show for new users
 if (!localStorage.getItem('ecotech_onboarded')) {
