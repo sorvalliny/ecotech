@@ -31,7 +31,7 @@ html{scroll-behavior:smooth;}
 body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.65;min-height:100vh;overflow-x:hidden;}
 
 /* ── STAGE TABS ── */
-.stage-tabs{position:sticky;top:86px;z-index:900;background:rgba(27,38,56,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;}
+.stage-tabs{position:sticky;top:44px;z-index:900;background:rgba(27,38,56,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;}
 .stage-tabs-inner{display:flex;align-items:center;gap:2px;max-width:1100px;margin:0 auto;height:46px;overflow-x:auto;}
 .stage-tabs-inner::-webkit-scrollbar{height:2px;}
 .stage-tabs-inner::-webkit-scrollbar-thumb{background:var(--border-hi);}
@@ -469,15 +469,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 [data-theme="light"] .lc-step:hover { background: var(--surface2); }
 [data-theme="light"] body { background: var(--bg); }
 
-/* ── VIEW TABS (top-level Обзор / Стадии) ── */
-.view-tabs{position:sticky;top:44px;z-index:910;background:rgba(27,38,56,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;}
-.view-tabs-inner{display:flex;align-items:center;gap:0;max-width:1100px;margin:0 auto;height:42px;}
-.vtab{font-size:13px;font-weight:700;color:var(--muted);padding:8px 22px;border:none;border-bottom:2px solid transparent;background:transparent;cursor:pointer;transition:color .15s,border-color .15s;font-family:var(--font-body);margin-bottom:-1px;}
-.vtab:hover{color:var(--text);}
-.vtab.active{color:#fff;border-bottom-color:var(--violet);}
-.view-panel{display:none;}
-.view-panel.active{display:block;}
-[data-theme="light"] .view-tabs{background:rgba(247,248,250,0.97);}
+/* view-tabs removed — unified single-page flow */
 
 /* ── INTRO SECTION ── */
 .intro-wrap{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
@@ -655,527 +647,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 
 <!-- ═══ ECOTECH NAV ═══ -->
 
-<!-- ═══ VIEW TABS (top-level) ═══ -->
-<div class="view-tabs">
-  <div class="view-tabs-inner">
-    <button class="vtab active" onclick="showView('overview-view',this)">Обзор</button>
-    <button class="vtab" onclick="showView('stages-view',this)">Стадии</button>
-  </div>
-</div>
-
-<!-- ═══ VIEW: ОБЗОР ═══ -->
-<div class="view-panel active" id="overview-view">
-<div class="intro-wrap">
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- Section 1: Что такое ОРБИТА                              -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section id="intro">
-  <div class="intro-hero">
-    <div class="intro-hero-eyebrow">ОРБИТА / Product OS</div>
-    <h1 class="intro-hero-title">Что такое <em>ОРБИТА</em></h1>
-  </div>
-  <p class="intro-desc">ОРБИТА -- система управления продуктовым портфелем для экосистемы RWB. Определяет единый стандарт запуска, развития и масштабирования цифровых продуктов.</p>
-  <p class="intro-desc" style="margin-bottom:6px">Помогает:</p>
-  <ul class="intro-list">
-    <li>Запускать цифровые решения по единому стандарту</li>
-    <li>Видеть статус всех продуктов в реальном времени</li>
-    <li>Планировать на квартал и полугодие</li>
-    <li>Проходить Gate Review для перехода между стадиями</li>
-  </ul>
-  <div class="intro-principle">Принцип: каждый продукт проходит 7 орбит зрелости -- от заявки до масштабирования.<br>Каждая орбита = набор процессов, артефактов и критериев перехода.</div>
-
-  <!-- Lifecycle diagram: full journey -->
-  <div class="sec-header">
-    <div class="sec-eyebrow">Полный путь продукта</div>
-    <div class="sec-title">Жизненный цикл в ОРБИТЕ</div>
-  </div>
-  <div class="journey-flow">
-    <div class="journey-step jt-neutral">
-      <div class="journey-step-label">Вход</div>
-      <div class="journey-step-name">Заявка (бриф)</div>
-      <div class="journey-step-desc">Инициатор подаёт бриф с RICE-оценкой</div>
-    </div>
-    <div class="journey-step jt-neutral">
-      <div class="journey-step-label">Скрининг</div>
-      <div class="journey-step-name">Отбор PMO</div>
-      <div class="journey-step-desc">PMO оценивает заявку, реестр идей</div>
-    </div>
-    <div class="journey-step jt-neutral">
-      <div class="journey-step-label">Старт</div>
-      <div class="journey-step-name">Назначение владельца</div>
-      <div class="journey-step-desc">PMO Lead назначает PM продукта</div>
-    </div>
-    <div class="journey-step jt-discovery">
-      <div class="journey-step-label">Discovery</div>
-      <div class="journey-step-name">O*0 -- O*1 Разведка</div>
-      <div class="journey-step-desc">CustDev, валидация проблемы и рынка</div>
-    </div>
-    <div class="journey-step jt-delivery">
-      <div class="journey-step-label">Delivery</div>
-      <div class="journey-step-name">O*2 -- O*3 Разработка</div>
-      <div class="journey-step-desc">MVP, тестирование, запуск</div>
-    </div>
-    <div class="journey-step jt-review">
-      <div class="journey-step-label">Review</div>
-      <div class="journey-step-name">O*4 -- O*5 Оценка</div>
-      <div class="journey-step-desc">Масштабирование, оптимизация</div>
-    </div>
-  </div>
-
-  <div class="cycle-cards">
-    <div class="cycle-card">
-      <div class="cycle-card-num cc-discovery">DISCOVERY</div>
-      <div class="cycle-card-title">Исследование</div>
-      <div class="cycle-card-sub">CustDev, анализ рынка, формирование гипотез.</div>
-      <div class="cycle-card-stages cc-discovery">Стадии O*0 -- O*1</div>
-    </div>
-    <div class="cycle-card">
-      <div class="cycle-card-num cc-delivery">DELIVERY</div>
-      <div class="cycle-card-title">Разработка</div>
-      <div class="cycle-card-sub">Прототип, MVP, запуск.</div>
-      <div class="cycle-card-stages cc-delivery">Стадии O*2 -- O*3</div>
-    </div>
-    <div class="cycle-card">
-      <div class="cycle-card-num cc-review">REVIEW</div>
-      <div class="cycle-card-title">Оценка и ретро</div>
-      <div class="cycle-card-sub">Метрики, ретроспектива, решение о масштабировании.</div>
-      <div class="cycle-card-stages cc-review">Стадии O*4 -- O*5</div>
-    </div>
-  </div>
-</section>
-
-<div class="grad-line"></div>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- Section 2: Сущности ОРБИТА + Жизненный цикл продукта    -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section id="entities">
-  <div class="sec-header">
-    <div class="sec-eyebrow">Модель данных</div>
-    <div class="sec-title">Сущности ОРБИТА</div>
-  </div>
-
-  <div class="entity-grid">
-    <div class="entity-card">
-      <div class="entity-card-title">Продукт</div>
-      <div class="entity-card-desc">Цифровое решение в экосистеме RWB. Имеет стадию зрелости (O*0 -- O*5), команду, цели и инициативы.</div>
-      <div class="entity-card-sub">Примеры: маркетплейс, сервис обучения, платформа знакомств.</div>
-    </div>
-    <div class="entity-card">
-      <div class="entity-card-title">Цель</div>
-      <div class="entity-card-desc">Измеримый результат на полугодие (H1/H2). Привязана к OKR компании.</div>
-      <div class="entity-card-sub">Инициативы декомпозируют цели на конкретные задачи. Key Results = метрики достижения.</div>
-    </div>
-    <div class="entity-card full-width">
-      <div class="entity-card-title">Инициатива</div>
-      <div class="entity-card-desc">Единица работы внутри продукта. Типы:</div>
-      <ul class="entity-types">
-        <li>Бизнес-инициативы (новый рынок, монетизация, партнёрства)</li>
-        <li>Продуктовые (фичи, UX-улучшения, метрики)</li>
-        <li>Технические (инфраструктура, интеграции, рефакторинг)</li>
-      </ul>
-      <div class="entity-card-sub">Каждая инициатива имеет: RICE-оценку, статус, привязку к цели, ответственного PM.</div>
-    </div>
-  </div>
-
-  <div class="sec-header" style="margin-top:28px">
-    <div class="sec-eyebrow">Иерархия</div>
-    <div class="sec-title">Как они связаны</div>
-  </div>
-  <div class="entity-tree">Компания (OKR)
- └── Продукт (стадия зрелости O*0 -- O*5)
-      ├── Цели (H1/H2)
-      │    └── Key Results
-      └── Инициативы (Q1-Q4)
-           └── Привязка к Цели (влияние: High/Medium/Low)</div>
-
-  <!-- Жизненный цикл продукта: вертикальный таймлайн -->
-  <div class="sec-header" style="margin-top:32px">
-    <div class="sec-eyebrow">От заявки до масштаба</div>
-    <div class="sec-title">Жизненный цикл продукта в ОРБИТЕ</div>
-  </div>
-  <div class="pl-timeline">
-    <div class="pl-step">
-      <div class="pl-step-num">1</div>
-      <div class="pl-step-body">
-        <div class="pl-step-title">Подача заявки</div>
-        <div class="pl-step-desc">Инициатор заполняет бриф с RICE-оценкой. Заявка попадает в реестр идей.</div>
-      </div>
-    </div>
-    <div class="pl-step">
-      <div class="pl-step-num">2</div>
-      <div class="pl-step-body">
-        <div class="pl-step-title">Скрининг PMO</div>
-        <div class="pl-step-desc">PMO проверяет заявку: соответствие стратегии, оценка потенциала, решение Go/No-Go.</div>
-      </div>
-    </div>
-    <div class="pl-step">
-      <div class="pl-step-num">3</div>
-      <div class="pl-step-body">
-        <div class="pl-step-title">Создание продукта</div>
-        <div class="pl-step-desc">PMO Lead создаёт запись в реестре и назначает владельца -- Product Manager.</div>
-      </div>
-    </div>
-    <div class="pl-step">
-      <div class="pl-step-num">4</div>
-      <div class="pl-step-body">
-        <div class="pl-step-title">PM настраивает продукт</div>
-        <div class="pl-step-desc">Заполнение паспорта: описание, метрики, команда, целевые показатели.</div>
-      </div>
-    </div>
-    <div class="pl-step">
-      <div class="pl-step-num">5</div>
-      <div class="pl-step-body">
-        <div class="pl-step-title">Планирование</div>
-        <div class="pl-step-desc">H-цели (полугодие) декомпозируются в Q-инициативы. RICE-приоритизация бэклога.</div>
-      </div>
-    </div>
-    <div class="pl-step">
-      <div class="pl-step-num">6</div>
-      <div class="pl-step-body">
-        <div class="pl-step-title">Исполнение</div>
-        <div class="pl-step-desc">Инициативы привязываются к внешним трекерам (YouTrack, Shiva). Работа идёт спринтами.</div>
-      </div>
-    </div>
-    <div class="pl-step">
-      <div class="pl-step-num">7</div>
-      <div class="pl-step-body">
-        <div class="pl-step-title">Gate Review</div>
-        <div class="pl-step-desc">Комитет оценивает результаты стадии. Решение: Go / No-Go / Revise.</div>
-      </div>
-    </div>
-    <div class="pl-step">
-      <div class="pl-step-num">8</div>
-      <div class="pl-step-body">
-        <div class="pl-step-title">Переход на следующую орбиту</div>
-        <div class="pl-step-desc">Продукт переходит на следующую стадию зрелости. Цикл повторяется.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="grad-line"></div>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- Section 3: Цикл работы -- Discovery / Delivery / Review  -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section id="cycle-detail">
-  <div class="sec-header">
-    <div class="sec-eyebrow">Методология</div>
-    <div class="sec-title">Цикл работы -- Discovery / Delivery / Review</div>
-    <div class="sec-sub">Три фазы определяют, как продукт проходит от гипотезы до масштабирования. Каждая фаза включает процессы, артефакты, критерии Gate Review и роли участников.</div>
-  </div>
-
-  <div class="phase-cards">
-
-    <!-- Discovery -->
-    <div class="phase-card pc-discovery">
-      <div class="phase-card-header">
-        <span class="phase-card-badge">Discovery</span>
-        <span class="phase-card-title">Исследование</span>
-        <span class="phase-card-orbits">Орбиты O*0 -- O*1</span>
-      </div>
-      <div class="phase-detail-grid">
-        <div class="phase-detail-block">
-          <div class="phase-detail-label">Цель</div>
-          <div class="phase-detail-text">Валидация проблемы и рынка. Подтверждение Problem-Solution Fit.</div>
-        </div>
-        <div class="phase-detail-block">
-          <div class="phase-detail-label">Процесс</div>
-          <ul class="phase-detail-list">
-            <li>CustDev: 7-10 глубинных интервью</li>
-            <li>Problem-Solution Fit (PSF)</li>
-            <li>Конкурентный анализ</li>
-            <li>Формирование бизнес-кейса</li>
-          </ul>
-        </div>
-        <div class="phase-detail-block">
-          <div class="phase-detail-label">Артефакты</div>
-          <ul class="phase-detail-list">
-            <li>Бриф</li>
-            <li>CustDev-отчёт</li>
-            <li>Конкурентный анализ</li>
-            <li>PSF-документ</li>
-          </ul>
-        </div>
-        <div class="phase-gate-bar">
-          <div class="phase-gate-label">Gate Review</div>
-          <div class="phase-gate-text">Проблема валидирована? Рынок существует? -- Go / No-Go</div>
-        </div>
-        <div class="phase-roles">
-          <strong>Роли:</strong> PM (исполняет) / PMO (координирует) / PMO Lead (ревьюит)
-        </div>
-      </div>
-    </div>
-
-    <!-- Delivery -->
-    <div class="phase-card pc-delivery">
-      <div class="phase-card-header">
-        <span class="phase-card-badge">Delivery</span>
-        <span class="phase-card-title">Разработка</span>
-        <span class="phase-card-orbits">Орбиты O*2 -- O*3</span>
-      </div>
-      <div class="phase-detail-grid">
-        <div class="phase-detail-block">
-          <div class="phase-detail-label">Цель</div>
-          <div class="phase-detail-text">От прототипа до запуска. Подтверждение Product-Market Fit.</div>
-        </div>
-        <div class="phase-detail-block">
-          <div class="phase-detail-label">Процесс</div>
-          <ul class="phase-detail-list">
-            <li>MVP-скоуп и приоритизация</li>
-            <li>Прототипирование</li>
-            <li>Юзер-тестирование</li>
-            <li>GTM-подготовка</li>
-            <li>Rollout</li>
-          </ul>
-        </div>
-        <div class="phase-detail-block">
-          <div class="phase-detail-label">Артефакты</div>
-          <ul class="phase-detail-list">
-            <li>PRD (Product Requirements Document)</li>
-            <li>Прототип</li>
-            <li>Результаты тестирования</li>
-            <li>GTM-план</li>
-            <li>Rollout-план</li>
-          </ul>
-        </div>
-        <div class="phase-gate-bar">
-          <div class="phase-gate-label">Gate Review</div>
-          <div class="phase-gate-text">MVP работает? Метрики достигнуты? -- Go / No-Go</div>
-        </div>
-        <div class="phase-roles">
-          <strong>Роли:</strong> PM + Tech Lead (исполняют) / PMO (контроль) / Архитектор (тех. ревью)
-        </div>
-      </div>
-    </div>
-
-    <!-- Review -->
-    <div class="phase-card pc-review">
-      <div class="phase-card-header">
-        <span class="phase-card-badge">Review</span>
-        <span class="phase-card-title">Оценка</span>
-        <span class="phase-card-orbits">Орбиты O*4 -- O*5</span>
-      </div>
-      <div class="phase-detail-grid">
-        <div class="phase-detail-block">
-          <div class="phase-detail-label">Цель</div>
-          <div class="phase-detail-text">Масштабирование или оптимизация. Подтверждение устойчивости бизнес-модели.</div>
-        </div>
-        <div class="phase-detail-block">
-          <div class="phase-detail-label">Процесс</div>
-          <ul class="phase-detail-list">
-            <li>Экосистемная интеграция</li>
-            <li>Метрики здоровья продукта</li>
-            <li>Unit-экономика</li>
-            <li>Ретроспектива</li>
-          </ul>
-        </div>
-        <div class="phase-detail-block">
-          <div class="phase-detail-label">Артефакты</div>
-          <ul class="phase-detail-list">
-            <li>Интеграционная карта</li>
-            <li>Health Dashboard</li>
-            <li>P&amp;L (unit-экономика)</li>
-            <li>Ретроспектива</li>
-          </ul>
-        </div>
-        <div class="phase-gate-bar">
-          <div class="phase-gate-label">Gate Review</div>
-          <div class="phase-gate-text">Unit-экономика положительная? Экосистема интегрирована? -- Scale / Optimize / Sunset</div>
-        </div>
-        <div class="phase-roles">
-          <strong>Роли:</strong> PM (отчёт) / Аналитик (метрики) / PMO Lead (решение)
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<div class="grad-line"></div>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- Section 4: Планирование и согласование                   -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section id="planning-cadence">
-  <div class="sec-header">
-    <div class="sec-eyebrow">Каденция</div>
-    <div class="sec-title">Планирование и согласование</div>
-    <div class="sec-sub">Ритм работы определяет, когда и кто принимает решения на каждом горизонте планирования.</div>
-  </div>
-
-  <table class="cadence-table">
-    <thead>
-      <tr>
-        <th>Горизонт</th>
-        <th>Что происходит</th>
-        <th>Участники</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Год</td>
-        <td>Стратегические приоритеты экосистемы, распределение бюджета</td>
-        <td>Руководство</td>
-      </tr>
-      <tr>
-        <td>Полугодие</td>
-        <td>H-цели продуктов, OKR-каскадирование</td>
-        <td>PM + PMO</td>
-      </tr>
-      <tr>
-        <td>Квартал</td>
-        <td>Инициативы с RICE-приоритизацией, дорожная карта</td>
-        <td>PM</td>
-      </tr>
-      <tr>
-        <td>Месяц</td>
-        <td>Gate Review комитеты, оценка прогресса</td>
-        <td>PMO Lead + комитет</td>
-      </tr>
-      <tr>
-        <td>Неделя</td>
-        <td>Синхронизация PM и PMO, статус-апдейты</td>
-        <td>PM + PMO</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<div class="grad-line"></div>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- Section 5: Сопроводительные процессы                     -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section id="support-processes">
-  <div class="sec-header">
-    <div class="sec-eyebrow">Поддержка</div>
-    <div class="sec-title">Сопроводительные процессы</div>
-    <div class="sec-sub">Параллельные процессы, которые запускаются на определённых орбитах и обеспечивают юридическую, маркетинговую и техническую готовность продукта.</div>
-  </div>
-
-  <div class="support-grid">
-    <div class="support-card">
-      <div class="support-card-title">Регистрация товарного знака</div>
-      <div class="support-card-meta">
-        <span class="support-meta-tag">O*2 -- O*3</span>
-        <span class="support-meta-tag">3-6 мес.</span>
-        <span class="support-meta-tag">Юрист + PM</span>
-      </div>
-      <div class="support-card-desc">Подготовка и подача заявки в Роспатент. Артефакт: заявка на регистрацию товарного знака.</div>
-    </div>
-    <div class="support-card">
-      <div class="support-card-title">Разработка логотипа и бренда</div>
-      <div class="support-card-meta">
-        <span class="support-meta-tag">O*2</span>
-        <span class="support-meta-tag">2-4 нед.</span>
-        <span class="support-meta-tag">Дизайнер + PM</span>
-      </div>
-      <div class="support-card-desc">Создание визуальной идентичности. Артефакт: брендбук, лого-пакет.</div>
-    </div>
-    <div class="support-card">
-      <div class="support-card-title">Юридическая экспертиза</div>
-      <div class="support-card-meta">
-        <span class="support-meta-tag">O*1 -- O*2</span>
-        <span class="support-meta-tag">1-2 нед.</span>
-        <span class="support-meta-tag">Юрист</span>
-      </div>
-      <div class="support-card-desc">Правовой анализ продукта: лицензии, персональные данные, регуляторные требования. Артефакт: правовое заключение.</div>
-    </div>
-    <div class="support-card">
-      <div class="support-card-title">ИБ-аудит</div>
-      <div class="support-card-meta">
-        <span class="support-meta-tag">O*2 -- O*3</span>
-        <span class="support-meta-tag">1-2 нед.</span>
-        <span class="support-meta-tag">ИБ + Tech Lead</span>
-      </div>
-      <div class="support-card-desc">Проверка информационной безопасности: уязвимости, соответствие стандартам. Артефакт: отчёт ИБ-аудита.</div>
-    </div>
-    <div class="support-card">
-      <div class="support-card-title">Маркетинговый запуск</div>
-      <div class="support-card-meta">
-        <span class="support-meta-tag">O*3</span>
-        <span class="support-meta-tag">2-4 нед.</span>
-        <span class="support-meta-tag">Маркетинг + PM</span>
-      </div>
-      <div class="support-card-desc">Подготовка к выходу на рынок: позиционирование, каналы, PR. Артефакт: GTM-план, PR-план.</div>
-    </div>
-    <div class="support-card">
-      <div class="support-card-title">Интеграция с экосистемой</div>
-      <div class="support-card-meta">
-        <span class="support-meta-tag">O*4</span>
-        <span class="support-meta-tag">Архитектор + PM</span>
-      </div>
-      <div class="support-card-desc">Встраивание продукта в экосистему RWB: общие сервисы, API, данные. Артефакт: интеграционная карта, API-спецификация.</div>
-    </div>
-  </div>
-</section>
-
-<div class="grad-line"></div>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- Section 6: Как работать с инструментами ОРБИТА           -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section id="how-to-registry">
-  <div class="sec-header">
-    <div class="sec-eyebrow">Инструменты</div>
-    <div class="sec-title">Как работать с инструментами ОРБИТА</div>
-    <div class="sec-sub">Каждый инструмент решает свою задачу в жизненном цикле продукта. Вместе они образуют единую рабочую среду.</div>
-  </div>
-
-  <div class="tool-guide-grid">
-    <div class="tool-guide-card">
-      <div class="tool-guide-icon tg-brief">БРИФ</div>
-      <div class="tool-guide-body">
-        <div class="tool-guide-title">Подать заявку -- Бриф (brief.html)</div>
-        <div class="tool-guide-desc">Точка входа для новых продуктовых идей. Заявка попадает в реестр идей и проходит скрининг PMO.</div>
-        <ul class="tool-guide-features">
-          <li>Структурированный бриф с RICE-оценкой</li>
-          <li>Автоматическое попадание в реестр идей</li>
-          <li>Привязка к стратегическим приоритетам</li>
-        </ul>
-      </div>
-    </div>
-    <div class="tool-guide-card">
-      <div class="tool-guide-icon tg-tracker">PMO</div>
-      <div class="tool-guide-body">
-        <div class="tool-guide-title">Реестр -- Трекер портфеля (tracker.html)</div>
-        <div class="tool-guide-desc">Мониторинг портфеля для руководства и PMO. Единый обзор всех продуктов, их стадий и здоровья.</div>
-        <ul class="tool-guide-features">
-          <li>Обзор всех продуктов по стадиям зрелости</li>
-          <li>Статусы и метрики здоровья</li>
-          <li>Фильтрация и группировка по параметрам</li>
-        </ul>
-      </div>
-    </div>
-    <div class="tool-guide-card">
-      <div class="tool-guide-icon tg-product">PM</div>
-      <div class="tool-guide-body">
-        <div class="tool-guide-title">Мой продукт -- Карточка продукта (product-card.html)</div>
-        <div class="tool-guide-desc">Рабочее пространство Product Manager. Полное управление продуктом в одном месте.</div>
-        <ul class="tool-guide-features">
-          <li>Паспорт: спецификация продукта, команда, метрики</li>
-          <li>Инициативы: бэклог с RICE-оценкой, группировка по типам (бизнес / продукт / тех)</li>
-          <li>Цели и планирование: H-цели декомпозируются в Q-инициативы</li>
-          <li>Каждая инициатива содержит ссылку на внешний трекер (YouTrack / Shiva)</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-</div><!-- /intro-wrap -->
-</div><!-- /overview-view -->
-
-<!-- ═══ VIEW: СТАДИИ ═══ -->
-<div class="view-panel" id="stages-view">
-
 <!-- ═══ STAGE TABS ═══ -->
 <div class="stage-tabs">
   <div class="stage-tabs-inner">
     <button class="stab active" onclick="showSec('overview',this)">Обзор</button>
+    <div class="stab-sep"></div>
     <button class="stab s0" onclick="showSec('s0',this)" id="stab-s0">О·0 &nbsp;Заявка</button>
     <button class="stab s1" onclick="showSec('s1',this)" id="stab-s1">О·1 &nbsp;Разведка</button>
     <button class="stab s2" onclick="showSec('s2',this)" id="stab-s2">О·2 &nbsp;Прототип</button>
@@ -1194,19 +670,41 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 <!-- ═══ MAIN ═══ -->
 <div class="fw-wrap">
 
-<!-- ══════════════════════════════════════════════ OVERVIEW -->
+<!-- ══════════════════════════════════════════════ ОБЗОР -->
 <div class="fw-section active" id="sec-overview">
+
+  <!-- Intro -->
   <div class="fw-hero">
     <div class="fw-hero-eyebrow">ОРБИТА · Product OS · 2026</div>
     <h1 class="fw-hero-title">Как мы работаем <em>по стадиям</em></h1>
-    <p class="fw-hero-sub">Путь продукта от Заявки до Плато: стадии, артефакты, критерии перехода</p>
-    <div class="fw-hero-tags">
-      <span class="fw-tag fw-tag-v">7 стадий зрелости</span>
-      <span class="fw-tag fw-tag-t">12 готовых шаблонов</span>
-      <span class="fw-tag fw-tag-w">Для CPO · CTO · PM · TL</span>
+    <p class="fw-hero-sub">ОРБИТА -- система управления продуктовым портфелем для экосистемы RWB. Каждый продукт проходит 7 орбит зрелости: от заявки до масштабирования. На каждой орбите работает цикл ВИТОК (Исследование / Разработка / Оценка), а переход на следующую орбиту возможен только через Gate Review.</p>
+  </div>
+
+  <!-- Entities: 3 compact cards -->
+  <div class="sec-header">
+    <div class="sec-eyebrow">Модель данных</div>
+    <div class="sec-title">Сущности ОРБИТА</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px;">
+    <div class="entity-card" style="margin:0;">
+      <div class="entity-card-title">Продукт</div>
+      <div class="entity-card-desc">Цифровое решение в экосистеме RWB. Имеет стадию зрелости (О·0 -- О·5), команду, цели и инициативы.</div>
+    </div>
+    <div class="entity-card" style="margin:0;">
+      <div class="entity-card-title">Инициатива</div>
+      <div class="entity-card-desc">Единица работы внутри продукта. Типы: бизнес, продуктовые, технические. RICE-оценка, привязка к цели.</div>
+    </div>
+    <div class="entity-card" style="margin:0;">
+      <div class="entity-card-title">Цель</div>
+      <div class="entity-card-desc">Измеримый результат на полугодие (H1/H2). Привязана к OKR компании. Key Results = метрики достижения.</div>
     </div>
   </div>
 
+  <!-- Lifecycle flow diagram -->
+  <div class="sec-header">
+    <div class="sec-eyebrow">Полный путь продукта</div>
+    <div class="sec-title">Жизненный цикл в ОРБИТЕ</div>
+  </div>
   <div class="lc-flow" id="lc-flow">
     <div class="lc-step s0" onclick="showSec('s0',null)" title="Перейти к О·0">
       <div class="lc-num">ОРБИТА 0</div>
@@ -1235,7 +733,7 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="lc-step s4" onclick="showSec('s4',null)" title="Перейти к О·4">
       <div class="lc-num">ОРБИТА 4</div>
       <div class="lc-name">Экосистема</div>
-      <div class="lc-tagline">Retention → A/B → Экосистема</div>
+      <div class="lc-tagline">Интеграции → API → Gate 4</div>
       <span class="lc-dur">3–12 мес</span>
     </div>
     <div class="lc-step s5" onclick="showSec('s5',null)" title="Перейти к О·5">
@@ -1252,71 +750,30 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     </div>
   </div>
 
-  <div class="kpi-bar">
-    <div class="kpi-item"><div class="kpi-val">7</div><div class="kpi-label">Стадий зрелости (орбит)</div></div>
-    <div class="kpi-item"><div class="kpi-val">4</div><div class="kpi-label">Gate-условия перехода</div></div>
-    <div class="kpi-item"><div class="kpi-val">~14 нед</div><div class="kpi-label">Заявка → MVP (среднее)</div></div>
-    <div class="kpi-item"><div class="kpi-val">12</div><div class="kpi-label">Готовых шаблонов документов</div></div>
-    <div class="kpi-item"><div class="kpi-val">12+</div><div class="kpi-label">Продуктов в контуре</div></div>
+  <!-- ВИТОК explanation -->
+  <div class="sec-header">
+    <div class="sec-eyebrow">Ключевой механизм</div>
+    <div class="sec-title">ВИТОК: цикл, который повторяется на каждой стадии</div>
+    <div class="sec-sub">Внутри каждой орбиты работа организована как повторяющийся цикл из трёх фаз. Виток может пройти 1 раз (О·0) или множество раз (О·3 Разгон). Переход на следующую орбиту возможен только после успешной фазы Оценки (Gate Review).</div>
   </div>
 
-  <div class="grad-line"></div>
-
-  <!-- ── VISUAL LIFECYCLE ── -->
-  <div class="visual-lifecycle" id="vl-lifecycle">
-    <div class="vl-item active">
-      <div class="vl-dot">G0</div>
-      <div class="vl-label">Заявка</div>
-      <div class="vl-sublabel">до 5 дней</div>
-    </div>
-    <div class="vl-item">
-      <div class="vl-dot">G1</div>
-      <div class="vl-label">Разведка</div>
-      <div class="vl-sublabel">3–6 нед</div>
-    </div>
-    <div class="vl-item">
-      <div class="vl-dot">G2</div>
-      <div class="vl-label">Прототип</div>
-      <div class="vl-sublabel">6–12 нед</div>
-    </div>
-    <div class="vl-item">
-      <div class="vl-dot">G3</div>
-      <div class="vl-label">Разгон</div>
-      <div class="vl-sublabel">1–3 мес</div>
-    </div>
-    <div class="vl-item">
-      <div class="vl-dot">G4</div>
-      <div class="vl-label">Экосистема</div>
-      <div class="vl-sublabel">3–12 мес</div>
-    </div>
-    <div class="vl-item">
-      <div class="vl-dot">G5</div>
-      <div class="vl-label">Плато</div>
-      <div class="vl-sublabel">ongoing</div>
-    </div>
-  </div>
-
-  <!-- ── VISUAL CYCLE ── -->
   <div class="visual-cycle-wrap">
     <svg class="visual-cycle-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
       <circle cx="80" cy="80" r="78" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-      <!-- Исследование: top-left sector (270°–360°) -->
       <g class="vc-sector">
         <path d="M80,80 L80,4 A76,76 0 0,1 156,80 Z" fill="rgba(87,157,255,0.20)" stroke="rgba(87,157,255,0.30)" stroke-width="1"/>
         <text x="112" y="50" font-size="8" font-weight="700" fill="#94BFFF" font-family="sans-serif" text-anchor="middle">Исследование</text>
       </g>
-      <!-- Разработка: bottom-right sector (0°–90°) -->
       <g class="vc-sector">
         <path d="M80,80 L156,80 A76,76 0 0,1 80,156 Z" fill="rgba(75,206,151,0.18)" stroke="rgba(75,206,151,0.30)" stroke-width="1"/>
         <text x="112" y="120" font-size="8" font-weight="700" fill="#4BCE97" font-family="sans-serif" text-anchor="middle">Разработка</text>
       </g>
-      <!-- Оценка и ретро: bottom-left + top-right sectors -->
       <g class="vc-sector">
-        <path d="M80,80 L80,156 A76,76 0 0,1 4,80 Z" fill="rgba(75,206,151,0.18)" stroke="rgba(75,206,151,0.30)" stroke-width="1"/>
-        <text x="48" y="120" font-size="7" font-weight="700" fill="#4BCE97" font-family="sans-serif" text-anchor="middle">Оценка</text>
+        <path d="M80,80 L80,156 A76,76 0 0,1 4,80 Z" fill="rgba(245,205,71,0.18)" stroke="rgba(245,205,71,0.30)" stroke-width="1"/>
+        <text x="48" y="120" font-size="7" font-weight="700" fill="#F5CD47" font-family="sans-serif" text-anchor="middle">Оценка</text>
       </g>
       <g class="vc-sector">
-        <path d="M80,80 L4,80 A76,76 0 0,1 80,4 Z" fill="rgba(245,205,71,0.18)" stroke="rgba(245,205,71,0.30)" stroke-width="1"/>
+        <path d="M80,80 L4,80 A76,76 0 0,1 80,4 Z" fill="rgba(245,205,71,0.12)" stroke="rgba(245,205,71,0.20)" stroke-width="1"/>
         <text x="48" y="50" font-size="7" font-weight="700" fill="#F5CD47" font-family="sans-serif" text-anchor="middle">Ретро</text>
       </g>
       <circle cx="80" cy="80" r="18" fill="#1E2D42" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
@@ -1325,43 +782,79 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="visual-cycle-legend">
       <div class="vc-legend-item">
         <div class="vc-legend-dot" style="background:#579DFF;"></div>
-        <span class="vc-legend-label">Исследование</span>
-        <span class="vc-legend-sub">— CustDev, PSF, гипотезы</span>
+        <span class="vc-legend-label">1. Исследование</span>
+        <span class="vc-legend-sub">-- изучение проблемы / рынка / решения для ЭТОЙ стадии</span>
       </div>
       <div class="vc-legend-item">
         <div class="vc-legend-dot" style="background:#4BCE97;"></div>
-        <span class="vc-legend-label">Разработка</span>
-        <span class="vc-legend-sub">— MVP, спринты, Gate-review</span>
+        <span class="vc-legend-label">2. Разработка</span>
+        <span class="vc-legend-sub">-- создание артефактов и выполнение процессов стадии</span>
       </div>
       <div class="vc-legend-item">
-        <div class="vc-legend-dot" style="background:#4BCE97;"></div>
-        <span class="vc-legend-label">Оценка и ретро</span>
-        <span class="vc-legend-sub">— GTM, метрики, анализ, оптимизация</span>
+        <div class="vc-legend-dot" style="background:#F5CD47;"></div>
+        <span class="vc-legend-label">3. Оценка и ретро</span>
+        <span class="vc-legend-sub">-- ревью результатов, Gate Review, решение о переходе</span>
       </div>
     </div>
   </div>
 
+  <!-- Support processes compact reference -->
+  <div class="grad-line"></div>
   <div class="sec-header">
-    <div class="sec-eyebrow">Как работать с этим документом</div>
-    <div class="sec-title">Три сценария использования</div>
+    <div class="sec-eyebrow">Справочно</div>
+    <div class="sec-title">Сопроводительные процессы</div>
+    <div class="sec-sub">Параллельные процессы, которые запускаются на определённых орбитах.</div>
   </div>
-  <div class="howto-grid">
-    <div class="howto-card">
-      <div class="howto-num">01</div>
-      <div class="howto-title">Новая инициатива</div>
-      <div class="howto-desc">Выберите <strong>О·0 Заявка</strong> → заполните Бриф → следуйте Gate-условиям. Каждая вкладка — самодостаточный гид для PM и TL на текущей стадии.</div>
+  <div class="support-grid">
+    <div class="support-card">
+      <div class="support-card-title">Регистрация товарного знака</div>
+      <div class="support-card-meta">
+        <span class="support-meta-tag">О·2 -- О·3</span>
+        <span class="support-meta-tag">3-6 мес.</span>
+        <span class="support-meta-tag">Юрист + PM</span>
+      </div>
     </div>
-    <div class="howto-card">
-      <div class="howto-num">02</div>
-      <div class="howto-title">Ревью с руководством</div>
-      <div class="howto-desc">Откройте нужную стадию, покажите артефакты и Gate-критерии команде и руководству.</div>
+    <div class="support-card">
+      <div class="support-card-title">Разработка логотипа и бренда</div>
+      <div class="support-card-meta">
+        <span class="support-meta-tag">О·2</span>
+        <span class="support-meta-tag">2-4 нед.</span>
+        <span class="support-meta-tag">Дизайнер + PM</span>
+      </div>
     </div>
-    <div class="howto-card">
-      <div class="howto-num">03</div>
-      <div class="howto-title">Работа с шаблонами</div>
-      <div class="howto-desc">Раздел <a href="../Продукту/templates.html" style="color:var(--c1);text-decoration:underline">Шаблоны</a> содержит 12+ готовых структур документов. Откройте нужный → скопируйте текст → вставьте в Notion/Confluence.</div>
+    <div class="support-card">
+      <div class="support-card-title">Юридическая экспертиза</div>
+      <div class="support-card-meta">
+        <span class="support-meta-tag">О·1 -- О·2</span>
+        <span class="support-meta-tag">1-2 нед.</span>
+        <span class="support-meta-tag">Юрист</span>
+      </div>
+    </div>
+    <div class="support-card">
+      <div class="support-card-title">ИБ-аудит</div>
+      <div class="support-card-meta">
+        <span class="support-meta-tag">О·2 -- О·3</span>
+        <span class="support-meta-tag">1-2 нед.</span>
+        <span class="support-meta-tag">ИБ + Tech Lead</span>
+      </div>
+    </div>
+    <div class="support-card">
+      <div class="support-card-title">Маркетинговый запуск</div>
+      <div class="support-card-meta">
+        <span class="support-meta-tag">О·3</span>
+        <span class="support-meta-tag">2-4 нед.</span>
+        <span class="support-meta-tag">Маркетинг + PM</span>
+      </div>
+    </div>
+    <div class="support-card">
+      <div class="support-card-title">Интеграция с экосистемой</div>
+      <div class="support-card-meta">
+        <span class="support-meta-tag">О·4</span>
+        <span class="support-meta-tag">Архитектор + PM</span>
+      </div>
     </div>
   </div>
+
 </div>
 <!-- /overview -->
 
@@ -1459,11 +952,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (1, не повторяется)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Формулировка проблемы + анализ рынка</span><span class="vp-time">1–2 дня</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Изучить проблему, провести первичный анализ рынка, определить ЦА и объём</span><span class="vp-time">1–2 дня</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Заполнение Product Brief + RICE</span><span class="vp-time">1 день</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Написать бриф инициативы, провести RICE-оценку, найти команду (PM, TL, дизайнер)</span><span class="vp-time">1 день</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Скрининг PMO → Go/No-Go</span><span class="vp-time">до 5 дней</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Скрининг PMO, проверка дублей в реестре, решение Go/No-Go за 5 рабочих дней</span><span class="vp-time">до 5 дней</span></div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1582,11 +1075,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (1–2, повтор если PSF не подтверждён)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">CustDev 7–10 интервью + JTBD-синтез</span><span class="vp-time">2–3 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">CustDev 7–10 интервью, конкурентный анализ, JTBD-синтез, карта болей</span><span class="vp-time">2–3 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Прототип Figma + ADR</span><span class="vp-time">1–2 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">PSF-документ, бизнес-кейс, Product Brief, прототип Figma, ADR</span><span class="vp-time">1–2 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Discovery Report → Gate 1 Review</span><span class="vp-time">3 дня</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Gate Review комитет, валидация проблемы, Discovery Report → Go/No-Go</span><span class="vp-time">3 дня</span></div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1706,11 +1199,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (2–4, спринты)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">UAT-фидбек + анализ метрик</span><span class="vp-time">2–3 дня</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Юзер-тестирование, техническое ревью, UAT-фидбек, анализ метрик запуска</span><span class="vp-time">2–3 дня</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Sprint</span><span class="vp-time">1–2 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">MVP-скоуп, Sprint (PRD → Dev → Review → DoD), прототип, первые метрики</span><span class="vp-time">1–2 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Sprint Review + ретро</span><span class="vp-time">1 день</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Gate Review: MVP работает? Sprint Review + ретро, baseline метрик</span><span class="vp-time">1 день</span></div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1827,11 +1320,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (3–7, параллельные эксперименты)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Анализ воронки + гипотезы роста</span><span class="vp-time">1 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">A/B тесты, анализ воронки и точек оттока, метрики запуска (Retention, DAU, NPS)</span><span class="vp-time">1 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">A/B тесты + фичи</span><span class="vp-time">2 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">GTM-план, rollout, масштабирование каналов, Growth Backlog + фичи</span><span class="vp-time">2 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Метрики + Growth Review</span><span class="vp-time">2–3 дня</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Gate Review: метрики достигнуты? Kill/Scale/Iterate, Growth Review</span><span class="vp-time">2–3 дня</span></div>
       </div>
     </div>
     <div class="stage-actions">
@@ -1945,11 +1438,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (2–4, интеграционные циклы)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">API-потребности партнёров</span><span class="vp-time">1–2 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Анализ интеграционных возможностей, API-потребности партнёров, cross-product синергии</span><span class="vp-time">1–2 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Platform features + интеграции</span><span class="vp-time">3–6 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">API-контракты, интеграции, партнёрства, Platform features, shared services</span><span class="vp-time">3–6 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Ecosystem metrics + партнёрский фидбек</span><span class="vp-time">1 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Экосистемный ревью: интеграция завершена? Ecosystem metrics + партнёрский фидбек</span><span class="vp-time">1 нед</span></div>
       </div>
     </div>
     <div class="stage-actions">
@@ -2061,11 +1554,11 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
     <div class="vitok-block">
       <div class="vitok-title">Виток на этой стадии (1–2 в квартал, стратегические итерации)</div>
       <div class="vitok-phases">
-        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">P&L анализ + стратегические опции</span><span class="vp-time">2 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Исследование</span><span class="vp-desc">Unit-экономика, анализ здоровья продукта, P&amp;L, NPS-тренд, стратегические опции</span><span class="vp-time">2 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Оптимизация + техдолг</span><span class="vp-time">4–6 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Разработка</span><span class="vp-desc">Оптимизация воронки, масштабирование, автоматизация, погашение техдолга</span><span class="vp-time">4–6 нед</span></div>
         <div class="vitok-arrow">→</div>
-        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">QBR → решение (Go новый цикл / Архив)</span><span class="vp-time">1 нед</span></div>
+        <div class="vitok-phase"><span class="vp-name">Оценка и ретро</span><span class="vp-desc">Стратегический ревью: Scale / Optimize / Sunset? QBR → решение</span><span class="vp-time">1 нед</span></div>
       </div>
     </div>
     <div class="stage-actions">
@@ -2420,7 +1913,6 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 </div>
 
 </div><!-- /fw-wrap -->
-</div><!-- /stages-view -->
 
 <!-- ═══ TEMPLATE MODAL ═══ -->
 <div class="modal-overlay" id="tmpl-modal" onclick="closeTmplModal(event)">
@@ -2452,25 +1944,8 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 <div class="edit-toast-msg" id="edit-toast-msg"></div>
 
 <script>
-// ══ VIEW SWITCHING (top-level Обзор / Стадии) ══
-function showView(id, btn) {
-  document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.vtab').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  window.scrollTo({top: 0, behavior:'smooth'});
-}
-
 // ══ SECTION SWITCHING ══
 function showSec(id, btn) {
-  // auto-switch to stages view if not active
-  var sv = document.getElementById('stages-view');
-  if (!sv.classList.contains('active')) {
-    document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
-    sv.classList.add('active');
-    document.querySelectorAll('.vtab').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.vtab').forEach(b => { if (b.textContent.trim() === 'Стадии') b.classList.add('active'); });
-  }
   document.querySelectorAll('.fw-section').forEach(s => s.classList.remove('active'));
   document.getElementById('sec-' + id).classList.add('active');
   if (btn) {
@@ -2480,16 +1955,9 @@ function showSec(id, btn) {
     // called from lc-flow click
     document.querySelectorAll('.stab').forEach(b => {
       b.classList.remove('active');
-      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
-    });
-    // also update active state by matching data
-    document.querySelectorAll('.stab').forEach(b => {
       const oc = b.getAttribute('onclick') || '';
       if (oc.includes("'" + id + "'")) b.classList.add('active');
     });
-    // scroll tabs into view if needed
-    const tabs = document.querySelector('.stage-tabs');
-    if (tabs) tabs.scrollIntoView({behavior:'smooth', block:'nearest'});
   }
   window.scrollTo({top: document.querySelector('.stage-tabs').getBoundingClientRect().top + window.pageYOffset - 50, behavior:'smooth'});
 }
