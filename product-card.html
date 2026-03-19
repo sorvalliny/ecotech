@@ -187,6 +187,26 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
 .inf-medium{color:var(--amber);background:var(--adim)}
 .inf-low{color:var(--muted);background:rgba(255,255,255,.04)}
 
+/* ── GOAL CARD EXPAND ── */
+.goal-card{cursor:pointer}
+.goal-card-toggle{font-size:10px;font-weight:700;color:var(--violet);cursor:pointer;background:none;border:none;font-family:var(--font);padding:0;margin-top:8px;transition:color .15s}
+.goal-card-toggle:hover{color:#fff}
+.goal-expand{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.goal-expand.open{display:block}
+.goal-expand-section{margin-bottom:12px}
+.goal-expand-title{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.ge-init-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;cursor:pointer;transition:border-color .15s;font-size:11px}
+.ge-init-item:hover{border-color:var(--bhi)}
+.ge-init-name{font-weight:700;color:#E8E8F0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ge-init-rice{font-family:var(--mono);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;flex-shrink:0}
+.ge-init-inf{font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;text-transform:uppercase;flex-shrink:0}
+.ge-influence-summary{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.ge-influence-chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;display:flex;align-items:center;gap:4px}
+.ge-influence-chip b{font-family:var(--mono)}
+.ge-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.ge-empty{font-size:11px;color:var(--muted);font-style:italic}
+.s-hi{color:var(--green)}.s-mi{color:var(--amber)}.s-lo{color:var(--red)}
+
 /* ── CALENDAR / TIMELINE ── */
 .cal-timeline-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;overflow-x:auto;margin-bottom:16px}
 .cal-timeline{position:relative;min-height:120px;padding-top:32px}
@@ -1037,15 +1057,26 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
         var apprStCls = APPROVAL_CLS[apprSt] || 'ab-pending';
         var apprStLabel = APPROVAL_LABELS[apprSt] || 'pending';
 
-        html += '<div class="goal-card" data-goal-id="' + esc(g.id) + '">';
+        var linked = findLinkedInitiatives(g.id, initiatives);
+        var infHigh = 0, infMedium = 0, infLow = 0;
+        for (var infI = 0; infI < linked.length; infI++) {
+          var infLvl = linked[infI].influence || 'medium';
+          if (infLvl === 'high') infHigh++;
+          else if (infLvl === 'low') infLow++;
+          else infMedium++;
+        }
+
+        html += '<div class="goal-card" data-goal-id="' + esc(g.id) + '" onclick="toggleGoalExpand(\'' + esc(g.id) + '\')">';
         html += '<div class="goal-title"><span>' + esc(g.title) + '</span>';
         html += '<span class="approval-badge ' + apprStCls + '">' + esc(apprStLabel) + '</span>';
         html += '</div>';
         html += '<div class="goal-meta">';
         html += '<span class="goal-tag ' + typeCls + '">' + esc(typeLabel) + '</span>';
         if (g.owner) html += '<span style="font-size:11px;color:var(--muted)">' + esc(g.owner) + '</span>';
+        if (g.period) html += '<span style="font-size:11px;color:var(--muted)">' + esc(g.period) + '</span>';
+        html += '<span style="font-size:10px;color:var(--muted)">' + linked.length + ' иниц.</span>';
         if (canApprove() && apprSt !== 'approved') {
-          html += '<button class="btn-approve btn-sm" data-goal-approve="' + esc(g.id) + '" style="padding:3px 10px;font-size:10px">\u0423\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C</button>';
+          html += '<button class="btn-approve btn-sm" data-goal-approve="' + esc(g.id) + '" style="padding:3px 10px;font-size:10px" onclick="event.stopPropagation()">\u0423\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C</button>';
         }
         html += '</div>';
 
@@ -1062,24 +1093,56 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
             html += '<div class="kr-progress"><div class="kr-progress-fill" style="width:' + pct + '%"></div></div>';
             html += '<div class="kr-pct">' + pct + '%</div>';
             html += '</div>';
-
-            // Linked initiatives with influence
-            var linked = findLinkedInitiatives(g.id, initiatives);
-            if (linked.length) {
-              html += '<div class="kr-linked">';
-              for (var li = 0; li < linked.length; li++) {
-                var inf = linked[li].influence || 'medium';
-                var infCls = inf === 'high' ? 'inf-high' : inf === 'low' ? 'inf-low' : 'inf-medium';
-                html += '<span class="kr-linked-item">' + esc(linked[li].id) + ' <span class="kr-influence ' + infCls + '">' + esc(inf) + '</span></span>';
-              }
-              html += '</div>';
-            }
             html += '</div>';
           }
           html += '</div>';
         }
 
+        // Expandable detail section
+        html += '<div class="goal-expand" id="goal-expand-' + esc(g.id) + '">';
+
+        // Description
+        if (g.description) {
+          html += '<div class="goal-expand-section"><div class="goal-expand-title">\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</div>';
+          html += '<div class="ge-desc">' + esc(g.description) + '</div></div>';
+        }
+
+        // Linked initiatives
+        html += '<div class="goal-expand-section"><div class="goal-expand-title">\u0421\u0432\u044F\u0437\u0430\u043D\u043D\u044B\u0435 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B (' + linked.length + ')</div>';
+        if (linked.length) {
+          for (var li = 0; li < linked.length; li++) {
+            var initItem = linked[li];
+            var inf = initItem.influence || 'medium';
+            var infCls = inf === 'high' ? 'inf-high' : inf === 'low' ? 'inf-low' : 'inf-medium';
+            var riceScore = initItem.r && initItem.i && initItem.c && initItem.e ? ((initItem.r * initItem.i * initItem.c) / initItem.e).toFixed(1) : '--';
+            var riceNum = parseFloat(riceScore);
+            var riceCls = riceNum > 20 ? 's-hi' : riceNum >= 10 ? 's-mi' : 's-lo';
+
+            html += '<div class="ge-init-item" onclick="event.stopPropagation();switchToTab(\'initiatives\');highlightInitiative(\'' + esc(initItem.id) + '\')">';
+            html += '<span style="font-family:var(--mono);font-size:9px;color:var(--muted)">' + esc(initItem.id) + '</span>';
+            html += '<span class="ge-init-name">' + esc(initItem.name || initItem.title || '--') + '</span>';
+            html += '<span class="ge-init-rice ' + riceCls + '">' + riceScore + '</span>';
+            html += '<span class="ge-init-inf ' + infCls + '">' + esc(inf) + '</span>';
+            html += '</div>';
+          }
+        } else {
+          html += '<div class="ge-empty">\u041D\u0435\u0442 \u043F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u043D\u044B\u0445 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432</div>';
+        }
         html += '</div>';
+
+        // Influence summary
+        if (linked.length) {
+          html += '<div class="goal-expand-section"><div class="goal-expand-title">\u0421\u0432\u043E\u0434\u043A\u0430 \u043F\u043E \u0432\u043B\u0438\u044F\u043D\u0438\u044E</div>';
+          html += '<div class="ge-influence-summary">';
+          if (infHigh)   html += '<div class="ge-influence-chip inf-high"><b>' + infHigh + '</b> High</div>';
+          if (infMedium) html += '<div class="ge-influence-chip inf-medium"><b>' + infMedium + '</b> Medium</div>';
+          if (infLow)    html += '<div class="ge-influence-chip inf-low"><b>' + infLow + '</b> Low</div>';
+          html += '</div></div>';
+        }
+
+        html += '</div>'; // goal-expand
+
+        html += '</div>'; // goal-card
       }
       html += '</div>';
     }
@@ -1745,6 +1808,35 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
         });
       })(approvalBtns[ai]);
     }
+  }
+
+  // ── GOAL EXPAND TOGGLE ──
+  function toggleGoalExpand(goalId) {
+    var el = document.getElementById('goal-expand-' + goalId);
+    if (!el) return;
+    el.classList.toggle('open');
+  }
+
+  function switchToTab(tabName) {
+    var tabs = document.querySelectorAll('.tab[data-tab]');
+    for (var ti = 0; ti < tabs.length; ti++) {
+      if (tabs[ti].getAttribute('data-tab') === tabName) {
+        tabs[ti].click();
+        break;
+      }
+    }
+  }
+
+  function highlightInitiative(initId) {
+    // Scroll to and briefly highlight the initiative card
+    setTimeout(function() {
+      var initEl = document.querySelector('[data-init-id="' + initId + '"]');
+      if (!initEl) return;
+      initEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      initEl.style.transition = 'box-shadow .3s';
+      initEl.style.boxShadow = '0 0 0 2px var(--violet), 0 0 20px rgba(79,195,247,.3)';
+      setTimeout(function() { initEl.style.boxShadow = ''; }, 2000);
+    }, 300);
   }
 
   // ── INIT: Calendar ──

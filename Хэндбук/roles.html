@@ -818,6 +818,243 @@
     </div>
   </div>
 
+  <!-- SECTION 5: PM-центричный сценарий (W4-031) -->
+  <div class="section" id="pm-scenario">
+    <h2 class="section-title">PM-центричный сценарий использования (W4-031)</h2>
+
+    <!-- 5.1 PM User Story Map -->
+    <div class="role-card" style="margin-bottom: 24px; padding: 28px;">
+      <div class="role-card-header" style="margin-bottom: 20px;">
+        <div class="role-ava role-ava--pm">USM</div>
+        <div class="role-name">PM User Story Map<small>Визуальная карта работы PM в ОРБИТЕ</small></div>
+      </div>
+
+      <div class="sync-block" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 0;">
+        <div class="sync-col">
+          <div class="sync-col-title">Ежедневно</div>
+          <ul class="sync-list">
+            <li>Открыть карточку продукта</li>
+            <li>Проверить статус инициатив</li>
+            <li>Обновить прогресс</li>
+            <li>Отметить блокеры</li>
+          </ul>
+        </div>
+        <div class="sync-col">
+          <div class="sync-col-title">Еженедельно</div>
+          <ul class="sync-list">
+            <li>Синк с PMO-менеджером</li>
+            <li>Подготовить статус-отчёт</li>
+            <li>Обновить RICE-оценки</li>
+            <li>Проверить артефакты Gate</li>
+          </ul>
+        </div>
+        <div class="sync-col">
+          <div class="sync-col-title">По запросу</div>
+          <ul class="sync-list">
+            <li>Подать новую инициативу</li>
+            <li>Заполнить бриф</li>
+            <li>Пройти Gate Review</li>
+            <li>Получить резолюцию</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5.2 Карточка инициативы -->
+    <div class="role-card" style="margin-bottom: 24px; padding: 28px;">
+      <div class="role-card-header" style="margin-bottom: 20px;">
+        <div class="role-ava role-ava--violet" style="background: var(--violet-dim); border: 1px solid var(--violet-border); color: var(--violet);">IC</div>
+        <div class="role-name">Карточка инициативы = центральный инструмент PM<small>Единая точка работы с инициативой</small></div>
+      </div>
+
+      <div class="sync-block" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 0;">
+        <div class="sync-col">
+          <div class="sync-col-title">Что PM видит</div>
+          <ul class="sync-list">
+            <li>Название и описание инициативы</li>
+            <li>RICE-оценка и приоритет</li>
+            <li>Текущий статус и стадия Gate</li>
+            <li>Привязка к цели (OKR)</li>
+            <li>Артефакты и документы</li>
+            <li>История ревью и решений</li>
+          </ul>
+        </div>
+        <div class="sync-col">
+          <div class="sync-col-title">Что PM может делать</div>
+          <ul class="sync-list">
+            <li>Редактировать описание и параметры</li>
+            <li>Менять статус инициативы</li>
+            <li>Загружать артефакты</li>
+            <li>Запрашивать ревью</li>
+            <li>Обновлять RICE-оценку</li>
+            <li>Добавлять комментарии</li>
+          </ul>
+        </div>
+        <div class="sync-col">
+          <div class="sync-col-title">Связь с методологией</div>
+          <ul class="sync-list">
+            <li>Каждая инициатива привязана к стадии (Gate)</li>
+            <li>Привязка к цели (OKR) обязательна</li>
+            <li>Принадлежность к продукту</li>
+            <li>Артефакты соответствуют чеклисту Gate</li>
+            <li>Переход по стадиям -- через PMO</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5.3 Сценарии -->
+    <div class="raci-wrap" style="margin-bottom: 0;">
+      <table class="raci-table">
+        <thead>
+          <tr>
+            <th style="min-width: 180px;">Сценарий</th>
+            <th style="text-align: left;">Шаг 1</th>
+            <th style="text-align: left;">Шаг 2</th>
+            <th style="text-align: left;">Шаг 3</th>
+            <th style="text-align: left;">Шаг 4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Запуск новой инициативы</td>
+            <td style="text-align: left; color: var(--gray2);">Заполнить бриф</td>
+            <td style="text-align: left; color: var(--gray2);">Провести RICE-оценку</td>
+            <td style="text-align: left; color: var(--gray2);">Подать на Gate 0</td>
+            <td style="text-align: left; color: var(--gray2);">Согласование PMO</td>
+          </tr>
+          <tr>
+            <td>Прохождение Gate Review</td>
+            <td style="text-align: left; color: var(--gray2);">Подготовить артефакты</td>
+            <td style="text-align: left; color: var(--gray2);">Пройти чеклист Gate</td>
+            <td style="text-align: left; color: var(--gray2);">Выступить на комитете</td>
+            <td style="text-align: left; color: var(--gray2);">Получить резолюцию</td>
+          </tr>
+          <tr>
+            <td>Планирование квартала</td>
+            <td style="text-align: left; color: var(--gray2);">Сформировать цели H1</td>
+            <td style="text-align: left; color: var(--gray2);">Декомпозировать в инициативы Q</td>
+            <td style="text-align: left; color: var(--gray2);">RICE-приоритизация</td>
+            <td style="text-align: left; color: var(--gray2);">Согласование с PMO и Lead</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 6: PMO-менеджер как роль (W4-032) -->
+  <div class="section" id="pmo-role">
+    <h2 class="section-title">PMO-менеджер как роль (W4-032)</h2>
+
+    <!-- 6.1 PMO-менеджер = владелец карточки продукта -->
+    <div class="role-card" style="margin-bottom: 24px; padding: 28px;">
+      <div class="role-card-header" style="margin-bottom: 20px;">
+        <div class="role-ava role-ava--pmo">OWN</div>
+        <div class="role-name">PMO-менеджер = владелец карточки продукта<small>Центральная роль в поддержании актуальности данных</small></div>
+      </div>
+
+      <div class="raci-wrap" style="border: none; background: transparent;">
+        <table class="raci-table" style="min-width: auto;">
+          <thead>
+            <tr>
+              <th style="min-width: 260px;">Действие</th>
+              <th>PMO Lead</th>
+              <th>PMO-менеджер</th>
+              <th>PM</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Создание / удаление карточки продукта</td>
+              <td><span class="raci-r">R</span></td>
+              <td><span class="raci-none">--</span></td>
+              <td><span class="raci-none">--</span></td>
+            </tr>
+            <tr>
+              <td>Актуализация данных: цели, метрики, статус</td>
+              <td><span class="raci-i">I</span></td>
+              <td><span class="raci-r">R</span></td>
+              <td><span class="raci-c">C</span></td>
+            </tr>
+            <tr>
+              <td>Актуализация инициатив</td>
+              <td><span class="raci-i">I</span></td>
+              <td><span class="raci-a">A</span></td>
+              <td><span class="raci-r">R</span></td>
+            </tr>
+            <tr>
+              <td>Переход по стадиям (Gate)</td>
+              <td><span class="raci-a">A</span></td>
+              <td><span class="raci-r">R</span></td>
+              <td><span class="raci-i">I</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 6.2 Зоны ответственности PMO-менеджера -->
+    <div class="role-card" style="margin-bottom: 24px; padding: 28px;">
+      <div class="role-card-header" style="margin-bottom: 20px;">
+        <div class="role-ava role-ava--pmo">ZO</div>
+        <div class="role-name">Зоны ответственности PMO-менеджера<small>Ключевые области работы</small></div>
+      </div>
+
+      <div class="grid-3" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="sync-col">
+          <div class="sync-col-title">Данные и продукты</div>
+          <ul class="sync-list">
+            <li>Актуализация данных по продуктам своего департамента</li>
+            <li>Контроль артефактов и соответствия методологии</li>
+            <li>Обеспечение полноты и качества данных в ОРБИТЕ</li>
+          </ul>
+        </div>
+        <div class="sync-col">
+          <div class="sync-col-title">Координация и коммуникация</div>
+          <ul class="sync-list">
+            <li>Координация PM: синки, статусы, блокеры</li>
+            <li>Подготовка к комитетам: повестка, сводка, рекомендации</li>
+            <li>Эскалация блокеров PMO Lead</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6.3 Связка PM <-> PMO-менеджер -->
+    <div class="role-card" style="margin-bottom: 24px; padding: 28px;">
+      <div class="role-card-header" style="margin-bottom: 20px;">
+        <div class="role-ava role-ava--teal" style="background: var(--teal-dim); border: 1px solid var(--teal-border); color: var(--teal);">LINK</div>
+        <div class="role-name">Связка PM &#8596; PMO-менеджер<small>Двухуровневая модель работы с данными</small></div>
+      </div>
+
+      <div class="sync-block">
+        <div class="sync-col">
+          <div class="sync-col-title">PM -- заполняет снизу</div>
+          <ul class="sync-list">
+            <li>Данные по инициативам: бриф, RICE, статус</li>
+            <li>Метрики продукта</li>
+            <li>Артефакты Gate</li>
+            <li>Запросы на ревью</li>
+          </ul>
+        </div>
+        <div class="sync-col">
+          <div class="sync-col-title">PMO -- агрегирует наверх</div>
+          <ul class="sync-list">
+            <li>Портфельная сводка по департаменту</li>
+            <li>Подготовка к комитетам</li>
+            <li>Статус целей и OKR</li>
+            <li>Эскалации и рекомендации</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sync-highlight">
+        Еженедельный синк: статус инициатив, блокеры, подготовка к комитету.
+        PMO-менеджер = "владелец правды" в ОРБИТЕ по своему направлению.
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script src="../nav.js"></script>

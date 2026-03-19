@@ -412,6 +412,51 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .card-goal-id{font-family:var(--font-head);font-size:9px;font-weight:700;color:var(--amber)}
 .card-goal-title{color:var(--text);flex:1}
 .card-goal-progress{font-family:var(--font-head);font-size:9px;color:var(--muted)}
+
+/* ── GOAL DETAIL PANEL ── */
+.goal-detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:999;display:none}
+.goal-detail-overlay.open{display:block}
+.goal-detail{position:fixed;right:0;top:0;width:440px;max-width:96vw;height:100vh;background:var(--card);border-left:1px solid var(--border);box-shadow:-8px 0 40px rgba(0,0,0,.5);z-index:1000;overflow-y:auto;padding:0;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,.8,.6,1)}
+.goal-detail.open{transform:translateX(0)}
+.gd-head{padding:20px 24px 16px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--card);z-index:2}
+.gd-head-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.gd-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.gd-close:hover{border-color:var(--bhi);color:#fff;background:rgba(255,255,255,.06)}
+.gd-id{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--amber);background:var(--adim);padding:3px 8px;border-radius:6px}
+.gd-title{font-size:18px;font-weight:800;color:#fff;line-height:1.3}
+.gd-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.gd-body{padding:20px 24px}
+.gd-section{margin-bottom:20px}
+.gd-section-title{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.gd-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.gd-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:6px}
+.gd-kr-item{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.gd-kr-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.gd-kr-id{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--violet);background:var(--vdim);padding:2px 6px;border-radius:4px;flex-shrink:0}
+.gd-kr-text{font-size:12px;font-weight:600;color:var(--text);flex:1}
+.gd-kr-val{font-family:var(--mono);font-size:11px;color:var(--muted);flex-shrink:0;margin-left:8px}
+.gd-kr-bar{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.gd-kr-bar-fill{height:100%;border-radius:3px;background:var(--violet);transition:width .3s}
+.gd-init-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card2);border:1px solid var(--border);border-radius:8px;margin-bottom:6px;cursor:pointer;transition:border-color .15s}
+.gd-init-item:hover{border-color:var(--bhi)}
+.gd-init-name{font-size:12px;font-weight:700;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gd-init-rice{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;flex-shrink:0}
+.gd-init-inf{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.04em;flex-shrink:0}
+.gd-inf-high{color:#4BCE97;background:rgba(75,206,151,.12)}
+.gd-inf-medium{color:#F5CD47;background:rgba(245,205,71,.12)}
+.gd-inf-low{color:var(--muted);background:rgba(255,255,255,.06)}
+.gd-influence-summary{display:flex;gap:12px;flex-wrap:wrap}
+.gd-influence-chip{font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;display:flex;align-items:center;gap:5px}
+.gd-influence-chip b{font-family:var(--mono)}
+.gd-foot{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:8px;position:sticky;bottom:0;background:var(--card);z-index:2}
+.gd-edit-btn{flex:1;padding:10px 18px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--teal),var(--violet));color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.gd-edit-btn:hover{opacity:.85}
+.gd-empty{font-size:12px;color:var(--muted);padding:8px 0}
+.approval-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.ab-approved{color:var(--teal);background:var(--tdim);border:1px solid rgba(75,206,151,.3)}
+.ab-pending{color:var(--amber);background:var(--adim);border:1px solid rgba(245,205,71,.3)}
+.ab-rejected{color:var(--red);background:var(--rdim);border:1px solid rgba(248,113,113,.3)}
+
 .card-changelog { margin-top:8px; padding-top:8px; border-top:1px solid var(--border); }
 .cl-entry { display:flex; gap:6px; align-items:center; font-size:10px; color:var(--muted); padding:2px 0; }
 .cl-time { color:var(--muted); min-width:60px; }
@@ -597,6 +642,42 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 [data-theme="light"] .kanban-card:hover { border-color:var(--teal-border); }
 [data-theme="light"] .prod-filter-btn.active { background:var(--violet-dim); color:var(--violet); border-color:var(--violet-border); }
 [data-theme="light"] .drag-confirm-overlay { background:rgba(255,255,255,.7); }
+
+/* ── PLANNING TAB ── */
+.planning-views { display: flex; gap: 8px; margin-bottom: 16px; }
+.plan-view-btn { padding: 8px 16px; border-radius: var(--radius-xs); border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; font-family: var(--font); font-size: 12px; font-weight: 600; transition: all .15s; }
+.plan-view-btn:hover { color: var(--text); border-color: var(--border-hi); }
+.plan-view-btn.active { background: var(--violet-dim); color: var(--violet); border-color: var(--violet-border); }
+.plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.plan-col { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; min-height: 120px; }
+.plan-col-header { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; }
+.plan-col-stats { font-size: 10px; color: var(--muted); margin-bottom: 12px; }
+.plan-col-count { font-size: 11px; color: var(--muted); background: rgba(255,255,255,.05); padding: 2px 8px; border-radius: 10px; }
+.plan-item { padding: 10px 12px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-xs); margin-bottom: 8px; cursor: pointer; transition: border-color .15s; }
+.plan-item:hover { border-color: var(--border-hi); }
+.plan-item-name { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.plan-item-meta { display: flex; gap: 8px; font-size: 10px; color: var(--muted); align-items: center; flex-wrap: wrap; }
+.plan-item-rice { font-weight: 700; color: var(--violet); }
+.half-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.half-col-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.half-goal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; }
+.half-goal-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.half-goal-meta { font-size: 10px; color: var(--muted); margin-bottom: 10px; display: flex; gap: 8px; align-items: center; }
+.half-goal-type { font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; }
+.half-goal-type.strategic { background: rgba(255,133,192,.15); color: #FF85C0; }
+.half-goal-type.product { background: rgba(75,206,151,.15); color: #4BCE97; }
+.half-kr-summary { font-size: 10px; color: var(--muted); margin-bottom: 8px; }
+.half-kr-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 10px; }
+.half-kr-bar-fill { height: 100%; background: var(--teal); border-radius: 2px; }
+.half-init { padding: 8px 12px; background: var(--card); border-left: 3px solid var(--violet); margin: 6px 0 6px 12px; border-radius: 0 var(--radius-xs) var(--radius-xs) 0; font-size: 11px; color: var(--text); display: flex; justify-content: space-between; align-items: center; }
+.half-init-influence { font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+.half-init-influence.high { background: rgba(123,47,255,.15); color: var(--violet); }
+.half-init-influence.medium { background: rgba(87,157,255,.15); color: #579DFF; }
+.half-init-influence.low { background: rgba(255,255,255,.05); color: var(--muted); }
+.half-no-inits { font-size: 10px; color: var(--muted); font-style: italic; margin-left: 12px; padding: 4px 0; }
+.plan-empty { text-align: center; color: var(--muted); font-size: 12px; padding: 32px 16px; }
+@media (max-width: 900px) { .plan-grid { grid-template-columns: 1fr 1fr; } .half-grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .plan-grid { grid-template-columns: 1fr; } }
 </style>
   <script src="../icons.js"></script>
   <script src="../platform.js"></script>
@@ -612,6 +693,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
     <button class="tab" onclick="switchTab('backlog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-layers"/></svg> Инициативы</button>
     <button class="tab" onclick="switchTab('goals',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цели</button>
     <button class="tab" onclick="switchTab('changelog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clock"/></svg> История</button>
+    <button class="tab" onclick="switchTab('planning',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Планирование</button>
   </div>
   <div class="tt-right">
     <div class="tt-create-wrap">
@@ -1242,6 +1324,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
       <div id="trk-content"></div>
     </div>
 
+    <!-- PLANNING -->
+    <div id="pg-planning" style="display:none">
+      <div class="planning-views">
+        <button class="plan-view-btn active" onclick="setPlanView('quarter',this)">Квартал</button>
+        <button class="plan-view-btn" onclick="setPlanView('half',this)">Полугодие</button>
+      </div>
+      <div id="plan-quarter"></div>
+      <div id="plan-half" style="display:none"></div>
+    </div>
+
     <!-- CHANGELOG -->
     <div id="pg-changelog" style="display:none">
       <div id="changelog-list"></div>
@@ -1464,6 +1556,24 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
   </div>
   <div class="pp-foot">
     <button class="btn-save" onclick="saveProductPRD()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-save"/></svg> Сохранить PRD продукта</button>
+  </div>
+</div>
+
+<!-- GOAL DETAIL PANEL -->
+<div id="goal-detail-overlay" class="goal-detail-overlay" onclick="closeGoalDetail()"></div>
+<div id="goal-detail" class="goal-detail">
+  <div class="gd-head">
+    <div class="gd-head-row">
+      <button class="gd-close" onclick="closeGoalDetail()"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-x"/></svg></button>
+      <span class="gd-id" id="gd-id"></span>
+      <div style="flex:1"></div>
+    </div>
+    <div class="gd-title" id="gd-title"></div>
+    <div class="gd-meta" id="gd-meta"></div>
+  </div>
+  <div class="gd-body" id="gd-body"></div>
+  <div class="gd-foot">
+    <button class="gd-edit-btn" id="gd-edit-btn"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-edit"/></svg> Редактировать цель</button>
   </div>
 </div>
 
@@ -1720,19 +1830,19 @@ let gateChecklist = {};
 try { gateChecklist = (window.PT ? PT.load('ECOTECH_GATE_CHECKLIST') : JSON.parse(localStorage.getItem('ECOTECH_GATE_CHECKLIST'))) || {}; } catch(e) {}
 
 const BACKLOG_DEFAULT = [
-  { id:'D001', productId:'ECO-00', project:'ECO-00', track:'delivery', name:'Онбординг-флоу для новых юзеров', desc:'Пошаговый wizard при первом входе \u2192 рост Retention D7', cat:'feature', segment:'product', type:'product', r:9, i:8, c:7, e:4, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
-  { id:'D002', productId:'ECO-00', project:'ECO-00', track:'review', name:'NPS-опрос + action plan', desc:'Ежемесячный NPS-замер, анализ детракторов, план улучшений', cat:'process', segment:'product', type:'product', r:10, i:6, c:8, e:2, status:'wip', created:'2026-03-01', updated:'2026-03-17' },
-  { id:'D003', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'A/B тест лендинга', desc:'3 варианта лендинга, замер конверсии в регистрацию', cat:'feature', segment:'product', type:'product', r:8, i:7, c:6, e:3, status:'planned', created:'2026-03-05', updated:'2026-03-17' },
-  { id:'D004', productId:'ECO-00', project:'ECO-00', track:'delivery', name:'Push-уведомления', desc:'Триггерные пуши для возврата неактивных юзеров', cat:'feature', segment:'tech', type:'technical', r:7, i:6, c:5, e:5, status:'backlog', created:'2026-03-10', updated:'2026-03-17' },
-  { id:'D005', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'P&L модель 3 сценария', desc:'Финансовая модель: базовый, оптимистичный, пессимистичный', cat:'process', segment:'business', type:'business', r:8, i:9, c:7, e:3, status:'planned', created:'2026-03-10', updated:'2026-03-17' },
-  { id:'D006', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'Unit economics: CAC и LTV', desc:'Расчёт стоимости привлечения и жизненной ценности клиента', cat:'process', segment:'business', type:'business', r:7, i:8, c:5, e:4, status:'backlog', created:'2026-03-12', updated:'2026-03-17' },
-  { id:'I001', productId:'ECO-01', project:'ECO-01', track:'delivery', name:'Геймификация покупок', desc:'Игровые механики для увеличения retention', cat:'feature', segment:'product', type:'product', r:8, i:7, c:7, e:4, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I002', productId:'ECO-01', project:'ECO-01', track:'review', name:'NPS-опрос и анализ', desc:'Ежемесячный NPS-замер + action plan по детракторам', cat:'process', segment:'product', type:'product', r:10, i:6, c:8, e:2, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I003', productId:'ECO-01', project:'ECO-01', track:'discovery', name:'Unit economics модель', desc:'P&L модель + CAC/LTV расчёт для Gate 4', cat:'process', segment:'business', type:'business', r:8, i:9, c:6, e:3, status:'planned', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I004', productId:'ECO-02', project:'ECO-02', track:'discovery', name:'CustDev образовательных учреждений', desc:'7-10 интервью с учителями и методистами', cat:'process', segment:'product', type:'product', r:9, i:8, c:5, e:3, status:'wip', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I005', productId:'ECO-02', project:'ECO-02', track:'delivery', name:'MVP генератора контента', desc:'Прототип AI-генератора учебных материалов', cat:'feature', segment:'tech', type:'technical', r:8, i:9, c:4, e:7, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I006', productId:'ECO-03', project:'ECO-03', track:'discovery', name:'Product Brief Сервис З', desc:'Заполнить бриф: проблема, ЦА, RICE, OKR', cat:'process', segment:'product', type:'product', r:7, i:7, c:8, e:1, status:'backlog', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I007', productId:'ECO-03', project:'ECO-03', track:'discovery', name:'Анализ рынка знакомств', desc:'Конкуренты, TAM/SAM, позиционирование', cat:'process', segment:'business', type:'business', r:6, i:6, c:5, e:2, status:'backlog', created:'2026-03-17', updated:'2026-03-17' }
+  { id:'D001', productId:'ECO-00', project:'ECO-00', track:'delivery', name:'Онбординг-флоу для новых юзеров', desc:'Пошаговый wizard при первом входе \u2192 рост Retention D7', cat:'feature', segment:'product', type:'product', r:9, i:8, c:7, e:4, status:'wip', release:'Q1 2026', quarter:'Q1 2026', created:'2026-03-01', updated:'2026-03-17' },
+  { id:'D002', productId:'ECO-00', project:'ECO-00', track:'review', name:'NPS-опрос + action plan', desc:'Ежемесячный NPS-замер, анализ детракторов, план улучшений', cat:'process', segment:'product', type:'product', r:10, i:6, c:8, e:2, status:'wip', release:'Q1 2026', quarter:'Q1 2026', created:'2026-03-01', updated:'2026-03-17' },
+  { id:'D003', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'A/B тест лендинга', desc:'3 варианта лендинга, замер конверсии в регистрацию', cat:'feature', segment:'product', type:'product', r:8, i:7, c:6, e:3, status:'planned', release:'Q1 2026', quarter:'Q1 2026', created:'2026-03-05', updated:'2026-03-17' },
+  { id:'D004', productId:'ECO-00', project:'ECO-00', track:'delivery', name:'Push-уведомления', desc:'Триггерные пуши для возврата неактивных юзеров', cat:'feature', segment:'tech', type:'technical', r:7, i:6, c:5, e:5, status:'backlog', release:'Q2 2026', quarter:'Q2 2026', created:'2026-03-10', updated:'2026-03-17' },
+  { id:'D005', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'P&L модель 3 сценария', desc:'Финансовая модель: базовый, оптимистичный, пессимистичный', cat:'process', segment:'business', type:'business', r:8, i:9, c:7, e:3, status:'planned', release:'Q2 2026', quarter:'Q2 2026', created:'2026-03-10', updated:'2026-03-17' },
+  { id:'D006', productId:'ECO-00', project:'ECO-00', track:'discovery', name:'Unit economics: CAC и LTV', desc:'Расчёт стоимости привлечения и жизненной ценности клиента', cat:'process', segment:'business', type:'business', r:7, i:8, c:5, e:4, status:'backlog', release:'Q2 2026', quarter:'Q2 2026', created:'2026-03-12', updated:'2026-03-17' },
+  { id:'I001', productId:'ECO-01', project:'ECO-01', track:'delivery', name:'Геймификация покупок', desc:'Игровые механики для увеличения retention', cat:'feature', segment:'product', type:'product', r:8, i:7, c:7, e:4, status:'wip', release:'Q1 2026', quarter:'Q1 2026', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I002', productId:'ECO-01', project:'ECO-01', track:'review', name:'NPS-опрос и анализ', desc:'Ежемесячный NPS-замер + action plan по детракторам', cat:'process', segment:'product', type:'product', r:10, i:6, c:8, e:2, status:'planned', release:'Q1 2026', quarter:'Q1 2026', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I003', productId:'ECO-01', project:'ECO-01', track:'discovery', name:'Unit economics модель', desc:'P&L модель + CAC/LTV расчёт для Gate 4', cat:'process', segment:'business', type:'business', r:8, i:9, c:6, e:3, status:'planned', release:'Q2 2026', quarter:'Q2 2026', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I004', productId:'ECO-02', project:'ECO-02', track:'discovery', name:'CustDev образовательных учреждений', desc:'7-10 интервью с учителями и методистами', cat:'process', segment:'product', type:'product', r:9, i:8, c:5, e:3, status:'wip', release:'Q1 2026', quarter:'Q1 2026', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I005', productId:'ECO-02', project:'ECO-02', track:'delivery', name:'MVP генератора контента', desc:'Прототип AI-генератора учебных материалов', cat:'feature', segment:'tech', type:'technical', r:8, i:9, c:4, e:7, status:'backlog', release:'Q2 2026', quarter:'Q2 2026', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I006', productId:'ECO-03', project:'ECO-03', track:'discovery', name:'Product Brief Сервис З', desc:'Заполнить бриф: проблема, ЦА, RICE, OKR', cat:'process', segment:'product', type:'product', r:7, i:7, c:8, e:1, status:'backlog', release:'Q1 2026', quarter:'Q1 2026', created:'2026-03-17', updated:'2026-03-17' },
+  { id:'I007', productId:'ECO-03', project:'ECO-03', track:'discovery', name:'Анализ рынка знакомств', desc:'Конкуренты, TAM/SAM, позиционирование', cat:'process', segment:'business', type:'business', r:6, i:6, c:5, e:2, status:'backlog', release:'Q1 2026', quarter:'Q1 2026', created:'2026-03-17', updated:'2026-03-17' }
 ];
 
 // ════════════════════════════════════════════
@@ -1999,6 +2109,7 @@ function onFilterChange() {
   if (curTab === 'portfolio') { renderPortfolio(); renderLifecycle(); applyGateFilter(); }
   if (curTab === 'backlog') renderBL();
   if (curTab === 'goals') renderGoals();
+  if (curTab === 'planning') { renderPlanQuarter(); renderPlanHalf(); }
   updateStats();
 }
 
@@ -2323,12 +2434,14 @@ function switchTab(tab, btn) {
   document.getElementById('pg-tracker').style.display   = tab === 'tracker'   ? '' : 'none';
   document.getElementById('pg-goals').style.display     = tab === 'goals'     ? '' : 'none';
   document.getElementById('pg-changelog').style.display = tab === 'changelog' ? '' : 'none';
+  document.getElementById('pg-planning').style.display  = tab === 'planning'  ? '' : 'none';
   if (tab === 'backlog') { renderBL(); }
   else { if (tab !== 'portfolio') { closeEP(); closeProductPRD(); } }
   if (tab === 'tracker') renderTracker(curRole);
   if (tab === 'goals')   renderGoals();
   if (tab === 'portfolio') { renderPortfolio(); setPortfolioView(portfolioView, null); }
   if (tab === 'changelog') renderChangelog();
+  if (tab === 'planning') { renderPlanQuarter(); renderPlanHalf(); }
   if (tab === 'backlog') setBacklogView(backlogView, null);
   renderContextFilters();
   renderContextViewSwitch();
@@ -3308,7 +3421,7 @@ function renderGoals() {
         }).join('')}</div>
       </div>`;
     }).join('');
-    return `<div class="goal-card" onclick="openGoalEditor('${goal.id}')" style="cursor:pointer">
+    return `<div class="goal-card" onclick="openGoalDetail('${goal.id}')" style="cursor:pointer">
       <div class="goal-card-head">
         <span class="goal-id-badge">${goal.id}</span>
         <div class="goal-info">
@@ -3326,7 +3439,7 @@ function renderGoals() {
         <div class="goal-stat">Инициатив: <b>${goalInits.length}</b></div>
         <div class="goal-stat">Направлений: <b>${goalEpics.length}</b></div>
         <div style="flex:1"></div>
-        <button class="exbtn" onclick="openGoalEditor('${goal.id}')">${EI.svg('edit',14)} Редактировать</button>
+        <button class="exbtn" onclick="event.stopPropagation();openGoalDetail('${goal.id}')">${EI.svg('search',14)} Подробнее</button>
       </div>
     </div>`;
   }).join('');
@@ -3618,6 +3731,123 @@ function buildKRRow(kr) {
     <input type="text" placeholder="ед." value="${unit}">
     <button class="gm-kr-del" onclick="removeKRRow(this)" title="Удалить KR">\u2715</button>
   </div>`;
+}
+
+// ════════════════════════════════════════════
+// GOAL DETAIL PANEL
+// ════════════════════════════════════════════
+function openGoalDetail(goalId) {
+  var goal = goals.find(function(g) { return g.id === goalId; });
+  if (!goal) return;
+  var linkedInits = backlog.filter(function(i) { return i.goalId === goalId; });
+
+  // Header
+  document.getElementById('gd-id').textContent = goal.id;
+  document.getElementById('gd-title').textContent = goal.title;
+
+  // Meta: type badge, period, owner, status, approval
+  var typeCls = goal.type === 'strategic' ? 'goal-type-strategic' : 'goal-type-product';
+  var statusLabel = goal.status === 'active' ? 'Активна' : goal.status === 'achieved' ? 'Достигнута' : goal.status === 'cancelled' ? 'Отменена' : 'Черновик';
+  var statusCls = goal.status === 'active' ? 'st-wip' : goal.status === 'achieved' ? 'st-done' : goal.status === 'cancelled' ? 'st-backlog' : 'st-planned';
+  var approvalSt = goal.approvalStatus || 'pending';
+  var approvalLabel = approvalSt === 'approved' ? 'Согласовано' : approvalSt === 'rejected' ? 'Отклонено' : 'На согласовании';
+  var approvalCls = approvalSt === 'approved' ? 'ab-approved' : approvalSt === 'rejected' ? 'ab-rejected' : 'ab-pending';
+
+  var metaHtml = '';
+  metaHtml += '<span class="goal-type ' + typeCls + '">' + escHtml(goal.type) + '</span>';
+  metaHtml += '<span style="font-size:11px;color:var(--muted)">' + escHtml(goal.period) + '</span>';
+  if (goal.owner) metaHtml += '<span style="font-size:11px;color:var(--muted)">' + EI.svg('user',12) + ' ' + escHtml(goal.owner) + '</span>';
+  metaHtml += '<span class="sdot ' + statusCls + '" style="font-size:9px;padding:2px 7px">' + escHtml(statusLabel) + '</span>';
+  document.getElementById('gd-meta').innerHTML = metaHtml;
+
+  // Body
+  var bodyHtml = '';
+
+  // Description
+  if (goal.description) {
+    bodyHtml += '<div class="gd-section"><div class="gd-section-title">Описание</div>';
+    bodyHtml += '<div class="gd-desc">' + escHtml(goal.description) + '</div></div>';
+  }
+
+  // Approval status
+  bodyHtml += '<div class="gd-section"><div class="gd-section-title">Согласование</div>';
+  bodyHtml += '<span class="approval-badge ' + approvalCls + '" style="font-size:11px;padding:4px 10px">' + escHtml(approvalLabel) + '</span>';
+  bodyHtml += '</div>';
+
+  // Key Results
+  var krs = goal.keyResults || [];
+  if (krs.length) {
+    bodyHtml += '<div class="gd-section"><div class="gd-section-title">Key Results (' + krs.length + ')</div>';
+    for (var ki = 0; ki < krs.length; ki++) {
+      var kr = krs[ki];
+      var pct = Math.min(100, kr.target > 0 ? Math.round(kr.current / kr.target * 100) : 0);
+      bodyHtml += '<div class="gd-kr-item">';
+      bodyHtml += '<div class="gd-kr-head">';
+      bodyHtml += '<span class="gd-kr-id">' + escHtml(kr.id) + '</span>';
+      bodyHtml += '<span class="gd-kr-text">' + escHtml(kr.text) + '</span>';
+      bodyHtml += '<span class="gd-kr-val">' + kr.current + ' / ' + kr.target + ' ' + escHtml(kr.unit || '') + '</span>';
+      bodyHtml += '</div>';
+      bodyHtml += '<div class="gd-kr-bar"><div class="gd-kr-bar-fill" style="width:' + pct + '%"></div></div>';
+      bodyHtml += '<div style="text-align:right;font-size:10px;color:var(--muted);margin-top:4px">' + pct + '%</div>';
+      bodyHtml += '</div>';
+    }
+    bodyHtml += '</div>';
+  }
+
+  // Linked initiatives
+  bodyHtml += '<div class="gd-section"><div class="gd-section-title">Связанные инициативы (' + linkedInits.length + ')</div>';
+  if (linkedInits.length) {
+    for (var li = 0; li < linkedInits.length; li++) {
+      var init = linkedInits[li];
+      var rice = sc(init);
+      var riceCls = scClass(rice);
+      var inf = init.influence || 'medium';
+      var infCls = inf === 'high' ? 'gd-inf-high' : inf === 'low' ? 'gd-inf-low' : 'gd-inf-medium';
+      bodyHtml += '<div class="gd-init-item" onclick="event.stopPropagation();closeGoalDetail();openPRD(\'' + init.id + '\')">';
+      bodyHtml += '<span class="sdot ' + (ST_CLS[init.status] || 'st-backlog') + '" style="font-size:9px;padding:2px 6px">' + escHtml(ST_LBL[init.status] || init.status) + '</span>';
+      bodyHtml += '<span class="gd-init-name">' + escHtml(OrbAuth.getDisplayName(init, 'initiative')) + '</span>';
+      bodyHtml += '<span class="gd-init-rice ' + riceCls + '">' + rice.toFixed(1) + '</span>';
+      bodyHtml += '<span class="gd-init-inf ' + infCls + '">' + escHtml(inf) + '</span>';
+      bodyHtml += '</div>';
+    }
+  } else {
+    bodyHtml += '<div class="gd-empty">Нет привязанных инициатив</div>';
+  }
+  bodyHtml += '</div>';
+
+  // Influence summary
+  if (linkedInits.length) {
+    var infHigh = 0, infMedium = 0, infLow = 0;
+    for (var ii = 0; ii < linkedInits.length; ii++) {
+      var infLevel = linkedInits[ii].influence || 'medium';
+      if (infLevel === 'high') infHigh++;
+      else if (infLevel === 'low') infLow++;
+      else infMedium++;
+    }
+    bodyHtml += '<div class="gd-section"><div class="gd-section-title">Сводка по влиянию</div>';
+    bodyHtml += '<div class="gd-influence-summary">';
+    if (infHigh)   bodyHtml += '<div class="gd-influence-chip gd-inf-high"><b>' + infHigh + '</b> High</div>';
+    if (infMedium) bodyHtml += '<div class="gd-influence-chip gd-inf-medium"><b>' + infMedium + '</b> Medium</div>';
+    if (infLow)    bodyHtml += '<div class="gd-influence-chip gd-inf-low"><b>' + infLow + '</b> Low</div>';
+    bodyHtml += '</div></div>';
+  }
+
+  document.getElementById('gd-body').innerHTML = bodyHtml;
+
+  // Edit button
+  document.getElementById('gd-edit-btn').onclick = function() {
+    closeGoalDetail();
+    openGoalEditor(goalId);
+  };
+
+  // Open panel
+  document.getElementById('goal-detail-overlay').classList.add('open');
+  document.getElementById('goal-detail').classList.add('open');
+}
+
+function closeGoalDetail() {
+  document.getElementById('goal-detail-overlay').classList.remove('open');
+  document.getElementById('goal-detail').classList.remove('open');
 }
 
 function openGoalEditor(goalId) {
@@ -4165,6 +4395,201 @@ function startOnboarding() {
   obCurrent = 0;
   document.getElementById('ob-overlay').classList.add('active');
   showObStep(0);
+}
+
+// ════════════════════════════════════════════
+// PLANNING TAB
+// ════════════════════════════════════════════
+var planView = 'quarter';
+
+function setPlanView(view, btn) {
+  planView = view;
+  document.querySelectorAll('.plan-view-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  else {
+    document.querySelectorAll('.plan-view-btn').forEach(function(b) {
+      if ((view === 'quarter' && b.textContent.trim() === 'Квартал') ||
+          (view === 'half' && b.textContent.trim() === 'Полугодие')) b.classList.add('active');
+    });
+  }
+  document.getElementById('plan-quarter').style.display = view === 'quarter' ? '' : 'none';
+  document.getElementById('plan-half').style.display    = view === 'half'    ? '' : 'none';
+  if (view === 'quarter') renderPlanQuarter();
+  if (view === 'half') renderPlanHalf();
+}
+
+function getQuarterFromRelease(item) {
+  var rel = item.quarter || item.release || '';
+  var m = rel.match(/Q([1-4])\s*(\d{4})/);
+  if (m) return { q: parseInt(m[1], 10), year: parseInt(m[2], 10) };
+  return null;
+}
+
+function getHalfFromPeriod(period) {
+  if (!period) return null;
+  var mH = period.match(/H([12])\s*(\d{4})/);
+  if (mH) return { h: parseInt(mH[1], 10), year: parseInt(mH[2], 10) };
+  var mQ = period.match(/Q([1-4])\s*(\d{4})/);
+  if (mQ) {
+    var qq = parseInt(mQ[1], 10);
+    return { h: qq <= 2 ? 1 : 2, year: parseInt(mQ[2], 10) };
+  }
+  return null;
+}
+
+function renderPlanQuarter() {
+  var container = document.getElementById('plan-quarter');
+  if (!container) return;
+
+  var filtered = applyFilters(backlog);
+  var year = 2026;
+  var quarters = [1, 2, 3, 4];
+
+  var grouped = { 1: [], 2: [], 3: [], 4: [] };
+  filtered.forEach(function(item) {
+    var qInfo = getQuarterFromRelease(item);
+    if (qInfo && qInfo.year === year && grouped[qInfo.q]) {
+      grouped[qInfo.q].push(item);
+    }
+  });
+
+  // Sort each quarter by RICE descending
+  quarters.forEach(function(q) {
+    grouped[q].sort(function(a, b) { return sc(b) - sc(a); });
+  });
+
+  var html = '<div class="plan-grid">';
+  quarters.forEach(function(q) {
+    var items = grouped[q];
+    var avgRice = items.length > 0
+      ? (items.reduce(function(sum, it) { return sum + sc(it); }, 0) / items.length).toFixed(1)
+      : '—';
+
+    html += '<div class="plan-col">';
+    html += '<div class="plan-col-header"><span>Q' + q + ' ' + year + '</span><span class="plan-col-count">' + items.length + ' иниц.</span></div>';
+    html += '<div class="plan-col-stats">Ср. RICE: ' + avgRice + '</div>';
+
+    if (items.length === 0) {
+      html += '<div class="plan-empty">Нет инициатив</div>';
+    } else {
+      items.forEach(function(item) {
+        var riceScore = sc(item).toFixed(1);
+        var proj = PROJECTS.find(function(p) { return p.id === (item.productId || item.project); });
+        var prodName = proj ? escHtml(OrbAuth.getDisplayName(proj, 'product')) : '—';
+        var statusLabel = ST_LBL[item.status] || item.status;
+        var statusCls = ST_CLS[item.status] || '';
+
+        html += '<div class="plan-item" onclick="openEP(\'' + item.id + '\')">';
+        html += '<div class="plan-item-name">' + escHtml(item.id) + ' ' + escHtml(item.name) + '</div>';
+        html += '<div class="plan-item-meta">';
+        html += '<span class="plan-item-rice">RICE ' + riceScore + '</span>';
+        html += '<span class="sdot ' + statusCls + '" style="font-size:9px;padding:1px 6px">' + statusLabel + '</span>';
+        html += '<span>' + prodName + '</span>';
+        html += '</div>';
+        html += '</div>';
+      });
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function renderPlanHalf() {
+  var container = document.getElementById('plan-half');
+  if (!container) return;
+
+  var filteredItems = applyFilters(backlog);
+  var year = 2026;
+
+  // Filter goals same way as renderGoals
+  var filteredGoals = goals.filter(function(g) {
+    if (FILTERS.product && g.productId !== FILTERS.product) return false;
+    if (FILTERS.dept) {
+      var gProd = null;
+      for (var dp = 0; dp < PROJECTS.length; dp++) {
+        if (PROJECTS[dp].id === g.productId) { gProd = PROJECTS[dp]; break; }
+      }
+      if (gProd && gProd.department && gProd.department !== FILTERS.dept) return false;
+    }
+    if (FILTERS.search) {
+      var q = FILTERS.search.toLowerCase();
+      if ((g.title + ' ' + (g.id || '')).toLowerCase().indexOf(q) === -1) return false;
+    }
+    return true;
+  });
+
+  var halves = [1, 2];
+  var goalsByHalf = { 1: [], 2: [] };
+
+  filteredGoals.forEach(function(goal) {
+    var hInfo = getHalfFromPeriod(goal.period);
+    if (hInfo && hInfo.year === year && goalsByHalf[hInfo.h]) {
+      goalsByHalf[hInfo.h].push(goal);
+    }
+  });
+
+  var html = '<div class="half-grid">';
+  halves.forEach(function(h) {
+    html += '<div class="half-col">';
+    html += '<div class="half-col-title">H' + h + ' ' + year + '</div>';
+
+    var hGoals = goalsByHalf[h];
+    if (hGoals.length === 0) {
+      html += '<div class="plan-empty">Нет целей в этом полугодии</div>';
+    } else {
+      hGoals.forEach(function(goal) {
+        var typeCls = goal.type === 'strategic' ? 'strategic' : 'product';
+        var totalKR = goal.keyResults ? goal.keyResults.length : 0;
+        var completedKR = 0;
+        var avgKRPct = 0;
+        if (totalKR > 0) {
+          var sumPct = 0;
+          goal.keyResults.forEach(function(kr) {
+            var pct = kr.target > 0 ? Math.round(kr.current / kr.target * 100) : 0;
+            sumPct += Math.min(100, pct);
+            if (pct >= 100) completedKR++;
+          });
+          avgKRPct = Math.round(sumPct / totalKR);
+        }
+
+        // Find linked initiatives
+        var linkedInits = filteredItems.filter(function(it) { return it.goalId === goal.id; });
+
+        html += '<div class="half-goal">';
+        html += '<div class="half-goal-title">' + escHtml(goal.title) + '</div>';
+        html += '<div class="half-goal-meta">';
+        html += '<span class="half-goal-type ' + typeCls + '">' + goal.type + '</span>';
+        html += '<span>' + escHtml(goal.period) + '</span>';
+        html += '<span>' + totalKR + ' KR (' + completedKR + ' done)</span>';
+        html += '</div>';
+        html += '<div class="half-kr-bar"><div class="half-kr-bar-fill" style="width:' + avgKRPct + '%"></div></div>';
+
+        if (linkedInits.length > 0) {
+          linkedInits.forEach(function(init) {
+            var influence = init.influence || '';
+            var influenceCls = influence === 'high' ? 'high' : influence === 'medium' ? 'medium' : influence === 'low' ? 'low' : '';
+            var influenceLabel = influence ? influence.charAt(0).toUpperCase() + influence.slice(1) : '';
+            var riceScore = sc(init).toFixed(1);
+
+            html += '<div class="half-init">';
+            html += '<span>' + escHtml(init.id) + ' ' + escHtml(init.name) + ' <span style="color:var(--muted);font-size:9px">RICE ' + riceScore + '</span></span>';
+            if (influenceLabel) {
+              html += '<span class="half-init-influence ' + influenceCls + '">' + influenceLabel + ' влияние</span>';
+            }
+            html += '</div>';
+          });
+        } else {
+          html += '<div class="half-no-inits">Нет привязанных инициатив</div>';
+        }
+
+        html += '</div>';
+      });
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
 }
 
 // Auto-show for new users
