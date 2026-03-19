@@ -424,6 +424,29 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
 
 <div class="pc-toast" id="pc-toast">Ссылка скопирована</div>
 
+<!-- Modal: Assign Member -->
+<div id="modal-assign-member" style="position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:var(--card,#040f1a);border:1px solid rgba(79,195,247,.4);border-radius:16px;padding:24px;width:90%;max-width:480px">
+    <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:16px">\u041D\u0430\u0437\u043D\u0430\u0447\u0438\u0442\u044C \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0430</div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--muted,#7A7A9D);display:block;margin-bottom:4px">\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C</label>
+        <select id="member-user-select" style="background:var(--card2,#061525);border:1px solid rgba(255,255,255,.07);border-radius:8px;color:#E8E8F0;font-family:var(--font);font-size:12px;padding:8px 10px;outline:none;width:100%"></select>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--muted,#7A7A9D);display:block;margin-bottom:4px">\u041E\u0431\u043B\u0430\u0441\u0442\u044C \u0434\u043E\u0441\u0442\u0443\u043F\u0430</label>
+        <select id="member-scope-select" style="background:var(--card2,#061525);border:1px solid rgba(255,255,255,.07);border-radius:8px;color:#E8E8F0;font-family:var(--font);font-size:12px;padding:8px 10px;outline:none;width:100%">
+          <option value="all">\u0412\u0435\u0441\u044C \u043F\u0440\u043E\u0434\u0443\u043A\u0442</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <button id="btn-confirm-member" style="padding:8px 16px;border-radius:8px;border:none;background:var(--teal,#00D4B4);color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer">\u041D\u0430\u0437\u043D\u0430\u0447\u0438\u0442\u044C</button>
+      <button id="btn-cancel-member" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(255,255,255,.14);background:transparent;color:var(--muted,#7A7A9D);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer">\u041E\u0442\u043C\u0435\u043D\u0430</button>
+    </div>
+  </div>
+</div>
+
 <script src="./platform.js"></script>
 <script src="./js/auth.js"></script>
 <script>
@@ -432,8 +455,8 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
 
   // ── Helpers ──
   var GATE_NAMES = ['O\xB70 Заявка','O\xB71 Разведка','O\xB72 Прототип','O\xB73 Разгон','O\xB74 Экосистема','O\xB75 Плато'];
-  var STATUS_LABELS = {'on-track':'On Track','at-risk':'At Risk','blocked':'Blocked','paused':'Paused','done':'Done','active':'Active','pending':'Pending','archived':'Archived','draft':'Draft','wip':'В работе','planned':'Запланировано','backlog':'Бэклог'};
-  var STATUS_CLS = {'on-track':'sb-on-track','at-risk':'sb-at-risk','blocked':'sb-blocked','paused':'sb-paused','done':'sb-done','active':'sb-active','pending':'sb-pending','archived':'sb-archived','draft':'sb-paused'};
+  var STATUS_LABELS = {'on-track':'Активен','at-risk':'Риск','blocked':'Заблокирован','paused':'Paused','done':'Done','active':'Активен','pending':'Ожидает','archived':'Archived','draft':'Draft','wip':'В работе','planned':'Запланировано','backlog':'Бэклог','screening':'На скрининге'};
+  var STATUS_CLS = {'on-track':'sb-on-track','at-risk':'sb-at-risk','blocked':'sb-blocked','paused':'sb-paused','done':'sb-done','active':'sb-active','pending':'sb-pending','archived':'sb-archived','draft':'sb-paused','screening':'sb-pending'};
   var SEGMENT_LABELS = {'business':'Бизнес','product':'Продукт','tech':'Техника'};
   var SEGMENT_CLS = {'business':'seg-business','product':'seg-product','tech':'seg-tech'};
   var INIT_STATUS_CLS = {'wip':'is-wip','planned':'is-planned','backlog':'is-backlog','done':'is-done'};
@@ -776,6 +799,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     }
     initGoals(goals, initiatives, editable);
     initOverviewEditable(editable);
+    initAssignMember();
   }
 
   // ── NOT FOUND ──
@@ -796,7 +820,9 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
   function renderOverview(initiatives, goals, editable) {
     var html = '';
     var gateNum = _product.gate || 0;
-    var isEdit = editable && !isGuest();
+    // Product passport fields: editable only for owner (or admin/pmo_lead), not regular members
+    var _isOwnerOrAdmin = window.OrbAuth ? OrbAuth.isProductOwner(productId) : false;
+    var isEdit = editable && !isGuest() && _isOwnerOrAdmin;
 
     // Gate Progress Timeline
     html += '<div class="ov-card" style="margin-bottom:24px">';
@@ -902,6 +928,26 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
       html += '</div>';
     }
 
+    // Owner
+    var _owner = window.OrbAuth ? OrbAuth.getProductOwner(_product.id) : null;
+    if (_owner) {
+      html += '<div class="team-member">';
+      html += '<div class="team-member-role" style="color:var(--teal)">\u0412\u043B\u0430\u0434\u0435\u043B\u0435\u0446 (Owner)</div>';
+      html += '<div class="team-member-name">' + esc(_owner.name) + '</div>';
+      html += '</div>';
+    }
+
+    // Members
+    var _members = window.OrbAuth ? OrbAuth.getProductMembers(_product.id) : [];
+    for (var mi = 0; mi < _members.length; mi++) {
+      var _m = _members[mi];
+      html += '<div class="team-member">';
+      html += '<div class="team-member-role">\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A</div>';
+      html += '<div class="team-member-name">' + esc(_m.name) + '</div>';
+      html += '<div class="team-member-scope">' + esc(OrbAuth.formatScope(_m.scope)) + '</div>';
+      html += '</div>';
+    }
+
     // Stakeholders
     html += '<div class="team-member">';
     html += '<div class="team-member-role">\u0421\u0442\u0435\u0439\u043A\u0445\u043E\u043B\u0434\u0435\u0440\u044B</div>';
@@ -912,8 +958,14 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     }
     html += '</div>';
 
-    // Add team member link
-    if (isEdit) {
+    // Add team member button (owner or admin/pmo_lead only)
+    var _isOwner = window.OrbAuth ? OrbAuth.isProductOwner(_product.id) : false;
+    if (_isOwner) {
+      html += '<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">';
+      html += '<button class="btn-action" id="btn-assign-member" style="font-size:11px;padding:6px 14px">+ \u041D\u0430\u0437\u043D\u0430\u0447\u0438\u0442\u044C \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0430</button>';
+      html += '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/team.html" style="font-size:11px;color:var(--violet);text-decoration:none;font-weight:600;display:flex;align-items:center">\u2192 \u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u0439</a>';
+      html += '</div>';
+    } else if (isEdit) {
       html += '<div style="margin-top:8px"><a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/team.html" style="font-size:11px;color:var(--violet);text-decoration:none;font-weight:600">\u2192 \u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u0439</a></div>';
     }
     html += '</div>'; // end team card
@@ -1090,6 +1142,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
       html += '<div class="ie-group"><div class="ie-lbl">\u041A\u0432\u0430\u0440\u0442\u0430\u043B</div><select class="ie-select" id="new-init-quarter"><option value="Q1 2026">Q1 2026</option><option value="Q2 2026" selected>Q2 2026</option><option value="Q3 2026">Q3 2026</option><option value="Q4 2026">Q4 2026</option><option value="H1 2026">H1 2026</option><option value="H2 2026">H2 2026</option></select></div>';
       html += '<div class="ie-group"><div class="ie-lbl">\u0421\u0442\u0430\u0442\u0443\u0441</div><select class="ie-select" id="new-init-status"><option value="backlog">\u0411\u044D\u043A\u043B\u043E\u0433</option><option value="planned">\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043E</option><option value="wip">\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option></select></div>';
       html += '<div class="ie-group"><div class="ie-lbl">PM</div><input class="ie-input" id="new-init-pm" placeholder="\u041E\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439"></div>';
+      html += '<div class="ie-group full"><div class="ie-lbl">\u0412\u043D\u0435\u0448\u043D\u0438\u0439 \u0442\u0440\u0435\u043A\u0435\u0440</div><input class="ie-input" type="url" id="new-init-tracker" placeholder="https://youtrack.rwb.ru/issue/..."></div>';
       html += '</div>';
       html += '<div style="display:flex;gap:8px;margin-top:12px">';
       html += '<button class="btn-save-sm" id="btn-save-new-init">\u0421\u043E\u0437\u0434\u0430\u0442\u044C</button>';
@@ -1236,6 +1289,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     html += '<div>';
     html += '<div class="init-name">' + esc(it.name) + ' ' + typeBadgeHtml + '</div>';
     if (it.pm) html += '<div class="init-sub">' + esc(it.pm) + '</div>';
+    if (it.trackerUrl) html += '<div class="init-sub"><a href="' + esc(it.trackerUrl) + '" target="_blank" onclick="event.stopPropagation()" style="color:var(--violet);text-decoration:none;font-size:10px">\u2197 ' + esc(it.trackerUrl.replace(/^https?:\/\//, '').substring(0, 40)) + (it.trackerUrl.length > 47 ? '...' : '') + '</a></div>';
     html += '</div>';
     html += '<div><span class="init-seg ' + segCls + '">' + esc(segLabel) + '</span></div>';
     html += '<div class="init-rice" title="RICE">' + rice + '</div>';
@@ -1255,6 +1309,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
       html += '<div class="ie-group"><div class="ie-lbl">\u0421\u0442\u0430\u0442\u0443\u0441</div><select class="ie-select" data-ie="status"><option value="backlog"' + (it.status === 'backlog' ? ' selected' : '') + '>\u0411\u044D\u043A\u043B\u043E\u0433</option><option value="planned"' + (it.status === 'planned' ? ' selected' : '') + '>\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043E</option><option value="wip"' + (it.status === 'wip' ? ' selected' : '') + '>\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option><option value="done"' + (it.status === 'done' ? ' selected' : '') + '>\u0413\u043E\u0442\u043E\u0432\u043E</option></select></div>';
       html += '<div class="ie-group"><div class="ie-lbl">\u041A\u0432\u0430\u0440\u0442\u0430\u043B</div><select class="ie-select" data-ie="quarter"><option value="Q1 2026"' + (it.quarter === 'Q1 2026' ? ' selected' : '') + '>Q1 2026</option><option value="Q2 2026"' + (it.quarter === 'Q2 2026' ? ' selected' : '') + '>Q2 2026</option><option value="Q3 2026"' + (it.quarter === 'Q3 2026' ? ' selected' : '') + '>Q3 2026</option><option value="Q4 2026"' + (it.quarter === 'Q4 2026' ? ' selected' : '') + '>Q4 2026</option></select></div>';
       html += '<div class="ie-group"><div class="ie-lbl">PM</div><input class="ie-input" data-ie="pm" value="' + esc(it.pm || '') + '"></div>';
+      html += '<div class="ie-group full"><div class="ie-lbl">\u0412\u043D\u0435\u0448\u043D\u0438\u0439 \u0442\u0440\u0435\u043A\u0435\u0440</div><input class="ie-input" type="url" data-ie="trackerUrl" value="' + esc(it.trackerUrl || '') + '" placeholder="https://youtrack.rwb.ru/issue/..."></div>';
 
       // RICE parameters
       html += '<div class="ie-group full"><div class="ie-lbl">RICE-\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B</div>';
@@ -1835,6 +1890,62 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
     }
   }
 
+  // ── INIT: Assign Member Modal ──
+  function initAssignMember() {
+    var btn = document.getElementById('btn-assign-member');
+    if (!btn) return;
+
+    btn.addEventListener('click', function() {
+      var modal = document.getElementById('modal-assign-member');
+      if (!modal) return;
+
+      // Populate user select with active PM users not already assigned
+      var users = OrbAuth.getUsers();
+      var select = document.getElementById('member-user-select');
+      var optHtml = '<option value="">-- \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F --</option>';
+      for (var i = 0; i < users.length; i++) {
+        var u = users[i];
+        if (!u.active) continue;
+        if (u.role === 'pm' || u.role === 'pmo') {
+          optHtml += '<option value="' + u.id + '">' + u.name + ' (' + u.email + ')</option>';
+        }
+      }
+      select.innerHTML = optHtml;
+
+      // Populate scope select with initiatives
+      var scopeSelect = document.getElementById('member-scope-select');
+      var scopeHtml = '<option value="all">\u0412\u0435\u0441\u044C \u043F\u0440\u043E\u0434\u0443\u043A\u0442</option>';
+      var inits = getProductInitiatives();
+      for (var j = 0; j < inits.length; j++) {
+        scopeHtml += '<option value="' + inits[j].id + '">' + inits[j].id + ' \u2014 ' + (inits[j].name || '').substring(0, 40) + '</option>';
+      }
+      scopeSelect.innerHTML = scopeHtml;
+
+      modal.style.display = 'flex';
+    });
+
+    var confirmBtn = document.getElementById('btn-confirm-member');
+    if (confirmBtn) {
+      confirmBtn.addEventListener('click', function() {
+        var userId = document.getElementById('member-user-select').value;
+        if (!userId) { showToast('\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F'); return; }
+        var scope = document.getElementById('member-scope-select').value;
+        OrbAuth.assignProductMember(productId, userId, scope);
+        document.getElementById('modal-assign-member').style.display = 'none';
+        addLog('member_assign', '\u041D\u0430\u0437\u043D\u0430\u0447\u0435\u043D \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A: ' + userId + ' (' + scope + ')', 'product', productId);
+        showToast('\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D');
+        renderApp();
+      });
+    }
+
+    var cancelBtn = document.getElementById('btn-cancel-member');
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', function() {
+        document.getElementById('modal-assign-member').style.display = 'none';
+      });
+    }
+  }
+
   // ── INIT: Create Dropdown ──
   function initCreateDropdown(editable) {
     var btn = document.getElementById('btn-create-main');
@@ -1898,6 +2009,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
           if (!name) { showToast('\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'); return; }
 
           var typeEl = document.getElementById('new-init-type');
+          var trackerEl = document.getElementById('new-init-tracker');
           var newInit = {
             id: genId('I'),
             name: name,
@@ -1907,6 +2019,7 @@ body{background:var(--bg);color:#E8E8F0;font-family:var(--font);min-height:100vh
             status: document.getElementById('new-init-status').value,
             quarter: document.getElementById('new-init-quarter').value,
             pm: document.getElementById('new-init-pm').value.trim(),
+            trackerUrl: trackerEl ? trackerEl.value.trim() : '',
             productId: productId,
             project: productId,
             r: 5, i: 5, c: 5, e: 5,

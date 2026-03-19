@@ -263,6 +263,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .st-planned{background:var(--violet-dim);color:#94BFFF}
 .st-wip{background:var(--teal-dim);color:var(--teal)}
 .st-done{background:var(--green-dim);color:var(--green)}
+.st-screening{background:rgba(107,107,142,.15);color:var(--muted)}
+.st-at-risk{background:var(--amber-dim,rgba(245,205,71,.1));color:var(--amber)}
+.st-blocked{background:var(--red-dim,rgba(248,113,113,.12));color:var(--red)}
 
 /* ── TRACKER VIEW ── */
 .role-switcher{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
@@ -805,6 +808,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
     <select class="filter-select" id="filter-status" onchange="onFilterChange()">
       <option value="">Все</option>
       <option value="active">Активный</option>
+      <option value="screening">На скрининге</option>
+      <option value="at-risk">Риск</option>
+      <option value="blocked">Заблокирован</option>
       <option value="pending">На согласовании</option>
       <option value="paused">На паузе</option>
       <option value="archived">Архив</option>
@@ -2251,7 +2257,21 @@ function applyFilters(items) {
 function getFilteredProjects() {
   var userRole = window.OrbAuth ? OrbAuth.getRole() : null;
   return PROJECTS.filter(function(p) {
-    if (p.status === 'pending' && userRole !== 'admin' && userRole !== 'pmo') return false;
+    if ((p.status === 'pending' || p.status === 'screening') && userRole !== 'admin' && userRole !== 'pmo' && userRole !== 'pmo_lead') {
+      // PMs can see screening products they are assigned to
+      if (userRole === 'pm' && window.OrbAuth) {
+        var cu = OrbAuth.getCurrentUser();
+        var assigned = false;
+        if (cu && cu.assignments) {
+          for (var ai = 0; ai < cu.assignments.length; ai++) {
+            if (cu.assignments[ai].productId === p.id) { assigned = true; break; }
+          }
+        }
+        if (!assigned) return false;
+      } else {
+        return false;
+      }
+    }
     if (FILTERS.dept) {
       if (!p.department || p.department !== FILTERS.dept) return false;
     }
@@ -2265,6 +2285,7 @@ function getFilteredProjects() {
       if (FILTERS.status === 'active' && st !== 'on-track' && st !== 'active' && st !== 'wip') return false;
       if (FILTERS.status === 'at-risk' && st !== 'at-risk') return false;
       if (FILTERS.status === 'blocked' && st !== 'blocked') return false;
+      if (FILTERS.status === 'screening' && st !== 'screening') return false;
     }
     if (FILTERS.period) {
       var rel = (p.release || p.quarter || '').replace(/\s+/g, '-');
@@ -2456,7 +2477,7 @@ const CAT_LBL = {
   content: EI.svg('file-text',12)+' Контент',
   infra:   EI.svg('package',12)+' Инфра'
 };
-const ST_LBL  = { backlog:'Бэклог', planned:'Запланировано', wip:'В работе', done:'Готово', 'on-track':'On Track', 'at-risk':'At Risk', 'blocked':'Blocked', 'paused':'Paused' };
+const ST_LBL  = { backlog:'Бэклог', planned:'Запланировано', wip:'В работе', done:'Готово', 'on-track':'Активен', 'at-risk':'Риск', 'blocked':'Заблокирован', 'paused':'Paused', 'screening':'На скрининге', 'pending':'Ожидает', 'active':'Активен' };
 const ST_ICO  = {
   backlog: EI.svg('inbox',12,'ei-backlog'),
   planned: EI.svg('map-pin',12,'ei-planned'),
@@ -2465,9 +2486,12 @@ const ST_ICO  = {
   'on-track': EI.svg('check-circle',12,'ei-done'),
   'at-risk': EI.svg('alert-triangle',12,'ei-planned'),
   'blocked': EI.svg('x-circle',12,'ei-backlog'),
-  'paused': EI.svg('x',12,'ei-backlog')
+  'paused': EI.svg('x',12,'ei-backlog'),
+  'screening': EI.svg('search',12,'ei-backlog'),
+  'pending': EI.svg('clock',12,'ei-backlog'),
+  'active': EI.svg('check-circle',12,'ei-done')
 };
-const ST_CLS  = { backlog:'st-backlog', planned:'st-planned', wip:'st-wip', done:'st-done', 'on-track':'st-wip', 'at-risk':'st-planned', 'blocked':'st-backlog', 'paused':'st-backlog' };
+const ST_CLS  = { backlog:'st-backlog', planned:'st-planned', wip:'st-wip', done:'st-done', 'on-track':'st-wip', 'at-risk':'st-planned', 'blocked':'st-backlog', 'paused':'st-backlog', 'screening':'st-backlog', 'pending':'st-planned', 'active':'st-wip' };
 
 
 // ════════════════════════════════════════════

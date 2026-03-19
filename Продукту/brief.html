@@ -121,6 +121,7 @@ body{font-family:var(--font);background:var(--dark);color:var(--text);display:fl
 </style>
 <script src="../icons.js"></script>
 <script src="../platform.js"></script>
+<script src="../js/auth.js"></script>
 <script src="../nav.js"></script>
 </head>
 <body>
@@ -440,7 +441,37 @@ function gatherData(){
 function submitBrief(){
   var d=gatherData();
   var score=Math.round(d.r*d.i*d.c/d.e*10)/10;
-  // Save to backlog
+
+  // Save to IDEAS registry (new lifecycle flow)
+  var ideas = window.PT ? PT.load(PT.KEY_IDEAS) : [];
+  if (!Array.isArray(ideas)) ideas = [];
+  var idea = {
+    id: 'IDEA-' + String(ideas.length + 1).padStart(3, '0'),
+    name: d.name,
+    desc: d.problem,
+    audience: d.audience,
+    problem: d.problem,
+    effect: d.effect,
+    okr: d.okr,
+    rice: { r: d.r, i: d.i, c: d.c, e: d.e },
+    riceScore: score,
+    submittedBy: (window.OrbAuth && OrbAuth.getCurrentUser()) ? OrbAuth.getCurrentUser().name : 'Аноним',
+    submittedAt: new Date().toISOString().split('T')[0],
+    status: 'new',  // new → screening → approved → rejected
+    department: d.dept || '',
+    fast_track: d.fast_track,
+    ft_reason: d.ft_reason || '',
+    competitors: d.competitors || '',
+    timeline: d.timeline || '',
+    budget: d.budget || '',
+    constraints: d.constraints || '',
+    notes: ''
+  };
+  ideas.push(idea);
+  if (window.PT) PT.save(PT.KEY_IDEAS, ideas);
+  else localStorage.setItem('ECOTECH_IDEAS', JSON.stringify(ideas));
+
+  // Also save to backlog for backward compatibility
   var bl=window.PT?PT.load(BKEY):JSON.parse(localStorage.getItem(BKEY)||'null');
   if(!Array.isArray(bl)) bl=[];
   bl.push({
@@ -456,28 +487,18 @@ function submitBrief(){
     gate:0,
     brief:d,
     prd:null,
+    ideaId: idea.id,
     created:new Date().toISOString().slice(0,10),
     updated:new Date().toISOString().slice(0,10)
   });
   if(window.PT) PT.save(BKEY,bl);
   else localStorage.setItem(BKEY,JSON.stringify(bl));
-  // Создать продукт на начальной стадии
-  var products = window.PT ? PT.load(PT.KEY_PRODUCTS) : [];
-  if (!Array.isArray(products)) products = [];
-  var newProdId = 'ECO-' + String(products.length).padStart(2,'0');
-  products.push({
-    id: newProdId, name: newProdId, desc: d.problem,
-    gate: 0, status: 'pending', cat: 'b2c', catLabel: 'B2C',
-    owner: '', color: '#7A7A9D', updated: new Date().toISOString().slice(0,10),
-    quarter: 'Q1 2026', pilot: false, trackerUrl: '', trackerType: '',
-    fullName: d.name, kpi: [], initiatives: [d.id]
-  });
-  if (window.PT) PT.save(PT.KEY_PRODUCTS, products);
+
   // Compose mailto
   var subj=encodeURIComponent((d.fast_track?'[FAST-TRACK] ':'')+'Бриф: '+d.name);
   var body=encodeURIComponent(formatBriefText(d,score));
   window.open('mailto:sorval.viktor@rwb.ru?subject='+subj+'&body='+body,'_blank');
-  showToast('Продукт создан в реестре на стадии О\u00b70 Заявка. PMO рассмотрит за 5 дней.');
+  showToast('Заявка ' + idea.id + ' отправлена на скрининг');
 }
 
 function saveDraft(){

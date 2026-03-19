@@ -30,8 +30,8 @@
     { id: 'U001', name: 'Администратор',  email: 'admin@rwb.ru',           role: 'admin',    department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
     { id: 'U002', name: 'Виктор',         email: 'sorval.viktor@rwb.ru',   role: 'pmo_lead', department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
     { id: 'GUEST', name: 'Гость',         email: 'demo@orbita.demo',       role: 'guest',    department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: ['ECO-00'], contact: '', team: 'Демо' },
-    { id: 'U010', name: 'Петров И.',     email: 'petrov@rwb.ru',          role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-01', scope: 'all' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' },
-    { id: 'U011', name: 'Сидоров К.',    email: 'sidorov@rwb.ru',         role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-01', scope: ['I-004', 'I-005'] }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' }
+    { id: 'U010', name: 'Петров И.',     email: 'petrov@rwb.ru',          role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-01', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' },
+    { id: 'U011', name: 'Сидоров К.',    email: 'sidorov@rwb.ru',         role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-01', scope: ['I-004', 'I-005'], role: 'member' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' }
   ];
 
   // ── Миграция старых пользователей ──────────────────────────────────
@@ -48,8 +48,14 @@
     // Миграция productIds → assignments (если assignments пуст, а productIds есть)
     if (u.assignments.length === 0 && u.productIds && u.productIds.length) {
       u.assignments = u.productIds.map(function(pid) {
-        return { productId: pid, scope: 'all' };
+        return { productId: pid, scope: 'all', role: 'member' };
       });
+    }
+    // Миграция assignments: добавить role если нет
+    for (var ai = 0; ai < u.assignments.length; ai++) {
+      if (!u.assignments[ai].role) {
+        u.assignments[ai].role = (u.assignments[ai].scope === 'all') ? 'owner' : 'member';
+      }
     }
     // Сохраняем productIds для обратной совместимости
     if (!u.productIds) u.productIds = [];
@@ -388,6 +394,88 @@
       }
     }
     return result;
+  };
+
+  // ── W4-030: Owner concept for product lifecycle ────────────────
+  // Assignment role: 'owner' = full access, 'member' = scoped access
+  // { productId: 'ECO-01', scope: 'all', role: 'owner' }
+
+  // Check if current user is the owner of a product
+  Auth.isProductOwner = function(productId) {
+    var user = Auth.getCurrentUser();
+    if (!user) return false;
+    // admin and pmo_lead are implicit owners of all products
+    if (user.role === 'admin' || user.role === 'pmo_lead') return true;
+    if (!user.assignments) return false;
+    for (var i = 0; i < user.assignments.length; i++) {
+      var a = user.assignments[i];
+      if (a.productId === productId && a.role === 'owner') return true;
+    }
+    return false;
+  };
+
+  // Get the owner user object for a product
+  Auth.getProductOwner = function(productId) {
+    var users = Auth.getUsers();
+    for (var i = 0; i < users.length; i++) {
+      var u = users[i];
+      if (!u.active || !u.assignments) continue;
+      for (var j = 0; j < u.assignments.length; j++) {
+        if (u.assignments[j].productId === productId && u.assignments[j].role === 'owner') {
+          return u;
+        }
+      }
+    }
+    return null;
+  };
+
+  // Owner assigns a member to a product with a scope
+  Auth.assignProductMember = function(productId, userId, scope) {
+    var users = Auth.getUsers();
+    var found = false;
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].id === userId) {
+        if (!users[i].assignments) users[i].assignments = [];
+        // Check if already assigned
+        var exists = false;
+        for (var j = 0; j < users[i].assignments.length; j++) {
+          if (users[i].assignments[j].productId === productId) {
+            users[i].assignments[j].scope = scope || 'all';
+            users[i].assignments[j].role = 'member';
+            exists = true;
+            break;
+          }
+        }
+        if (!exists) {
+          users[i].assignments.push({ productId: productId, scope: scope || 'all', role: 'member' });
+        }
+        if (!users[i].productIds) users[i].productIds = [];
+        if (users[i].productIds.indexOf(productId) < 0) {
+          users[i].productIds.push(productId);
+        }
+        found = true;
+        break;
+      }
+    }
+    if (found) Auth.saveUsers(users);
+    return found;
+  };
+
+  // Get all members (non-owner PMs) assigned to a product
+  Auth.getProductMembers = function(productId) {
+    var users = Auth.getUsers();
+    var members = [];
+    for (var i = 0; i < users.length; i++) {
+      var u = users[i];
+      if (!u.active || !u.assignments) continue;
+      for (var j = 0; j < u.assignments.length; j++) {
+        if (u.assignments[j].productId === productId && u.assignments[j].role === 'member') {
+          members.push({ id: u.id, name: u.name, email: u.email, scope: u.assignments[j].scope, role: 'member' });
+          break;
+        }
+      }
+    }
+    return members;
   };
 
   window.OrbAuth = Auth;

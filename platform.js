@@ -15,6 +15,7 @@
     KEY_PRODUCTS_PRD: 'ECOTECH_PRODUCTS_PRD',
     KEY_USERS:    'ECOTECH_USERS',
     KEY_CHANGELOG:'ECOTECH_CHANGELOG',
+    KEY_IDEAS:    'ECOTECH_IDEAS',
 
     // ── Типы инициатив ──────────────────────────────────────────────
     // Подтипы (для будущего расширения):
