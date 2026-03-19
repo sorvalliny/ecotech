@@ -642,6 +642,44 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 [data-theme="light"] .kanban-card:hover { border-color:var(--teal-border); }
 [data-theme="light"] .prod-filter-btn.active { background:var(--violet-dim); color:var(--violet); border-color:var(--violet-border); }
 [data-theme="light"] .drag-confirm-overlay { background:rgba(255,255,255,.7); }
+/* ── Additional light theme text fixes ── */
+[data-theme="light"] .pname,
+[data-theme="light"] .pname a { color: var(--text) !important; }
+[data-theme="light"] .pfnum { color: var(--text) !important; }
+[data-theme="light"] .item-name { color: var(--text) !important; }
+[data-theme="light"] .ep-title { color: var(--text) !important; }
+[data-theme="light"] .ep-name-disp { color: var(--text) !important; }
+[data-theme="light"] .trk-card h3 { color: var(--text) !important; }
+[data-theme="light"] .ceo-name { color: var(--text) !important; }
+[data-theme="light"] .ceo-stat-n { color: var(--text) !important; }
+[data-theme="light"] .pm-gate-name { color: var(--text) !important; }
+[data-theme="light"] .pm-sel { color: var(--text) !important; background: var(--card) !important; border-color: var(--border-hi) !important; }
+[data-theme="light"] .goals-header h2 { color: var(--text) !important; }
+[data-theme="light"] .goal-title { color: var(--text) !important; }
+[data-theme="light"] .gd-title { color: var(--text) !important; }
+[data-theme="light"] .gm-htitle { color: var(--text) !important; }
+[data-theme="light"] .ob-title { color: var(--text) !important; }
+[data-theme="light"] .kanban-card-name { color: var(--text) !important; }
+[data-theme="light"] .search-inp { color: var(--text) !important; background: var(--card) !important; }
+[data-theme="light"] .ep-select,
+[data-theme="light"] .ep-textarea { color: var(--text) !important; background: var(--card) !important; }
+[data-theme="light"] .pp-field input,
+[data-theme="light"] .pp-field textarea { color: var(--text) !important; }
+[data-theme="light"] .gm-field input,
+[data-theme="light"] .gm-field textarea,
+[data-theme="light"] .gm-field select { color: var(--text) !important; }
+[data-theme="light"] .gm-kr-row input { color: var(--text) !important; }
+[data-theme="light"] .filter-bar { background: var(--surface2); }
+[data-theme="light"] .filter-label { color: var(--muted); }
+[data-theme="light"] .tracker-toolbar { background: rgba(247,248,250,0.95); }
+[data-theme="light"] .tab:hover:not(.active) { color: var(--text); background: rgba(0,0,0,0.04); }
+[data-theme="light"] .gate-step { background: rgba(0,0,0,0.06); }
+[data-theme="light"] .pmo-gate-dot.g-todo { background: rgba(0,0,0,0.04); color: var(--muted); }
+[data-theme="light"] .exbtn:hover { color: var(--text); }
+[data-theme="light"] .rbtn:hover { color: var(--text); }
+[data-theme="light"] .rbtn.active { color: #fff !important; }
+[data-theme="light"] .btn-save { color: #fff !important; }
+[data-theme="light"] .irow { background: var(--surface2); border-color: var(--border); }
 
 /* ── PLANNING TAB ── */
 .planning-views { display: flex; gap: 8px; margin-bottom: 16px; }
@@ -692,7 +730,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
     <button class="tab active" onclick="switchTab('portfolio',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-folder"/></svg> Продукты</button>
     <button class="tab" onclick="switchTab('backlog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-layers"/></svg> Инициативы</button>
     <button class="tab" onclick="switchTab('goals',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цели</button>
-    <button class="tab" onclick="switchTab('changelog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clock"/></svg> История</button>
+    <button class="tab" id="tab-changelog" onclick="switchTab('changelog',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-clock"/></svg> История</button>
     <button class="tab" onclick="switchTab('planning',this)"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Планирование</button>
   </div>
   <div class="tt-right">
@@ -2234,6 +2272,10 @@ function getFilteredProjects() {
       if ((p.name + ' ' + (p.desc||'') + ' ' + p.id).toLowerCase().indexOf(q) === -1) return false;
     }
     return true;
+  }).sort(function(a, b) {
+    // Sort by gate (desc), then by name (asc)
+    if (a.gate !== b.gate) return b.gate - a.gate;
+    return (a.name || '').localeCompare(b.name || '');
   });
 }
 
@@ -2602,12 +2644,12 @@ function renderPortfolio() {
           ${checkProgress}
           ${stageLink}
           <button class="share-link-btn" onclick="event.stopPropagation();navigator.clipboard.writeText(window.location.origin+window.location.pathname+'#product=${p.id}');showToast('Ссылка скопирована')" title="Скопировать ссылку">${EI.svg('link',10)}</button>
-          <span class="player">${p.layer}</span>
+          <span class="player">${p.layer||''}</span>
           ${p.status === 'pending' && (function(){ var r = window.OrbAuth ? OrbAuth.getRole() : 'admin'; return r === 'admin' || r === 'pmo'; })() ? '<button class="approve-btn" onclick="event.stopPropagation();approveProduct(\''+p.id+'\')">✓ Одобрить</button><button class="reject-btn" onclick="event.stopPropagation();rejectProduct(\''+p.id+'\')">✗ Отклонить</button>' : ''}
           <button class="pcard-edit-btn" onclick="event.stopPropagation();openProdModal('${p.id}')" title="Редактировать продукт">${EI.svg('edit',12)}</button>
         </div>
         <div class="pname"><a href="../product-card.html?id=${p.id}" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${escHtml(OrbAuth.getDisplayName(p,'product'))}</a></div>
-        <div class="pdesc">${escHtml(p.desc)}</div>
+        <div class="pdesc">${escHtml(p.desc||'')}</div>
         <div class="gate-bar">${gateBar}</div>
         <div class="gate-label-row">
           <span>G0 Заявка</span><span>G1 Разведка</span><span>G2 Прототип</span><span>G3 Разгон</span><span>G4 Экосист.</span><span>G5 Плато</span><span>G6 Архив</span>
@@ -2960,7 +3002,7 @@ function renderPMO() {
         <div style="display:flex;align-items:center;gap:8px">
           <div style="width:8px;height:8px;border-radius:50%;background:${p.color};flex-shrink:0"></div>
           <div>
-            <div style="font-size:12px;font-weight:700;color:#fff">${escHtml(OrbAuth.getDisplayName(p,'product'))}</div>
+            <div style="font-size:12px;font-weight:700;color:var(--text)">${escHtml(OrbAuth.getDisplayName(p,'product'))}</div>
             <div style="font-size:10px;color:var(--muted)">${p.id} · ${p.layer}</div>
           </div>
         </div>
@@ -2980,7 +3022,7 @@ function renderPMO() {
         <div style="font-size:9px;color:var(--muted)">Разработка</div>
       </td>
       <td><span class="sdot ${ST_CLS[p.status]}">${ST_ICO[p.status]} ${ST_LBL[p.status]}</span></td>
-      <td style="font-family:var(--mono);font-size:10px;color:var(--muted)">${p.release}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--muted)">${p.release||'\u2014'}</td>
     </tr>`;
   }).join('');
 
@@ -2992,7 +3034,7 @@ function renderPMO() {
   return `
     <div class="role-badge">${EI.svg('clipboard',14)} Вид PMO — Portfolio Overview + Gate Progress</div>
     <div class="kpi-strip">
-      <div class="kpi"><div class="kpi-n" style="color:#fff">${PROJECTS.length}</div><div class="kpi-l">Продуктов в портфеле</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--text)">${PROJECTS.length}</div><div class="kpi-l">Продуктов в портфеле</div></div>
       <div class="kpi"><div class="kpi-n" style="color:var(--teal)">${totalWip}</div><div class="kpi-l">В активной разработке</div></div>
       <div class="kpi"><div class="kpi-n" style="color:#93C5FD">${totalDisc}</div><div class="kpi-l">Исследование</div></div>
       <div class="kpi"><div class="kpi-n" style="color:#6EE7B7">${totalDelv}</div><div class="kpi-l">Разработка</div></div>
@@ -4230,6 +4272,15 @@ renderContextBar();
   var createBtn = document.querySelector('.tt-create-btn');
   if (createBtn && window.OrbAuth && OrbAuth.getRole() === 'viewer') {
     createBtn.style.display = 'none';
+  }
+})();
+
+// Скрыть вкладку «История» для не-admin/не-pmo_lead
+(function() {
+  var role = window.OrbAuth ? OrbAuth.getRole() : 'guest';
+  if (role !== 'admin' && role !== 'pmo_lead') {
+    var changelogTab = document.getElementById('tab-changelog');
+    if (changelogTab) changelogTab.style.display = 'none';
   }
 })();
 

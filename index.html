@@ -36,6 +36,16 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 
 @media(max-width:860px){.paths{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.paths{grid-template-columns:1fr}}
+
+/* ── LIGHT THEME OVERRIDES ── */
+[data-theme="light"] .logo,
+[data-theme="light"] .hero-title,
+[data-theme="light"] .hero-title span { color: var(--text) !important; }
+[data-theme="light"] .path-name { color: var(--text) !important; }
+[data-theme="light"] .path-desc { color: var(--muted) !important; }
+[data-theme="light"] .auth-ghost { border-color: rgba(0,0,0,.12); color: var(--muted); }
+[data-theme="light"] .auth-ghost:hover { border-color: rgba(0,0,0,.25); color: var(--text); }
+[data-theme="light"] .footer { color: rgba(0,0,0,.3); }
 </style>
 <script src="icons.js"></script>
 <script src="platform.js"></script>

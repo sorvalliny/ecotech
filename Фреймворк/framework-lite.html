@@ -443,6 +443,31 @@ body{background:var(--dark);color:var(--text);font-family:var(--font-body);font-
 [data-editable]:hover { border-color: transparent !important; outline: none !important; }
 [data-editable]:focus { border-color: transparent !important; outline: none !important; }
 .edit-indicator, .edit-btn-inline, .data-editable-hover { display: none !important; }
+
+/* ── LIGHT THEME OVERRIDES ── */
+[data-theme="light"] .stage-tabs { background: rgba(247,248,250,0.95); }
+[data-theme="light"] .stab { color: var(--muted); }
+[data-theme="light"] .stab:hover { color: var(--text); background: rgba(0,0,0,0.04); }
+[data-theme="light"] .stab.active { color: #fff !important; }
+[data-theme="light"] .fw-hero-title { color: var(--text) !important; }
+[data-theme="light"] .fw-hero-title em { -webkit-text-fill-color: unset; color: var(--violet); }
+[data-theme="light"] .sec-title { color: var(--text) !important; }
+[data-theme="light"] .stage-name { color: var(--text) !important; }
+[data-theme="light"] .lc-name { color: var(--text) !important; }
+[data-theme="light"] .kpi-val { color: var(--text) !important; }
+[data-theme="light"] .howto-title { color: var(--text) !important; }
+[data-theme="light"] .tmpl-card-name { color: var(--text) !important; }
+[data-theme="light"] .sg-list li strong { color: var(--text) !important; }
+[data-theme="light"] .gate-meta-val { color: var(--text) !important; }
+[data-theme="light"] .pilot-step-title { color: var(--text) !important; }
+[data-theme="light"] .pilot-criteria-title { color: var(--text) !important; }
+[data-theme="light"] .scale-title { color: var(--text) !important; }
+[data-theme="light"] .modal-title { color: var(--text) !important; }
+[data-theme="light"] .vc-legend-label { color: var(--text) !important; }
+[data-theme="light"] .lc-step { background: var(--card); border-color: var(--border); }
+[data-theme="light"] .lc-step:not(:last-child)::after { background: var(--bg); }
+[data-theme="light"] .lc-step:hover { background: var(--surface2); }
+[data-theme="light"] body { background: var(--bg); }
 </style>
 <script src="../stages.js"></script>
 <script src="../nav.js"></script>
