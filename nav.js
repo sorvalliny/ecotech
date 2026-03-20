@@ -152,7 +152,6 @@
     +     a('knowledge/roles.html',                     'Матрица ролей')
     +     a('knowledge/planning.html',                  'Планирование')
     +     a('knowledge/impact-model.html',              'Модель влияния')
-    +     a('knowledge/ai-integration.html',            'AI-интеграция')
     +   '</div>'
     + '</div>'
 
