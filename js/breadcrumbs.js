@@ -58,7 +58,7 @@
     'Хэндбук':                'Хэндбук/roles.html',
     'Продукту':               'Продукту/index.html',
     'design-system':          'design-system/tokens-preview.html',
-    'design-system-storybook':'design-system-storybook/index.html'
+    
   };
 
   // ── chevron SVG ─────────────────────────────────────────
