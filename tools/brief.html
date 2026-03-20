@@ -494,6 +494,18 @@ function submitBrief(){
   if(window.PT) PT.save(BKEY,bl);
   else localStorage.setItem(BKEY,JSON.stringify(bl));
 
+  // Notify PMO about new brief
+  if (window.PT && PT.notify) {
+    PT.notify({
+      type: 'brief_submitted',
+      level: 'high',
+      recipientRole: 'pmo_lead',
+      title: 'Новая заявка: ' + idea.name,
+      text: 'RICE: ' + idea.riceScore.toFixed(1) + '. Требуется скрининг.',
+      action: { label: 'Провести скрининг', url: 'admin.html' }
+    });
+  }
+
   // Compose mailto
   var subj=encodeURIComponent((d.fast_track?'[FAST-TRACK] ':'')+'Бриф: '+d.name);
   var body=encodeURIComponent(formatBriefText(d,score));

@@ -137,45 +137,39 @@
     + '<div class="en-sep"></div>'
     + '<div class="en-links">'
 
-    // ── Каталог (direct link) ──────────────────
-    + '<a class="en-link' + catalogActive + '" href="' + base + 'catalog.html" role="menuitem">Каталог</a>'
-
-    // ── Реестр (direct link) ─────────────────
-    + '<a class="en-link' + registryActive + '" href="' + base + 'registry.html" role="menuitem">Реестр</a>'
+    // ── Портфель (direct link) ──────────────
+    + '<a class="en-link' + catalogActive + '" href="' + base + 'catalog.html" role="menuitem">Портфель</a>'
 
     // ── Методология (dropdown) ───────────────
     + '<div class="en-drop' + methActive + '">'
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Методология</a>'
     +   '<div class="en-drop-menu" role="menu">'
-    +     a('framework.html',                           'Как мы работаем')
-    +     a('glossary.html',                            'Глоссарий')
-    +     a('knowledge/roles.html',                     'Матрица ролей')
-    +     a('knowledge/planning.html',                  'Планирование')
-    +     a('knowledge/impact-model.html',              'Модель влияния')
+    +     a('framework.html',                'Как мы работаем')
+    +     a('glossary.html',                 'Глоссарий')
+    +     a('knowledge/roles.html',          'Матрица ролей')
+    +     a('knowledge/planning.html',       'Планирование')
+    +     a('knowledge/cjm-roles.html',      'CJM по ролям')
+    +     a('teams.html',                    'Команды')
+    +     a('committees.html',               'Комитеты')
     +   '</div>'
     + '</div>'
 
-    // ── Инструменты (dropdown) ───────────────
-    + '<div class="en-drop' + toolsActive + '">'
-    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Инструменты</a>'
-    +   '<div class="en-drop-menu" role="menu">'
-    +     a('tools/brief.html',                         'Бриф')
-    +     a('tools/gate-checklist.html',                'Gate-чеклист')
-    +     a('tools/templates.html',                     'Шаблоны')
-    +     a('tools/strategy.html',                      'Стратегия')
-    +     a('tools/onboarding.html',                    'Онбординг')
-    +   '</div>'
-    + '</div>'
-
-    // ── Команды (direct link) ────────────────
-    + '<a class="en-link' + teamsActive + '" href="' + base + 'teams.html" role="menuitem">Команды</a>'
-
-    // ── Комитеты (direct link) ───────────────
-    + '<a class="en-link' + committeesActive + '" href="' + base + 'committees.html" role="menuitem">Комитеты</a>'
+    // ── + Заявка (CTA button) ───────────────
+    + '<a class="en-link en-cta" href="' + base + 'tools/brief.html" role="menuitem">+ Заявка</a>'
 
     // ── Admin (role-based) ───────────────────
     + (function(){ try { var a = JSON.parse(localStorage.getItem('ECOTECH_AUTH')); var u = JSON.parse(localStorage.getItem('ECOTECH_USERS')); if(a&&u){ var cu=u.find(function(x){return x.id===a.id}); if(cu&&(cu.role==='admin'||cu.role==='pmo_lead')) return '<a class="en-link' + adminActive + '" href="'+base+'admin.html" role="menuitem">Admin</a>'; } } catch(e){} return ''; })()
     + '</div>'
+
+    // ── Notification bell ───────────────────
+    + '<button class="en-bell" id="en-bell" onclick="toggleNotifPanel()" title="Уведомления"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="en-bell-count" id="en-bell-count" style="display:none">0</span></button>'
+
+    // ── Notification dropdown panel ─────────
+    + '<div class="en-notif-panel" id="en-notif-panel" style="display:none">'
+    +   '<div class="en-notif-header">Уведомления <button class="en-notif-close" onclick="toggleNotifPanel()">×</button></div>'
+    +   '<div class="en-notif-list" id="en-notif-list"></div>'
+    + '</div>'
+
     + '<button id="en-theme-btn" class="en-theme-btn" onclick="EcoTheme.toggle()" title="Переключить тему" aria-label="Переключить тему"></button>'
     + '<a class="en-rwb" href="https://rwb.ru" target="_blank" rel="noopener">' + RWB_SVG + '</a>'
     + '<button class="en-hamburger" id="en-hamburger" aria-label="Меню" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>'
@@ -215,7 +209,29 @@
     '.en-theme-btn:hover{color:var(--text);background:var(--surface);border-color:var(--border-hi)}',
     /* RWB logo — right side */
     '.en-rwb{margin-left:12px;display:flex;align-items:center;color:var(--muted);opacity:.7;transition:opacity .15s;flex-shrink:0}',
-    '.en-rwb:hover{opacity:1}'
+    '.en-rwb:hover{opacity:1}',
+    /* CTA button */
+    '.en-cta{background:var(--violet);color:#fff !important;border-radius:6px;padding:6px 14px !important;font-weight:700;margin-left:4px}',
+    '.en-cta:hover{opacity:.85}',
+    /* Notification bell */
+    '.en-bell{position:relative;background:none;border:none;color:var(--muted);cursor:pointer;padding:6px;transition:color .15s}',
+    '.en-bell:hover{color:var(--text)}',
+    '.en-bell-count{position:absolute;top:0;right:0;background:var(--red);color:#fff;font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px}',
+    /* Notification panel */
+    '.en-notif-panel{position:absolute;right:60px;top:100%;width:360px;max-height:420px;overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:9999}',
+    '.en-notif-header{padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text);display:flex;justify-content:space-between;align-items:center}',
+    '.en-notif-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px}',
+    '.en-notif-item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}',
+    '.en-notif-item:hover{background:var(--surface2)}',
+    '.en-notif-item.unread{border-left:3px solid var(--violet)}',
+    '.en-notif-item.read{opacity:.7}',
+    '.en-notif-level-high{border-left-color:var(--red)}',
+    '.en-notif-level-medium{border-left-color:var(--amber)}',
+    '.en-notif-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}',
+    '.en-notif-text{font-size:11px;color:var(--muted);line-height:1.4}',
+    '.en-notif-time{font-size:10px;color:var(--muted);margin-top:4px}',
+    '.en-notif-action{display:inline-block;margin-top:4px;font-size:11px;color:var(--violet);font-weight:600;text-decoration:none}',
+    '.en-notif-empty{padding:24px;text-align:center;color:var(--muted);font-size:13px}'
   ].join('\n');
 
   // ── inject CSS into <head> immediately (head is available) ──
@@ -328,4 +344,72 @@
   } else {
     document.addEventListener('DOMContentLoaded', inject); // script in <head>
   }
+
+  // ── Notifications ──────────────────────
+  window.toggleNotifPanel = function() {
+    var panel = document.getElementById('en-notif-panel');
+    if (!panel) return;
+    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    if (panel.style.display === 'block') renderNotifications();
+  };
+
+  function renderNotifications() {
+    var list = document.getElementById('en-notif-list');
+    if (!list || !window.PT) return;
+    var notifs = PT.getMyNotifications();
+    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+
+    if (!notifs.length) {
+      list.innerHTML = '<div class="en-notif-empty">Нет уведомлений</div>';
+      return;
+    }
+
+    var html = '';
+    notifs.slice(0, 10).forEach(function(n) {
+      var isRead = user && n.readBy.indexOf(user.id) >= 0;
+      var levelClass = n.level === 'high' ? ' en-notif-level-high' : n.level === 'medium' ? ' en-notif-level-medium' : '';
+      var time = n.createdAt ? new Date(n.createdAt).toLocaleDateString('ru-RU', {day:'numeric',month:'short'}) : '';
+
+      html += '<div class="en-notif-item' + (isRead ? ' read' : ' unread') + levelClass + '" onclick="handleNotifClick(\'' + n.id + '\',\'' + (n.action && n.action.url ? n.action.url : '') + '\')">';
+      html += '<div class="en-notif-title">' + (n.title || '') + '</div>';
+      html += '<div class="en-notif-text">' + (n.text || '') + '</div>';
+      if (n.action) html += '<a class="en-notif-action" href="' + n.action.url + '">' + n.action.label + ' &rarr;</a>';
+      html += '<div class="en-notif-time">' + time + '</div>';
+      html += '</div>';
+    });
+
+    list.innerHTML = html;
+  }
+
+  window.handleNotifClick = function(notifId, url) {
+    if (window.PT) PT.markRead(notifId);
+    updateBellCount();
+    if (url) window.location.href = url;
+  };
+
+  function updateBellCount() {
+    var countEl = document.getElementById('en-bell-count');
+    if (!countEl || !window.PT) return;
+    var count = PT.getUnreadCount();
+    countEl.textContent = count;
+    countEl.style.display = count > 0 ? 'flex' : 'none';
+  }
+  window.updateBellCount = updateBellCount;
+
+  // Init: generate auto-alerts and update bell
+  setTimeout(function() {
+    if (window.PT && window.OrbAuth && OrbAuth.getCurrentUser()) {
+      PT.generateAutoAlerts();
+      updateBellCount();
+    }
+  }, 500);
+
+  // Close panel on outside click
+  document.addEventListener('click', function(e) {
+    var panel = document.getElementById('en-notif-panel');
+    var bell = document.getElementById('en-bell');
+    if (panel && panel.style.display === 'block' && !panel.contains(e.target) && e.target !== bell && (!bell || !bell.contains(e.target))) {
+      panel.style.display = 'none';
+    }
+  });
 })();

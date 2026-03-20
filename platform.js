@@ -17,6 +17,7 @@
     KEY_CHANGELOG:'ECOTECH_CHANGELOG',
     KEY_IDEAS:    'ECOTECH_IDEAS',
     KEY_TEAMS:    'ECOTECH_TEAMS',
+    KEY_NOTIFICATIONS: 'ECOTECH_NOTIFICATIONS',
 
     // ── Типы инициатив ──────────────────────────────────────────────
     // Подтипы (для будущего расширения):
@@ -327,6 +328,181 @@
     });
 
     return tasks;
+  };
+
+  // ── Notifications ────────────────────────────────────────
+
+  // Create a notification
+  PT.notify = function(opts) {
+    var notifications = PT.load(PT.KEY_NOTIFICATIONS) || [];
+    // Dedup: don't create if same type + productId + recipientRole exists and is unresolved
+    var exists = notifications.some(function(n) {
+      return n.type === opts.type && n.productId === (opts.productId || '') &&
+             n.recipientRole === (opts.recipientRole || '') && !n.resolvedAt;
+    });
+    if (exists) return;
+
+    var n = {
+      id: 'N-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
+      type: opts.type || 'info',
+      level: opts.level || 'medium',
+      recipientRole: opts.recipientRole || '',
+      recipientId: opts.recipientId || '',
+      productId: opts.productId || '',
+      title: opts.title || '',
+      text: opts.text || '',
+      action: opts.action || null,
+      createdAt: new Date().toISOString(),
+      readBy: [],
+      resolvedAt: null
+    };
+    notifications.push(n);
+    PT.save(PT.KEY_NOTIFICATIONS, notifications);
+    return n;
+  };
+
+  // Mark as read by current user
+  PT.markRead = function(notifId) {
+    var notifications = PT.load(PT.KEY_NOTIFICATIONS) || [];
+    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+    if (!user) return;
+    notifications.forEach(function(n) {
+      if (n.id === notifId && n.readBy.indexOf(user.id) === -1) {
+        n.readBy.push(user.id);
+      }
+    });
+    PT.save(PT.KEY_NOTIFICATIONS, notifications);
+  };
+
+  // Resolve (close) a notification
+  PT.resolveNotification = function(notifId) {
+    var notifications = PT.load(PT.KEY_NOTIFICATIONS) || [];
+    notifications.forEach(function(n) {
+      if (n.id === notifId) n.resolvedAt = new Date().toISOString();
+    });
+    PT.save(PT.KEY_NOTIFICATIONS, notifications);
+  };
+
+  // Get notifications for current user (filtered by role + userId)
+  PT.getMyNotifications = function() {
+    var notifications = PT.load(PT.KEY_NOTIFICATIONS) || [];
+    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+    if (!user) return [];
+    var role = user.role;
+
+    return notifications.filter(function(n) {
+      if (n.resolvedAt) return false; // skip resolved
+      // Personal notification
+      if (n.recipientId && n.recipientId === user.id) return true;
+      // Role-based
+      if (n.recipientRole === role) return true;
+      // PMO Lead sees all pmo notifications too
+      if (role === 'pmo_lead' && (n.recipientRole === 'pmo' || n.recipientRole === 'pmo_lead')) return true;
+      // Admin sees all
+      if (role === 'admin') return true;
+      // PM sees notifications for their products
+      if (role === 'pm' && n.recipientRole === 'pm_owner') {
+        var userProducts = OrbAuth.getUserProducts();
+        if (userProducts.indexOf('*') >= 0) return true;
+        if (n.productId && userProducts.indexOf(n.productId) >= 0) return true;
+      }
+      return false;
+    }).sort(function(a, b) {
+      // Unread first, then by date desc
+      var aRead = a.readBy.indexOf(user.id) >= 0 ? 1 : 0;
+      var bRead = b.readBy.indexOf(user.id) >= 0 ? 1 : 0;
+      if (aRead !== bRead) return aRead - bRead;
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+  };
+
+  // Count unread for current user
+  PT.getUnreadCount = function() {
+    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+    if (!user) return 0;
+    return PT.getMyNotifications().filter(function(n) {
+      return n.readBy.indexOf(user.id) === -1;
+    }).length;
+  };
+
+  // Generate auto-alerts (call on page load)
+  PT.generateAutoAlerts = function() {
+    var products = PT.load(PT.KEY_PRODUCTS) || [];
+    var backlog = PT.load(PT.KEY_BACKLOG) || [];
+    var now = new Date();
+
+    products.forEach(function(p) {
+      PT.migrateProductFields(p);
+
+      // Screening > 7 days
+      if (p.status === 'screening' && PT.daysSince(p.createdAt) > 7) {
+        PT.notify({
+          type: 'screening_stale', level: 'high', recipientRole: 'pmo_lead',
+          productId: p.id,
+          title: p.id + ' — на скрининге ' + PT.daysSince(p.createdAt) + ' дней',
+          text: 'Заявка ждёт решения. Назначьте владельца или отклоните.',
+          action: { label: 'Скрининг', url: 'admin.html' }
+        });
+      }
+
+      // Status stale > 7 days
+      if (p.statusDate && PT.daysSince(p.statusDate) > 7 && p.status !== 'screening') {
+        PT.notify({
+          type: 'status_stale', level: 'medium', recipientRole: 'pm_owner',
+          productId: p.id,
+          title: p.id + ' — обновите статус',
+          text: 'Светофор не обновлялся ' + PT.daysSince(p.statusDate) + ' дней.',
+          action: { label: 'Обновить', url: 'workspace.html?id=' + p.id }
+        });
+      }
+
+      // Gate deadline approaching (7 days)
+      if (p.gateDeadline) {
+        var daysLeft = Math.ceil((new Date(p.gateDeadline) - now) / 86400000);
+        if (daysLeft > 0 && daysLeft <= 7) {
+          PT.notify({
+            type: 'gate_upcoming', level: 'high', recipientRole: 'pm_owner',
+            productId: p.id,
+            title: p.id + ' — Gate Review через ' + daysLeft + ' дней',
+            text: 'Артефакты: ' + (p.artifactsReady || 0) + '/' + (p.artifactsTotal || 5) + '. Проверьте готовность.',
+            action: { label: 'Gate-чеклист', url: 'tools/gate-checklist.html' }
+          });
+        }
+      }
+
+      // Blocked product
+      if (p.status === 'blocked') {
+        PT.notify({
+          type: 'product_blocked', level: 'high', recipientRole: 'pmo_lead',
+          productId: p.id,
+          title: p.id + ' — заблокирован',
+          text: 'Требуется эскалация.',
+          action: { label: 'Открыть', url: 'workspace.html?id=' + p.id }
+        });
+      }
+    });
+
+    // Initiative WIP > 30 days
+    backlog.forEach(function(i) {
+      PT.migrateInitiativeFields(i);
+      if (i.status === 'wip' && PT.daysSince(i.updatedAt) > 30) {
+        PT.notify({
+          type: 'initiative_stale', level: 'medium', recipientRole: 'pm_owner',
+          productId: i.productId || '',
+          title: (i.name || i.id) + ' — в работе ' + PT.daysSince(i.updatedAt) + ' дней',
+          text: 'Обновите статус или закройте инициативу.',
+          action: { label: 'Открыть', url: 'workspace.html?id=' + (i.productId || '') + '&tab=initiatives' }
+        });
+      }
+    });
+
+    // Cleanup: remove resolved older than 30 days
+    var notifications = PT.load(PT.KEY_NOTIFICATIONS) || [];
+    var cutoff = new Date(Date.now() - 30 * 86400000).toISOString();
+    notifications = notifications.filter(function(n) {
+      return !n.resolvedAt || n.resolvedAt > cutoff;
+    });
+    PT.save(PT.KEY_NOTIFICATIONS, notifications);
   };
 
   // Запуск миграции при подключении скрипта

@@ -472,6 +472,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     _product.statusDate = new Date().toISOString().split('T')[0];
     saveProducts();
     addLog('status_light', status);
+    if (window.PT && PT.notify) {
+      PT.notify({
+        type: 'status_updated',
+        level: 'low',
+        recipientRole: 'pmo',
+        productId: productId,
+        title: productId + ' — статус обновлён',
+        text: 'Новый статус: ' + status,
+        action: { label: 'Открыть', url: 'workspace.html?id=' + productId }
+      });
+    }
     var dateEl = document.getElementById('status-date');
     if (dateEl) dateEl.textContent = _product.statusDate;
   };
@@ -1023,6 +1034,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
         }
         saveBacklog();
         addLog('\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0430', id, 'initiative', id);
+        if (window.PT && PT.notify) {
+          PT.notify({
+            type: 'review_submitted',
+            level: 'high',
+            recipientRole: 'pm_owner',
+            productId: productId,
+            title: productId + ' — ревью: GO',
+            text: 'Инициатива ' + id + ' согласована',
+            action: { label: 'Открыть', url: 'workspace.html?id=' + productId + '&tab=initiatives' }
+          });
+        }
         showToast('\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u043E');
         render();
       });
@@ -1037,6 +1059,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
         }
         saveBacklog();
         addLog('\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430 \u043E\u0442\u043A\u043B\u043E\u043D\u0435\u043D\u0430', id, 'initiative', id);
+        if (window.PT && PT.notify) {
+          PT.notify({
+            type: 'review_submitted',
+            level: 'high',
+            recipientRole: 'pm_owner',
+            productId: productId,
+            title: productId + ' — ревью: NO-GO',
+            text: 'Инициатива ' + id + ' отклонена',
+            action: { label: 'Открыть', url: 'workspace.html?id=' + productId + '&tab=initiatives' }
+          });
+        }
         showToast('\u041E\u0442\u043A\u043B\u043E\u043D\u0435\u043D\u043E');
         render();
       });

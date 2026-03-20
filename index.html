@@ -6,23 +6,27 @@
 <title>ОРБИТА</title>
 <link rel="stylesheet" href="design-system.css">
 <style>
-/* ── Dashboard layout ── */
 body { background:var(--bg); color:var(--text); font-family:var(--font-body); margin:0; }
-.dash { max-width:1000px; margin:0 auto; padding:24px 24px 80px; }
+.dash { max-width:720px; margin:0 auto; padding:32px 24px 80px; }
 
-/* ── Section title ── */
-.sec-title {
-  font-size:11px; font-weight:700; text-transform:uppercase;
-  letter-spacing:.1em; color:var(--violet); margin:24px 0 10px;
+/* Hero */
+.hero { text-align:center; padding:48px 0 20px; }
+.hero h1 { font-size:36px; font-weight:800; color:var(--text); margin:0; letter-spacing:-.5px; }
+.hero-sub { font-size:14px; color:var(--muted); margin-top:8px; line-height:1.5; }
+
+/* CTA block */
+.cta-block { text-align:center; margin:24px 0 32px; }
+.cta-main {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:14px 32px; border-radius:10px; font-family:var(--font-body);
+  font-size:14px; font-weight:700; cursor:pointer; border:none;
+  background:linear-gradient(135deg,var(--teal),var(--violet)); color:#fff;
+  text-decoration:none; transition:opacity .15s;
 }
-.sec-title:first-child { margin-top:0; }
+.cta-main:hover { opacity:.85; }
+.cta-sub { font-size:12px; color:var(--muted); margin-top:8px; }
 
-/* ── Hero ── */
-.hero { text-align:center; padding:40px 0 24px; }
-.hero h1 { font-size:32px; font-weight:800; color:var(--text); margin:0; }
-.hero-sub { font-size:14px; color:var(--muted); margin-top:6px; }
-
-/* ── Auth buttons ── */
+/* Auth row */
 .auth-row { display:flex; gap:10px; justify-content:center; margin-bottom:28px; }
 .btn-primary {
   padding:10px 24px; border-radius:8px; font-family:var(--font-body);
@@ -41,151 +45,65 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-body); ma
 }
 .btn-ghost:hover { border-color:var(--violet-border); color:var(--text); }
 
-/* ── Capability cards ── */
-.cap-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:24px; }
-.cap-card {
-  padding:14px; background:var(--card); border:1px solid var(--border);
-  border-radius:8px; text-decoration:none; transition:border-color .15s;
+/* Section title */
+.sec-title {
+  font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.1em; color:var(--violet); margin:24px 0 10px;
 }
-.cap-card:hover { border-color:var(--violet-border); }
-.cap-icon { font-size:18px; margin-bottom:6px; color:var(--violet); font-weight:800; }
-.cap-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:3px; }
-.cap-desc { font-size:11px; color:var(--muted); line-height:1.4; }
 
-/* ── Preview links ── */
-.preview-links { display:flex; gap:10px; justify-content:center; margin-bottom:16px; }
-.preview-links a {
-  font-size:12px; color:var(--violet); text-decoration:none;
-  padding:6px 14px; border:1px solid var(--violet-border); border-radius:6px;
-  transition:all .15s;
+/* Entry cards */
+.entry-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
+.entry-card {
+  padding:18px; background:var(--card); border:1px solid var(--border);
+  border-radius:10px; text-decoration:none; transition:border-color .15s;
 }
-.preview-links a:hover { background:var(--violet-dim); }
+.entry-card:hover { border-color:var(--violet-border); }
+.entry-name { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+.entry-desc { font-size:12px; color:var(--muted); line-height:1.4; }
 
-/* ── Health bar ── */
-.health-bar { display:flex; height:8px; border-radius:4px; overflow:hidden; margin-bottom:16px; }
-.hb-seg { transition:width .3s; }
-.hb-green { background:var(--teal); }
-.hb-amber { background:var(--amber); }
-.hb-red { background:var(--red); }
-.hb-gray { background:var(--muted); opacity:.3; }
-.health-legend { display:flex; gap:16px; font-size:11px; color:var(--muted); margin-bottom:20px; }
-.health-legend span::before {
-  content:''; display:inline-block; width:8px; height:8px; border-radius:50%;
-  margin-right:5px; vertical-align:middle;
-}
-.hl-green::before { background:var(--teal); }
-.hl-amber::before { background:var(--amber); }
-.hl-red::before { background:var(--red); }
-.hl-gray::before { background:var(--muted); opacity:.3; }
-
-/* ── Filter row ── */
-.filter-row { display:flex; gap:8px; align-items:center; margin-bottom:16px; flex-wrap:wrap; }
-.filter-btn {
-  font-size:11px; font-weight:600; padding:5px 12px; border-radius:6px;
-  border:1px solid var(--border); background:transparent; color:var(--muted);
-  cursor:pointer; transition:all .15s; font-family:var(--font-body);
-}
-.filter-btn.active { border-color:var(--violet-border); color:var(--violet); background:var(--violet-dim); }
-
-/* ── Alert cards ── */
-.alert-card {
+/* Notification cards */
+.notif-card {
   display:flex; align-items:flex-start; gap:12px;
   padding:10px 14px; background:var(--card); border-radius:8px;
-  margin-bottom:6px; border-left:3px solid var(--muted);
+  margin-bottom:6px; border-left:3px solid var(--muted); cursor:pointer;
+  text-decoration:none; transition:border-color .15s;
 }
-.alert-card.alert-red { border-left-color:var(--red); background:var(--red-dim); }
-.alert-card.alert-amber { border-left-color:var(--amber); background:var(--amber-dim); }
-.alert-text { font-size:12px; color:var(--text); flex:1; }
-.alert-action { font-size:11px; color:var(--muted); white-space:nowrap; }
-.alert-empty { font-size:12px; color:var(--muted); font-style:italic; }
+.notif-card:hover { border-color:var(--violet-border); }
+.notif-card.n-high { border-left-color:var(--red); background:var(--red-dim); }
+.notif-card.n-medium { border-left-color:var(--amber); background:var(--amber-dim); }
+.notif-title { font-size:12px; font-weight:600; color:var(--text); }
+.notif-text { font-size:11px; color:var(--muted); margin-top:2px; }
+.notif-empty { font-size:12px; color:var(--muted); font-style:italic; }
 
-/* ── Stage dots ── */
-.stage-row { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px; }
-.stage-group { display:flex; flex-direction:column; align-items:center; gap:4px; }
-.stage-label { font-size:10px; color:var(--muted); font-weight:600; }
-.stage-dots { display:flex; gap:3px; flex-wrap:wrap; justify-content:center; }
-.stage-dot {
-  width:10px; height:10px; border-radius:50%;
+/* Product cards */
+.prod-card {
+  display:flex; align-items:center; gap:10px; padding:10px 14px;
+  background:var(--card); border:1px solid var(--border); border-radius:8px;
+  margin-bottom:6px; text-decoration:none; transition:border-color .15s;
 }
-.sd-green { background:var(--teal); }
-.sd-amber { background:var(--amber); }
-.sd-red { background:var(--red); }
+.prod-card:hover { border-color:var(--violet-border); }
+.prod-light { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.pl-green { background:var(--teal); }
+.pl-amber { background:var(--amber); }
+.pl-red { background:var(--red); }
+.prod-name { font-size:13px; font-weight:600; color:var(--text); flex:1; }
+.prod-stage { font-size:10px; color:var(--muted); }
 
-/* ── Gate upcoming list ── */
-.gate-list { display:flex; flex-direction:column; gap:4px; margin-bottom:16px; }
-.gate-item {
-  display:flex; align-items:center; gap:10px; padding:8px 12px;
-  background:var(--card); border:1px solid var(--border); border-radius:6px; font-size:12px;
-}
-.gate-id { font-weight:700; color:var(--text); min-width:60px; }
-.gate-name { color:var(--text); flex:1; }
-.gate-ready { font-size:11px; font-weight:600; }
-.gate-ready.ok { color:var(--teal); }
-.gate-ready.partial { color:var(--amber); }
-
-/* ── RICE list ── */
-.rice-list { display:flex; flex-direction:column; gap:4px; }
-.rice-item {
-  display:flex; align-items:center; gap:10px; padding:8px 12px;
-  background:var(--card); border:1px solid var(--border); border-radius:6px; font-size:12px;
-}
-.rice-score { font-weight:800; color:var(--violet); min-width:44px; text-align:right; }
-.rice-name { color:var(--text); flex:1; }
-.rice-product { font-size:11px; color:var(--muted); }
-
-/* ── PM header ── */
-.pm-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
-.pm-header h2 { font-size:20px; font-weight:800; margin:0; }
-.pm-stage { font-size:11px; font-weight:700; padding:3px 10px; border-radius:4px; background:var(--violet-dim); color:var(--violet); }
-.status-light {
-  width:10px; height:10px; border-radius:50%; display:inline-block;
-}
-.sl-green { background:var(--teal); }
-.sl-amber { background:var(--amber); }
-.sl-red { background:var(--red); }
-
-/* ── Progress bars ── */
-.progress-row { display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
-.progress-box { flex:1; min-width:180px; }
-.prog-label { font-size:11px; color:var(--muted); margin-bottom:4px; font-weight:600; }
-.prog-bar { height:6px; border-radius:3px; background:var(--surface2); overflow:hidden; }
-.prog-fill { height:100%; border-radius:3px; transition:width .3s; }
-.prog-fill-teal { background:var(--teal); }
-.prog-fill-violet { background:var(--violet); }
-.prog-val { font-size:11px; color:var(--muted); margin-top:3px; }
-
-/* ── Task checklist ── */
-.task-list { display:flex; flex-direction:column; gap:4px; margin-bottom:16px; }
-.task-item {
-  display:flex; align-items:center; gap:8px; padding:8px 12px;
-  background:var(--card); border:1px solid var(--border); border-radius:6px;
-  font-size:12px; text-decoration:none; color:var(--text); transition:border-color .15s;
-}
-.task-item:hover { border-color:var(--violet-border); }
-.task-check { width:14px; height:14px; border:2px solid var(--muted); border-radius:3px; flex-shrink:0; }
-
-/* ── Quick actions ── */
-.quick-actions { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
-.qa-btn {
+/* Quick links */
+.quick-links { display:flex; gap:8px; flex-wrap:wrap; }
+.ql-btn {
   padding:8px 16px; border-radius:8px; font-family:var(--font-body);
   font-size:12px; font-weight:600; cursor:pointer;
   border:1px solid var(--border); background:var(--card); color:var(--text);
   text-decoration:none; transition:all .15s;
 }
-.qa-btn:hover { border-color:var(--violet-border); background:var(--violet-dim); }
+.ql-btn:hover { border-color:var(--violet-border); background:var(--violet-dim); }
 
-/* ── Footer ── */
+/* Footer */
 .footer { font-size:10px; color:var(--muted); opacity:.4; text-align:center; padding:20px 24px; }
 
-/* ── Responsive ── */
-@media (max-width:768px) {
-  .cap-grid { grid-template-columns:1fr 1fr; }
-  .preview-links { flex-wrap:wrap; }
-  .stage-row { gap:10px; }
-}
 @media (max-width:480px) {
-  .cap-grid { grid-template-columns:1fr; }
-  .progress-row { flex-direction:column; }
+  .entry-grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -196,274 +114,125 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-body); ma
 <script src="js/auth.js"></script>
 <script src="js/auth-ui.js"></script>
 <script>
-/* ── Helpers ─────────────────────────────────────────────── */
 function esc(s) { var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-
 var GATE_NAMES = ['Gate 0 Скрининг','Gate 1 Концепция','Gate 2 MVP','Gate 3 Масштабирование','Gate 4 Рост','Gate 5 Зрелость'];
-var STATUS_DOT = { 'on-track':'sd-green', 'at-risk':'sd-amber', 'blocked':'sd-red', 'screening':'sd-amber' };
 
-/* ── Welcome (guest / unauthorized) ─────────────────────── */
-function renderWelcome(c, user) {
+/* ── Guest / Unauthorized ─────────────────────── */
+function renderWelcome(c) {
   var h = '';
   h += '<div class="hero"><h1>ОРБИТА</h1>';
   h += '<p class="hero-sub">Платформа управления портфелем цифровых решений экосистемы</p></div>';
 
-  /* Auth buttons */
+  /* Big CTA */
+  h += '<div class="cta-block">';
+  h += '<a class="cta-main" href="tools/brief.html">+ Подать заявку на новый продукт</a>';
+  h += '<div class="cta-sub">PMO рассмотрит за 5 рабочих дней</div>';
+  h += '</div>';
+
+  /* Entry cards */
+  h += '<div class="entry-grid">';
+  h += '<a class="entry-card" href="catalog.html"><div class="entry-name">Портфель</div><div class="entry-desc">Продукты экосистемы, статусы, Gate-прогресс</div></a>';
+  h += '<a class="entry-card" href="framework.html"><div class="entry-name">Методология</div><div class="entry-desc">Как мы работаем, роли, планирование</div></a>';
+  h += '</div>';
+
+  /* Auth */
   h += '<div class="auth-row">';
-  h += '<button class="btn-primary" onclick="if(window.showAuthModal){showAuthModal()}else{location.href=\'registry.html\'}">Войти</button>';
+  h += '<button class="btn-primary" onclick="if(window.showAuthModal){showAuthModal()}else{location.href=\'catalog.html\'}">Войти</button>';
   h += '<button class="btn-ghost" onclick="if(window.authGuestLogin){authGuestLogin()}else{location.href=\'catalog.html\'}">Гостевой доступ</button>';
   h += '</div>';
 
-  /* Capability cards */
-  h += '<div class="sec-title">Что умеет ОРБИТА</div>';
-  h += '<div class="cap-grid">';
-  h += '<div class="cap-card"><div class="cap-icon">[P]</div><div class="cap-name">Каталог продуктов</div><div class="cap-desc">Портфель в реальном времени со статусами и Gate-прогрессом</div></div>';
-  h += '<div class="cap-card"><div class="cap-icon">[R]</div><div class="cap-name">RICE-приоритизация</div><div class="cap-desc">Скоринг инициатив и бэклог с фильтрами</div></div>';
-  h += '<div class="cap-card"><div class="cap-icon">[G]</div><div class="cap-name">Gate-ревью</div><div class="cap-desc">Чеклисты артефактов для каждого этапа</div></div>';
-  h += '<div class="cap-card"><div class="cap-icon">[D]</div><div class="cap-name">Дашборды</div><div class="cap-desc">Здоровье портфеля, алерты, задачи PM</div></div>';
-  h += '</div>';
-
-  /* Preview links */
-  h += '<div class="preview-links">';
-  h += '<a href="catalog.html">Каталог</a>';
-  h += '<a href="workspace.html?id=ECO-00">Карточка продукта</a>';
-  h += '<a href="framework.html">Методология</a>';
-  h += '</div>';
-
   c.innerHTML = h;
 }
 
-/* ── Executive dashboard (CEO / Lead / PMO / Admin) ─────── */
-function renderExecutiveDashboard(c, user) {
+/* ── Authorized (any role) ────────────────────── */
+function renderAuthorized(c, user) {
   var products = PT.load(PT.KEY_PRODUCTS) || [];
-  var backlog = PT.load(PT.KEY_BACKLOG) || [];
   products.forEach(function(p) { PT.migrateProductFields(p); });
-
   var h = '';
-  h += '<div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px">';
-  h += '<h2 style="font-size:20px;font-weight:800;margin:0">Портфель ' + PT.currentQuarter() + '</h2>';
-  h += '<div class="filter-row" id="dept-filter"></div>';
-  h += '</div>';
 
-  /* Health bar */
-  var onTrack = products.filter(function(p){ return p.status==='on-track'; }).length;
-  var atRisk  = products.filter(function(p){ return p.status==='at-risk'; }).length;
-  var blocked = products.filter(function(p){ return p.status==='blocked'; }).length;
-  var other   = products.length - onTrack - atRisk - blocked;
-  var total   = products.length || 1;
-
-  h += '<div class="sec-title" style="margin-top:20px">Здоровье портфеля</div>';
-  h += '<div class="health-bar">';
-  h += '<div class="hb-seg hb-green" style="width:' + (onTrack/total*100) + '%"></div>';
-  h += '<div class="hb-seg hb-amber" style="width:' + (atRisk/total*100) + '%"></div>';
-  h += '<div class="hb-seg hb-red" style="width:' + (blocked/total*100) + '%"></div>';
-  h += '<div class="hb-seg hb-gray" style="width:' + (other/total*100) + '%"></div>';
-  h += '</div>';
-  h += '<div class="health-legend">';
-  h += '<span class="hl-green">On Track ' + onTrack + '</span>';
-  h += '<span class="hl-amber">At Risk ' + atRisk + '</span>';
-  h += '<span class="hl-red">Blocked ' + blocked + '</span>';
-  h += '<span class="hl-gray">Other ' + other + '</span>';
-  h += '</div>';
-
-  /* Alerts */
-  var alerts = PT.getAlerts();
-  h += '<div class="sec-title">Алерты (' + alerts.length + ')</div>';
-  if (alerts.length) {
-    alerts.slice(0, 8).forEach(function(a) {
-      var cls = a.level === 'red' ? 'alert-red' : 'alert-amber';
-      h += '<div class="alert-card ' + cls + '">';
-      h += '<div class="alert-text">' + esc(a.text) + '</div>';
-      h += '<div class="alert-action">' + esc(a.action) + '</div>';
-      h += '</div>';
-    });
-    if (alerts.length > 8) h += '<div style="font-size:11px;color:var(--muted);margin-top:4px">+ ещё ' + (alerts.length - 8) + '</div>';
-  } else {
-    h += '<div class="alert-empty">Нет активных алертов</div>';
-  }
-
-  /* Portfolio by stage (dot viz) */
-  h += '<div class="sec-title">Продукты по стадиям</div>';
-  h += '<div class="stage-row">';
-  for (var g = 0; g <= 5; g++) {
-    var gp = products.filter(function(p){ return p.gate === g; });
-    h += '<div class="stage-group">';
-    h += '<div class="stage-label">G' + g + '</div>';
-    h += '<div class="stage-dots">';
-    if (gp.length) {
-      gp.forEach(function(p) {
-        var dc = STATUS_DOT[p.status] || 'sd-green';
-        h += '<div class="stage-dot ' + dc + '" title="' + esc(p.id + ' ' + p.name) + '"></div>';
-      });
+  /* CTA block — context-aware */
+  h += '<div class="cta-block">';
+  if (user.role === 'pmo_lead' || user.role === 'pmo' || user.role === 'admin') {
+    var ideas = PT.load(PT.KEY_IDEAS) || [];
+    var newIdeas = ideas.filter(function(i) { return i.status === 'new'; });
+    if (newIdeas.length) {
+      h += '<a class="cta-main" href="admin.html">Новые заявки: ' + newIdeas.length + '</a>';
+      h += '<div class="cta-sub">Требуется скрининг</div>';
     } else {
-      h += '<div style="font-size:10px;color:var(--muted)">--</div>';
+      h += '<a class="cta-main" href="tools/brief.html">+ Подать заявку</a>';
+      h += '<div class="cta-sub">Все заявки рассмотрены</div>';
     }
-    h += '</div></div>';
+  } else {
+    h += '<a class="cta-main" href="tools/brief.html">+ Подать заявку</a>';
+    h += '<div class="cta-sub">PMO рассмотрит за 5 рабочих дней</div>';
   }
   h += '</div>';
 
-  /* Upcoming Gates */
-  h += '<div class="sec-title">Ближайшие Gate-ревью</div>';
-  h += '<div class="gate-list">';
-  var withGate = products.filter(function(p){ return p.gate < 5; })
-    .sort(function(a,b){ return a.gate - b.gate; }).slice(0, 5);
-  if (withGate.length) {
-    withGate.forEach(function(p) {
-      var pct = p.artifactsTotal ? Math.round(p.artifactsReady / p.artifactsTotal * 100) : 0;
-      var cls = pct >= 100 ? 'ok' : 'partial';
-      h += '<a class="gate-item" href="workspace.html?id=' + esc(p.id) + '" style="text-decoration:none">';
-      h += '<span class="gate-id">' + esc(p.id) + '</span>';
-      h += '<span class="gate-name">' + esc(p.name) + ' (' + (GATE_NAMES[p.gate] || 'Gate ' + p.gate) + ')</span>';
-      h += '<span class="gate-ready ' + cls + '">' + p.artifactsReady + '/' + p.artifactsTotal + ' артефактов</span>';
+  /* Notifications — Требует внимания */
+  var notifs = window.PT ? PT.getMyNotifications() : [];
+  if (notifs.length) {
+    h += '<div class="sec-title">Требует внимания (' + notifs.length + ')</div>';
+    notifs.slice(0, 5).forEach(function(n) {
+      var cls = n.level === 'high' ? 'n-high' : n.level === 'medium' ? 'n-medium' : '';
+      var url = n.action && n.action.url ? n.action.url : '#';
+      h += '<a class="notif-card ' + cls + '" href="' + url + '" onclick="if(window.PT){PT.markRead(\'' + n.id + '\')}">';
+      h += '<div style="flex:1"><div class="notif-title">' + esc(n.title) + '</div>';
+      h += '<div class="notif-text">' + esc(n.text) + '</div></div>';
+      if (n.action) h += '<span style="font-size:11px;color:var(--violet);font-weight:600;white-space:nowrap">' + esc(n.action.label) + ' &rarr;</span>';
       h += '</a>';
     });
-  } else {
-    h += '<div class="alert-empty">Нет предстоящих ревью</div>';
-  }
-  h += '</div>';
-
-  /* Top RICE initiatives */
-  h += '<div class="sec-title">Топ инициативы по RICE</div>';
-  h += '<div class="rice-list">';
-  var scored = backlog.map(function(i) {
-    i._rice = Math.round(((i.r||0)*(i.i||0)*(i.c||0))/(i.e||1));
-    return i;
-  }).filter(function(i){ return i._rice > 0 && i.status !== 'done'; })
-    .sort(function(a,b){ return b._rice - a._rice; }).slice(0, 5);
-  if (scored.length) {
-    scored.forEach(function(i) {
-      h += '<div class="rice-item">';
-      h += '<span class="rice-score">' + i._rice + '</span>';
-      h += '<span class="rice-name">' + esc(i.name || i.id) + '</span>';
-      h += '<span class="rice-product">' + esc(i.productId || i.project || '') + '</span>';
-      h += '</div>';
-    });
-  } else {
-    h += '<div class="alert-empty">Нет инициатив с RICE-скором</div>';
-  }
-  h += '</div>';
-
-  c.innerHTML = h;
-
-  /* Render department filter */
-  var depts = {};
-  products.forEach(function(p) { var d = p.department || 'innovation'; depts[d] = (depts[d]||0)+1; });
-  var filterEl = document.getElementById('dept-filter');
-  if (filterEl) {
-    var fh = '<button class="filter-btn active" data-dept="all">Все (' + products.length + ')</button>';
-    Object.keys(depts).forEach(function(d) {
-      fh += '<button class="filter-btn" data-dept="' + d + '">' + esc(PT.getDeptLabel(d)) + ' (' + depts[d] + ')</button>';
-    });
-    filterEl.innerHTML = fh;
-  }
-}
-
-/* ── PM dashboard ───────────────────────────────────────── */
-function renderPMDashboard(c, user) {
-  var products = PT.load(PT.KEY_PRODUCTS) || [];
-  var backlog = PT.load(PT.KEY_BACKLOG) || [];
-
-  /* Find PM's product */
-  var myProduct = null;
-  if (user.assignments && user.assignments.length) {
-    var pid = user.assignments[0].productId;
-    myProduct = products.find(function(p){ return p.id === pid; });
-  }
-  if (!myProduct && products.length) myProduct = products[0];
-  if (myProduct) PT.migrateProductFields(myProduct);
-
-  var h = '';
-
-  if (!myProduct) {
-    h += '<div class="alert-empty" style="padding:40px;text-align:center">Нет назначенных продуктов</div>';
-    c.innerHTML = h;
-    return;
+    if (notifs.length > 5) h += '<div style="font-size:11px;color:var(--muted);margin-top:4px">+ ещё ' + (notifs.length - 5) + '</div>';
   }
 
-  /* Header */
-  var slClass = 'sl-' + (myProduct.statusLight || 'green');
-  h += '<div class="pm-header">';
-  h += '<span class="status-light ' + slClass + '"></span>';
-  h += '<h2>' + esc(myProduct.name) + '</h2>';
-  h += '<span class="pm-stage">' + (GATE_NAMES[myProduct.gate] || 'Gate ' + myProduct.gate) + '</span>';
-  h += '</div>';
-
-  /* Progress bars */
-  var myInits = backlog.filter(function(i){ return (i.productId || i.project) === myProduct.id; });
-  var doneInits = myInits.filter(function(i){ return i.status === 'done'; }).length;
-  var initPct = myInits.length ? Math.round(doneInits / myInits.length * 100) : 0;
-  var artPct = myProduct.artifactsTotal ? Math.round(myProduct.artifactsReady / myProduct.artifactsTotal * 100) : 0;
-
-  h += '<div class="progress-row">';
-  h += '<div class="progress-box"><div class="prog-label">Инициативы</div>';
-  h += '<div class="prog-bar"><div class="prog-fill prog-fill-teal" style="width:' + initPct + '%"></div></div>';
-  h += '<div class="prog-val">' + doneInits + ' / ' + myInits.length + ' выполнено</div></div>';
-  h += '<div class="progress-box"><div class="prog-label">Gate-артефакты</div>';
-  h += '<div class="prog-bar"><div class="prog-fill prog-fill-violet" style="width:' + artPct + '%"></div></div>';
-  h += '<div class="prog-val">' + myProduct.artifactsReady + ' / ' + myProduct.artifactsTotal + ' загружено</div></div>';
-  h += '</div>';
-
-  /* My Tasks */
-  var tasks = PT.getPMTasks(myProduct.id);
-  h += '<div class="sec-title">Задачи на неделю (' + tasks.length + ')</div>';
-  h += '<div class="task-list">';
-  if (tasks.length) {
-    tasks.forEach(function(t) {
-      h += '<a class="task-item" href="' + esc(t.link) + '">';
-      h += '<div class="task-check"></div>';
-      h += '<span>' + esc(t.text) + '</span>';
-      h += '</a>';
-    });
-  } else {
-    h += '<div class="alert-empty">Все задачи выполнены</div>';
+  /* My products (for PM) */
+  if (user.role === 'pm') {
+    var myProducts = [];
+    if (user.assignments && user.assignments.length) {
+      user.assignments.forEach(function(a) {
+        var p = products.find(function(pr) { return pr.id === a.productId; });
+        if (p) myProducts.push(p);
+      });
+    }
+    if (myProducts.length) {
+      h += '<div class="sec-title">Мои продукты</div>';
+      myProducts.forEach(function(p) {
+        var lc = 'pl-' + (p.statusLight || 'green');
+        h += '<a class="prod-card" href="workspace.html?id=' + esc(p.id) + '">';
+        h += '<span class="prod-light ' + lc + '"></span>';
+        h += '<span class="prod-name">' + esc(p.name) + '</span>';
+        h += '<span class="prod-stage">' + (GATE_NAMES[p.gate] || 'Gate ' + p.gate) + '</span>';
+        h += '</a>';
+      });
+    }
   }
-  h += '</div>';
 
-  /* Quick Actions */
-  h += '<div class="sec-title">Быстрые действия</div>';
-  h += '<div class="quick-actions">';
-  h += '<a class="qa-btn" href="registry.html#product=' + esc(myProduct.id) + '">+ Инициатива</a>';
-  h += '<a class="qa-btn" href="workspace.html?id=' + esc(myProduct.id) + '">Обновить статус</a>';
-  h += '<a class="qa-btn" href="workspace.html?id=' + esc(myProduct.id) + '&tab=docs">Gate-чеклист</a>';
-  h += '</div>';
-
-  /* My Initiatives top 5 */
-  h += '<div class="sec-title">Мои инициативы (топ-5 RICE)</div>';
-  h += '<div class="rice-list">';
-  var myScored = myInits.map(function(i) {
-    i._rice = Math.round(((i.r||0)*(i.i||0)*(i.c||0))/(i.e||1));
-    return i;
-  }).filter(function(i){ return i.status !== 'done'; })
-    .sort(function(a,b){ return b._rice - a._rice; }).slice(0, 5);
-  if (myScored.length) {
-    myScored.forEach(function(i) {
-      var stLabel = i.status === 'wip' ? 'В работе' : i.status === 'next' ? 'Следующая' : i.status || 'backlog';
-      h += '<div class="rice-item">';
-      h += '<span class="rice-score">' + i._rice + '</span>';
-      h += '<span class="rice-name">' + esc(i.name || i.id) + '</span>';
-      h += '<span class="rice-product">' + esc(stLabel) + '</span>';
-      h += '</div>';
-    });
-  } else {
-    h += '<div class="alert-empty">Нет активных инициатив</div>';
+  /* Quick links */
+  h += '<div class="sec-title">Быстрый доступ</div>';
+  h += '<div class="quick-links">';
+  h += '<a class="ql-btn" href="catalog.html">Портфель</a>';
+  h += '<a class="ql-btn" href="framework.html">Методология</a>';
+  h += '<a class="ql-btn" href="registry.html">Реестр</a>';
+  h += '<a class="ql-btn" href="tools/brief.html">Бриф</a>';
+  if (user.role === 'admin' || user.role === 'pmo_lead') {
+    h += '<a class="ql-btn" href="admin.html">Admin</a>';
   }
   h += '</div>';
 
   c.innerHTML = h;
 }
 
-/* ── Route ──────────────────────────────────────────────── */
+/* ── Route ──────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', function() {
   var container = document.getElementById('dashboard');
   var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
 
   PT.ensureProducts(function() {
     if (!user || user.role === 'guest') {
-      renderWelcome(container, user);
-    } else if (user.role === 'pm') {
-      renderPMDashboard(container, user);
+      renderWelcome(container);
     } else {
-      renderExecutiveDashboard(container, user);
+      // Generate auto-alerts before rendering
+      if (window.PT) PT.generateAutoAlerts();
+      renderAuthorized(container, user);
     }
   });
 });
