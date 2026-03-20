@@ -55,8 +55,15 @@
 .tl-name { font-size:12px; font-weight:600; color:var(--text); }
 
 /* ── STAGE ── */
-.stage { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; padding:24px; border-left:4px solid var(--c0); }
-.stage-header { display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+/* Stage bar (clickable tabs) */
+.stage-bar { display:flex; gap:4px; padding:4px; background:var(--surface); border:1px solid var(--border); border-radius:8px; margin-bottom:20px; overflow-x:auto; }
+.stage-bar-btn { padding:8px 14px; border:none; border-radius:6px; background:transparent; color:var(--muted); font-family:var(--font); font-size:11px; font-weight:600; cursor:pointer; transition:all .15s; white-space:nowrap; }
+.stage-bar-btn:hover { background:var(--surface2); color:var(--text); }
+.stage-bar-btn.active { background:var(--violet-dim); color:var(--violet); }
+
+.stage { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; padding:24px; border-left:4px solid var(--c0); display:none; }
+.stage.visible { display:block; }
+.stage-header { display:flex; align-items:center; gap:14px; margin-bottom:16px; cursor:pointer; }
 .stage-badge { display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:var(--radius-sm); font-family:var(--font-head); font-size:14px; font-weight:800; color:var(--white); flex-shrink:0; }
 .stage-name { font-size:18px; font-weight:700; color:var(--white); margin-bottom:2px; }
 .stage-meta { font-size:12px; color:var(--muted); }
@@ -198,6 +205,35 @@
   </div>
 </div>
 
+
+<!-- ═══════════ STAGE BAR (clickable) ═══════════ -->
+<div class="stage-bar" data-entity="product" id="stage-bar-product">
+  <button class="stage-bar-btn" onclick="showStage('o0',this)">O·0 Заявка</button>
+  <button class="stage-bar-btn" onclick="showStage('o1',this)">O·1 Разведка</button>
+  <button class="stage-bar-btn" onclick="showStage('o2',this)">O·2 Прототип</button>
+  <button class="stage-bar-btn" onclick="showStage('o3',this)">O·3 Разгон</button>
+  <button class="stage-bar-btn" onclick="showStage('o4',this)">O·4 Экосистема</button>
+  <button class="stage-bar-btn" onclick="showStage('o5',this)">O·5 Зрелость</button>
+</div>
+<div class="stage-bar" data-entity="tech" id="stage-bar-tech" style="display:none">
+  <button class="stage-bar-btn" onclick="showStage('t0',this)">T·0 Заявка</button>
+  <button class="stage-bar-btn" onclick="showStage('t1',this)">T·1 Проектирование</button>
+  <button class="stage-bar-btn" onclick="showStage('t2',this)">T·2 Реализация</button>
+  <button class="stage-bar-btn" onclick="showStage('t3',this)">T·3 Приёмка</button>
+</div>
+<div class="stage-bar" data-entity="edu" id="stage-bar-edu" style="display:none">
+  <button class="stage-bar-btn" onclick="showStage('e0',this)">E·0 Заявка</button>
+  <button class="stage-bar-btn" onclick="showStage('e1',this)">E·1 Программа</button>
+  <button class="stage-bar-btn" onclick="showStage('e2',this)">E·2 Пилот</button>
+  <button class="stage-bar-btn" onclick="showStage('e3',this)">E·3 Масштабирование</button>
+  <button class="stage-bar-btn" onclick="showStage('e4',this)">E·4 Зрелость</button>
+</div>
+<div class="stage-bar" data-entity="project" id="stage-bar-project" style="display:none">
+  <button class="stage-bar-btn" onclick="showStage('p0',this)">P·0 Инициация</button>
+  <button class="stage-bar-btn" onclick="showStage('p1',this)">P·1 Планирование</button>
+  <button class="stage-bar-btn" onclick="showStage('p2',this)">P·2 Исполнение</button>
+  <button class="stage-bar-btn" onclick="showStage('p3',this)">P·3 Закрытие</button>
+</div>
 
 <!-- ╔══════════════════════════════════════════╗
      ║         PRODUCT STAGES  O·0 – O·5       ║
@@ -1326,6 +1362,35 @@ function setEntity(entity) {
   document.querySelectorAll('[data-entity]').forEach(function(el) {
     el.style.display = (el.dataset.entity === entity) ? '' : 'none';
   });
+}
+
+function showStage(stageId, btn) {
+  var target = document.getElementById('stage-' + stageId);
+  if (!target) return;
+
+  // If already visible — toggle off
+  if (target.classList.contains('visible')) {
+    target.classList.remove('visible');
+    if (btn) btn.classList.remove('active');
+    return;
+  }
+
+  // Hide all stages of current entity, deactivate all bar buttons
+  var barId = 'stage-bar-' + currentEntity;
+  var bar = document.getElementById(barId);
+  if (bar) {
+    bar.querySelectorAll('.stage-bar-btn').forEach(function(b) { b.classList.remove('active'); });
+  }
+  document.querySelectorAll('.stage[data-entity="' + currentEntity + '"]').forEach(function(s) {
+    s.classList.remove('visible');
+  });
+
+  // Show target stage
+  target.classList.add('visible');
+  if (btn) btn.classList.add('active');
+
+  // Scroll to stage
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // Init: hide admin buttons on load
