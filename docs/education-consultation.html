@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОРБИТА для Обучения</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#0B1929;
+  --card:#112240;
+  --surface:#162B4A;
+  --surface2:#1C355A;
+  --border:rgba(87,157,255,.12);
+  --border-hi:rgba(87,157,255,.25);
+  --text:#E2E8F0;
+  --muted:#8899AA;
+  --white:#FFFFFF;
+  --violet:#579DFF;
+  --violet-dim:rgba(87,157,255,.10);
+  --teal:#4BCE97;
+  --teal-dim:rgba(75,206,151,.10);
+  --amber:#F5CD47;
+  --amber-dim:rgba(245,205,71,.10);
+  --red:#F87171;
+  --pink:#E774BB;
+  --pink-dim:rgba(231,116,187,.10);
+  --gray:#94A3B8;
+}
+
+body{
+  font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+@media print{
+  body{background:#fff!important;color:#1a1a1a!important}
+  .container{max-width:100%}
+  .card,.stat-grid,.step-card,.checklist,.specifics-card,.option-card,.agreements-table,.next-steps{
+    border-color:#ddd!important;background:#f8f8f8!important}
+  .header::before{background:#333!important}
+  h1,h2,h3,.stat-val,.card-title,.step-num,.option-title{color:#111!important}
+  .card-desc,.stat-label,.muted,.step-text,.specifics-desc,.option-desc{color:#555!important}
+  .agreements-table th{background:#eee!important;color:#111!important}
+  .agreements-table td{color:#333!important;border-color:#ddd!important}
+}
+
+.container{max-width:880px;margin:0 auto;padding:28px 24px 40px}
+
+/* ---- HEADER ---- */
+.header{
+  text-align:center;
+  padding:36px 24px 28px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:28px;
+  position:relative;
+}
+.header::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--teal),var(--violet),var(--teal));
+  border-radius:2px;
+}
+.header-label{
+  font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:10px;
+}
+.header h1{
+  font-size:28px;font-weight:800;color:var(--white);margin-bottom:6px;
+  letter-spacing:-.02em;
+}
+.header .subtitle{font-size:14px;color:var(--muted);font-weight:400}
+
+/* ---- SECTION ---- */
+.section{margin-bottom:28px}
+.section-title{
+  font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--violet);margin-bottom:12px;
+  padding-bottom:6px;border-bottom:1px solid var(--border);
+}
+
+/* ---- STATUS CARDS (Block 1) ---- */
+.status-block{
+  background:var(--card);
+  border-radius:8px;
+  border-left:3px solid var(--teal);
+  padding:20px 22px;
+}
+.status-block .status-heading{
+  font-size:15px;font-weight:700;color:var(--teal);margin-bottom:14px;
+}
+.status-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.status-list li{
+  padding:8px 14px;
+  background:var(--surface);
+  border-radius:4px;
+  font-size:13.5px;
+  color:var(--text);
+  display:flex;align-items:baseline;gap:8px;
+}
+.status-list li::before{
+  content:'';display:inline-block;width:7px;height:7px;
+  background:var(--teal);border-radius:50%;flex-shrink:0;
+  position:relative;top:-1px;
+}
+.status-summary{
+  margin-top:14px;padding:10px 14px;
+  background:var(--teal-dim);border:1px solid rgba(75,206,151,.2);
+  border-radius:6px;font-size:13.5px;color:var(--teal);font-weight:600;
+  text-align:center;
+}
+
+/* ---- CHECKLIST (Block 2) ---- */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px}
+.checklist li{
+  display:flex;align-items:baseline;gap:12px;
+  padding:12px 16px;
+  background:var(--card);
+  border-left:3px solid var(--amber);
+  border-radius:4px;
+  font-size:13.5px;
+}
+.step-num{
+  font-weight:800;color:var(--amber);font-size:15px;
+  min-width:20px;flex-shrink:0;
+}
+.step-text strong{color:var(--white)}
+
+/* ---- SPECIFICS (Block 3) ---- */
+.specifics-grid{display:flex;flex-direction:column;gap:10px}
+.specifics-card{
+  background:var(--card);
+  border-radius:6px;
+  padding:14px 18px;
+  border-left:3px solid var(--pink);
+  display:flex;gap:14px;align-items:baseline;
+}
+.specifics-icon{
+  font-size:14px;font-weight:800;color:var(--pink);min-width:20px;flex-shrink:0;
+}
+.specifics-title{font-size:14px;font-weight:700;color:var(--white);margin-bottom:3px}
+.specifics-desc{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* ---- OPTIONS (Block 4) ---- */
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.option-card{
+  background:var(--card);
+  border-radius:8px;
+  padding:20px;
+  border-top:3px solid var(--violet);
+  position:relative;
+}
+.option-label{
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--violet);margin-bottom:8px;
+}
+.option-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px}
+.option-desc{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* ---- AGREEMENTS TABLE (Block 5) ---- */
+.agreements-table{
+  width:100%;border-collapse:collapse;font-size:13px;
+}
+.agreements-table th{
+  background:var(--surface);color:var(--violet);
+  font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  padding:10px 14px;text-align:left;
+  border-bottom:2px solid var(--border-hi);
+}
+.agreements-table td{
+  padding:10px 14px;
+  border-bottom:1px solid var(--border);
+  color:var(--text);
+  vertical-align:top;
+}
+.agreements-table tr:last-child td{border-bottom:none}
+.agreements-table .discuss{
+  color:var(--amber);font-weight:600;font-style:italic;font-size:12px;
+}
+
+/* ---- NEXT STEPS (Block 6) ---- */
+.next-steps{list-style:none;display:flex;flex-direction:column;gap:6px}
+.next-steps li{
+  display:flex;align-items:baseline;gap:10px;
+  padding:10px 14px;
+  background:var(--card);
+  border-left:3px solid var(--teal);
+  border-radius:4px;
+  font-size:13.5px;
+}
+.next-steps .ns-num{
+  font-weight:800;color:var(--teal);font-size:14px;
+  min-width:18px;
+}
+.ns-timing{color:var(--muted);font-size:12px;margin-left:auto;flex-shrink:0}
+
+/* ---- FOOTER ---- */
+.footer{
+  text-align:center;
+  padding:20px;
+  margin-top:12px;
+  border-top:1px solid var(--border);
+}
+.footer-text{font-size:13px;color:var(--muted)}
+.footer-email{font-size:13px;color:var(--violet);font-weight:600}
+
+@media(max-width:700px){
+  .options-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-label">Проектный офис</div>
+    <h1>ОРБИТА для Обучения</h1>
+    <div class="subtitle">Консультация &middot; Настройка процессов для департамента Обучения</div>
+  </div>
+
+  <!-- BLOCK 1: Текущий статус совместной работы -->
+  <div class="section">
+    <div class="section-title">Текущий статус совместной работы</div>
+    <div class="status-block">
+      <div class="status-heading">Что уже работает для Обучения</div>
+      <ul class="status-list">
+        <li>ОРБИТА поддерживает департамент &laquo;Обучение&raquo; &mdash; уже настроено</li>
+        <li>ECO-02 (сервис обучающего контента) &mdash; в реестре, стадия O&middot;1</li>
+        <li>Разделение доступа по департаментам работает</li>
+        <li>Фреймворк и Gate-модель &mdash; универсальны для обоих департаментов</li>
+      </ul>
+      <div class="status-summary">Всё что мы построили для Экосистемы &mdash; уже работает и для Обучения</div>
+    </div>
+  </div>
+
+  <!-- BLOCK 2: Что нужно настроить для Обучения -->
+  <div class="section">
+    <div class="section-title">Что нужно настроить для Обучения</div>
+    <ul class="checklist">
+      <li>
+        <span class="step-num">1</span>
+        <span class="step-text"><strong>Инвентаризация портфеля</strong> &mdash; какие продукты и инициативы есть в департаменте Обучения? Занести в реестр ОРБИТА.</span>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <span class="step-text"><strong>Назначение ролей</strong> &mdash; PMO-менеджер (Обучение), PM для каждого продукта, Заказчики.</span>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <span class="step-text"><strong>Адаптация процессов</strong> &mdash; какие стадии Gate актуальны? Нужны ли специфические артефакты для образовательных продуктов?</span>
+      </li>
+      <li>
+        <span class="step-num">4</span>
+        <span class="step-text"><strong>Планирование</strong> &mdash; цели H1 2026 по каждому продукту, декомпозиция в инициативы Q2.</span>
+      </li>
+      <li>
+        <span class="step-num">5</span>
+        <span class="step-text"><strong>Пилот</strong> &mdash; выбрать 1&ndash;2 продукта для полного прохождения через ОРБИТА.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- BLOCK 3: Специфика образовательных продуктов -->
+  <div class="section">
+    <div class="section-title">Специфика образовательных продуктов</div>
+    <div class="specifics-grid">
+      <div class="specifics-card">
+        <div class="specifics-icon">&bull;</div>
+        <div>
+          <div class="specifics-title">Контент как продукт</div>
+          <div class="specifics-desc">Курсы, учебные материалы, методики. Возможно нужен свой тип сущности или процесс в реестре.</div>
+        </div>
+      </div>
+      <div class="specifics-card">
+        <div class="specifics-icon">&bull;</div>
+        <div>
+          <div class="specifics-title">Аккредитация / лицензирование</div>
+          <div class="specifics-desc">Дополнительные сопроводительные процессы &mdash; вместо ТЗ могут понадобиться образовательные стандарты.</div>
+        </div>
+      </div>
+      <div class="specifics-card">
+        <div class="specifics-icon">&bull;</div>
+        <div>
+          <div class="specifics-title">Сезонность</div>
+          <div class="specifics-desc">Учебные циклы, наборы, выпуски. Планирование привязано к учебному году, а не только к кварталам.</div>
+        </div>
+      </div>
+      <div class="specifics-card">
+        <div class="specifics-icon">&bull;</div>
+        <div>
+          <div class="specifics-title">Метрики</div>
+          <div class="specifics-desc">Completion Rate, NPS обучения, Time to Competency &mdash; вместо DAU/Retention.</div>
+        </div>
+      </div>
+      <div class="specifics-card">
+        <div class="specifics-icon">&bull;</div>
+        <div>
+          <div class="specifics-title">Заказчики</div>
+          <div class="specifics-desc">HR, руководители подразделений, внешние клиенты &mdash; другой профиль стейкхолдеров.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 4: Формат работы -->
+  <div class="section">
+    <div class="section-title">Формат совместной работы</div>
+    <div class="options-grid">
+      <div class="option-card">
+        <div class="option-label">Вариант A</div>
+        <div class="option-title">Полное сопровождение</div>
+        <div class="option-desc">Проектный офис ведёт ОРБИТА для обоих департаментов. Единый PMO Lead, единые стандарты, общий ритм планирования и отчётности.</div>
+      </div>
+      <div class="option-card">
+        <div class="option-label">Вариант B</div>
+        <div class="option-title">Консалтинг + передача</div>
+        <div class="option-desc">Проектный офис настраивает ОРБИТА для Обучения, обучает PMO-менеджера, передаёт в самостоятельное управление департаменту.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 5: Договорённости для обсуждения -->
+  <div class="section">
+    <div class="section-title">Договорённости для обсуждения</div>
+    <table class="agreements-table">
+      <thead>
+        <tr>
+          <th style="width:35%">Вопрос</th>
+          <th style="width:35%">Варианты</th>
+          <th style="width:30%">Решение</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Формат работы ПО с Обучением</td>
+          <td>A (сопровождение) / B (консалтинг)</td>
+          <td class="discuss">обсудить</td>
+        </tr>
+        <tr>
+          <td>PMO-менеджер Обучения</td>
+          <td>Кандидат?</td>
+          <td class="discuss">обсудить</td>
+        </tr>
+        <tr>
+          <td>Приоритетные продукты для пилота</td>
+          <td>Список от руководителя</td>
+          <td class="discuss">обсудить</td>
+        </tr>
+        <tr>
+          <td>Специфические процессы (аккредитация, лицензии)</td>
+          <td>Нужны? Какие?</td>
+          <td class="discuss">обсудить</td>
+        </tr>
+        <tr>
+          <td>Отчётность</td>
+          <td>Общий статус или раздельный?</td>
+          <td class="discuss">обсудить</td>
+        </tr>
+        <tr>
+          <td>Ресурсы</td>
+          <td>Нужны дополнительные люди?</td>
+          <td class="discuss">обсудить</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BLOCK 6: Следующие шаги -->
+  <div class="section">
+    <div class="section-title">Следующие шаги</div>
+    <ul class="next-steps">
+      <li><span class="ns-num">1</span> Согласовать формат работы (A или B)</li>
+      <li><span class="ns-num">2</span> Инвентаризация портфеля Обучения <span class="ns-timing">1 неделя</span></li>
+      <li><span class="ns-num">3</span> Назначение ролей</li>
+      <li><span class="ns-num">4</span> Настройка ОРБИТА <span class="ns-timing">2&ndash;3 дня</span></li>
+      <li><span class="ns-num">5</span> Пилот первого продукта <span class="ns-timing">2 недели</span></li>
+    </ul>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-text">Проектный офис</div>
+    <div class="footer-email">sorval.viktor@rwb.ru</div>
+  </div>
+
+</div>
+</body>
+</html>
