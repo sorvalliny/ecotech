@@ -1,0 +1,19 @@
+# ОРБИТА — GitLab Pages deploy
+# Static site, no build step needed
+
+pages:
+  stage: deploy
+  script:
+    - echo "Deploying ORBITA to GitLab Pages"
+    - mkdir -p public
+    - cp -r *.html *.css *.js *.svg *.json public/ 2>/dev/null || true
+    - cp -r css/ js/ fonts/ data/ design-system/ public/ 2>/dev/null || true
+    - cp -r Продукту/ public/Продукту/ 2>/dev/null || true
+    - cp -r "Проектный офис/" "public/Проектный офис/" 2>/dev/null || true
+    - cp -r Фреймворк/ public/Фреймворк/ 2>/dev/null || true
+    - cp -r Хэндбук/ public/Хэндбук/ 2>/dev/null || true
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
