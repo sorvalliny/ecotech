@@ -94,7 +94,7 @@
 
   // ── active group detection ──────────────────────────────────
   var bizActive  = (has('catalog') || has('brief')) ? ' en-active' : '';
-  var pdktActive = (has('workspace') || has('tools') || has('committees') || has('framework') || has('strategy') || has('handbook') || has('templates') || has('artifacts') || has('registry') || has('gate-checklist') || has('glossary')) ? ' en-active' : '';
+  var pdktActive = (has('workspace') || has('tools') || has('committees') || has('framework') || has('strategy') || has('knowledge') || has('templates') || has('artifacts') || has('registry') || has('gate-checklist') || has('glossary')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -158,7 +158,7 @@
     +     sep()
     +     grp('Справочник')
     +     a('glossary.html',                            'Глоссарий')
-    +     a('handbook/roles.html',                      'Матрица ролей')
+    +     a('knowledge/roles.html',                      'Матрица ролей')
     +   '</div>'
     + '</div>'
 

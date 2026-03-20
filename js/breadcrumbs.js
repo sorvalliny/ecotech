@@ -17,7 +17,7 @@
   // ── friendly names for directories and files ────────────
   var DIR_NAMES = {
     'tools':           'Инструменты',
-    'handbook':        'Справочник',
+    'knowledge':        'Справочник',
     'design-system':   'Design System',
     'components':      'Компоненты',
     'pages':           'Страницы'
@@ -49,7 +49,7 @@
   // ── landing page for directories without index.html ────
   var DIR_LANDING = {
     'tools':                  'tools/index.html',
-    'handbook':               'handbook/roles.html',
+    'knowledge':               'knowledge/roles.html',
     'design-system':          'design-system/tokens-preview.html',
   };
 
