@@ -6,16 +6,6 @@
 <title>Как мы работаем — Экосистема</title>
 <link rel="stylesheet" href="design-system.css">
 <style>
-/* ── LOCAL TOKENS ── */
-:root {
-  --c0:#94A3B8; --c0-dim:rgba(148,163,184,0.10);
-  --c1:#579DFF; --c1-dim:rgba(87,157,255,0.12);
-  --c2:#4BCE97; --c2-dim:rgba(75,206,151,0.10);
-  --c3:#E774BB; --c3-dim:rgba(231,116,187,0.12);
-  --c4:#F5CD47; --c4-dim:rgba(245,205,71,0.10);
-  --c5:#579DFF; --c5-dim:rgba(87,157,255,0.12);
-}
-
 /* ── LAYOUT ── */
 .fw-wrap { max-width:1100px; margin:0 auto; padding:32px 24px 80px; }
 
@@ -25,7 +15,7 @@
 
 /* ── HERO ── */
 .fw-hero { margin-bottom:32px; }
-.fw-hero h1 { font-family:var(--font-head); font-size:28px; font-weight:800; color:var(--white); letter-spacing:-0.5px; margin-bottom:6px; }
+.fw-hero h1 { font-family:var(--font-head); font-size:28px; font-weight:800; color:var(--text); letter-spacing:-0.5px; margin-bottom:6px; }
 .fw-hero p { font-size:14px; color:var(--muted); max-width:640px; line-height:1.6; }
 
 /* ── ROLE FILTER ── */
@@ -33,13 +23,13 @@
 .rf-label { font-size:13px; font-weight:600; color:var(--muted); margin-right:4px; }
 .rf-btn { font-family:var(--font-body); font-size:12px; font-weight:600; padding:5px 14px; border-radius:var(--radius-pill); border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all var(--ease); }
 .rf-btn:hover { color:var(--text); border-color:var(--border-hi); }
-.rf-btn.active { color:var(--white); background:var(--violet-dim); border-color:var(--violet-border); }
+.rf-btn.active { color:var(--violet); background:var(--violet-dim); border-color:var(--violet-border); }
 
 /* ── ENTITY TABS ── */
 .entity-tabs { display:flex; gap:2px; padding:4px; background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:28px; max-width:560px; }
 .et-btn { flex:1; padding:8px 14px; border:none; border-radius:var(--radius-sm); background:transparent; color:var(--muted); font-family:var(--font-body); font-size:13px; font-weight:600; cursor:pointer; transition:all var(--ease); white-space:nowrap; }
 .et-btn:hover { color:var(--text); }
-.et-btn.active { background:var(--card); color:var(--white); box-shadow:var(--shadow-sm); }
+.et-btn.active { background:var(--card); color:var(--text); box-shadow:var(--shadow-sm); }
 
 /* ── OVERVIEW ── */
 .overview { margin-bottom:28px; }
@@ -64,8 +54,8 @@
 .stage { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; padding:24px; border-left:4px solid var(--c0); display:none; }
 .stage.visible { display:block; }
 .stage-header { display:flex; align-items:center; gap:14px; margin-bottom:16px; cursor:pointer; }
-.stage-badge { display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:var(--radius-sm); font-family:var(--font-head); font-size:14px; font-weight:800; color:var(--white); flex-shrink:0; }
-.stage-name { font-size:18px; font-weight:700; color:var(--white); margin-bottom:2px; }
+.stage-badge { display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:var(--radius-sm); font-family:var(--font-head); font-size:14px; font-weight:800; color:#fff; flex-shrink:0; }
+.stage-name { font-size:18px; font-weight:700; color:var(--text); margin-bottom:2px; }
 .stage-meta { font-size:12px; color:var(--muted); }
 
 .stage-owner { display:flex; flex-wrap:wrap; gap:16px; align-items:center; font-size:12px; color:var(--gray2); margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border); }
@@ -88,7 +78,7 @@
 .artifact { font-size:12px; font-weight:500; padding:4px 12px; border-radius:var(--radius-pill); background:var(--violet-dim); color:var(--violet); border:1px solid var(--violet-border); }
 
 /* ── GATE ── */
-.stage-gate { margin-top:16px; padding:16px; background:rgba(255,255,255,0.03); border:1px solid var(--border-hi); border-radius:var(--radius-sm); }
+.stage-gate { margin-top:16px; padding:16px; background:var(--surface2); border:1px solid var(--border-hi); border-radius:var(--radius-sm); }
 .stage-gate h4 { font-size:13px; font-weight:700; color:var(--amber); margin-bottom:10px; }
 .gate-items { display:flex; flex-wrap:wrap; gap:6px 16px; margin-bottom:10px; }
 .gi { font-size:12px; color:var(--gray2); padding-left:20px; position:relative; }
@@ -97,14 +87,14 @@
 
 /* ── PLANNING SECTION ── */
 .planning-section { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin-bottom:24px; }
-.planning-section h3 { font-size:16px; font-weight:700; color:var(--white); margin-bottom:12px; }
+.planning-section h3 { font-size:16px; font-weight:700; color:var(--text); margin-bottom:12px; }
 .plan-row { display:flex; align-items:baseline; gap:8px; font-size:13px; color:var(--gray2); margin-bottom:6px; }
 .plan-period { font-weight:700; color:var(--violet); min-width:100px; }
 
 /* ── SUPPORT CARDS ── */
 .support-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-bottom:32px; }
 .support-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; }
-.support-card h4 { font-size:13px; font-weight:700; color:var(--white); margin-bottom:6px; }
+.support-card h4 { font-size:13px; font-weight:700; color:var(--text); margin-bottom:6px; }
 .support-card p { font-size:12px; color:var(--muted); line-height:1.5; }
 
 /* ── FOOTER ── */
@@ -1275,7 +1265,7 @@
 </div>
 
 <!-- ═══════════ SUPPORT PROCESSES ═══════════ -->
-<h3 style="font-size:16px; font-weight:700; color:var(--white); margin-bottom:14px;">Сопутствующие процессы</h3>
+<h3 style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:14px;">Сопутствующие процессы</h3>
 <div class="support-grid">
   <div class="support-card">
     <h4>Товарный знак</h4>
