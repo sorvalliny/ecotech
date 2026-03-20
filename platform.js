@@ -103,7 +103,7 @@
       return result;
     },
 
-    // buildUrl('../Фреймворк/...html', {orbit:2}) → '...html#orbit=2'
+    // buildUrl('framework.html', {orbit:2}) → 'framework.html#orbit=2'
     buildUrl: function(page, ctx) {
       if (!ctx || !Object.keys(ctx).length) return page;
       var qs = Object.keys(ctx).map(function(k) {

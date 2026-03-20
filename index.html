@@ -60,28 +60,28 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   </div>
 
   <div class="paths">
-    <a class="path" href="business.html">
+    <a class="path" href="catalog.html">
       <div class="path-icon" style="background:rgba(0,212,180,.1)"><svg class="ei" width="22" height="22" style="color:var(--teal)"><use href="#ic-package"/></svg></div>
       <div class="path-name">Каталог продуктов</div>
       <div class="path-desc">Что в проде, что в разработке, идеи и статусы</div>
       <span class="path-tag tag-open">Открытый доступ</span>
     </a>
 
-    <a class="path" href="Проектный офис/tracker.html">
+    <a class="path" href="registry.html">
       <div class="path-icon" style="background:rgba(79,195,247,.1)"><svg class="ei" width="22" height="22" style="color:var(--violet)"><use href="#ic-layers"/></svg></div>
       <div class="path-name">Реестр</div>
       <div class="path-desc">Продукты, цели, инициативы — управление портфелем</div>
       <span class="path-tag tag-auth">Авторизация</span>
     </a>
 
-    <a class="path" href="Продукту/brief.html">
+    <a class="path" href="tools/brief.html">
       <div class="path-icon" style="background:rgba(255,184,48,.1)"><svg class="ei" width="22" height="22" style="color:var(--amber)"><use href="#ic-file-text"/></svg></div>
       <div class="path-name">Подать заявку</div>
       <div class="path-desc">Новый продукт: бриф + RICE-оценка за 15 минут</div>
       <span class="path-tag tag-open">Открытый доступ</span>
     </a>
 
-    <a class="path" href="dashboard.html">
+    <a class="path" href="catalog.html">
       <div class="path-icon" style="background:rgba(52,211,153,.1)"><svg class="ei" width="22" height="22" style="color:var(--green)"><use href="#ic-trending-up"/></svg></div>
       <div class="path-name">Статус портфеля</div>
       <div class="path-desc">Сроки, риски, compliance — для руководителей</div>
@@ -90,8 +90,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   </div>
 
   <div class="auth-block">
-    <button class="auth-btn auth-primary" onclick="if(window.OrbAuth&&OrbAuth.isLoggedIn()){location.href='Проектный офис/tracker.html'}else if(window.showAuthModal){showAuthModal()}else{location.href='Проектный офис/tracker.html'}">Войти</button>
-    <button class="auth-btn auth-ghost" onclick="if(window.authGuestLogin){authGuestLogin()}else{location.href='business.html'}">Гостевой доступ (демо)</button>
+    <button class="auth-btn auth-primary" onclick="if(window.OrbAuth&&OrbAuth.isLoggedIn()){location.href='registry.html'}else if(window.showAuthModal){showAuthModal()}else{location.href='registry.html'}">Войти</button>
+    <button class="auth-btn auth-ghost" onclick="if(window.authGuestLogin){authGuestLogin()}else{location.href='catalog.html'}">Гостевой доступ (демо)</button>
   </div>
 </div>
 

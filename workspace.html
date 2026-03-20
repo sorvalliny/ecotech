@@ -704,7 +704,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
     html += '<div class="pc-breadcrumb">';
     html += '<a href="./index.html">\u041E\u0420\u0411\u0418\u0422\u0410</a>';
     html += '<span class="bc-sep">/</span>';
-    html += '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/tracker.html">\u0420\u0435\u0435\u0441\u0442\u0440</a>';
+    html += '<a href="./registry.html">\u0420\u0435\u0435\u0441\u0442\u0440</a>';
     html += '<span class="bc-sep">/</span>';
     html += '<span class="bc-current">' + esc(_product.id) + '</span>';
     html += '</div>';
@@ -763,7 +763,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
       html += '</div>';
     }
     html += '<button class="btn-share" id="btn-share">\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F</button>';
-    html += '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/tracker.html" class="btn-back">\u2190 \u0420\u0435\u0435\u0441\u0442\u0440</a>';
+    html += '<a href="./registry.html" class="btn-back">\u2190 \u0420\u0435\u0435\u0441\u0442\u0440</a>';
     html += '</div>';
     html += '</div>';
 
@@ -825,12 +825,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
     return '<div class="pc-breadcrumb">'
       + '<a href="./index.html">\u041E\u0420\u0411\u0418\u0422\u0410</a>'
       + '<span class="bc-sep">/</span>'
-      + '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/tracker.html">\u0420\u0435\u0435\u0441\u0442\u0440</a>'
+      + '<a href="./registry.html">\u0420\u0435\u0435\u0441\u0442\u0440</a>'
       + '</div>'
       + '<div class="not-found">'
       + '<h2>\u041F\u0440\u043E\u0434\u0443\u043A\u0442 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D</h2>'
       + '<p>\u041F\u0440\u043E\u0434\u0443\u043A\u0442 \u0441 ID "' + esc(productId || '') + '" \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D \u0432 \u0440\u0435\u0435\u0441\u0442\u0440\u0435.</p>'
-      + '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/tracker.html" class="btn-back" style="display:inline-flex">\u2190 \u041D\u0430\u0437\u0430\u0434 \u0432 \u0440\u0435\u0435\u0441\u0442\u0440</a>'
+      + '<a href="./registry.html" class="btn-back" style="display:inline-flex">\u2190 \u041D\u0430\u0437\u0430\u0434 \u0432 \u0440\u0435\u0435\u0441\u0442\u0440</a>'
       + '</div>';
   }
 
@@ -983,10 +983,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
     if (_isOwner) {
       html += '<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">';
       html += '<button class="btn-action" id="btn-assign-member" style="font-size:11px;padding:6px 14px">+ \u041D\u0430\u0437\u043D\u0430\u0447\u0438\u0442\u044C \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0430</button>';
-      html += '<a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/team.html" style="font-size:11px;color:var(--violet);text-decoration:none;font-weight:600;display:flex;align-items:center">\u2192 \u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u0439</a>';
+      html += '<a href="./registry.html" style="font-size:11px;color:var(--violet);text-decoration:none;font-weight:600;display:flex;align-items:center">\u2192 \u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u0439</a>';
       html += '</div>';
     } else if (isEdit) {
-      html += '<div style="margin-top:8px"><a href="./\u041F\u0440\u043E\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0444\u0438\u0441/team.html" style="font-size:11px;color:var(--violet);text-decoration:none;font-weight:600">\u2192 \u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u0439</a></div>';
+      html += '<div style="margin-top:8px"><a href="./registry.html" style="font-size:11px;color:var(--violet);text-decoration:none;font-weight:600">\u2192 \u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u0439</a></div>';
     }
     html += '</div>'; // end team card
 

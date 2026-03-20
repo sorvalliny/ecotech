@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  var PUBLIC_PAGES = ['index.html', 'business.html', 'brief.html', ''];
+  var PUBLIC_PAGES = ['index.html', 'catalog.html', 'brief.html', ''];
 
   function isPublicPage() {
     var path = window.location.pathname.toLowerCase();
@@ -419,7 +419,7 @@
     if (role === 'admin' || role === 'pmo_lead') {
       html += '<div style="' + sectionStyle + '">' +
         '<div style="' + titleStyle + '">Продукты</div>' +
-        '<a href="' + basePath + 'business.html" style="' + itemStyle + '" ' +
+        '<a href="' + basePath + 'catalog.html" style="' + itemStyle + '" ' +
           'onmouseover="this.style.background=\'rgba(255,255,255,0.04)\'" onmouseout="this.style.background=\'none\'">' +
           '<span style="' + nameStyle + '">Все продукты</span>' +
           '<span style="' + countStyle + '">реестр &#8594;</span>' +
@@ -478,7 +478,7 @@
       var cnt = initCounts[prodId] || 0;
       var cntText = cnt > 0 ? (cnt + ' ' + pluralInit(cnt)) : 'нет инициатив';
 
-      productItems += '<a href="' + basePath + 'product-card.html?id=' + encodeURIComponent(prodId) + '" style="' + itemStyle + '" ' +
+      productItems += '<a href="' + basePath + 'workspace.html?id=' + encodeURIComponent(prodId) + '" style="' + itemStyle + '" ' +
         'onmouseover="this.style.background=\'rgba(255,255,255,0.04)\'" onmouseout="this.style.background=\'none\'">' +
         '<span style="' + nameStyle + '">' + prodName + '</span>' +
         '<span style="' + countStyle + '">' + cntText + '</span>' +

@@ -3,7 +3,7 @@
 <html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ОРБИТА · Реестр</title>
-<link rel="stylesheet" href="../design-system.css">
+<link rel="stylesheet" href="design-system.css">
 <style>
 /* ── TOKENS ── */
 :root {
@@ -730,11 +730,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 @media (max-width: 600px) { .plan-grid { grid-template-columns: 1fr; } }
 
 </style>
-  <script src="../icons.js"></script>
-  <script src="../platform.js"></script>
-  <script src="../js/auth.js"></script>
-  <script src="../js/auth-ui.js"></script>
-<script src="../nav.js"></script>
+  <script src="icons.js"></script>
+  <script src="platform.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/auth-ui.js"></script>
+<script src="nav.js"></script>
 </head>
 <body>
 
@@ -1423,7 +1423,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
       <div class="ep-body">
         <div style="padding:10px 14px;background:rgba(75,206,151,0.06);border:1px solid rgba(75,206,151,0.20);border-radius:8px;margin-bottom:14px;font-size:11px;color:var(--text);">
           <strong style="color:#4BCE97;">Создание инициативы:</strong> Привяжите к продукту и цели. Выберите сегмент (бизнес/продукт/техника). RICE-оценка поможет приоритизировать.
-          <div style="margin-top:6px;font-size:10px;color:var(--muted);">Для заявки на <strong>новый продукт</strong> используйте <a href="../Продукту/brief.html" style="color:#579DFF;">Заявку на продукт →</a></div>
+          <div style="margin-top:6px;font-size:10px;color:var(--muted);">Для заявки на <strong>новый продукт</strong> используйте <a href="tools/brief.html" style="color:#579DFF;">Заявку на продукт →</a></div>
         </div>
         <div class="ep-group">
           <div class="ep-lbl"><svg class="ei ei-14" aria-hidden="true"><use href="#ic-target"/></svg> Цель</div>
@@ -2607,9 +2607,9 @@ function renderPortfolio() {
       const total = checks.length;
       const pct = Math.round(done/total*100);
       const color = pct === 100 ? '#4BCE97' : pct >= 50 ? '#F5CD47' : 'var(--muted)';
-      checkProgress = `<a href="../Продукту/gate-checklist.html#product=${p.id}&gate=${p.gate}" class="gate-check-link" style="font-size:9px;color:${color};text-decoration:none" title="Gate-чеклист: ${done}/${total}">\u2713 ${done}/${total}</a>`;
+      checkProgress = `<a href="tools/gate-checklist.html#product=${p.id}&gate=${p.gate}" class="gate-check-link" style="font-size:9px;color:${color};text-decoration:none" title="Gate-чеклист: ${done}/${total}">\u2713 ${done}/${total}</a>`;
     }
-    const stageLink = `<a href="../Фреймворк/framework-lite.html#stage=${p.gate}" class="stage-help-link" title="Открыть стадию во фреймворке">${EI.svg('book-open',10)} Что делать \u2192</a>`;
+    const stageLink = `<a href="framework.html#stage=${p.gate}" class="stage-help-link" title="Открыть стадию во фреймворке">${EI.svg('book-open',10)} Что делать \u2192</a>`;
     const gateBar = STAGES.map((s,idx) => {
       let cls = idx < p.gate ? 'done' : idx === p.gate ? 'current' : '';
       return `<div class="gate-step ${cls}" title="G${idx}: ${s.name}"></div>`;
@@ -2669,12 +2669,12 @@ function renderPortfolio() {
           <span class="gbadge ${gateClass(p.gate)}">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</span>
           ${checkProgress}
           ${stageLink}
-          <button class="share-link-btn" onclick="event.stopPropagation();navigator.clipboard.writeText(window.location.origin+'/product-card.html?id=${p.id}');showToast('Ссылка скопирована')" title="Скопировать ссылку на пространство продукта">${EI.svg('link',10)}</button>
+          <button class="share-link-btn" onclick="event.stopPropagation();navigator.clipboard.writeText(window.location.origin+'/workspace.html?id=${p.id}');showToast('Ссылка скопирована')" title="Скопировать ссылку на пространство продукта">${EI.svg('link',10)}</button>
           <span class="player">${p.layer||''}</span>
           ${p.status === 'pending' && (function(){ var r = window.OrbAuth ? OrbAuth.getRole() : 'admin'; return r === 'admin' || r === 'pmo'; })() ? '<button class="approve-btn" onclick="event.stopPropagation();approveProduct(\''+p.id+'\')">✓ Одобрить</button><button class="reject-btn" onclick="event.stopPropagation();rejectProduct(\''+p.id+'\')">✗ Отклонить</button>' : ''}
           <button class="pcard-edit-btn" onclick="event.stopPropagation();openProdModal('${p.id}')" title="Редактировать продукт">${EI.svg('edit',12)}</button>
         </div>
-        <div class="pname"><a href="../product-card.html?id=${p.id}" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${escHtml(OrbAuth.getDisplayName(p,'product'))}</a></div>
+        <div class="pname"><a href="workspace.html?id=${p.id}" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${escHtml(OrbAuth.getDisplayName(p,'product'))}</a></div>
         <div class="pdesc">${escHtml(p.desc||'')}</div>
         <div class="gate-bar">${gateBar}</div>
         <div class="gate-label-row">
@@ -3020,7 +3020,7 @@ function renderPMO() {
     const stage = STAGES[p.gate];
     const gateDots = STAGES.map((s,idx) => {
       let cls = idx < p.gate ? 'g-done' : idx === p.gate ? 'g-cur' : 'g-todo';
-      const fwUrl = window.PT ? PT.buildUrl('../Фреймворк/framework-lite.html', {orbit:idx}) : '#';
+      const fwUrl = window.PT ? PT.buildUrl('framework.html', {orbit:idx}) : '#';
       return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><a class="pmo-gate-dot ${cls}" title="G${idx}: ${s.name} → Фреймворк" href="${fwUrl}" style="text-decoration:none;cursor:pointer">${idx}</a><span style="font-size:7px;color:var(--muted);white-space:nowrap">${s.name}</span></div>`;
     }).join('');
     return `<tr>
@@ -3033,7 +3033,7 @@ function renderPMO() {
           </div>
         </div>
       </td>
-      <td><a class="gbadge ${gateClass(p.gate)}" href="${window.PT ? PT.buildUrl('../Фреймворк/framework-lite.html', {orbit:p.gate}) : '#'}" style="text-decoration:none;cursor:pointer" title="Открыть орбиту ${p.gate} во Фреймворке">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</a></td>
+      <td><a class="gbadge ${gateClass(p.gate)}" href="${window.PT ? PT.buildUrl('framework.html', {orbit:p.gate}) : '#'}" style="text-decoration:none;cursor:pointer" title="Открыть орбиту ${p.gate} во Фреймворке">${EI.svg(stage.icon,14)} G${p.gate} · ${stage.name}</a></td>
       <td><div class="pmo-gate-track">${gateDots}</div></td>
       <td style="text-align:center">
         <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--teal)">${wip}</div>
@@ -4030,7 +4030,7 @@ function deleteGoalConfirm() {
 // ════════════════════════════════════════════
 let portfolioView='cards';
 function setPortfolioView(view,btn){portfolioView=view;document.querySelectorAll('#active-views .view-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('portfolio-cards').style.display=view==='cards'?'':'none';document.getElementById('portfolio-table').style.display=view==='table'?'':'none';document.getElementById('portfolio-kanban').style.display=view==='kanban'?'':'none';if(view==='table')renderPortfolioTable();if(view==='kanban')renderPortfolioKanban();}
-function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Название</th><th>Орбита</th><th>Статус</th><th>RICE</th><th>PM</th></tr></thead><tbody>';getFilteredProjects().forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});var avgRice=pInits.length?(pInits.reduce(function(a,i){return a+sc(i);},0)/pInits.length).toFixed(1):'\u2014';html+='<tr style="cursor:pointer" onclick="window.location.href=\'../product-card.html?id='+p.id+'\'">'+'<td><a href="../product-card.html?id='+p.id+'" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;font-weight:700">'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</a></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+avgRice+'</td><td>'+escHtml(p.owner||'\u2014')+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
+function renderPortfolioTable(){var el=document.getElementById('portfolio-table');var html='<table class="ptr-table"><thead><tr><th>Название</th><th>Орбита</th><th>Статус</th><th>RICE</th><th>PM</th></tr></thead><tbody>';getFilteredProjects().forEach(function(p){var s=STAGES[p.gate]||STAGES[0];var pInits=backlog.filter(function(i){return(i.productId||i.project)===p.id;});var avgRice=pInits.length?(pInits.reduce(function(a,i){return a+sc(i);},0)/pInits.length).toFixed(1):'\u2014';html+='<tr style="cursor:pointer" onclick="window.location.href=\'workspace.html?id='+p.id+'\'">'+'<td><a href="workspace.html?id='+p.id+'" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;font-weight:700">'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</a></td><td><span style="color:'+s.color+'">'+s.name+'</span></td><td>'+p.status+'</td><td>'+avgRice+'</td><td>'+escHtml(p.owner||'\u2014')+'</td></tr>';});html+='</tbody></table>';el.innerHTML=html;}
 function renderPortfolioKanban(){
   var el=document.getElementById('portfolio-kanban');
   var userRole = window.OrbAuth ? OrbAuth.getRole() : 'guest';
@@ -4043,7 +4043,7 @@ function renderPortfolioKanban(){
     html+='<div class="kanban-col-body">';
     prods.forEach(function(p){
       var draggable = canDragPortfolio ? ' draggable="true"' : '';
-      html+='<div class="kanban-card"'+draggable+' data-product-id="'+p.id+'" onclick="window.location.href=\'../product-card.html?id='+p.id+'\'">';
+      html+='<div class="kanban-card"'+draggable+' data-product-id="'+p.id+'" onclick="window.location.href=\'workspace.html?id='+p.id+'\'">';
       html+='<div class="kanban-card-name">'+escHtml(OrbAuth.getDisplayName(p,'product'))+'</div>';
       html+='<div class="kanban-card-meta">'+escHtml(p.owner||'')+' \u00b7 '+p.status+'</div></div>';
     });

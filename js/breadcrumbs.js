@@ -16,12 +16,8 @@
 
   // ── friendly names for directories and files ────────────
   var DIR_NAMES = {
-    'продукту':        'Инструменты',
-    'фреймворк':       'Методология',
-    'проектный офис':  'Управление',
-    'бизнесу':         'Бизнесу',
-    'хэндбук':         'Справочник',
-    'витрина':         'Витрина',
+    'tools':           'Инструменты',
+    'handbook':        'Справочник',
     'design-system':   'Design System',
     'components':      'Компоненты',
     'pages':           'Страницы'
@@ -29,36 +25,32 @@
 
   var PAGE_NAMES = {
     'index.html':              'Главная',
-    'business.html':           'Витрина',
-    'product.html':            'Для команды',
+    'catalog.html':            'Витрина',
+    'onboarding.html':         'Для команды',
     'templates.html':          'Шаблоны',
     'tools.html':              'Инструменты',
     'strategy.html':           'Стратегическое планирование',
     'brief.html':              'Заявка на продукт',
-    'council.html':            'Управляющий совет',
-    'framework-lite.html':     'Как мы работаем',
-    'rwb-product-os-v12.html': 'Хэндбук Product OS',
-    'rwb-product-os-2026-03-03.html': 'Операционный справочник',
+    'committees.html':         'Управляющий совет',
+    'framework.html':          'Как мы работаем',
     'artifacts.html':          'Артефакты',
     'tokens-preview.html':     'Design Tokens',
-    'dashboard.html':          'Статус портфеля',
-    'tracker.html':            'Реестр',
+    'registry.html':           'Реестр',
     'gate-checklist.html':     'Gate-чеклист',
     'admin.html':              'Администрирование',
-    'terminology.html':        'Глоссарий',
+    'glossary.html':           'Глоссарий',
     'roles.html':              'Матрица ролей',
     'ai-integration.html':     'Интеграция ИИ',
-    'product-card.html':       'Карточка продукта'
+    'impact-model.html':       'Импакт-модель',
+    'planning.html':           'Планирование',
+    'workspace.html':          'Карточка продукта'
   };
 
   // ── landing page for directories without index.html ────
   var DIR_LANDING = {
-    'Фреймворк':              'Фреймворк/framework-lite.html',
-    'Проектный офис':         'Проектный офис/tracker.html',
-    'Хэндбук':                'Хэндбук/roles.html',
-    'Продукту':               'Продукту/index.html',
+    'tools':                  'tools/index.html',
+    'handbook':               'handbook/roles.html',
     'design-system':          'design-system/tokens-preview.html',
-    
   };
 
   // ── chevron SVG ─────────────────────────────────────────
@@ -95,7 +87,7 @@
       // Fallback: use everything after the last known root-level file
       for (var j = segments.length - 1; j >= 0; j--) {
         var s = segments[j].toLowerCase();
-        if (s === 'index.html' || s === 'business.html' || s === 'product.html') {
+        if (s === 'index.html' || s === 'catalog.html' || s === 'workspace.html' || s === 'registry.html' || s === 'framework.html' || s === 'glossary.html' || s === 'committees.html') {
           rootIdx = j - 1;
           break;
         }

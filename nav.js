@@ -93,8 +93,8 @@
   function has(s) { return p.indexOf(s.toLowerCase()) !== -1; }
 
   // ── active group detection ──────────────────────────────────
-  var bizActive  = (has('business') || has('dashboard') || has('brief')) ? ' en-active' : '';
-  var pdktActive = (has('product')  || has('продукту') || has('tools') || has('council') || has('фреймворк') || has('framework') || has('rwb-product-os') || has('проектный офис') || has('strategy') || has('хэндбук') || has('handbook') || has('templates') || has('artifacts') || has('tracker') || has('gate-checklist') || has('terminology')) ? ' en-active' : '';
+  var bizActive  = (has('catalog') || has('brief')) ? ' en-active' : '';
+  var pdktActive = (has('workspace') || has('tools') || has('committees') || has('framework') || has('strategy') || has('handbook') || has('templates') || has('artifacts') || has('registry') || has('gate-checklist') || has('glossary')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -136,9 +136,8 @@
     + '<div class="en-drop' + bizActive + '">'
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Портфель</a>'
     +   '<div class="en-drop-menu" role="menu">'
-    +     a('business.html',                             'Витрина продуктов')
-    +     a('Продукту/brief.html',                      'Подать заявку')
-    +     a('dashboard.html',                            'Статус портфеля')
+    +     a('catalog.html',                              'Витрина продуктов')
+    +     a('tools/brief.html',                         'Подать заявку')
     +   '</div>'
     + '</div>'
 
@@ -146,20 +145,20 @@
     + '<div class="en-drop' + pdktActive + '">'
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Команде</a>'
     +   '<div class="en-drop-menu" role="menu">'
-    +     a('product.html',                              'С чего начать')
+    +     a('tools/onboarding.html',                     'С чего начать')
     +     sep()
     +     grp('Процессы и артефакты')
-    +     a('Фреймворк/framework-lite.html',             'Как мы работаем')
-    +     a('Проектный офис/tracker.html',              'Реестр')
-    +     a('Продукту/templates.html',                  'Шаблоны')
+    +     a('framework.html',                           'Как мы работаем')
+    +     a('registry.html',                            'Реестр')
+    +     a('tools/templates.html',                     'Шаблоны')
     +     sep()
     +     grp('Инструменты')
-    +     a('Продукту/gate-checklist.html',             'Gate-чеклист')
-    +     a('Продукту/tools.html',                      'Инструменты')
+    +     a('tools/gate-checklist.html',                'Gate-чеклист')
+    +     a('tools/index.html',                         'Инструменты')
     +     sep()
     +     grp('Справочник')
-    +     a('terminology.html',                         'Глоссарий')
-    +     a('%D0%A5%D1%8D%D0%BD%D0%B4%D0%B1%D1%83%D0%BA/roles.html', 'Матрица ролей')
+    +     a('glossary.html',                            'Глоссарий')
+    +     a('handbook/roles.html',                      'Матрица ролей')
     +   '</div>'
     + '</div>'
 
