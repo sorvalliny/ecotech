@@ -150,10 +150,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .ie-select{background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:12px;padding:8px 10px;outline:none;width:100%;cursor:pointer}
 .ie-select:focus{border-color:var(--vborder)}
 .ie-rice-row{display:flex;align-items:center;gap:8px}
-.ie-rice-lbl{font-family:var(--mono);font-size:11px;color:var(--muted);width:14px}
+.ie-rice-lbl{font-family:var(--mono);font-size:12px;color:var(--muted);width:14px}
 .ie-rice-slider{flex:1;accent-color:var(--violet)}
 .ie-rice-val{font-family:var(--mono);font-size:12px;color:var(--text);width:24px;text-align:right}
-.ie-score-preview{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--teal);text-align:center;padding:8px;background:rgba(0,0,0,.2);border-radius:8px;border:1px solid var(--border)}
+.ie-score-preview{font-family:var(--mono);font-size:18px;font-weight:700;text-align:center;padding:8px;background:rgba(0,0,0,.2);border-radius:8px;border:1px solid var(--border);transition:color .2s}
+.ie-score-preview.rice-hi{color:var(--green)}
+.ie-score-preview.rice-mi{color:var(--amber)}
+.ie-score-preview.rice-lo{color:var(--red)}
+.ie-rice-legend{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px}
+.init-collapse-bar{display:flex;gap:8px;margin-bottom:10px}
+.init-collapse-btn{padding:4px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
+.init-collapse-btn:hover{color:var(--text);border-color:var(--bhi)}
+.btn-create-init-top{background:var(--vdim);color:var(--violet);border:1px dashed var(--vborder);border-radius:var(--r);padding:12px;text-align:center;cursor:pointer;font-weight:600;font-family:var(--font);font-size:14px;margin-bottom:16px;transition:all .15s;width:100%}
+.btn-create-init-top:hover{background:rgba(79,195,247,.22)}
 .ie-footer{display:flex;gap:8px;align-items:center;padding-top:12px;border-top:1px solid var(--border)}
 
 /* ── INLINE FORM (create initiative/goal/event) ── */
@@ -1137,11 +1146,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
   function renderInitiatives(initiatives, editable) {
     var html = '';
 
-    // Create button
+    // Create button — prominent at top
     if (editable && isPM()) {
+      html += '<button class="btn-create-init-top" id="btn-create-init-top">+ \u041D\u043E\u0432\u0430\u044F \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430</button>';
       html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">';
       html += '<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">\u0411\u044D\u043A\u043B\u043E\u0433 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432</div>';
-      html += '<button class="btn-action" id="btn-create-init">+ \u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0443</button>';
+      html += '<button class="btn-action" id="btn-create-init" style="display:none">+ \u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0443</button>';
       html += '</div>';
 
       // Inline create form
@@ -1182,6 +1192,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
       html += '<p>\u0414\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432. \u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u043F\u0435\u0440\u0432\u0443\u044E!</p>';
       html += '</div>';
       return html;
+    }
+
+    // Expand/Collapse all bar (only for grouped view)
+    if (_initView === 'grouped') {
+      html += '<div class="init-collapse-bar" id="init-collapse-bar">';
+      html += '<button class="init-collapse-btn" id="btn-expand-all">\u0420\u0430\u0437\u0432\u0435\u0440\u043D\u0443\u0442\u044C \u0432\u0441\u0435</button>';
+      html += '<button class="init-collapse-btn" id="btn-collapse-all">\u0421\u0432\u0435\u0440\u043D\u0443\u0442\u044C \u0432\u0441\u0435</button>';
+      html += '</div>';
     }
 
     html += '<div class="init-list" id="init-list">';
@@ -1231,14 +1249,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
         }
       }
 
+      // Load collapse state from localStorage per product
+      var _collapseState = {};
+      try {
+        var _csRaw = localStorage.getItem('orbita_init_collapse_' + productId);
+        if (_csRaw) _collapseState = JSON.parse(_csRaw);
+      } catch(e) {}
+
       for (var ti = 0; ti < TYPE_ORDER.length; ti++) {
         var typeKey = TYPE_ORDER[ti];
         var typeItems = groups[typeKey];
         if (!typeItems || !typeItems.length) continue;
 
+        // Collapsed by default unless explicitly expanded in stored state
+        var isGroupCollapsed = _collapseState.hasOwnProperty(typeKey) ? _collapseState[typeKey] : true;
         var typeColor = TYPE_COLORS[typeKey] || 'var(--muted)';
         html += '<div class="init-type-group">';
-        html += '<div class="init-type-header" data-type-toggle="' + typeKey + '">';
+        html += '<div class="init-type-header' + (isGroupCollapsed ? ' collapsed' : '') + '" data-type-toggle="' + typeKey + '">';
         html += '<span class="init-type-icon">\u25BC</span>';
         html += '<span class="init-type-label" style="color:' + typeColor + '">' + (TYPE_LABELS[typeKey] || typeKey) + '</span>';
         html += '<span class="init-type-count">' + typeItems.length + '</span>';
@@ -1262,8 +1289,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
       }
       if (otherItems.length) {
         otherItems.sort(function(a, b) { return riceScore(b) - riceScore(a); });
+        var isOtherCollapsed = _collapseState.hasOwnProperty('other') ? _collapseState['other'] : true;
         html += '<div class="init-type-group">';
-        html += '<div class="init-type-header" data-type-toggle="other">';
+        html += '<div class="init-type-header' + (isOtherCollapsed ? ' collapsed' : '') + '" data-type-toggle="other">';
         html += '<span class="init-type-icon">\u25BC</span>';
         html += '<span class="init-type-label">\u041F\u0440\u043E\u0447\u0435\u0435</span>';
         html += '<span class="init-type-count">' + otherItems.length + '</span>';
@@ -1326,6 +1354,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 
       // RICE parameters
       html += '<div class="ie-group full"><div class="ie-lbl">RICE-\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B</div>';
+      html += '<div class="ie-rice-legend">R \u2014 Reach (\u043E\u0445\u0432\u0430\u0442) \u00B7 I \u2014 Impact (\u0432\u043B\u0438\u044F\u043D\u0438\u0435) \u00B7 C \u2014 Confidence (\u0443\u0432\u0435\u0440\u0435\u043D\u043D\u043E\u0441\u0442\u044C) \u00B7 E \u2014 Effort (\u0443\u0441\u0438\u043B\u0438\u0435)</div>';
       var riceParams = [
         {key:'R', field:'r', val: it.r || 5},
         {key:'I', field:'i', val: it.i || 5},
@@ -1336,7 +1365,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
         var rp = riceParams[ri];
         html += '<div class="ie-rice-row"><span class="ie-rice-lbl">' + rp.key + '</span><input type="range" class="ie-rice-slider" data-ie="' + rp.field + '" min="1" max="10" value="' + rp.val + '"><span class="ie-rice-val">' + rp.val + '</span></div>';
       }
-      html += '<div class="ie-score-preview" data-ie-score>RICE: ' + rice + '</div>';
+      var riceColorCls = rice > 20 ? 'rice-hi' : rice >= 10 ? 'rice-mi' : 'rice-lo';
+      html += '<div class="ie-score-preview ' + riceColorCls + '" data-ie-score>Score = (R \u00D7 I \u00D7 C) / E = ' + rice + '</div>';
       html += '</div>';
 
       // Goal link
@@ -2108,12 +2138,50 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
       });
     }
 
-    // Type group collapse/expand
+    // Prominent top create button
+    var btnCreateTop = document.getElementById('btn-create-init-top');
+    if (btnCreateTop && formCreate) {
+      btnCreateTop.addEventListener('click', function() {
+        formCreate.classList.add('visible');
+        formCreate.scrollIntoView({behavior:'smooth', block:'center'});
+      });
+    }
+
+    // Type group collapse/expand with localStorage persistence
+    function _saveCollapseState() {
+      var state = {};
+      var headers = document.querySelectorAll('[data-type-toggle]');
+      for (var h = 0; h < headers.length; h++) {
+        var key = headers[h].getAttribute('data-type-toggle');
+        state[key] = headers[h].classList.contains('collapsed');
+      }
+      try { localStorage.setItem('orbita_init_collapse_' + productId, JSON.stringify(state)); } catch(e) {}
+    }
+
     var typeHeaders = document.querySelectorAll('[data-type-toggle]');
     for (var thi = 0; thi < typeHeaders.length; thi++) {
       typeHeaders[thi].addEventListener('click', function(e) {
         var header = e.currentTarget;
         header.classList.toggle('collapsed');
+        _saveCollapseState();
+      });
+    }
+
+    // Expand all / Collapse all
+    var btnExpandAll = document.getElementById('btn-expand-all');
+    var btnCollapseAll = document.getElementById('btn-collapse-all');
+    if (btnExpandAll) {
+      btnExpandAll.addEventListener('click', function() {
+        var headers = document.querySelectorAll('[data-type-toggle]');
+        for (var h = 0; h < headers.length; h++) headers[h].classList.remove('collapsed');
+        _saveCollapseState();
+      });
+    }
+    if (btnCollapseAll) {
+      btnCollapseAll.addEventListener('click', function() {
+        var headers = document.querySelectorAll('[data-type-toggle]');
+        for (var h = 0; h < headers.length; h++) headers[h].classList.add('collapsed');
+        _saveCollapseState();
       });
     }
 
@@ -2208,7 +2276,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
     }
     var score = (vals.e && vals.e > 0) ? Math.round((vals.r * vals.i * vals.c) / vals.e) : 0;
     var preview = card.querySelector('[data-ie-score]');
-    if (preview) preview.textContent = 'RICE: ' + score;
+    if (preview) {
+      preview.textContent = 'Score = (R \u00D7 I \u00D7 C) / E = ' + score;
+      preview.classList.remove('rice-hi', 'rice-mi', 'rice-lo');
+      preview.classList.add(score > 20 ? 'rice-hi' : score >= 10 ? 'rice-mi' : 'rice-lo');
+    }
   }
 
   function saveInitiative(card, initId) {

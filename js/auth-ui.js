@@ -29,14 +29,10 @@
       return;
     }
 
-    // Автовход гостем при первом визите (W4-011 шаг 5)
+    // Первый визит — показать welcome-modal вместо автовхода гостем
     var hasEverLoggedIn = localStorage.getItem('ECOTECH_EVER_LOGGED');
     if (!hasEverLoggedIn) {
-      OrbAuth.loginAsGuest();
-      localStorage.setItem('ECOTECH_EVER_LOGGED', '1');
-      // Не перезагружаем — просто рендерим бейдж и баннер
-      renderUserBadge();
-      renderGuestBanner();
+      showWelcomeModal();
       return;
     }
 
@@ -100,6 +96,65 @@
       else nav.appendChild(btn);
     }
     tryInsert();
+  }
+
+  // ═══════════════════════════════════════════════
+  // WELCOME MODAL (первый визит)
+  // ═══════════════════════════════════════════════
+
+  function showWelcomeModal() {
+    function tryShow() {
+      if (!document.body) { setTimeout(tryShow, 100); return; }
+      if (document.getElementById('welcome-overlay')) return;
+
+      var overlay = document.createElement('div');
+      overlay.id = 'welcome-overlay';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(3,8,15,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;animation:welcomeFadeIn .4s ease;';
+
+      var style = document.createElement('style');
+      style.textContent = '@keyframes welcomeFadeIn{from{opacity:0}to{opacity:1}}@keyframes welcomeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}';
+      document.head.appendChild(style);
+
+      var modal = document.createElement('div');
+      modal.style.cssText = 'background:#061525;border:1px solid rgba(79,195,247,0.2);border-radius:20px;padding:48px 40px 36px;max-width:420px;width:92%;text-align:center;animation:welcomeSlideUp .5s ease .1s both;';
+
+      modal.innerHTML =
+        '<div style="font-family:Orbitron,sans-serif;font-size:24px;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:0.04em;">ОРБИТА</div>' +
+        '<div style="font-size:13px;color:#7A9DB8;margin-bottom:36px;line-height:1.5;">Платформа управления продуктовым портфелем</div>' +
+
+        '<button id="welcome-login-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#00D4B4,#4FC3F7);border:none;border-radius:12px;color:#fff;font-family:Orbitron,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s;margin-bottom:10px;">' +
+          'Войти' +
+        '</button>' +
+        '<div style="font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:10px;">для сотрудников с доступом</div>' +
+
+        '<button id="welcome-guest-btn" style="width:100%;padding:12px;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:#7A9DB8;font-family:\'Exo 2\',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;">' +
+          'Гостевой доступ' +
+        '</button>' +
+        '<div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:8px;">демо-режим с ограниченными данными</div>';
+
+      overlay.appendChild(modal);
+      document.body.appendChild(overlay);
+
+      document.getElementById('welcome-login-btn').onmouseover = function() { this.style.opacity = '0.85'; };
+      document.getElementById('welcome-login-btn').onmouseout = function() { this.style.opacity = '1'; };
+      document.getElementById('welcome-guest-btn').onmouseover = function() { this.style.borderColor = 'rgba(255,255,255,0.2)'; this.style.color = '#E8E6FF'; };
+      document.getElementById('welcome-guest-btn').onmouseout = function() { this.style.borderColor = 'rgba(255,255,255,0.1)'; this.style.color = '#7A9DB8'; };
+
+      document.getElementById('welcome-login-btn').onclick = function() {
+        overlay.remove();
+        localStorage.setItem('ECOTECH_EVER_LOGGED', '1');
+        showAuthModal();
+      };
+
+      document.getElementById('welcome-guest-btn').onclick = function() {
+        overlay.remove();
+        OrbAuth.loginAsGuest();
+        localStorage.setItem('ECOTECH_EVER_LOGGED', '1');
+        renderUserBadge();
+        renderGuestBanner();
+      };
+    }
+    tryShow();
   }
 
   // ═══════════════════════════════════════════════
@@ -194,16 +249,38 @@
       document.getElementById('auth-error').textContent = result.error;
       return;
     }
+    var demoCode = result.code;
     setModalContent('' +
       headerBlock('Подтверждение') +
-      '<div style="font-size:12px;color:#00D4B4;margin-bottom:12px;">Код для ' + escH(result.userName) + ': <strong style="font-size:16px;letter-spacing:4px;">' + result.code + '</strong></div>' +
-      '<div style="font-size:10px;color:#7A9DB8;margin-bottom:12px;">MVP: код показан на экране. В продакшене — на почту.</div>' +
-      '<input id="auth-code" type="text" placeholder="4-значный код" maxlength="4" style="' + inputStyle() + 'font-size:20px;font-weight:900;text-align:center;letter-spacing:8px;font-family:Orbitron,sans-serif;" />' +
+      '<div style="font-size:12px;color:#00D4B4;margin-bottom:6px;">Код отправлен на вашу почту.</div>' +
+      '<div style="font-size:11px;color:#7A9DB8;margin-bottom:16px;">Проверьте входящие.</div>' +
+      '<input id="auth-code" type="text" placeholder="4-значный код" maxlength="4" style="' + inputStyle() + 'font-size:20px;font-weight:900;text-align:center;letter-spacing:8px;font-family:Orbitron,sans-serif;transition:box-shadow .4s,border-color .4s;" />' +
       '<div id="auth-code-error" style="font-size:11px;color:#F87171;min-height:18px;margin-bottom:8px;"></div>' +
       '<button onclick="authVerifyCode()" style="' + btnPrimary() + '">Войти</button>' +
       '<button onclick="authShowLogin()" style="' + btnGhost() + 'margin-top:6px;">&#8592; Другой email</button>'
     );
     setTimeout(function() { var el = document.getElementById('auth-code'); if(el) el.focus(); }, 100);
+    // Demo: auto-fill code after 2 seconds with animation
+    setTimeout(function() {
+      var codeInput = document.getElementById('auth-code');
+      if (!codeInput || codeInput.value) return;
+      codeInput.style.boxShadow = '0 0 0 2px rgba(0,212,180,0.4), 0 0 20px rgba(0,212,180,0.15)';
+      codeInput.style.borderColor = 'rgba(0,212,180,0.5)';
+      var digits = String(demoCode);
+      var i = 0;
+      var typeInterval = setInterval(function() {
+        if (i < digits.length) {
+          codeInput.value += digits[i];
+          i++;
+        } else {
+          clearInterval(typeInterval);
+          setTimeout(function() {
+            codeInput.style.boxShadow = '';
+            codeInput.style.borderColor = '';
+          }, 800);
+        }
+      }, 150);
+    }, 2000);
   };
 
   window.authVerifyCode = function() {
