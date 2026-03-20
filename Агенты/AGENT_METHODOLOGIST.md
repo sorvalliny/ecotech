@@ -26,7 +26,7 @@
 **Компания:** WB Экосистема (Wildberries и смежные продукты)
 **Периметр:** 10+ продуктовых команд, сегменты B2C / B2B / B2G / Internal
 **Роль проектного офиса:** инхаус-инкубатор стартапов — доводим от заявки до плато и интеграции
-**Контакт:** sorval.viktor@rwb.ru
+**Контакт:** pmo@rwb.ru
 
 **Стек команд:** Jira / Confluence / Notion / Slack / Google Workspace
 **Деплой платформы:** `https://sorvalliny.github.io/ecotech/`

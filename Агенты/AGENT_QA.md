@@ -130,7 +130,7 @@ test('OrbAuth login/logout', () => {
 test('smoke: create product flow', async ({ page }) => {
   await page.goto('/Проектный офис/tracker.html');
   // Авторизация
-  await page.click('button:has-text("Виктор")');
+  await page.click('button:has-text("PMO Lead")');
   // Создать продукт
   await page.click('button:has-text("Создать")');
   await page.click('button:has-text("Продукт")');

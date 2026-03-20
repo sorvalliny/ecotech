@@ -23,7 +23,7 @@
 | Компания | WB Экосистема (Wildberries и смежные продукты) |
 | Периметр | 10+ продуктовых команд, B2C / B2B / B2G / Internal |
 | Роль ПО | Инхаус-инкубатор стартапов — от заявки до плато |
-| Контакт | sorval.viktor@rwb.ru |
+| Контакт | pmo@rwb.ru |
 | Деплой | https://sorvalliny.github.io/ecotech/ |
 | Репозиторий | github.com/sorvalliny/ecotech |
 | Ветка | main → GitHub Pages |
