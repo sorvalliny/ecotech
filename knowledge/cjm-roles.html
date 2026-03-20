@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CJM по ролям — ОРБИТА</title>
+<link rel="stylesheet" href="../design-system.css">
+<style>
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
+.hero{margin-bottom:32px}
+.hero h1{font-size:28px;font-weight:800;color:var(--text);margin-bottom:6px}
+.hero p{font-size:14px;color:var(--muted);max-width:640px}
+
+/* Role tabs */
+.role-tabs{display:flex;gap:4px;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:28px;overflow-x:auto}
+.role-tab{padding:10px 18px;border:none;border-radius:6px;background:transparent;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.role-tab:hover{color:var(--text);background:var(--surface2)}
+.role-tab.active{background:var(--violet-dim);color:var(--violet)}
+
+/* Journey */
+.journey{display:none}
+.journey.visible{display:block}
+.j-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:16px}
+.j-desc{font-size:14px;color:var(--gray2);margin-bottom:24px;max-width:700px;line-height:1.6}
+
+/* Steps */
+.j-steps{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.j-step{display:flex;gap:16px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:4px solid var(--violet)}
+.j-step-num{font-size:18px;font-weight:800;color:var(--violet);min-width:28px}
+.j-step-content{flex:1}
+.j-step-action{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.j-step-detail{font-size:12px;color:var(--muted);line-height:1.5}
+.j-step-tool{display:inline-block;margin-top:6px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--violet-dim);color:var(--violet);border:1px solid var(--violet-border);text-decoration:none}
+.j-step-tool:hover{background:var(--violet-border)}
+.j-step-freq{font-size:11px;color:var(--amber);font-weight:600;margin-top:4px}
+
+/* Touchpoints */
+.j-touchpoints{margin-bottom:32px}
+.j-tp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.j-tp{padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-align:center}
+.j-tp-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px}
+.j-tp-page{font-size:11px;color:var(--muted)}
+.j-tp a{color:var(--violet);text-decoration:none;font-weight:600}
+
+/* Pain points */
+.j-pain{margin-bottom:32px}
+.j-pain-list{display:flex;flex-direction:column;gap:6px}
+.j-pain-item{padding:10px 14px;background:var(--red-dim);border:1px solid rgba(248,113,113,.2);border-radius:6px;font-size:13px;color:var(--text)}
+
+/* Success metrics */
+.j-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:32px}
+.j-metric{padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-align:center;border-top:3px solid var(--teal)}
+.j-metric-val{font-size:18px;font-weight:800;color:var(--teal)}
+.j-metric-name{font-size:11px;color:var(--muted);margin-top:2px}
+
+.sec-divider{height:1px;background:var(--border);margin:24px 0}
+h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:12px}
+
+@media(max-width:768px){.j-step{flex-direction:column;gap:8px}.role-tabs{flex-wrap:wrap}}
+@media print{.role-tabs{display:none}.journey{display:block !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>Customer Journey Map по ролям</h1>
+  <p>Путь каждой роли в ОРБИТА — от первого входа до ежедневной работы. Источник правды для развития платформы.</p>
+</div>
+
+<div class="role-tabs" id="role-tabs">
+  <button class="role-tab active" onclick="showJourney('ceo')">CEO / Lead</button>
+  <button class="role-tab" onclick="showJourney('pm')">PM (владелец)</button>
+  <button class="role-tab" onclick="showJourney('pmo')">PMO</button>
+  <button class="role-tab" onclick="showJourney('stakeholder')">Заказчик</button>
+  <button class="role-tab" onclick="showJourney('member')">Участник команды</button>
+</div>
+
+<!-- ═══════════ CEO / LEAD ═══════════ -->
+<div class="journey visible" id="j-ceo">
+  <div class="j-title">CEO BU / Руководитель направления</div>
+  <div class="j-desc">Цель: за 30 секунд понять состояние портфеля. Решения на комитетах. Контроль рисков без запросов у команд.</div>
+
+  <h3>Ежедневный путь</h3>
+  <div class="j-steps">
+    <div class="j-step">
+      <div class="j-step-num">1</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Открыть каталог продуктов</div>
+        <div class="j-step-detail">Все продукты, стадии, статусы — на одном экране. Светофор показывает кто в зелёной зоне, кто в красной.</div>
+        <a class="j-step-tool" href="../catalog.html">catalog.html</a>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-step-num">2</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Проверить проблемные продукты</div>
+        <div class="j-step-detail">Клик по продукту с жёлтым/красным статусом → карточка с деталями: что случилось, кто блокирует, когда решение.</div>
+        <a class="j-step-tool" href="../workspace.html?id=ECO-00">workspace.html</a>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-step-num">3</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Посмотреть лог изменений</div>
+        <div class="j-step-detail">Что изменилось с прошлого раза: Gate решения, новые инициативы, смены статусов.</div>
+        <a class="j-step-tool" href="../catalog.html">каталог → лог</a>
+      </div>
+    </div>
+  </div>
+
+  <h3>Еженедельный путь</h3>
+  <div class="j-steps">
+    <div class="j-step" style="border-left-color:var(--amber)">
+      <div class="j-step-num" style="color:var(--amber)">4</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Ревью инициатив (Go / No-Go / Revise)</div>
+        <div class="j-step-detail">В карточке продукта → таб "Инициативы". Открыть инициативу → оставить резолюцию.</div>
+        <a class="j-step-tool" href="../workspace.html?id=ECO-00&tab=initiatives">workspace → инициативы</a>
+        <div class="j-step-freq">Частота: 1 раз в неделю или по запросу PMO</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Ежемесячный путь</h3>
+  <div class="j-steps">
+    <div class="j-step" style="border-left-color:var(--teal)">
+      <div class="j-step-num" style="color:var(--teal)">5</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Gate Review комитет</div>
+        <div class="j-step-detail">Рассмотрение продуктов на переход между стадиями. Чеклист артефактов, решение Go/No-Go, протокол.</div>
+        <a class="j-step-tool" href="../committees.html">committees.html</a>
+        <div class="j-step-freq">Частота: 1 раз в месяц</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <h3>Точки контакта с платформой</h3>
+  <div class="j-touchpoints">
+    <div class="j-tp-grid">
+      <div class="j-tp"><div class="j-tp-name">Каталог</div><div class="j-tp-page"><a href="../catalog.html">catalog.html</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Карточка продукта</div><div class="j-tp-page"><a href="../workspace.html?id=ECO-00">workspace.html</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Комитеты</div><div class="j-tp-page"><a href="../committees.html">committees.html</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Главная</div><div class="j-tp-page"><a href="../index.html">index.html</a></div></div>
+    </div>
+  </div>
+
+  <h3>Боли (что решает платформа)</h3>
+  <div class="j-pain">
+    <div class="j-pain-list">
+      <div class="j-pain-item">Чтобы узнать статус — нужно спросить каждого PM и подождать</div>
+      <div class="j-pain-item">Решения на комитетах не фиксируются, теряются</div>
+      <div class="j-pain-item">Непонятно кто владелец, кто блокирует, когда дедлайн</div>
+    </div>
+  </div>
+
+  <h3>Метрики успеха</h3>
+  <div class="j-metrics">
+    <div class="j-metric"><div class="j-metric-val">&lt; 30 сек</div><div class="j-metric-name">Время до полной картины</div></div>
+    <div class="j-metric"><div class="j-metric-val">100%</div><div class="j-metric-name">Продуктов с актуальным статусом</div></div>
+    <div class="j-metric"><div class="j-metric-val">0</div><div class="j-metric-name">Запросов "какой статус?"</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ PM (OWNER) ═══════════ -->
+<div class="journey" id="j-pm">
+  <div class="j-title">Product Manager (владелец продукта)</div>
+  <div class="j-desc">Цель: управлять продуктом из одного места. Планировать, приоритизировать, каскадировать на команду. Проходить Gate Review.</div>
+
+  <h3>Ежедневный путь</h3>
+  <div class="j-steps">
+    <div class="j-step">
+      <div class="j-step-num">1</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Открыть свой продукт</div>
+        <div class="j-step-detail">Главная → "Мои продукты" → клик. Или прямая ссылка workspace.html?id=ECO-XX.</div>
+        <a class="j-step-tool" href="../workspace.html?id=ECO-00">workspace.html</a>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-step-num">2</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Обновить статус (светофор)</div>
+        <div class="j-step-detail">Паспорт → статус-карточка. Выбрать зелёный/жёлтый/красный, написать что происходит.</div>
+        <div class="j-step-freq">Частота: 1 раз в неделю (минимум)</div>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-step-num">3</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Работать с инициативами</div>
+        <div class="j-step-detail">Таб "Инициативы" → создать новую, обновить RICE, сменить статус, добавить ссылку на YouTrack.</div>
+        <a class="j-step-tool" href="../workspace.html?id=ECO-00&tab=initiatives">workspace → инициативы</a>
+      </div>
+    </div>
+  </div>
+
+  <h3>Еженедельный путь</h3>
+  <div class="j-steps">
+    <div class="j-step" style="border-left-color:var(--amber)">
+      <div class="j-step-num" style="color:var(--amber)">4</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Синк с PMO</div>
+        <div class="j-step-detail">Обсудить блокеры, статус инициатив, подготовку к комитету. PMO координирует.</div>
+        <div class="j-step-freq">Частота: 1 раз в неделю</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Квартальный путь</h3>
+  <div class="j-steps">
+    <div class="j-step" style="border-left-color:var(--teal)">
+      <div class="j-step-num" style="color:var(--teal)">5</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Планирование квартала</div>
+        <div class="j-step-detail">Таб "Цели и планирование" → поставить цели H, декомпозировать в инициативы Q, оценить RICE, согласовать с PMO.</div>
+        <a class="j-step-tool" href="../workspace.html?id=ECO-00&tab=goals">workspace → цели</a>
+      </div>
+    </div>
+    <div class="j-step" style="border-left-color:var(--teal)">
+      <div class="j-step-num" style="color:var(--teal)">6</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Подготовка к Gate Review</div>
+        <div class="j-step-detail">Проверить чеклист артефактов. Заполнить недостающие. Запросить ревью через платформу.</div>
+        <a class="j-step-tool" href="../tools/gate-checklist.html">gate-checklist.html</a>
+      </div>
+    </div>
+  </div>
+
+  <h3>При запуске нового продукта</h3>
+  <div class="j-steps">
+    <div class="j-step" style="border-left-color:var(--pink)">
+      <div class="j-step-num" style="color:var(--pink)">7</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Подать заявку (бриф)</div>
+        <div class="j-step-detail">Заполнить бриф с описанием проблемы, ЦА, RICE-оценкой. Попадает в реестр идей → скрининг PMO.</div>
+        <a class="j-step-tool" href="../tools/brief.html">brief.html</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <h3>Точки контакта</h3>
+  <div class="j-touchpoints">
+    <div class="j-tp-grid">
+      <div class="j-tp"><div class="j-tp-name">Карточка продукта</div><div class="j-tp-page"><a href="../workspace.html?id=ECO-00">workspace</a> (основной)</div></div>
+      <div class="j-tp"><div class="j-tp-name">Реестр инициатив</div><div class="j-tp-page"><a href="../registry.html">registry</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Бриф</div><div class="j-tp-page"><a href="../tools/brief.html">brief</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Gate-чеклист</div><div class="j-tp-page"><a href="../tools/gate-checklist.html">gate-checklist</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Шаблоны</div><div class="j-tp-page"><a href="../tools/templates.html">templates</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Методология</div><div class="j-tp-page"><a href="../framework.html">framework</a></div></div>
+    </div>
+  </div>
+
+  <h3>Боли</h3>
+  <div class="j-pain">
+    <div class="j-pain-list">
+      <div class="j-pain-item">Инициативы и задачи в разных местах — нет единой картины</div>
+      <div class="j-pain-item">Не понятно что нужно для прохождения Gate — артефакты теряются</div>
+      <div class="j-pain-item">Планирование квартала — в таблицах, не связано с целями</div>
+    </div>
+  </div>
+
+  <h3>Метрики успеха</h3>
+  <div class="j-metrics">
+    <div class="j-metric"><div class="j-metric-val">&lt; 5 дней</div><div class="j-metric-name">От заявки до Gate 0</div></div>
+    <div class="j-metric"><div class="j-metric-val">100%</div><div class="j-metric-name">Инициатив с RICE</div></div>
+    <div class="j-metric"><div class="j-metric-val">1 место</div><div class="j-metric-name">Для всей работы по продукту</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ PMO ═══════════ -->
+<div class="journey" id="j-pmo">
+  <div class="j-title">PMO-менеджер / PMO Lead</div>
+  <div class="j-desc">Цель: координировать портфель, контролировать качество данных, готовить комитеты. Мост между PM и руководством.</div>
+
+  <h3>Ежедневный путь</h3>
+  <div class="j-steps">
+    <div class="j-step">
+      <div class="j-step-num">1</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Проверить каталог</div>
+        <div class="j-step-detail">Все продукты актуальны? Статусы обновлены? Кто в красной зоне?</div>
+        <a class="j-step-tool" href="../catalog.html">catalog.html</a>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-step-num">2</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Проверить реестр инициатив</div>
+        <div class="j-step-detail">Все инициативы имеют RICE? Статусы актуальны? Есть ли блокеры?</div>
+        <a class="j-step-tool" href="../registry.html">registry.html</a>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-step-num">3</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Рассмотреть новые заявки</div>
+        <div class="j-step-detail">Админка → "Заявки". Новые идеи от PM → скрининг → создать продукт или отклонить.</div>
+        <a class="j-step-tool" href="../admin.html">admin.html → заявки</a>
+      </div>
+    </div>
+  </div>
+
+  <h3>Еженедельный путь</h3>
+  <div class="j-steps">
+    <div class="j-step" style="border-left-color:var(--amber)">
+      <div class="j-step-num" style="color:var(--amber)">4</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Синк с PM</div>
+        <div class="j-step-detail">По каждому продукту: статус, блокеры, подготовка к комитету.</div>
+        <div class="j-step-freq">Частота: 1 раз в неделю с каждым PM</div>
+      </div>
+    </div>
+    <div class="j-step" style="border-left-color:var(--amber)">
+      <div class="j-step-num" style="color:var(--amber)">5</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Управление командами</div>
+        <div class="j-step-detail">Назначение участников, распределение инициатив по командам.</div>
+        <a class="j-step-tool" href="../teams.html">teams.html</a>
+      </div>
+    </div>
+  </div>
+
+  <h3>Ежемесячный путь</h3>
+  <div class="j-steps">
+    <div class="j-step" style="border-left-color:var(--teal)">
+      <div class="j-step-num" style="color:var(--teal)">6</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Подготовка Gate Review комитета</div>
+        <div class="j-step-detail">Повестка, сводка статусов, рекомендации по Gate решениям. Координация с Lead.</div>
+        <a class="j-step-tool" href="../committees.html">committees.html</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <h3>Точки контакта</h3>
+  <div class="j-touchpoints">
+    <div class="j-tp-grid">
+      <div class="j-tp"><div class="j-tp-name">Каталог</div><div class="j-tp-page"><a href="../catalog.html">catalog</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Реестр</div><div class="j-tp-page"><a href="../registry.html">registry</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Админка</div><div class="j-tp-page"><a href="../admin.html">admin</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Команды</div><div class="j-tp-page"><a href="../teams.html">teams</a></div></div>
+      <div class="j-tp"><div class="j-tp-name">Комитеты</div><div class="j-tp-page"><a href="../committees.html">committees</a></div></div>
+    </div>
+  </div>
+
+  <h3>Боли</h3>
+  <div class="j-pain">
+    <div class="j-pain-list">
+      <div class="j-pain-item">Данные по продуктам неактуальны — PM не обновляет</div>
+      <div class="j-pain-item">Подготовка к комитету — ручной сбор из разных источников</div>
+      <div class="j-pain-item">Нет единого места для всех заявок — теряются в чатах</div>
+    </div>
+  </div>
+
+  <h3>Метрики успеха</h3>
+  <div class="j-metrics">
+    <div class="j-metric"><div class="j-metric-val">100%</div><div class="j-metric-name">Продуктов с данными</div></div>
+    <div class="j-metric"><div class="j-metric-val">&lt; 1 час</div><div class="j-metric-name">На подготовку комитета</div></div>
+    <div class="j-metric"><div class="j-metric-val">0</div><div class="j-metric-name">Потерянных заявок</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ STAKEHOLDER ═══════════ -->
+<div class="journey" id="j-stakeholder">
+  <div class="j-title">Заказчик (Stakeholder)</div>
+  <div class="j-desc">Цель: видеть статус своих инициатив без запросов к PM. Понимать когда будет результат.</div>
+
+  <h3>Путь заказчика</h3>
+  <div class="j-steps">
+    <div class="j-step">
+      <div class="j-step-num">1</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Открыть карточку продукта</div>
+        <div class="j-step-detail">По прямой ссылке (получил от PM). Видит: паспорт, статус, светофор.</div>
+        <a class="j-step-tool" href="../workspace.html?id=ECO-00">workspace.html</a>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-step-num">2</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Проверить статус своих инициатив</div>
+        <div class="j-step-detail">Таб "Инициативы" → видит только те, где указан как заказчик. Статус, RICE, квартал.</div>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-step-num">3</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Посмотреть план</div>
+        <div class="j-step-detail">Таб "Цели и планирование" → когда запланирована инициатива, в каком квартале.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <h3>Боли</h3>
+  <div class="j-pain">
+    <div class="j-pain-list">
+      <div class="j-pain-item">Не знаю статус своего запроса — приходится спрашивать PM</div>
+      <div class="j-pain-item">Не понимаю когда будет результат — нет прозрачности сроков</div>
+    </div>
+  </div>
+
+  <h3>Метрики</h3>
+  <div class="j-metrics">
+    <div class="j-metric"><div class="j-metric-val">24/7</div><div class="j-metric-name">Доступ к статусу</div></div>
+    <div class="j-metric"><div class="j-metric-val">0</div><div class="j-metric-name">Запросов "когда будет?"</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ TEAM MEMBER ═══════════ -->
+<div class="journey" id="j-member">
+  <div class="j-title">Участник команды (Member)</div>
+  <div class="j-desc">Цель: знать свои инициативы, понимать приоритеты, связать работу с трекером задач.</div>
+
+  <h3>Ежедневный путь</h3>
+  <div class="j-steps">
+    <div class="j-step">
+      <div class="j-step-num">1</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Открыть карточку продукта</div>
+        <div class="j-step-detail">Видит свои инициативы (по скоупу назначения). Статус, RICE, ссылка на трекер.</div>
+        <a class="j-step-tool" href="../workspace.html?id=ECO-00&tab=initiatives">workspace → инициативы</a>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-step-num">2</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Обновить статус инициативы</div>
+        <div class="j-step-detail">Сменить статус (planned → wip → done). Обновить описание или RICE если изменились вводные.</div>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-step-num">3</div>
+      <div class="j-step-content">
+        <div class="j-step-action">Перейти в трекер задач</div>
+        <div class="j-step-detail">По ссылке из инициативы → YouTrack/Shiva. Там эпики и задачи. ОРБИТА = стратегический уровень, трекер = операционный.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <h3>Боли</h3>
+  <div class="j-pain">
+    <div class="j-pain-list">
+      <div class="j-pain-item">Не понимаю приоритет — что делать первым?</div>
+      <div class="j-pain-item">Нет связи между стратегией (цели) и моими задачами</div>
+    </div>
+  </div>
+
+  <h3>Метрики</h3>
+  <div class="j-metrics">
+    <div class="j-metric"><div class="j-metric-val">1 клик</div><div class="j-metric-name">До своих инициатив</div></div>
+    <div class="j-metric"><div class="j-metric-val">1 клик</div><div class="j-metric-name">До трекера задач</div></div>
+  </div>
+</div>
+
+</div><!-- /.wrap -->
+
+<script>
+function showJourney(id) {
+  document.querySelectorAll('.journey').forEach(function(j) { j.classList.remove('visible'); });
+  document.querySelectorAll('.role-tab').forEach(function(t) { t.classList.remove('active'); });
+  var target = document.getElementById('j-' + id);
+  if (target) target.classList.add('visible');
+  if (event && event.target) event.target.classList.add('active');
+}
+</script>
+<script src="../nav.js"></script>
+</body>
+</html>
