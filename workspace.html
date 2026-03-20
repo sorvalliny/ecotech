@@ -178,6 +178,27 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .ws-modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;max-width:400px;width:90%}
 .ws-modal h4{font-size:15px;font-weight:700;margin-bottom:14px}
 
+/* ── STATUS CARD (светофор) ── */
+.ws-status-card { display:flex; align-items:flex-start; gap:16px; padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); }
+.ws-status-lights { display:flex; flex-direction:column; gap:6px; }
+.ws-light { width:24px; height:24px; border-radius:50%; border:2px solid var(--border); cursor:pointer; transition:all .15s; }
+.ws-light[data-status="green"] { background:var(--teal-dim); border-color:var(--teal-border); }
+.ws-light[data-status="amber"] { background:var(--amber-dim); border-color:var(--amber-border); }
+.ws-light[data-status="red"] { background:var(--red-dim); border-color:rgba(248,113,113,.3); }
+.ws-light.active[data-status="green"] { background:var(--teal); box-shadow:0 0 8px var(--teal-dim); }
+.ws-light.active[data-status="amber"] { background:var(--amber); box-shadow:0 0 8px var(--amber-dim); }
+.ws-light.active[data-status="red"] { background:var(--red); box-shadow:0 0 8px var(--red-dim); }
+.ws-status-text { flex:1; }
+.ws-status-date { font-size:11px; color:var(--muted); margin-top:4px; }
+
+/* ── TEAMS GRID ── */
+.ws-teams-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:8px; margin-bottom:8px; }
+.ws-team-card { padding:12px 14px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); }
+.ws-tc-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:4px; }
+.ws-tc-meta { font-size:11px; color:var(--muted); }
+.ws-teams-link { font-size:12px; color:var(--violet); text-decoration:none; font-weight:600; }
+.ws-teams-link:hover { text-decoration:underline; }
+
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   .ws-wrap{padding:16px 12px 80px}
@@ -433,12 +454,66 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     initInitiatives(initiatives, editable);
     initGoals(goals, editable);
     initAssignMember();
+    renderTeams();
   }
 
   function tabBtn(id, label, count) {
     var cls = activeTab === id ? ' active' : '';
     var c = typeof count === 'number' ? '<span class="ws-tab-count">' + count + '</span>' : '';
     return '<button class="ws-tab' + cls + '" data-tab="' + id + '">' + esc(label) + c + '</button>';
+  }
+
+  // ── Status Card handler ──
+  window.setProductStatus = function(status, btn) {
+    if (!canEdit()) return;
+    document.querySelectorAll('.ws-light').forEach(function(l) { l.classList.remove('active'); });
+    btn.classList.add('active');
+    _product.statusLight = status;
+    _product.statusDate = new Date().toISOString().split('T')[0];
+    saveProducts();
+    addLog('status_light', status);
+    var dateEl = document.getElementById('status-date');
+    if (dateEl) dateEl.textContent = _product.statusDate;
+  };
+
+  // ── Teams rendering ──
+  function renderTeams() {
+    var container = document.getElementById('ws-teams');
+    if (!container) return;
+
+    var teams = JSON.parse(localStorage.getItem('ECOTECH_TEAMS') || '[]');
+    var productTeams = teams.filter(function(t) { return t.productId === productId && t.status === 'active'; });
+    var users = window.OrbAuth ? OrbAuth.getUsers() : [];
+
+    if (!productTeams.length) {
+      container.innerHTML = '<div style="color:var(--muted);font-size:13px;">\u041A\u043E\u043C\u0430\u043D\u0434\u044B \u043D\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D\u044B</div>';
+      return;
+    }
+
+    var html = '';
+    productTeams.forEach(function(team) {
+      var lead = users.find(function(u) { return u.id === team.lead; });
+      var memberCount = team.members ? team.members.length : 0;
+      var scopeCount = team.initiativeScope ? team.initiativeScope.length : 0;
+
+      html += '<div class="ws-team-card">' +
+        '<div class="ws-tc-name">' + esc(team.name) + '</div>' +
+        '<div class="ws-tc-meta">' +
+          'Lead: ' + (lead ? esc(lead.name) : '\u2014') +
+          ' \u00B7 ' + memberCount + ' \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A' + (memberCount > 1 ? '\u043E\u0432' : '') +
+          ' \u00B7 ' + scopeCount + ' \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432' +
+        '</div>' +
+      '</div>';
+    });
+
+    container.innerHTML = html;
+
+    // Show teams management link for admin/pmo
+    var role = getRole();
+    if (role === 'admin' || role === 'pmo_lead' || role === 'pmo' || isOwner()) {
+      var link = document.getElementById('teams-link');
+      if (link) link.style.display = '';
+    }
   }
 
   // ═══════════════════════════════════════════════════════════════
@@ -449,6 +524,22 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     var html = '';
     var gateNum = _product.gate || 0;
     var isEdit = editable && isOwner();
+
+    // ── Status Card (светофор) ──
+    html += '<div class="ws-section" id="sec-status">';
+    html += '<h3>\u0421\u0442\u0430\u0442\u0443\u0441 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430</h3>';
+    html += '<div class="ws-status-card" id="status-card">';
+    html += '<div class="ws-status-lights">';
+    html += '<button class="ws-light' + (_product.statusLight === 'green' ? ' active' : '') + '" data-status="green" onclick="setProductStatus(\'green\',this)" title="\u0412\u0441\u0451 \u043F\u043E \u043F\u043B\u0430\u043D\u0443"></button>';
+    html += '<button class="ws-light' + (_product.statusLight === 'amber' ? ' active' : '') + '" data-status="amber" onclick="setProductStatus(\'amber\',this)" title="\u0415\u0441\u0442\u044C \u0440\u0438\u0441\u043A\u0438"></button>';
+    html += '<button class="ws-light' + (_product.statusLight === 'red' ? ' active' : '') + '" data-status="red" onclick="setProductStatus(\'red\',this)" title="\u041F\u0440\u043E\u0431\u043B\u0435\u043C\u044B"></button>';
+    html += '</div>';
+    html += '<div class="ws-status-text">';
+    html += '<div class="ws-editable" contenteditable="' + (isEdit ? 'true' : 'false') + '" id="f-status-text" data-field="statusText" data-placeholder="\u0427\u0442\u043E \u043F\u0440\u043E\u0438\u0441\u0445\u043E\u0434\u0438\u0442 \u0441 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u043C? (\u043E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u0442\u0441\u044F \u0435\u0436\u0435\u043D\u0435\u0434\u0435\u043B\u044C\u043D\u043E)">' + esc(_product.statusText || '\u2014') + '</div>';
+    html += '<div class="ws-status-date" id="status-date">' + (_product.statusDate ? esc(_product.statusDate) : '') + '</div>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
 
     // ── About ──
     html += '<div class="ws-section"><h3>\u041E \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0435</h3>';
@@ -464,12 +555,18 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     html += '</div>';
 
     // ── Team ──
-    // TODO: Replace flat member list with team-based display from ECOTECH_TEAMS
     html += '<div class="ws-section"><h3>\u041A\u043E\u043C\u0430\u043D\u0434\u0430</h3>';
     html += renderTeam(isEdit);
     if (isOwner()) {
       html += '<button class="ws-add-member-btn" id="btn-add-member">+ \u041D\u0430\u0437\u043D\u0430\u0447\u0438\u0442\u044C \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0430</button>';
     }
+    html += '</div>';
+
+    // ── Teams ──
+    html += '<div class="ws-section" id="sec-teams">';
+    html += '<h3>\u041A\u043E\u043C\u0430\u043D\u0434\u044B</h3>';
+    html += '<div class="ws-teams-grid" id="ws-teams"></div>';
+    html += '<a class="ws-teams-link" href="teams.html" id="teams-link" style="display:none">\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u0430\u043C\u0438 \u2192</a>';
     html += '</div>';
 
     // ── Metrics ──
