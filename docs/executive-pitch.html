@@ -7,203 +7,73 @@
 <style>
 @page{size:A4;margin:14mm 16mm}
 *{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;background:#F7F8FA;color:#172B4D;line-height:1.5;-webkit-font-smoothing:antialiased}
+.page{max-width:800px;margin:0 auto;padding:32px 36px 24px;background:#fff;min-height:100vh}
+@media print{body{background:#fff}.page{padding:0;min-height:auto;max-width:100%}}
 
-body{
-  font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
-  background:#F7F8FA;
-  color:#172B4D;
-  line-height:1.52;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-}
-
-.page{
-  max-width:800px;
-  margin:0 auto;
-  padding:32px 36px 28px;
-  background:#FFFFFF;
-  min-height:100vh;
-}
-
-@media print{
-  body{background:#fff}
-  .page{padding:0;min-height:auto;max-width:100%}
-}
-
-/* ---- HEADER ---- */
-.header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding-bottom:18px;
-  border-bottom:2px solid #0052CC;
-  margin-bottom:22px;
-}
+.header{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:2px solid #0052CC;margin-bottom:20px}
 .header-left{display:flex;align-items:center;gap:14px}
-.header-logo{color:#172B4D;flex-shrink:0;display:flex;align-items:center}
 .header-logo svg{width:72px;height:auto}
-.header-divider{width:1px;height:32px;background:#DFE1E6;flex-shrink:0}
-.header-text h1{
-  font-size:18px;font-weight:800;color:#172B4D;
-  letter-spacing:-.02em;line-height:1.25;
-}
-.header-text .subtitle{
-  font-size:12px;color:#6B778C;font-weight:500;margin-top:2px;
-}
-.header-badge{
-  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:#0052CC;background:#DEEBFF;
-  padding:5px 12px;border-radius:3px;flex-shrink:0;
-}
+.header-divider{width:1px;height:28px;background:#DFE1E6}
+.header-text h1{font-size:17px;font-weight:800;color:#172B4D;letter-spacing:-.02em;line-height:1.2}
+.header-text .sub{font-size:11px;color:#6B778C;font-weight:500;margin-top:1px}
+.badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0052CC;background:#DEEBFF;padding:4px 10px;border-radius:3px}
 
-/* ---- TWO COLUMNS ---- */
-.body-grid{
-  display:grid;
-  grid-template-columns:1fr 340px;
-  gap:28px;
-  align-items:start;
-}
+.body-grid{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
 
-/* ---- SECTION TITLE ---- */
-.stitle{
-  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:#0052CC;margin-bottom:10px;
-  padding-bottom:5px;
-  border-bottom:1px solid #EBECF0;
-}
+.stitle{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0052CC;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #EBECF0}
 
-/* ---- LEFT COLUMN ---- */
-.left-col{display:flex;flex-direction:column;gap:20px}
+.left{display:flex;flex-direction:column;gap:18px}
 
-/* Problem */
-.problem-list{list-style:none;display:flex;flex-direction:column;gap:6px}
-.problem-list li{
-  padding:8px 12px;
-  background:#FAFBFC;
-  border-left:3px solid #DE350B;
-  border-radius:3px;
-  font-size:13px;
-  color:#42526E;
-  line-height:1.45;
-}
+.p-list{list-style:none;display:flex;flex-direction:column;gap:5px}
+.p-list li{padding:7px 11px;background:#FAFBFC;border-left:3px solid #DE350B;border-radius:3px;font-size:12.5px;color:#42526E;line-height:1.4}
+.p-list li strong{color:#172B4D}
 
-/* Solution */
-.sol-list{list-style:none;display:flex;flex-direction:column;gap:8px}
-.sol-item{
-  display:flex;align-items:baseline;gap:11px;
-  padding:9px 12px;
-  background:#FAFBFC;
-  border-left:3px solid #0052CC;
-  border-radius:3px;
-}
-.sol-num{
-  font-size:16px;font-weight:800;color:#0052CC;
-  min-width:18px;flex-shrink:0;line-height:1;
-}
-.sol-title{font-size:13px;font-weight:700;color:#172B4D}
-.sol-desc{font-size:12px;color:#6B778C;margin-top:2px;line-height:1.4}
+.s-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.s-item{display:flex;align-items:baseline;gap:10px;padding:8px 11px;background:#FAFBFC;border-left:3px solid #0052CC;border-radius:3px}
+.s-num{font-size:15px;font-weight:800;color:#0052CC;min-width:16px}
+.s-title{font-size:12.5px;font-weight:700;color:#172B4D}
+.s-desc{font-size:11.5px;color:#6B778C;margin-top:1px;line-height:1.4}
 
-/* Week 1 */
-.week-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:6px;
-}
-.week-item{
-  display:flex;align-items:baseline;gap:8px;
-  padding:7px 10px;
-  background:#E3FCEF;
-  border-radius:3px;
-  font-size:12px;color:#006644;
-}
-.week-item .wn{font-weight:800;font-size:13px;color:#006644;min-width:14px}
+.w-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.w-item{display:flex;align-items:baseline;gap:6px;padding:6px 10px;background:#E3FCEF;border-radius:3px;font-size:11.5px;color:#006644;line-height:1.35}
+.w-item b{font-weight:800;font-size:12px}
 
-/* ---- RIGHT COLUMN ---- */
-.right-col{display:flex;flex-direction:column;gap:20px}
+.right{display:flex;flex-direction:column;gap:16px}
 
-/* Stats */
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.stat{
-  background:#FAFBFC;border-radius:4px;padding:12px 14px;
-  border-top:2px solid #0052CC;
-  text-align:center;
-}
-.stat-val{font-size:22px;font-weight:800;color:#0052CC;line-height:1.1}
-.stat-label{font-size:10.5px;color:#6B778C;margin-top:3px;line-height:1.3}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.stat{background:#FAFBFC;border-radius:4px;padding:10px 12px;border-top:2px solid #0052CC;text-align:center}
+.stat-val{font-size:20px;font-weight:800;color:#0052CC;line-height:1.1}
+.stat-lbl{font-size:10px;color:#6B778C;margin-top:2px}
 
-/* Lifecycle diagram */
-.lifecycle{
-  background:#FAFBFC;border-radius:6px;padding:16px 18px;
-  border:1px solid #EBECF0;
-}
-.lifecycle-title{
-  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:#6B778C;margin-bottom:12px;text-align:center;
-}
-.lifecycle-flow{
-  display:flex;align-items:center;justify-content:center;gap:0;
-  flex-wrap:nowrap;
-}
-.lf-stage{
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  flex:0 0 auto;
-}
-.lf-dot{
-  width:28px;height:28px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:10px;font-weight:800;color:#fff;
-  line-height:1;
-}
-.lf-label{font-size:9px;color:#6B778C;text-align:center;max-width:56px;line-height:1.2}
-.lf-arrow{
-  font-size:14px;color:#C1C7D0;margin:0 3px;flex-shrink:0;
-  position:relative;top:-6px;
-}
-.lf-o1{background:#0052CC}
-.lf-o2{background:#0065FF}
-.lf-o3{background:#0747A6}
-.lf-o4{background:#00875A}
-.lf-o5{background:#006644}
-.lf-o6{background:#5243AA}
-.lf-o7{background:#403294}
+.lc-box{background:#FAFBFC;border-radius:6px;padding:14px 16px;border:1px solid #EBECF0}
+.lc-title{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6B778C;margin-bottom:10px;text-align:center}
+.lc-flow{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:nowrap}
+.lc-s{display:flex;flex-direction:column;align-items:center;gap:3px}
+.lc-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff}
+.lc-lbl{font-size:8px;color:#6B778C;text-align:center;max-width:52px;line-height:1.15}
+.lc-arr{font-size:12px;color:#C1C7D0;margin:0 2px;position:relative;top:-5px}
+.c0{background:#5E6C84}.c1{background:#0052CC}.c2{background:#00875A}.c3{background:#CD519D}.c4{background:#00875A}.c5{background:#5243AA}.c6{background:#5E6C84}
+.lc-note{margin-top:8px;text-align:center;font-size:10px;color:#6B778C;line-height:1.35}
+.lc-note strong{color:#0052CC}
 
-.gate-label{
-  margin-top:10px;text-align:center;
-  font-size:10px;color:#6B778C;line-height:1.4;
-}
-.gate-label strong{color:#0052CC;font-weight:700}
+.g-row{display:flex;gap:6px}
+.g-card{flex:1;background:#FAFBFC;border-radius:4px;padding:9px 10px;border-top:2px solid #00875A;text-align:center}
+.g-val{font-size:16px;font-weight:800;color:#00875A}
+.g-lbl{font-size:9.5px;color:#6B778C;margin-top:1px}
 
-/* ---- FOOTER ---- */
-.footer{
-  margin-top:22px;
-  padding-top:16px;
-  border-top:1px solid #EBECF0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.footer-cta{
-  background:#0052CC;
-  color:#fff;
-  font-size:12px;font-weight:700;
-  padding:8px 20px;
-  border-radius:3px;
-  text-decoration:none;
-  letter-spacing:.01em;
-}
-.footer-contact{text-align:right}
-.footer-contact-label{font-size:10px;color:#6B778C;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
-.footer-contact-email{font-size:13px;color:#0052CC;font-weight:600;margin-top:1px}
+.footer{margin-top:18px;padding-top:12px;border-top:1px solid #EBECF0;display:flex;align-items:center;justify-content:space-between}
+.footer-cta{background:#0052CC;color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:3px;text-decoration:none}
+.footer-r{text-align:right}
+.footer-r-lbl{font-size:9px;color:#6B778C;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.footer-r-val{font-size:12px;color:#0052CC;font-weight:600;margin-top:1px}
 
-@media(max-width:720px){
-  .body-grid{grid-template-columns:1fr}
-  .week-grid{grid-template-columns:1fr}
-  .page{padding:20px 18px}
-}
+@media(max-width:720px){.body-grid{grid-template-columns:1fr}.w-grid{grid-template-columns:1fr}.page{padding:20px 18px}}
 </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- HEADER -->
   <div class="header">
     <div class="header-left">
       <div class="header-logo">
@@ -213,129 +83,115 @@ body{
       </div>
       <div class="header-divider"></div>
       <div class="header-text">
-        <h1>ОРБИТА &middot; Управление продуктовым портфелем</h1>
-        <div class="subtitle">для руководителя Экосистемы</div>
+        <h1>ОРБИТА</h1>
+        <div class="sub">Управление продуктовым портфелем экосистемы</div>
       </div>
     </div>
-    <div class="header-badge">Executive Brief</div>
+    <div class="badge">Executive Brief</div>
   </div>
 
-  <!-- BODY -->
   <div class="body-grid">
 
-    <!-- LEFT COLUMN (60%) -->
-    <div class="left-col">
+    <div class="left">
 
-      <!-- Problem -->
       <div>
         <div class="stitle">Проблема</div>
-        <ul class="problem-list">
-          <li>Нет единой картины: что в проде, что в разработке, что на согласовании</li>
-          <li>Решения принимаются по голосу, а не по данным (RICE, метрики, Gate)</li>
-          <li>Команды работают в разных трекерах без общего языка</li>
+        <ul class="p-list">
+          <li><strong>Нет общей картины.</strong> Статус продуктов разбросан по чатам, таблицам и головам PM. Чтобы узнать что происходит — нужно спрашивать.</li>
+          <li><strong>Приоритеты субъективны.</strong> Что запускать — решает тот, кто громче. Нет единой оценки ценности и стоимости.</li>
+          <li><strong>Команды изолированы.</strong> Каждая работает в своём трекере. Нет общего языка, стандартов и точки сборки.</li>
         </ul>
       </div>
 
-      <!-- Solution -->
       <div>
-        <div class="stitle">Решение &mdash; ОРБИТА</div>
-        <ul class="sol-list">
-          <li class="sol-item">
-            <span class="sol-num">1</span>
+        <div class="stitle">Решение</div>
+        <ul class="s-list">
+          <li class="s-item">
+            <span class="s-num">1</span>
             <div>
-              <div class="sol-title">Реестр продуктов</div>
-              <div class="sol-desc">Портфель в реальном времени. Статус, стадия, метрики &mdash; без запроса у PM.</div>
+              <div class="s-title">Портфель в реальном времени</div>
+              <div class="s-desc">Все продукты, их стадия, команда и метрики — на одном экране. Без запросов.</div>
             </div>
           </li>
-          <li class="sol-item">
-            <span class="sol-num">2</span>
+          <li class="s-item">
+            <span class="s-num">2</span>
             <div>
-              <div class="sol-title">Рабочее пространство</div>
-              <div class="sol-desc">Каждый продукт = карточка с целями, инициативами, планированием. PM работает, руководство видит.</div>
+              <div class="s-title">Карточка продукта для команды</div>
+              <div class="s-desc">PM ведёт цели, инициативы и планирование. Руководство видит прогресс автоматически.</div>
             </div>
           </li>
-          <li class="sol-item">
-            <span class="sol-num">3</span>
+          <li class="s-item">
+            <span class="s-num">3</span>
             <div>
-              <div class="sol-title">Фреймворк</div>
-              <div class="sol-desc">Единый стандарт: 7 орбит зрелости, Gate Review, ВИТОК (Исследование &mdash; Разработка &mdash; Оценка).</div>
+              <div class="s-title">Единый стандарт работы</div>
+              <div class="s-desc">Продукт проходит 7 стадий зрелости. Переход — через комитет с чеклистом. Нет шанса пропустить важное.</div>
             </div>
           </li>
         </ul>
       </div>
 
-      <!-- Week 1 -->
       <div>
-        <div class="stitle">Что вы получите за первую неделю</div>
-        <div class="week-grid">
-          <div class="week-item"><span class="wn">1</span> Все продукты видны в реестре 24/7</div>
-          <div class="week-item"><span class="wn">2</span> Стадия, метрики, команда, инициативы</div>
-          <div class="week-item"><span class="wn">3</span> Gate Review запущен, решения фиксируются</div>
-          <div class="week-item"><span class="wn">4</span> Прозрачность: блокеры, работа, согласования</div>
+        <div class="stitle">Первая неделя</div>
+        <div class="w-grid">
+          <div class="w-item"><b>1</b> Все продукты в реестре</div>
+          <div class="w-item"><b>2</b> Стадия и метрики видны</div>
+          <div class="w-item"><b>3</b> Комитеты с протоколами</div>
+          <div class="w-item"><b>4</b> Блокеры на поверхности</div>
         </div>
       </div>
 
     </div>
 
-    <!-- RIGHT COLUMN (40%) -->
-    <div class="right-col">
+    <div class="right">
 
-      <!-- Stats -->
       <div>
-        <div class="stitle">Ключевые цифры</div>
+        <div class="stitle">Платформа</div>
         <div class="stat-grid">
           <div class="stat">
-            <div class="stat-val">20+</div>
-            <div class="stat-label">страниц платформы</div>
+            <div class="stat-val">10+</div>
+            <div class="stat-lbl">продуктов в портфеле</div>
           </div>
           <div class="stat">
             <div class="stat-val">7</div>
-            <div class="stat-label">ролей с доступом</div>
-          </div>
-          <div class="stat">
-            <div class="stat-val">7</div>
-            <div class="stat-label">стадий зрелости</div>
+            <div class="stat-lbl">стадий зрелости</div>
           </div>
           <div class="stat">
             <div class="stat-val">2</div>
-            <div class="stat-label">департамента</div>
+            <div class="stat-lbl">департамента</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">8</div>
+            <div class="stat-lbl">ролей и прав доступа</div>
           </div>
         </div>
       </div>
 
-      <!-- Lifecycle Diagram -->
-      <div class="lifecycle">
-        <div class="lifecycle-title">Жизненный цикл продукта</div>
-        <div class="lifecycle-flow">
-          <div class="lf-stage"><div class="lf-dot lf-o1">O1</div><div class="lf-label">Идея</div></div>
-          <div class="lf-arrow">&rarr;</div>
-          <div class="lf-stage"><div class="lf-dot lf-o2">O2</div><div class="lf-label">Иссле-дование</div></div>
-          <div class="lf-arrow">&rarr;</div>
-          <div class="lf-stage"><div class="lf-dot lf-o3">O3</div><div class="lf-label">MVP</div></div>
-          <div class="lf-arrow">&rarr;</div>
-          <div class="lf-stage"><div class="lf-dot lf-o4">O4</div><div class="lf-label">Рост</div></div>
-          <div class="lf-arrow">&rarr;</div>
-          <div class="lf-stage"><div class="lf-dot lf-o5">O5</div><div class="lf-label">Масш-таб</div></div>
-          <div class="lf-arrow">&rarr;</div>
-          <div class="lf-stage"><div class="lf-dot lf-o6">O6</div><div class="lf-label">Зре-лость</div></div>
-          <div class="lf-arrow">&rarr;</div>
-          <div class="lf-stage"><div class="lf-dot lf-o7">O7</div><div class="lf-label">Закат</div></div>
+      <div class="lc-box">
+        <div class="lc-title">Путь продукта</div>
+        <div class="lc-flow">
+          <div class="lc-s"><div class="lc-dot c0">0</div><div class="lc-lbl">Заявка</div></div>
+          <div class="lc-arr">&rarr;</div>
+          <div class="lc-s"><div class="lc-dot c1">1</div><div class="lc-lbl">Разведка</div></div>
+          <div class="lc-arr">&rarr;</div>
+          <div class="lc-s"><div class="lc-dot c2">2</div><div class="lc-lbl">Прототип</div></div>
+          <div class="lc-arr">&rarr;</div>
+          <div class="lc-s"><div class="lc-dot c3">3</div><div class="lc-lbl">Разгон</div></div>
+          <div class="lc-arr">&rarr;</div>
+          <div class="lc-s"><div class="lc-dot c4">4</div><div class="lc-lbl">Экосист.</div></div>
+          <div class="lc-arr">&rarr;</div>
+          <div class="lc-s"><div class="lc-dot c5">5</div><div class="lc-lbl">Зрелость</div></div>
         </div>
-        <div class="gate-label">
-          Переход между орбитами &mdash; через <strong>Gate Review</strong><br>
-          Цикл внутри стадии: <strong>ВИТОК</strong> (Исследование &rarr; Разработка &rarr; Оценка)
-        </div>
+        <div class="lc-note">Переход между стадиями — через <strong>комитет</strong> с чеклистом</div>
       </div>
 
-      <!-- Zero dependencies -->
-      <div style="display:flex;gap:8px">
-        <div style="flex:1;background:#FAFBFC;border-radius:4px;padding:10px 12px;border-top:2px solid #00875A;text-align:center">
-          <div style="font-size:18px;font-weight:800;color:#00875A">Git</div>
-          <div style="font-size:10px;color:#6B778C;margin-top:2px">готово к миграции</div>
+      <div class="g-row">
+        <div class="g-card">
+          <div class="g-val">Корп. Git</div>
+          <div class="g-lbl">готово к миграции</div>
         </div>
-        <div style="flex:1;background:#FAFBFC;border-radius:4px;padding:10px 12px;border-top:2px solid #00875A;text-align:center">
-          <div style="font-size:18px;font-weight:800;color:#00875A">0</div>
-          <div style="font-size:10px;color:#6B778C;margin-top:2px">внешних зависимостей</div>
+        <div class="g-card">
+          <div class="g-val">0</div>
+          <div class="g-lbl">внешних зависимостей</div>
         </div>
       </div>
 
@@ -343,12 +199,11 @@ body{
 
   </div>
 
-  <!-- FOOTER -->
   <div class="footer">
-    <a class="footer-cta" href="mailto:sorval.viktor@rwb.ru">Демо 15 мин &rarr; Пилот &rarr; Результат за 2 недели</a>
-    <div class="footer-contact">
-      <div class="footer-contact-label">Контакт</div>
-      <div class="footer-contact-email">sorval.viktor@rwb.ru</div>
+    <a class="footer-cta" href="mailto:sorval.viktor@rwb.ru">Назначить демо — 15 минут</a>
+    <div class="footer-r">
+      <div class="footer-r-lbl">Проектный офис</div>
+      <div class="footer-r-val">sorval.viktor@rwb.ru</div>
     </div>
   </div>
 
