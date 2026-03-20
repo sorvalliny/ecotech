@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Реестр команд — ОРБИТА</title>
+<link rel="stylesheet" href="design-system.css">
+<style>
+/* ================================================================ PAGE */
+.teams-page{max-width:var(--content-max);margin:0 auto;padding:32px 24px 80px}
+
+/* ================================================================ HEADER */
+.teams-header{margin-bottom:28px}
+.teams-header h1{font-family:var(--font-head);font-size:22px;font-weight:900;color:var(--text);margin-bottom:4px}
+.teams-header-sub{font-size:13px;color:var(--muted)}
+
+/* ================================================================ FILTERS */
+.teams-filters{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center}
+.teams-filters select,
+.teams-filters input{
+  font-family:var(--font);font-size:12px;
+  padding:7px 12px;border-radius:var(--radius-sm);
+  border:1px solid var(--border);background:var(--surface);color:var(--text);
+  outline:none;transition:border-color .15s;
+  min-width:0;
+}
+.teams-filters select{cursor:pointer;min-width:140px}
+.teams-filters select:focus,
+.teams-filters input:focus{border-color:var(--violet-border)}
+.teams-filters input{flex:1;min-width:160px;max-width:260px}
+.teams-filters select option{background:var(--surface);color:var(--text)}
+
+.teams-btn-create{
+  font-family:var(--font);font-size:12px;font-weight:600;
+  color:#fff;background:var(--violet);border:none;
+  padding:7px 16px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:opacity .15s;white-space:nowrap;
+}
+.teams-btn-create:hover{opacity:.85}
+
+/* ================================================================ PRODUCT GROUP */
+.product-group{margin-bottom:28px}
+.product-group-header{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:12px;padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+.pg-name{font-family:var(--font-head);font-size:15px;font-weight:800;color:var(--text)}
+.pg-code{font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:600}
+.pg-count{font-size:11px;color:var(--muted);margin-left:auto}
+
+.pg-empty{
+  font-size:12px;color:var(--muted);font-style:italic;
+  padding:16px 0;display:flex;align-items:center;gap:12px;
+}
+.pg-add-btn{
+  font-family:var(--font);font-size:11px;font-weight:600;
+  color:var(--violet);background:transparent;
+  border:1px dashed var(--violet-border);
+  padding:5px 12px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:background .15s;
+}
+.pg-add-btn:hover{background:var(--violet-dim)}
+
+/* ================================================================ TEAM CARD */
+.team-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+
+.team-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px;transition:border-color .15s;
+}
+.team-card:hover{border-color:var(--violet-border)}
+
+.tc-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tc-name{font-family:var(--font-head);font-size:14px;font-weight:800;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:0}
+.tc-status{
+  font-size:10px;font-weight:700;padding:3px 8px;border-radius:var(--radius-xs);
+  white-space:nowrap;
+}
+.tc-status-active{background:var(--teal-dim);color:var(--teal)}
+.tc-status-paused{background:var(--amber-dim);color:var(--amber)}
+.tc-status-archived{background:var(--red-dim);color:var(--red)}
+
+.tc-lead{font-size:12px;color:var(--muted);margin-bottom:6px}
+.tc-lead strong{color:var(--text);font-weight:600}
+
+.tc-stats{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-bottom:10px}
+.tc-stats span{white-space:nowrap}
+
+.tc-members{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tc-member{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;color:var(--text);
+  background:var(--surface);border-radius:var(--radius-xs);
+  padding:3px 8px;
+}
+.tc-member-ava{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--surface2);display:flex;align-items:center;justify-content:center;
+  font-size:8px;font-weight:700;color:var(--violet);flex-shrink:0;
+}
+
+.tc-scope{margin-bottom:10px}
+.tc-scope-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.tc-scope-item{font-size:11px;color:var(--gray2);padding:2px 0;display:flex;align-items:center;gap:6px}
+.tc-scope-id{font-family:var(--mono);font-size:10px;color:var(--muted);flex-shrink:0}
+.tc-scope-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tc-scope-empty{font-size:11px;color:var(--muted);font-style:italic}
+
+.tc-actions{display:flex;gap:6px;padding-top:8px;border-top:1px solid var(--border)}
+.tc-btn{
+  font-family:var(--font);font-size:11px;font-weight:600;
+  padding:5px 12px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:background .15s,border-color .15s;border:1px solid var(--border);
+}
+.tc-btn-edit{color:var(--violet);background:var(--violet-dim);border-color:var(--violet-border)}
+.tc-btn-edit:hover{background:var(--violet);color:#fff}
+.tc-btn-delete{color:var(--red);background:transparent;border-color:var(--border)}
+.tc-btn-delete:hover{background:var(--red-dim);border-color:var(--red)}
+
+/* ================================================================ MODAL */
+.team-modal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:var(--z-modal,10000);display:flex;align-items:center;justify-content:center}
+.tm-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);cursor:pointer}
+.tm-panel{
+  position:relative;z-index:1;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;width:480px;max-width:calc(100vw - 40px);max-height:calc(100vh - 80px);
+  overflow-y:auto;
+}
+.tm-panel h3{font-family:var(--font-head);font-size:17px;font-weight:800;color:var(--text);margin-bottom:20px}
+
+.tm-field{margin-bottom:16px}
+.tm-field label{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.tm-field input,
+.tm-field select{
+  width:100%;font-family:var(--font);font-size:13px;
+  padding:8px 12px;border-radius:var(--radius-sm);
+  border:1px solid var(--border);background:var(--surface);color:var(--text);
+  outline:none;transition:border-color .15s;
+}
+.tm-field input:focus,
+.tm-field select:focus{border-color:var(--violet-border)}
+
+.tm-checkboxes{max-height:180px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px;background:var(--surface)}
+.tm-cb-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;color:var(--text)}
+.tm-cb-item input[type="checkbox"]{accent-color:var(--violet);width:14px;height:14px;cursor:pointer}
+.tm-cb-item label{cursor:pointer;flex:1}
+
+.tm-actions{display:flex;gap:8px;padding-top:8px}
+.tm-btn-save{
+  font-family:var(--font);font-size:13px;font-weight:600;
+  color:#fff;background:var(--violet);border:none;
+  padding:9px 20px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:opacity .15s;
+}
+.tm-btn-save:hover{opacity:.85}
+.tm-btn-cancel{
+  font-family:var(--font);font-size:13px;font-weight:600;
+  color:var(--muted);background:var(--surface);border:1px solid var(--border);
+  padding:9px 20px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:background .15s;
+}
+.tm-btn-cancel:hover{background:var(--surface2)}
+
+/* ================================================================ EMPTY STATE */
+.teams-empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px}
+
+/* ================================================================ TOAST */
+.teams-toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--card);border:1px solid var(--teal);border-radius:var(--radius);
+  padding:10px 20px;font-size:13px;font-weight:600;color:var(--teal);
+  box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:var(--z-modal,10000);
+  opacity:0;transition:opacity .3s;pointer-events:none;
+}
+.teams-toast.visible{opacity:1}
+</style>
+</head>
+<body>
+<script src="nav.js"></script>
+<script src="platform.js"></script>
+
+<div class="teams-page">
+  <!-- Header -->
+  <div class="teams-header">
+    <h1>Реестр команд</h1>
+    <div class="teams-header-sub">Управление составом и распределением по продуктам</div>
+  </div>
+
+  <!-- Filters -->
+  <div class="teams-filters">
+    <select id="filter-dept">
+      <option value="">Все департаменты</option>
+    </select>
+    <select id="filter-product">
+      <option value="">Все продукты</option>
+    </select>
+    <input type="text" id="filter-search" placeholder="Поиск по названию команды...">
+    <button class="teams-btn-create" id="btn-create-team" style="display:none" onclick="createTeam()">+ Создать команду</button>
+  </div>
+
+  <!-- Content -->
+  <div id="teams-content"></div>
+</div>
+
+<!-- Create/Edit Team Modal -->
+<div class="team-modal" id="team-modal" style="display:none">
+  <div class="tm-overlay" onclick="closeTeamModal()"></div>
+  <div class="tm-panel">
+    <h3 id="tm-title">Создать команду</h3>
+    <div class="tm-field">
+      <label>Название</label>
+      <input id="tm-name" placeholder="Например: Команда Рост">
+    </div>
+    <div class="tm-field">
+      <label>Продукт</label>
+      <select id="tm-product"></select>
+    </div>
+    <div class="tm-field">
+      <label>Тимлид</label>
+      <select id="tm-lead"></select>
+    </div>
+    <div class="tm-field">
+      <label>Участники</label>
+      <div class="tm-checkboxes" id="tm-members"></div>
+    </div>
+    <div class="tm-field">
+      <label>Инициативы (скоуп)</label>
+      <div class="tm-checkboxes" id="tm-scope"></div>
+    </div>
+    <div class="tm-actions">
+      <button class="tm-btn-save" onclick="saveTeam()">Сохранить</button>
+      <button class="tm-btn-cancel" onclick="closeTeamModal()">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="teams-toast" id="teams-toast"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Default seed data ────────────────────────────────────────
+  var DEFAULT_TEAMS = [
+    { id: 'TEAM-001', name: 'Core Team', productId: 'ECO-00', lead: 'U002', members: ['U002'], initiativeScope: [], department: 'innovation', status: 'active', createdAt: '2026-03-20' },
+    { id: 'TEAM-002', name: 'Growth Squad', productId: 'ECO-01', lead: 'U010', members: ['U010', 'U011'], initiativeScope: [], department: 'innovation', status: 'active', createdAt: '2026-03-20' },
+    { id: 'TEAM-003', name: 'Platform Engineering', productId: 'ECO-01', lead: 'U011', members: ['U011'], initiativeScope: [], department: 'innovation', status: 'active', createdAt: '2026-03-20' }
+  ];
+
+  var teams = [];
+  var products = [];
+  var users = [];
+  var backlog = [];
+  var editingTeamId = null;
+
+  // ── Helpers ──────────────────────────────────────────────────
+  function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function initials(name) {
+    if (!name) return '?';
+    var parts = name.split(/\s+/);
+    if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+    return name.substring(0, 2).toUpperCase();
+  }
+
+  function getUserById(id) {
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].id === id) return users[i];
+    }
+    return null;
+  }
+
+  function canManageTeams() {
+    if (!window.OrbAuth) return false;
+    var user = OrbAuth.getCurrentUser();
+    if (!user) return false;
+    return user.role === 'admin' || user.role === 'pmo_lead' || user.role === 'pmo';
+  }
+
+  function canManageTeam(team) {
+    if (!window.OrbAuth) return false;
+    var user = OrbAuth.getCurrentUser();
+    if (!user) return false;
+    // Admin/PMO roles
+    if (user.role === 'admin' || user.role === 'pmo_lead' || user.role === 'pmo') return true;
+    // Product owner
+    if (OrbAuth.isProductOwner && OrbAuth.isProductOwner(team.productId)) return true;
+    // Team lead can manage their own team
+    if (team.lead === user.id) return true;
+    return false;
+  }
+
+  function showToast(msg) {
+    var el = document.getElementById('teams-toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('visible');
+    setTimeout(function() { el.classList.remove('visible'); }, 2500);
+  }
+
+  function seedTeamsIfEmpty() {
+    var stored = PT.load(PT.KEY_TEAMS);
+    if (!stored || !stored.length) {
+      PT.save(PT.KEY_TEAMS, DEFAULT_TEAMS);
+      return DEFAULT_TEAMS.slice();
+    }
+    return stored;
+  }
+
+  // ── Filters ──────────────────────────────────────────────────
+  function populateFilters() {
+    var deptSel = document.getElementById('filter-dept');
+    var prodSel = document.getElementById('filter-product');
+    if (!deptSel || !prodSel) return;
+
+    // Departments
+    var depts = PT.DEPARTMENTS || {};
+    var deptKeys = Object.keys(depts);
+    var deptHtml = '<option value="">Все департаменты</option>';
+    for (var d = 0; d < deptKeys.length; d++) {
+      deptHtml += '<option value="' + esc(deptKeys[d]) + '">' + esc(depts[deptKeys[d]].label) + '</option>';
+    }
+    deptSel.innerHTML = deptHtml;
+
+    // Products
+    var prodHtml = '<option value="">Все продукты</option>';
+    for (var p = 0; p < products.length; p++) {
+      prodHtml += '<option value="' + esc(products[p].id) + '">' + esc(products[p].name || products[p].id) + '</option>';
+    }
+    prodSel.innerHTML = prodHtml;
+  }
+
+  function getFilteredTeams() {
+    var dept = document.getElementById('filter-dept') ? document.getElementById('filter-dept').value : '';
+    var prod = document.getElementById('filter-product') ? document.getElementById('filter-product').value : '';
+    var search = document.getElementById('filter-search') ? document.getElementById('filter-search').value.toLowerCase().trim() : '';
+
+    return teams.filter(function(t) {
+      if (dept && t.department !== dept) return false;
+      if (prod && t.productId !== prod) return false;
+      if (search && t.name.toLowerCase().indexOf(search) < 0) return false;
+      return true;
+    });
+  }
+
+  // ── Render ───────────────────────────────────────────────────
+  function render() {
+    var container = document.getElementById('teams-content');
+    if (!container) return;
+
+    // Show create button for authorized users
+    var createBtn = document.getElementById('btn-create-team');
+    if (createBtn) createBtn.style.display = canManageTeams() ? '' : 'none';
+
+    var filtered = getFilteredTeams();
+
+    // Group by product
+    var grouped = {};
+    for (var i = 0; i < filtered.length; i++) {
+      var pid = filtered[i].productId;
+      if (!grouped[pid]) grouped[pid] = [];
+      grouped[pid].push(filtered[i]);
+    }
+
+    // Build product map
+    var prodMap = {};
+    for (var p = 0; p < products.length; p++) {
+      prodMap[products[p].id] = products[p];
+    }
+
+    var html = '';
+    var hasContent = false;
+
+    // Render products that have teams
+    var renderedProducts = {};
+    var productIds = Object.keys(grouped);
+    for (var gi = 0; gi < productIds.length; gi++) {
+      var gid = productIds[gi];
+      var prod = prodMap[gid];
+      var prodName = prod ? (prod.name || gid) : gid;
+      renderedProducts[gid] = true;
+      hasContent = true;
+
+      html += '<div class="product-group">';
+      html += '<div class="product-group-header">';
+      html += '<span class="pg-name">' + esc(prodName) + '</span>';
+      html += '<span class="pg-code">' + esc(gid) + '</span>';
+      html += '<span class="pg-count">' + grouped[gid].length + ' команд</span>';
+      html += '</div>';
+      html += '<div class="team-cards">';
+
+      for (var ti = 0; ti < grouped[gid].length; ti++) {
+        html += renderTeamCard(grouped[gid][ti]);
+      }
+
+      // Add team button within product
+      if (canManageTeams() || (window.OrbAuth && OrbAuth.isProductOwner && OrbAuth.isProductOwner(gid))) {
+        html += '</div>';
+        html += '<div style="margin-top:10px"><button class="pg-add-btn" onclick="createTeamForProduct(\'' + esc(gid) + '\')">+ Добавить команду</button></div>';
+      } else {
+        html += '</div>';
+      }
+
+      html += '</div>';
+    }
+
+    // Render products without teams (only if no product filter active)
+    var prodFilter = document.getElementById('filter-product') ? document.getElementById('filter-product').value : '';
+    if (!prodFilter) {
+      for (var pi = 0; pi < products.length; pi++) {
+        var pr = products[pi];
+        if (renderedProducts[pr.id]) continue;
+        // Apply department filter
+        var deptFilter = document.getElementById('filter-dept') ? document.getElementById('filter-dept').value : '';
+        if (deptFilter && pr.department !== deptFilter) continue;
+
+        hasContent = true;
+        html += '<div class="product-group">';
+        html += '<div class="product-group-header">';
+        html += '<span class="pg-name">' + esc(pr.name || pr.id) + '</span>';
+        html += '<span class="pg-code">' + esc(pr.id) + '</span>';
+        html += '</div>';
+        html += '<div class="pg-empty">';
+        html += '<span>Пока нет команд</span>';
+        if (canManageTeams() || (window.OrbAuth && OrbAuth.isProductOwner && OrbAuth.isProductOwner(pr.id))) {
+          html += '<button class="pg-add-btn" onclick="createTeamForProduct(\'' + esc(pr.id) + '\')">+ Создать</button>';
+        }
+        html += '</div>';
+        html += '</div>';
+      }
+    }
+
+    if (!hasContent) {
+      html = '<div class="teams-empty">Нет команд, соответствующих фильтрам</div>';
+    }
+
+    container.innerHTML = html;
+  }
+
+  function renderTeamCard(team) {
+    var leadUser = getUserById(team.lead);
+    var leadName = leadUser ? leadUser.name : (team.lead || '---');
+    var memberCount = team.members ? team.members.length : 0;
+
+    // Count initiatives in scope
+    var scopeCount = team.initiativeScope ? team.initiativeScope.length : 0;
+    var statusLabel = team.status === 'active' ? 'Активна' : (team.status === 'paused' ? 'Пауза' : 'Архив');
+    var statusCls = 'tc-status-' + (team.status || 'active');
+
+    var html = '<div class="team-card" id="tc-' + esc(team.id) + '">';
+
+    // Header
+    html += '<div class="tc-header">';
+    html += '<h4 class="tc-name">' + esc(team.name) + '</h4>';
+    html += '<span class="tc-status ' + statusCls + '">' + statusLabel + '</span>';
+    html += '</div>';
+
+    // Lead
+    html += '<div class="tc-lead">Lead: <strong>' + esc(leadName) + '</strong></div>';
+
+    // Stats
+    html += '<div class="tc-stats">';
+    html += '<span>' + memberCount + ' ' + pluralize(memberCount, 'участник', 'участника', 'участников') + '</span>';
+    html += '<span>' + scopeCount + ' ' + pluralize(scopeCount, 'инициатива', 'инициативы', 'инициатив') + ' в скоупе</span>';
+    html += '</div>';
+
+    // Members
+    html += '<div class="tc-members" id="tc-members-' + esc(team.id) + '">';
+    if (team.members && team.members.length) {
+      for (var m = 0; m < team.members.length; m++) {
+        var mu = getUserById(team.members[m]);
+        var mName = mu ? mu.name : team.members[m];
+        html += '<span class="tc-member">';
+        html += '<span class="tc-member-ava">' + esc(initials(mName)) + '</span>';
+        html += esc(mName);
+        html += '</span>';
+      }
+    }
+    html += '</div>';
+
+    // Scope
+    html += '<div class="tc-scope">';
+    if (team.initiativeScope && team.initiativeScope.length) {
+      html += '<div class="tc-scope-title">Инициативы</div>';
+      for (var s = 0; s < team.initiativeScope.length; s++) {
+        var initId = team.initiativeScope[s];
+        var initItem = findInitiative(initId);
+        var initName = initItem ? (initItem.title || initItem.name || initId) : initId;
+        html += '<div class="tc-scope-item">';
+        html += '<span class="tc-scope-id">' + esc(initId) + '</span>';
+        html += '<span class="tc-scope-name">' + esc(initName) + '</span>';
+        html += '</div>';
+      }
+    } else {
+      html += '<div class="tc-scope-empty">Нет привязанных инициатив</div>';
+    }
+    html += '</div>';
+
+    // Actions
+    if (canManageTeam(team)) {
+      html += '<div class="tc-actions">';
+      html += '<button class="tc-btn tc-btn-edit" onclick="editTeam(\'' + esc(team.id) + '\')">Управлять</button>';
+      html += '<button class="tc-btn tc-btn-delete" onclick="deleteTeam(\'' + esc(team.id) + '\')">Удалить</button>';
+      html += '</div>';
+    }
+
+    html += '</div>';
+    return html;
+  }
+
+  function pluralize(n, one, few, many) {
+    var abs = Math.abs(n) % 100;
+    var n1 = abs % 10;
+    if (abs > 10 && abs < 20) return many;
+    if (n1 > 1 && n1 < 5) return few;
+    if (n1 === 1) return one;
+    return many;
+  }
+
+  function findInitiative(id) {
+    for (var i = 0; i < backlog.length; i++) {
+      if (backlog[i].id === id) return backlog[i];
+    }
+    return null;
+  }
+
+  // ── Modal ────────────────────────────────────────────────────
+  function openModal(teamId, presetProductId) {
+    editingTeamId = teamId || null;
+    var modal = document.getElementById('team-modal');
+    var title = document.getElementById('tm-title');
+    if (!modal) return;
+
+    title.textContent = teamId ? 'Редактировать команду' : 'Создать команду';
+
+    // Populate product select
+    var prodSel = document.getElementById('tm-product');
+    var prodHtml = '<option value="">-- Выберите продукт --</option>';
+    for (var p = 0; p < products.length; p++) {
+      prodHtml += '<option value="' + esc(products[p].id) + '">' + esc(products[p].name || products[p].id) + '</option>';
+    }
+    prodSel.innerHTML = prodHtml;
+
+    // Populate lead select
+    populateLeadSelect();
+
+    // Populate members checkboxes
+    populateMembers();
+
+    // Pre-fill if editing
+    if (teamId) {
+      var team = findTeam(teamId);
+      if (team) {
+        document.getElementById('tm-name').value = team.name || '';
+        prodSel.value = team.productId || '';
+        document.getElementById('tm-lead').value = team.lead || '';
+
+        // Check member boxes
+        if (team.members) {
+          var boxes = document.querySelectorAll('#tm-members input[type="checkbox"]');
+          for (var bi = 0; bi < boxes.length; bi++) {
+            boxes[bi].checked = team.members.indexOf(boxes[bi].value) >= 0;
+          }
+        }
+
+        // Populate scope for selected product
+        populateScope(team.productId, team.initiativeScope || []);
+      }
+    } else {
+      document.getElementById('tm-name').value = '';
+      document.getElementById('tm-lead').value = '';
+      if (presetProductId) {
+        prodSel.value = presetProductId;
+        populateScope(presetProductId, []);
+      } else {
+        document.getElementById('tm-scope').innerHTML = '<div style="font-size:12px;color:var(--muted)">Сначала выберите продукт</div>';
+      }
+      // Uncheck all members
+      var boxes = document.querySelectorAll('#tm-members input[type="checkbox"]');
+      for (var bi = 0; bi < boxes.length; bi++) boxes[bi].checked = false;
+    }
+
+    modal.style.display = '';
+
+    // Listen for product change to update scope
+    prodSel.onchange = function() {
+      populateScope(prodSel.value, []);
+    };
+  }
+
+  function populateLeadSelect() {
+    var sel = document.getElementById('tm-lead');
+    var html = '<option value="">-- Выберите тимлида --</option>';
+    for (var i = 0; i < users.length; i++) {
+      if (!users[i].active) continue;
+      html += '<option value="' + esc(users[i].id) + '">' + esc(users[i].name) + ' (' + esc(users[i].email) + ')</option>';
+    }
+    sel.innerHTML = html;
+  }
+
+  function populateMembers(checkedIds) {
+    var container = document.getElementById('tm-members');
+    var html = '';
+    checkedIds = checkedIds || [];
+    for (var i = 0; i < users.length; i++) {
+      if (!users[i].active) continue;
+      var checked = checkedIds.indexOf(users[i].id) >= 0 ? ' checked' : '';
+      html += '<div class="tm-cb-item">';
+      html += '<input type="checkbox" id="tm-m-' + esc(users[i].id) + '" value="' + esc(users[i].id) + '"' + checked + '>';
+      html += '<label for="tm-m-' + esc(users[i].id) + '">' + esc(users[i].name) + '</label>';
+      html += '</div>';
+    }
+    container.innerHTML = html || '<div style="font-size:12px;color:var(--muted)">Нет пользователей</div>';
+  }
+
+  function populateScope(productId, checkedIds) {
+    var container = document.getElementById('tm-scope');
+    if (!productId) {
+      container.innerHTML = '<div style="font-size:12px;color:var(--muted)">Сначала выберите продукт</div>';
+      return;
+    }
+    checkedIds = checkedIds || [];
+    var items = backlog.filter(function(b) { return b.productId === productId; });
+    if (!items.length) {
+      container.innerHTML = '<div style="font-size:12px;color:var(--muted)">Нет инициатив для этого продукта</div>';
+      return;
+    }
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var checked = checkedIds.indexOf(items[i].id) >= 0 ? ' checked' : '';
+      var label = (items[i].id || '') + ' ' + (items[i].title || items[i].name || '');
+      html += '<div class="tm-cb-item">';
+      html += '<input type="checkbox" id="tm-s-' + esc(items[i].id) + '" value="' + esc(items[i].id) + '"' + checked + '>';
+      html += '<label for="tm-s-' + esc(items[i].id) + '">' + esc(label.trim()) + '</label>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  function findTeam(teamId) {
+    for (var i = 0; i < teams.length; i++) {
+      if (teams[i].id === teamId) return teams[i];
+    }
+    return null;
+  }
+
+  window.closeTeamModal = function() {
+    var modal = document.getElementById('team-modal');
+    if (modal) modal.style.display = 'none';
+    editingTeamId = null;
+  };
+
+  window.createTeam = function() {
+    openModal(null, null);
+  };
+
+  window.createTeamForProduct = function(productId) {
+    openModal(null, productId);
+  };
+
+  window.editTeam = function(teamId) {
+    openModal(teamId, null);
+  };
+
+  window.saveTeam = function() {
+    var name = (document.getElementById('tm-name').value || '').trim();
+    var productId = document.getElementById('tm-product').value;
+    var lead = document.getElementById('tm-lead').value;
+
+    if (!name) { alert('Укажите название команды'); return; }
+    if (!productId) { alert('Выберите продукт'); return; }
+
+    // Gather checked members
+    var memberBoxes = document.querySelectorAll('#tm-members input[type="checkbox"]:checked');
+    var members = [];
+    for (var mi = 0; mi < memberBoxes.length; mi++) members.push(memberBoxes[mi].value);
+
+    // Ensure lead is in members
+    if (lead && members.indexOf(lead) < 0) members.push(lead);
+
+    // Gather checked scope
+    var scopeBoxes = document.querySelectorAll('#tm-scope input[type="checkbox"]:checked');
+    var scope = [];
+    for (var si = 0; si < scopeBoxes.length; si++) scope.push(scopeBoxes[si].value);
+
+    // Find product department
+    var dept = '';
+    for (var pi = 0; pi < products.length; pi++) {
+      if (products[pi].id === productId) { dept = products[pi].department || ''; break; }
+    }
+
+    if (editingTeamId) {
+      // Update existing
+      for (var i = 0; i < teams.length; i++) {
+        if (teams[i].id === editingTeamId) {
+          teams[i].name = name;
+          teams[i].productId = productId;
+          teams[i].lead = lead;
+          teams[i].members = members;
+          teams[i].initiativeScope = scope;
+          teams[i].department = dept;
+          break;
+        }
+      }
+      PT.save(PT.KEY_TEAMS, teams);
+      PT.addLog(productId, 'team_updated', 'Команда обновлена: ' + name, 'team', editingTeamId);
+      showToast('Команда обновлена');
+    } else {
+      // Create new
+      var newTeam = {
+        id: 'TEAM-' + String(Date.now()).slice(-6),
+        name: name,
+        productId: productId,
+        lead: lead,
+        members: members,
+        initiativeScope: scope,
+        department: dept,
+        status: 'active',
+        createdAt: new Date().toISOString().split('T')[0]
+      };
+      teams.push(newTeam);
+      PT.save(PT.KEY_TEAMS, teams);
+      PT.addLog(productId, 'team_created', 'Команда создана: ' + name, 'team', newTeam.id);
+      showToast('Команда создана');
+    }
+
+    closeTeamModal();
+    render();
+  };
+
+  window.deleteTeam = function(teamId) {
+    var team = findTeam(teamId);
+    if (!team) return;
+    if (!confirm('Удалить команду "' + team.name + '"?')) return;
+
+    teams = teams.filter(function(t) { return t.id !== teamId; });
+    PT.save(PT.KEY_TEAMS, teams);
+    PT.addLog(team.productId, 'team_deleted', 'Команда удалена: ' + team.name, 'team', teamId);
+    showToast('Команда удалена');
+    render();
+  };
+
+  // ── Init ─────────────────────────────────────────────────────
+  function init() {
+    PT.ensureProducts(function(p) {
+      products = p || [];
+      users = window.OrbAuth ? OrbAuth.getUsers() : [];
+      backlog = PT.load(PT.KEY_BACKLOG) || [];
+      teams = seedTeamsIfEmpty();
+
+      populateFilters();
+      render();
+
+      // Filter listeners
+      var deptSel = document.getElementById('filter-dept');
+      var prodSel = document.getElementById('filter-product');
+      var searchIn = document.getElementById('filter-search');
+      if (deptSel) deptSel.addEventListener('change', render);
+      if (prodSel) prodSel.addEventListener('change', render);
+      if (searchIn) searchIn.addEventListener('input', render);
+    });
+  }
+
+  // Wait for dependencies
+  function waitAndInit() {
+    if (window.PT && window.OrbAuth) {
+      init();
+    } else {
+      setTimeout(waitAndInit, 50);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitAndInit);
+  } else {
+    waitAndInit();
+  }
+})();
+</script>
+</body>
+</html>

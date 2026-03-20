@@ -150,6 +150,7 @@
     +     grp('Процессы и артефакты')
     +     a('framework.html',                           'Как мы работаем')
     +     a('registry.html',                            'Реестр')
+    +     a('teams.html',                               'Реестр команд')
     +     a('tools/templates.html',                     'Шаблоны')
     +     sep()
     +     grp('Инструменты')

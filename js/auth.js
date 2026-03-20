@@ -188,7 +188,7 @@
     },
 
     // Может ли пользователь редактировать инициативу
-    canEditInitiative: function(productId, initiativeId, userOverride) {
+    canEditInitiative: function(productId, initiativeId, userOverride, initiative) {
       var user = userOverride || this.getCurrentUser();
       if (!user) return false;
       var role = ROLES[user.role];
@@ -204,6 +204,17 @@
             if (Array.isArray(a.scope) && a.scope.indexOf(initiativeId) >= 0) return true;
           }
         }
+      }
+      // Team-aware: if user is member of the team that owns this initiative
+      if (initiative && initiative.teamId) {
+        try {
+          var teams = JSON.parse(localStorage.getItem('ECOTECH_TEAMS') || '[]');
+          for (var ti = 0; ti < teams.length; ti++) {
+            if (teams[ti].id === initiative.teamId && teams[ti].status === 'active') {
+              if (teams[ti].members && teams[ti].members.indexOf(user.id) >= 0) return true;
+            }
+          }
+        } catch(e) {}
       }
       // Обратная совместимость — productIds (полный доступ к продукту)
       if (user.productIds && user.productIds.indexOf(productId) >= 0) return true;
@@ -518,6 +529,21 @@
       }
     }
     return false;
+  };
+
+  // ── Teams Registry helpers ────────────────────────────────────
+  // Get teams for a product
+  Auth.getProductTeams = function(productId) {
+    var teams = JSON.parse(localStorage.getItem('ECOTECH_TEAMS') || '[]');
+    return teams.filter(function(t) { return t.productId === productId && t.status === 'active'; });
+  };
+
+  // Get teams where user is a member
+  Auth.getUserTeams = function(userId) {
+    var user = userId || (Auth.getCurrentUser() ? Auth.getCurrentUser().id : null);
+    if (!user) return [];
+    var teams = JSON.parse(localStorage.getItem('ECOTECH_TEAMS') || '[]');
+    return teams.filter(function(t) { return t.members && t.members.indexOf(user) >= 0 && t.status === 'active'; });
   };
 
   window.OrbAuth = Auth;
