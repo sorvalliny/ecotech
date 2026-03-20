@@ -3,246 +3,470 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ОРБИТА — Платформа управления портфелем</title>
+<title>ОРБИТА</title>
 <link rel="stylesheet" href="design-system.css">
 <style>
-/* ── Layout ── */
-body { background: var(--bg); color: var(--text); font-family: var(--font-body); margin: 0; }
-.main-wrap { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
-
-/* ── Hero ── */
-.hero { text-align: center; padding: 48px 0 32px; }
-.hero h1 { font-size: 32px; font-weight: 800; color: var(--text); margin: 0; }
-.hero p { font-size: 15px; color: var(--muted); margin-top: 6px; }
+/* ── Dashboard layout ── */
+body { background:var(--bg); color:var(--text); font-family:var(--font-body); margin:0; }
+.dash { max-width:1000px; margin:0 auto; padding:24px 24px 80px; }
 
 /* ── Section title ── */
-.section-title {
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .1em; color: var(--violet); margin-bottom: 12px;
+.sec-title {
+  font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.1em; color:var(--violet); margin:24px 0 10px;
 }
+.sec-title:first-child { margin-top:0; }
 
-/* ── Quick Links ── */
-.quick-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
-.ql-card {
-  display: block; padding: 16px; background: var(--card);
-  border: 1px solid var(--border); border-radius: 8px;
-  text-decoration: none; transition: border-color .15s;
-}
-.ql-card:hover { border-color: var(--violet-border); }
-.ql-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-.ql-desc { font-size: 12px; color: var(--muted); }
+/* ── Hero ── */
+.hero { text-align:center; padding:40px 0 24px; }
+.hero h1 { font-size:32px; font-weight:800; color:var(--text); margin:0; }
+.hero-sub { font-size:14px; color:var(--muted); margin-top:6px; }
 
-/* ── Portfolio summary (executive) ── */
-.portfolio-summary { display: flex; gap: 12px; margin-bottom: 16px; }
-.ps-stat {
-  padding: 14px 18px; background: var(--card);
-  border: 1px solid var(--border); border-radius: 8px;
-  text-align: center; flex: 1;
+/* ── Auth buttons ── */
+.auth-row { display:flex; gap:10px; justify-content:center; margin-bottom:28px; }
+.btn-primary {
+  padding:10px 24px; border-radius:8px; font-family:var(--font-body);
+  font-size:12px; font-weight:700; cursor:pointer; border:none;
+  background:linear-gradient(135deg,var(--teal),var(--violet)); color:#fff;
+  text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+  transition:opacity .15s;
 }
-.ps-val { font-size: 24px; font-weight: 800; color: var(--text); }
-.ps-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.btn-primary:hover { opacity:.85; }
+.btn-ghost {
+  padding:10px 24px; border-radius:8px; font-family:var(--font-body);
+  font-size:12px; font-weight:700; cursor:pointer;
+  background:transparent; border:1px solid var(--border); color:var(--muted);
+  text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+  transition:all .15s;
+}
+.btn-ghost:hover { border-color:var(--violet-border); color:var(--text); }
 
-/* ── Recent changes ── */
-.recent-list { display: flex; flex-direction: column; gap: 4px; }
-.recent-item {
-  display: flex; align-items: baseline; gap: 10px;
-  padding: 8px 12px; background: var(--card);
-  border: 1px solid var(--border); border-radius: 6px; font-size: 13px;
+/* ── Capability cards ── */
+.cap-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:24px; }
+.cap-card {
+  padding:14px; background:var(--card); border:1px solid var(--border);
+  border-radius:8px; text-decoration:none; transition:border-color .15s;
 }
-.ri-date { font-size: 11px; color: var(--muted); font-weight: 600; min-width: 40px; }
-.ri-text { color: var(--text); }
-.recent-empty { font-size: 13px; color: var(--muted); font-style: italic; }
+.cap-card:hover { border-color:var(--violet-border); }
+.cap-icon { font-size:18px; margin-bottom:6px; color:var(--violet); font-weight:800; }
+.cap-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:3px; }
+.cap-desc { font-size:11px; color:var(--muted); line-height:1.4; }
 
-/* ── My products (PM) ── */
-.my-products { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
-.mp-card {
-  display: block; padding: 14px; background: var(--card);
-  border: 1px solid var(--border); border-radius: 8px;
-  text-decoration: none; transition: border-color .15s;
+/* ── Preview links ── */
+.preview-links { display:flex; gap:10px; justify-content:center; margin-bottom:16px; }
+.preview-links a {
+  font-size:12px; color:var(--violet); text-decoration:none;
+  padding:6px 14px; border:1px solid var(--violet-border); border-radius:6px;
+  transition:all .15s;
 }
-.mp-card:hover { border-color: var(--violet-border); }
-.mp-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-.mp-meta { font-size: 12px; color: var(--muted); }
+.preview-links a:hover { background:var(--violet-dim); }
 
-/* ── Guest welcome ── */
-.guest-welcome {
-  padding: 24px; background: var(--card);
-  border: 1px solid var(--border); border-radius: 8px; text-align: center;
+/* ── Health bar ── */
+.health-bar { display:flex; height:8px; border-radius:4px; overflow:hidden; margin-bottom:16px; }
+.hb-seg { transition:width .3s; }
+.hb-green { background:var(--teal); }
+.hb-amber { background:var(--amber); }
+.hb-red { background:var(--red); }
+.hb-gray { background:var(--muted); opacity:.3; }
+.health-legend { display:flex; gap:16px; font-size:11px; color:var(--muted); margin-bottom:20px; }
+.health-legend span::before {
+  content:''; display:inline-block; width:8px; height:8px; border-radius:50%;
+  margin-right:5px; vertical-align:middle;
 }
-.guest-welcome p { font-size: 14px; color: var(--text); margin: 0 0 8px; }
-.guest-welcome p:last-child { margin-bottom: 0; }
+.hl-green::before { background:var(--teal); }
+.hl-amber::before { background:var(--amber); }
+.hl-red::before { background:var(--red); }
+.hl-gray::before { background:var(--muted); opacity:.3; }
 
-/* ── Auth block ── */
-.auth-block { display: flex; gap: 10px; justify-content: center; margin-bottom: 28px; }
-.auth-btn {
-  padding: 10px 24px; border-radius: 8px; font-family: var(--font-body);
-  font-size: 12px; font-weight: 700; cursor: pointer; transition: all .15s;
-  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+/* ── Filter row ── */
+.filter-row { display:flex; gap:8px; align-items:center; margin-bottom:16px; flex-wrap:wrap; }
+.filter-btn {
+  font-size:11px; font-weight:600; padding:5px 12px; border-radius:6px;
+  border:1px solid var(--border); background:transparent; color:var(--muted);
+  cursor:pointer; transition:all .15s; font-family:var(--font-body);
 }
-.auth-primary {
-  background: linear-gradient(135deg, var(--teal), var(--violet));
-  border: none; color: #fff;
+.filter-btn.active { border-color:var(--violet-border); color:var(--violet); background:var(--violet-dim); }
+
+/* ── Alert cards ── */
+.alert-card {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:10px 14px; background:var(--card); border-radius:8px;
+  margin-bottom:6px; border-left:3px solid var(--muted);
 }
-.auth-primary:hover { opacity: .85; }
-.auth-ghost {
-  background: transparent; border: 1px solid var(--border); color: var(--muted);
+.alert-card.alert-red { border-left-color:var(--red); background:var(--red-dim); }
+.alert-card.alert-amber { border-left-color:var(--amber); background:var(--amber-dim); }
+.alert-text { font-size:12px; color:var(--text); flex:1; }
+.alert-action { font-size:11px; color:var(--muted); white-space:nowrap; }
+.alert-empty { font-size:12px; color:var(--muted); font-style:italic; }
+
+/* ── Stage dots ── */
+.stage-row { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px; }
+.stage-group { display:flex; flex-direction:column; align-items:center; gap:4px; }
+.stage-label { font-size:10px; color:var(--muted); font-weight:600; }
+.stage-dots { display:flex; gap:3px; flex-wrap:wrap; justify-content:center; }
+.stage-dot {
+  width:10px; height:10px; border-radius:50%;
 }
-.auth-ghost:hover { border-color: var(--violet-border); color: var(--text); }
+.sd-green { background:var(--teal); }
+.sd-amber { background:var(--amber); }
+.sd-red { background:var(--red); }
+
+/* ── Gate upcoming list ── */
+.gate-list { display:flex; flex-direction:column; gap:4px; margin-bottom:16px; }
+.gate-item {
+  display:flex; align-items:center; gap:10px; padding:8px 12px;
+  background:var(--card); border:1px solid var(--border); border-radius:6px; font-size:12px;
+}
+.gate-id { font-weight:700; color:var(--text); min-width:60px; }
+.gate-name { color:var(--text); flex:1; }
+.gate-ready { font-size:11px; font-weight:600; }
+.gate-ready.ok { color:var(--teal); }
+.gate-ready.partial { color:var(--amber); }
+
+/* ── RICE list ── */
+.rice-list { display:flex; flex-direction:column; gap:4px; }
+.rice-item {
+  display:flex; align-items:center; gap:10px; padding:8px 12px;
+  background:var(--card); border:1px solid var(--border); border-radius:6px; font-size:12px;
+}
+.rice-score { font-weight:800; color:var(--violet); min-width:44px; text-align:right; }
+.rice-name { color:var(--text); flex:1; }
+.rice-product { font-size:11px; color:var(--muted); }
+
+/* ── PM header ── */
+.pm-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+.pm-header h2 { font-size:20px; font-weight:800; margin:0; }
+.pm-stage { font-size:11px; font-weight:700; padding:3px 10px; border-radius:4px; background:var(--violet-dim); color:var(--violet); }
+.status-light {
+  width:10px; height:10px; border-radius:50%; display:inline-block;
+}
+.sl-green { background:var(--teal); }
+.sl-amber { background:var(--amber); }
+.sl-red { background:var(--red); }
+
+/* ── Progress bars ── */
+.progress-row { display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
+.progress-box { flex:1; min-width:180px; }
+.prog-label { font-size:11px; color:var(--muted); margin-bottom:4px; font-weight:600; }
+.prog-bar { height:6px; border-radius:3px; background:var(--surface2); overflow:hidden; }
+.prog-fill { height:100%; border-radius:3px; transition:width .3s; }
+.prog-fill-teal { background:var(--teal); }
+.prog-fill-violet { background:var(--violet); }
+.prog-val { font-size:11px; color:var(--muted); margin-top:3px; }
+
+/* ── Task checklist ── */
+.task-list { display:flex; flex-direction:column; gap:4px; margin-bottom:16px; }
+.task-item {
+  display:flex; align-items:center; gap:8px; padding:8px 12px;
+  background:var(--card); border:1px solid var(--border); border-radius:6px;
+  font-size:12px; text-decoration:none; color:var(--text); transition:border-color .15s;
+}
+.task-item:hover { border-color:var(--violet-border); }
+.task-check { width:14px; height:14px; border:2px solid var(--muted); border-radius:3px; flex-shrink:0; }
+
+/* ── Quick actions ── */
+.quick-actions { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.qa-btn {
+  padding:8px 16px; border-radius:8px; font-family:var(--font-body);
+  font-size:12px; font-weight:600; cursor:pointer;
+  border:1px solid var(--border); background:var(--card); color:var(--text);
+  text-decoration:none; transition:all .15s;
+}
+.qa-btn:hover { border-color:var(--violet-border); background:var(--violet-dim); }
 
 /* ── Footer ── */
-.footer {
-  font-size: 10px; color: var(--muted); opacity: .4;
-  text-align: center; padding: 20px 24px;
-}
+.footer { font-size:10px; color:var(--muted); opacity:.4; text-align:center; padding:20px 24px; }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
-  .quick-links { grid-template-columns: 1fr 1fr; }
-  .portfolio-summary { flex-wrap: wrap; }
+@media (max-width:768px) {
+  .cap-grid { grid-template-columns:1fr 1fr; }
+  .preview-links { flex-wrap:wrap; }
+  .stage-row { gap:10px; }
 }
-@media (max-width: 480px) {
-  .quick-links { grid-template-columns: 1fr; }
+@media (max-width:480px) {
+  .cap-grid { grid-template-columns:1fr; }
+  .progress-row { flex-direction:column; }
 }
 </style>
+</head>
+<body>
+<div class="dash" id="dashboard"></div>
+<div class="footer">ORBITA . Проектный офис . WB Экосистема . 2026</div>
 <script src="platform.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/auth-ui.js"></script>
-</head>
-<body>
-
-<div class="main-wrap">
-
-  <!-- Hero -->
-  <div class="hero">
-    <h1>ОРБИТА</h1>
-    <p>Управление портфелем цифровых решений экосистемы RWB</p>
-  </div>
-
-  <!-- Auth -->
-  <div class="auth-block" id="auth-block">
-    <button class="auth-btn auth-primary"
-      onclick="if(window.OrbAuth&&OrbAuth.isLoggedIn()){location.href='registry.html'}else if(window.showAuthModal){showAuthModal()}else{location.href='registry.html'}">
-      Войти
-    </button>
-    <button class="auth-btn auth-ghost"
-      onclick="if(window.authGuestLogin){authGuestLogin()}else{location.href='catalog.html'}">
-      Гостевой доступ
-    </button>
-  </div>
-
-  <!-- Quick Links (always visible) -->
-  <div class="quick-links">
-    <a href="catalog.html" class="ql-card">
-      <div class="ql-title">Каталог продуктов</div>
-      <div class="ql-desc">Портфель в реальном времени</div>
-    </a>
-    <a href="registry.html" class="ql-card">
-      <div class="ql-title">Реестр инициатив</div>
-      <div class="ql-desc">Планирование и управление бэклогом</div>
-    </a>
-    <a href="framework.html" class="ql-card">
-      <div class="ql-title">Как мы работаем</div>
-      <div class="ql-desc">Методология и стадии</div>
-    </a>
-    <a href="workspace.html?id=ECO-00" class="ql-card">
-      <div class="ql-title">Демо-продукт</div>
-      <div class="ql-desc">Пример карточки продукта</div>
-    </a>
-  </div>
-
-  <!-- Role-adaptive content (rendered by JS) -->
-  <div id="main-content"></div>
-
-</div>
-
-<div class="footer">ОРБИТА · Проектный офис · WB Экосистема · 2026</div>
-
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
-  var role = user ? user.role : 'guest';
-  var container = document.getElementById('main-content');
-  var authBlock = document.getElementById('auth-block');
+/* ── Helpers ─────────────────────────────────────────────── */
+function esc(s) { var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
 
-  // Hide auth buttons if logged in
-  if (user && authBlock) { authBlock.style.display = 'none'; }
+var GATE_NAMES = ['Gate 0 Скрининг','Gate 1 Концепция','Gate 2 MVP','Gate 3 Масштабирование','Gate 4 Рост','Gate 5 Зрелость'];
+var STATUS_DOT = { 'on-track':'sd-green', 'at-risk':'sd-amber', 'blocked':'sd-red', 'screening':'sd-amber' };
 
-  if (role === 'admin' || role === 'pmo_lead' || role === 'lead') {
-    renderExecutiveView(container);
-  } else if (role === 'pm' || role === 'pmo') {
-    renderPMView(container, user);
-  } else {
-    renderGuestView(container);
-  }
-});
+/* ── Welcome (guest / unauthorized) ─────────────────────── */
+function renderWelcome(c, user) {
+  var h = '';
+  h += '<div class="hero"><h1>ОРБИТА</h1>';
+  h += '<p class="hero-sub">Платформа управления портфелем цифровых решений экосистемы</p></div>';
 
-function renderExecutiveView(container) {
-  var products = window.PT ? PT.load(PT.KEY_PRODUCTS) || [] : [];
-  var changelog = window.PT ? PT.load(PT.KEY_CHANGELOG) || [] : [];
+  /* Auth buttons */
+  h += '<div class="auth-row">';
+  h += '<button class="btn-primary" onclick="if(window.showAuthModal){showAuthModal()}else{location.href=\'registry.html\'}">Войти</button>';
+  h += '<button class="btn-ghost" onclick="if(window.authGuestLogin){authGuestLogin()}else{location.href=\'catalog.html\'}">Гостевой доступ</button>';
+  h += '</div>';
 
-  var html = '<div class="section-title">Портфель</div>';
-  html += '<div class="portfolio-summary">';
-  html += '<div class="ps-stat"><div class="ps-val">' + products.length + '</div><div class="ps-label">Продуктов</div></div>';
+  /* Capability cards */
+  h += '<div class="sec-title">Что умеет ОРБИТА</div>';
+  h += '<div class="cap-grid">';
+  h += '<div class="cap-card"><div class="cap-icon">[P]</div><div class="cap-name">Каталог продуктов</div><div class="cap-desc">Портфель в реальном времени со статусами и Gate-прогрессом</div></div>';
+  h += '<div class="cap-card"><div class="cap-icon">[R]</div><div class="cap-name">RICE-приоритизация</div><div class="cap-desc">Скоринг инициатив и бэклог с фильтрами</div></div>';
+  h += '<div class="cap-card"><div class="cap-icon">[G]</div><div class="cap-name">Gate-ревью</div><div class="cap-desc">Чеклисты артефактов для каждого этапа</div></div>';
+  h += '<div class="cap-card"><div class="cap-icon">[D]</div><div class="cap-name">Дашборды</div><div class="cap-desc">Здоровье портфеля, алерты, задачи PM</div></div>';
+  h += '</div>';
 
-  var active = products.filter(function(p) { return p.status === 'on-track'; }).length;
-  var risk = products.filter(function(p) { return p.status === 'at-risk'; }).length;
-  html += '<div class="ps-stat"><div class="ps-val" style="color:var(--teal)">' + active + '</div><div class="ps-label">Активных</div></div>';
-  html += '<div class="ps-stat"><div class="ps-val" style="color:var(--amber)">' + risk + '</div><div class="ps-label">С рисками</div></div>';
-  html += '</div>';
+  /* Preview links */
+  h += '<div class="preview-links">';
+  h += '<a href="catalog.html">Каталог</a>';
+  h += '<a href="workspace.html?id=ECO-00">Карточка продукта</a>';
+  h += '<a href="framework.html">Методология</a>';
+  h += '</div>';
 
-  // Recent changes
-  html += '<div class="section-title" style="margin-top:24px">Последние изменения</div>';
-  var recent = changelog.slice(-5).reverse();
-  html += '<div class="recent-list">';
-  recent.forEach(function(entry) {
-    html += '<div class="recent-item">';
-    html += '<span class="ri-date">' + (entry.date || '').substring(5, 10) + '</span>';
-    html += '<span class="ri-text">' + (entry.details || entry.action || '') + '</span>';
-    html += '</div>';
-  });
-  if (!recent.length) html += '<div class="recent-empty">Нет изменений</div>';
-  html += '</div>';
-
-  container.innerHTML = html;
+  c.innerHTML = h;
 }
 
-function renderPMView(container, user) {
-  var products = window.PT ? PT.load(PT.KEY_PRODUCTS) || [] : [];
-  var backlog = window.PT ? PT.load(PT.KEY_BACKLOG) || [] : [];
+/* ── Executive dashboard (CEO / Lead / PMO / Admin) ─────── */
+function renderExecutiveDashboard(c, user) {
+  var products = PT.load(PT.KEY_PRODUCTS) || [];
+  var backlog = PT.load(PT.KEY_BACKLOG) || [];
+  products.forEach(function(p) { PT.migrateProductFields(p); });
 
-  var myProducts = [];
+  var h = '';
+  h += '<div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px">';
+  h += '<h2 style="font-size:20px;font-weight:800;margin:0">Портфель ' + PT.currentQuarter() + '</h2>';
+  h += '<div class="filter-row" id="dept-filter"></div>';
+  h += '</div>';
+
+  /* Health bar */
+  var onTrack = products.filter(function(p){ return p.status==='on-track'; }).length;
+  var atRisk  = products.filter(function(p){ return p.status==='at-risk'; }).length;
+  var blocked = products.filter(function(p){ return p.status==='blocked'; }).length;
+  var other   = products.length - onTrack - atRisk - blocked;
+  var total   = products.length || 1;
+
+  h += '<div class="sec-title" style="margin-top:20px">Здоровье портфеля</div>';
+  h += '<div class="health-bar">';
+  h += '<div class="hb-seg hb-green" style="width:' + (onTrack/total*100) + '%"></div>';
+  h += '<div class="hb-seg hb-amber" style="width:' + (atRisk/total*100) + '%"></div>';
+  h += '<div class="hb-seg hb-red" style="width:' + (blocked/total*100) + '%"></div>';
+  h += '<div class="hb-seg hb-gray" style="width:' + (other/total*100) + '%"></div>';
+  h += '</div>';
+  h += '<div class="health-legend">';
+  h += '<span class="hl-green">On Track ' + onTrack + '</span>';
+  h += '<span class="hl-amber">At Risk ' + atRisk + '</span>';
+  h += '<span class="hl-red">Blocked ' + blocked + '</span>';
+  h += '<span class="hl-gray">Other ' + other + '</span>';
+  h += '</div>';
+
+  /* Alerts */
+  var alerts = PT.getAlerts();
+  h += '<div class="sec-title">Алерты (' + alerts.length + ')</div>';
+  if (alerts.length) {
+    alerts.slice(0, 8).forEach(function(a) {
+      var cls = a.level === 'red' ? 'alert-red' : 'alert-amber';
+      h += '<div class="alert-card ' + cls + '">';
+      h += '<div class="alert-text">' + esc(a.text) + '</div>';
+      h += '<div class="alert-action">' + esc(a.action) + '</div>';
+      h += '</div>';
+    });
+    if (alerts.length > 8) h += '<div style="font-size:11px;color:var(--muted);margin-top:4px">+ ещё ' + (alerts.length - 8) + '</div>';
+  } else {
+    h += '<div class="alert-empty">Нет активных алертов</div>';
+  }
+
+  /* Portfolio by stage (dot viz) */
+  h += '<div class="sec-title">Продукты по стадиям</div>';
+  h += '<div class="stage-row">';
+  for (var g = 0; g <= 5; g++) {
+    var gp = products.filter(function(p){ return p.gate === g; });
+    h += '<div class="stage-group">';
+    h += '<div class="stage-label">G' + g + '</div>';
+    h += '<div class="stage-dots">';
+    if (gp.length) {
+      gp.forEach(function(p) {
+        var dc = STATUS_DOT[p.status] || 'sd-green';
+        h += '<div class="stage-dot ' + dc + '" title="' + esc(p.id + ' ' + p.name) + '"></div>';
+      });
+    } else {
+      h += '<div style="font-size:10px;color:var(--muted)">--</div>';
+    }
+    h += '</div></div>';
+  }
+  h += '</div>';
+
+  /* Upcoming Gates */
+  h += '<div class="sec-title">Ближайшие Gate-ревью</div>';
+  h += '<div class="gate-list">';
+  var withGate = products.filter(function(p){ return p.gate < 5; })
+    .sort(function(a,b){ return a.gate - b.gate; }).slice(0, 5);
+  if (withGate.length) {
+    withGate.forEach(function(p) {
+      var pct = p.artifactsTotal ? Math.round(p.artifactsReady / p.artifactsTotal * 100) : 0;
+      var cls = pct >= 100 ? 'ok' : 'partial';
+      h += '<a class="gate-item" href="workspace.html?id=' + esc(p.id) + '" style="text-decoration:none">';
+      h += '<span class="gate-id">' + esc(p.id) + '</span>';
+      h += '<span class="gate-name">' + esc(p.name) + ' (' + (GATE_NAMES[p.gate] || 'Gate ' + p.gate) + ')</span>';
+      h += '<span class="gate-ready ' + cls + '">' + p.artifactsReady + '/' + p.artifactsTotal + ' артефактов</span>';
+      h += '</a>';
+    });
+  } else {
+    h += '<div class="alert-empty">Нет предстоящих ревью</div>';
+  }
+  h += '</div>';
+
+  /* Top RICE initiatives */
+  h += '<div class="sec-title">Топ инициативы по RICE</div>';
+  h += '<div class="rice-list">';
+  var scored = backlog.map(function(i) {
+    i._rice = Math.round(((i.r||0)*(i.i||0)*(i.c||0))/(i.e||1));
+    return i;
+  }).filter(function(i){ return i._rice > 0 && i.status !== 'done'; })
+    .sort(function(a,b){ return b._rice - a._rice; }).slice(0, 5);
+  if (scored.length) {
+    scored.forEach(function(i) {
+      h += '<div class="rice-item">';
+      h += '<span class="rice-score">' + i._rice + '</span>';
+      h += '<span class="rice-name">' + esc(i.name || i.id) + '</span>';
+      h += '<span class="rice-product">' + esc(i.productId || i.project || '') + '</span>';
+      h += '</div>';
+    });
+  } else {
+    h += '<div class="alert-empty">Нет инициатив с RICE-скором</div>';
+  }
+  h += '</div>';
+
+  c.innerHTML = h;
+
+  /* Render department filter */
+  var depts = {};
+  products.forEach(function(p) { var d = p.department || 'innovation'; depts[d] = (depts[d]||0)+1; });
+  var filterEl = document.getElementById('dept-filter');
+  if (filterEl) {
+    var fh = '<button class="filter-btn active" data-dept="all">Все (' + products.length + ')</button>';
+    Object.keys(depts).forEach(function(d) {
+      fh += '<button class="filter-btn" data-dept="' + d + '">' + esc(PT.getDeptLabel(d)) + ' (' + depts[d] + ')</button>';
+    });
+    filterEl.innerHTML = fh;
+  }
+}
+
+/* ── PM dashboard ───────────────────────────────────────── */
+function renderPMDashboard(c, user) {
+  var products = PT.load(PT.KEY_PRODUCTS) || [];
+  var backlog = PT.load(PT.KEY_BACKLOG) || [];
+
+  /* Find PM's product */
+  var myProduct = null;
   if (user.assignments && user.assignments.length) {
-    user.assignments.forEach(function(a) {
-      var p = products.find(function(pr) { return pr.id === a.productId; });
-      if (p) myProducts.push(p);
-    });
+    var pid = user.assignments[0].productId;
+    myProduct = products.find(function(p){ return p.id === pid; });
+  }
+  if (!myProduct && products.length) myProduct = products[0];
+  if (myProduct) PT.migrateProductFields(myProduct);
+
+  var h = '';
+
+  if (!myProduct) {
+    h += '<div class="alert-empty" style="padding:40px;text-align:center">Нет назначенных продуктов</div>';
+    c.innerHTML = h;
+    return;
   }
 
-  var html = '<div class="section-title">Мои продукты</div>';
-  html += '<div class="my-products">';
-  if (myProducts.length) {
-    myProducts.forEach(function(p) {
-      var initCount = backlog.filter(function(i) { return (i.productId || i.project) === p.id; }).length;
-      html += '<a class="mp-card" href="workspace.html?id=' + p.id + '">';
-      html += '<div class="mp-name">' + p.name + '</div>';
-      html += '<div class="mp-meta">' + p.id + ' · ' + initCount + ' инициатив</div>';
-      html += '</a>';
+  /* Header */
+  var slClass = 'sl-' + (myProduct.statusLight || 'green');
+  h += '<div class="pm-header">';
+  h += '<span class="status-light ' + slClass + '"></span>';
+  h += '<h2>' + esc(myProduct.name) + '</h2>';
+  h += '<span class="pm-stage">' + (GATE_NAMES[myProduct.gate] || 'Gate ' + myProduct.gate) + '</span>';
+  h += '</div>';
+
+  /* Progress bars */
+  var myInits = backlog.filter(function(i){ return (i.productId || i.project) === myProduct.id; });
+  var doneInits = myInits.filter(function(i){ return i.status === 'done'; }).length;
+  var initPct = myInits.length ? Math.round(doneInits / myInits.length * 100) : 0;
+  var artPct = myProduct.artifactsTotal ? Math.round(myProduct.artifactsReady / myProduct.artifactsTotal * 100) : 0;
+
+  h += '<div class="progress-row">';
+  h += '<div class="progress-box"><div class="prog-label">Инициативы</div>';
+  h += '<div class="prog-bar"><div class="prog-fill prog-fill-teal" style="width:' + initPct + '%"></div></div>';
+  h += '<div class="prog-val">' + doneInits + ' / ' + myInits.length + ' выполнено</div></div>';
+  h += '<div class="progress-box"><div class="prog-label">Gate-артефакты</div>';
+  h += '<div class="prog-bar"><div class="prog-fill prog-fill-violet" style="width:' + artPct + '%"></div></div>';
+  h += '<div class="prog-val">' + myProduct.artifactsReady + ' / ' + myProduct.artifactsTotal + ' загружено</div></div>';
+  h += '</div>';
+
+  /* My Tasks */
+  var tasks = PT.getPMTasks(myProduct.id);
+  h += '<div class="sec-title">Задачи на неделю (' + tasks.length + ')</div>';
+  h += '<div class="task-list">';
+  if (tasks.length) {
+    tasks.forEach(function(t) {
+      h += '<a class="task-item" href="' + esc(t.link) + '">';
+      h += '<div class="task-check"></div>';
+      h += '<span>' + esc(t.text) + '</span>';
+      h += '</a>';
     });
   } else {
-    html += '<div class="recent-empty">Нет назначенных продуктов</div>';
+    h += '<div class="alert-empty">Все задачи выполнены</div>';
   }
-  html += '</div>';
+  h += '</div>';
 
-  container.innerHTML = html;
+  /* Quick Actions */
+  h += '<div class="sec-title">Быстрые действия</div>';
+  h += '<div class="quick-actions">';
+  h += '<a class="qa-btn" href="registry.html#product=' + esc(myProduct.id) + '">+ Инициатива</a>';
+  h += '<a class="qa-btn" href="workspace.html?id=' + esc(myProduct.id) + '">Обновить статус</a>';
+  h += '<a class="qa-btn" href="workspace.html?id=' + esc(myProduct.id) + '&tab=docs">Gate-чеклист</a>';
+  h += '</div>';
+
+  /* My Initiatives top 5 */
+  h += '<div class="sec-title">Мои инициативы (топ-5 RICE)</div>';
+  h += '<div class="rice-list">';
+  var myScored = myInits.map(function(i) {
+    i._rice = Math.round(((i.r||0)*(i.i||0)*(i.c||0))/(i.e||1));
+    return i;
+  }).filter(function(i){ return i.status !== 'done'; })
+    .sort(function(a,b){ return b._rice - a._rice; }).slice(0, 5);
+  if (myScored.length) {
+    myScored.forEach(function(i) {
+      var stLabel = i.status === 'wip' ? 'В работе' : i.status === 'next' ? 'Следующая' : i.status || 'backlog';
+      h += '<div class="rice-item">';
+      h += '<span class="rice-score">' + i._rice + '</span>';
+      h += '<span class="rice-name">' + esc(i.name || i.id) + '</span>';
+      h += '<span class="rice-product">' + esc(stLabel) + '</span>';
+      h += '</div>';
+    });
+  } else {
+    h += '<div class="alert-empty">Нет активных инициатив</div>';
+  }
+  h += '</div>';
+
+  c.innerHTML = h;
 }
 
-function renderGuestView(container) {
-  container.innerHTML =
-    '<div class="guest-welcome">' +
-    '<p>Добро пожаловать в ОРБИТА — платформу управления портфелем цифровых решений.</p>' +
-    '<p style="color:var(--muted)">Вы в гостевом режиме. Доступен демо-продукт.</p>' +
-    '</div>';
-}
+/* ── Route ──────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+  var container = document.getElementById('dashboard');
+  var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+
+  PT.ensureProducts(function() {
+    if (!user || user.role === 'guest') {
+      renderWelcome(container, user);
+    } else if (user.role === 'pm') {
+      renderPMDashboard(container, user);
+    } else {
+      renderExecutiveDashboard(container, user);
+    }
+  });
+});
 </script>
 <script src="nav.js"></script>
 </body>
