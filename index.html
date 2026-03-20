@@ -3,102 +3,247 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ОРБИТА — Управление портфелем продуктов</title>
+<title>ОРБИТА — Платформа управления портфелем</title>
+<link rel="stylesheet" href="design-system.css">
 <style>
-/* Тёмная тема, центрированный layout */
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#03080F;--card:#061525;--surface:#0d2a40;--border:rgba(79,195,247,.12);--text:#E8F4FD;--muted:#7A9DB8;--violet:#4FC3F7;--teal:#00D4B4;--amber:#FFB830;--green:#34D399}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+/* ── Layout ── */
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); margin: 0; }
+.main-wrap { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
 
-.landing{max-width:1060px;margin:0 auto;padding:60px 28px 40px}
-.landing-header{text-align:center;margin-bottom:40px}
-.logo{font-family:'Inter',sans-serif;font-size:32px;font-weight:900;color:var(--text);margin-bottom:8px;letter-spacing:-1px}
-.tagline{font-size:14px;color:var(--muted)}
+/* ── Hero ── */
+.hero { text-align: center; padding: 48px 0 32px; }
+.hero h1 { font-size: 32px; font-weight: 800; color: var(--text); margin: 0; }
+.hero p { font-size: 15px; color: var(--muted); margin-top: 6px; }
 
-.paths{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px}
-.path{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 24px;text-decoration:none;transition:all .18s;display:flex;flex-direction:column;gap:12px;cursor:pointer}
-.path:hover{border-color:rgba(79,195,247,.35);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
-.path-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center}
-.path-name{font-family:'Inter',sans-serif;font-size:14px;font-weight:900;color:var(--text)}
-.path-desc{font-size:12px;color:var(--muted);line-height:1.55;flex:1}
-.path-tag{font-size:9px;font-weight:700;padding:3px 10px;border-radius:5px;letter-spacing:.04em;align-self:flex-start}
-.tag-open{background:rgba(0,212,180,.1);color:var(--teal)}
-.tag-auth{background:rgba(79,195,247,.1);color:var(--violet)}
+/* ── Section title ── */
+.section-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--violet); margin-bottom: 12px;
+}
 
-.auth-block{display:flex;gap:10px;justify-content:center;margin-bottom:24px}
-.auth-btn{padding:11px 28px;border-radius:10px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
-.auth-primary{background:linear-gradient(135deg,var(--teal),var(--violet));border:none;color:#fff}
-.auth-primary:hover{opacity:.85}
-.auth-ghost{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--muted)}
-.auth-ghost:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
+/* ── Quick Links ── */
+.quick-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
+.ql-card {
+  display: block; padding: 16px; background: var(--card);
+  border: 1px solid var(--border); border-radius: 8px;
+  text-decoration: none; transition: border-color .15s;
+}
+.ql-card:hover { border-color: var(--violet-border); }
+.ql-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.ql-desc { font-size: 12px; color: var(--muted); }
 
-.footer{font-size:10px;color:rgba(255,255,255,.2);text-align:center;padding:20px 28px;max-width:1060px;margin:0 auto}
+/* ── Portfolio summary (executive) ── */
+.portfolio-summary { display: flex; gap: 12px; margin-bottom: 16px; }
+.ps-stat {
+  padding: 14px 18px; background: var(--card);
+  border: 1px solid var(--border); border-radius: 8px;
+  text-align: center; flex: 1;
+}
+.ps-val { font-size: 24px; font-weight: 800; color: var(--text); }
+.ps-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-@media(max-width:860px){.paths{grid-template-columns:1fr 1fr}}
-@media(max-width:500px){.paths{grid-template-columns:1fr}}
+/* ── Recent changes ── */
+.recent-list { display: flex; flex-direction: column; gap: 4px; }
+.recent-item {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 8px 12px; background: var(--card);
+  border: 1px solid var(--border); border-radius: 6px; font-size: 13px;
+}
+.ri-date { font-size: 11px; color: var(--muted); font-weight: 600; min-width: 40px; }
+.ri-text { color: var(--text); }
+.recent-empty { font-size: 13px; color: var(--muted); font-style: italic; }
 
-/* ── LIGHT THEME OVERRIDES ── */
-[data-theme="light"] .logo,
-[data-theme="light"] .hero-title,
-[data-theme="light"] .hero-title span { color: var(--text) !important; }
-[data-theme="light"] .path-name { color: var(--text) !important; }
-[data-theme="light"] .path-desc { color: var(--muted) !important; }
-[data-theme="light"] .auth-ghost { border-color: rgba(0,0,0,.12); color: var(--muted); }
-[data-theme="light"] .auth-ghost:hover { border-color: rgba(0,0,0,.25); color: var(--text); }
-[data-theme="light"] .footer { color: rgba(0,0,0,.3); }
+/* ── My products (PM) ── */
+.my-products { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.mp-card {
+  display: block; padding: 14px; background: var(--card);
+  border: 1px solid var(--border); border-radius: 8px;
+  text-decoration: none; transition: border-color .15s;
+}
+.mp-card:hover { border-color: var(--violet-border); }
+.mp-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.mp-meta { font-size: 12px; color: var(--muted); }
+
+/* ── Guest welcome ── */
+.guest-welcome {
+  padding: 24px; background: var(--card);
+  border: 1px solid var(--border); border-radius: 8px; text-align: center;
+}
+.guest-welcome p { font-size: 14px; color: var(--text); margin: 0 0 8px; }
+.guest-welcome p:last-child { margin-bottom: 0; }
+
+/* ── Auth block ── */
+.auth-block { display: flex; gap: 10px; justify-content: center; margin-bottom: 28px; }
+.auth-btn {
+  padding: 10px 24px; border-radius: 8px; font-family: var(--font-body);
+  font-size: 12px; font-weight: 700; cursor: pointer; transition: all .15s;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.auth-primary {
+  background: linear-gradient(135deg, var(--teal), var(--violet));
+  border: none; color: #fff;
+}
+.auth-primary:hover { opacity: .85; }
+.auth-ghost {
+  background: transparent; border: 1px solid var(--border); color: var(--muted);
+}
+.auth-ghost:hover { border-color: var(--violet-border); color: var(--text); }
+
+/* ── Footer ── */
+.footer {
+  font-size: 10px; color: var(--muted); opacity: .4;
+  text-align: center; padding: 20px 24px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .quick-links { grid-template-columns: 1fr 1fr; }
+  .portfolio-summary { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+  .quick-links { grid-template-columns: 1fr; }
+}
 </style>
-<script src="icons.js"></script>
 <script src="platform.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/auth-ui.js"></script>
 </head>
 <body>
 
-<div class="landing">
-  <div class="landing-header">
-    <div class="logo">ОРБИТА</div>
-    <div class="tagline">Управление портфелем продуктов экосистемы</div>
+<div class="main-wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>ОРБИТА</h1>
+    <p>Управление портфелем цифровых решений экосистемы RWB</p>
   </div>
 
-  <div class="paths">
-    <a class="path" href="catalog.html">
-      <div class="path-icon" style="background:rgba(0,212,180,.1)"><svg class="ei" width="22" height="22" style="color:var(--teal)"><use href="#ic-package"/></svg></div>
-      <div class="path-name">Каталог продуктов</div>
-      <div class="path-desc">Что в проде, что в разработке, идеи и статусы</div>
-      <span class="path-tag tag-open">Открытый доступ</span>
-    </a>
+  <!-- Auth -->
+  <div class="auth-block" id="auth-block">
+    <button class="auth-btn auth-primary"
+      onclick="if(window.OrbAuth&&OrbAuth.isLoggedIn()){location.href='registry.html'}else if(window.showAuthModal){showAuthModal()}else{location.href='registry.html'}">
+      Войти
+    </button>
+    <button class="auth-btn auth-ghost"
+      onclick="if(window.authGuestLogin){authGuestLogin()}else{location.href='catalog.html'}">
+      Гостевой доступ
+    </button>
+  </div>
 
-    <a class="path" href="registry.html">
-      <div class="path-icon" style="background:rgba(79,195,247,.1)"><svg class="ei" width="22" height="22" style="color:var(--violet)"><use href="#ic-layers"/></svg></div>
-      <div class="path-name">Реестр</div>
-      <div class="path-desc">Продукты, цели, инициативы — управление портфелем</div>
-      <span class="path-tag tag-auth">Авторизация</span>
+  <!-- Quick Links (always visible) -->
+  <div class="quick-links">
+    <a href="catalog.html" class="ql-card">
+      <div class="ql-title">Каталог продуктов</div>
+      <div class="ql-desc">Портфель в реальном времени</div>
     </a>
-
-    <a class="path" href="tools/brief.html">
-      <div class="path-icon" style="background:rgba(255,184,48,.1)"><svg class="ei" width="22" height="22" style="color:var(--amber)"><use href="#ic-file-text"/></svg></div>
-      <div class="path-name">Подать заявку</div>
-      <div class="path-desc">Новый продукт: бриф + RICE-оценка за 15 минут</div>
-      <span class="path-tag tag-open">Открытый доступ</span>
+    <a href="registry.html" class="ql-card">
+      <div class="ql-title">Реестр инициатив</div>
+      <div class="ql-desc">Планирование и управление бэклогом</div>
     </a>
-
-    <a class="path" href="catalog.html">
-      <div class="path-icon" style="background:rgba(52,211,153,.1)"><svg class="ei" width="22" height="22" style="color:var(--green)"><use href="#ic-trending-up"/></svg></div>
-      <div class="path-name">Статус портфеля</div>
-      <div class="path-desc">Сроки, риски, compliance — для руководителей</div>
-      <span class="path-tag tag-auth">Авторизация</span>
+    <a href="framework.html" class="ql-card">
+      <div class="ql-title">Как мы работаем</div>
+      <div class="ql-desc">Методология и стадии</div>
+    </a>
+    <a href="workspace.html?id=ECO-00" class="ql-card">
+      <div class="ql-title">Демо-продукт</div>
+      <div class="ql-desc">Пример карточки продукта</div>
     </a>
   </div>
 
-  <div class="auth-block">
-    <button class="auth-btn auth-primary" onclick="if(window.OrbAuth&&OrbAuth.isLoggedIn()){location.href='registry.html'}else if(window.showAuthModal){showAuthModal()}else{location.href='registry.html'}">Войти</button>
-    <button class="auth-btn auth-ghost" onclick="if(window.authGuestLogin){authGuestLogin()}else{location.href='catalog.html'}">Гостевой доступ (демо)</button>
-  </div>
+  <!-- Role-adaptive content (rendered by JS) -->
+  <div id="main-content"></div>
+
 </div>
 
-<div class="footer">
-  ОРБИТА · Проектный офис · WB Экосистема · 2026
-</div>
+<div class="footer">ОРБИТА · Проектный офис · WB Экосистема · 2026</div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+  var role = user ? user.role : 'guest';
+  var container = document.getElementById('main-content');
+  var authBlock = document.getElementById('auth-block');
+
+  // Hide auth buttons if logged in
+  if (user && authBlock) { authBlock.style.display = 'none'; }
+
+  if (role === 'admin' || role === 'pmo_lead' || role === 'lead') {
+    renderExecutiveView(container);
+  } else if (role === 'pm' || role === 'pmo') {
+    renderPMView(container, user);
+  } else {
+    renderGuestView(container);
+  }
+});
+
+function renderExecutiveView(container) {
+  var products = window.PT ? PT.load(PT.KEY_PRODUCTS) || [] : [];
+  var changelog = window.PT ? PT.load(PT.KEY_CHANGELOG) || [] : [];
+
+  var html = '<div class="section-title">Портфель</div>';
+  html += '<div class="portfolio-summary">';
+  html += '<div class="ps-stat"><div class="ps-val">' + products.length + '</div><div class="ps-label">Продуктов</div></div>';
+
+  var active = products.filter(function(p) { return p.status === 'on-track'; }).length;
+  var risk = products.filter(function(p) { return p.status === 'at-risk'; }).length;
+  html += '<div class="ps-stat"><div class="ps-val" style="color:var(--teal)">' + active + '</div><div class="ps-label">Активных</div></div>';
+  html += '<div class="ps-stat"><div class="ps-val" style="color:var(--amber)">' + risk + '</div><div class="ps-label">С рисками</div></div>';
+  html += '</div>';
+
+  // Recent changes
+  html += '<div class="section-title" style="margin-top:24px">Последние изменения</div>';
+  var recent = changelog.slice(-5).reverse();
+  html += '<div class="recent-list">';
+  recent.forEach(function(entry) {
+    html += '<div class="recent-item">';
+    html += '<span class="ri-date">' + (entry.date || '').substring(5, 10) + '</span>';
+    html += '<span class="ri-text">' + (entry.details || entry.action || '') + '</span>';
+    html += '</div>';
+  });
+  if (!recent.length) html += '<div class="recent-empty">Нет изменений</div>';
+  html += '</div>';
+
+  container.innerHTML = html;
+}
+
+function renderPMView(container, user) {
+  var products = window.PT ? PT.load(PT.KEY_PRODUCTS) || [] : [];
+  var backlog = window.PT ? PT.load(PT.KEY_BACKLOG) || [] : [];
+
+  var myProducts = [];
+  if (user.assignments && user.assignments.length) {
+    user.assignments.forEach(function(a) {
+      var p = products.find(function(pr) { return pr.id === a.productId; });
+      if (p) myProducts.push(p);
+    });
+  }
+
+  var html = '<div class="section-title">Мои продукты</div>';
+  html += '<div class="my-products">';
+  if (myProducts.length) {
+    myProducts.forEach(function(p) {
+      var initCount = backlog.filter(function(i) { return (i.productId || i.project) === p.id; }).length;
+      html += '<a class="mp-card" href="workspace.html?id=' + p.id + '">';
+      html += '<div class="mp-name">' + p.name + '</div>';
+      html += '<div class="mp-meta">' + p.id + ' · ' + initCount + ' инициатив</div>';
+      html += '</a>';
+    });
+  } else {
+    html += '<div class="recent-empty">Нет назначенных продуктов</div>';
+  }
+  html += '</div>';
+
+  container.innerHTML = html;
+}
+
+function renderGuestView(container) {
+  container.innerHTML =
+    '<div class="guest-welcome">' +
+    '<p>Добро пожаловать в ОРБИТА — платформу управления портфелем цифровых решений.</p>' +
+    '<p style="color:var(--muted)">Вы в гостевом режиме. Доступен демо-продукт.</p>' +
+    '</div>';
+}
+</script>
 <script src="nav.js"></script>
 </body>
 </html>

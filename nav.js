@@ -93,8 +93,13 @@
   function has(s) { return p.indexOf(s.toLowerCase()) !== -1; }
 
   // ── active group detection ──────────────────────────────────
-  var bizActive  = (has('catalog') || has('brief')) ? ' en-active' : '';
-  var pdktActive = (has('workspace') || has('tools') || has('committees') || has('framework') || has('strategy') || has('knowledge') || has('templates') || has('artifacts') || has('registry') || has('gate-checklist') || has('glossary')) ? ' en-active' : '';
+  var catalogActive    = (has('catalog') || has('workspace')) ? ' en-active' : '';
+  var registryActive   = has('registry') ? ' en-active' : '';
+  var methActive       = (has('framework') || has('glossary') || has('knowledge')) ? ' en-active' : '';
+  var toolsActive      = has('tools') ? ' en-active' : '';
+  var teamsActive      = has('teams') ? ' en-active' : '';
+  var committeesActive = has('committees') ? ' en-active' : '';
+  var adminActive      = has('admin') ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -132,38 +137,45 @@
     + '<div class="en-sep"></div>'
     + '<div class="en-links">'
 
-    // ── Портфель ──────────────────────────────
-    + '<div class="en-drop' + bizActive + '">'
-    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Портфель</a>'
-    +   '<div class="en-drop-menu" role="menu">'
-    +     a('catalog.html',                              'Витрина продуктов')
-    +     a('tools/brief.html',                         'Подать заявку')
-    +   '</div>'
-    + '</div>'
+    // ── Каталог (direct link) ──────────────────
+    + '<a class="en-link' + catalogActive + '" href="' + base + 'catalog.html" role="menuitem">Каталог</a>'
 
-    // ── Команде ─────────────────────────────
-    + '<div class="en-drop' + pdktActive + '">'
-    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Команде</a>'
+    // ── Реестр (direct link) ─────────────────
+    + '<a class="en-link' + registryActive + '" href="' + base + 'registry.html" role="menuitem">Реестр</a>'
+
+    // ── Методология (dropdown) ───────────────
+    + '<div class="en-drop' + methActive + '">'
+    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Методология</a>'
     +   '<div class="en-drop-menu" role="menu">'
-    +     a('tools/onboarding.html',                     'С чего начать')
-    +     sep()
-    +     grp('Процессы и артефакты')
     +     a('framework.html',                           'Как мы работаем')
-    +     a('registry.html',                            'Реестр')
-    +     a('teams.html',                               'Реестр команд')
-    +     a('tools/templates.html',                     'Шаблоны')
-    +     sep()
-    +     grp('Инструменты')
-    +     a('tools/gate-checklist.html',                'Gate-чеклист')
-    +     a('tools/index.html',                         'Инструменты')
-    +     sep()
-    +     grp('Справочник')
     +     a('glossary.html',                            'Глоссарий')
-    +     a('knowledge/roles.html',                      'Матрица ролей')
+    +     a('knowledge/roles.html',                     'Матрица ролей')
+    +     a('knowledge/planning.html',                  'Планирование')
+    +     a('knowledge/impact-model.html',              'Модель влияния')
+    +     a('knowledge/ai-integration.html',            'AI-интеграция')
     +   '</div>'
     + '</div>'
 
-    + (function(){ try { var a = JSON.parse(localStorage.getItem('ECOTECH_AUTH')); var u = JSON.parse(localStorage.getItem('ECOTECH_USERS')); if(a&&u){ var cu=u.find(function(x){return x.id===a.id}); if(cu&&(cu.role==='admin'||cu.role==='pmo_lead')) return '<a class="en-link" href="'+base+'admin.html">Admin</a>'; } } catch(e){} return ''; })()
+    // ── Инструменты (dropdown) ───────────────
+    + '<div class="en-drop' + toolsActive + '">'
+    +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Инструменты</a>'
+    +   '<div class="en-drop-menu" role="menu">'
+    +     a('tools/brief.html',                         'Бриф')
+    +     a('tools/gate-checklist.html',                'Gate-чеклист')
+    +     a('tools/templates.html',                     'Шаблоны')
+    +     a('tools/strategy.html',                      'Стратегия')
+    +     a('tools/onboarding.html',                    'Онбординг')
+    +   '</div>'
+    + '</div>'
+
+    // ── Команды (direct link) ────────────────
+    + '<a class="en-link' + teamsActive + '" href="' + base + 'teams.html" role="menuitem">Команды</a>'
+
+    // ── Комитеты (direct link) ───────────────
+    + '<a class="en-link' + committeesActive + '" href="' + base + 'committees.html" role="menuitem">Комитеты</a>'
+
+    // ── Admin (role-based) ───────────────────
+    + (function(){ try { var a = JSON.parse(localStorage.getItem('ECOTECH_AUTH')); var u = JSON.parse(localStorage.getItem('ECOTECH_USERS')); if(a&&u){ var cu=u.find(function(x){return x.id===a.id}); if(cu&&(cu.role==='admin'||cu.role==='pmo_lead')) return '<a class="en-link' + adminActive + '" href="'+base+'admin.html" role="menuitem">Admin</a>'; } } catch(e){} return ''; })()
     + '</div>'
     + '<button id="en-theme-btn" class="en-theme-btn" onclick="EcoTheme.toggle()" title="Переключить тему" aria-label="Переключить тему"></button>'
     + '<a class="en-rwb" href="https://rwb.ru" target="_blank" rel="noopener">' + RWB_SVG + '</a>'
