@@ -16,7 +16,7 @@ body{background:#fff;font-size:10px;-webkit-print-color-adjust:exact;print-color
 .toolbar{display:none!important}
 [contenteditable]{outline:none!important}
 *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-.bl-i,.intro,.note,.ps-col,.gantt-sep,.gantt-header,.tool,.tw th{-webkit-print-color-adjust:exact!important}
+.bl-i,.intro,.note,.ps-col,.gantt-sep,.gantt-header,.gantt2-header,.gantt2-legend,.tool,.tw th{-webkit-print-color-adjust:exact!important}
 .bar{-webkit-print-color-adjust:exact!important}
 div[style*="background:var(--v)"],div[style*="background:var(--b)"],div[style*="background:var(--t1)"]{-webkit-print-color-adjust:exact!important}
 div[style*="background:rgba"]{-webkit-print-color-adjust:exact!important}
@@ -66,7 +66,38 @@ tr:last-child td{border-bottom:none}
 .ps-col--sol li::before{background:var(--ok)}
 .ps-col li b{font-weight:700}
 
-/* gantt */
+/* gantt – executive roadmap (gantt2) */
+.gantt2{border:1px solid var(--brd);border-radius:10px;overflow:hidden;margin-bottom:10px;background:#fff}
+.gantt2-header{display:grid;grid-template-columns:200px repeat(3,1fr);background:var(--bg);border-bottom:2px solid var(--brd2)}
+.gantt2-header span{font-size:9px;font-weight:800;color:var(--t2);text-transform:uppercase;letter-spacing:0.07em;padding:8px 0;text-align:center;border-left:1px solid var(--brd)}
+.gantt2-header span:first-child{text-align:left;padding-left:14px;border-left:none}
+.gantt2-row{display:grid;grid-template-columns:200px repeat(3,1fr);border-bottom:1px solid var(--brd);align-items:center;min-height:52px}
+.gantt2-row:last-child{border-bottom:none}
+.gantt2-row:nth-child(even){background:rgba(244,245,247,0.55)}
+.gantt2-label{font-size:10px;font-weight:700;color:var(--t1);padding:6px 14px;line-height:1.35}
+.gantt2-label small{display:block;font-weight:400;color:var(--t3);font-size:9px;margin-top:1px}
+.gantt2-cell{border-left:1px solid var(--brd);height:100%;position:relative;min-height:52px}
+.gantt2-cell::after{content:'';position:absolute;top:0;bottom:0;left:50%;border-left:1px dashed rgba(0,0,0,0.07);pointer-events:none}
+.bar2{position:absolute;top:50%;transform:translateY(-50%);height:22px;border-radius:11px;min-width:8px}
+.bar2--v{background:var(--v);box-shadow:0 2px 8px rgba(108,61,175,0.28)}
+.bar2--b{background:var(--b);box-shadow:0 2px 8px rgba(0,82,204,0.22)}
+.bar2::after{content:'';position:absolute;right:-7px;top:50%;transform:translateY(-50%) rotate(45deg);width:11px;height:11px;border-radius:2px;background:inherit;box-shadow:inherit}
+.gantt2-legend{display:flex;gap:20px;align-items:center;padding:8px 14px;background:var(--bg);border-top:1px solid var(--brd)}
+.gantt2-legend-item{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--t2);font-weight:600}
+.gantt2-legend-swatch{width:26px;height:10px;border-radius:5px}
+.gantt2-legend-swatch--v{background:var(--v)}
+.gantt2-legend-swatch--b{background:var(--b)}
+.gantt2-legend-diamond{width:10px;height:10px;border-radius:2px;transform:rotate(45deg);background:var(--t2)}
+@media print{
+.gantt2,.gantt2-header,.gantt2-row,.gantt2-cell,.bar2,.gantt2-legend,.gantt2-legend-swatch,.gantt2-legend-diamond{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+.gantt2-row:nth-child(even){background:rgba(244,245,247,0.55)!important}
+}
+@media(max-width:600px){
+.gantt2{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gantt2-header,.gantt2-row{min-width:540px}
+}
+
+/* gantt legacy – kept for other usages */
 .gantt{border:1px solid var(--brd);border-radius:8px;overflow:hidden;margin-bottom:10px}
 .gantt-header{display:grid;grid-template-columns:200px repeat(3,1fr);background:var(--bg);border-bottom:1px solid var(--brd)}
 .gantt-header span{font-size:8px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:0.04em;padding:6px 4px;text-align:center;border-left:1px solid var(--brd)}
@@ -274,64 +305,70 @@ details>.block-content{animation:slideDown 0.2s ease}
   <summary><div class="block-toggle" style="background:var(--t1);color:#fff;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;padding:10px 18px;border-radius:8px;margin-bottom:16px;margin-top:10px">3. Приложения — детали для ознакомления</div></summary>
   <div class="block-content">
 
-  <!-- ═══ ПРИЛОЖЕНИЕ: ROADMAP ═══ -->
-  <div class="s">
-    <div class="sh"><span class="n" style="background:var(--vd);color:var(--v)">Приложение</span> План на 2 квартал</div>
-    <div class="gantt">
-      <div class="gantt-header">
-        <span>Инициатива</span>
-        <span>Апр</span><span>Май</span><span>Июн</span>
-      </div>
-      <div class="gantt-row">
-        <div class="label">Структура ПО<small>Мандат, подчинение PM</small></div>
-        <div class="gantt-cell"><div class="bar bar--v" style="left:10%;right:40%"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div>
-      </div>
-      <div class="gantt-row">
-        <div class="label">Методология<small>Утверждение стадий и приоритетов</small></div>
-        <div class="gantt-cell"><div class="bar bar--v" style="left:10%;right:10%"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div>
-      </div>
-      <div class="gantt-row">
-        <div class="label">Команда ПО<small>2 менеджера</small></div>
-        <div class="gantt-cell"><div class="bar bar--b" style="left:30%;right:10%"></div></div>
-        <div class="gantt-cell"><div class="bar bar--b" style="left:0;right:50%"></div></div>
-        <div class="gantt-cell"></div>
-      </div>
-      <div class="gantt-row">
-        <div class="label">Миграция на RWB<small>Серверы + разработка</small></div>
-        <div class="gantt-cell"><div class="bar bar--b" style="left:40%;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--b" style="left:0;right:0"></div></div>
-        <div class="gantt-cell"></div>
-      </div>
-      <div class="gantt-row">
-        <div class="label">Все продукты в ОРБИТА<small>5 продуктов</small></div>
-        <div class="gantt-cell"></div>
-        <div class="gantt-cell"><div class="bar bar--b" style="left:0;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--b" style="left:0;right:50%"></div></div>
-      </div>
-    </div>
-  </div>
+  <!-- ═══ ПРИЛОЖЕНИЕ: ИНИЦИАТИВЫ + ПЛАН Q2 ═══ -->
+  <div class="s" id="init">
+    <div class="sh"><span class="n" style="background:var(--vd);color:var(--v)">Приложение</span> Инициативы ПО и план на 2 квартал &middot; Сорваль В.</div>
 
-  <!-- ═══ ПРИЛОЖЕНИЕ: ИНИЦИАТИВЫ ═══ -->
-  <div class="s" style="margin-top:16px">
-    <div class="sh" id="init"><span class="n" style="background:var(--vd);color:var(--v)">Приложение</span> Инициативы ПО &middot; Сорваль В.</div>
-    <div class="tw">
+    <div class="tw" style="margin-bottom:14px">
       <table>
-        <thead><tr><th>Группа</th><th>Инициатива</th><th>Дата</th><th>Статус</th><th>Риск</th></tr></thead>
+        <thead><tr><th>Инициатива</th><th>1 кв. (факт)</th><th>Статус</th><th>2 кв. (план)</th><th>Риск</th></tr></thead>
         <tbody>
-          <tr><td colspan="5" style="font-weight:700;background:var(--bg);color:var(--t2);font-size:8px;letter-spacing:0.04em">ПОРТФЕЛЬ И ПРОДУКТЫ</td></tr>
-          <tr><td rowspan="2" style="vertical-align:middle;font-weight:600">Продукты</td><td>Сбор целей по продуктам (2 из 5 зафиксированы, 3 — требуют проработки с владельцами)</td><td>Дек—Мар</td><td><span style="color:var(--warn);font-weight:700">Частично</span></td><td style="color:var(--warn)">3 продукта без целей</td></tr>
-          <tr><td>Инициативы + синки с лидерами</td><td>Янв—Мар</td><td><span style="color:var(--ok);font-weight:700">Готово</span></td><td style="color:var(--t3)">—</td></tr>
-          <tr><td colspan="5" style="font-weight:700;background:var(--bg);color:var(--t2);font-size:8px;letter-spacing:0.04em">МЕТОДОЛОГИЯ И ПРОЦЕССЫ</td></tr>
-          <tr><td rowspan="2" style="vertical-align:middle;font-weight:600">Фреймворк</td><td>Стадии зрелости + формула приоритетов + бенчмарк</td><td>Дек—Фев</td><td><span style="color:var(--warn);font-weight:700">Ждёт ОК</span></td><td style="color:var(--crit)">Без ОК не масштабируется</td></tr>
-          <tr><td>Синк по проектам (ежемес.)</td><td>Апр</td><td><span style="color:var(--warn);font-weight:700">Ждёт ОК</span></td><td style="color:var(--warn)">Зависит от методологии</td></tr>
-          <tr><td colspan="5" style="font-weight:700;background:var(--bg);color:var(--t2);font-size:8px;letter-spacing:0.04em">ИНСТРУМЕНТЫ</td></tr>
-          <tr><td rowspan="3" style="vertical-align:middle;font-weight:600">Платформа</td><td>ОРБИТА — прототип, пилот 3 продукта</td><td>Янв—Мар</td><td><span style="color:var(--b);font-weight:700">Пилот</span></td><td style="color:var(--crit)">Нет корп. серверов</td></tr>
-          <tr><td>Shiva (корп. трекер) — настройка под стадии</td><td>Фев—Мар</td><td><span style="color:var(--b);font-weight:700">В работе</span></td><td style="color:var(--warn)">Нет команды разработки</td></tr>
-          <tr><td>Требования к корп. трекеру (задачи, контрольные точки)</td><td>Фев</td><td><span style="color:var(--ok);font-weight:700">Готово</span></td><td style="color:var(--t3)">—</td></tr>
+          <tr><td colspan="5" style="font-weight:700;background:var(--bg);color:var(--t2);font-size:9px;letter-spacing:0.04em">ПОРТФЕЛЬ И ПРОДУКТЫ</td></tr>
+          <tr><td><b>Цели продуктов</b></td><td>Wibes, Книги — зафиксированы. Kids, Sport, Встречи — нет</td><td><span style="color:var(--warn);font-weight:700">Частично</span></td><td>Доработать цели с владельцами (апр)</td><td style="color:var(--warn)">3 продукта без целей</td></tr>
+          <tr><td><b>Синки с лидерами</b></td><td>100% продукт-лидеров прошли 1-1</td><td><span style="color:var(--ok);font-weight:700">Готово</span></td><td>Ежемесячный синк по проектам</td><td style="color:var(--t3)">—</td></tr>
+          <tr><td colspan="5" style="font-weight:700;background:var(--bg);color:var(--t2);font-size:9px;letter-spacing:0.04em">МЕТОДОЛОГИЯ И ПРОЦЕССЫ</td></tr>
+          <tr><td><b>Стадии + приоритеты</b></td><td>Gate-модель, RICE, бенчмарк готовы</td><td><span style="color:var(--warn);font-weight:700">Ждёт ОК</span></td><td>Утвердить (апр). Запустить на всех продуктах</td><td style="color:var(--crit)">Без ОК не масштабируется</td></tr>
+          <tr><td><b>Синк по проектам</b></td><td>Концепция, повестка готовы</td><td><span style="color:var(--warn);font-weight:700">Ждёт ОК</span></td><td>Первый синк — апрель</td><td style="color:var(--warn)">Зависит от методологии</td></tr>
+          <tr><td colspan="5" style="font-weight:700;background:var(--bg);color:var(--t2);font-size:9px;letter-spacing:0.04em">ИНСТРУМЕНТЫ</td></tr>
+          <tr><td><b>ОРБИТА</b></td><td>Прототип, пилот на Wibes, Книги, Kids</td><td><span style="color:var(--b);font-weight:700">Пилот</span></td><td>Миграция на RWB (апр-май). Все 5 продуктов (июн)</td><td style="color:var(--crit)">Нет серверов</td></tr>
+          <tr><td><b>Корп. трекер</b></td><td>ТЗ готово. Shiva настраивается</td><td><span style="color:var(--b);font-weight:700">В работе</span></td><td>Интеграция после миграции ОРБИТА</td><td style="color:var(--warn)">Нет разработчиков</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--t1);margin-bottom:8px">План на 2 квартал — визуально</div>
+    <div class="gantt2">
+      <div class="gantt2-header">
+        <span>Инициатива</span>
+        <span>Апр</span>
+        <span>Май</span>
+        <span>Июн</span>
+      </div>
+      <div class="gantt2-row">
+        <div class="gantt2-label">Структура ПО<small>Мандат, подчинение PM</small></div>
+        <div class="gantt2-cell"><div class="bar2 bar2--v" style="left:10%;right:5%"></div></div>
+        <div class="gantt2-cell"></div>
+        <div class="gantt2-cell"></div>
+      </div>
+      <div class="gantt2-row">
+        <div class="gantt2-label">Методология<small>Утверждение стадий</small></div>
+        <div class="gantt2-cell"><div class="bar2 bar2--v" style="left:10%;right:8%"></div></div>
+        <div class="gantt2-cell"></div>
+        <div class="gantt2-cell"></div>
+      </div>
+      <div class="gantt2-row">
+        <div class="gantt2-label">Команда ПО<small>2 менеджера</small></div>
+        <div class="gantt2-cell"><div class="bar2 bar2--b" style="left:30%;right:0"></div></div>
+        <div class="gantt2-cell"><div class="bar2 bar2--b" style="left:0;right:50%"></div></div>
+        <div class="gantt2-cell"></div>
+      </div>
+      <div class="gantt2-row">
+        <div class="gantt2-label">Миграция на RWB<small>Серверы + разработка</small></div>
+        <div class="gantt2-cell"><div class="bar2 bar2--b" style="left:40%;right:0"></div></div>
+        <div class="gantt2-cell"><div class="bar2 bar2--b" style="left:0;right:0"></div></div>
+        <div class="gantt2-cell"></div>
+      </div>
+      <div class="gantt2-row">
+        <div class="gantt2-label">5 продуктов в ОРБИТА</div>
+        <div class="gantt2-cell"></div>
+        <div class="gantt2-cell"><div class="bar2 bar2--b" style="left:0;right:0"></div></div>
+        <div class="gantt2-cell"><div class="bar2 bar2--b" style="left:0;right:50%"></div></div>
+      </div>
+      <div class="gantt2-legend">
+        <div class="gantt2-legend-item"><div class="gantt2-legend-swatch gantt2-legend-swatch--v"></div>Критичный путь</div>
+        <div class="gantt2-legend-item"><div class="gantt2-legend-swatch gantt2-legend-swatch--b"></div>Основная работа</div>
+        <div class="gantt2-legend-item" style="margin-left:auto"><div class="gantt2-legend-diamond"></div>Milestone</div>
+      </div>
     </div>
   </div>
 
@@ -461,7 +498,7 @@ if (location.search.includes('edit=1')) document.body.classList.add('edit-mode')
 let editing = false;
 function toggleEdit() {
   editing = !editing;
-  document.querySelectorAll('.p *:not(script):not(style):not(table):not(thead):not(tbody):not(tr):not(.toolbar):not(.toolbar *):not(.ps):not(.bl):not(.tools):not(.tw):not(.gantt):not(.gantt-header):not(.gantt-row):not(.gantt-sep):not(.gantt-cell):not(.bar):not(img):not(summary):not(details):not(.block-toggle)').forEach(el => el.contentEditable = editing);
+  document.querySelectorAll('.p *:not(script):not(style):not(table):not(thead):not(tbody):not(tr):not(.toolbar):not(.toolbar *):not(.ps):not(.bl):not(.tools):not(.tw):not(.gantt):not(.gantt-header):not(.gantt-row):not(.gantt-sep):not(.gantt-cell):not(.bar):not(.gantt2):not(.gantt2-header):not(.gantt2-row):not(.gantt2-cell):not(.bar2):not(.gantt2-legend):not(.gantt2-legend-item):not(.gantt2-legend-swatch):not(.gantt2-legend-diamond):not(img):not(summary):not(details):not(.block-toggle)').forEach(el => el.contentEditable = editing);
   document.querySelector('.btn-edit').textContent = editing ? 'Stop' : 'Edit';
   document.querySelector('.btn-save').style.display = editing ? 'inline-block' : 'none';
 }
