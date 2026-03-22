@@ -36,13 +36,21 @@
     //   kpi: []
     // },
 
-    // Пример (удалить после заполнения):
-    { id: 'ECO-01', name: 'Продукт 1', desc: '[описание из Figma]', type: 'product', department: 'innovation', gate: 0, status: 'screening', catLabel: 'B2C', owner: '', quarter: 'Q2 2026', kpi: [] },
-    { id: 'ECO-02', name: 'Продукт 2', desc: '[описание из Figma]', type: 'product', department: 'innovation', gate: 0, status: 'screening', catLabel: 'B2B', owner: '', quarter: 'Q2 2026', kpi: [] },
-    // Добавить все продукты из Figma...
+    // === В ПРОДЕ ===
+    { id: 'ECO-01', name: 'Wibes', desc: 'Маркетплейс. Рост GMV и аудитории. Воронка, корпоративное направление.', type: 'product', department: 'innovation', gate: 4, status: 'on-track', catLabel: 'B2C', owner: 'PM Wibes', quarter: 'Q2 2026', kpi: [{icon:'trending-up',value:'GMV',label:'Оборот'},{icon:'users',value:'MAU',label:'Аудитория'}] },
+    { id: 'ECO-02', name: 'WB Цифровой', desc: 'Цифровой сервис. Рост MAU. Миграция инфраструктуры в RWB.', type: 'product', department: 'innovation', gate: 4, status: 'on-track', catLabel: 'B2C', owner: 'PM WB Цифровой', quarter: 'Q2 2026', kpi: [{icon:'users',value:'MAU',label:'Активные пользователи'}] },
+    { id: 'ECO-03', name: 'WB Stream', desc: 'Основной сервис RWB. Desktop app, calling, SDK.', type: 'product', department: 'innovation', gate: 4, status: 'on-track', catLabel: 'Internal', owner: 'PM WB Stream', quarter: 'Q2 2026', kpi: [{icon:'zap',value:'SDK',label:'Интеграции'}] },
 
-    // === ДЕПАРТАМЕНТ: ОБУЧЕНИЕ ===
-    // { id: 'EDU-01', name: '...', type: 'edu_product', department: 'education', ... },
+    // === В РАЗРАБОТКЕ ===
+    { id: 'ECO-04', name: 'WB Книги', desc: '#1 точка входа в книги РФ/СНГ. Запуск первой версии.', type: 'product', department: 'innovation', gate: 2, status: 'on-track', catLabel: 'B2C', owner: 'PM WB Книги', quarter: 'Q2 2026', kpi: [] },
+    { id: 'ECO-05', name: 'WB Kids', desc: 'Продукт для детской аудитории. Цели не определены.', type: 'product', department: 'innovation', gate: 1, status: 'at-risk', catLabel: 'B2C', owner: 'PM WB Kids', quarter: 'Q2 2026', kpi: [] },
+    { id: 'ECO-06', name: 'WB Sport', desc: 'Спортивный продукт. Цели не определены.', type: 'product', department: 'innovation', gate: 1, status: 'at-risk', catLabel: 'B2C', owner: 'PM WB Sport', quarter: 'Q2 2026', kpi: [] },
+    { id: 'ECO-07', name: 'WB Messenger', desc: 'Основной мессенджер. SDK, миграция пользователей Band.', type: 'tech_solution', department: 'innovation', gate: 2, status: 'on-track', catLabel: 'Internal', owner: 'PM WB Messenger', quarter: 'Q2 2026', kpi: [] },
+    { id: 'ECO-08', name: 'WB Boards', desc: 'Основной сервис RWB. Первая версия с заметками.', type: 'product', department: 'innovation', gate: 2, status: 'on-track', catLabel: 'Internal', owner: 'PM WB Boards', quarter: 'Q2 2026', kpi: [] },
+
+    // === ПРОТОТИП / РАННЯЯ СТАДИЯ ===
+    { id: 'ECO-09', name: 'WB Встречи', desc: 'Сервис видеоконференций. Прототип.', type: 'product', department: 'innovation', gate: 1, status: 'screening', catLabel: 'Internal', owner: 'PM WB Встречи', quarter: 'Q2 2026', kpi: [] },
+    { id: 'ECO-10', name: 'WB Jobs', desc: 'HR-платформа. Ранняя стадия.', type: 'product', department: 'innovation', gate: 0, status: 'screening', catLabel: 'B2B', owner: 'Уточняется', quarter: 'Q2 2026', kpi: [] },
   ];
 
   // ═══════════════════════════════════════════════════

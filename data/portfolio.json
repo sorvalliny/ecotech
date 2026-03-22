@@ -1,38 +1,91 @@
 [
   {
-    "id": "ECO-00", "name": "ОРБИТА (ДЕМО)", "desc": "Платформа управления портфелем. Эталонный продукт-пример для онбординга команд.",
-    "gate": 2, "status": "on-track", "cat": "internal", "catLabel": "Платформа",
-    "owner": "Проектный офис", "color": "#7B2FFF", "updated": "2026-03-17", "quarter": "Q1 2026",
-    "department": "innovation",
-    "pilot": false, "trackerUrl": "", "trackerType": "",
-    "kpi": [{"icon":"users","value":"500","label":"Activation"},{"icon":"trending-up","value":"28%","label":"Retention D7"},{"icon":"star","value":"35","label":"NPS"}],
-    "initiatives": ["D001","D002","D003","D004","D005","D006"]
+    "id": "ECO-00", "name": "ОРБИТА", "desc": "Платформа управления портфелем продуктов экосистемы RWB.",
+    "gate": 3, "status": "on-track", "cat": "internal", "catLabel": "Платформа",
+    "type": "product", "department": "innovation",
+    "owner": "Проектный офис", "color": "#7B5CB8", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "kpi": [], "initiatives": []
   },
   {
-    "id": "ECO-01", "name": "ECO-01", "desc": "Маркетплейс для детской аудитории",
-    "gate": 3, "status": "on-track", "cat": "b2c", "catLabel": "B2C",
-    "owner": "PM Team", "color": "#FF85C0", "updated": "2026-03-17", "quarter": "Q1 2026",
-    "department": "innovation",
-    "pilot": true, "trackerUrl": "", "trackerType": "youtrack",
-    "kpi": [{"icon":"users","value":"12K","label":"MAU"},{"icon":"trending-up","value":"34%","label":"Retention D30"},{"icon":"star","value":"42","label":"NPS"}],
-    "initiatives": ["I001","I002","I003"]
+    "id": "ECO-01", "name": "Wibes", "desc": "Маркетплейс. Рост GMV и аудитории.",
+    "gate": 4, "status": "on-track", "cat": "b2c", "catLabel": "B2C",
+    "type": "product", "department": "innovation",
+    "owner": "PM Wibes", "color": "#6B4FA0", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "kpi": [{"icon":"trending-up","value":"GMV","label":"Оборот"},{"icon":"users","value":"MAU","label":"Аудитория"}],
+    "initiatives": []
   },
   {
-    "id": "ECO-02", "name": "ECO-02", "desc": "Сервис генерации обучающего контента",
-    "gate": 1, "status": "on-track", "cat": "b2b", "catLabel": "B2B",
-    "owner": "PM Team", "color": "#4FC3F7", "updated": "2026-03-17", "quarter": "Q1 2026",
-    "department": "education",
-    "pilot": true, "trackerUrl": "", "trackerType": "youtrack",
-    "kpi": [{"icon":"zap","value":"7","label":"CustDev"},{"icon":"file-text","value":"Draft","label":"PSF"}],
-    "initiatives": ["I004","I005"]
+    "id": "ECO-02", "name": "WB Цифровой", "desc": "Цифровой сервис. Рост MAU. Миграция инфры в RWB.",
+    "gate": 4, "status": "on-track", "cat": "b2c", "catLabel": "B2C",
+    "type": "product", "department": "innovation",
+    "owner": "PM WB Цифровой", "color": "#7B5CB8", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "kpi": [{"icon":"users","value":"MAU","label":"Активные пользователи"}],
+    "initiatives": []
   },
   {
-    "id": "ECO-03", "name": "ECO-03", "desc": "Сервис для знакомств в экосистеме",
-    "gate": 0, "status": "at-risk", "cat": "b2c", "catLabel": "B2C",
-    "owner": "PM Team", "color": "#00D4B4", "updated": "2026-03-17", "quarter": "Q1 2026",
-    "department": "innovation",
-    "pilot": true, "trackerUrl": "", "trackerType": "",
+    "id": "ECO-03", "name": "WB Stream", "desc": "Основной сервис RWB. Desktop app, calling, SDK.",
+    "gate": 4, "status": "on-track", "cat": "internal", "catLabel": "Internal",
+    "type": "product", "department": "innovation",
+    "owner": "PM WB Stream", "color": "#8B6AD0", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "kpi": [{"icon":"zap","value":"SDK","label":"Интеграции"}],
+    "initiatives": []
+  },
+  {
+    "id": "ECO-04", "name": "WB Книги", "desc": "#1 точка входа в книги РФ/СНГ. Запуск первой версии.",
+    "gate": 2, "status": "on-track", "cat": "b2c", "catLabel": "B2C",
+    "type": "product", "department": "innovation",
+    "owner": "PM WB Книги", "color": "#9B7AE8", "updated": "2026-03-23", "quarter": "Q2 2026",
     "kpi": [],
-    "initiatives": ["I006","I007"]
+    "initiatives": []
+  },
+  {
+    "id": "ECO-05", "name": "WB Kids", "desc": "Продукт для детской аудитории.",
+    "gate": 1, "status": "at-risk", "cat": "b2c", "catLabel": "B2C",
+    "type": "product", "department": "innovation",
+    "owner": "PM WB Kids", "color": "#AB8AF0", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "statusLight": "amber", "statusText": "Цели не определены",
+    "kpi": [],
+    "initiatives": []
+  },
+  {
+    "id": "ECO-06", "name": "WB Sport", "desc": "Спортивный продукт.",
+    "gate": 1, "status": "at-risk", "cat": "b2c", "catLabel": "B2C",
+    "type": "product", "department": "innovation",
+    "owner": "PM WB Sport", "color": "#AB8AF0", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "statusLight": "amber", "statusText": "Цели не определены",
+    "kpi": [],
+    "initiatives": []
+  },
+  {
+    "id": "ECO-07", "name": "WB Messenger", "desc": "Основной мессенджер. SDK, миграция пользователей Band.",
+    "gate": 2, "status": "on-track", "cat": "internal", "catLabel": "Internal",
+    "type": "tech_solution", "department": "innovation",
+    "owner": "PM WB Messenger", "color": "#8B6AD0", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "kpi": [],
+    "initiatives": []
+  },
+  {
+    "id": "ECO-08", "name": "WB Boards", "desc": "Основной сервис RWB. Первая версия с заметками.",
+    "gate": 2, "status": "on-track", "cat": "internal", "catLabel": "Internal",
+    "type": "product", "department": "innovation",
+    "owner": "PM WB Boards", "color": "#9B7AE8", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "kpi": [],
+    "initiatives": []
+  },
+  {
+    "id": "ECO-09", "name": "WB Встречи", "desc": "Сервис видеоконференций. Прототип.",
+    "gate": 1, "status": "screening", "cat": "internal", "catLabel": "Internal",
+    "type": "product", "department": "innovation",
+    "owner": "PM WB Встречи", "color": "#C4A5FF", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "kpi": [],
+    "initiatives": []
+  },
+  {
+    "id": "ECO-10", "name": "WB Jobs", "desc": "HR-платформа. Ранняя стадия.",
+    "gate": 0, "status": "screening", "cat": "b2b", "catLabel": "B2B",
+    "type": "product", "department": "innovation",
+    "owner": "Уточняется", "color": "#C4A5FF", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "kpi": [],
+    "initiatives": []
   }
 ]

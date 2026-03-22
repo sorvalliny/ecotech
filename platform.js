@@ -129,7 +129,7 @@
     },
 
     // ── Data version — increment to force refresh from portfolio.json ──
-    DATA_VERSION: 5,
+    DATA_VERSION: 7,
 
     // ── Ensure products loaded (seed from portfolio.json if empty or outdated) ──
     ensureProducts: function(cb) {
