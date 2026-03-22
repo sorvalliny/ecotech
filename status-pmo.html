@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
 :root{--v:#6C3DAF;--vd:rgba(108,61,175,0.08);--b:#0052CC;--bd:rgba(0,82,204,0.07);--ok:#00875A;--okb:#E3FCEF;--warn:#FF8B00;--wb:#FFF7E6;--crit:#DE350B;--cb:#FFEBE6;--t1:#172B4D;--t2:#5E6C84;--t3:#97A0AF;--bg:#F4F5F7;--brd:#EBECF0;--brd2:#DFE1E6}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Outfit',system-ui,sans-serif;background:#FAFBFC;color:var(--t1);font-size:11px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{font-family:'Outfit',system-ui,sans-serif;background:#FAFBFC;color:var(--t1);font-size:13px;line-height:1.6;-webkit-font-smoothing:antialiased}
 @page{size:A4;margin:10mm 12mm}
 @media print{
 body{background:#fff;font-size:10px;-webkit-print-color-adjust:exact;print-color-adjust:exact;color-adjust:exact}
@@ -31,23 +31,23 @@ details>summary .block-toggle::after{display:none}
 .hd{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:3px solid var(--v);margin-bottom:20px}
 .hd-left{display:flex;align-items:center;gap:14px}
 .hd-logo img{height:22px}
-.hd h1{font-size:16px;font-weight:800;letter-spacing:-0.02em}
+.hd h1{font-size:18px;font-weight:800;letter-spacing:-0.02em}
 .hd .sub{font-size:9px;color:var(--t2);margin-top:2px}
 .hd-r{text-align:right;font-size:9px;color:var(--t2)}
 .hd-r b{color:var(--t1)}
 
 /* sections */
 .s{margin-bottom:20px}
-.sh{font-size:12px;font-weight:800;color:var(--t1);padding-bottom:5px;border-bottom:1px solid var(--brd);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sh{font-size:14px;font-weight:800;color:var(--t1);padding-bottom:5px;border-bottom:1px solid var(--brd);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .sh .n{font-size:8px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:0.04em}
 
-.intro{font-size:11px;color:var(--t2);padding:12px 16px;background:var(--bg);border-radius:8px;border-left:3px solid var(--v);margin-bottom:18px;line-height:1.7}
+.intro{font-size:13px;color:var(--t2);padding:12px 16px;background:var(--bg);border-radius:8px;border-left:3px solid var(--v);margin-bottom:18px;line-height:1.7}
 .intro b{color:var(--t1)}
 
 /* table */
 .tw{border:1px solid var(--brd);border-radius:8px;overflow:hidden;margin-bottom:10px}
-table{width:100%;border-collapse:collapse;font-size:10px}
-th{background:var(--bg);font-weight:700;font-size:9px;text-transform:uppercase;letter-spacing:0.05em;color:var(--t2);padding:8px 12px;text-align:left;border-bottom:1px solid var(--brd)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:var(--bg);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--t2);padding:8px 12px;text-align:left;border-bottom:1px solid var(--brd)}
 td{padding:8px 12px;border-bottom:1px solid var(--brd);vertical-align:top;line-height:1.5}
 tr:last-child td{border-bottom:none}
 
@@ -112,13 +112,33 @@ tr:last-child td{border-bottom:none}
 /* edit toolbar */
 .toolbar{position:fixed;top:14px;right:14px;display:flex;gap:6px;z-index:999}
 .toolbar button{font-family:'Outfit',system-ui,sans-serif;font-size:10px;font-weight:700;padding:6px 14px;border-radius:5px;border:none;cursor:pointer;transition:all 0.15s}
-.btn-edit{background:var(--v);color:#fff}
+.btn-edit{background:var(--v);color:#fff;display:none}
 .btn-edit:hover{background:#5A2E94}
 .btn-save{background:var(--ok);color:#fff;display:none}
 .btn-save:hover{background:#006B48}
 .btn-pdf{background:var(--b);color:#fff}
 .btn-pdf:hover{background:#003D99}
+.edit-mode .btn-edit{display:inline-block}
 [contenteditable="true"]{outline:2px dashed rgba(108,61,175,0.3);outline-offset:2px;border-radius:3px}
+
+/* mobile */
+@media(max-width:600px){
+.p{padding:20px 16px}
+.hd{flex-direction:column;gap:10px;text-align:center}
+.hd-left{flex-direction:column;gap:8px}
+.hd-r{text-align:center}
+.hd h1{font-size:15px}
+div[style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr!important}
+.bl{grid-template-columns:1fr}
+.ps{grid-template-columns:1fr}
+.ps-col--prob{border-right:none;border-bottom:1px solid var(--brd)}
+.tools{grid-template-columns:1fr}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tw table{min-width:500px}
+.gantt{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gantt .gantt-header,.gantt .gantt-row,.gantt .gantt-sep{min-width:700px}
+div[style*="grid-template-columns:1fr 1fr 1fr 1fr"]{grid-template-columns:1fr 1fr!important}
+}
 
 /* collapsible blocks */
 details{margin-bottom:0}
@@ -149,12 +169,12 @@ details>.block-content{animation:slideDown 0.2s ease}
 
   <!-- ═══ EXECUTIVE SUMMARY ═══ -->
   <div style="background:var(--v);color:#fff;border-radius:8px;padding:16px 20px;margin-bottom:20px;line-height:1.7;font-size:11px">
-    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;opacity:0.7;margin-bottom:6px">Главное</div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Главное</div>
     <b>Проектный офис — связь бизнеса и продуктовых команд.</b> Единая картина портфеля, контроль сроков, приоритизация. Без ПО статус продукта — только у его менеджера. За три месяца ПО собрал картину по портфелю, предложил правила работы и прототип инструмента. Дальше не сдвинется без трёх решений:
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px">
-      <div style="background:rgba(255,255,255,0.12);border-radius:6px;padding:8px 10px;font-size:10px"><b>1. Дать мандат ПО</b><br><span style="opacity:0.8">Подчинение, зона ответственности, связь с PM</span></div>
-      <div style="background:rgba(255,255,255,0.12);border-radius:6px;padding:8px 10px;font-size:10px"><b>2. Утвердить подход</b><br><span style="opacity:0.8">Как управляем портфелем: стадии, приоритеты, инструмент</span></div>
-      <div style="background:rgba(255,255,255,0.12);border-radius:6px;padding:8px 10px;font-size:10px"><b>3. Выделить людей</b><br><span style="opacity:0.8">Два менеджера в ПО + разработчики для платформы (через CTO)</span></div>
+      <div style="background:rgba(255,255,255,0.18);border-radius:6px;padding:8px 10px;font-size:10px"><b>1. Дать мандат ПО</b><br><span style="opacity:0.8">Подчинение, зона ответственности, связь с PM</span></div>
+      <div style="background:rgba(255,255,255,0.18);border-radius:6px;padding:8px 10px;font-size:10px"><b>2. Утвердить подход</b><br><span style="opacity:0.8">Как управляем портфелем: стадии, приоритеты, инструмент</span></div>
+      <div style="background:rgba(255,255,255,0.18);border-radius:6px;padding:8px 10px;font-size:10px"><b>3. Выделить людей</b><br><span style="opacity:0.8">Два менеджера в ПО + разработчики для платформы (через CTO)</span></div>
     </div>
     <div style="margin-top:12px;text-align:center"><span style="background:rgba(255,255,255,0.2);padding:6px 18px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:0.03em">Готов встретиться на 30 мин — покажу всё вживую</span></div>
   </div>
@@ -473,6 +493,7 @@ details>.block-content{animation:slideDown 0.2s ease}
 </div>
 
 <script>
+if (location.search.includes('edit=1')) document.body.classList.add('edit-mode');
 let editing = false;
 function toggleEdit() {
   editing = !editing;
