@@ -186,7 +186,7 @@
 .d-badge::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,.2), transparent); border-radius:10px; }
 .d-name { font-size:17px; font-weight:700; color:#fff; }
 .d-meta { font-size:11px; color:rgba(255,255,255,.4); margin-top:2px; }
-.d-close { margin-left:auto; background:none; border:none; color:rgba(255,255,255,.3); font-size:20px; cursor:pointer; padding:4px 8px; border-radius:6px; transition:all .15s; }
+.d-close { margin-left:auto; background:none; border:none; color:var(--muted); font-size:22px; cursor:pointer; padding:4px 8px; border-radius:6px; transition:all .15s; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
 .d-close:hover { color:#fff; background:rgba(255,255,255,.06); }
 
 .d-section { margin-top:14px; }
@@ -278,8 +278,13 @@
   .planet-body { width:34px !important; height:34px !important; font-size:9px !important; }
   .planet-name { font-size:9px; margin-top:4px; }
   .planet-result { display:none; }
-  .detail { margin:8px 8px 0; }
+  .detail { margin:8px 8px 0; max-height:60vh; overflow-y:auto; }
   .solar-section::before { border-radius:12px; }
+  .solar-section::after {
+    content:''; position:absolute; right:0; top:0; bottom:0; width:40px;
+    background:linear-gradient(90deg, transparent, var(--bg));
+    pointer-events:none; z-index:10;
+  }
 }
 
 /* ── Print ── */
@@ -309,11 +314,12 @@
       <option value="pmo">PMO</option>
       <option value="lead">Руководитель</option>
     </select>
+    <span id="role-indicator" style="font-size:11px;color:var(--violet);font-weight:600;display:none;"></span>
     <select id="f-entity" onchange="switchEntity()">
-      <option value="product">Продукт</option>
-      <option value="tech">Тех.решение</option>
-      <option value="edu">Образовательный</option>
-      <option value="project">Проект</option>
+      <option value="product">[P] Продукт</option>
+      <option value="tech">[T] Тех.решение</option>
+      <option value="edu">[E] Образовательный</option>
+      <option value="project">[N] Проект</option>
     </select>
   </div>
 </div>
@@ -380,6 +386,15 @@
 </div>
 
 <!-- ═══════════ COLLAPSIBLE SECTIONS ═══════════ -->
+
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;max-width:100%;">
+  <a href="#" onclick="document.querySelectorAll('.fw-section')[0].open=true;document.querySelectorAll('.fw-section')[0].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Назначение команды</a>
+  <a href="#" onclick="document.querySelectorAll('.fw-section')[1].open=true;document.querySelectorAll('.fw-section')[1].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Трекеры</a>
+  <a href="#" onclick="document.querySelectorAll('.fw-section')[2].open=true;document.querySelectorAll('.fw-section')[2].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Gate Review</a>
+  <a href="#" onclick="document.querySelectorAll('.fw-section')[3].open=true;document.querySelectorAll('.fw-section')[3].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Роли</a>
+  <a href="#" onclick="document.querySelectorAll('.fw-section')[4].open=true;document.querySelectorAll('.fw-section')[4].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Планирование</a>
+  <a href="#" onclick="document.querySelectorAll('.fw-section')[5].open=true;document.querySelectorAll('.fw-section')[5].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Процессы</a>
+</div>
 
 <details class="fw-section">
   <summary>Назначение команды на инициативу</summary>
@@ -610,28 +625,17 @@
   </div>
 </details>
 
-<!-- ═══════════ ИНСТРУМЕНТЫ ═══════════ -->
-<div style="max-width:100%;margin:32px auto 0;">
-  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:14px;">Инструменты ОРБИТА</h3>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:32px;">
-    <a href="catalog.html" style="display:block;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--violet);text-decoration:none;">
-      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Каталог продуктов</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.4;">Портфель в реальном времени для руководства</div>
-    </a>
-    <a href="registry.html" style="display:block;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--teal);text-decoration:none;">
-      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Реестр инициатив</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.4;">Бэклог, RICE, планирование Q/H для PM</div>
-    </a>
-    <a href="tools/strategy.html" style="display:block;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--amber);text-decoration:none;">
-      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Страт. планирование</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.4;">OKR, P&L, юнит-экономика, роадмап</div>
-    </a>
-    <a href="workspace.html?id=ECO-00" style="display:block;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--pink);text-decoration:none;">
-      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Карточка продукта</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.4;">Паспорт, команда, инициативы, цели</div>
-    </a>
+<details class="fw-section">
+  <summary>Шаблоны и артефакты</summary>
+  <div class="fw-section-body">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Все шаблоны доступны в разделе инструментов. Ключевые артефакты по стадиям:</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+      <a href="tools/brief.html" style="padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-decoration:none;font-size:12px;color:var(--text);font-weight:600;">Бриф + RICE</a>
+      <a href="tools/gate-checklist.html" style="padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-decoration:none;font-size:12px;color:var(--text);font-weight:600;">Gate-чеклист</a>
+      <a href="tools/templates.html" style="padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-decoration:none;font-size:12px;color:var(--text);font-weight:600;">Все шаблоны</a>
+    </div>
   </div>
-</div>
+</details>
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <div class="fw-footer">
@@ -1001,6 +1005,8 @@ function openStage(id) {
 
   var detail = document.getElementById('detail');
   document.getElementById('d-badge').style.background = s.color;
+  var entityColor = s.color;
+  document.getElementById('detail').style.borderLeft = '4px solid ' + entityColor;
   document.getElementById('d-badge').textContent = s.code;
   document.getElementById('d-name').textContent = s.name;
   document.getElementById('d-meta').textContent = s.result;
@@ -1056,6 +1062,12 @@ document.addEventListener('click', function(e) {
    FILTERS
    ================================================================ */
 function applyFilters() {
+  var roleVal = document.getElementById('f-role').value;
+  var indicator = document.getElementById('role-indicator');
+  if (indicator) {
+    if (roleVal === 'all') { indicator.style.display = 'none'; }
+    else { indicator.textContent = '\u25B8 Фильтр: ' + document.getElementById('f-role').selectedOptions[0].text; indicator.style.display = ''; }
+  }
   // Re-render current stage detail if open
   if (activeId) {
     openStage(activeId);
