@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Продуктовый фреймворк — Экосистема</title>
+<link rel="stylesheet" href="../design-system.css">
+<style>
+/* ═══ PAGE LAYOUT ═══ */
+.page-wrap {
+  max-width: var(--content-max, 1100px);
+  margin: 0 auto;
+  padding: 56px 32px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══ HERO ═══ */
+.hero {
+  text-align: center;
+  margin-bottom: 56px;
+  padding: 48px 24px 40px;
+  background: var(--grad-hero);
+  border: 1px solid var(--violet-border);
+  border-radius: var(--radius);
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+}
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ═══ SECTION ═══ */
+.section { margin-bottom: 56px; }
+.section-title {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--violet);
+  letter-spacing: -0.3px;
+  margin-bottom: 24px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-hi);
+}
+.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 16px;
+  background: var(--violet);
+  border-radius: 2px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* ═══ PROBLEM CARDS ═══ */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.problem-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  border-top: 3px solid var(--red, #F87171);
+  transition: border-color var(--ease);
+}
+.problem-card:hover { border-top-color: var(--teal); }
+.problem-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red, #F87171);
+  margin-bottom: 8px;
+}
+.problem-card:hover .problem-label { color: var(--teal); }
+.problem-card h3 {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.problem-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.solution-block {
+  background: var(--teal-dim);
+  border: 1px solid var(--teal-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+.solution-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 4px;
+}
+.solution-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* ═══ ARCHITECTURE DIAGRAM ═══ */
+.arch-diagram {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.arch-layer {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: start;
+  gap: 16px;
+}
+.arch-layer:last-child { border-bottom: none; }
+.arch-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  white-space: nowrap;
+}
+.arch-content {
+  font-size: 13px;
+  color: var(--gray2);
+  line-height: 1.7;
+}
+.arch-content .sub-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.arch-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid;
+}
+.layer-strategy { border-left: 4px solid var(--violet); }
+.layer-strategy .arch-label { color: var(--violet); }
+.layer-manage { border-left: 4px solid var(--teal); }
+.layer-manage .arch-label { color: var(--teal); }
+.layer-plan { border-left: 4px solid var(--amber); }
+.layer-plan .arch-label { color: var(--amber); }
+.layer-exec { border-left: 4px solid var(--pink); }
+.layer-exec .arch-label { color: var(--pink); }
+.layer-control { border-left: 4px solid var(--blue); }
+.layer-control .arch-label { color: var(--blue); }
+
+/* ═══ STAGE TIMELINE ═══ */
+.stage-timeline {
+  display: flex;
+  gap: 0;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.stl-step {
+  flex: 1;
+  min-width: 130px;
+  padding: 14px 14px 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  position: relative;
+}
+.stl-step:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.stl-step:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+.stl-step:not(:last-child)::after {
+  content: '\2192';
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: var(--muted);
+  z-index: 2;
+  background: var(--bg);
+  padding: 0 2px;
+}
+.stl-code {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+.stl-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.stl-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.stl-time {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+  font-weight: 600;
+}
+.stage-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--violet);
+  text-decoration: none;
+  padding: 8px 16px;
+  background: var(--violet-dim);
+  border: 1px solid var(--violet-border);
+  border-radius: var(--radius-sm);
+  transition: all var(--ease);
+}
+.stage-link:hover {
+  background: var(--violet-border);
+  color: var(--white);
+}
+
+/* ═══ ROLES TABLE ═══ */
+.roles-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.roles-table th {
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 10px 16px;
+  text-align: left;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border-hi);
+}
+.roles-table th:first-child {
+  border-radius: var(--radius-sm) 0 0 0;
+}
+.roles-table th:last-child {
+  border-radius: 0 var(--radius-sm) 0 0;
+  text-align: center;
+}
+.roles-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--gray2);
+  vertical-align: top;
+}
+.roles-table td:first-child {
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+.roles-table td:last-child {
+  text-align: center;
+  color: var(--muted);
+  font-weight: 600;
+}
+.roles-table tr:last-child td {
+  border-bottom: none;
+}
+.roles-table-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* ═══ TOOL CARDS ═══ */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.tool-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  text-decoration: none;
+  transition: all var(--ease);
+  display: flex;
+  flex-direction: column;
+}
+.tool-card:hover {
+  border-color: var(--violet-border);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+.tool-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 14px;
+  font-family: var(--font-head);
+}
+.tool-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.tool-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  flex: 1;
+}
+.tool-arrow {
+  font-size: 12px;
+  color: var(--violet);
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+/* ═══ METRICS ═══ */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.metric-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  text-align: center;
+}
+.metric-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 6px;
+}
+.metric-label {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.metric-before {
+  font-size: 11px;
+  color: var(--red, #F87171);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* ═══ LAUNCH TIMELINE ═══ */
+.launch-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.launch-step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  position: relative;
+}
+.launch-step::before {
+  content: attr(data-week);
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-bottom: 8px;
+}
+.launch-step h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.launch-step p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.launch-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid var(--violet-border);
+  border-right: 2px solid var(--violet-border);
+  transform: translateY(-50%) rotate(45deg);
+  z-index: 2;
+}
+
+/* ═══ FOOTER NAV ═══ */
+.page-footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-hi);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.page-footer a {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  transition: all var(--ease);
+}
+.page-footer a:hover {
+  color: var(--violet);
+  border-color: var(--violet-border);
+  background: var(--violet-dim);
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .problem-grid,
+  .tool-grid { grid-template-columns: 1fr; }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .launch-timeline { grid-template-columns: repeat(2, 1fr); }
+  .launch-step:not(:last-child)::after { display: none; }
+  .arch-layer { grid-template-columns: 1fr; gap: 6px; }
+  .stage-timeline { flex-direction: column; }
+  .stl-step { border-radius: var(--radius-sm) !important; }
+  .stl-step:not(:last-child)::after { display: none; }
+}
+@media (max-width: 480px) {
+  .metrics-grid,
+  .launch-timeline { grid-template-columns: 1fr; }
+}
+
+/* ═══ PRINT ═══ */
+@media print {
+  body { background: #fff; color: #1a1a1a; }
+  .page-wrap { padding: 24px 16px; }
+  .hero { background: none; border: 2px solid #ddd; }
+  .hero-title { -webkit-text-fill-color: #1a1a1a; color: #1a1a1a; }
+  .hero-sub { color: #666; }
+  .section-title { color: #333; border-bottom-color: #ddd; }
+  .section-title::before { background: #333; }
+  .problem-card, .tool-card, .metric-card, .launch-step,
+  .arch-diagram, .roles-table-wrap { border-color: #ddd; background: #fafafa; }
+  .metric-value { -webkit-text-fill-color: #1a1a1a; background: none; }
+  .page-footer a { border-color: #ccc; color: #333; }
+  .tool-card:hover { transform: none; box-shadow: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ════════════════════ HERO ════════════════════ -->
+  <div class="hero">
+    <h1 class="hero-title">Продуктовый фреймворк</h1>
+    <p class="hero-sub">Система управления портфелем цифровых решений экосистемы RWB</p>
+  </div>
+
+  <!-- ════════════════════ S1: ЗАЧЕМ ════════════════════ -->
+  <div class="section">
+    <h2 class="section-title">Зачем нужен фреймворк</h2>
+    <div class="problem-grid">
+
+      <div class="problem-card">
+        <div class="problem-label">Проблема</div>
+        <h3>Непрозрачность</h3>
+        <p class="problem-desc">Статус продуктов живёт в чатах и головах PM. Руководство не знает, что происходит, без личного опроса каждого владельца.</p>
+        <div class="solution-block">
+          <div class="solution-label">Решение</div>
+          <div class="solution-text">Каталог продуктов -- портфель в реальном времени с актуальными статусами и метриками.</div>
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-label">Проблема</div>
+        <h3>Нет стандарта</h3>
+        <p class="problem-desc">Каждый продукт запускается по-своему. Нет критериев готовности, нет точек контроля. Качество зависит от конкретного PM.</p>
+        <div class="solution-block">
+          <div class="solution-label">Решение</div>
+          <div class="solution-text">6 стадий зрелости с обязательными Gate Review и чек-листами артефактов.</div>
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-label">Проблема</div>
+        <h3>Нет масштабирования</h3>
+        <p class="problem-desc">При 10+ продуктах невозможно управлять без системы. Приоритеты субъективны, ресурсы распределяются по громкости голоса.</p>
+        <div class="solution-block">
+          <div class="solution-label">Решение</div>
+          <div class="solution-text">RICE-оценка, квартальное планирование, единые процессы для всего портфеля.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ S2: АРХИТЕКТУРА ════════════════════ -->
+  <div class="section">
+    <h2 class="section-title">Архитектура системы</h2>
+    <div class="arch-diagram">
+
+      <div class="arch-layer layer-strategy">
+        <div class="arch-label">Стратегия</div>
+        <div class="arch-content">
+          OKR компании &rarr; Цели департаментов &rarr; Портфель продуктов
+        </div>
+      </div>
+
+      <div class="arch-layer layer-manage">
+        <div class="arch-label">Управление</div>
+        <div class="arch-content">
+          Каталог продуктов (мониторинг)
+          <div class="sub-items">
+            <span class="arch-tag" style="color:var(--c1);border-color:var(--c1-border);background:var(--c1-dim);">Продукт O&middot;0 -- O&middot;5</span>
+            <span class="arch-tag" style="color:var(--amber);border-color:var(--amber-border);background:var(--amber-dim);">Тех.решение T&middot;0 -- T&middot;3</span>
+            <span class="arch-tag" style="color:var(--pink);border-color:var(--pink-border);background:var(--pink-dim);">Образовательный E&middot;0 -- E&middot;4</span>
+            <span class="arch-tag" style="color:var(--teal);border-color:var(--teal-border);background:var(--teal-dim);">Проект P&middot;0 -- P&middot;3</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-layer layer-plan">
+        <div class="arch-label">Планирование</div>
+        <div class="arch-content">
+          Цели (H1/H2) &rarr; Инициативы (Q) &rarr; RICE-приоритизация &rarr; Распределение по командам
+        </div>
+      </div>
+
+      <div class="arch-layer layer-exec">
+        <div class="arch-label">Исполнение</div>
+        <div class="arch-content">
+          Карточка продукта &rarr; Реестр инициатив &rarr; Трекер задач
+        </div>
+      </div>
+
+      <div class="arch-layer layer-control">
+        <div class="arch-label">Контроль</div>
+        <div class="arch-content">
+          Gate Review &rarr; Комитеты &rarr; Уведомления &rarr; Лог решений
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ S3: СТАДИИ ════════════════════ -->
+  <div class="section">
+    <h2 class="section-title">Стадии зрелости продукта</h2>
+
+    <div class="stage-timeline">
+      <div class="stl-step" style="border-left:3px solid var(--c0);">
+        <div class="stl-code" style="color:var(--c0);">O&middot;0</div>
+        <div class="stl-name">Заявка</div>
+        <div class="stl-desc">Бриф + RICE &rarr; скрининг PMO</div>
+        <div class="stl-time">5 дней</div>
+      </div>
+      <div class="stl-step" style="border-left:3px solid var(--c1);">
+        <div class="stl-code" style="color:var(--c1);">O&middot;1</div>
+        <div class="stl-name">Разведка</div>
+        <div class="stl-desc">CustDev + конкурентный анализ</div>
+        <div class="stl-time">3-6 нед</div>
+      </div>
+      <div class="stl-step" style="border-left:3px solid var(--c2);">
+        <div class="stl-code" style="color:var(--c2);">O&middot;2</div>
+        <div class="stl-name">Прототип</div>
+        <div class="stl-desc">MVP + тестирование</div>
+        <div class="stl-time">6-12 нед</div>
+      </div>
+      <div class="stl-step" style="border-left:3px solid var(--c3);">
+        <div class="stl-code" style="color:var(--c3);">O&middot;3</div>
+        <div class="stl-name">Разгон</div>
+        <div class="stl-desc">GTM + growth</div>
+        <div class="stl-time">1-3 мес</div>
+      </div>
+      <div class="stl-step" style="border-left:3px solid var(--c4);">
+        <div class="stl-code" style="color:var(--c4);">O&middot;4</div>
+        <div class="stl-name">Экосистема</div>
+        <div class="stl-desc">Интеграции + API</div>
+        <div class="stl-time">3-12 мес</div>
+      </div>
+      <div class="stl-step" style="border-left:3px solid var(--c5);">
+        <div class="stl-code" style="color:var(--c5);">O&middot;5</div>
+        <div class="stl-name">Зрелость</div>
+        <div class="stl-desc">Оптимизация + P&amp;L</div>
+        <div class="stl-time">ongoing</div>
+      </div>
+    </div>
+
+    <a href="../framework.html" class="stage-link">Подробнее: стадии, роли, артефакты &rarr;</a>
+  </div>
+
+  <!-- ════════════════════ S4: РОЛИ ════════════════════ -->
+  <div class="section">
+    <h2 class="section-title">Роли и ответственность</h2>
+    <div class="roles-table-wrap">
+      <table class="roles-table">
+        <thead>
+          <tr>
+            <th>Роль</th>
+            <th>Что делает</th>
+            <th>Кол-во</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PMO Lead</td>
+            <td>Контроль портфеля, проведение Gate Review, эскалации</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>PMO-менеджер</td>
+            <td>Координация по департаменту, подготовка комитетов</td>
+            <td>1 на департамент</td>
+          </tr>
+          <tr>
+            <td>PM (владелец)</td>
+            <td>Ведёт продукт: цели, инициативы, метрики, артефакты</td>
+            <td>1 на продукт</td>
+          </tr>
+          <tr>
+            <td>Lead</td>
+            <td>Стратегические решения, ревью на Gate, приоритеты портфеля</td>
+            <td>По запросу</td>
+          </tr>
+          <tr>
+            <td>Архитектор</td>
+            <td>Техническое ревью, интеграции, стандарты</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ════════════════════ S5: ИНСТРУМЕНТЫ ════════════════════ -->
+  <div class="section">
+    <h2 class="section-title">Инструменты платформы</h2>
+    <div class="tool-grid">
+
+      <a href="../catalog.html" class="tool-card">
+        <div class="tool-icon" style="background:var(--violet);">K</div>
+        <div class="tool-name">Каталог продуктов</div>
+        <div class="tool-desc">Портфель для руководства. Все продукты, статусы, стадии зрелости и ключевые метрики в одном месте.</div>
+        <div class="tool-arrow">Открыть &rarr;</div>
+      </a>
+
+      <a href="../workspace.html" class="tool-card">
+        <div class="tool-icon" style="background:var(--teal);">П</div>
+        <div class="tool-name">Карточка продукта</div>
+        <div class="tool-desc">Рабочее пространство PM. Цели, инициативы, метрики, артефакты, история решений.</div>
+        <div class="tool-arrow">Открыть &rarr;</div>
+      </a>
+
+      <a href="../registry.html" class="tool-card">
+        <div class="tool-icon" style="background:var(--amber);">Р</div>
+        <div class="tool-name">Реестр инициатив</div>
+        <div class="tool-desc">Планирование и приоритизация. RICE-оценка, квартальные цели, распределение по командам.</div>
+        <div class="tool-arrow">Открыть &rarr;</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ S6: РЕЗУЛЬТАТЫ ════════════════════ -->
+  <div class="section">
+    <h2 class="section-title">Результаты и метрики</h2>
+    <div class="metrics-grid">
+
+      <div class="metric-card">
+        <div class="metric-value">&lt; 30 сек</div>
+        <div class="metric-label">до полной картины портфеля</div>
+        <div class="metric-before">вместо часов на опрос</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">продуктов с актуальным статусом</div>
+        <div class="metric-before">вместо "надо спросить PM"</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-value">&lt; 5 дней</div>
+        <div class="metric-label">от заявки до решения Gate 0</div>
+        <div class="metric-before">вместо недель в чатах</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-value">0</div>
+        <div class="metric-label">потерянных заявок</div>
+        <div class="metric-before">все в системе с уведомлениями</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ S7: ПЛАН ЗАПУСКА ════════════════════ -->
+  <div class="section">
+    <h2 class="section-title">План запуска</h2>
+    <div class="launch-timeline">
+
+      <div class="launch-step" data-week="Неделя 1-2">
+        <h4>Деплой</h4>
+        <p>Развёртывание платформы, настройка ролей и прав, онбординг PMO-команды.</p>
+      </div>
+
+      <div class="launch-step" data-week="Неделя 3-6">
+        <h4>Пилот</h4>
+        <p>Запуск 2-3 продуктов в системе. Первые Gate Review. Сбор обратной связи.</p>
+      </div>
+
+      <div class="launch-step" data-week="Неделя 7-8">
+        <h4>Стабилизация</h4>
+        <p>Доработка по фидбеку. Уточнение процессов, шаблонов, уведомлений.</p>
+      </div>
+
+      <div class="launch-step" data-week="Неделя 9-12">
+        <h4>Масштабирование</h4>
+        <p>Перевод всего портфеля на платформу. Регулярные комитеты, полный цикл.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ FOOTER ════════════════════ -->
+  <nav class="page-footer">
+    <a href="../framework.html">Как мы работаем &rarr;</a>
+    <a href="cjm-roles.html">CJM по ролям &rarr;</a>
+    <a href="roles.html">Матрица ролей &rarr;</a>
+  </nav>
+
+</div>
+
+<script src="../nav.js"></script>
+</body>
+</html>

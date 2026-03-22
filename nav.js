@@ -147,6 +147,7 @@
     + '<div class="en-drop' + methActive + '">'
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Методология</a>'
     +   '<div class="en-drop-menu" role="menu">'
+    +     a('knowledge/product-framework.html','Продуктовый фреймворк')
     +     a('framework.html',                'Как мы работаем')
     +     a('glossary.html',                 'Глоссарий')
     +     a('knowledge/roles.html',          'Матрица ролей')
