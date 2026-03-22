@@ -39,43 +39,32 @@
 /* ═══ SOLAR SYSTEM — orbital visualization ═══ */
 .solar-section {
   position:relative;
-  background:#0D0B1A;
+  background:var(--bg);
   border-radius:0;
   margin:0 -24px 16px;
   max-width:100%;
   padding:40px 40px 24px;
   overflow:hidden;
 }
-/* In light theme, orbit section stays dark (space) */
-/* Light theme: orbit section stays dark (space), rest adapts */
-[data-theme="light"] .solar-section { background:#0D0B1A; }
-[data-theme="light"] .solar-section .solar-subtitle .ss-title { color:rgba(255,255,255,.85); }
-[data-theme="light"] .solar-section .solar-subtitle .ss-desc { color:rgba(255,255,255,.35); }
-[data-theme="light"] .fw-header { background:var(--bg); color:var(--text); }
-[data-theme="light"] .fw-title h1 { color:var(--text); }
-[data-theme="light"] .fw-section summary { background:var(--card); color:var(--text); }
-[data-theme="light"] .fw-section .fw-section-body { background:var(--card); color:var(--text); }
-[data-theme="light"] .detail { background:rgba(30,20,50,.95); }
-[data-theme="light"] .detail .d-name { color:#fff; }
-[data-theme="light"] .detail .d-meta { color:rgba(255,255,255,.4); }
-[data-theme="light"] .detail .d-check { color:rgba(255,255,255,.75); }
+/* Detail card follows design system */
+.detail { background:var(--card); border:1px solid var(--border); }
+.detail .d-name { color:var(--text); }
+.detail .d-meta { color:var(--muted); }
+.detail .d-check { color:var(--text); background:var(--surface); }
+.detail .d-check::before { color:var(--violet); }
+.detail .d-section h4 { color:var(--violet); }
+.detail .d-art { background:var(--violet-dim); color:var(--violet); border-color:var(--violet-border); }
+.detail .d-close { color:var(--muted); }
+.detail .d-close:hover { color:var(--text); background:var(--surface); }
 
-/* Starfield — scoped to .solar-section only */
+/* Subtle grid pattern — enterprise feel */
 .solar-section::before {
   content:'';
   position:absolute;
   inset:0;
-  background:
-    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,.2) 0%, transparent 100%),
-    radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,.25) 0%, transparent 100%),
-    radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,.15) 0%, transparent 100%),
-    radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,.2) 0%, transparent 100%),
-    radial-gradient(1px 1px at 15% 55%, rgba(255,255,255,.1) 0%, transparent 100%),
-    radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,.15) 0%, transparent 100%),
-    radial-gradient(1px 1px at 45% 95%, rgba(255,255,255,.2) 0%, transparent 100%),
-    radial-gradient(1px 1px at 65% 35%, rgba(255,255,255,.1) 0%, transparent 100%),
-    radial-gradient(1px 1px at 25% 70%, rgba(255,255,255,.15) 0%, transparent 100%);
+  background-image:radial-gradient(var(--border) 1px, transparent 1px);
+  background-size:24px 24px;
+  opacity:.3;
   pointer-events:none;
   z-index:0;
   border-radius:0;
@@ -87,10 +76,10 @@
   position:relative;
   z-index:1;
 }
-.solar-subtitle .ss-title {
+.solar-subtitle .ss-title { color:var(--text);
   font-size:15px; font-weight:700; color:rgba(255,255,255,.85); margin-bottom:6px;
 }
-.solar-subtitle .ss-desc {
+.solar-subtitle .ss-desc { color:var(--muted);
   font-size:12px; color:rgba(255,255,255,.35); line-height:1.6; max-width:700px; margin:0 auto;
 }
 
@@ -98,8 +87,8 @@
 .solar-scene { position:relative; width:100%; height:100%; }
 
 /* Elliptical rings */
-.ring { position:absolute; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); border:1px solid var(--border, rgba(139,92,246,.06)); opacity:.4; transition:border-color .4s, box-shadow .4s, opacity .4s; }
-.ring.r-hover { border-color:rgba(139,92,246,.2); box-shadow:0 0 30px rgba(139,92,246,.03) inset; opacity:.7; }
+.ring { position:absolute; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); border:1px solid var(--border); opacity:.5; transition:border-color .4s, box-shadow .4s, opacity .4s; }
+.ring.r-hover { border-color:var(--violet-border); box-shadow:0 0 30px var(--violet-dim) inset; opacity:.8; }
 
 /* ═══ CENTER: WB App Icon ═══ */
 .star-wrap { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:20; }
@@ -108,7 +97,7 @@
   width:68px; height:68px; border-radius:18px;
   background:linear-gradient(135deg,#7B2FBE 0%,#9B59E0 40%,#C084FC 100%);
   display:flex; align-items:center; justify-content:center;
-  box-shadow:0 0 40px rgba(139,92,246,.4), 0 0 80px rgba(139,92,246,.15), 0 4px 20px rgba(0,0,0,.4);
+  box-shadow:0 0 40px var(--violet-dim), 0 0 80px var(--violet-dimmer), var(--shadow);
   cursor:default; animation:starGlow 3s ease-in-out infinite;
   position:relative; overflow:hidden;
 }
@@ -168,7 +157,7 @@
 .planet.active .planet-body::after { opacity:.5; }
 @keyframes chipPulse { 0%,100%{opacity:.25} 50%{opacity:.45} }
 
-.planet-name { font-size:10px; font-weight:600; color:rgba(255,255,255,.7); margin-top:6px; white-space:nowrap; text-align:center; text-shadow:0 2px 8px rgba(0,0,0,.8); }
+.planet-name { font-size:12px; font-weight:600; color:var(--text); margin-top:6px; white-space:nowrap; text-align:center; }
 .planet-result { font-size:8px; color:rgba(255,255,255,.3); margin-top:1px; text-shadow:0 1px 4px rgba(0,0,0,.6); }
 
 /* Gentle orbit float animation */
