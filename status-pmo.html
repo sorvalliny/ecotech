@@ -379,7 +379,7 @@ details>.block-content{animation:slideDown 0.2s ease}
   <div class="s" style="margin-top:16px">
     <div class="sh"><span class="n" style="background:var(--bd);color:var(--b)">Приложение</span> Операционная модель <span style="font-size:9px;font-weight:600;color:var(--warn);text-transform:none;letter-spacing:0">(целевая — требует обсуждения)</span></div>
     <div class="intro" style="margin-bottom:12px">
-      <b>Как устроен департамент.</b> Два контура: ИТ-продукты и не-ИТ направления. В ИТ — пять вертикалей: развитие (CPO), координация (PMO), разработка (CTO), монетизация и аналитика. PM отчитываются в ПО — иначе данных по портфелю нет.
+      <b>Как устроен департамент.</b> Пять вертикалей: развитие (CPO), координация (PMO), разработка (CTO), монетизация и аналитика. Каждая вертикаль вносит свой вклад в каждый продукт. PM отчитываются в ПО — иначе данных по портфелю нет. Не-ИТ направления управляются отдельно и требуют своей модели.
     </div>
     <!-- ORG CHART -->
     <div style="margin-bottom:14px">
@@ -416,22 +416,30 @@ details>.block-content{animation:slideDown 0.2s ease}
         <div style="background:var(--bg);border:1px solid var(--brd);border-radius:6px;padding:5px 6px"><div style="font-size:8px;font-weight:700">Фин. аналитика</div><div style="font-size:7px;color:var(--t2)">P&amp;L, экономика</div></div>
         <div style="background:var(--bg);border:1px solid var(--brd);border-radius:6px;padding:5px 6px"><div style="font-size:8px;font-weight:700">Прод. аналитика</div><div style="font-size:7px;color:var(--t2)">Метрики, дашборды</div></div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-        <div style="background:var(--bg);border:1px solid var(--brd);border-radius:6px;padding:8px 10px;display:flex;gap:4px;flex-wrap:wrap;justify-content:center">
-          <div style="font-size:8px;font-weight:700;color:var(--b);width:100%;text-align:center;margin-bottom:2px">КОНТУР 1: ИТ-ПРОДУКТЫ</div>
-          <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;font-weight:600">Wibes</span>
-          <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;font-weight:600">Книги</span>
-          <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;font-weight:600">Kids</span>
-          <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;font-weight:600">Sport</span>
-          <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;font-weight:600">Встречи</span>
-        </div>
-        <div style="background:var(--wb);border:1px solid rgba(255,139,0,0.15);border-radius:6px;padding:8px 10px;display:flex;gap:4px;flex-wrap:wrap;justify-content:center;align-content:flex-start">
-          <div style="font-size:8px;font-weight:700;color:var(--warn);width:100%;text-align:center;margin-bottom:2px">КОНТУР 2: НАПРАВЛЕНИЯ</div>
-          <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;color:var(--t2)">Молодёжное</span>
-          <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;color:var(--t2)">Маркетплейс закупок</span>
-        </div>
+      <div style="background:var(--bg);border:1px solid var(--brd);border-radius:6px;padding:8px 10px;display:flex;gap:4px;flex-wrap:wrap;justify-content:center">
+        <div style="font-size:8px;font-weight:700;color:var(--b);width:100%;text-align:center;margin-bottom:2px">ИТ-ПРОДУКТЫ ПОРТФЕЛЯ</div>
+        <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;font-weight:600">Wibes</span>
+        <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;font-weight:600">Книги</span>
+        <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;font-weight:600">Kids</span>
+        <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;font-weight:600">Sport</span>
+        <span style="font-size:8px;background:#fff;border:1px solid var(--brd);border-radius:3px;padding:2px 6px;font-weight:600">Встречи</span>
       </div>
     </div>
+
+    <!-- Концепция: как управляются проекты по вертикалям -->
+    <div class="tw" style="margin-top:12px">
+      <table>
+        <thead><tr><th>Вертикаль</th><th>Что делает</th><th>Как управляет проектами</th></tr></thead>
+        <tbody>
+          <tr><td><b>CPO</b></td><td>Продуктовая стратегия, цели на год, roadmap</td><td>Ставит цели продуктам. Владелец продукта декомпозирует в инициативы. CPO валидирует приоритеты.</td></tr>
+          <tr><td><b>PMO</b></td><td>Сквозная координация, контроль сроков, отчётность</td><td>Собирает статусы по всем продуктам. Ведёт портфель в единой системе. PM отчитываются в ПО. Готовит синки и данные для руководства.</td></tr>
+          <tr><td><b>CTO</b></td><td>Архитектура, ресурсы разработки, инфраструктура</td><td>Распределяет разработчиков по продуктам. Отвечает за техническую готовность, релизный цикл, миграции.</td></tr>
+          <tr><td><b>Монетизация</b></td><td>Бизнес-модели, P&L, юнит-экономика</td><td>Строит финмодель по каждому продукту. Защищает P&L перед руководством. Валидирует бизнес-готовность на Gate.</td></tr>
+          <tr><td><b>Аналитика</b></td><td>Метрики продуктов, дашборды, эксперименты</td><td>Собирает данные по MAU, retention, воронке. Даёт основу для приоритизации (RICE). Формирует отчёты для синков.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="font-size:10px;color:var(--t2);margin-top:6px;line-height:1.6"><b>Как это работает вместе.</b> CPO ставит цели → Аналитика даёт данные → PMO приоритизирует и контролирует сроки → CTO обеспечивает разработку → Монетизация проверяет экономику. Переход продукта между стадиями — через Gate-чеклист, который собирает артефакты от всех вертикалей.</div>
   </div>
 
   <!-- ═══ ПРИЛОЖЕНИЕ: МЕТОДОЛОГИЯ ═══ -->
