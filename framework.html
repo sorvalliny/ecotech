@@ -36,67 +36,179 @@
 .fw-filters { display:flex; gap:8px; align-items:center; }
 .fw-filters select { font-family:var(--font-body); font-size:12px; font-weight:600; padding:6px 12px; border-radius:6px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; appearance:auto; }
 
-/* ── Orbit container (horizontal arc) ── */
-.orbit-container { position:relative; max-width:700px; height:240px; margin:24px auto 16px; }
+/* ═══ SOLAR SYSTEM — orbital visualization ═══ */
+.solar-section {
+  position:relative;
+  background:#0D0B1A;
+  border-radius:16px;
+  margin:24px auto 16px;
+  max-width:800px;
+  padding:28px 16px 16px;
+  overflow:hidden;
+}
+/* In light theme, orbit section stays dark (space) */
+[data-theme="light"] .solar-section { background:#0D0B1A; }
 
-.orbit-path { position:absolute; top:0; left:0; width:100%; height:100%; }
-
-.orbit-dot {
+/* Starfield — scoped to .solar-section only */
+.solar-section::before {
+  content:'';
   position:absolute;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  cursor:pointer;
-  transition:transform .2s;
-  z-index:5;
+  inset:0;
+  background:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 55%, rgba(255,255,255,.1) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 95%, rgba(255,255,255,.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 65% 35%, rgba(255,255,255,.1) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 70%, rgba(255,255,255,.15) 0%, transparent 100%);
+  pointer-events:none;
+  z-index:0;
+  border-radius:16px;
 }
-.orbit-dot:hover { transform:translate(-50%,-50%) scale(1.1); }
 
-.orbit-dot-circle {
-  width:40px; height:40px; border-radius:50%;
+.solar-subtitle {
+  text-align:center;
+  margin-bottom:20px;
+  position:relative;
+  z-index:1;
+}
+.solar-subtitle .ss-title {
+  font-size:15px; font-weight:700; color:rgba(255,255,255,.85); margin-bottom:6px;
+}
+.solar-subtitle .ss-desc {
+  font-size:12px; color:rgba(255,255,255,.35); line-height:1.6; max-width:580px; margin:0 auto;
+}
+
+.solar { position:relative; width:100%; height:340px; z-index:1; }
+.solar-scene { position:relative; width:100%; height:100%; }
+
+/* Elliptical rings */
+.ring { position:absolute; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); border:1px solid var(--border, rgba(139,92,246,.06)); opacity:.4; transition:border-color .4s, box-shadow .4s, opacity .4s; }
+.ring.r-hover { border-color:rgba(139,92,246,.2); box-shadow:0 0 30px rgba(139,92,246,.03) inset; opacity:.7; }
+
+/* ═══ CENTER: WB App Icon ═══ */
+.star-wrap { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:20; }
+
+.star {
+  width:68px; height:68px; border-radius:18px;
+  background:linear-gradient(135deg,#7B2FBE 0%,#9B59E0 40%,#C084FC 100%);
   display:flex; align-items:center; justify-content:center;
-  font-size:11px; font-weight:800; color:#fff;
-  transition:box-shadow .2s, transform .2s;
-  border:2px solid rgba(255,255,255,0.15);
-  flex-shrink:0;
+  box-shadow:0 0 40px rgba(139,92,246,.4), 0 0 80px rgba(139,92,246,.15), 0 4px 20px rgba(0,0,0,.4);
+  cursor:default; animation:starGlow 3s ease-in-out infinite;
+  position:relative; overflow:hidden;
 }
-.orbit-dot:hover .orbit-dot-circle { box-shadow:0 0 20px currentColor; }
-.orbit-dot.active { transform:translate(-50%,-50%) scale(1.12); }
-.orbit-dot.active .orbit-dot-circle { box-shadow:0 0 24px currentColor; }
+.star::before {
+  content:''; position:absolute; top:-50%; left:-150%; width:80%; height:200%;
+  background:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.12) 45%, rgba(255,255,255,.25) 50%, rgba(255,255,255,.12) 55%, transparent 60%);
+  pointer-events:none; animation:shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer { 0%,100%{left:-150%} 50%{left:150%} }
 
-.orbit-dot-name { font-size:11px; font-weight:600; color:var(--text); margin-top:6px; white-space:nowrap; text-align:center; }
-.orbit-dot-dur { font-size:9px; color:var(--muted); margin-top:2px; text-align:center; }
+.star-text {
+  font-size:22px; font-weight:900; color:#fff; letter-spacing:-1px;
+  text-shadow:0 2px 8px rgba(0,0,0,.3); animation:wbFloat 3s ease-in-out infinite;
+}
+@keyframes wbFloat { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
 
-[data-theme="light"] .orbit-dot-circle { border-color:rgba(0,0,0,0.1); }
+@keyframes starGlow {
+  0%,100%{box-shadow:0 0 40px rgba(139,92,246,.4), 0 0 80px rgba(139,92,246,.15), 0 4px 20px rgba(0,0,0,.4)}
+  50%{box-shadow:0 0 55px rgba(139,92,246,.5), 0 0 100px rgba(139,92,246,.2), 0 4px 20px rgba(0,0,0,.4)}
+}
+
+.star-aura {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:100px; height:100px; border-radius:24px;
+  background:radial-gradient(circle, rgba(139,92,246,.15) 0%, rgba(139,92,246,.05) 50%, transparent 70%);
+  z-index:19; animation:auraBreath 3s ease-in-out infinite;
+}
+@keyframes auraBreath { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6} 50%{transform:translate(-50%,-50%) scale(1.25);opacity:1} }
+
+/* ═══ PLANETS (hex chips) ═══ */
+.planet {
+  position:absolute; display:flex; flex-direction:column; align-items:center;
+  cursor:pointer; z-index:10; transform:translate(-50%,-50%); transition:all .3s;
+}
+.planet:hover { z-index:25; }
+.planet:hover .planet-body { transform:scale(1.15); filter:drop-shadow(0 0 12px var(--pc)); }
+.planet.active .planet-body { transform:scale(1.2); filter:drop-shadow(0 0 18px var(--pc)) drop-shadow(0 0 36px color-mix(in srgb, var(--pc) 30%, transparent)); }
+
+.planet-body {
+  width:var(--ps,42px); height:var(--ps,42px);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display:flex; align-items:center; justify-content:center;
+  font-size:var(--pf,10px); font-weight:800; color:#fff;
+  transition:all .3s; flex-shrink:0; position:relative; box-shadow:none;
+}
+.planet-body::before {
+  content:''; position:absolute; inset:2px;
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  background:linear-gradient(135deg, rgba(255,255,255,.15), transparent 60%); pointer-events:none;
+}
+.planet-body::after {
+  content:''; position:absolute; inset:-3px;
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  background:var(--pc); opacity:.15; transition:opacity .3s; pointer-events:none;
+}
+.planet:hover .planet-body::after { opacity:.35; animation:chipPulse 1.5s ease-in-out infinite; }
+.planet.active .planet-body::after { opacity:.5; }
+@keyframes chipPulse { 0%,100%{opacity:.25} 50%{opacity:.45} }
+
+.planet-name { font-size:10px; font-weight:600; color:rgba(255,255,255,.7); margin-top:6px; white-space:nowrap; text-align:center; text-shadow:0 2px 8px rgba(0,0,0,.8); }
+.planet-result { font-size:8px; color:rgba(255,255,255,.3); margin-top:1px; text-shadow:0 1px 4px rgba(0,0,0,.6); }
+
+/* Gentle orbit float animation */
+.planet { animation:orbitFloat var(--ad,6s) ease-in-out infinite var(--del,0s); }
+@keyframes orbitFloat { 0%,100%{transform:translate(-50%,-50%) translateY(0)} 50%{transform:translate(-50%,-50%) translateY(-4px)} }
+
+/* ═══ DETAIL CARD (space theme) ═══ */
+.detail {
+  display:none; width:100%; max-width:580px; margin:16px auto 0;
+  background:linear-gradient(135deg, rgba(30,20,50,.95), rgba(20,15,40,.95));
+  border:1px solid rgba(139,92,246,.15); border-radius:14px;
+  padding:18px 22px;
+  box-shadow:0 16px 48px rgba(0,0,0,.4), 0 0 1px rgba(139,92,246,.3);
+  backdrop-filter:blur(12px); z-index:30; position:relative;
+}
+.detail.visible { display:block; animation:cardUp .3s ease; }
+@keyframes cardUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+.d-head { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+.d-badge {
+  width:38px; height:38px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:800; color:#fff;
+  position:relative; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.3);
+}
+.d-badge::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,.2), transparent); border-radius:10px; }
+.d-name { font-size:17px; font-weight:700; color:#fff; }
+.d-meta { font-size:11px; color:rgba(255,255,255,.4); margin-top:2px; }
+.d-close { margin-left:auto; background:none; border:none; color:rgba(255,255,255,.3); font-size:20px; cursor:pointer; padding:4px 8px; border-radius:6px; transition:all .15s; }
+.d-close:hover { color:#fff; background:rgba(255,255,255,.06); }
+
+.d-section { margin-top:14px; }
+.d-section h4 { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:rgba(139,92,246,.8); margin-bottom:6px; }
+.d-checks { display:flex; flex-direction:column; gap:3px; }
+.d-check { font-size:12px; color:rgba(255,255,255,.75); padding:6px 10px 6px 26px; background:rgba(255,255,255,.03); border-radius:6px; position:relative; transition:background .15s; line-height:1.5; }
+.d-check:hover { background:rgba(255,255,255,.06); }
+.d-check::before { content:'\2610'; position:absolute; left:9px; color:rgba(139,92,246,.6); font-size:11px; }
+.d-arts { display:flex; flex-wrap:wrap; gap:5px; margin-top:6px; }
+.d-art { font-size:10px; font-weight:600; padding:3px 10px; border-radius:16px; background:rgba(139,92,246,.1); color:rgba(139,92,246,.8); border:1px solid rgba(139,92,246,.15); }
+
+/* Gate items inside detail */
+.d-gate { display:flex; flex-direction:column; gap:3px; }
+.d-gi { font-size:12px; color:rgba(255,255,255,.75); padding:6px 10px 6px 26px; background:rgba(245,205,71,.05); border-radius:6px; position:relative; line-height:1.5; }
+.d-gi::before { content:'\2610'; position:absolute; left:9px; color:rgba(245,205,71,.7); font-size:11px; }
+.d-gate-meta { font-size:10px; color:rgba(255,255,255,.3); font-style:italic; margin-top:6px; }
 
 /* ── Quick stats ── */
 .fw-stats { display:flex; justify-content:center; gap:24px; margin-bottom:28px; flex-wrap:wrap; }
 .fw-stat { text-align:center; }
 .fs-val { font-family:var(--font-head); font-size:20px; font-weight:900; background:var(--grad-brand); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .fs-label { font-size:11px; color:var(--muted); margin-top:2px; }
-
-/* ── Stage detail card ── */
-.stage-detail { margin:0 auto 24px; max-width:800px; background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; animation:sdSlide .25s ease; }
-@keyframes sdSlide { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
-.sd-header { display:flex; align-items:center; gap:14px; padding:16px 20px; border-bottom:1px solid var(--border); }
-.sd-badge { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; color:#fff; flex-shrink:0; }
-.sd-name { font-size:18px; font-weight:700; color:var(--text); }
-.sd-meta { font-size:12px; color:var(--muted); margin-top:2px; }
-.sd-close { background:none; border:none; color:var(--muted); font-size:22px; cursor:pointer; margin-left:auto; padding:4px 8px; line-height:1; }
-.sd-close:hover { color:var(--text); }
-.sd-body { padding:20px; }
-.sd-section { margin-bottom:16px; }
-.sd-section:last-child { margin-bottom:0; }
-.sd-section h4 { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; }
-.sd-checklist { display:flex; flex-direction:column; gap:4px; }
-.sd-check { font-size:13px; color:var(--text); padding:6px 10px 6px 28px; background:var(--surface); border-radius:6px; position:relative; line-height:1.5; }
-.sd-check::before { content:'\2610'; position:absolute; left:10px; color:var(--violet); font-size:13px; }
-.sd-artifacts { display:flex; flex-wrap:wrap; gap:6px; }
-.sd-art { font-size:11px; font-weight:600; padding:4px 10px; border-radius:20px; background:var(--violet-dim); color:var(--violet); border:1px solid var(--violet-border); }
-.sd-gate { display:flex; flex-direction:column; gap:4px; margin-bottom:8px; }
-.sd-gi { font-size:12px; color:var(--text); padding:5px 10px 5px 26px; background:var(--amber-dim); border-radius:6px; position:relative; line-height:1.5; }
-.sd-gi::before { content:'\2610'; position:absolute; left:8px; color:var(--amber); font-size:12px; }
-.sd-gate-meta { font-size:11px; color:var(--muted); font-style:italic; }
 
 /* ── Collapsible sections ── */
 .fw-section { margin-bottom:8px; max-width:800px; margin-left:auto; margin-right:auto; }
@@ -144,19 +256,35 @@
 /* ── Responsive ── */
 @media (max-width:768px) {
   .fw-header { flex-direction:column; align-items:flex-start; }
-  .orbit-container { height:200px; }
-  .orbit-dot-circle { width:32px; height:32px; font-size:9px; }
-  .orbit-dot-name { font-size:9px; }
-  .orbit-dot-dur { display:none; }
   .fw-stats { gap:16px; }
   .gate-grid { grid-template-columns:1fr; }
   .support-grid { grid-template-columns:1fr; }
 }
 
+/* ── MOBILE: orbit becomes horizontal scroll ── */
+@media (max-width:700px) {
+  .solar-section { border-radius:12px; padding:20px 8px 8px; }
+  .solar { height:auto; min-height:120px; }
+  .solar-scene { display:flex; gap:8px; overflow-x:auto; padding:16px 8px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+  .solar-scene::-webkit-scrollbar { display:none; }
+  .ring { display:none; }
+  .star-wrap { position:relative; transform:none; flex-shrink:0; order:-1; }
+  .star { width:48px; height:48px; border-radius:12px; }
+  .star-text { font-size:16px; }
+  .star-aura { display:none; }
+  .planet { position:relative; transform:none; flex-shrink:0; animation:none !important; }
+  .planet:hover .planet-body { transform:scale(1.08); filter:drop-shadow(0 0 8px var(--pc)); }
+  .planet.active .planet-body { transform:scale(1.08); filter:drop-shadow(0 0 8px var(--pc)); }
+  .planet-body { width:34px !important; height:34px !important; font-size:9px !important; }
+  .planet-name { font-size:9px; margin-top:4px; }
+  .planet-result { display:none; }
+  .detail { margin:8px 8px 0; }
+  .solar-section::before { border-radius:12px; }
+}
+
 /* ── Print ── */
 @media print {
-  .fw-header, .orbit-container { display:none !important; }
-  .stage-detail { display:block !important; break-inside:avoid; }
+  .fw-header, .solar-section { display:none !important; }
   .fw-section { break-inside:avoid; }
   .fw-section[open] .fw-section-body { display:block !important; }
   details[open] summary::after { display:none; }
@@ -192,8 +320,36 @@
 
 <div class="fw-wrap">
 
-<!-- ═══════════ ORBITAL VISUALIZATION ═══════════ -->
-<div class="orbit-container" id="orbit-container"></div>
+<!-- ═══════════ ORBITAL VISUALIZATION (solar system) ═══════════ -->
+<div class="solar-section">
+  <div class="solar-subtitle">
+    <div class="ss-title" id="ss-title">6 стадий зрелости продукта</div>
+    <div class="ss-desc">Каждая стадия -- свой набор процессов, артефактов и критериев перехода. Цель Проектного офиса -- довести продукт от заявки до зрелости в экосистеме.</div>
+  </div>
+
+  <div class="solar" id="solar">
+    <div class="solar-scene" id="scene">
+      <div class="star-aura"></div>
+      <div class="star-wrap">
+        <div class="star">
+          <span class="star-text">WB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail">
+    <div class="d-head">
+      <div class="d-badge" id="d-badge">O&middot;0</div>
+      <div>
+        <div class="d-name" id="d-name">Заявка</div>
+        <div class="d-meta" id="d-meta"></div>
+      </div>
+      <button class="d-close" onclick="closeDetail()">&times;</button>
+    </div>
+    <div id="d-body"></div>
+  </div>
+</div>
 
 <!-- ═══════════ QUICK STATS ═══════════ -->
 <div class="fw-stats">
@@ -208,38 +364,25 @@
   <div style="display:flex;flex-direction:column;gap:2px;">
     <a href="javascript:void(0)" onclick="document.querySelector('.fw-section:nth-of-type(2)').open=true;document.querySelector('.fw-section:nth-of-type(2)').scrollIntoView({behavior:'smooth'})" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--violet);border-radius:6px 6px 0 0;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
       <div style="font-size:12px;font-weight:800;color:var(--violet);min-width:120px;">СТРАТЕГИЯ</div>
-      <div style="font-size:12px;color:var(--muted);">OKR компании → Цели департаментов → Портфель продуктов</div>
+      <div style="font-size:12px;color:var(--muted);">OKR компании &rarr; Цели департаментов &rarr; Портфель продуктов</div>
     </a>
     <a href="catalog.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
       <div style="font-size:12px;font-weight:800;color:var(--teal);min-width:120px;">УПРАВЛЕНИЕ</div>
-      <div style="font-size:12px;color:var(--muted);">Каталог продуктов · Продукт / Тех.решение / Edu / Проект</div>
+      <div style="font-size:12px;color:var(--muted);">Каталог продуктов &middot; Продукт / Тех.решение / Edu / Проект</div>
     </a>
     <a href="registry.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--amber);text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
       <div style="font-size:12px;font-weight:800;color:var(--amber);min-width:120px;">ПЛАНИРОВАНИЕ</div>
-      <div style="font-size:12px;color:var(--muted);">Цели (H1/H2) → Инициативы (Q) → RICE → Команды</div>
+      <div style="font-size:12px;color:var(--muted);">Цели (H1/H2) &rarr; Инициативы (Q) &rarr; RICE &rarr; Команды</div>
     </a>
     <a href="workspace.html?id=ECO-00" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--pink);text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
       <div style="font-size:12px;font-weight:800;color:var(--pink);min-width:120px;">ИСПОЛНЕНИЕ</div>
-      <div style="font-size:12px;color:var(--muted);">Карточка продукта → Реестр инициатив → Внешний трекер</div>
+      <div style="font-size:12px;color:var(--muted);">Карточка продукта &rarr; Реестр инициатив &rarr; Внешний трекер</div>
     </a>
     <a href="javascript:void(0)" onclick="document.querySelector('.fw-section:nth-of-type(1)').open=true;document.querySelector('.fw-section:nth-of-type(1)').scrollIntoView({behavior:'smooth'})" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 0 6px 6px;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
       <div style="font-size:12px;font-weight:800;color:var(--red);min-width:120px;">КОНТРОЛЬ</div>
-      <div style="font-size:12px;color:var(--muted);">Gate Review → Комитеты → Уведомления → Лог изменений</div>
+      <div style="font-size:12px;color:var(--muted);">Gate Review &rarr; Комитеты &rarr; Уведомления &rarr; Лог изменений</div>
     </a>
   </div>
-</div>
-
-<!-- ═══════════ STAGE DETAIL (inline, hidden by default) ═══════════ -->
-<div class="stage-detail" id="stage-detail" style="display:none">
-  <div class="sd-header">
-    <div class="sd-badge" id="sd-badge">O&middot;0</div>
-    <div>
-      <div class="sd-name" id="sd-name">Заявка</div>
-      <div class="sd-meta" id="sd-meta">до 5 дней &middot; Owner: PMO-менеджер</div>
-    </div>
-    <button class="sd-close" onclick="closeStage()">&times;</button>
-  </div>
-  <div class="sd-body" id="sd-body"></div>
 </div>
 
 <!-- ═══════════ COLLAPSIBLE SECTIONS ═══════════ -->
@@ -352,12 +495,13 @@
 <script>
 /* ================================================================
    STAGE DATA — all content in one structure
+   Uses `result` instead of `dur` for all entity types
    ================================================================ */
 var STAGES = {
   product: [
     {
-      id:'o0', code:'O\u00b70', name:'Заявка', duration:'5-10 дней',
-      color:'var(--c0)', owner:'PMO-менеджер',
+      id:'o0', code:'O\u00b70', name:'Заявка', result:'Заявка принята, команда назначена',
+      color:'#6B4FA0', r:440, angle:168, owner:'PMO-менеджер',
       roles:{
         pm:{ title:'Что делать PM', checks:['Заполнить бриф с описанием проблемы и ЦА','Провести RICE-оценку','Найти команду (PM, Tech Lead, дизайнер)'] },
         pmo:{ title:'Что делать PMO', checks:['Проверить дубли в реестре','Калибровать RICE на синке','Вынести на скрининг (Gate 0)'] },
@@ -367,8 +511,8 @@ var STAGES = {
       gate:{ name:'Gate 0 \u2014 Скрининг заявки', checks:['Проблема описана и понятна заказчику','ЦА определена','RICE > порога','Нет дублей в реестре','Соответствие OKR компании','Команда назначена'], decision:'PMO Lead', timeline:'5-10 рабочих дней' }
     },
     {
-      id:'o1', code:'O\u00b71', name:'Разведка', duration:'3-6 недель',
-      color:'var(--c1)', owner:'PM',
+      id:'o1', code:'O\u00b71', name:'Разведка', result:'Проблема валидирована, PSF подтверждён',
+      color:'#7B5CB8', r:360, angle:142, owner:'PM',
       roles:{
         pm:{ title:'Что делать PM', checks:['Провести CustDev: 7-10 интервью','Конкурентный анализ (топ-5 аналогов)','Подготовить Discovery Report','Техническое исследование, ADR'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль сроков разведки','Подготовка материалов к Gate 1','Обновление реестра'] },
@@ -378,8 +522,8 @@ var STAGES = {
       gate:{ name:'Gate 1 \u2014 Переход к прототипу', checks:['Problem-Solution Fit подтверждён данными CustDev','Техническая реализуемость подтверждена (ADR)','Scope и сроки MVP зафиксированы','Бюджет согласован с Финансами','Команда и Tech Lead назначены','Корп. риски задокументированы'], decision:'PMO Lead + Lead', timeline:'3 рабочих дня' }
     },
     {
-      id:'o2', code:'O\u00b72', name:'Прототип', duration:'6-12 недель',
-      color:'var(--c2)', owner:'PM',
+      id:'o2', code:'O\u00b72', name:'Прототип', result:'MVP работает, метрики определены',
+      color:'#8B6AD0', r:290, angle:110, owner:'PM',
       roles:{
         pm:{ title:'Что делать PM', checks:['Написать PRD и запустить спринты','Довести до MVP','Провести soft launch на тестовой группе','Мониторинг Activation Rate, feature flags'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль метрик: время до MVP, бюджет','Подготовка материалов к Gate 2'] },
@@ -389,8 +533,8 @@ var STAGES = {
       gate:{ name:'Gate 2 \u2014 Переход к запуску', checks:['Activation Rate \u2265 30%','Business Case подтверждён данными','MVP acceptance criteria выполнены','Security review пройден (ИБ)','Retention D7 измеряется и растёт','Roadmap Growth сформирован'], decision:'PMO Lead + CTO', timeline:'5 рабочих дней' }
     },
     {
-      id:'o3', code:'O\u00b73', name:'Разгон', duration:'1-3 месяца',
-      color:'var(--c3)', owner:'PM',
+      id:'o3', code:'O\u00b73', name:'Разгон', result:'PMF подтверждён, unit-economics сходится',
+      color:'#9B7AE8', r:220, angle:65, owner:'PM',
       roles:{
         pm:{ title:'Что делать PM', checks:['Запустить GTM-стратегию','A/B тесты и growth experiments','Масштабировать привлечение','P&L ревью ежеквартально'] },
         pmo:{ title:'Что делать PMO', checks:['Квартальный ревью метрик','Портфельный отчёт'] },
@@ -400,8 +544,8 @@ var STAGES = {
       gate:{ name:'Gate 3 \u2014 Переход к масштабированию', checks:['EBITDA стремится к нулю или положительный','NPS: \u2265 40 (B2C), \u2265 30 (B2B), \u2265 20 (B2G)','Команда 8+ человек','NSM растёт 2 квартала подряд','Архитектура масштабируется на 10x нагрузку'], decision:'PMO Lead + Директор', timeline:'Ежеквартально' }
     },
     {
-      id:'o4', code:'O\u00b74', name:'Экосистема', duration:'3-12 месяцев',
-      color:'var(--c4)', owner:'Архитектор',
+      id:'o4', code:'O\u00b74', name:'Экосистема', result:'Интегрирован в экосистему RWB',
+      color:'#AB8AF0', r:155, angle:-5, owner:'Архитектор',
       roles:{
         pm:{ title:'Что делать PM', checks:['Интеграции с другими продуктами экосистемы','Развитие партнёрств и API','Кросс-продуктовые метрики'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль adoption интеграций','Синхронизация с другими продуктами'] },
@@ -411,8 +555,8 @@ var STAGES = {
       gate:{ name:'Gate 4 \u2014 Экосистемная интеграция', checks:['P&L положительный 2 квартала подряд','\u22652 продукта экосистемы зависят от ядра','GMV растёт или есть платформенный потенциал','Форма выбрана: Платформа / P&L / Интеграция','Финансовая модель утверждена Советом'], decision:'PMO Lead + CTO', timeline:'На усмотрение Совета' }
     },
     {
-      id:'o5', code:'O\u00b75', name:'Зрелость', duration:'бессрочно',
-      color:'var(--c5)', owner:'PMO Lead',
+      id:'o5', code:'O\u00b75', name:'Зрелость', result:'P&L положительный, продукт самодостаточен',
+      color:'#C4A5FF', r:90, angle:-45, owner:'PMO Lead',
       roles:{
         pm:{ title:'Что делать PM', checks:['Оптимизация и снижение издержек','P&L ответственность','Развитие новых фич по данным'] },
         pmo:{ title:'Что делать PMO', checks:['Стратегический ревью (раз в полгода)','Решение: развивать / консервировать / закрывать'] },
@@ -424,8 +568,8 @@ var STAGES = {
   ],
   tech: [
     {
-      id:'t0', code:'T\u00b70', name:'Заявка', duration:'1-2 недели',
-      color:'var(--amber)', owner:'Tech Lead',
+      id:'t0', code:'T\u00b70', name:'Заявка', result:'ТЗ принято, архитектор назначен',
+      color:'var(--amber)', r:400, angle:160, owner:'Tech Lead',
       roles:{
         pm:{ title:'Что делать Tech Lead', checks:['Написать техническое задание','Определить стек и зависимости','Оценить ресурсы и сроки'] },
         pmo:{ title:'Что делать PMO', checks:['Зарегистрировать в реестре','Проверить дубли и пересечения'] },
@@ -435,8 +579,8 @@ var STAGES = {
       gate:{ name:'Gate T0 \u2014 Скрининг', checks:['ТЗ согласовано','Стек определён','Ресурсы выделены'], decision:'CTO', timeline:'2 недели' }
     },
     {
-      id:'t1', code:'T\u00b71', name:'Проектирование', duration:'2-4 недели',
-      color:'var(--amber)', owner:'Tech Lead',
+      id:'t1', code:'T\u00b71', name:'Проектирование', result:'Архитектура согласована',
+      color:'var(--amber)', r:300, angle:110, owner:'Tech Lead',
       roles:{
         pm:{ title:'Что делать Tech Lead', checks:['Архитектура решения и API-контракты','PoC (proof of concept)','Оценка рисков и зависимостей'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль сроков проектирования','Координация с зависимыми командами'] },
@@ -446,8 +590,8 @@ var STAGES = {
       gate:{ name:'Gate T1 \u2014 Ревью архитектуры', checks:['Архитектура согласована','PoC работает','Риски описаны'], decision:'CTO', timeline:'4 недели' }
     },
     {
-      id:'t2', code:'T\u00b72', name:'Реализация', duration:'4-12 недель',
-      color:'var(--amber)', owner:'Tech Lead',
+      id:'t2', code:'T\u00b72', name:'Реализация', result:'Код готов, тесты пройдены',
+      color:'var(--amber)', r:200, angle:40, owner:'Tech Lead',
       roles:{
         pm:{ title:'Что делать Tech Lead', checks:['Код, code review, тесты','ИБ-аудит','Документация и деплой'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль спринтов и бюджета','Подготовка к приёмке'] },
@@ -457,8 +601,8 @@ var STAGES = {
       gate:{ name:'Gate T2 \u2014 Готовность к приёмке', checks:['Код задеплоен на staging','Тесты пройдены','ИБ-аудит пройден','Документация готова'], decision:'CTO', timeline:'12 недель' }
     },
     {
-      id:'t3', code:'T\u00b73', name:'Приёмка', duration:'1-2 недели',
-      color:'var(--amber)', owner:'CTO',
+      id:'t3', code:'T\u00b73', name:'Приёмка', result:'Принято в эксплуатацию',
+      color:'var(--amber)', r:110, angle:-40, owner:'CTO',
       roles:{
         pm:{ title:'Что делать Tech Lead', checks:['Демо и передача в эксплуатацию','Настроить мониторинг и SLA','Передать знания команде'] },
         pmo:{ title:'Что делать PMO', checks:['Фиксация adoption-метрик','Закрытие в реестре'] },
@@ -470,8 +614,8 @@ var STAGES = {
   ],
   edu: [
     {
-      id:'e0', code:'E\u00b70', name:'Заявка', duration:'до 1 недели',
-      color:'var(--pink)', owner:'Методист',
+      id:'e0', code:'E\u00b70', name:'Заявка', result:'Программа утверждена',
+      color:'var(--pink)', r:400, angle:155, owner:'Методист',
       roles:{
         pm:{ title:'Что делать методисту', checks:['Описать программу обучения и ЦА','Определить формат (онлайн / офлайн / гибрид)','Оценить объём и ресурсы'] },
         pmo:{ title:'Что делать PMO', checks:['Проверить пересечения с существующими программами','Зарегистрировать в реестре'] },
@@ -481,8 +625,8 @@ var STAGES = {
       gate:{ name:'Gate E0 \u2014 Скрининг', checks:['ЦА определена','Формат выбран','Ресурсы оценены'], decision:'Руководитель обучения', timeline:'1 неделя' }
     },
     {
-      id:'e1', code:'E\u00b71', name:'Разработка программы', duration:'4-8 недель',
-      color:'var(--pink)', owner:'Методист',
+      id:'e1', code:'E\u00b71', name:'Разработка программы', result:'Учебный план готов',
+      color:'var(--pink)', r:330, angle:120, owner:'Методист',
       roles:{
         pm:{ title:'Что делать методисту', checks:['Учебный план и структура модулей','Разработка контента и материалов','Подготовка к аккредитации (если требуется)'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль сроков разработки','Координация с экспертами'] },
@@ -492,8 +636,8 @@ var STAGES = {
       gate:{ name:'Gate E1 \u2014 Готовность к пилоту', checks:['Учебный план утверждён','Контент готов на 80%+','Аккредитация (если нужна) запущена'], decision:'Руководитель обучения', timeline:'8 недель' }
     },
     {
-      id:'e2', code:'E\u00b72', name:'Пилотный запуск', duration:'4-6 недель',
-      color:'var(--pink)', owner:'Методист',
+      id:'e2', code:'E\u00b72', name:'Пилотный запуск', result:'Пилот-группа завершила',
+      color:'var(--pink)', r:250, angle:70, owner:'Методист',
       roles:{
         pm:{ title:'Что делать методисту', checks:['Запустить тестовую группу (15-30 человек)','Собрать NPS и completion rate','Доработать по обратной связи'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль метрик пилота','Подготовка к масштабированию'] },
@@ -503,8 +647,8 @@ var STAGES = {
       gate:{ name:'Gate E2 \u2014 Результаты пилота', checks:['Пилот проведён','NPS > 7','Completion rate > 70%'], decision:'Руководитель обучения', timeline:'6 недель' }
     },
     {
-      id:'e3', code:'E\u00b73', name:'Масштабирование', duration:'2-6 месяцев',
-      color:'var(--pink)', owner:'Руководитель обучения',
+      id:'e3', code:'E\u00b73', name:'Масштабирование', result:'Расписание масштабировано',
+      color:'var(--pink)', r:170, angle:10, owner:'Руководитель обучения',
       roles:{
         pm:{ title:'Что делать методисту', checks:['Составить расписание потоков','Маркетинг и продвижение','Партнёрства с внешними площадками'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль охвата и бюджета','Портфельный отчёт'] },
@@ -514,8 +658,8 @@ var STAGES = {
       gate:{ name:'Gate E3 \u2014 Масштаб', checks:['3+ потока запущены','Охват в целевом коридоре','Экономика положительная'], decision:'Директор', timeline:'6 месяцев' }
     },
     {
-      id:'e4', code:'E\u00b74', name:'Зрелость', duration:'бессрочно',
-      color:'var(--pink)', owner:'Руководитель обучения',
+      id:'e4', code:'E\u00b74', name:'Зрелость', result:'Контент обновляется',
+      color:'var(--pink)', r:100, angle:-45, owner:'Руководитель обучения',
       roles:{
         pm:{ title:'Что делать методисту', checks:['Обновление контента (ежеквартально)','Ежегодная аккредитация','Анализ метрик и доработка'] },
         pmo:{ title:'Что делать PMO', checks:['Стратегический ревью (раз в год)','Решение: развивать / консервировать / закрывать'] },
@@ -527,8 +671,8 @@ var STAGES = {
   ],
   project: [
     {
-      id:'p0', code:'P\u00b70', name:'Инициация', duration:'до 1 недели',
-      color:'var(--teal)', owner:'Менеджер проекта',
+      id:'p0', code:'P\u00b70', name:'Инициация', result:'Проект утверждён, команда собрана',
+      color:'var(--teal)', r:380, angle:155, owner:'Менеджер проекта',
       roles:{
         pm:{ title:'Что делать менеджеру проекта', checks:['Бриф проекта: цели, результаты, сроки','Определить бюджет и команду','Согласовать со спонсором'] },
         pmo:{ title:'Что делать PMO', checks:['Зарегистрировать в реестре проектов','Проверить приоритет'] },
@@ -538,8 +682,8 @@ var STAGES = {
       gate:{ name:'Gate P0 \u2014 Скрининг', checks:['Цели определены','Бюджет утверждён','Спонсор согласовал'], decision:'PMO Lead', timeline:'1 неделя' }
     },
     {
-      id:'p1', code:'P\u00b71', name:'Планирование', duration:'2-4 недели',
-      color:'var(--teal)', owner:'Менеджер проекта',
+      id:'p1', code:'P\u00b71', name:'Планирование', result:'План-график согласован',
+      color:'var(--teal)', r:270, angle:100, owner:'Менеджер проекта',
       roles:{
         pm:{ title:'Что делать менеджеру проекта', checks:['План-график с вехами','Реестр рисков и митигации','План коммуникаций'] },
         pmo:{ title:'Что делать PMO', checks:['Ревью плана и рисков','Интеграция в портфельный план'] },
@@ -549,8 +693,8 @@ var STAGES = {
       gate:{ name:'Gate P1 \u2014 Утверждение плана', checks:['План согласован','Риски описаны','Коммуникации настроены'], decision:'PMO Lead', timeline:'4 недели' }
     },
     {
-      id:'p2', code:'P\u00b72', name:'Исполнение', duration:'по плану',
-      color:'var(--teal)', owner:'Менеджер проекта',
+      id:'p2', code:'P\u00b72', name:'Исполнение', result:'Результаты достигнуты',
+      color:'var(--teal)', r:170, angle:20, owner:'Менеджер проекта',
       roles:{
         pm:{ title:'Что делать менеджеру проекта', checks:['Контроль сроков, бюджета, качества','Управление изменениями','Статус-отчёты (еженедельно)'] },
         pmo:{ title:'Что делать PMO', checks:['Портфельный мониторинг','Эскалация отклонений'] },
@@ -560,8 +704,8 @@ var STAGES = {
       gate:{ name:'Gate P2 \u2014 Готовность к закрытию', checks:['Все вехи выполнены','Бюджет в рамках','Результаты приняты'], decision:'PMO Lead + Спонсор', timeline:'По плану' }
     },
     {
-      id:'p3', code:'P\u00b73', name:'Закрытие', duration:'1-2 недели',
-      color:'var(--teal)', owner:'Менеджер проекта',
+      id:'p3', code:'P\u00b73', name:'Закрытие', result:'Проект закрыт, архив',
+      color:'var(--teal)', r:90, angle:-50, owner:'Менеджер проекта',
       roles:{
         pm:{ title:'Что делать менеджеру проекта', checks:['Приёмка результатов со спонсором','Ретроспектива команды','Архивирование документов'] },
         pmo:{ title:'Что делать PMO', checks:['Закрытие в реестре','Фиксация lessons learned'] },
@@ -573,107 +717,101 @@ var STAGES = {
   ]
 };
 
+/* Subtitle text per entity type */
+var SUBTITLES = {
+  product: { title:'6 стадий зрелости продукта', desc:'Каждая стадия -- свой набор процессов, артефактов и критериев перехода. Цель Проектного офиса -- довести продукт от заявки до зрелости в экосистеме.' },
+  tech:    { title:'4 стадии тех.решения',       desc:'От технического задания до приёмки в эксплуатацию. Архитектор и CTO контролируют качество на каждом Gate.' },
+  edu:     { title:'5 стадий образовательной программы', desc:'От заявки до зрелой программы с регулярным обновлением контента и аккредитацией.' },
+  project: { title:'4 стадии проекта',            desc:'Классический проектный цикл: инициация, планирование, исполнение, закрытие с Gate Review на каждом переходе.' }
+};
+
 /* ================================================================
    STATE
    ================================================================ */
 var currentEntity = 'product';
 var currentRole = 'all';
-var activeStageId = null;
-var activeDot = null;
+var activeId = null;
 
 /* ================================================================
-   ORBIT RENDERING
+   ORBIT RENDERING — elliptical solar system from proto
    ================================================================ */
 function renderOrbit(entityType) {
   var stages = STAGES[entityType];
-  var container = document.getElementById('orbit-container');
-  container.innerHTML = '';
+  var scene = document.getElementById('scene');
+  var detail = document.getElementById('detail');
+
+  // Clear previous planets and rings (keep star-aura + star-wrap)
+  var toRemove = scene.querySelectorAll('.planet, .ring');
+  for (var i = 0; i < toRemove.length; i++) toRemove[i].remove();
+
+  // Close detail if open
+  closeDetail();
 
   var count = stages.length;
-  var svgW = 700, svgH = 200;
+  // Compute center and ellipse ratio
+  var cx = scene.offsetWidth ? scene.offsetWidth / 2 : 480;
+  var cy = 170;
+  var ELLIPSE = 0.35;
 
-  // ── SVG arc path ──
-  var svgNS = 'http://www.w3.org/2000/svg';
-  var svg = document.createElementNS(svgNS, 'svg');
-  svg.setAttribute('viewBox', '0 0 ' + svgW + ' ' + svgH);
-  svg.setAttribute('class', 'orbit-path');
-  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+  // Scale radii based on container width
+  var scale = scene.offsetWidth ? scene.offsetWidth / 960 : 1;
 
-  // Compute dot positions along a parabolic arc (highest at center)
-  var positions = [];
-  var padX = 50;
-  var spanX = svgW - padX * 2;
-  stages.forEach(function(s, i) {
-    var x = padX + (count > 1 ? (spanX / (count - 1)) * i : spanX / 2);
-    var centerIdx = (count - 1) / 2;
-    var normalizedDist = count > 1 ? Math.abs(i - centerIdx) / centerIdx : 0;
-    var y = 170 - (1 - normalizedDist * normalizedDist) * 130;
-    positions.push({ x: x, y: y });
+  stages.forEach(function(s, idx) {
+    var r = s.r * scale;
+
+    // Ring (ellipse)
+    var ring = document.createElement('div');
+    ring.className = 'ring';
+    ring.id = 'ring-' + s.id;
+    ring.style.width = r * 2 + 'px';
+    ring.style.height = Math.round(r * 2 * ELLIPSE) + 'px';
+    scene.appendChild(ring);
+
+    // Planet position on ellipse
+    var rad = s.angle * Math.PI / 180;
+    var px = cx + r * Math.cos(rad);
+    var py = cy + r * ELLIPSE * Math.sin(rad);
+
+    // Size: outer = bigger
+    var maxSize = 44, minSize = 28;
+    var sizeStep = count > 1 ? (maxSize - minSize) / (count - 1) : 0;
+    var planetSize = Math.round(maxSize - idx * sizeStep);
+    var fontSize = Math.max(9, Math.round(11 - idx * 0.5));
+
+    var planet = document.createElement('div');
+    planet.className = 'planet';
+    planet.id = 'planet-' + s.id;
+    planet.style.left = px + 'px';
+    planet.style.top = py + 'px';
+    planet.style.setProperty('--pc', s.color);
+    planet.style.setProperty('--ps', planetSize + 'px');
+    planet.style.setProperty('--pf', fontSize + 'px');
+    planet.style.setProperty('--ad', (5 + idx * 0.8) + 's');
+    planet.style.setProperty('--del', (idx * 0.4) + 's');
+
+    planet.innerHTML = '<div class="planet-body" style="background:' + s.color + '">' + s.code + '</div>'
+      + '<div class="planet-name">' + s.name + '</div>';
+
+    planet.onmouseenter = function() { document.getElementById('ring-' + s.id).classList.add('r-hover'); };
+    planet.onmouseleave = function() { if (activeId !== s.id) document.getElementById('ring-' + s.id).classList.remove('r-hover'); };
+
+    planet.onclick = function(e) {
+      e.stopPropagation();
+      toggleStage(s.id);
+    };
+
+    scene.appendChild(planet);
   });
 
-  // Draw smooth path through points
-  var path = document.createElementNS(svgNS, 'path');
-  var arcD = '';
-  positions.forEach(function(p, i) {
-    if (i === 0) {
-      arcD = 'M ' + p.x + ' ' + p.y;
-    } else {
-      // Smooth curve between points
-      var prev = positions[i - 1];
-      var cpx = (prev.x + p.x) / 2;
-      arcD += ' C ' + cpx + ' ' + prev.y + ' ' + cpx + ' ' + p.y + ' ' + p.x + ' ' + p.y;
-    }
-  });
-  path.setAttribute('d', arcD);
-  path.setAttribute('stroke', 'var(--border-hi, var(--border))');
-  path.setAttribute('stroke-width', '2');
-  path.setAttribute('fill', 'none');
-  path.setAttribute('stroke-dasharray', '6 4');
-  path.setAttribute('stroke-linecap', 'round');
-  svg.appendChild(path);
-  container.appendChild(svg);
-
-  // ── Place dots along the arc ──
-  var dotsWrap = document.createElement('div');
-  dotsWrap.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
-
-  stages.forEach(function(s, i) {
-    var p = positions[i];
-    var leftPct = (p.x / svgW * 100).toFixed(2);
-    var topPct = (p.y / svgH * 100).toFixed(2);
-
-    var dot = document.createElement('div');
-    dot.className = 'orbit-dot';
-    dot.id = 'dot-' + s.id;
-    dot.style.cssText = 'left:' + leftPct + '%;top:' + topPct + '%;transform:translate(-50%,-50%);';
-    dot.title = s.name + ' \u00b7 ' + s.duration;
-    dot.setAttribute('data-id', s.id);
-    dot.onclick = function() { toggleStage(s.id, dot); };
-
-    var circle = document.createElement('div');
-    circle.className = 'orbit-dot-circle';
-    circle.style.backgroundColor = s.color;
-    circle.textContent = s.code;
-
-    var name = document.createElement('div');
-    name.className = 'orbit-dot-name';
-    name.textContent = s.name;
-
-    var dur = document.createElement('div');
-    dur.className = 'orbit-dot-dur';
-    dur.textContent = s.duration;
-
-    dot.appendChild(circle);
-    dot.appendChild(name);
-    dot.appendChild(dur);
-    dotsWrap.appendChild(dot);
-  });
-
-  container.appendChild(dotsWrap);
-
-  // Update stat
+  // Update stats
   var statEl = document.getElementById('stat-stages');
   if (statEl) statEl.textContent = count;
+
+  // Update subtitle
+  var sub = SUBTITLES[entityType];
+  if (sub) {
+    document.getElementById('ss-title').textContent = sub.title;
+  }
 }
 
 /* ================================================================
@@ -681,85 +819,99 @@ function renderOrbit(entityType) {
    ================================================================ */
 function findStage(id) {
   var all = STAGES[currentEntity];
-  for (var i=0; i<all.length; i++) { if (all[i].id === id) return all[i]; }
+  for (var i = 0; i < all.length; i++) { if (all[i].id === id) return all[i]; }
   return null;
 }
 
-function toggleStage(id, dot) {
-  if (activeStageId === id) { closeStage(); return; }
-  openStage(id, dot);
+function toggleStage(id) {
+  if (activeId === id) { closeDetail(); return; }
+  openStage(id);
 }
 
-function openStage(id, dot) {
+function openStage(id) {
   var s = findStage(id);
   if (!s) return;
 
-  // Deactivate previous dot
-  if (activeDot) activeDot.classList.remove('active');
-  activeDot = dot;
-  if (dot) dot.classList.add('active');
-  activeStageId = id;
+  // Deactivate previous
+  if (activeId) {
+    var prev = document.getElementById('planet-' + activeId);
+    if (prev) prev.classList.remove('active');
+    var prevRing = document.getElementById('ring-' + activeId);
+    if (prevRing) prevRing.classList.remove('r-hover');
+  }
 
-  var el = document.getElementById('stage-detail');
-  var badge = document.getElementById('sd-badge');
-  badge.textContent = s.code;
-  badge.style.background = s.color;
+  activeId = s.id;
+  var planet = document.getElementById('planet-' + s.id);
+  if (planet) planet.classList.add('active');
+  var ring = document.getElementById('ring-' + s.id);
+  if (ring) ring.classList.add('r-hover');
 
-  document.getElementById('sd-name').textContent = s.name;
-  document.getElementById('sd-meta').textContent = s.duration + ' \u00b7 Owner: ' + s.owner;
+  var detail = document.getElementById('detail');
+  document.getElementById('d-badge').style.background = s.color;
+  document.getElementById('d-badge').textContent = s.code;
+  document.getElementById('d-name').textContent = s.name;
+  document.getElementById('d-meta').textContent = s.result;
 
-  // Build body
+  // Build body with role filtering
   var role = document.getElementById('f-role').value;
-  var html = '';
+  var html = '<div style="font-size:11px;color:rgba(255,255,255,.35);margin-bottom:12px;">Владелец: ' + s.owner + '</div>';
 
   // Role-specific checks
   var roleKeys = (role === 'all') ? ['pm','pmo','lead'] : [role];
   roleKeys.forEach(function(rk) {
     var rd = s.roles[rk];
     if (!rd) return;
-    html += '<div class="sd-section"><h4>' + rd.title + '</h4><div class="sd-checklist">';
-    rd.checks.forEach(function(c){ html += '<div class="sd-check">' + c + '</div>'; });
+    html += '<div class="d-section"><h4>' + rd.title + '</h4><div class="d-checks">';
+    rd.checks.forEach(function(c) { html += '<div class="d-check">' + c + '</div>'; });
     html += '</div></div>';
   });
 
   // Artifacts
-  html += '<div class="sd-section"><h4>Артефакты</h4><div class="sd-artifacts">';
-  s.artifacts.forEach(function(a){ html += '<span class="sd-art">' + a + '</span>'; });
+  html += '<div class="d-section"><h4>Артефакты</h4><div class="d-arts">';
+  s.artifacts.forEach(function(a) { html += '<span class="d-art">' + a + '</span>'; });
   html += '</div></div>';
 
   // Gate
-  html += '<div class="sd-section"><h4>' + s.gate.name + '</h4><div class="sd-gate">';
-  s.gate.checks.forEach(function(g){ html += '<div class="sd-gi">' + g + '</div>'; });
-  html += '</div><div class="sd-gate-meta">Решение: ' + s.gate.decision + ' \u00b7 Срок: ' + s.gate.timeline + '</div></div>';
+  html += '<div class="d-section"><h4>' + s.gate.name + '</h4><div class="d-gate">';
+  s.gate.checks.forEach(function(g) { html += '<div class="d-gi">' + g + '</div>'; });
+  html += '</div><div class="d-gate-meta">Решение: ' + s.gate.decision + ' \u00b7 Срок: ' + s.gate.timeline + '</div></div>';
 
-  document.getElementById('sd-body').innerHTML = html;
-  el.style.display = 'block';
+  document.getElementById('d-body').innerHTML = html;
+  detail.classList.add('visible');
 
-  // Scroll to detail
-  el.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  // Scroll detail into view
+  detail.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
-function closeStage() {
-  document.getElementById('stage-detail').style.display = 'none';
-  if (activeDot) activeDot.classList.remove('active');
-  activeDot = null;
-  activeStageId = null;
+function closeDetail() {
+  var detail = document.getElementById('detail');
+  detail.classList.remove('visible');
+  if (activeId) {
+    var p = document.getElementById('planet-' + activeId);
+    if (p) p.classList.remove('active');
+    var r = document.getElementById('ring-' + activeId);
+    if (r) r.classList.remove('r-hover');
+    activeId = null;
+  }
 }
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.planet') && !e.target.closest('.detail')) closeDetail();
+});
 
 /* ================================================================
    FILTERS
    ================================================================ */
 function applyFilters() {
   // Re-render current stage detail if open
-  if (activeStageId) {
-    var dot = document.getElementById('dot-' + activeStageId);
-    openStage(activeStageId, dot);
+  if (activeId) {
+    openStage(activeId);
   }
 }
 
 function switchEntity() {
   currentEntity = document.getElementById('f-entity').value;
-  closeStage();
+  closeDetail();
   renderOrbit(currentEntity);
 }
 
@@ -767,6 +919,11 @@ function switchEntity() {
    INIT
    ================================================================ */
 renderOrbit('product');
+
+// Recalculate positions on resize
+window.addEventListener('resize', function() {
+  renderOrbit(currentEntity);
+});
 </script>
 
 </body>
