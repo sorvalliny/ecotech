@@ -68,10 +68,10 @@ tr:last-child td{border-bottom:none}
 
 /* gantt */
 .gantt{border:1px solid var(--brd);border-radius:8px;overflow:hidden;margin-bottom:10px}
-.gantt-header{display:grid;grid-template-columns:200px repeat(9,1fr);background:var(--bg);border-bottom:1px solid var(--brd)}
+.gantt-header{display:grid;grid-template-columns:200px repeat(3,1fr);background:var(--bg);border-bottom:1px solid var(--brd)}
 .gantt-header span{font-size:8px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:0.04em;padding:6px 4px;text-align:center;border-left:1px solid var(--brd)}
 .gantt-header span:first-child{text-align:left;padding-left:12px;border-left:none}
-.gantt-row{display:grid;grid-template-columns:200px repeat(9,1fr);border-bottom:1px solid var(--brd);align-items:center;min-height:28px}
+.gantt-row{display:grid;grid-template-columns:200px repeat(3,1fr);border-bottom:1px solid var(--brd);align-items:center;min-height:28px}
 .gantt-row:last-child{border-bottom:none}
 .gantt-row .label{font-size:9px;font-weight:600;color:var(--t1);padding:4px 12px;line-height:1.4}
 .gantt-row .label small{display:block;font-weight:400;color:var(--t3);font-size:8px}
@@ -82,7 +82,7 @@ tr:last-child td{border-bottom:none}
 .bar--ok{background:var(--ok)}
 .bar--warn{background:var(--warn)}
 .bar--t3{background:var(--brd2)}
-.gantt-sep{display:grid;grid-template-columns:200px repeat(9,1fr);background:var(--bg);border-bottom:1px solid var(--brd)}
+.gantt-sep{display:grid;grid-template-columns:200px repeat(3,1fr);background:var(--bg);border-bottom:1px solid var(--brd)}
 .gantt-sep span{font-size:8px;font-weight:700;padding:3px 12px;color:var(--t2);grid-column:1/-1}
 
 /* tool card */
@@ -276,84 +276,51 @@ details>.block-content{animation:slideDown 0.2s ease}
 
   <!-- ═══ ПРИЛОЖЕНИЕ: ROADMAP ═══ -->
   <div class="s">
-    <div class="sh"><span class="n" style="background:var(--vd);color:var(--v)">Приложение</span> Roadmap 2026</div>
+    <div class="sh"><span class="n" style="background:var(--vd);color:var(--v)">Приложение</span> План на 2 квартал</div>
     <div class="gantt">
       <div class="gantt-header">
         <span>Инициатива</span>
-        <span>Апр</span><span>Май</span><span>Июн</span><span>Июл</span><span>Авг</span><span>Сен</span><span>Окт</span><span>Ноя</span><span>Дек</span>
+        <span>Апр</span><span>Май</span><span>Июн</span>
       </div>
-      <!-- Q2 -->
-      <div class="gantt-sep"><span>2 КВАРТАЛ — ЗАПУСК</span></div>
       <div class="gantt-row">
         <div class="label">Структура ПО<small>Мандат, подчинение PM</small></div>
         <div class="gantt-cell"><div class="bar bar--v" style="left:10%;right:40%"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div>
       </div>
       <div class="gantt-row">
         <div class="label">Методология<small>Утверждение стадий и приоритетов</small></div>
         <div class="gantt-cell"><div class="bar bar--v" style="left:10%;right:10%"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div>
       </div>
       <div class="gantt-row">
-        <div class="label">Команда ПО<small>2 менеджера ПО</small></div>
+        <div class="label">Команда ПО<small>2 менеджера</small></div>
         <div class="gantt-cell"><div class="bar bar--b" style="left:30%;right:10%"></div></div>
         <div class="gantt-cell"><div class="bar bar--b" style="left:0;right:50%"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
+        <div class="gantt-cell"></div>
       </div>
       <div class="gantt-row">
-        <div class="label">Миграция на RWB<small>Корп. серверы + разработка</small></div>
+        <div class="label">Миграция на RWB<small>Серверы + разработка</small></div>
         <div class="gantt-cell"><div class="bar bar--b" style="left:40%;right:0"></div></div>
         <div class="gantt-cell"><div class="bar bar--b" style="left:0;right:0"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
-      </div>
-      <div class="gantt-row">
-        <div class="label">Синк по проектам<small>Ежемесячный</small></div>
-        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
+        <div class="gantt-cell"></div>
       </div>
       <div class="gantt-row">
         <div class="label">Все продукты в ОРБИТА<small>5 продуктов</small></div>
         <div class="gantt-cell"></div>
         <div class="gantt-cell"><div class="bar bar--b" style="left:0;right:0"></div></div>
         <div class="gantt-cell"><div class="bar bar--b" style="left:0;right:50%"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
       </div>
       <div class="gantt-row">
-        <div class="label">Цели Kids, Sport, Встречи<small>+ владелец Книг</small></div>
+        <div class="label">Цели Kids, Sport, Встречи</div>
         <div class="gantt-cell"><div class="bar bar--warn" style="left:0;right:0"></div></div>
         <div class="gantt-cell"><div class="bar bar--warn" style="left:0;right:50%"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
-      </div>
-      <!-- H2 -->
-      <div class="gantt-sep"><span>2 ПОЛУГОДИЕ — МАСШТАБ</span></div>
-      <div class="gantt-row">
-        <div class="label">Связка с трекерами задач<small>Shiva, YouTrack и др.</small></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
-        <div class="gantt-cell"><div class="bar bar--t3" style="left:0;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--t3" style="left:0;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--t3" style="left:0;right:50%"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
-      </div>
-      <div class="gantt-row">
-        <div class="label">Метрики в аналитике<small>Панели по продуктам</small></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
-        <div class="gantt-cell"><div class="bar bar--t3" style="left:0;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--t3" style="left:0;right:0"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
-      </div>
-      <div class="gantt-row">
-        <div class="label">Направления (не-ИТ)<small>Владельцы + цели</small></div>
         <div class="gantt-cell"></div>
-        <div class="gantt-cell"><div class="bar bar--warn" style="left:50%;right:0"></div></div>
-        <div class="gantt-cell"><div class="bar bar--warn" style="left:0;right:0"></div></div>
-        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
+      </div>
+      <div class="gantt-row">
+        <div class="label">Синк по проектам<small>Ежемесячный</small></div>
+        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
+        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
+        <div class="gantt-cell"><div class="bar bar--ok" style="left:80%;right:0"></div></div>
       </div>
     </div>
   </div>
