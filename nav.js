@@ -140,6 +140,9 @@
     // ── Портфель (direct link) ──────────────
     + '<a class="en-link' + catalogActive + '" href="' + base + 'catalog.html" role="menuitem">Портфель</a>'
 
+    // ── Реестр (direct link) ──────────────
+    + '<a class="en-link' + registryActive + '" href="' + base + 'registry.html" role="menuitem">Реестр</a>'
+
     // ── Методология (dropdown) ───────────────
     + '<div class="en-drop' + methActive + '">'
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Методология</a>'
