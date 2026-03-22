@@ -135,6 +135,34 @@
     height: 16px;
   }
 
+  /* ── CTA + Bell in mobile ──────────────────────────── */
+  .en-cta {
+    margin: 4px 0 !important;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .en-link {
+    padding: 10px 12px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .en-bell {
+    position: static !important;
+    margin: 0 8px;
+  }
+  .en-notif-panel {
+    position: fixed !important;
+    left: 8px !important;
+    right: 8px !important;
+    top: 56px !important;
+    width: auto !important;
+    max-height: 70vh !important;
+  }
+  .en-theme-btn {
+    margin: 0 4px;
+  }
+
   /* ── Hamburger button ────────────────────────────────── */
   .en-hamburger {
     display: flex;
