@@ -187,7 +187,7 @@ details>.block-content{animation:slideDown 0.2s ease}
   <div class="block-content">
 
   <div class="intro">
-    <b>Что есть.</b> Пять ИТ-продуктов в контуре Проектного офиса, ещё пять перешли в Инфраструктуру и другие департаменты. Плюс не-ИТ направления, которые пока не покрыты проектным офисом. Из пяти продуктов один работает в проде, четыре в разработке. У трёх нет зафиксированных целей на год. Следующий шаг — спланировать 2 квартал по методологии.
+    <b>Что есть.</b> Пять ИТ-продуктов в контуре Проектного офиса, ещё пять перешли в другие департаменты. Из пяти продуктов один в проде, четыре в разработке. У трёх нет целей на год. Следующий шаг — спланировать 2 квартал по методологии.
   </div>
 
   <div class="s">
@@ -210,19 +210,7 @@ details>.block-content{animation:slideDown 0.2s ease}
         </tbody>
       </table>
     </div>
-    <div style="margin-top:12px">
-    <div class="sh"><span class="n" style="background:var(--wb);color:var(--warn)">Контур 2</span> Направления (не-ИТ)</div>
-    <div class="tw">
-      <table>
-        <thead><tr><th>Направление</th><th>Владелец</th><th>Этап</th><th>Цель 2026</th><th>1 кв.</th><th>2 кв. план</th></tr></thead>
-        <tbody>
-          <tr style="color:var(--t2)"><td><b>Молодёжное направление</b></td><td>Уточняется</td><td>—</td><td>—</td><td>—</td><td>Уточняется</td></tr>
-          <tr style="color:var(--t2)"><td><b>Маркетплейс закупок</b></td><td>Уточняется</td><td>—</td><td>—</td><td>—</td><td>Уточняется</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="font-size:9px;color:var(--t3);margin-top:4px">Нет владельцев, целей, метрик. Требуют решения руководителя.</div>
-    </div>
+    <div class="note note--w" style="margin-top:12px"><b>Не-ИТ направления</b> (Молодёжное, Маркетплейс закупок и др.) пока вне контура ПО. План — подключить с 2 квартала после утверждения структуры и выделения ресурсов.</div>
   </div>
 
   </div></details>
@@ -257,15 +245,19 @@ details>.block-content{animation:slideDown 0.2s ease}
   <!-- ═══ РЕШЕНИЯ ═══ -->
   <div class="s">
     <div class="sh"><span class="n" style="background:var(--cb);color:var(--crit)">Решения</span> Требует решения</div>
+    <div style="font-size:10px;font-weight:700;color:var(--crit);margin-bottom:6px">Критичные — без них не двигаемся</div>
     <div class="bl">
-      <div class="bl-i bl--c"><b>Где проектный офис в структуре департамента?</b>Нужно зафиксировать: за что отвечает ПО, кому отчитывается, что может требовать.</div>
-      <div class="bl-i bl--c"><b>Утверждение методологии</b>Правила готовы. Без утверждения руководства команды им не следуют.</div>
-      <div class="bl-i bl--c"><b>Функциональное подчинение PM проектному офису</b>Без этого данные по продуктам не собираются. Портфель остаётся непрозрачным.</div>
-      <div class="bl-i bl--w"><b>Два менеджера в ПО</b>Частичная загрузка, 2-4 часа в неделю — вести продукты в системе. Сейчас в ПО один человек на пять продуктов.</div>
-      <div class="bl-i bl--w"><b>Команда разработки через CTO</b>Инфраструктурщик и серверный разработчик для переноса платформы на серверы компании.</div>
-      <div class="bl-i bl--w"><b>Доступ к GitLab RWB</b>Код готов к миграции. Сейчас платформа на внешнем хостинге.</div>
+      <div class="bl-i bl--c"><b>Место ПО в структуре</b>За что отвечает, кому отчитывается, что может требовать. Решается на встрече.</div>
+      <div class="bl-i bl--c"><b>Утверждение методологии</b>Правила готовы. Без ОК команды им не следуют. Альтернатива: пилот на 2 продуктах без утверждения — но без масштабирования.</div>
+      <div class="bl-i bl--c"><b>PM отчитываются в ПО</b>Без этого портфель непрозрачен. Альтернатива: ПО собирает данные самостоятельно — но медленнее и с потерей качества.</div>
     </div>
-    <div class="note note--w"><b>Без этих решений</b> портфель продолжит работать без единых правил.</div>
+    <div style="font-size:10px;font-weight:700;color:var(--warn);margin-bottom:6px;margin-top:10px">Ресурсные — можно запускать поэтапно</div>
+    <div class="bl">
+      <div class="bl-i bl--w"><b>Два менеджера в ПО</b>Дозагрузка существующих сотрудников, 2-4 ч/нед. Минимальный вариант: один менеджер — покроет 3 продукта из 5.</div>
+      <div class="bl-i bl--w"><b>Разработчики через CTO</b>1 инфраструктурщик + 1 серверный разработчик, ~2 мес. на миграцию. Альтернатива: оставить внешний хостинг на квартал, но без корп. ИБ.</div>
+      <div class="bl-i bl--w"><b>Доступ к GitLab RWB</b>Код готов. Запрос через CTO.</div>
+    </div>
+    <div class="note note--v" style="margin-top:8px"><b>Следующий шаг:</b> встреча 30 мин — согласовать пункты 1-3, остальное обсудить после.</div>
   </div>
 
   </div></details>
@@ -369,7 +361,7 @@ details>.block-content{animation:slideDown 0.2s ease}
         <thead><tr><th>Группа</th><th>Инициатива</th><th>Дата</th><th>Статус</th><th>Риск</th></tr></thead>
         <tbody>
           <tr><td colspan="5" style="font-weight:700;background:var(--bg);color:var(--t2);font-size:8px;letter-spacing:0.04em">ПОРТФЕЛЬ И ПРОДУКТЫ</td></tr>
-          <tr><td rowspan="2" style="vertical-align:middle;font-weight:600">Продукты</td><td>Цели по продуктам</td><td>Дек—Фев</td><td><span style="color:var(--ok);font-weight:700">Готово</span></td><td style="color:var(--t3)">—</td></tr>
+          <tr><td rowspan="2" style="vertical-align:middle;font-weight:600">Продукты</td><td>Сбор целей по продуктам (2 из 5 зафиксированы, 3 — требуют проработки с владельцами)</td><td>Дек—Мар</td><td><span style="color:var(--warn);font-weight:700">Частично</span></td><td style="color:var(--warn)">3 продукта без целей</td></tr>
           <tr><td>Инициативы + синки с лидерами</td><td>Янв—Мар</td><td><span style="color:var(--ok);font-weight:700">Готово</span></td><td style="color:var(--t3)">—</td></tr>
           <tr><td colspan="5" style="font-weight:700;background:var(--bg);color:var(--t2);font-size:8px;letter-spacing:0.04em">МЕТОДОЛОГИЯ И ПРОЦЕССЫ</td></tr>
           <tr><td rowspan="2" style="vertical-align:middle;font-weight:600">Фреймворк</td><td>Стадии зрелости + формула приоритетов + бенчмарк</td><td>Дек—Фев</td><td><span style="color:var(--warn);font-weight:700">Ждёт ОК</span></td><td style="color:var(--crit)">Без ОК не масштабируется</td></tr>
