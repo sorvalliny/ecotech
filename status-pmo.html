@@ -301,13 +301,13 @@ details>.block-content{animation:slideDown 0.2s ease}
   <!-- ════════════════════════════════════════ -->
   <!-- БЛОК 3: ПРИЛОЖЕНИЯ                     -->
   <!-- ════════════════════════════════════════ -->
-  <details id="block3">
-  <summary><div class="block-toggle" style="background:var(--t1);color:#fff;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;padding:10px 18px;border-radius:8px;margin-bottom:16px;margin-top:10px">3. Приложения — детали для ознакомления</div></summary>
+  <details open id="block3">
+  <summary><div class="block-toggle" style="background:var(--t1);color:#fff;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;padding:10px 18px;border-radius:8px;margin-bottom:16px;margin-top:10px">3. Приложения</div></summary>
   <div class="block-content">
 
-  <!-- ═══ ПРИЛОЖЕНИЕ: ИНИЦИАТИВЫ + ПЛАН Q2 ═══ -->
-  <div class="s" id="init">
-    <div class="sh"><span class="n" style="background:var(--vd);color:var(--v)">Приложение</span> Инициативы ПО и план на 2 квартал &middot; Сорваль В.</div>
+  <!-- ═══ ПРИЛОЖЕНИЕ 1 ═══ -->
+  <details><summary style="cursor:pointer;list-style:none"><div class="sh" id="init" style="position:relative;padding-right:24px"><span class="n" style="background:var(--vd);color:var(--v)">1</span> Инициативы ПО и план на 2 квартал<span style="position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:10px;color:var(--t3)">&#9662;</span></div></summary>
+  <div class="s">
 
     <div class="tw" style="margin-bottom:14px">
       <table>
@@ -372,9 +372,11 @@ details>.block-content{animation:slideDown 0.2s ease}
     </div>
   </div>
 
-  <!-- ═══ ПРИЛОЖЕНИЕ: ОРГ-МОДЕЛЬ ═══ -->
-  <div class="s" style="margin-top:16px">
-    <div class="sh"><span class="n" style="background:var(--bd);color:var(--b)">Приложение</span> Операционная модель <span style="font-size:9px;font-weight:600;color:var(--warn);text-transform:none;letter-spacing:0">(целевая — требует обсуждения)</span></div>
+  </div></details>
+
+  <!-- ═══ ПРИЛОЖЕНИЕ 2 ═══ -->
+  <details><summary style="cursor:pointer;list-style:none"><div class="sh" style="position:relative;padding-right:24px"><span class="n" style="background:var(--bd);color:var(--b)">2</span> Операционная модель <span style="font-size:9px;font-weight:600;color:var(--warn);text-transform:none;letter-spacing:0">(целевая — требует обсуждения)</span><span style="position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:10px;color:var(--t3)">&#9662;</span></div></summary>
+  <div class="s" style="margin-top:8px">
     <div class="intro" style="margin-bottom:12px">
       <b>Как устроен департамент.</b> Пять вертикалей: развитие (CPO), координация (PMO), разработка (CTO), монетизация и аналитика. Каждая вертикаль работает с каждым продуктом. PM отчитываются в ПО — иначе данных по портфелю нет. Не-ИТ направления управляются отдельно и требуют своей модели.
     </div>
@@ -439,9 +441,11 @@ details>.block-content{animation:slideDown 0.2s ease}
     <div style="font-size:10px;color:var(--t2);margin-top:6px;line-height:1.6"><b>Как это работает вместе.</b> CPO ставит цели → Аналитика даёт данные → PMO приоритизирует и контролирует сроки → CTO обеспечивает разработку → Монетизация проверяет экономику. Переход между стадиями — Gate-чеклист. В нём артефакты от всех вертикалей.</div>
   </div>
 
-  <!-- ═══ ПРИЛОЖЕНИЕ: МЕТОДОЛОГИЯ ═══ -->
-  <div class="s" style="margin-top:16px" id="method">
-    <div class="sh"><span class="n" style="background:var(--vd);color:var(--v)">Приложение</span> Методология управления портфелем <span style="font-size:9px;font-weight:600;color:var(--warn);text-transform:none;letter-spacing:0">(целевая — требует обсуждения)</span></div>
+  </div></details>
+
+  <!-- ═══ ПРИЛОЖЕНИЕ 3 ═══ -->
+  <details><summary style="cursor:pointer;list-style:none"><div class="sh" id="method" style="position:relative;padding-right:24px"><span class="n" style="background:var(--vd);color:var(--v)">3</span> Фреймворк управления портфелем <span style="font-size:9px;font-weight:600;color:var(--warn);text-transform:none;letter-spacing:0">(целевой — требует обсуждения)</span><span style="position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:10px;color:var(--t3)">&#9662;</span></div></summary>
+  <div class="s" style="margin-top:8px">
     <div class="intro" style="margin-bottom:10px">
       <b>Как это работает.</b> У продукта шесть стадий — от идеи до зрелого бизнеса. Чтобы перейти на следующую, надо выполнить чеклист. Что делать первым — считаем по формуле (охват, влияние, уверенность, трудозатраты). Вы видите воронку: кто где, кто застрял, где нужно решение.
     </div>
@@ -458,12 +462,14 @@ details>.block-content{animation:slideDown 0.2s ease}
         </tbody>
       </table>
     </div>
-    <div style="font-size:9px;color:var(--t3);margin-top:4px"><b>Статус:</b> методология подготовлена, ждёт утверждения руководства. <a href="https://sorvalliny.github.io/ecotech/framework.html" target="_blank" style="color:var(--b);border-bottom:1px dashed rgba(0,82,204,0.3);text-decoration:none">Детализация фреймворка</a></div>
+    <div style="font-size:10px;color:var(--t2);margin-top:6px"><b>Статус:</b> подготовлена, ждёт утверждения. <a href="https://sorvalliny.github.io/ecotech/framework.html" target="_blank" style="color:var(--b);border-bottom:1px dashed rgba(0,82,204,0.3);text-decoration:none">Полная версия фреймворка</a></div>
   </div>
 
-  <!-- ═══ ПРИЛОЖЕНИЕ: ОРБИТА ═══ -->
-  <div class="s" style="margin-top:16px">
-    <div class="sh" id="orbita"><span class="n" style="background:var(--bd);color:var(--b)">Приложение</span> Платформа ОРБИТА — прототип <span style="font-size:9px;font-weight:600;color:var(--warn);text-transform:none;letter-spacing:0">(целевая — требует обсуждения)</span></div>
+  </div></details>
+
+  <!-- ═══ ПРИЛОЖЕНИЕ 4 ═══ -->
+  <details><summary style="cursor:pointer;list-style:none"><div class="sh" id="orbita" style="position:relative;padding-right:24px"><span class="n" style="background:var(--bd);color:var(--b)">4</span> Платформа ОРБИТА — прототип <span style="font-size:9px;font-weight:600;color:var(--warn);text-transform:none;letter-spacing:0">(целевая — требует обсуждения)</span><span style="position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:10px;color:var(--t3)">&#9662;</span></div></summary>
+  <div class="s" style="margin-top:8px">
     <div class="intro" style="margin-bottom:10px">
       <b>Что это.</b> Внутренний инструмент. Открываете — видите все продукты: кто на какой стадии, какие цели, где проблемы. Не надо никого спрашивать. Для команд — карточка продукта, чеклист, приоритеты. Не заменяет Shiva и YouTrack — добавляет портфельный уровень сверху.
     </div>
@@ -476,7 +482,7 @@ details>.block-content{animation:slideDown 0.2s ease}
       <div class="tool"><b>Инструменты</b><span>Каталог для команд.</span><a href="https://sorvalliny.github.io/ecotech/tools/index.html" target="_blank">Открыть</a></div>
       <div class="tool"><b>Платформа</b><span>Точка входа.</span><a href="https://sorvalliny.github.io/ecotech/" target="_blank">Открыть</a></div>
     </div>
-  </div>
+  </div></details>
 
   </div></details>
 
