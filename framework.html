@@ -27,7 +27,7 @@
 }
 
 /* ── Layout ── */
-.fw-wrap { max-width:880px; margin:0 auto; padding:24px 20px 80px; }
+.fw-wrap { max-width:1200px; margin:0 auto; padding:24px 20px 80px; }
 
 /* ── Header + Filters (sticky) ── */
 .fw-header { position:sticky; top:var(--nav-h,48px); z-index:90; background:var(--bg); border-bottom:1px solid var(--border); padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
@@ -40,14 +40,25 @@
 .solar-section {
   position:relative;
   background:#0D0B1A;
-  border-radius:16px;
-  margin:24px auto 16px;
-  max-width:800px;
-  padding:28px 16px 16px;
+  border-radius:0;
+  margin:0 -24px 16px;
+  max-width:100%;
+  padding:40px 40px 24px;
   overflow:hidden;
 }
 /* In light theme, orbit section stays dark (space) */
+/* Light theme: orbit section stays dark (space), rest adapts */
 [data-theme="light"] .solar-section { background:#0D0B1A; }
+[data-theme="light"] .solar-section .solar-subtitle .ss-title { color:rgba(255,255,255,.85); }
+[data-theme="light"] .solar-section .solar-subtitle .ss-desc { color:rgba(255,255,255,.35); }
+[data-theme="light"] .fw-header { background:var(--bg); color:var(--text); }
+[data-theme="light"] .fw-title h1 { color:var(--text); }
+[data-theme="light"] .fw-section summary { background:var(--card); color:var(--text); }
+[data-theme="light"] .fw-section .fw-section-body { background:var(--card); color:var(--text); }
+[data-theme="light"] .detail { background:rgba(30,20,50,.95); }
+[data-theme="light"] .detail .d-name { color:#fff; }
+[data-theme="light"] .detail .d-meta { color:rgba(255,255,255,.4); }
+[data-theme="light"] .detail .d-check { color:rgba(255,255,255,.75); }
 
 /* Starfield — scoped to .solar-section only */
 .solar-section::before {
@@ -67,7 +78,7 @@
     radial-gradient(1px 1px at 25% 70%, rgba(255,255,255,.15) 0%, transparent 100%);
   pointer-events:none;
   z-index:0;
-  border-radius:16px;
+  border-radius:0;
 }
 
 .solar-subtitle {
@@ -80,10 +91,10 @@
   font-size:15px; font-weight:700; color:rgba(255,255,255,.85); margin-bottom:6px;
 }
 .solar-subtitle .ss-desc {
-  font-size:12px; color:rgba(255,255,255,.35); line-height:1.6; max-width:580px; margin:0 auto;
+  font-size:12px; color:rgba(255,255,255,.35); line-height:1.6; max-width:700px; margin:0 auto;
 }
 
-.solar { position:relative; width:100%; height:340px; z-index:1; }
+.solar { position:relative; width:100%; height:400px; z-index:1; }
 .solar-scene { position:relative; width:100%; height:100%; }
 
 /* Elliptical rings */
@@ -166,7 +177,7 @@
 
 /* ═══ DETAIL CARD (space theme) ═══ */
 .detail {
-  display:none; width:100%; max-width:580px; margin:16px auto 0;
+  display:none; width:100%; max-width:700px; margin:16px auto 0;
   background:linear-gradient(135deg, rgba(30,20,50,.95), rgba(20,15,40,.95));
   border:1px solid rgba(139,92,246,.15); border-radius:14px;
   padding:18px 22px;
@@ -196,7 +207,7 @@
 .d-check:hover { background:rgba(255,255,255,.06); }
 .d-check::before { content:'\2610'; position:absolute; left:9px; color:rgba(139,92,246,.6); font-size:11px; }
 .d-arts { display:flex; flex-wrap:wrap; gap:5px; margin-top:6px; }
-.d-art { font-size:10px; font-weight:600; padding:3px 10px; border-radius:16px; background:rgba(139,92,246,.1); color:rgba(139,92,246,.8); border:1px solid rgba(139,92,246,.15); }
+.d-art { font-size:10px; font-weight:600; padding:3px 10px; border-radius:0; background:rgba(139,92,246,.1); color:rgba(139,92,246,.8); border:1px solid rgba(139,92,246,.15); }
 
 /* Gate items inside detail */
 .d-gate { display:flex; flex-direction:column; gap:3px; }
@@ -211,7 +222,7 @@
 .fs-label { font-size:11px; color:var(--muted); margin-top:2px; }
 
 /* ── Collapsible sections ── */
-.fw-section { margin-bottom:8px; max-width:800px; margin-left:auto; margin-right:auto; }
+.fw-section { margin-bottom:8px; max-width:100%; margin-left:auto; margin-right:auto; }
 .fw-section summary { padding:14px 16px; background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:14px; font-weight:600; color:var(--text); cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; }
 .fw-section summary::-webkit-details-marker { display:none; }
 .fw-section summary::after { content:'\25B8'; color:var(--muted); transition:transform .2s; font-size:12px; }
@@ -249,7 +260,7 @@
 .support-card p { font-size:11px; color:var(--muted); line-height:1.4; margin:0; }
 
 /* ── Footer ── */
-.fw-footer { text-align:center; padding:28px 0; border-top:1px solid var(--border); margin-top:32px; max-width:800px; margin-left:auto; margin-right:auto; }
+.fw-footer { text-align:center; padding:28px 0; border-top:1px solid var(--border); margin-top:32px; max-width:100%; margin-left:auto; margin-right:auto; }
 .fw-footer a { font-size:12px; color:var(--violet); text-decoration:none; margin:0 10px; }
 .fw-footer a:hover { text-decoration:underline; }
 
@@ -359,7 +370,7 @@
 </div>
 
 <!-- ═══════════ АРХИТЕКТУРА СИСТЕМЫ (кликабельная) ═══════════ -->
-<div style="max-width:800px;margin:24px auto 28px;">
+<div style="max-width:100%;margin:24px auto 28px;">
   <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:12px;">Архитектура системы</h3>
   <div style="display:flex;flex-direction:column;gap:2px;">
     <a href="javascript:void(0)" onclick="document.querySelector('.fw-section:nth-of-type(2)').open=true;document.querySelector('.fw-section:nth-of-type(2)').scrollIntoView({behavior:'smooth'})" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--violet);border-radius:6px 6px 0 0;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
@@ -458,7 +469,7 @@
 </details>
 
 <!-- ═══════════ ИНСТРУМЕНТЫ ═══════════ -->
-<div style="max-width:800px;margin:32px auto 0;">
+<div style="max-width:100%;margin:32px auto 0;">
   <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:14px;">Инструменты ОРБИТА</h3>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:32px;">
     <a href="catalog.html" style="display:block;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--violet);text-decoration:none;">
