@@ -1519,21 +1519,48 @@ body.edit-mode .edit-mode-banner { display: block; }
       <span style="color:rgba(196,156,255,0.7);">Кликай на любой текст для правки.<br>Автосохранение каждые 0.8 сек.</span>
     </div>
     <div class="nav-group">
-      <div class="nav-group-label" data-id="e003" data-editable="">Введение</div>
+      <div class="nav-group-label" data-id="e003" data-editable="">Обзор</div>
       <a class="nav-item" href="#overview" onclick="setActive(this)">
         <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"></circle><path d="M8 5v4M8 11v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
         <span class="nav-text" data-id="e004" data-editable="">О фреймворке</span>
       </a>
     </div>
     <div class="nav-group">
-      <div class="nav-group-label" data-id="e005" data-editable="">Жизненный цикл</div>
+      <div class="nav-group-label" data-id="e005" data-editable="">Операционные плейбуки</div>
+      <a class="nav-item" href="#process" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text">Орбита 0 — Заявка</span>
+      </a>
+      <a class="nav-item" href="#process" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text">Орбита 1 — Разведка</span>
+      </a>
+      <a class="nav-item" href="#process" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text">Орбита 2 — Прототип</span>
+      </a>
+      <a class="nav-item" href="#process" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text">Орбита 3 — Разгон</span>
+      </a>
+      <a class="nav-item" href="#process" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text">Орбита 4 — Экосистема</span>
+      </a>
+      <a class="nav-item" href="#process" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text">Орбита 5 — Зрелость</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Справочник</div>
       <a class="nav-item" href="#orbits" onclick="setActive(this)">
         <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="8" rx="7" ry="4" stroke="currentColor" stroke-width="1.5"></ellipse><ellipse cx="8" cy="8" rx="7" ry="4" stroke="currentColor" stroke-width="1.5" transform="rotate(60 8 8)"></ellipse><ellipse cx="8" cy="8" rx="7" ry="4" stroke="currentColor" stroke-width="1.5" transform="rotate(120 8 8)"></ellipse></svg></span>
         <span class="nav-text" data-id="e006" data-editable="">Карта орбит</span>
       </a>
-      <a class="nav-item" href="#process" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
-        <span class="nav-text" data-id="e007" data-editable="">Как мы работаем</span>
+      <a class="nav-item" href="#gates" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.5"></rect><path d="M6 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <span class="nav-text" data-id="e010" data-editable="">Gate-условия</span>
       </a>
       <a class="nav-item" href="#initiative" onclick="setActive(this)">
         <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.8 3.6L14 6.6l-3 2.9.7 4.1L8 11.4l-3.7 2.2.7-4.1L2 6.6l4.2-.6L8 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg></span>
@@ -1541,11 +1568,7 @@ body.edit-mode .edit-mode-banner { display: block; }
       </a>
       <a class="nav-item" href="#planning" onclick="setActive(this)">
         <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5"></rect><path d="M5 1v4M11 1v4M2 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
-        <span class="nav-text" data-id="e009" data-editable="">Как планируем</span>
-      </a>
-      <a class="nav-item" href="#gates" onclick="setActive(this)">
-        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.5"></rect><path d="M6 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
-        <span class="nav-text" data-id="e010" data-editable="">Gate-условия</span>
+        <span class="nav-text" data-id="e009" data-editable="">Планирование</span>
       </a>
       <a class="nav-item" href="artifacts.html">
         <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
@@ -1626,6 +1649,21 @@ body.edit-mode .edit-mode-banner { display: block; }
         </div>
       </div>
 
+      <div class="quick-nav" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 32px;max-width:800px;">
+        <a href="#process" class="qn-card" style="padding:16px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--violet);text-decoration:none;">
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Я PM/TL</div>
+          <div style="font-size:11px;color:var(--muted);">Что делать на моей стадии</div>
+        </a>
+        <a href="#gates" class="qn-card" style="padding:16px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--amber);text-decoration:none;">
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Gate Review</div>
+          <div style="font-size:11px;color:var(--muted);">Критерии перехода между стадиями</div>
+        </a>
+        <a href="#orbits" class="qn-card" style="padding:16px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--teal);text-decoration:none;">
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Карта орбит</div>
+          <div style="font-size:11px;color:var(--muted);">Полный жизненный цикл продукта</div>
+        </a>
+      </div>
+
       <div class="grad-line"></div>
 
       <div class="section-header">
@@ -1650,22 +1688,42 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div class="principle-title" data-id="e036" data-editable="">Скорость через SLA</div>
           <div class="principle-desc" data-id="e037" data-editable="">Каждая стадия — Исследование, Разработка, рост — имеет таймбокс и чёткие условия перехода. Согласования сокращаем, приоритеты фиксируем на входе.</div>
         </div>
-        <div class="principle-card">
-          <div class="principle-num">04</div>
-          <div class="principle-title" data-id="e038" data-editable="">Бэклог живёт</div>
-          <div class="principle-desc" data-id="e039" data-editable="">Комитет меняет приоритеты — это норма. Инициативы не удаляем, а уточняем релизность в следующих итерациях. История решений сохраняется, технического долга не копим.</div>
+      </div>
+      <details style="margin-top:12px;">
+        <summary style="font-size:13px;font-weight:600;color:var(--violet);cursor:pointer;">Ещё 3 принципа →</summary>
+        <div style="margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div class="principle-card">
+            <div class="principle-num">04</div>
+            <div class="principle-title" data-id="e038" data-editable="">Бэклог живёт</div>
+            <div class="principle-desc" data-id="e039" data-editable="">Комитет меняет приоритеты — это норма. Инициативы не удаляем, а уточняем релизность в следующих итерациях. История решений сохраняется, технического долга не копим.</div>
+          </div>
+          <div class="principle-card">
+            <div class="principle-num">05</div>
+            <div class="principle-title" data-id="e040" data-editable="">Прозрачность для комитета</div>
+            <div class="principle-desc" data-id="e041" data-editable="">Роадмап, прогнозы релизов и PnL по инициативам видны в любой момент. Комитет видит планы и ожидания поставки без запросов к команде.</div>
+          </div>
+          <div class="principle-card">
+            <div class="principle-num">06</div>
+            <div class="principle-title" data-id="e042" data-editable="">Связь с целями</div>
+            <div class="principle-desc" data-id="e043" data-editable="">Каждая инициатива привязана к целям продукта и экосистемы. Нет связи с OKR и метриками — нет места в квартальном плане.</div>
+          </div>
         </div>
-        <div class="principle-card">
-          <div class="principle-num">05</div>
-          <div class="principle-title" data-id="e040" data-editable="">Прозрачность для комитета</div>
-          <div class="principle-desc" data-id="e041" data-editable="">Роадмап, прогнозы релизов и PnL по инициативам видны в любой момент. Комитет видит планы и ожидания поставки без запросов к команде.</div>
-        </div>
-        <div class="principle-card">
-          <div class="principle-num">06</div>
-          <div class="principle-title" data-id="e042" data-editable="">Связь с целями</div>
-          <div class="principle-desc" data-id="e043" data-editable="">Каждая инициатива привязана к целям продукта и экосистемы. Нет связи с OKR и метриками — нет места в квартальном плане.</div>
+      </details>
+
+      <div style="margin:24px 0;padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
+        <h3 style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">Ключевые термины</h3>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:12px;">
+          <div><strong style="color:var(--violet);">NSM</strong> <span style="color:var(--muted);">— North Star Metric. Ключевая метрика продукта, отражающая ценность для пользователя.</span></div>
+          <div><strong style="color:var(--violet);">Activation Rate</strong> <span style="color:var(--muted);">— Доля пользователей, совершивших ключевое действие в первые 7 дней.</span></div>
+          <div><strong style="color:var(--violet);">ADR</strong> <span style="color:var(--muted);">— Architectural Decision Record. Документ фиксирующий архитектурное решение.</span></div>
+          <div><strong style="color:var(--violet);">ВИТОК</strong> <span style="color:var(--muted);">— Цикл: Исследование → Разработка → Оценка. Повторяется на каждой стадии.</span></div>
+          <div><strong style="color:var(--violet);">Gate</strong> <span style="color:var(--muted);">— Контрольная точка перехода между стадиями. Решение: Go / No-Go / Revise.</span></div>
+          <div><strong style="color:var(--violet);">RICE</strong> <span style="color:var(--muted);">— Reach × Impact × Confidence / Effort. Метод приоритизации инициатив.</span></div>
+          <div><strong style="color:var(--violet);">CustDev</strong> <span style="color:var(--muted);">— Customer Development. Интервью с целевой аудиторией (мин. 7-10).</span></div>
+          <div><strong style="color:var(--violet);">HMW</strong> <span style="color:var(--muted);">— How Might We. Формат формулирования дизайн-задач.</span></div>
         </div>
       </div>
+
     </section>
 
     <!-- ═══════════════ SECTION 2: LIFECYCLE V2 ═══════════════ -->
@@ -2134,7 +2192,7 @@ body.edit-mode .edit-mode-banner { display: block; }
               <li style="font-size:12px;color:var(--text)" data-id="e060" data-editable="">Скоринг по матрице ценности + T-shirt оценка</li>
               <li style="font-size:12px;color:var(--text)" data-id="e061" data-editable=""><strong>Поиск команды</strong>: подбор PM, TL, дизайнера, DA</li>
               <li style="font-size:12px;color:var(--text)" data-id="e062" data-editable=""><strong>Калибровка с CEO</strong> на Продуктовом синке / Проектном комитете</li>
-              <li style="font-size:12px;color:var(--text)" data-id="e063" data-editable="">Gate 0: решение за 5 дней → Орбита 1</li>
+              <li style="font-size:12px;color:var(--text)" data-id="e063" data-editable="">Gate 0: решение за 5-10 рабочих дней → Орбита 1 (скрининг заявки: 5 дней, назначение команды: до 5 дополнительных дней)</li>
             </ol>
           </div>
           <div class="card">
@@ -2700,7 +2758,6 @@ body.edit-mode .edit-mode-banner { display: block; }
 
       <!-- Corp processes -->
       <div class="section-header">
-      <div class="section-header">
         <div class="section-eyebrow" data-id="e135" data-editable="">Корпоративные процессы — обязательные шаги по орбитам</div>
         <div class="section-title" data-id="e136" data-editable="">Взаимодействие с функциями</div>
         <div class="section-desc" data-id="e137" data-editable="">Обязательные шаги при взаимодействии с поддерживающими функциями. Без согласования — нет деплоя.</div>
@@ -2740,6 +2797,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             <li data-id="e150" data-editable="">DAST/SAST в CI/CD pipeline</li>
             <li data-id="e151" data-editable="">Согласование работы с персональными данными</li>
             <li data-id="e152" data-editable="">Матрица доступов согласуется с ИБ</li>
+            <li style="color:var(--teal);font-weight:600;">SLA: ИБ-аудит — 5 рабочих дней. Эскалация при превышении: PMO Lead.</li>
           </ul>
         </div>
         <div class="corp-card">
@@ -2758,6 +2816,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             <li data-id="e158" data-editable="">Юр. согласование при работе с контрагентами</li>
             <li data-id="e159" data-editable="">Privacy policy / ToS перед публичным запуском</li>
             <li data-id="e160" data-editable="">Лицензии Open Source проверяются до Разработки</li>
+            <li style="color:var(--teal);font-weight:600;">SLA: Юридическая экспертиза — 3-5 рабочих дней. Эскалация при превышении: PMO Lead.</li>
           </ul>
         </div>
         <div class="corp-card">
@@ -2771,7 +2830,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           </ul>
         </div>
       </div>
-    </div></div></div></div></div></div></section>
+    </section>
 
     <!-- ═══════════════ SECTION: INITIATIVE ═══════════════ -->
     <section class="section" id="initiative" data-label="Инициатива">
@@ -3153,7 +3212,7 @@ body.edit-mode .edit-mode-banner { display: block; }
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Срок решения</span>
-              <span class="gate-meta-val" data-id="e191" data-editable="">5 рабочих дней</span>
+              <span class="gate-meta-val" data-id="e191" data-editable="">5-10 рабочих дней (скрининг: 5 дн. + назначение команды: до 5 дн.)</span>
             </div>
             <div class="gate-meta-row">
               <span class="gate-meta-label">Выход</span>
@@ -3208,7 +3267,7 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div>
             <div class="gate-section-label">Критерии входа</div>
             <ul class="gate-criteria">
-              <li data-id="e206" data-editable="">Activation Rate ≥ 30%</li>
+              <li data-id="e206" data-editable="">Activation Rate ≥ 30% <span style="font-size:11px;color:var(--muted);display:block;margin-top:2px;">(Activation Rate = доля пользователей, совершивших ключевое действие (определяется PM для каждого продукта) в первые 7 дней после регистрации. Целевой порог: ≥ 30%.)</span></li>
               <li data-id="e207" data-editable="">Business Case подтверждён реальными данными</li>
               <li data-id="e208" data-editable="">MVP acceptance criteria выполнены</li>
               <li data-id="e209" data-editable="">Security review пройден (ИБ)</li>
@@ -3237,14 +3296,14 @@ body.edit-mode .edit-mode-banner { display: block; }
           <div>
             <div class="gate-num">GATE 3 → ОРБИТА 3</div>
             <div class="gate-name" data-id="e215" data-editable="" data-listener-added_f2c3d0b6="true">Переход к масштабированию</div>
-            <div class="gate-trigger" data-id="e216" data-editable="">Триггер: EBITDA → 0, NPS &gt; 40, команда 8+</div>
+            <div class="gate-trigger" data-id="e216" data-editable="">Триггер: EBITDA → 0, NPS ≥ порога (B2C:40/B2B:30/B2G:20), команда 8+</div>
           </div>
           <div class="gate-divider"></div>
           <div>
             <div class="gate-section-label">Критерии входа</div>
             <ul class="gate-criteria">
               <li data-id="e217" data-editable="">EBITDA стремится к нулю или положительный</li>
-              <li data-id="e218" data-editable="">NPS ≥ 40 по последнему замеру</li>
+              <li data-id="e218" data-editable="">NPS: ≥ 40 (B2C), ≥ 30 (B2B), ≥ 20 (B2G/Internal). Порог определяется при заявке (Gate 0).</li>
               <li data-id="e219" data-editable="">Команда 8+ человек с выделенным P&amp;L</li>
               <li data-id="e220" data-editable="">NSM растёт 2 квартала подряд</li>
               <li data-id="e221" data-editable="">Архитектура масштабируется на 10× нагрузку</li>
@@ -3416,6 +3475,26 @@ body.edit-mode .edit-mode-banner { display: block; }
             <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:5px;">Условия Fast-Track</div>
             <div style="font-size:11px;color:var(--gray2);line-height:1.5;">Заполнен Fast-Track бриф (шаблон) · Доступна выделенная команда · Бюджет предварительно согласован</div>
           </div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;padding:20px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:4px solid var(--red);">
+        <h3 style="font-size:16px;font-weight:700;color:var(--red);margin-bottom:12px;">Процесс при отказе (No-Go)</h3>
+        <div style="font-size:13px;color:var(--text);line-height:1.6;">
+          <p style="margin-bottom:8px;">Если Gate Review вернул <strong>No-Go</strong>:</p>
+          <ol style="padding-left:20px;margin-bottom:12px;">
+            <li style="margin-bottom:4px;"><strong>Фиксация причин</strong> — протокол с конкретными замечаниями</li>
+            <li style="margin-bottom:4px;"><strong>План доработки</strong> — PM формирует план устранения (5 рабочих дней)</li>
+            <li style="margin-bottom:4px;"><strong>Повторный Gate</strong> — через 2-4 недели после доработки</li>
+            <li style="margin-bottom:4px;"><strong>Максимум 2 попытки</strong> — после второго No-Go → эскалация PMO Lead</li>
+            <li style="margin-bottom:4px;"><strong>Эскалация</strong> — PMO Lead решает: доработка / возврат на предыдущую стадию / архивация</li>
+          </ol>
+          <p style="margin-bottom:8px;">Если Gate Review вернул <strong>Revise</strong>:</p>
+          <ul style="padding-left:20px;">
+            <li style="margin-bottom:4px;">Частичное одобрение с условиями</li>
+            <li style="margin-bottom:4px;">PM устраняет замечания без повторного комитета</li>
+            <li style="margin-bottom:4px;">PMO проверяет устранение и подтверждает переход</li>
+          </ul>
         </div>
       </div>
 
