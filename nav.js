@@ -148,6 +148,7 @@
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Методология</a>'
     +   '<div class="en-drop-menu" role="menu">'
     +     a('knowledge/product-framework.html','Продуктовый фреймворк')
+    +     a('knowledge/product-os.html',     'Product OS (полный)')
     +     a('framework.html',                'Как мы работаем')
     +     a('glossary.html',                 'Глоссарий')
     +     a('knowledge/roles.html',          'Матрица ролей')
