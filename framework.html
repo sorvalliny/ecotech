@@ -478,12 +478,68 @@
       <div style="padding-left:16px;color:var(--muted);margin-bottom:8px;">___</div>
       <div><strong>5. Подписи:</strong> PMO Lead ___ · PM ___ · Lead/CTO ___</div>
     </div>
+
+    <h4 style="font-size:13px;font-weight:700;color:var(--text);margin:16px 0 10px;">Процесс эскалации</h4>
+    <div style="font-size:12px;color:var(--text);line-height:1.7;">
+      <p style="margin-bottom:8px;"><strong>Когда эскалировать:</strong></p>
+      <ul style="padding-left:20px;color:var(--muted);margin-bottom:12px;">
+        <li>Gate заблокирован > 2 недель без решения</li>
+        <li>Критический блокер без владельца</li>
+        <li>Конфликт приоритетов между продуктами</li>
+        <li>Второй No-Go на одном Gate</li>
+      </ul>
+      <p style="margin-bottom:8px;"><strong>Канал:</strong> Уведомление в ОРБИТА → PMO Lead → решение в течение 3 рабочих дней</p>
+      <p style="margin-bottom:8px;"><strong>Форма:</strong> Продукт, стадия, блокер, предложенное решение, срочность (критическая / высокая)</p>
+      <p><strong>Лог:</strong> Все эскалации фиксируются в карточке продукта (таб "Лог")</p>
+    </div>
+
+    <h4 style="font-size:13px;font-weight:700;color:var(--text);margin:16px 0 10px;">Уведомления</h4>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+      <p style="margin-bottom:8px;">После каждого Gate решения система уведомляет:</p>
+      <ul style="padding-left:20px;">
+        <li><strong style="color:var(--text)">Go:</strong> PM, команда, заказчик — продукт переходит на следующую стадию</li>
+        <li><strong style="color:var(--text)">No-Go:</strong> PM — план доработки, PMO — контроль сроков</li>
+        <li><strong style="color:var(--text)">Revise:</strong> PM — условия для устранения</li>
+      </ul>
+      <p style="margin-top:8px;">Канал: уведомления в ОРБИТА (колокольчик в навигации)</p>
+    </div>
   </div>
 </details>
 
 <details class="fw-section">
   <summary>Роли и ответственность</summary>
   <div class="fw-section-body">
+    <h4 style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;">Матрица RACI</h4>
+    <div style="overflow-x:auto;">
+    <table class="roles-compact" style="font-size:11px;">
+      <thead><tr>
+        <th>Процесс</th>
+        <th style="text-align:center">PMO Lead</th>
+        <th style="text-align:center">PMO</th>
+        <th style="text-align:center">PM</th>
+        <th style="text-align:center">Lead</th>
+        <th style="text-align:center">CTO</th>
+        <th style="text-align:center">Архитектор</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>Подача заявки (Gate 0)</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--amber)">A</td><td style="text-align:center;color:var(--violet)">R</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+        <tr><td>RICE-оценка</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--amber)">A</td><td style="text-align:center;color:var(--violet)">R</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center;color:var(--muted)">C</td></tr>
+        <tr><td>CustDev (Gate 1)</td><td style="text-align:center">—</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--violet)">R</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+        <tr><td>Gate Review комитет</td><td style="text-align:center;color:var(--amber)">A</td><td style="text-align:center;color:var(--violet)">R</td><td style="text-align:center;color:var(--muted)">C</td><td style="text-align:center;color:var(--muted)">C</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--muted)">I</td></tr>
+        <tr><td>Утверждение Gate</td><td style="text-align:center;color:var(--amber)">A</td><td style="text-align:center;color:var(--violet)">R</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--muted)">C</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+        <tr><td>Техническое ревью</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--muted)">C</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--muted)">C</td><td style="text-align:center;color:var(--violet)">R</td></tr>
+        <tr><td>Планирование квартала</td><td style="text-align:center;color:var(--amber)">A</td><td style="text-align:center;color:var(--violet)">R</td><td style="text-align:center;color:var(--muted)">C</td><td style="text-align:center;color:var(--muted)">C</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+        <tr><td>Портфельный отчёт</td><td style="text-align:center;color:var(--violet)">R</td><td style="text-align:center;color:var(--muted)">C</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+        <tr><td>Назначение команды</td><td style="text-align:center;color:var(--amber)">A</td><td style="text-align:center;color:var(--violet)">R</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center">—</td><td style="text-align:center;color:var(--muted)">C</td><td style="text-align:center">—</td></tr>
+        <tr><td>Эскалация</td><td style="text-align:center;color:var(--violet)">R</td><td style="text-align:center;color:var(--muted)">C</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center;color:var(--muted)">I</td><td style="text-align:center">—</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px;">
+      <span style="color:var(--violet)">R</span> = Ответственный · <span style="color:var(--amber)">A</span> = Утверждающий · <span style="color:var(--muted)">C</span> = Консультируемый · <span style="color:var(--muted)">I</span> = Информируемый
+    </div>
+
+    <h4 style="font-size:13px;font-weight:700;color:var(--text);margin:16px 0 10px;">Роли</h4>
     <table class="roles-compact">
       <thead><tr><th>Роль</th><th>Что делает</th><th style="text-align:center">Кол-во</th></tr></thead>
       <tbody>
@@ -503,6 +559,40 @@
     <div class="plan-row"><span class="plan-period">Год</span> Стратегические приоритеты и OKR</div>
     <div class="plan-row"><span class="plan-period">Полугодие</span> Цели продуктов, бюджеты</div>
     <div class="plan-row"><span class="plan-period">Квартал</span> Инициативы с RICE, спринт-планы</div>
+
+    <h4 style="font-size:12px;font-weight:700;color:var(--text);margin:14px 0 8px;">Связь с операционным уровнем (спринты)</h4>
+    <div style="font-size:12px;color:var(--text);line-height:1.7;">
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:12px;">
+        <div style="padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-align:center;">
+          <div style="font-weight:700;color:var(--violet);font-size:11px;">ОРБИТА</div>
+          <div style="color:var(--muted);font-size:11px;">Инициатива (Q)</div>
+        </div>
+        <div style="color:var(--muted);">→</div>
+        <div style="padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-align:center;">
+          <div style="font-weight:700;color:var(--teal);font-size:11px;">Трекер</div>
+          <div style="color:var(--muted);font-size:11px;">Эпик → Спринты → Задачи</div>
+        </div>
+      </div>
+      <ol style="padding-left:20px;color:var(--muted);">
+        <li>PM декомпозирует инициативу на эпики (1 инициатива = 1-3 эпика)</li>
+        <li>Эпики разбиваются на задачи и распределяются по спринтам (2 недели)</li>
+        <li>По итогам спринта PM обновляет статус инициативы в ОРБИТА</li>
+        <li>По итогам квартала — ревью достижения целей H1/H2</li>
+      </ol>
+    </div>
+
+    <h4 style="font-size:12px;font-weight:700;color:var(--text);margin:14px 0 8px;">Портфельный отчёт (ежемесячный)</h4>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+      <p style="margin-bottom:8px;">PMO Lead готовит для руководства:</p>
+      <ol style="padding-left:20px;">
+        <li><strong style="color:var(--text)">Статус портфеля:</strong> продуктов всего / активных / на Gate / заблокированных</li>
+        <li><strong style="color:var(--text)">Светофор по продуктам:</strong> зелёный / жёлтый / красный + комментарий PM</li>
+        <li><strong style="color:var(--text)">Ближайшие Gate:</strong> какие продукты готовятся к переходу</li>
+        <li><strong style="color:var(--text)">Ключевые решения:</strong> что требует внимания руководства</li>
+        <li><strong style="color:var(--text)">Метрики:</strong> среднее время на стадии, % прохождения Gate с первого раза</li>
+      </ol>
+      <p style="margin-top:8px;">Инструмент: <a href="catalog.html" style="color:var(--violet);">Каталог продуктов</a> (данные в реальном времени)</p>
+    </div>
   </div>
 </details>
 
@@ -656,12 +746,12 @@ var STAGES = {
       id:'t2', code:'T\u00b72', name:'Реализация', result:'Код готов, тесты пройдены',
       color:'var(--amber)', r:200, angle:40, owner:'Tech Lead',
       roles:{
-        pm:{ title:'Что делать Tech Lead', checks:['Код, code review, тесты','ИБ-аудит','Документация и деплой'] },
+        pm:{ title:'Что делать Tech Lead', checks:['Код, code review, тесты','ИБ-аудит','Документация и деплой','Code review пройден (стандарты команды)'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль спринтов и бюджета','Подготовка к приёмке'] },
         lead:{ title:'Что видит руководитель', checks:['Прогресс реализации','Эскалация при блокерах'] }
       },
       artifacts:['Код в репозитории','Тесты','ИБ-отчёт','Документация'],
-      gate:{ name:'Gate T2 \u2014 Готовность к приёмке', checks:['Код задеплоен на staging','Тесты пройдены','ИБ-аудит пройден','Документация готова'], decision:'CTO', timeline:'12 недель' }
+      gate:{ name:'Gate T2 \u2014 Готовность к приёмке', checks:['Код задеплоен на staging','Тесты пройдены','ИБ-аудит пройден','Документация готова','Code review: 0 критических замечаний'], decision:'CTO', timeline:'12 недель' }
     },
     {
       id:'t3', code:'T\u00b73', name:'Приёмка', result:'Принято в эксплуатацию',
@@ -691,7 +781,7 @@ var STAGES = {
       id:'e1', code:'E\u00b71', name:'Разработка программы', result:'Учебный план готов',
       color:'var(--pink)', r:330, angle:120, owner:'Методист',
       roles:{
-        pm:{ title:'Что делать методисту', checks:['Учебный план и структура модулей','Разработка контента и материалов','Подготовка к аккредитации (если требуется)'] },
+        pm:{ title:'Что делать методисту', checks:['Учебный план и структура модулей','Разработка контента и материалов','Подготовка к аккредитации (если требуется)','Контент загружен в LMS (Moodle / внутренняя платформа)'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль сроков разработки','Координация с экспертами'] },
         lead:{ title:'Что видит руководитель', checks:['Ревью учебного плана','Готовность к пилоту'] }
       },
@@ -702,11 +792,11 @@ var STAGES = {
       id:'e2', code:'E\u00b72', name:'Пилотный запуск', result:'Пилот-группа завершила',
       color:'var(--pink)', r:250, angle:70, owner:'Методист',
       roles:{
-        pm:{ title:'Что делать методисту', checks:['Запустить тестовую группу (15-30 человек)','Собрать NPS и completion rate','Доработать по обратной связи'] },
+        pm:{ title:'Что делать методисту', checks:['Запустить тестовую группу (15-30 человек)','Собрать NPS и completion rate','Доработать по обратной связи','Completion rate отслеживается в LMS'] },
         pmo:{ title:'Что делать PMO', checks:['Контроль метрик пилота','Подготовка к масштабированию'] },
         lead:{ title:'Что видит руководитель', checks:['Результаты пилота','Решение: масштабируем или дорабатываем'] }
       },
-      artifacts:['Отчёт пилота','NPS','Completion rate'],
+      artifacts:['Отчёт пилота','NPS','Completion rate','Отчёт LMS'],
       gate:{ name:'Gate E2 \u2014 Результаты пилота', checks:['Пилот проведён','NPS > 7','Completion rate > 70%'], decision:'Руководитель обучения', timeline:'6 недель' }
     },
     {
