@@ -382,6 +382,60 @@
 <!-- ═══════════ COLLAPSIBLE SECTIONS ═══════════ -->
 
 <details class="fw-section">
+  <summary>Назначение команды на инициативу</summary>
+  <div class="fw-section-body">
+    <h4 style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;">Процесс назначения</h4>
+    <ol style="font-size:13px;color:var(--text);line-height:1.8;padding-left:20px;">
+      <li><strong>Заявка подана</strong> — бриф попадает в реестр идей</li>
+      <li><strong>PMO Lead скринит</strong> — проверяет соответствие стратегии, дубли</li>
+      <li><strong>PMO-менеджер подбирает команду:</strong>
+        <ul style="margin:4px 0 4px 16px;color:var(--muted);">
+          <li>PM (владелец) — из пула доступных PM или назначение нового</li>
+          <li>Tech Lead — по стеку продукта, согласование с CTO</li>
+          <li>Дизайнер — по загрузке, из общего пула</li>
+          <li>Аналитик — при наличии, или PM совмещает</li>
+        </ul>
+      </li>
+      <li><strong>PMO Lead утверждает</strong> — команда зафиксирована в карточке продукта</li>
+      <li><strong>PM получает уведомление</strong> — и доступ к workspace</li>
+    </ol>
+    <div style="margin-top:12px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--muted);">
+      <strong style="color:var(--text);">SLA:</strong> Назначение команды — до 5 рабочих дней после Gate 0.<br>
+      <strong style="color:var(--text);">Инструмент:</strong> <a href="teams.html" style="color:var(--violet);">Реестр команд</a> + <a href="admin.html" style="color:var(--violet);">Администрирование</a>
+    </div>
+  </div>
+</details>
+
+<details class="fw-section">
+  <summary>Интеграция с внешними трекерами</summary>
+  <div class="fw-section-body">
+    <h4 style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;">Как связать ОРБИТА с YouTrack / Jira / Linear</h4>
+    <p style="font-size:13px;color:var(--text);margin-bottom:12px;">ОРБИТА = стратегический уровень (цели, инициативы, Gate). Трекер задач = операционный уровень (эпики, спринты, задачи). Связь через URL.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
+        <div style="font-size:12px;font-weight:700;color:var(--violet);margin-bottom:4px;">ОРБИТА (стратегия)</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5;">Инициатива → RICE → Квартал → Цель H1/H2</div>
+      </div>
+      <div style="padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
+        <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:4px;">Трекер (операции)</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5;">Эпик → Спринт → Задачи → Исполнители</div>
+      </div>
+    </div>
+    <h4 style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;">Процесс связывания</h4>
+    <ol style="font-size:12px;color:var(--text);line-height:1.8;padding-left:20px;">
+      <li>PM создаёт инициативу в ОРБИТА (workspace → инициативы)</li>
+      <li>PM создаёт эпик в YouTrack/Jira по этой инициативе</li>
+      <li>PM вставляет URL эпика в поле "Внешний трекер" инициативы</li>
+      <li>Команда работает в трекере, PM обновляет статус в ОРБИТА</li>
+      <li>При закрытии эпика → PM закрывает инициативу в ОРБИТА</li>
+    </ol>
+    <div style="margin-top:12px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--muted);">
+      <strong style="color:var(--text);">Правило:</strong> Каждая инициатива в статусе "В работе" должна иметь ссылку на внешний трекер. PMO проверяет еженедельно.
+    </div>
+  </div>
+</details>
+
+<details class="fw-section">
   <summary>Комитеты и Gate Review</summary>
   <div class="fw-section-body">
     <p>Каждый Gate -- решение о переходе на следующую стадию (орбиту). Без прохождения Gate продукт не двигается вперёд.</p>
@@ -409,6 +463,21 @@
       <li>Повторный Gate -- через 2-4 недели</li>
       <li>После 2-го No-Go -- эскалация PMO Lead (доработка / возврат / архив)</li>
     </ol>
+
+    <h4 style="font-size:13px;font-weight:700;color:var(--text);margin:16px 0 10px;">Шаблон протокола Gate Review</h4>
+    <div style="padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--text);line-height:1.7;">
+      <div style="font-weight:700;margin-bottom:8px;">Протокол Gate [N] — [Название продукта]</div>
+      <div style="color:var(--muted);margin-bottom:8px;">Дата: ___  ·  Участники: PMO Lead, PM, [Lead/CTO]</div>
+      <div style="margin-bottom:6px;"><strong>1. Статус артефактов</strong></div>
+      <div style="padding-left:16px;color:var(--muted);margin-bottom:8px;">☐ Артефакт 1 — готов / не готов<br>☐ Артефакт 2 — готов / не готов<br>☐ ...</div>
+      <div style="margin-bottom:6px;"><strong>2. Метрики</strong></div>
+      <div style="padding-left:16px;color:var(--muted);margin-bottom:8px;">NSM: ___ · Retention: ___ · NPS: ___</div>
+      <div style="margin-bottom:6px;"><strong>3. Решение</strong></div>
+      <div style="padding-left:16px;color:var(--muted);margin-bottom:8px;">☐ Go — переход на следующую стадию<br>☐ No-Go — план доработки (срок: ___)<br>☐ Revise — условия: ___</div>
+      <div style="margin-bottom:6px;"><strong>4. Комментарии</strong></div>
+      <div style="padding-left:16px;color:var(--muted);margin-bottom:8px;">___</div>
+      <div><strong>5. Подписи:</strong> PMO Lead ___ · PM ___ · Lead/CTO ___</div>
+    </div>
   </div>
 </details>
 
@@ -501,7 +570,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Проверить дубли в реестре','Калибровать RICE на синке','Вынести на скрининг (Gate 0)'] },
         lead:{ title:'Что видит руководитель', checks:['Новая заявка в реестре','Решение Gate 0: запускаем разведку или нет'] }
       },
-      artifacts:['Бриф инициативы','RICE-оценка','Решение Gate 0'],
+      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','RICE-оценка','Решение Gate 0'],
       gate:{ name:'Gate 0 \u2014 Скрининг заявки', checks:['Проблема описана и понятна заказчику','ЦА определена','RICE > порога','Нет дублей в реестре','Соответствие OKR компании','Команда назначена'], decision:'PMO Lead', timeline:'5-10 рабочих дней' }
     },
     {
@@ -569,7 +638,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Зарегистрировать в реестре','Проверить дубли и пересечения'] },
         lead:{ title:'Что видит руководитель', checks:['Скрининг CTO: запускаем проектирование или нет'] }
       },
-      artifacts:['Техническое задание','Оценка ресурсов'],
+      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','Техническое задание','Оценка ресурсов'],
       gate:{ name:'Gate T0 \u2014 Скрининг', checks:['ТЗ согласовано','Стек определён','Ресурсы выделены'], decision:'CTO', timeline:'2 недели' }
     },
     {
@@ -615,7 +684,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Проверить пересечения с существующими программами','Зарегистрировать в реестре'] },
         lead:{ title:'Что видит руководитель', checks:['Скрининг заявки: запускаем разработку программы или нет'] }
       },
-      artifacts:['Бриф программы','Описание ЦА','Формат обучения'],
+      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','Описание ЦА','Формат обучения'],
       gate:{ name:'Gate E0 \u2014 Скрининг', checks:['ЦА определена','Формат выбран','Ресурсы оценены'], decision:'Руководитель обучения', timeline:'1 неделя' }
     },
     {
@@ -672,7 +741,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Зарегистрировать в реестре проектов','Проверить приоритет'] },
         lead:{ title:'Что видит руководитель', checks:['Скрининг: запускаем планирование или нет'] }
       },
-      artifacts:['Бриф проекта','Бюджет','Состав команды'],
+      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','Бюджет','Состав команды'],
       gate:{ name:'Gate P0 \u2014 Скрининг', checks:['Цели определены','Бюджет утверждён','Спонсор согласовал'], decision:'PMO Lead', timeline:'1 неделя' }
     },
     {
@@ -862,7 +931,7 @@ function openStage(id) {
 
   // Artifacts
   html += '<div class="d-section"><h4>Артефакты</h4><div class="d-arts">';
-  s.artifacts.forEach(function(a) { html += '<span class="d-art">' + a + '</span>'; });
+  s.artifacts.forEach(function(a) { if (a.indexOf('<a') >= 0) { html += a; } else { html += '<span class="d-art">' + a + '</span>'; } });
   html += '</div></div>';
 
   // Gate
