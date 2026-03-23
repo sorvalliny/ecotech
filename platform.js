@@ -172,6 +172,15 @@
       xhr.send();
     },
 
+    // ── Ensure backlog seeded ─────────────────────────────────────────
+    ensureBacklog: function() {
+      var bl = this.load(this.KEY_BACKLOG);
+      if (bl && Array.isArray(bl) && bl.length) return bl;
+      // Seed from registry's BACKLOG_DEFAULT is not available here,
+      // so just return empty — registry.html will seed on first visit
+      return [];
+    },
+
     // ── Audit log ────────────────────────────────────────────────────
     addLog: function(productId, action, details, entityType, entityId) {
       var logs = this.load(this.KEY_CHANGELOG) || [];

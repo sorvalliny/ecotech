@@ -383,6 +383,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     for (var i = 0; i < _backlog.length; i++) {
       if (_backlog[i].productId === productId || _backlog[i].project === productId) r.push(_backlog[i]);
     }
+    // Stakeholder scope filter: only show assigned initiatives
+    if (getRole() === 'stakeholder') {
+      var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+      if (user && user.assignments) {
+        var scopeIds = [];
+        user.assignments.forEach(function(a) {
+          if (a.productId === productId && Array.isArray(a.scope)) {
+            scopeIds = scopeIds.concat(a.scope);
+          }
+        });
+        if (scopeIds.length) {
+          r = r.filter(function(init) { return scopeIds.indexOf(init.id) >= 0; });
+        }
+      }
+    }
     return r;
   }
   function getProductGoals() {
@@ -421,6 +436,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     if (!_product) { app.innerHTML = renderNotFound(); return; }
     document.title = displayName(_product) + ' \u2014 \u041E\u0420\u0411\u0418\u0422\u0410';
     _backlog = PT.load(PT.KEY_BACKLOG) || [];
+    if (!_backlog.length) {
+      // Seed backlog from JSON if localStorage empty
+      var xhr2 = new XMLHttpRequest();
+      xhr2.open('GET', 'data/backlog.json', false); // sync for simplicity
+      try { xhr2.send(); if (xhr2.status === 200) { _backlog = JSON.parse(xhr2.responseText); PT.save(PT.KEY_BACKLOG, _backlog); } } catch(e) {}
+    }
     _goals = seedGoalsIfEmpty();
     if (!_product.events) _product.events = [];
     if (!_product.artifacts) _product.artifacts = copyDefaults();
