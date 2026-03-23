@@ -349,6 +349,35 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   function saveGoals() { PT.save(PT.KEY_GOALS, _goals); }
   function addLog(action, details, entityType, entityId) { PT.addLog(productId, action, details, entityType, entityId); }
 
+  // Go / No-Go / Revise review
+  window.reviewInitiative = function(initId, decision) {
+    var init = _backlog.find(function(i) { return i.id === initId; });
+    if (!init) return;
+    var labels = { go: 'Go', nogo: 'No-Go', revise: 'Revise' };
+    var comment = prompt(labels[decision] + ' \u2014 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 (\u043D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E):');
+    if (comment === null) return; // cancelled
+
+    init.approval = decision === 'go' ? 'approved' : decision === 'nogo' ? 'rejected' : 'pending';
+    if (!init.reviews) init.reviews = [];
+    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+    init.reviews.push({
+      action: decision,
+      comment: comment || '',
+      userName: user ? user.name : 'Unknown',
+      date: new Date().toISOString().split('T')[0]
+    });
+    init.updatedAt = new Date().toISOString().split('T')[0];
+    saveBacklog();
+    addLog('review_' + decision, init.name + ': ' + labels[decision] + (comment ? ' \u2014 ' + comment : ''), 'initiative', initId);
+
+    if (window.PT && PT.notify) {
+      PT.notify({ type:'review_submitted', level:'high', recipientRole:'pm_owner', productId:productId, title:productId + ' \u2014 \u0440\u0435\u0432\u044C\u044E: ' + labels[decision], text:init.name + (comment ? ': ' + comment : ''), action:{label:'\u041E\u0442\u043A\u0440\u044B\u0442\u044C',url:'workspace.html?id='+productId+'&tab=initiatives'} });
+    }
+
+    showToast(labels[decision] + ' \u0437\u0430\u043F\u0438\u0441\u0430\u043D');
+    render();
+  };
+
   function getProductInitiatives() {
     var r = [];
     for (var i = 0; i < _backlog.length; i++) {
@@ -811,6 +840,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       html += '<div style="margin-top:10px;display:flex;gap:8px">';
       html += '<button class="ws-btn-primary" data-approve="' + esc(item.id) + '" style="font-size:11px;padding:5px 12px">\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u0442\u044C</button>';
       html += '<button class="ws-btn-secondary" data-reject="' + esc(item.id) + '" style="font-size:11px;padding:5px 12px">\u041E\u0442\u043A\u043B\u043E\u043D\u0438\u0442\u044C</button>';
+      html += '</div>';
+    }
+    // Go/No-Go/Revise review buttons for lead/pmo_lead/admin
+    if (getRole() === 'lead' || getRole() === 'pmo_lead' || getRole() === 'admin') {
+      html += '<div style="display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">';
+      html += '<button onclick="reviewInitiative(\'' + esc(item.id) + '\',\'go\')" style="padding:6px 14px;border-radius:6px;border:1px solid rgba(75,206,151,.3);background:var(--teal-dim);color:var(--teal);font-size:11px;font-weight:700;cursor:pointer;">Go</button>';
+      html += '<button onclick="reviewInitiative(\'' + esc(item.id) + '\',\'nogo\')" style="padding:6px 14px;border-radius:6px;border:1px solid rgba(248,113,113,.3);background:var(--red-dim);color:var(--red);font-size:11px;font-weight:700;cursor:pointer;">No-Go</button>';
+      html += '<button onclick="reviewInitiative(\'' + esc(item.id) + '\',\'revise\')" style="padding:6px 14px;border-radius:6px;border:1px solid rgba(245,205,71,.3);background:var(--amber-dim);color:var(--amber);font-size:11px;font-weight:700;cursor:pointer;">Revise</button>';
       html += '</div>';
     }
     html += '</div>';

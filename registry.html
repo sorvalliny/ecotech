@@ -409,9 +409,9 @@ const BACKLOG_DEFAULT = [
   { id:'I-016', productId:'ECO-08', name:'Заметки v1', desc:'Базовый функционал заметок с markdown-редактором', type:'product', r:8, i:9, c:8, e:8, status:'wip', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
   { id:'I-017', productId:'ECO-08', name:'Шаблоны досок', desc:'Готовые шаблоны для типовых задач', type:'product', r:8, i:6, c:8, e:8, status:'backlog', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
   // ── ECO-00 ОРБИТА (демо) ──
-  { id:'I-018', productId:'ECO-00', name:'Gate-чеклист', desc:'Инструмент проверки готовности к Gate Review', type:'product', r:8, i:8, c:8, e:8, status:'done', quarter:'Q1 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
-  { id:'I-019', productId:'ECO-00', name:'Реестр инициатив', desc:'Единый реестр инициатив с фильтрами и RICE', type:'product', r:9, i:9, c:9, e:9, status:'done', quarter:'Q1 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
-  { id:'I-020', productId:'ECO-00', name:'Карточка продукта', desc:'Полная карточка продукта с паспортом и статусами', type:'product', r:8, i:9, c:8, e:8, status:'done', quarter:'Q1 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' }
+  { id:'I-018', productId:'ECO-00', name:'Gate-чеклист', desc:'Инструмент проверки готовности к Gate Review', type:'product', r:8, i:8, c:8, e:4, status:'done', quarter:'Q1 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-01-15', updatedAt:'2026-03-15' },
+  { id:'I-019', productId:'ECO-00', name:'Реестр инициатив', desc:'Единый реестр инициатив с фильтрами и RICE', type:'product', r:9, i:9, c:9, e:5, status:'done', quarter:'Q1 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-01-15', updatedAt:'2026-03-20' },
+  { id:'I-020', productId:'ECO-00', name:'Карточка продукта', desc:'Полная карточка продукта с паспортом и статусами', type:'product', r:9, i:8, c:9, e:5, status:'done', quarter:'Q1 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-02-01', updatedAt:'2026-03-22' }
 ];
 
 // ════════════════════════════════════════════
@@ -475,6 +475,15 @@ function init() {
   }
 
   populateProductSelects();
+
+  // Restore saved filter state
+  var savedFilters = window.PT ? (PT.getUIState().regFilters || {}) : {};
+  if (savedFilters.product && document.getElementById('rf-product')) document.getElementById('rf-product').value = savedFilters.product;
+  if (savedFilters.type && document.getElementById('rf-type')) document.getElementById('rf-type').value = savedFilters.type;
+  if (savedFilters.status && document.getElementById('rf-status')) document.getElementById('rf-status').value = savedFilters.status;
+  if (savedFilters.quarter && document.getElementById('rf-quarter')) document.getElementById('rf-quarter').value = savedFilters.quarter;
+  if (savedFilters.search && document.getElementById('rf-search')) document.getElementById('rf-search').value = savedFilters.search;
+
   applyAllFilters();
 }
 
@@ -547,6 +556,19 @@ function applyAllFilters() {
   var items = getFilteredInitiatives();
   document.getElementById('rf-count').textContent = items.length + ' из ' + backlog.length;
   renderCurrentTab(items);
+
+  // Save filter state
+  if (window.PT) {
+    PT.setUIState({
+      regFilters: {
+        product: document.getElementById('rf-product') ? document.getElementById('rf-product').value : '',
+        type: document.getElementById('rf-type') ? document.getElementById('rf-type').value : '',
+        status: document.getElementById('rf-status') ? document.getElementById('rf-status').value : '',
+        quarter: document.getElementById('rf-quarter') ? document.getElementById('rf-quarter').value : '',
+        search: document.getElementById('rf-search') ? document.getElementById('rf-search').value : ''
+      }
+    });
+  }
 }
 
 function resetFilters() {

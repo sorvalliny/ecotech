@@ -36,7 +36,8 @@
     { id: 'U012', name: 'PM WB Stream',     email: 'pm.stream@rwb.ru',       role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-03', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-03'], contact: '', team: 'WB Stream' },
     { id: 'U013', name: 'PM WB Книги',      email: 'pm.books@rwb.ru',        role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-04', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-04'], contact: '', team: 'WB Книги' },
     { id: 'U014', name: 'PM WB Messenger',  email: 'pm.messenger@rwb.ru',    role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-07', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-07'], contact: '', team: 'WB Messenger' },
-    { id: 'U015', name: 'PM WB Boards',     email: 'pm.boards@rwb.ru',       role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-08', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-08'], contact: '', team: 'WB Boards' }
+    { id: 'U015', name: 'PM WB Boards',     email: 'pm.boards@rwb.ru',       role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-08', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-08'], contact: '', team: 'WB Boards' },
+    { id: 'U030', name: 'Заказчик Wibes',   email: 'stakeholder@rwb.ru',     role: 'stakeholder', department: 'innovation', team: 'Бизнес', active: true, assignments: [{ productId: 'ECO-01', scope: ['I-001', 'I-002'] }], productIds: ['ECO-01'], createdBy: 'system', createdAt: '2026-03-23' }
   ];
 
   // ── Миграция старых пользователей ──────────────────────────────────

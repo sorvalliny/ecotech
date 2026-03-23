@@ -507,6 +507,19 @@ function submitBrief(){
   }
 
   showToast('Заявка ' + idea.id + ' отправлена на скрининг');
+
+  // Show success confirmation instead of form
+  var formWrap = document.querySelector('.form-wrap') || document.querySelector('form') || document.querySelector('.page-wrap');
+  if (formWrap) {
+    var successHtml = '<div style="text-align:center;padding:48px 24px;">';
+    successHtml += '<div style="font-size:48px;margin-bottom:16px;">\u2713</div>';
+    successHtml += '<h2 style="font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px;">Заявка отправлена</h2>';
+    successHtml += '<p style="font-size:14px;color:var(--muted);margin-bottom:16px;">ID: ' + idea.id + ' \u00b7 RICE: ' + idea.riceScore.toFixed(1) + '</p>';
+    successHtml += '<p style="font-size:13px;color:var(--muted);margin-bottom:24px;">PMO рассмотрит заявку в течение 5\u201310 рабочих дней.<br>Вы получите уведомление о решении.</p>';
+    successHtml += '<a href="index.html" style="display:inline-block;padding:10px 24px;background:var(--violet);color:#fff;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;">На главную</a>';
+    successHtml += '</div>';
+    formWrap.innerHTML = successHtml;
+  }
 }
 
 function saveDraft(){
