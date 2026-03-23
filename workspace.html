@@ -884,6 +884,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   function renderPassport(editable, initiatives, goals) {
     var html = '';
     var gateNum = _product.gate || 0;
+    var gateNames = isTechSolution() ? TECH_GATE_NAMES : GATE_NAMES;
     var isEdit = canEditContent();
 
     // ── Health Card (CEO summary) ──
