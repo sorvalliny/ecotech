@@ -211,7 +211,16 @@
 .fs-label { font-size:11px; color:var(--muted); margin-top:2px; }
 
 /* ── Collapsible sections ── */
-.fw-section { margin-bottom:8px; max-width:100%; margin-left:auto; margin-right:auto; }
+/* ── Sidebar TOC ── */
+.fw-layout { display:flex; gap:24px; align-items:flex-start; }
+.fw-toc { position:sticky; top:calc(var(--nav-h,48px) + 72px); width:200px; flex-shrink:0; font-size:12px; }
+.fw-toc a { display:block; padding:6px 12px; color:var(--muted); text-decoration:none; border-left:2px solid transparent; transition:all .15s; font-weight:500; }
+.fw-toc a:hover { color:var(--text); background:var(--surface); }
+.fw-toc a.active { color:var(--violet); border-left-color:var(--violet); font-weight:700; }
+.fw-main { flex:1; min-width:0; }
+@media(max-width:900px) { .fw-layout { flex-direction:column; } .fw-toc { position:static; width:100%; display:flex; gap:4px; flex-wrap:wrap; } .fw-toc a { border-left:none; border-bottom:2px solid transparent; padding:4px 10px; } .fw-toc a.active { border-bottom-color:var(--violet); } }
+
+.fw-section { margin-bottom:8px; max-width:100%; margin-left:auto; margin-right:auto; scroll-margin-top:calc(var(--nav-h,48px) + 80px); }
 .fw-section summary { padding:14px 16px; background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:14px; font-weight:600; color:var(--text); cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; }
 .fw-section summary::-webkit-details-marker { display:none; }
 .fw-section summary::after { content:'\25B8'; color:var(--muted); transition:transform .2s; font-size:12px; }
@@ -289,10 +298,11 @@
 
 /* ── Print ── */
 @media print {
-  .fw-header, .solar-section { display:none !important; }
+  .fw-header, .solar-section, .fw-toc { display:none !important; }
+  .fw-layout { display:block !important; }
   .fw-section { break-inside:avoid; }
-  .fw-section[open] .fw-section-body { display:block !important; }
-  details[open] summary::after { display:none; }
+  .fw-section .fw-section-body { display:block !important; }
+  .fw-section summary::after { display:none; }
   body { background:#fff; color:#222; }
 }
 </style>
@@ -385,18 +395,25 @@
   </div>
 </div>
 
-<!-- ═══════════ COLLAPSIBLE SECTIONS ═══════════ -->
+<!-- ═══════════ COLLAPSIBLE SECTIONS (with sidebar TOC) ═══════════ -->
 
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;max-width:100%;">
-  <a href="#" onclick="document.querySelectorAll('.fw-section')[0].open=true;document.querySelectorAll('.fw-section')[0].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Назначение команды</a>
-  <a href="#" onclick="document.querySelectorAll('.fw-section')[1].open=true;document.querySelectorAll('.fw-section')[1].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Трекеры</a>
-  <a href="#" onclick="document.querySelectorAll('.fw-section')[2].open=true;document.querySelectorAll('.fw-section')[2].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Gate Review</a>
-  <a href="#" onclick="document.querySelectorAll('.fw-section')[3].open=true;document.querySelectorAll('.fw-section')[3].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Роли</a>
-  <a href="#" onclick="document.querySelectorAll('.fw-section')[4].open=true;document.querySelectorAll('.fw-section')[4].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Планирование</a>
-  <a href="#" onclick="document.querySelectorAll('.fw-section')[5].open=true;document.querySelectorAll('.fw-section')[5].scrollIntoView({behavior:'smooth'});return false" style="font-size:11px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;">Процессы</a>
-</div>
+<div class="fw-layout">
 
-<details class="fw-section">
+<!-- Sidebar TOC -->
+<nav class="fw-toc" id="fw-toc">
+  <a href="#gate-review">Gate Review</a>
+  <a href="#roles">Роли (RACI)</a>
+  <a href="#planning">Планирование</a>
+  <a href="#teams">Назначение команд</a>
+  <a href="#trackers">Трекеры</a>
+  <a href="#templates">Шаблоны</a>
+  <a href="#processes">Процессы</a>
+</nav>
+
+<!-- Main content -->
+<div class="fw-main">
+
+<details class="fw-section" id="teams">
   <summary>Назначение команды на инициативу</summary>
   <div class="fw-section-body">
     <h4 style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;">Процесс назначения</h4>
@@ -421,7 +438,7 @@
   </div>
 </details>
 
-<details class="fw-section">
+<details class="fw-section" id="trackers">
   <summary>Интеграция с внешними трекерами</summary>
   <div class="fw-section-body">
     <h4 style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;">Как связать ОРБИТА с YouTrack / Jira / Linear</h4>
@@ -450,7 +467,7 @@
   </div>
 </details>
 
-<details class="fw-section">
+<details class="fw-section" id="gate-review" open>
   <summary>Комитеты и Gate Review</summary>
   <div class="fw-section-body">
     <p>Каждый Gate -- решение о переходе на следующую стадию (орбиту). Без прохождения Gate продукт не двигается вперёд.</p>
@@ -521,7 +538,7 @@
   </div>
 </details>
 
-<details class="fw-section">
+<details class="fw-section" id="roles">
   <summary>Роли и ответственность</summary>
   <div class="fw-section-body">
     <h4 style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;">Матрица RACI</h4>
@@ -568,7 +585,7 @@
   </div>
 </details>
 
-<details class="fw-section">
+<details class="fw-section" id="planning">
   <summary>Планирование (Q/H/Y)</summary>
   <div class="fw-section-body">
     <div class="plan-row"><span class="plan-period">Год</span> Стратегические приоритеты и OKR</div>
@@ -611,7 +628,7 @@
   </div>
 </details>
 
-<details class="fw-section">
+<details class="fw-section" id="processes">
   <summary>Сопроводительные процессы</summary>
   <div class="fw-section-body">
     <div class="support-grid">
@@ -625,7 +642,7 @@
   </div>
 </details>
 
-<details class="fw-section">
+<details class="fw-section" id="templates">
   <summary>Шаблоны и артефакты</summary>
   <div class="fw-section-body">
     <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Все шаблоны доступны в разделе инструментов. Ключевые артефакты по стадиям:</p>
@@ -636,6 +653,9 @@
     </div>
   </div>
 </details>
+
+</div><!-- /.fw-main -->
+</div><!-- /.fw-layout -->
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <div class="fw-footer">
@@ -1089,6 +1109,57 @@ renderOrbit('product');
 window.addEventListener('resize', function() {
   renderOrbit(currentEntity);
 });
+
+/* ================================================================
+   SIDEBAR TOC — active highlight + click-to-open
+   ================================================================ */
+(function() {
+  var tocLinks = document.querySelectorAll('.fw-toc a');
+  if (!tocLinks.length) return;
+
+  // Click: open section + scroll
+  tocLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = this.getAttribute('href').replace('#', '');
+      var section = document.getElementById(id);
+      if (section) {
+        section.open = true;
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Scroll: highlight current section
+  var sections = [];
+  tocLinks.forEach(function(link) {
+    var id = link.getAttribute('href').replace('#', '');
+    var el = document.getElementById(id);
+    if (el) sections.push({ id: id, el: el, link: link });
+  });
+
+  function updateActive() {
+    var scrollY = window.scrollY + 180;
+    var active = null;
+    for (var i = sections.length - 1; i >= 0; i--) {
+      if (sections[i].el.offsetTop <= scrollY) { active = sections[i]; break; }
+    }
+    tocLinks.forEach(function(l) { l.classList.remove('active'); });
+    if (active) active.link.classList.add('active');
+  }
+  window.addEventListener('scroll', updateActive);
+  updateActive();
+
+  // Open section from URL hash
+  if (location.hash) {
+    var id = location.hash.replace('#', '');
+    var section = document.getElementById(id);
+    if (section && section.tagName === 'DETAILS') {
+      section.open = true;
+      setTimeout(function() { section.scrollIntoView({ behavior: 'smooth' }); }, 100);
+    }
+  }
+})();
 </script>
 
 </body>
