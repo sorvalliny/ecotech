@@ -176,6 +176,92 @@ function renderAuthorized(c, user) {
   var isPM = user.role === 'pm';
   var isPMO = user.role === 'pmo' || user.role === 'pmo_lead';
 
+  /* ═══ CEO RED FLAGS (exec only) ═══ */
+  if (isExec) {
+    var rfBlocked = products.filter(function(p) { return p.status === 'blocked'; });
+    var rfRisk = products.filter(function(p) { return p.status === 'at-risk'; });
+
+    // OKR with zero progress
+    var goals = PT.load('ECOTECH_GOALS') || [];
+    var rfOkr = [];
+    goals.forEach(function(g) {
+      var krs = g.keyResults || g.krs || [];
+      var allZero = krs.length > 0 && krs.every(function(kr) { return !kr.current || kr.current === 0; });
+      if (allZero) rfOkr.push(g);
+    });
+
+    // Products not updated > 14 days
+    var rfStale = [];
+    var nowMs = Date.now();
+    var DAY14 = 14 * 24 * 60 * 60 * 1000;
+    products.forEach(function(p) {
+      if (p.id === 'ECO-00') return;
+      var upd = p.updatedAt || p.updated || p.createdAt;
+      if (upd) {
+        var diff = nowMs - new Date(upd).getTime();
+        if (diff > DAY14) rfStale.push({ product: p, days: Math.floor(diff / (24*60*60*1000)) });
+      }
+    });
+
+    // Nearest gate reviews — products closest to next gate
+    var rfGate = products.filter(function(p) {
+      return p.id !== 'ECO-00' && typeof p.gate === 'number' && p.gate < 5 && p.status !== 'blocked' && p.status !== 'screening';
+    }).sort(function(a, b) { return (b.gate || 0) - (a.gate || 0); }).slice(0, 3);
+
+    var hasFlags = rfBlocked.length || rfRisk.length || rfOkr.length || rfStale.length || rfGate.length;
+
+    if (hasFlags) {
+      h += '<div class="sec-title" style="color:var(--red);">Красные флаги</div>';
+
+      // 1. Blocked
+      rfBlocked.forEach(function(p) {
+        h += '<a class="notif-card n-high" href="workspace.html?id=' + esc(p.id) + '" style="border-left:3px solid var(--red);background:var(--red-dim);">';
+        h += '<div style="flex:1"><div class="notif-title">🚫 ' + esc(p.name) + '</div>';
+        h += '<div class="notif-text">' + esc(p.statusText || 'Заблокирован') + ' · <strong style="color:var(--red)">Эскалация обязательна</strong></div></div>';
+        h += '<span style="font-size:11px;color:var(--violet);font-weight:600;">Открыть &rarr;</span></a>';
+      });
+
+      // 2. At-risk
+      rfRisk.forEach(function(p) {
+        h += '<a class="notif-card n-medium" href="workspace.html?id=' + esc(p.id) + '" style="border-left:3px solid var(--amber);background:var(--amber-dim);">';
+        h += '<div style="flex:1"><div class="notif-title">⚠ ' + esc(p.name) + '</div>';
+        h += '<div class="notif-text">' + esc(p.statusText || 'В зоне риска') + (p.owner ? ' · ' + esc(p.owner) : '') + '</div></div>';
+        h += '<span style="font-size:11px;color:var(--violet);font-weight:600;">Открыть &rarr;</span></a>';
+      });
+
+      // 3. OKR at zero
+      rfOkr.forEach(function(g) {
+        var prod = products.find(function(p) { return p.id === g.productId; });
+        var link = prod ? 'workspace.html?id=' + esc(prod.id) : '#';
+        h += '<a class="notif-card n-medium" href="' + link + '" style="border-left:3px solid var(--amber);background:var(--amber-dim);">';
+        h += '<div style="flex:1"><div class="notif-title">OKR: ' + esc(g.title || g.name || 'Без названия') + ' — прогресс 0%</div>';
+        h += '<div class="notif-text">' + (prod ? esc(prod.name) : 'Продукт не указан') + '</div></div>';
+        h += '<span style="font-size:11px;color:var(--violet);font-weight:600;">Открыть &rarr;</span></a>';
+      });
+
+      // 4. Stale products
+      rfStale.forEach(function(item) {
+        h += '<a class="notif-card" href="workspace.html?id=' + esc(item.product.id) + '" style="border-left:3px solid var(--muted);">';
+        h += '<div style="flex:1"><div class="notif-title">' + esc(item.product.name) + ' не обновлялся ' + item.days + ' дней</div>';
+        h += '<div class="notif-text">' + (item.product.owner ? esc(item.product.owner) : '') + '</div></div>';
+        h += '<span style="font-size:11px;color:var(--violet);font-weight:600;">Открыть &rarr;</span></a>';
+      });
+
+      // 5. Nearest gate reviews
+      rfGate.forEach(function(p) {
+        var nextGate = (p.gate || 0) + 1;
+        h += '<a class="notif-card" href="workspace.html?id=' + esc(p.id) + '" style="border-left:3px solid var(--teal);">';
+        h += '<div style="flex:1"><div class="notif-title">' + esc(p.name) + ' готов к Gate ' + nextGate + '</div>';
+        h += '<div class="notif-text">' + esc(GATE_NAMES[nextGate] || 'Gate ' + nextGate) + '</div></div>';
+        h += '<span style="font-size:11px;color:var(--violet);font-weight:600;">Открыть &rarr;</span></a>';
+      });
+
+    } else {
+      h += '<div style="padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--teal);margin-bottom:16px;font-size:13px;color:var(--teal);font-weight:600;">Все продукты на треке ✓</div>';
+    }
+    h += '<div style="margin-bottom:16px;"></div>';
+  }
+
   /* ═══ PORTFOLIO SUMMARY (exec + PMO) ═══ */
   if (isExec || isPMO) {
     var onTrack = products.filter(function(p) { return p.status === 'on-track'; }).length;

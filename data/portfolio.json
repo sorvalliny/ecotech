@@ -15,7 +15,7 @@
     "quarter": "Q2 2026",
     "kpi": [],
     "initiatives": [],
-    "statusLight": "",
+    "statusLight": "green",
     "statusText": "",
     "statusDate": "",
     "leadId": ""
@@ -52,7 +52,7 @@
       }
     ],
     "initiatives": [],
-    "statusLight": "",
+    "statusLight": "green",
     "statusText": "",
     "statusDate": "",
     "leadId": ""
@@ -127,7 +127,7 @@
     "quarter": "Q2 2026",
     "kpi": [],
     "initiatives": [],
-    "statusLight": "",
+    "statusLight": "green",
     "statusText": "",
     "statusDate": "",
     "leadId": ""
@@ -147,8 +147,8 @@
     "updated": "2026-03-01",
     "quarter": "Q2 2026",
     "statusLight": "amber",
-    "statusText": "Цели не определены",
-    "statusDate": "2026-03-05",
+    "statusText": "CustDev отстаёт от плана на 2 недели",
+    "statusDate": "2026-03-24",
     "leadId": "",
     "kpi": [],
     "initiatives": []
@@ -168,8 +168,8 @@
     "updated": "2026-03-01",
     "quarter": "Q2 2026",
     "statusLight": "amber",
-    "statusText": "Цели не определены",
-    "statusDate": "2026-03-02",
+    "statusText": "Концепция не утверждена",
+    "statusDate": "2026-03-24",
     "leadId": "",
     "kpi": [],
     "initiatives": []
@@ -301,7 +301,7 @@
       }
     ],
     "initiatives": [],
-    "statusLight": "",
+    "statusLight": "green",
     "statusText": "",
     "statusDate": "",
     "leadId": ""
@@ -328,7 +328,7 @@
       }
     ],
     "initiatives": [],
-    "statusLight": "",
+    "statusLight": "green",
     "statusText": "",
     "statusDate": "",
     "leadId": ""

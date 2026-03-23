@@ -90,6 +90,17 @@
 .ci-rice-lo{background:var(--red-dim);color:var(--red)}
 .cat-no-init{font-size:11px;color:var(--muted);font-style:italic}
 
+/* ── OKR block ── */
+.cat-okr{border-top:1px solid var(--border);padding-top:8px;margin-bottom:8px}
+.cat-okr-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.cat-okr-row{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);padding:1px 0;line-height:1.4}
+.cat-okr-prefix{flex-shrink:0;font-family:var(--mono);font-size:10px;color:var(--border);user-select:none}
+.cat-okr-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.cat-okr-bar{width:48px;height:5px;border-radius:3px;background:var(--surface2);flex-shrink:0;position:relative;overflow:hidden}
+.cat-okr-bar-fill{height:100%;border-radius:3px;background:var(--teal);transition:width .3s}
+.cat-okr-pct{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--teal);flex-shrink:0;min-width:28px;text-align:right}
+.cat-okr-kr{font-family:var(--mono);font-size:10px;color:var(--muted);flex-shrink:0;white-space:nowrap}
+
 /* ================================================================ EMPTY */
 .cat-empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px;grid-column:1/-1}
 
@@ -203,6 +214,7 @@
   // ── Data ──
   var products = [];
   var backlog = [];
+  var goals = [];
   var changelog = [];
   var STAGES = [];
 
@@ -263,6 +275,31 @@
     // Sort by RICE desc
     result.sort(function(a, b) { return riceScore(b) - riceScore(a); });
     return result;
+  }
+
+  function getProductGoals(productId) {
+    var result = [];
+    for (var i = 0; i < goals.length; i++) {
+      if (goals[i].productId === productId) result.push(goals[i]);
+    }
+    return result;
+  }
+
+  function calcGoalProgress(goal) {
+    var krs = goal.keyResults || goal.krs || [];
+    if (!krs.length) return { pct: 0, done: 0, total: 0 };
+    var total = krs.length;
+    var done = 0;
+    var sumPct = 0;
+    for (var i = 0; i < krs.length; i++) {
+      var kr = krs[i];
+      var target = kr.target || 100;
+      var current = kr.current || 0;
+      var p = target > 0 ? Math.min(Math.round((current / target) * 100), 100) : 0;
+      sumPct += p;
+      if (p >= 100) done++;
+    }
+    return { pct: Math.round(sumPct / total), done: done, total: total };
   }
 
   function formatLogDate(iso) {
@@ -451,6 +488,30 @@
       }
       if (chips.length) dataHtml = '<div class="cat-data">' + chips.join('') + '</div>';
 
+      // ── OKR block ──
+      var okrHtml = '';
+      var pGoals = getProductGoals(p.id);
+      if (pGoals.length) {
+        var okrItems = '';
+        for (var oi = 0; oi < pGoals.length; oi++) {
+          var g = pGoals[oi];
+          var gp = calcGoalProgress(g);
+          var prefix = oi < pGoals.length - 1 ? '├' : '└';
+          okrItems += '<div class="cat-okr-row">' +
+            '<span class="cat-okr-prefix">' + prefix + '</span>' +
+            '<span class="cat-okr-name">' + esc(g.title || g.name || '—') + '</span>' +
+            '<span class="cat-okr-bar"><span class="cat-okr-bar-fill" style="width:' + gp.pct + '%"></span></span>' +
+            '<span class="cat-okr-pct">' + gp.pct + '%</span>' +
+            '<span class="cat-okr-kr">(' + gp.done + '/' + gp.total + ' KR)</span>' +
+          '</div>';
+        }
+        var halfLabel = 'OKR H' + (new Date().getMonth() < 6 ? '1' : '2') + ' ' + new Date().getFullYear();
+        okrHtml = '<div class="cat-okr">' +
+          '<div class="cat-okr-title">' + esc(halfLabel) + '</div>' +
+          okrItems +
+        '</div>';
+      }
+
       // ── Initiatives ──
       var topInits = inits.slice(0, 3);
       var ql = currentQuarterLabel();
@@ -499,7 +560,10 @@
         // Row 5: KPI + metrics chips
         dataHtml +
 
-        // Row 6: Initiatives
+        // Row 6: OKR
+        okrHtml +
+
+        // Row 7: Initiatives
         initHtml +
 
         '</a></div>';
@@ -573,6 +637,7 @@
   function init() {
     STAGES = window.STAGES_DB ? STAGES_DB.get() : [];
     backlog = (window.PT && PT.load) ? PT.load(PT.KEY_BACKLOG) || [] : [];
+    goals = (window.PT && PT.load) ? PT.load('ECOTECH_GOALS') || [] : [];
     changelog = (window.PT && PT.load) ? PT.load(PT.KEY_CHANGELOG) || [] : [];
 
     if (window.PT && PT.ensureProducts) {
@@ -593,6 +658,10 @@
       }
       if (e.key === 'ECOTECH_BACKLOG') {
         try { backlog = JSON.parse(e.newValue || '[]'); } catch(x) { backlog = []; }
+        render();
+      }
+      if (e.key === 'ECOTECH_GOALS') {
+        try { goals = JSON.parse(e.newValue || '[]'); } catch(x) { goals = []; }
         render();
       }
       if (e.key === 'ECOTECH_CHANGELOG') {
