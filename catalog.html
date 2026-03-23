@@ -55,6 +55,8 @@
 .st-at-risk{background:var(--amber-dim);color:var(--amber)}
 .st-blocked{background:var(--red-dim);color:var(--red)}
 .st-screening{background:var(--violet-dim);color:var(--violet)}
+.st-transferring{background:var(--surface);color:var(--muted);font-style:italic}
+.cat-card.is-transferring{opacity:.5;border-style:dashed}
 
 .cat-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
@@ -222,6 +224,7 @@
     if (s === 'on-track') return 'st-on-track';
     if (s === 'at-risk')  return 'st-at-risk';
     if (s === 'blocked')  return 'st-blocked';
+    if (s === 'transferring') return 'st-transferring';
     return 'st-screening';
   }
 
@@ -229,6 +232,7 @@
     if (s === 'on-track') return 'Активен';
     if (s === 'at-risk')  return 'Риск';
     if (s === 'blocked')  return 'Заблокирован';
+    if (s === 'transferring') return 'Переходит';
     if (s === 'pending')  return 'Заявка (O·0)';
     if (s === 'screening') return 'Заявка (O·0)';
     return s || 'N/A';
@@ -339,9 +343,9 @@
   function renderGrid() {
     var filtered = filterProducts();
 
-    // Sort: at-risk first, blocked second, then by gate desc
+    // Sort: at-risk first, blocked second, transferring last, then by gate desc
     filtered.sort(function(a, b) {
-      var pri = function(s) { return s === 'at-risk' ? 0 : s === 'blocked' ? 1 : 2; };
+      var pri = function(s) { return s === 'at-risk' ? 0 : s === 'blocked' ? 1 : s === 'transferring' ? 9 : 2; };
       var d = pri(a.status) - pri(b.status);
       if (d !== 0) return d;
       return (b.gate || 0) - (a.gate || 0);
@@ -354,7 +358,21 @@
 
     var qLabel = currentQuarterLabel();
 
-    elGrid.innerHTML = filtered.map(function(p) {
+    // Separate active and transferring
+    var active = filtered.filter(function(p) { return p.status !== 'transferring'; });
+    var transferring = filtered.filter(function(p) { return p.status === 'transferring'; });
+
+    var html = active.map(function(p) { return renderCard(p); }).join('');
+    if (transferring.length) {
+      html += '<div style="grid-column:1/-1;padding:12px 0;border-top:1px solid var(--border);margin-top:8px;">';
+      html += '<div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Переходят в другие департаменты (' + transferring.length + ')</div>';
+      html += '</div>';
+      html += transferring.map(function(p) { return renderCard(p); }).join('');
+    }
+    elGrid.innerHTML = html;
+  }
+
+  function renderCard(p) {
       var stage = STAGES[p.gate] || STAGES[0] || { name: '?', color: '#94A3B8', colorDim: 'rgba(148,163,184,.1)' };
       var inits = getProductInitiatives(p.id);
       var topInits = inits.slice(0, 3);
@@ -379,13 +397,14 @@
         initHtml = '<div class="cat-initiatives"><div class="cat-no-init">Нет инициатив</div></div>';
       }
 
-      return '<div class="cat-card" onclick="location.href=\'workspace.html?id=' + esc(p.id) + '\'">' +
+      var isT = p.status === 'transferring';
+      return '<div class="cat-card' + (isT ? ' is-transferring' : '') + '" onclick="location.href=\'workspace.html?id=' + esc(p.id) + '\'">' +
         '<div class="cat-card-head">' +
           '<span class="cat-stage" style="background:' + stage.colorDim + ';color:' + stage.color + '">' + stage.orbita + '</span>' +
           '<span class="cat-name">' + esc(displayName(p)) + '</span>' +
           '<span class="cat-status ' + statusClass(p.status) + '">' + statusLabel(p.status) + '</span>' +
         '</div>' +
-        '<div class="cat-desc">' + esc(p.desc) + '</div>' +
+        '<div class="cat-desc">' + esc(p.desc) + (isT ? ' (переходит в другой департамент)' : '') + '</div>' +
         '<div class="cat-meta">' +
           '<span>Владелец: ' + esc(p.owner || 'N/A') + '</span>' +
           '<span>Департамент: ' + esc(p.department === 'education' ? 'Обучение' : 'Экосистема') + '</span>' +
@@ -393,7 +412,6 @@
         '</div>' +
         initHtml +
       '</div>';
-    }).join('');
   }
 
   // ── Render Changelog ──
