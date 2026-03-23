@@ -361,15 +361,14 @@
     });
   }
 
-  // ── Render Summary ──
-  function renderSummary() {
-    var total = products.length;
-    var active = products.filter(function(p) { return p.status !== 'transferring'; }).length;
-    var archived = total - active;
+  // ── Render Summary (reacts to filters) ──
+  function renderSummary(filtered) {
+    if (!filtered) filtered = filterProducts();
+    var active = filtered.filter(function(p) { return p.status !== 'transferring'; });
+    var archived = filtered.filter(function(p) { return p.status === 'transferring'; });
     // Count by stage
     var stageCounts = {};
-    products.forEach(function(p) {
-      if (p.status === 'transferring') return;
+    active.forEach(function(p) {
       var g = p.gate || 0;
       stageCounts[g] = (stageCounts[g] || 0) + 1;
     });
@@ -382,14 +381,15 @@
       }
     }
     elSummary.innerHTML =
-      '<div class="cat-summary-item"><strong>' + active + '</strong> продуктов</div>' +
+      '<div class="cat-summary-item"><strong>' + active.length + '</strong> продуктов</div>' +
       stageHtml +
-      (archived ? '<div class="cat-summary-item"><strong style="color:var(--muted)">' + archived + '</strong> в архиве</div>' : '');
+      (archived.length ? '<div class="cat-summary-item"><strong style="color:var(--muted)">' + archived.length + '</strong> в архиве</div>' : '');
   }
 
   // ── Render Grid ──
   function renderGrid() {
     var filtered = filterProducts();
+    renderSummary(filtered);
 
     // Sort: at-risk first, blocked second, transferring last, then by gate desc
     filtered.sort(function(a, b) {
