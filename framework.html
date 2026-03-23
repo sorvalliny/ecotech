@@ -232,6 +232,49 @@
 .fw-section .fw-section-body ul, .fw-section .fw-section-body ol { padding-left:20px; margin-bottom:8px; }
 .fw-section .fw-section-body p { margin-bottom:8px; }
 
+/* ── Context Guide (dynamic) ── */
+.ctx-hero { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 24px; margin-bottom:16px; }
+.ctx-hero-head { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.ctx-hero-name { font-size:20px; font-weight:800; color:var(--text); }
+.ctx-hero-badge { font-size:11px; font-weight:700; padding:4px 10px; border-radius:6px; }
+.ctx-hero-health { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.ctx-orbit-bar { display:flex; gap:2px; margin-bottom:14px; }
+.ctx-orbit-step { flex:1; height:6px; border-radius:3px; background:var(--surface2); }
+.ctx-orbit-step.filled { opacity:.6; }
+.ctx-orbit-step.current { box-shadow:0 0 8px var(--stage-clr); }
+.ctx-stage-info { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px; }
+.ctx-stage-info > div { padding:12px; background:var(--surface); border:1px solid var(--border); border-radius:8px; }
+.ctx-stage-info .si-label { font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+.ctx-stage-info .si-value { font-size:13px; font-weight:600; color:var(--text); }
+.ctx-checklist { margin-bottom:16px; }
+.ctx-checklist-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.ctx-check-count { font-size:11px; font-weight:600; padding:2px 8px; border-radius:12px; background:var(--violet-dim); color:var(--violet); }
+.ctx-check { display:flex; align-items:center; gap:8px; padding:6px 0; font-size:12px; color:var(--text); border-bottom:1px solid var(--border); }
+.ctx-check:last-child { border-bottom:none; }
+.ctx-check-icon { font-size:14px; flex-shrink:0; }
+.ctx-check.done { color:var(--muted); }
+.ctx-check.done .ctx-check-icon { color:var(--teal); }
+.ctx-check.pending .ctx-check-icon { color:var(--amber); }
+.ctx-next-gate { padding:14px; background:var(--violet-dim); border:1px solid var(--violet-border); border-radius:10px; margin-bottom:16px; }
+.ctx-next-gate h4 { font-size:12px; font-weight:700; color:var(--violet); margin-bottom:6px; }
+.ctx-next-gate p { font-size:12px; color:var(--text); margin-bottom:4px; }
+.ctx-actions { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+.ctx-action { padding:8px 16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; text-decoration:none; font-size:12px; font-weight:600; color:var(--text); transition:all .15s; }
+.ctx-action:hover { border-color:var(--violet-border); background:var(--violet-dim); color:var(--violet); }
+.ctx-portfolio { margin-bottom:16px; }
+.ctx-portfolio-card { display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--card); border:1px solid var(--border); border-radius:8px; margin-bottom:6px; text-decoration:none; color:inherit; transition:border-color .15s; }
+.ctx-portfolio-card:hover { border-color:var(--violet-border); }
+.ctx-portfolio-card .pc-health { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.ctx-portfolio-card .pc-name { font-size:13px; font-weight:700; color:var(--text); flex:1; }
+.ctx-portfolio-card .pc-stage { font-size:11px; font-weight:600; padding:2px 8px; border-radius:4px; }
+.ctx-portfolio-card .pc-alert { font-size:11px; color:var(--amber); font-style:italic; }
+.ctx-alert-card { padding:12px 14px; background:var(--amber-dim); border:1px solid var(--amber-border); border-radius:8px; margin-bottom:6px; }
+.ctx-alert-card h5 { font-size:12px; font-weight:700; color:var(--amber); margin-bottom:4px; }
+.ctx-alert-card p { font-size:11px; color:var(--text); margin:0; }
+.ctx-alert-card .act { font-weight:600; color:var(--violet); }
+.ctx-section-divider { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin:24px 0 12px; padding-top:16px; border-top:1px solid var(--border); }
+@media(max-width:640px) { .ctx-stage-info { grid-template-columns:1fr; } }
+
 /* ── Gate decisions grid ── */
 .gate-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
 .gate-card { padding:12px; border-radius:8px; border:1px solid var(--border); }
@@ -311,20 +354,14 @@
 
 <script src="nav.js"></script>
 
-<!-- ═══════════ HEADER + FILTERS ═══════════ -->
+<!-- ═══════════ HEADER ═══════════ -->
 <div class="fw-header">
   <div class="fw-title">
-    <h1>Как мы работаем</h1>
-    <p>Продуктовый фреймворк экосистемы RWB</p>
+    <h1 id="fw-page-title">Как мы работаем</h1>
+    <p id="fw-page-sub">Продуктовый фреймворк экосистемы RWB</p>
   </div>
   <div class="fw-filters">
-    <select id="f-role" onchange="applyFilters()">
-      <option value="all">Все роли</option>
-      <option value="pm">PM</option>
-      <option value="pmo">PMO</option>
-      <option value="lead">Руководитель</option>
-    </select>
-    <span id="role-indicator" style="font-size:11px;color:var(--violet);font-weight:600;display:none;"></span>
+    <select id="f-product" onchange="switchProduct()" style="min-width:160px;"></select>
     <select id="f-entity" onchange="switchEntity()">
       <option value="product">[P] Продукт</option>
       <option value="tech">[T] Тех.решение</option>
@@ -335,6 +372,9 @@
 </div>
 
 <div class="fw-wrap">
+
+<!-- ═══════════ DYNAMIC CONTEXT GUIDE ═══════════ -->
+<div id="ctx-guide" style="margin-bottom:24px;"></div>
 
 <!-- ═══════════ ORBITAL VISUALIZATION (solar system) ═══════════ -->
 <div class="solar-section">
@@ -1325,9 +1365,248 @@ function switchEntity() {
 }
 
 /* ================================================================
+   CONTEXT GUIDE — dynamic content based on product + role
+   ================================================================ */
+var METRICS_BY_GATE = [
+  { metric:'Соответствие стратегии', threshold:'Бриф заполнен, RICE \u2265 15', source:'ОРБИТА (бриф)' },
+  { metric:'Problem-Solution Fit', threshold:'\u2265 7 CustDev, HMW сформулирован', source:'CustDev-отчёт' },
+  { metric:'Activation Rate, Unit Economics', threshold:'Activation \u2265 30%, UE \u2265 0', source:'Аналитика / P&L' },
+  { metric:'Retention D7, NSM', threshold:'Ret D7 \u2265 40%, NSM растёт 2+ нед', source:'BI-дашборд' },
+  { metric:'Revenue, NPS, Growth Rate', threshold:'Выручка > план, NPS \u2265 40', source:'P&L + NPS' },
+  { metric:'Market Share, EBITDA', threshold:'Доля рынка растёт, маржа \u2265 целевой', source:'Фин.отчётность' }
+];
+var GATE_COMMITTEE = [
+  { who:'PMO Lead', dur:'5-10 дней', fmt:'Рассмотрение заявки' },
+  { who:'PMO Lead + Lead', dur:'3 дня', fmt:'Комитет 30 мин' },
+  { who:'PMO Lead + CTO', dur:'5 дней', fmt:'Комитет 45 мин' },
+  { who:'PMO Lead + Директор', dur:'ежеквартально', fmt:'Ревью 60 мин' },
+  { who:'PMO Lead + CTO', dur:'стратегический', fmt:'Ревью' },
+  { who:'PMO Lead + CEO BU', dur:'ежегодно', fmt:'QBR Q4' }
+];
+function buildChecklist(product, backlog, goals) {
+  var g = product.gate || 0;
+  var items = [];
+  var inits = backlog.filter(function(b){return b.productId===product.id;});
+  var pGoals = goals.filter(function(gl){return gl.productId===product.id;});
+  // Universal checks
+  items.push({ text:'Паспорт продукта заполнен', done:!!(product.desc && product.owner) });
+  items.push({ text:'Статус актуален (обновлён <14 дней)', done: product.updated ? ((Date.now()-new Date(product.updated).getTime())/86400000 < 14) : false });
+  // Stage-specific
+  if (g >= 0) items.push({ text:'Бриф подан и RICE оценён', done: inits.length > 0 });
+  if (g >= 1) items.push({ text:'CustDev проведён (\u2265 7 интервью)', done: g >= 2 });
+  if (g >= 1) items.push({ text:'Цели определены', done: pGoals.length > 0 });
+  if (g >= 2) items.push({ text:'Инициативы на текущий квартал', done: inits.filter(function(i){return i.status==='wip'||i.status==='planned';}).length > 0 });
+  if (g >= 2) items.push({ text:'Команда назначена', done: inits.some(function(i){return !!i.teamId;}) });
+  if (g >= 3) items.push({ text:'Метрики отслеживаются', done: !!(product.kpi && product.kpi.length) });
+  items.push({ text:'Артефакты для Gate '+(g+1)+' готовы', done: false });
+  items.push({ text:'Pre-Gate синк с PMO Lead проведён', done: false });
+  return items;
+}
+
+function renderContextGuide() {
+  var el = document.getElementById('ctx-guide');
+  if (!el) return;
+  var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+  var role = user ? (user.role||'guest') : 'guest';
+  var products = (window.PT ? PT.load(PT.KEY_PRODUCTS) : null) || [];
+  var backlog = (window.PT ? PT.load(PT.KEY_BACKLOG) : null) || [];
+  var goals = (window.PT ? PT.load('ECOTECH_GOALS') : null) || [];
+  var stages = window.STAGES_DB ? STAGES_DB.get() : [];
+
+  // Populate product selector
+  var sel = document.getElementById('f-product');
+  var pid = new URLSearchParams(location.search).get('id');
+
+  if (role === 'lead' || role === 'admin' || role === 'pmo_lead' || role === 'pmo') {
+    // Portfolio view
+    var deptProducts = products.filter(function(p){
+      if (p.status === 'transferring') return false;
+      if (user && user.department && role !== 'admin' && role !== 'pmo_lead') return p.department === user.department;
+      return true;
+    });
+    sel.innerHTML = '<option value="">Весь портфель</option>' + deptProducts.map(function(p){ return '<option value="'+p.id+'"'+(p.id===pid?' selected':'')+'>'+p.id+' — '+(p.name||p.id)+'</option>'; }).join('');
+
+    if (pid) {
+      var product = products.find(function(p){return p.id===pid;});
+      if (product) { renderProductGuide(el, product, stages, backlog, goals, role, user); return; }
+    }
+    renderPortfolioGuide(el, deptProducts, stages, backlog, goals, role, user);
+  } else if (role === 'pm') {
+    // PM: show own products
+    var myProducts = products.filter(function(p){
+      if (!user) return false;
+      if (user.productIds && user.productIds.indexOf(p.id)>=0) return true;
+      if (user.assignments) for(var a=0;a<user.assignments.length;a++) if(user.assignments[a].productId===p.id) return true;
+      return false;
+    });
+    sel.innerHTML = myProducts.map(function(p,i){ return '<option value="'+p.id+'"'+(p.id===pid||(!pid&&i===0)?' selected':'')+'>'+p.id+' — '+(p.name||p.id)+'</option>'; }).join('');
+    var selPid = pid || (myProducts.length ? myProducts[0].id : null);
+    var product = selPid ? products.find(function(p){return p.id===selPid;}) : null;
+    if (product) renderProductGuide(el, product, stages, backlog, goals, role, user);
+    else el.innerHTML = '<div style="padding:24px;color:var(--muted);font-size:13px;">Нет назначенных продуктов.</div>';
+  } else {
+    sel.innerHTML = '<option value="">Методология</option>';
+    el.innerHTML = '';
+  }
+}
+
+function healthDot(status) {
+  if (status==='blocked') return '<span class="ctx-hero-health" style="background:#FF4D6A;box-shadow:0 0 6px rgba(255,77,106,.4)"></span>';
+  if (status==='at-risk') return '<span class="ctx-hero-health" style="background:#FFB830;box-shadow:0 0 6px rgba(255,184,48,.4)"></span>';
+  return '<span class="ctx-hero-health" style="background:#00D4B4;box-shadow:0 0 6px rgba(0,212,180,.4)"></span>';
+}
+
+function renderProductGuide(el, product, stages, backlog, goals, role, user) {
+  var g = product.gate || 0;
+  var stage = stages[g] || stages[0] || {};
+  var nextGate = GATE_COMMITTEE[Math.min(g+1, GATE_COMMITTEE.length-1)] || {};
+  var metrics = METRICS_BY_GATE[Math.min(g, METRICS_BY_GATE.length-1)] || {};
+  var checklist = buildChecklist(product, backlog, goals);
+  var doneCount = checklist.filter(function(c){return c.done;}).length;
+
+  // Title
+  document.getElementById('fw-page-title').textContent = (product.name||product.id) + ' \u2014 Как мы работаем';
+  document.getElementById('fw-page-sub').textContent = stage.name + ' \u00b7 ' + (stage.tagline||'');
+
+  // Orbit bar
+  var barHtml = '';
+  for (var i=0;i<=5;i++) {
+    var cls = i<g?'filled':i===g?'current filled':'';
+    barHtml += '<div class="ctx-orbit-step '+cls+'" style="background:'+(i<=g?stage.color:'')+(i===g?';--stage-clr:'+stage.color:'')+'"></div>';
+  }
+
+  // Stage info cards
+  var stageInfo = '<div class="ctx-stage-info">' +
+    '<div><div class="si-label">Фокус стадии</div><div class="si-value">'+stage.goal+'</div></div>' +
+    '<div><div class="si-label">Фокусная метрика</div><div class="si-value">'+metrics.metric+'</div><div style="font-size:11px;color:var(--muted);margin-top:4px;">Порог: '+metrics.threshold+'</div></div>' +
+    '<div><div class="si-label">Длительность</div><div class="si-value">'+(stage.duration||'—')+'</div></div>' +
+  '</div>';
+
+  // Checklist
+  var clHtml = '<div class="ctx-checklist">';
+  clHtml += '<div class="ctx-checklist-title">Чеклист стадии <span class="ctx-check-count">'+doneCount+' из '+checklist.length+'</span></div>';
+  checklist.forEach(function(c){
+    clHtml += '<div class="ctx-check '+(c.done?'done':'pending')+'"><span class="ctx-check-icon">'+(c.done?'\u2705':'\u26A0\uFE0F')+'</span>'+c.text+'</div>';
+  });
+  clHtml += '</div>';
+
+  // Next gate
+  var ngHtml = '<div class="ctx-next-gate">' +
+    '<h4>Следующий Gate: Gate '+(g+1)+'</h4>' +
+    '<p>Комитет: '+nextGate.who+' \u00b7 '+nextGate.fmt+'</p>' +
+    '<p>Нужно: '+METRICS_BY_GATE[Math.min(g+1,5)].metric+'</p>' +
+  '</div>';
+
+  // Actions based on role
+  var actHtml = '<div class="ctx-actions">';
+  actHtml += '<a class="ctx-action" href="workspace.html?id='+product.id+'">Workspace</a>';
+  if (role==='pm'||role==='pmo'||role==='pmo_lead'||role==='admin') {
+    actHtml += '<a class="ctx-action" href="registry.html">Инициативы</a>';
+    actHtml += '<a class="ctx-action" href="#rice">RICE-оценка</a>';
+    actHtml += '<a class="ctx-action" href="#pre-gate">Pre-Gate чеклист</a>';
+  }
+  if (role==='lead'||role==='pmo_lead'||role==='admin') {
+    actHtml += '<a class="ctx-action" href="#gate-review">Gate Review</a>';
+    actHtml += '<a class="ctx-action" href="catalog.html">Каталог</a>';
+  }
+  actHtml += '</div>';
+
+  // Status reason
+  var reasonHtml = '';
+  if (product.statusText) {
+    var rcls = product.status==='blocked'?'color:var(--red)':'color:var(--amber)';
+    reasonHtml = '<div style="font-size:12px;font-style:italic;'+rcls+';margin-bottom:12px;">'+product.statusText+'</div>';
+  }
+
+  el.innerHTML =
+    '<div class="ctx-hero">' +
+      '<div class="ctx-hero-head">' +
+        healthDot(product.status) +
+        '<span class="ctx-hero-name">'+(product.name||product.id)+'</span>' +
+        '<span class="ctx-hero-badge" style="background:'+(stage.colorDim||'var(--surface)')+';color:'+(stage.color||'var(--text)')+'">'+stage.name+'</span>' +
+      '</div>' +
+      '<div class="ctx-orbit-bar">'+barHtml+'</div>' +
+      reasonHtml +
+      stageInfo +
+      clHtml +
+      ngHtml +
+      actHtml +
+    '</div>' +
+    '<div class="ctx-section-divider">Справочник методологии</div>';
+}
+
+function renderPortfolioGuide(el, products, stages, backlog, goals, role, user) {
+  document.getElementById('fw-page-title').textContent = 'Как мы работаем';
+  document.getElementById('fw-page-sub').textContent = 'Портфель \u00b7 ' + products.length + ' продуктов';
+
+  // Alerts
+  var alerts = [];
+  products.forEach(function(p){
+    if (p.status==='at-risk') alerts.push({ product:p, reason: p.statusText||'Статус At-Risk', action: role==='lead'?'Утвердить цели / принять решение':'Обновить статус и план' });
+    if (p.status==='blocked') alerts.push({ product:p, reason: p.statusText||'Заблокирован', action:'Эскалация обязательна' });
+    if (p.updated) { var days = (Date.now()-new Date(p.updated).getTime())/86400000; if(days>14) alerts.push({ product:p, reason:'Не обновлялся '+Math.floor(days)+' дней', action:'PM: обновить паспорт' }); }
+  });
+
+  var alertHtml = '';
+  if (alerts.length) {
+    alertHtml = '<div style="margin-bottom:16px;"><div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:8px;">Требуют внимания ('+alerts.length+')</div>';
+    alerts.forEach(function(a){
+      alertHtml += '<div class="ctx-alert-card"><h5>'+(a.product.name||a.product.id)+'</h5><p>'+a.reason+' \u2014 <span class="act">'+a.action+'</span></p></div>';
+    });
+    alertHtml += '</div>';
+  }
+
+  // Products by stage
+  var byStage = {};
+  products.forEach(function(p){ var g=p.gate||0; if(!byStage[g])byStage[g]=[]; byStage[g].push(p); });
+  var cardsHtml = '<div class="ctx-portfolio">';
+  for (var g=5;g>=0;g--) {
+    if (!byStage[g]) continue;
+    var s = stages[g]||{};
+    cardsHtml += '<div style="font-size:11px;font-weight:700;color:'+(s.color||'var(--muted)')+';margin:12px 0 6px;">'+s.name+' ('+byStage[g].length+')</div>';
+    byStage[g].forEach(function(p){
+      var st = stages[p.gate||0]||{};
+      cardsHtml += '<a class="ctx-portfolio-card" href="framework.html?id='+p.id+'">' +
+        '<span class="pc-health" style="background:'+(p.status==='at-risk'?'#FFB830':p.status==='blocked'?'#FF4D6A':'#00D4B4')+'"></span>' +
+        '<span class="pc-name">'+(p.name||p.id)+'</span>' +
+        '<span class="pc-stage" style="background:'+(st.colorDim||'')+';color:'+(st.color||'')+'">'+(st.name||'?')+'</span>' +
+        (p.statusText?'<span class="pc-alert">'+p.statusText+'</span>':'') +
+      '</a>';
+    });
+  }
+  cardsHtml += '</div>';
+
+  // Actions
+  var actHtml = '<div class="ctx-actions">';
+  actHtml += '<a class="ctx-action" href="catalog.html">Каталог продуктов</a>';
+  actHtml += '<a class="ctx-action" href="registry.html">Реестр инициатив</a>';
+  actHtml += '<a class="ctx-action" href="calendar.html">Календарь</a>';
+  actHtml += '<a class="ctx-action" href="#gate-review">Gate Review</a>';
+  actHtml += '<a class="ctx-action" href="#metrics">Метрики</a>';
+  actHtml += '</div>';
+
+  el.innerHTML =
+    alertHtml +
+    actHtml +
+    cardsHtml +
+    '<div class="ctx-section-divider">Справочник методологии</div>';
+}
+
+function switchProduct() {
+  var val = document.getElementById('f-product').value;
+  if (val) {
+    history.replaceState(null, '', 'framework.html?id='+val);
+  } else {
+    history.replaceState(null, '', 'framework.html');
+  }
+  renderContextGuide();
+}
+
+/* ================================================================
    INIT
    ================================================================ */
 renderOrbit('product');
+renderContextGuide();
 
 // Recalculate positions on resize
 window.addEventListener('resize', function() {
