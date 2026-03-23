@@ -164,12 +164,16 @@ td b{color:#fff}
     <h2>Жизненный цикл продукта</h2>
     <div class="sub">6 стадий зрелости. Каждая — свой набор процессов и артефактов, требующих операционную модель работы. Переход — через чеклист. Приоритеты — по формуле RICE.</div>
     <div class="funnel">
-      <div class="funnel-stage" style="background:#3D2066;height:50px">0<small>Заявка</small></div>
-      <div class="funnel-stage" style="background:#5B2D8E;height:65px">1<small>Разведка</small></div>
-      <div class="funnel-stage" style="background:#6C3DAF;height:80px">2<small>Прототип</small></div>
-      <div class="funnel-stage" style="background:#9B59D0;height:95px">3<small>Разгон</small></div>
-      <div class="funnel-stage" style="background:#CB11AB;height:110px">4<small>Экосистема</small></div>
-      <div class="funnel-stage" style="background:#E91E8C;height:125px">5<small>Зрелость</small></div>
+      <div class="funnel-stage" style="background:#3D2066;height:50px;cursor:pointer" onclick="showStage(this)" data-desc="Описание проблемы и аудитории. Оценка приоритета." data-gate="Есть проблема? Есть аудитория? Стоит исследовать?">0<small>Заявка</small></div>
+      <div class="funnel-stage" style="background:#5B2D8E;height:65px;cursor:pointer" onclick="showStage(this)" data-desc="Интервью с пользователями, анализ конкурентов, бизнес-обоснование." data-gate="Проблема подтверждена? Рынок есть? Бизнес-кейс сходится?">1<small>Разведка</small></div>
+      <div class="funnel-stage" style="background:#6C3DAF;height:80px;cursor:pointer" onclick="showStage(this)" data-desc="Первая версия продукта. Проверка ключевых гипотез на реальных пользователях." data-gate="Прототип работает? Пользователи возвращаются? Готовы к запуску?">2<small>Прототип</small></div>
+      <div class="funnel-stage" style="background:#9B59D0;height:95px;cursor:pointer" onclick="showStage(this)" data-desc="Выход на рынок. Рост аудитории, метрики запуска, маркетинг." data-gate="Есть product-market fit? Юнит-экономика положительная?">3<small>Разгон</small></div>
+      <div class="funnel-stage" style="background:#CB11AB;height:110px;cursor:pointer" onclick="showStage(this)" data-desc="Встраивание в экосистему RWB. Интеграции с другими продуктами, API." data-gate="Интегрирован с другими продуктами? Работает как часть платформы?">4<small>Экосистема</small></div>
+      <div class="funnel-stage" style="background:#E91E8C;height:125px;cursor:pointer" onclick="showStage(this)" data-desc="Устойчивый бизнес. Оптимизация экономики, масштабирование." data-gate="P&L положительный? Масштаб достигнут?">5<small>Зрелость</small></div>
+    </div>
+    <div id="stage-info" style="display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px 18px;margin-top:12px;font-size:12px;line-height:1.6;cursor:pointer" onclick="this.style.display='none'">
+      <div id="stage-desc" style="margin-bottom:6px"></div>
+      <div id="stage-gate" style="color:#CB11AB;font-weight:600"></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px;font-size:12px">
       <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px 12px"><b>Wibes</b> <span style="color:var(--ok)">→ стадия 4</span><br><span style="color:var(--t3)">В проде, экосистема</span></div>
@@ -247,6 +251,15 @@ function goTo(n) {
   current = Math.max(0, Math.min(n, total - 1));
   slides.style.transform = `translateX(-${current * 100}vw)`;
   document.querySelectorAll('.nav-dot').forEach((d, i) => d.className = 'nav-dot' + (i === current ? ' active' : ''));
+}
+
+function showStage(el) {
+  const info = document.getElementById('stage-info');
+  const desc = document.getElementById('stage-desc');
+  const gate = document.getElementById('stage-gate');
+  desc.innerHTML = '<b>' + el.textContent.trim() + ':</b> ' + el.dataset.desc;
+  gate.innerHTML = 'Переход: ' + el.dataset.gate;
+  info.style.display = 'block';
 }
 
 document.addEventListener('keydown', e => {
