@@ -93,7 +93,19 @@
       try {
         var stored = JSON.parse(localStorage.getItem(USERS_KEY));
         if (stored && stored.length) {
-          return migrateUsers(stored);
+          // Merge: добавить DEFAULT_USERS которых нет в stored
+          var ids = {};
+          for (var si = 0; si < stored.length; si++) ids[stored[si].id] = true;
+          var merged = stored.slice();
+          for (var di = 0; di < DEFAULT_USERS.length; di++) {
+            if (!ids[DEFAULT_USERS[di].id]) {
+              merged.push(JSON.parse(JSON.stringify(DEFAULT_USERS[di])));
+            }
+          }
+          if (merged.length > stored.length) {
+            localStorage.setItem(USERS_KEY, JSON.stringify(merged));
+          }
+          return migrateUsers(merged);
         }
         return migrateUsers(DEFAULT_USERS.map(function(u) { return JSON.parse(JSON.stringify(u)); }));
       } catch(e) {

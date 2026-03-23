@@ -341,7 +341,9 @@
 
   // ── Render Grid ──
   function renderGrid() {
+    console.log('[ORBITA] renderGrid: products=' + products.length + ', STAGES=' + STAGES.length);
     var filtered = filterProducts();
+    console.log('[ORBITA] filtered=' + filtered.length);
 
     // Sort: at-risk first, blocked second, transferring last, then by gate desc
     filtered.sort(function(a, b) {
@@ -362,35 +364,53 @@
     var active = filtered.filter(function(p) { return p.status !== 'transferring'; });
     var transferring = filtered.filter(function(p) { return p.status === 'transferring'; });
 
-    var html = active.map(function(p) { return renderCard(p); }).join('');
+    var html = '';
+    active.forEach(function(p) {
+      try { html += renderCard(p); }
+      catch(err) { console.error('renderCard error for', p.id, err); html += '<div style="padding:12px;color:var(--red,red);font-size:11px;border:1px solid red;border-radius:8px;">Ошибка: ' + (p.id || '?') + ' — ' + (err.message || err) + '</div>'; }
+    });
     if (transferring.length) {
       html += '<div style="grid-column:1/-1;padding:12px 0;border-top:1px solid var(--border);margin-top:8px;">';
       html += '<div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Переходят в другие департаменты (' + transferring.length + ')</div>';
       html += '</div>';
-      html += transferring.map(function(p) { return renderCard(p); }).join('');
+      transferring.forEach(function(p) {
+        try { html += renderCard(p); }
+        catch(err) { console.error('renderCard error for', p.id, err); html += '<div style="padding:12px;color:var(--red,red);font-size:11px;border:1px solid red;border-radius:8px;">Ошибка: ' + (p.id || '?') + ' — ' + (err.message || err) + '</div>'; }
+      });
     }
+    if (!html) html = '<div class="cat-empty">Грид пуст: active=' + active.length + ', transferring=' + transferring.length + ', filtered=' + filtered.length + '</div>';
     elGrid.innerHTML = html;
   }
 
   function renderCard(p) {
-      var stage = STAGES[p.gate] || STAGES[0] || { name: '?', color: '#94A3B8', colorDim: 'rgba(148,163,184,.1)' };
+      var stage = STAGES[p.gate] || STAGES[0];
+      var sColor = stage ? stage.color : '#94A3B8';
+      var sColorDim = stage ? stage.colorDim : 'rgba(148,163,184,.1)';
+      var sOrbita = stage ? stage.orbita : 'O·?';
+      var pName = '';
+      try { pName = displayName(p); } catch(e) { pName = p.name || p.id || '?'; }
+
       var inits = getProductInitiatives(p.id);
       var topInits = inits.slice(0, 3);
       var initCount = inits.length;
+      var ql = currentQuarterLabel();
 
       var initHtml = '';
       if (topInits.length) {
+        var initItems = '';
+        for (var ii = 0; ii < topInits.length; ii++) {
+          var it = topInits[ii];
+          var score = riceScore(it);
+          var cls = riceClass(score);
+          initItems += '<div class="cat-init">' +
+            '<span class="cat-init-id">' + esc(it.id) + '</span>' +
+            '<span class="cat-init-name">' + esc(it.title || it.name || it.id) + '</span>' +
+            (score > 0 ? '<span class="ci-rice ' + cls + '">RICE ' + score + '</span>' : '') +
+          '</div>';
+        }
         initHtml = '<div class="cat-initiatives">' +
-          '<div class="cat-init-title">Инициативы ' + esc(qLabel) + ' (' + initCount + ')</div>' +
-          topInits.map(function(it) {
-            var score = riceScore(it);
-            var cls = riceClass(score);
-            return '<div class="cat-init">' +
-              '<span class="cat-init-id">' + esc(it.id) + '</span>' +
-              '<span class="cat-init-name">' + esc(it.title || it.name || it.id) + '</span>' +
-              (score > 0 ? '<span class="ci-rice ' + cls + '">RICE ' + score + '</span>' : '') +
-            '</div>';
-          }).join('') +
+          '<div class="cat-init-title">Инициативы ' + esc(ql) + ' (' + initCount + ')</div>' +
+          initItems +
           (initCount > 3 ? '<div class="cat-no-init">+ ещё ' + (initCount - 3) + '</div>' : '') +
         '</div>';
       } else {
@@ -398,19 +418,23 @@
       }
 
       var isT = p.status === 'transferring';
-      return '<div class="cat-card' + (isT ? ' is-transferring' : '') + '" onclick="location.href=\'workspace.html?id=' + esc(p.id) + '\'">' +
+      var deptLabel = (p.department === 'education') ? 'Обучение' : 'Экосистема';
+
+      return '<div class="cat-card' + (isT ? ' is-transferring' : '') + '" data-pid="' + esc(p.id) + '">' +
+        '<a href="workspace.html?id=' + encodeURIComponent(p.id) + '" style="text-decoration:none;color:inherit;display:block;">' +
         '<div class="cat-card-head">' +
-          '<span class="cat-stage" style="background:' + stage.colorDim + ';color:' + stage.color + '">' + stage.orbita + '</span>' +
-          '<span class="cat-name">' + esc(displayName(p)) + '</span>' +
+          '<span class="cat-stage" style="background:' + sColorDim + ';color:' + sColor + '">' + sOrbita + '</span>' +
+          '<span class="cat-name">' + esc(pName) + '</span>' +
           '<span class="cat-status ' + statusClass(p.status) + '">' + statusLabel(p.status) + '</span>' +
         '</div>' +
         '<div class="cat-desc">' + esc(p.desc) + (isT ? ' (переходит в другой департамент)' : '') + '</div>' +
         '<div class="cat-meta">' +
           '<span>Владелец: ' + esc(p.owner || 'N/A') + '</span>' +
-          '<span>Департамент: ' + esc(p.department === 'education' ? 'Обучение' : 'Экосистема') + '</span>' +
+          '<span>Департамент: ' + esc(deptLabel) + '</span>' +
           (p.catLabel ? '<span>' + esc(p.catLabel) + '</span>' : '') +
         '</div>' +
         initHtml +
+        '</a>' +
       '</div>';
   }
 
@@ -461,16 +485,21 @@
     var user = OrbAuth.getCurrentUser();
     if (!user) return;
     var role = (user.role || '').toLowerCase();
-    if ((role === 'pm' || role === 'pmo') && user.department) {
+    if ((role === 'pm' || role === 'pmo' || role === 'lead' || role === 'stakeholder') && user.department) {
       elCFDept.value = user.department;
     }
   }
 
   // ── Full render ──
   function render() {
-    renderSummary();
-    renderGrid();
-    renderChangelog();
+    try {
+      renderSummary();
+      renderGrid();
+      renderChangelog();
+    } catch(err) {
+      console.error('ORBITA catalog render error:', err);
+      if (elGrid) elGrid.innerHTML = '<div style="padding:24px;color:var(--red,red);font-size:13px;">Ошибка отрисовки: ' + (err.message || err) + '</div>';
+    }
   }
 
   // ── Load data ──

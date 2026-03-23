@@ -270,6 +270,11 @@ body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sa
 
   <!-- FILTER BAR -->
   <div class="reg-filters">
+    <select id="rf-dept" onchange="applyAllFilters()">
+      <option value="">Все департаменты</option>
+      <option value="innovation">Экосистема</option>
+      <option value="education">Обучение</option>
+    </select>
     <select id="rf-product" onchange="applyAllFilters()"></select>
     <select id="rf-type" onchange="applyAllFilters()">
       <option value="">Все типы</option>
@@ -470,14 +475,19 @@ function init() {
   if (window.OrbAuth) {
     var user = OrbAuth.getCurrentUser();
     if (user && user.department) {
-      // Could auto-filter here if needed
+      var role = (user.role || '').toLowerCase();
+      if (role === 'pm' || role === 'pmo' || role === 'lead' || role === 'stakeholder') {
+        var rfDept = document.getElementById('rf-dept');
+        if (rfDept) rfDept.value = user.department;
+      }
     }
   }
 
   populateProductSelects();
 
-  // Restore saved filter state
+  // Restore saved filter state (overrides auto-department if user previously changed it)
   var savedFilters = window.PT ? (PT.getUIState().regFilters || {}) : {};
+  if (savedFilters.dept && document.getElementById('rf-dept')) document.getElementById('rf-dept').value = savedFilters.dept;
   if (savedFilters.product && document.getElementById('rf-product')) document.getElementById('rf-product').value = savedFilters.product;
   if (savedFilters.type && document.getElementById('rf-type')) document.getElementById('rf-type').value = savedFilters.type;
   if (savedFilters.status && document.getElementById('rf-status')) document.getElementById('rf-status').value = savedFilters.status;
@@ -524,6 +534,7 @@ function riceClass(s) { return s > 20 ? 'rice-hi' : s >= 10 ? 'rice-mi' : 'rice-
 // ════════════════════════════════════════════
 
 function getFilteredInitiatives() {
+  var fDept    = document.getElementById('rf-dept').value;
   var fProduct = document.getElementById('rf-product').value;
   var fType    = document.getElementById('rf-type').value;
   var fStatus  = document.getElementById('rf-status').value;
@@ -531,6 +542,12 @@ function getFilteredInitiatives() {
   var fSearch  = (document.getElementById('rf-search').value || '').toLowerCase().trim();
 
   return backlog.filter(function(item) {
+    // Department filter
+    if (fDept) {
+      var prod = products.find(function(p) { return p.id === item.productId; });
+      if (prod && prod.department && prod.department !== fDept) return false;
+      if (!prod) return false;
+    }
     if (fProduct && item.productId !== fProduct) return false;
     var t = window.PT ? PT.getInitType(item) : (item.type || 'product');
     if (fType && t !== fType) return false;
@@ -539,14 +556,6 @@ function getFilteredInitiatives() {
     if (fSearch) {
       var hay = ((item.name || '') + ' ' + (item.desc || '') + ' ' + (item.id || '') + ' ' + (item.productId || '')).toLowerCase();
       if (hay.indexOf(fSearch) === -1) return false;
-    }
-    // Department filter from OrbAuth
-    if (window.OrbAuth) {
-      var user = OrbAuth.getCurrentUser();
-      if (user && user.department && user.role !== 'admin' && user.role !== 'pmo') {
-        var prod = products.find(function(p) { return p.id === item.productId; });
-        if (prod && prod.department && prod.department !== user.department) return false;
-      }
     }
     return true;
   });
@@ -561,6 +570,7 @@ function applyAllFilters() {
   if (window.PT) {
     PT.setUIState({
       regFilters: {
+        dept: document.getElementById('rf-dept') ? document.getElementById('rf-dept').value : '',
         product: document.getElementById('rf-product') ? document.getElementById('rf-product').value : '',
         type: document.getElementById('rf-type') ? document.getElementById('rf-type').value : '',
         status: document.getElementById('rf-status') ? document.getElementById('rf-status').value : '',
@@ -572,6 +582,7 @@ function applyAllFilters() {
 }
 
 function resetFilters() {
+  document.getElementById('rf-dept').value = '';
   document.getElementById('rf-product').value = '';
   document.getElementById('rf-type').value = '';
   document.getElementById('rf-status').value = '';
