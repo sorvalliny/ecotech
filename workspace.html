@@ -211,7 +211,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 /* ── PRINT ── */
 @media print{
   body{background:#fff;color:#000}
-  .ws-tabs,.ws-header-right,.ws-toast,.ws-modal-overlay,.ws-add-member-btn,.ws-create-init-btn,.ws-create-goal-btn,.ws-init-form{display:none!important}
+  .ws-tabs,.ws-header-right,.ws-toast,.ws-modal-overlay,.ws-umodal-overlay,.ws-add-member-btn,.ws-create-init-btn,.ws-create-goal-btn,.ws-init-form{display:none!important}
   .ws-panel{display:block!important}
   .ws-section{break-inside:avoid}
 }
@@ -229,6 +229,19 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .ws-sm-phase{margin-top:14px;padding:12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)}
 .ws-sm-phase-title{font-size:12px;font-weight:700;color:var(--violet);margin-bottom:6px}
 .ws-sm-phase ul{margin:0;padding-left:18px;font-size:12px;color:var(--text);line-height:1.7}
+/* Universal Modal component (showModal) */
+.ws-umodal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1000; display:flex; align-items:center; justify-content:center; }
+.ws-umodal { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px; max-width:480px; width:90%; max-height:80vh; overflow-y:auto; }
+.ws-umodal h3 { font-size:16px; font-weight:700; color:var(--text); margin-bottom:16px; }
+.ws-umodal label { display:block; font-size:11px; font-weight:600; color:var(--muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:.04em; }
+.ws-umodal input, .ws-umodal select, .ws-umodal textarea { width:100%; padding:10px; background:var(--bg); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:inherit; font-size:13px; margin-bottom:12px; box-sizing:border-box; }
+.ws-umodal textarea { min-height:80px; resize:vertical; }
+.ws-umodal-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:8px; }
+.ws-umodal-btn { padding:10px 20px; border-radius:6px; font-family:inherit; font-size:12px; font-weight:700; cursor:pointer; border:none; }
+.ws-umodal-btn-primary { background:var(--violet); color:#fff; }
+.ws-umodal-btn-cancel { background:transparent; border:1px solid var(--border); color:var(--muted); }
+.ws-umodal .ws-checklist-item { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text); margin-bottom:6px; }
+.ws-umodal .ws-checklist-icon { font-size:16px; }
 </style>
 </head>
 <body>
@@ -275,6 +288,90 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   var APPROVAL_LABELS = {'approved':'Согласовано','pending':'На согласовании','rejected':'Отклонено'};
   var APPROVAL_CLS = {'approved':'ab-approved','pending':'ab-pending','rejected':'ab-rejected'};
   var DOC_STATUS_ICONS = {'done':'\u2705','wip':'\u23F3','none':'\u274C'};
+
+  // ── Modal component ──
+  function showModal(title, fields, onConfirm, opts) {
+    opts = opts || {};
+    var overlay = document.createElement('div');
+    overlay.className = 'ws-umodal-overlay';
+    var modal = document.createElement('div');
+    modal.className = 'ws-umodal';
+    var h3 = document.createElement('h3');
+    h3.textContent = title;
+    modal.appendChild(h3);
+
+    // Optional HTML block (for checklists etc.)
+    if (opts.htmlBefore) {
+      var div = document.createElement('div');
+      div.innerHTML = opts.htmlBefore;
+      modal.appendChild(div);
+    }
+
+    fields.forEach(function(f) {
+      var lbl = document.createElement('label');
+      lbl.textContent = f.label;
+      lbl.setAttribute('for', 'ws-modal-' + f.id);
+      modal.appendChild(lbl);
+      var el;
+      if (f.type === 'select') {
+        el = document.createElement('select');
+        (f.options || []).forEach(function(o) {
+          var opt = document.createElement('option');
+          if (typeof o === 'object') { opt.value = o.value; opt.textContent = o.label; }
+          else { opt.value = o; opt.textContent = o; }
+          el.appendChild(opt);
+        });
+        if (f.value) el.value = f.value;
+      } else if (f.type === 'textarea') {
+        el = document.createElement('textarea');
+        el.placeholder = f.placeholder || '';
+        if (f.value !== undefined) el.value = f.value;
+      } else {
+        el = document.createElement('input');
+        el.type = f.type || 'text';
+        el.placeholder = f.placeholder || '';
+        if (f.value !== undefined) el.value = f.value;
+      }
+      el.id = 'ws-modal-' + f.id;
+      modal.appendChild(el);
+    });
+
+    var actions = document.createElement('div');
+    actions.className = 'ws-umodal-actions';
+    var btnCancel = document.createElement('button');
+    btnCancel.className = 'ws-umodal-btn ws-umodal-btn-cancel';
+    btnCancel.textContent = 'Отмена';
+    var btnOk = document.createElement('button');
+    btnOk.className = 'ws-umodal-btn ws-umodal-btn-primary';
+    btnOk.textContent = opts.confirmLabel || 'Подтвердить';
+    actions.appendChild(btnCancel);
+    actions.appendChild(btnOk);
+    modal.appendChild(actions);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    function close() { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }
+    function submit() {
+      var values = {};
+      fields.forEach(function(f) {
+        var el = document.getElementById('ws-modal-' + f.id);
+        values[f.id] = el ? el.value : '';
+      });
+      close();
+      onConfirm(values);
+    }
+
+    btnCancel.addEventListener('click', close);
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', function handler(e) {
+      if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); }
+    });
+    btnOk.addEventListener('click', submit);
+
+    // Focus first field
+    var firstEl = fields.length ? document.getElementById('ws-modal-' + fields[0].id) : null;
+    if (firstEl) setTimeout(function() { firstEl.focus(); }, 50);
+  }
 
   // ── Stage Metrics (фокусные метрики по Gate) ──
   var STAGE_METRICS = {
@@ -466,28 +563,32 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     var init = _backlog.find(function(i) { return i.id === initId; });
     if (!init) return;
     var labels = { go: 'Go', nogo: 'No-Go', revise: 'Revise' };
-    var comment = prompt(labels[decision] + ' \u2014 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 (\u043D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E):');
-    if (comment === null) return; // cancelled
-
-    init.approval = decision === 'go' ? 'approved' : decision === 'nogo' ? 'rejected' : 'pending';
-    if (!init.reviews) init.reviews = [];
-    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
-    init.reviews.push({
-      action: decision,
-      comment: comment || '',
-      userName: user ? user.name : 'Unknown',
-      date: new Date().toISOString().split('T')[0]
+    showModal('\u0420\u0435\u0432\u044C\u044E: ' + labels[decision], [
+      { label: '\u0420\u0435\u0448\u0435\u043D\u0438\u0435', type: 'select', id: 'decision', options: [
+        { value: 'go', label: 'Go' }, { value: 'nogo', label: 'No-Go' }, { value: 'revise', label: 'Revise' }
+      ], value: decision },
+      { label: '\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 (\u043D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E)', type: 'textarea', id: 'comment', placeholder: '\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439...' }
+    ], function(vals) {
+      var d = vals.decision;
+      var comment = vals.comment || '';
+      init.approval = d === 'go' ? 'approved' : d === 'nogo' ? 'rejected' : 'pending';
+      if (!init.reviews) init.reviews = [];
+      var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+      init.reviews.push({
+        action: d,
+        comment: comment,
+        userName: user ? user.name : 'Unknown',
+        date: new Date().toISOString().split('T')[0]
+      });
+      init.updatedAt = new Date().toISOString().split('T')[0];
+      saveBacklog();
+      addLog('review_' + d, init.name + ': ' + labels[d] + (comment ? ' \u2014 ' + comment : ''), 'initiative', initId);
+      if (window.PT && PT.notify) {
+        PT.notify({ type:'review_submitted', level:'high', recipientRole:'pm_owner', productId:productId, title:productId + ' \u2014 \u0440\u0435\u0432\u044C\u044E: ' + labels[d], text:init.name + (comment ? ': ' + comment : ''), action:{label:'\u041E\u0442\u043A\u0440\u044B\u0442\u044C',url:'workspace.html?id='+productId+'&tab=initiatives'} });
+      }
+      showToast(labels[d] + ' \u0437\u0430\u043F\u0438\u0441\u0430\u043D');
+      render();
     });
-    init.updatedAt = new Date().toISOString().split('T')[0];
-    saveBacklog();
-    addLog('review_' + decision, init.name + ': ' + labels[decision] + (comment ? ' \u2014 ' + comment : ''), 'initiative', initId);
-
-    if (window.PT && PT.notify) {
-      PT.notify({ type:'review_submitted', level:'high', recipientRole:'pm_owner', productId:productId, title:productId + ' \u2014 \u0440\u0435\u0432\u044C\u044E: ' + labels[decision], text:init.name + (comment ? ': ' + comment : ''), action:{label:'\u041E\u0442\u043A\u0440\u044B\u0442\u044C',url:'workspace.html?id='+productId+'&tab=initiatives'} });
-    }
-
-    showToast(labels[decision] + ' \u0437\u0430\u043F\u0438\u0441\u0430\u043D');
-    render();
   };
 
   function getProductInitiatives() {
@@ -701,37 +802,52 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
     var userName = user ? user.name : 'Unknown';
 
-    if (!confirm('Перевести ' + _product.name + ' на стадию ' + nextName + '?' + artStatus + '\n\nТекущий Gate: ' + gateNames[currentGate] + ' → ' + nextName + '\nУтверждает: ' + userName)) return;
-
-    _product.gate = nextGate;
-    if (_product.status === 'screening' || _product.status === 'pending') _product.status = 'on-track';
-    _product.updatedAt = new Date().toISOString().split('T')[0];
-
-    // Gate approval record
-    if (!_product.gateHistory) _product.gateHistory = [];
-    _product.gateHistory.push({
-      fromGate: currentGate,
-      toGate: nextGate,
-      approvedBy: userName,
-      role: role,
-      date: new Date().toISOString().split('T')[0]
-    });
-
-    saveProducts();
-    addLog('gate_transition', 'Переход: ' + gateNames[currentGate] + ' → ' + nextName + ' (утвердил: ' + userName + ')', 'product', productId);
-    if (window.PT && PT.notify) {
-      PT.notify({
-        type: 'gate_transition',
-        level: 'high',
-        recipientRole: 'pm_owner',
-        productId: productId,
-        title: productId + ' переведён на ' + nextName,
-        text: 'Gate ' + currentGate + ' пройден. Утвердил: ' + userName,
-        action: { label: 'Открыть', url: 'workspace.html?id=' + productId }
+    // Build checklist HTML for artifacts
+    var checklistHtml = '';
+    if (gateArtifacts.length) {
+      checklistHtml = '<div style="margin-bottom:12px">';
+      gateArtifacts.forEach(function(a) {
+        var icon = a.status === 'done' ? '✅' : a.status === 'wip' ? '⏳' : '❌';
+        var label = a.status === 'done' ? 'готов' : a.status === 'wip' ? 'в работе' : 'не начат';
+        checklistHtml += '<div class="ws-checklist-item"><span class="ws-checklist-icon">' + icon + '</span> ' + a.name + ' — ' + label + '</div>';
       });
+      checklistHtml += '</div>';
     }
-    showToast('Переведено на ' + nextName);
-    render();
+
+    showModal('Перевод на ' + nextName, [
+      { label: 'Комментарий (необязательно)', type: 'textarea', id: 'comment', placeholder: '' }
+    ], function(vals) {
+      _product.gate = nextGate;
+      if (_product.status === 'screening' || _product.status === 'pending') _product.status = 'on-track';
+      _product.updatedAt = new Date().toISOString().split('T')[0];
+
+      // Gate approval record
+      if (!_product.gateHistory) _product.gateHistory = [];
+      _product.gateHistory.push({
+        fromGate: currentGate,
+        toGate: nextGate,
+        approvedBy: userName,
+        role: role,
+        date: new Date().toISOString().split('T')[0],
+        comment: vals.comment || ''
+      });
+
+      saveProducts();
+      addLog('gate_transition', 'Переход: ' + gateNames[currentGate] + ' → ' + nextName + ' (утвердил: ' + userName + ')', 'product', productId);
+      if (window.PT && PT.notify) {
+        PT.notify({
+          type: 'gate_transition',
+          level: 'high',
+          recipientRole: 'pm_owner',
+          productId: productId,
+          title: productId + ' переведён на ' + nextName,
+          text: 'Gate ' + currentGate + ' пройден. Утвердил: ' + userName,
+          action: { label: 'Открыть', url: 'workspace.html?id=' + productId }
+        });
+      }
+      showToast('Переведено на ' + nextName);
+      render();
+    }, { confirmLabel: 'Перевести', htmlBefore: '<p style="font-size:13px;color:var(--text);margin-bottom:8px">Текущий Gate: <b>' + gateNames[currentGate] + '</b> → <b>' + nextName + '</b><br>Утверждает: ' + userName + '</p>' + checklistHtml });
   };
 
   // ── Stage Metric Status cycling (✓ / ✗ / —) ──
@@ -1426,35 +1542,40 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   function addKRToGoal(goalId) {
     var goal = _goals.find(function(g) { return g.id === goalId; });
     if (!goal) return;
-    var text = prompt('Key Result (текст):');
-    if (!text) return;
-    var target = prompt('Целевое значение (число):');
-    if (!goal.keyResults) goal.keyResults = [];
-    goal.keyResults.push({
-      id: 'KR-' + Date.now(),
-      text: text,
-      current: 0,
-      target: parseInt(target) || 100
+    showModal('Добавить Key Result', [
+      { label: 'Key Result (текст)', type: 'text', id: 'krtext', placeholder: 'Опишите KR...' },
+      { label: 'Целевое значение', type: 'number', id: 'krtarget', placeholder: '100' }
+    ], function(vals) {
+      if (!vals.krtext) return;
+      if (!goal.keyResults) goal.keyResults = [];
+      goal.keyResults.push({
+        id: 'KR-' + Date.now(),
+        text: vals.krtext,
+        current: 0,
+        target: parseInt(vals.krtarget) || 100
+      });
+      saveGoals();
+      showToast('KR добавлен');
+      render();
     });
-    saveGoals();
-    showToast('KR добавлен');
-    render();
   }
 
   function linkInitToGoal(initId) {
     if (!_goals.length) { showToast('Сначала создайте цель'); return; }
-    var options = _goals.map(function(g) { return g.id + ': ' + (g.title || g.name); }).join('\n');
-    var goalId = prompt('Выберите цель (введите ID):\n' + options);
-    if (!goalId) return;
-    var gid = goalId.split(':')[0].trim();
-    var init = _backlog.find(function(i) { return i.id === initId; });
-    if (init) {
-      init.goalId = gid;
-      init.updatedAt = new Date().toISOString().split('T')[0];
-      saveBacklog();
-      showToast('Привязано к цели');
-      render();
-    }
+    var goalOptions = _goals.map(function(g) { return { value: g.id, label: g.id + ': ' + (g.title || g.name) }; });
+    showModal('Привязать к цели', [
+      { label: 'Цель', type: 'select', id: 'goalId', options: goalOptions }
+    ], function(vals) {
+      if (!vals.goalId) return;
+      var init = _backlog.find(function(i) { return i.id === initId; });
+      if (init) {
+        init.goalId = vals.goalId;
+        init.updatedAt = new Date().toISOString().split('T')[0];
+        saveBacklog();
+        showToast('Привязано к цели');
+        render();
+      }
+    });
   }
 
   // PL-002: approveGoal / rejectGoal
@@ -1475,17 +1596,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   window.rejectGoal = function(goalId) {
     var g = _goals.find(function(g) { return g.id === goalId; });
     if (!g) return;
-    var comment = prompt('Комментарий для доработки:');
-    if (comment === null) return;
-    g.status = 'draft';
-    g.approvalStatus = 'rejected';
-    saveGoals();
-    addLog('goal_rejected', (g.title||g.name) + ': ' + comment, 'goal', goalId);
-    if (window.PT && PT.notify) {
-      PT.notify({ type:'goal_rejected', level:'high', recipientRole:'pm_owner', productId:productId, title:'Цель на доработку: ' + (g.title||g.name), text:comment, action:{label:'Открыть',url:'workspace.html?id='+productId+'&tab=goals'} });
-    }
-    showToast('Отправлено на доработку');
-    render();
+    showModal('Отклонить цель', [
+      { label: 'Комментарий для доработки', type: 'textarea', id: 'comment', placeholder: 'Укажите причину...' }
+    ], function(vals) {
+      var comment = vals.comment || '';
+      g.status = 'draft';
+      g.approvalStatus = 'rejected';
+      saveGoals();
+      addLog('goal_rejected', (g.title||g.name) + ': ' + comment, 'goal', goalId);
+      if (window.PT && PT.notify) {
+        PT.notify({ type:'goal_rejected', level:'high', recipientRole:'pm_owner', productId:productId, title:'Цель на доработку: ' + (g.title||g.name), text:comment, action:{label:'Открыть',url:'workspace.html?id='+productId+'&tab=goals'} });
+      }
+      showToast('Отправлено на доработку');
+      render();
+    });
   };
 
   // PL-003: updateKR inline
@@ -1494,13 +1618,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     if (!g || !g.keyResults) return;
     var kr = g.keyResults.find(function(k) { return k.id === krId; });
     if (!kr) return;
-    var val = prompt('Текущее значение для "' + kr.text + '" (цель: ' + kr.target + '):', kr.current || 0);
-    if (val === null) return;
-    kr.current = parseFloat(val) || 0;
-    saveGoals();
-    addLog('kr_updated', kr.text + ': ' + kr.current + '/' + kr.target, 'goal', goalId);
-    showToast('KR обновлён');
-    render();
+    showModal('Обновить KR: ' + kr.text, [
+      { label: 'Текущее значение (цель: ' + kr.target + ')', type: 'number', id: 'krval', value: kr.current || 0 }
+    ], function(vals) {
+      kr.current = parseFloat(vals.krval) || 0;
+      saveGoals();
+      addLog('kr_updated', kr.text + ': ' + kr.current + '/' + kr.target, 'goal', goalId);
+      showToast('KR обновлён');
+      render();
+    });
   };
 
   // PL-004: Transfer to next quarter
@@ -1799,32 +1925,38 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     var createBtn = document.getElementById('btn-create-goal');
     if (createBtn) {
       createBtn.addEventListener('click', function() {
-        var title = prompt('Название цели:');
-        if (!title) return;
-        var period = prompt('Период (H1 2026 / H2 2026):', 'H1 2026');
-        if (!period) return;
-        var typeInput = prompt('Тип цели (product / strategic / growth):', 'product');
-        var goalType = (typeInput === 'strategic' || typeInput === 'growth') ? typeInput : 'product';
-        var user = (window.OrbAuth && OrbAuth.getCurrentUser()) || {};
-
-        var goal = {
-          id: 'G-' + Date.now(),
-          title: title,
-          name: title,
-          type: goalType,
-          period: period,
-          productId: productId,
-          owner: user.name || 'PM',
-          status: 'draft',
-          approvalStatus: 'pending',
-          keyResults: [],
-          createdAt: new Date().toISOString().split('T')[0]
-        };
-        _goals.push(goal);
-        saveGoals();
-        addLog('goal_created', title + ' (' + period + ', ' + goalType + ')', 'goal', goal.id);
-        showToast('Цель создана');
-        render();
+        showModal('Создать цель', [
+          { label: 'Название цели', type: 'text', id: 'title', placeholder: 'Введите название...' },
+          { label: 'Период', type: 'select', id: 'period', options: ['H1 2026', 'H2 2026'] },
+          { label: 'Тип цели', type: 'select', id: 'goaltype', options: [
+            { value: 'product', label: 'Продуктовая' },
+            { value: 'strategic', label: 'Стратегическая' },
+            { value: 'growth', label: 'Рост' }
+          ] }
+        ], function(vals) {
+          if (!vals.title) return;
+          var goalType = vals.goaltype || 'product';
+          var period = vals.period || 'H1 2026';
+          var user = (window.OrbAuth && OrbAuth.getCurrentUser()) || {};
+          var goal = {
+            id: 'G-' + Date.now(),
+            title: vals.title,
+            name: vals.title,
+            type: goalType,
+            period: period,
+            productId: productId,
+            owner: user.name || 'PM',
+            status: 'draft',
+            approvalStatus: 'pending',
+            keyResults: [],
+            createdAt: new Date().toISOString().split('T')[0]
+          };
+          _goals.push(goal);
+          saveGoals();
+          addLog('goal_created', vals.title + ' (' + period + ', ' + goalType + ')', 'goal', goal.id);
+          showToast('Цель создана');
+          render();
+        });
       });
     }
 
