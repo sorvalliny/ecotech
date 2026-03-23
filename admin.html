@@ -761,7 +761,22 @@ body{font-family:var(--font);background:var(--dark);color:var(--text);display:fl
     'rejected': 'idea-status-rejected'
   };
 
+  var DEFAULT_IDEAS = [
+    { id:'IDEA-001', name:'WB Travel \u2014 сервис бронирования', desc:'Бронирование отелей и туров в экосистеме WB', audience:'Покупатели WB', problem:'Нет travel-сервиса в экосистеме', rice:{r:7,i:8,c:6,e:5}, riceScore:67.2, submittedBy:'PM Team', submittedAt:'2026-03-15', status:'new', department:'innovation' },
+    { id:'IDEA-002', name:'WB Health \u2014 телемедицина', desc:'Онлайн-консультации врачей для сотрудников', audience:'Сотрудники RWB', problem:'Нет корпоративной медицины', rice:{r:5,i:6,c:7,e:4}, riceScore:52.5, submittedBy:'HR', submittedAt:'2026-03-18', status:'new', department:'innovation' },
+    { id:'IDEA-003', name:'Курс Product Management', desc:'Обучение PM-практикам для новых руководителей', audience:'Новые PM в экосистеме', problem:'Нет единого стандарта обучения PM', rice:{r:8,i:7,c:8,e:3}, riceScore:149.3, submittedBy:'PMO', submittedAt:'2026-03-20', status:'screening', department:'education' }
+  ];
+
+  function seedIdeasIfEmpty() {
+    if (typeof PT === 'undefined') return;
+    var ideas = PT.load(PT.KEY_IDEAS) || [];
+    if (!ideas.length) {
+      PT.save(PT.KEY_IDEAS, DEFAULT_IDEAS.map(function(d) { return Object.assign({}, d); }));
+    }
+  }
+
   function renderIdeas() {
+    seedIdeasIfEmpty();
     var ideas = (typeof PT !== 'undefined') ? (PT.load(PT.KEY_IDEAS) || []) : [];
     var tbody = document.getElementById('ideas-tbody');
     var empty = document.getElementById('ideas-empty');

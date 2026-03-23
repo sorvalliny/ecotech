@@ -42,8 +42,8 @@
     "id": "ECO-05", "name": "WB Kids", "desc": "Продукт для детской аудитории.",
     "gate": 1, "status": "at-risk", "cat": "b2c", "catLabel": "B2C",
     "type": "product", "department": "innovation",
-    "owner": "PM WB Kids", "color": "#AB8AF0", "updated": "2026-03-23", "quarter": "Q2 2026",
-    "statusLight": "amber", "statusText": "Цели не определены",
+    "owner": "PM WB Kids", "color": "#AB8AF0", "updated": "2026-03-01", "quarter": "Q2 2026",
+    "statusLight": "amber", "statusText": "Цели не определены", "statusDate": "2026-03-05",
     "kpi": [],
     "initiatives": []
   },
@@ -51,8 +51,8 @@
     "id": "ECO-06", "name": "WB Sport", "desc": "Спортивный продукт.",
     "gate": 1, "status": "at-risk", "cat": "b2c", "catLabel": "B2C",
     "type": "product", "department": "innovation",
-    "owner": "PM WB Sport", "color": "#AB8AF0", "updated": "2026-03-23", "quarter": "Q2 2026",
-    "statusLight": "amber", "statusText": "Цели не определены",
+    "owner": "PM WB Sport", "color": "#AB8AF0", "updated": "2026-03-01", "quarter": "Q2 2026",
+    "statusLight": "amber", "statusText": "Цели не определены", "statusDate": "2026-03-02",
     "kpi": [],
     "initiatives": []
   },
@@ -84,7 +84,7 @@
     "id": "ECO-10", "name": "WB Jobs", "desc": "HR-платформа. Ранняя стадия.",
     "gate": 0, "status": "screening", "cat": "b2b", "catLabel": "B2B",
     "type": "product", "department": "innovation",
-    "owner": "Уточняется", "color": "#C4A5FF", "updated": "2026-03-23", "quarter": "Q2 2026",
+    "owner": "Уточняется", "color": "#C4A5FF", "updated": "2026-03-10", "quarter": "Q2 2026",
     "kpi": [],
     "initiatives": []
   }

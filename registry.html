@@ -384,19 +384,34 @@ body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sa
 // ════════════════════════════════════════════
 
 const BACKLOG_DEFAULT = [
-  { id:'D001', productId:'ECO-00', name:'Онбординг-флоу для новых юзеров', desc:'Пошаговый wizard при первом входе — рост Retention D7', type:'product', r:9, i:8, c:7, e:4, status:'wip', quarter:'Q1 2026', trackerUrl:'', created:'2026-03-01', updated:'2026-03-17' },
-  { id:'D002', productId:'ECO-00', name:'NPS-опрос + action plan', desc:'Ежемесячный NPS-замер, анализ детракторов, план улучшений', type:'product', r:10, i:6, c:8, e:2, status:'wip', quarter:'Q1 2026', trackerUrl:'', created:'2026-03-01', updated:'2026-03-17' },
-  { id:'D003', productId:'ECO-00', name:'A/B тест лендинга', desc:'3 варианта лендинга, замер конверсии в регистрацию', type:'product', r:8, i:7, c:6, e:3, status:'planned', quarter:'Q1 2026', trackerUrl:'', created:'2026-03-05', updated:'2026-03-17' },
-  { id:'D004', productId:'ECO-00', name:'Push-уведомления', desc:'Триггерные пуши для возврата неактивных юзеров', type:'technical', r:7, i:6, c:5, e:5, status:'backlog', quarter:'Q2 2026', trackerUrl:'', created:'2026-03-10', updated:'2026-03-17' },
-  { id:'D005', productId:'ECO-00', name:'P&L модель 3 сценария', desc:'Финансовая модель: базовый, оптимистичный, пессимистичный', type:'business', r:8, i:9, c:7, e:3, status:'planned', quarter:'Q2 2026', trackerUrl:'', created:'2026-03-10', updated:'2026-03-17' },
-  { id:'D006', productId:'ECO-00', name:'Unit economics: CAC и LTV', desc:'Расчёт стоимости привлечения и жизненной ценности клиента', type:'business', r:7, i:8, c:5, e:4, status:'backlog', quarter:'Q2 2026', trackerUrl:'', created:'2026-03-12', updated:'2026-03-17' },
-  { id:'I001', productId:'ECO-01', name:'Геймификация покупок', desc:'Игровые механики для увеличения retention', type:'product', r:8, i:7, c:7, e:4, status:'wip', quarter:'Q1 2026', trackerUrl:'', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I002', productId:'ECO-01', name:'NPS-опрос и анализ', desc:'Ежемесячный NPS-замер + action plan по детракторам', type:'product', r:10, i:6, c:8, e:2, status:'planned', quarter:'Q1 2026', trackerUrl:'', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I003', productId:'ECO-01', name:'Unit economics модель', desc:'P&L модель + CAC/LTV расчёт для Gate 4', type:'business', r:8, i:9, c:6, e:3, status:'planned', quarter:'Q2 2026', trackerUrl:'', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I004', productId:'ECO-02', name:'CustDev образовательных учреждений', desc:'7-10 интервью с учителями и методистами', type:'product', r:9, i:8, c:5, e:3, status:'wip', quarter:'Q1 2026', trackerUrl:'', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I005', productId:'ECO-02', name:'MVP генератора контента', desc:'Прототип AI-генератора учебных материалов', type:'technical', r:8, i:9, c:4, e:7, status:'backlog', quarter:'Q2 2026', trackerUrl:'', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I006', productId:'ECO-03', name:'Product Brief Сервис З', desc:'Заполнить бриф: проблема, ЦА, RICE, OKR', type:'product', r:7, i:7, c:8, e:1, status:'backlog', quarter:'Q1 2026', trackerUrl:'', created:'2026-03-17', updated:'2026-03-17' },
-  { id:'I007', productId:'ECO-03', name:'Анализ рынка знакомств', desc:'Конкуренты, TAM/SAM, позиционирование', type:'business', r:6, i:6, c:5, e:2, status:'backlog', quarter:'Q1 2026', trackerUrl:'', created:'2026-03-17', updated:'2026-03-17' }
+  // ── ECO-01 Wibes (O·4) ──
+  { id:'I-001', productId:'ECO-01', name:'Воронка B2C', desc:'Построение воронки привлечения B2C-покупателей — рост GMV', type:'product', r:9, i:9, c:9, e:9, status:'wip', quarter:'Q2 2026', trackerUrl:'', goalId:'G-001', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-002', productId:'ECO-01', name:'Корпоративное направление B2B', desc:'Запуск B2B-продаж для юрлиц', type:'business', r:8, i:8, c:8, e:8, status:'planned', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-003', productId:'ECO-01', name:'Рост конверсии checkout', desc:'Оптимизация корзины и оплаты — +5pp конверсии', type:'product', r:9, i:6, c:9, e:9, status:'wip', quarter:'Q2 2026', trackerUrl:'', goalId:'G-001', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  // ── ECO-02 WB Цифровой (O·4) ──
+  { id:'I-004', productId:'ECO-02', name:'Миграция инфры в RWB', desc:'Перенос инфраструктуры в контур RWB', type:'technical', r:10, i:9, c:10, e:10, status:'wip', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-005', productId:'ECO-02', name:'Новый onboarding flow', desc:'Пошаговый онбординг для новых пользователей', type:'product', r:8, i:6, c:8, e:8, status:'planned', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  // ── ECO-03 WB Stream (O·4) ──
+  { id:'I-006', productId:'ECO-03', name:'Desktop app', desc:'Нативное десктоп-приложение для Windows/macOS', type:'product', r:8, i:9, c:8, e:8, status:'wip', quarter:'Q1 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-007', productId:'ECO-03', name:'Calling features', desc:'Голосовые и видеозвонки внутри WB Stream', type:'product', r:8, i:8, c:8, e:8, status:'planned', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-008', productId:'ECO-03', name:'SDK development', desc:'SDK для интеграции WB Stream в другие продукты экосистемы', type:'technical', r:9, i:9, c:9, e:9, status:'wip', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  // ── ECO-04 WB Книги (O·2) ──
+  { id:'I-009', productId:'ECO-04', name:'MVP читалка', desc:'Минимальная читалка с базовым каталогом', type:'product', r:10, i:9, c:10, e:10, status:'wip', quarter:'Q2 2026', trackerUrl:'', goalId:'G-002', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-010', productId:'ECO-04', name:'Каталог авторов', desc:'Страницы авторов с библиографией и рейтингом', type:'product', r:9, i:6, c:9, e:9, status:'planned', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-011', productId:'ECO-04', name:'Интеграция с WB маркетплейс', desc:'Покупка бумажных книг через WB маркетплейс', type:'technical', r:8, i:6, c:8, e:8, status:'backlog', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  // ── ECO-05 WB Kids (O·1, at-risk) ──
+  { id:'I-012', productId:'ECO-05', name:'CustDev родители', desc:'Интервью с родителями: потребности, боли, сценарии', type:'product', r:8, i:9, c:8, e:8, status:'planned', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-013', productId:'ECO-05', name:'Контент-стратегия', desc:'Контент-план для детской аудитории: форматы, партнёры', type:'business', r:9, i:6, c:9, e:9, status:'backlog', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  // ── ECO-07 WB Messenger (T·2) ──
+  { id:'I-014', productId:'ECO-07', name:'SDK v1', desc:'Первая версия SDK мессенджера для интеграции в продукты', type:'technical', r:10, i:9, c:10, e:10, status:'wip', quarter:'Q2 2026', trackerUrl:'', goalId:'G-003', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-015', productId:'ECO-07', name:'Band migration', desc:'Миграция пользователей с Band на WB Messenger', type:'technical', r:9, i:9, c:9, e:9, status:'planned', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  // ── ECO-08 WB Boards (O·2) ──
+  { id:'I-016', productId:'ECO-08', name:'Заметки v1', desc:'Базовый функционал заметок с markdown-редактором', type:'product', r:8, i:9, c:8, e:8, status:'wip', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-017', productId:'ECO-08', name:'Шаблоны досок', desc:'Готовые шаблоны для типовых задач', type:'product', r:8, i:6, c:8, e:8, status:'backlog', quarter:'Q2 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  // ── ECO-00 ОРБИТА (демо) ──
+  { id:'I-018', productId:'ECO-00', name:'Gate-чеклист', desc:'Инструмент проверки готовности к Gate Review', type:'product', r:8, i:8, c:8, e:8, status:'done', quarter:'Q1 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-019', productId:'ECO-00', name:'Реестр инициатив', desc:'Единый реестр инициатив с фильтрами и RICE', type:'product', r:9, i:9, c:9, e:9, status:'done', quarter:'Q1 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' },
+  { id:'I-020', productId:'ECO-00', name:'Карточка продукта', desc:'Полная карточка продукта с паспортом и статусами', type:'product', r:8, i:9, c:8, e:8, status:'done', quarter:'Q1 2026', trackerUrl:'', goalId:'', teamId:'', createdAt:'2026-03-01', updatedAt:'2026-03-20' }
 ];
 
 // ════════════════════════════════════════════

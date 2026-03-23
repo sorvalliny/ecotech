@@ -275,6 +275,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   ];
 
   // ── State ──
+  var DEFAULT_GOALS = [
+    { id:'G-001', title:'Рост GMV Wibes на 30%', type:'product', period:'H1 2026', productId:'ECO-01', owner:'PM Wibes', status:'active', approvalStatus:'approved', keyResults:[{id:'KR-001',text:'GMV +30% к июню',current:15,target:30},{id:'KR-002',text:'Конверсия checkout +5pp',current:2,target:5}] },
+    { id:'G-002', title:'Запуск MVP WB Книги', type:'product', period:'H1 2026', productId:'ECO-04', owner:'PM WB Книги', status:'active', approvalStatus:'approved', keyResults:[{id:'KR-003',text:'MAU 10K к июню',current:0,target:10000},{id:'KR-004',text:'Retention D7 30%',current:0,target:30}] },
+    { id:'G-003', title:'SDK Messenger v1 released', type:'product', period:'H1 2026', productId:'ECO-07', owner:'PM WB Messenger', status:'active', approvalStatus:'pending', keyResults:[{id:'KR-005',text:'3 команды интегрированы',current:0,target:3}] }
+  ];
+
+  function seedGoalsIfEmpty() {
+    var goals = PT.load(PT.KEY_GOALS) || [];
+    if (!goals.length) {
+      goals = DEFAULT_GOALS.map(function(g) { return JSON.parse(JSON.stringify(g)); });
+      PT.save(PT.KEY_GOALS, goals);
+    }
+    return goals;
+  }
+
   var _product = null, _allProducts = [], _backlog = [], _goals = [];
   var _expandedInit = null, _initView = 'type';
   var productId = getParam('id');
@@ -302,6 +317,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   function canEdit() { return window.OrbAuth ? OrbAuth.canEditProduct(productId) : false; }
   function isOwner() { return window.OrbAuth ? OrbAuth.isProductOwner(productId) : false; }
   function canReview() { var r = getRole(); return r === 'admin' || r === 'pmo_lead' || r === 'pmo' || r === 'lead'; }
+  function isReadOnlyViewer() { var r = getRole(); return r === 'lead' || r === 'stakeholder'; }
+  function canEditContent() { return !isReadOnlyViewer() && (isOwner() || getRole() === 'pmo'); }
 
   function displayName(p) { return isGuest() ? p.id : (p.name || p.id); }
 
@@ -375,7 +392,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     if (!_product) { app.innerHTML = renderNotFound(); return; }
     document.title = displayName(_product) + ' \u2014 \u041E\u0420\u0411\u0418\u0422\u0410';
     _backlog = PT.load(PT.KEY_BACKLOG) || [];
-    _goals = PT.load(PT.KEY_GOALS) || [];
+    _goals = seedGoalsIfEmpty();
     if (!_product.events) _product.events = [];
     if (!_product.artifacts) _product.artifacts = copyDefaults();
     render();
@@ -570,7 +587,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   function renderPassport(editable, initiatives, goals) {
     var html = '';
     var gateNum = _product.gate || 0;
-    var isEdit = editable && isOwner();
+    var isEdit = canEditContent();
 
     // ── Status Card (светофор) ──
     html += '<div class="ws-section" id="sec-status">';
@@ -990,7 +1007,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   }
 
   function initEditableFields(editable) {
-    if (!editable || !isOwner()) return;
+    if (!canEditContent()) return;
     var fields = document.querySelectorAll('.ws-editable[contenteditable="true"]');
     for (var i = 0; i < fields.length; i++) {
       fields[i].addEventListener('blur', function() {
