@@ -123,10 +123,31 @@ function renderWelcome(c) {
   h += '<div class="hero"><h1>ОРБИТА</h1>';
   h += '<p class="hero-sub">Платформа управления портфелем цифровых решений экосистемы</p></div>';
 
+  /* Micro-dashboard (public) */
+  var products = (window.PT ? PT.load(PT.KEY_PRODUCTS) : null) || [];
+  if (products.length) {
+    var active = products.filter(function(p){return p.status!=='transferring';});
+    var onTrack = active.filter(function(p){return p.status==='on-track';}).length;
+    var atRisk = active.filter(function(p){return p.status==='at-risk';}).length;
+    var stages = window.STAGES_DB ? STAGES_DB.get() : [];
+    var byGate = {};
+    active.forEach(function(p){var g=p.gate||0;byGate[g]=(byGate[g]||0)+1;});
+    var stageChips = '';
+    for(var g=0;g<=5;g++){if(byGate[g]){var s=stages[g]||{};stageChips+='<span style="font-size:11px;padding:3px 8px;border-radius:4px;background:'+(s.colorDim||'var(--surface)')+';color:'+(s.color||'var(--muted)')+'">'+byGate[g]+' '+(s.name||'Gate '+g)+'</span>';}}
+    h += '<div style="text-align:center;margin-bottom:20px;">';
+    h += '<div style="display:inline-flex;gap:8px;align-items:center;font-size:13px;color:var(--text);margin-bottom:8px;">';
+    h += '<strong>'+active.length+'</strong> продуктов';
+    h += '<span style="color:var(--teal)">'+onTrack+' на треке</span>';
+    if(atRisk) h += '<span style="color:var(--amber)">'+atRisk+' в риске</span>';
+    h += '</div>';
+    h += '<div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;">'+stageChips+'</div>';
+    h += '</div>';
+  }
+
   /* Big CTA */
   h += '<div class="cta-block">';
-  h += '<a class="cta-main" href="tools/brief.html">+ Подать заявку на новый продукт</a>';
-  h += '<div class="cta-sub">PMO рассмотрит за 5 рабочих дней</div>';
+  h += '<a class="cta-main" href="catalog.html">Портфель продуктов</a>';
+  h += '<div class="cta-sub"><a href="tools/brief.html" style="color:var(--violet);text-decoration:none;">+ Подать заявку</a> · PMO рассмотрит за 5 рабочих дней</div>';
   h += '</div>';
 
   /* Entry cards */

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "G-001",
+    "title": "Сделать Wibes местом, где залипают",
+    "type": "product",
+    "period": "H1 2026",
+    "productId": "ECO-01",
+    "owner": "PM Wibes",
+    "status": "approved",
+    "keyResults": [
+      { "id": "KR-001", "text": "Увеличить time spend на N%", "current": 0, "target": 100 },
+      { "id": "KR-002", "text": "Увеличить среднее кол-во просмотров на пользователя на N%", "current": 0, "target": 100 },
+      { "id": "KR-003", "text": "Техническое качество контента", "current": 0, "target": 100 }
+    ]
+  },
+  {
+    "id": "G-002",
+    "title": "Увеличить GMV за счёт роста воронки",
+    "type": "product",
+    "period": "H1 2026",
+    "productId": "ECO-01",
+    "owner": "PM Wibes",
+    "status": "approved",
+    "keyResults": [
+      { "id": "KR-004", "text": "Увеличить GMV на просмотр на N%", "current": 0, "target": 100 },
+      { "id": "KR-005", "text": "Увеличить CTR добавления в корзину до N%", "current": 0, "target": 100 },
+      { "id": "KR-006", "text": "Увеличить CTR добавления в выкупы до N%", "current": 0, "target": 100 }
+    ]
+  },
+  {
+    "id": "G-003",
+    "title": "Увеличить GMV за счёт роста аудитории",
+    "type": "product",
+    "period": "H1 2026",
+    "productId": "ECO-01",
+    "owner": "PM Wibes",
+    "status": "approved",
+    "keyResults": [
+      { "id": "KR-007", "text": "Увеличить DAU, сохранив долю платящих на N%", "current": 0, "target": 100 },
+      { "id": "KR-008", "text": "Увеличить sticky RR MoM на N%", "current": 0, "target": 100 }
+    ]
+  },
+  {
+    "id": "G-010",
+    "title": "Запуск MVP WB Книги",
+    "type": "product",
+    "period": "H1 2026",
+    "productId": "ECO-04",
+    "owner": "PM WB Книги",
+    "status": "approved",
+    "keyResults": [
+      { "id": "KR-010", "text": "MAU 10K к июню", "current": 0, "target": 10000 },
+      { "id": "KR-011", "text": "Retention D7 30%", "current": 0, "target": 30 }
+    ]
+  }
+]

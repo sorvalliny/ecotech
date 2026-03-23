@@ -381,12 +381,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     { id:'G-010', title:'Запуск MVP WB Книги', type:'product', period:'H1 2026', productId:'ECO-04', owner:'PM WB Книги', status:'approved', approvalStatus:'approved', keyResults:[{id:'KR-010',text:'MAU 10K к июню',current:0,target:10000},{id:'KR-011',text:'Retention D7 30%',current:0,target:30}] }
   ];
 
-  var GOALS_VERSION = 2; // Bump to reseed goals
+  var GOALS_VERSION = 3; // Bump to reseed from okr.json
   function seedGoalsIfEmpty() {
     var goals = PT.load(PT.KEY_GOALS) || [];
     var gv = parseInt(localStorage.getItem('ECOTECH_GOALS_VERSION') || '0', 10);
     if (!goals.length || gv < GOALS_VERSION) {
-      goals = DEFAULT_GOALS.map(function(g) { return JSON.parse(JSON.stringify(g)); });
+      // Load from okr.json, fallback to DEFAULT_GOALS
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'data/okr.json', false);
+        xhr.send();
+        if (xhr.status === 200) goals = JSON.parse(xhr.responseText);
+        else goals = DEFAULT_GOALS.map(function(g) { return JSON.parse(JSON.stringify(g)); });
+      } catch(e) {
+        goals = DEFAULT_GOALS.map(function(g) { return JSON.parse(JSON.stringify(g)); });
+      }
       PT.save(PT.KEY_GOALS, goals);
       localStorage.setItem('ECOTECH_GOALS_VERSION', String(GOALS_VERSION));
     }
