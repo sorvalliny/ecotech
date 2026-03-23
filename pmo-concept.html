@@ -11,7 +11,7 @@
 body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-webkit-font-smoothing:antialiased;overflow:hidden;height:100vh}
 
 /* slide system */
-.slides{display:flex;transition:transform 0.4s ease;height:100vh;width:700vw}
+.slides{display:flex;transition:transform 0.4s ease;height:100vh;width:900vw}
 .slide{width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 80px;position:relative;flex-shrink:0}
 .slide::after{content:attr(data-num) ' / 7';position:absolute;bottom:24px;right:40px;font-size:11px;color:rgba(255,255,255,0.3)}
 .slide-logo{position:absolute;bottom:24px;left:40px;font-size:10px;color:rgba(255,255,255,0.3)}
@@ -207,9 +207,9 @@ td b{color:#fff}
       </div>
       <!-- Продукты под стадиями -->
       <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:6px;font-size:9px">
-        <div style="text-align:center"><span style="background:rgba(61,32,102,0.3);padding:2px 6px;border-radius:4px;color:#fff;font-weight:600">Встречи</span></div>
+        <div style="text-align:center;color:var(--t3);font-size:8px">—</div>
         <div style="text-align:center"><span style="background:rgba(91,45,142,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600">Kids</span><br><span style="background:rgba(91,45,142,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">Sport</span><br><span style="background:rgba(91,45,142,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">EdTech</span></div>
-        <div style="text-align:center"><span style="background:rgba(108,61,175,0.3);padding:2px 6px;border-radius:4px;color:#fff;font-weight:600">Книги</span></div>
+        <div style="text-align:center"><span style="background:rgba(108,61,175,0.3);padding:2px 6px;border-radius:4px;color:#fff;font-weight:600">Книги</span><br><span style="background:rgba(108,61,175,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">Встречи</span></div>
         <div style="text-align:center"><span style="background:rgba(203,17,171,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600">Мост</span><br><span style="background:rgba(203,17,171,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">Tingli</span></div>
         <div style="text-align:center"><span style="background:rgba(233,30,140,0.3);padding:2px 6px;border-radius:4px;color:#fff;font-weight:600">Wibes</span></div>
         <div style="text-align:center;color:var(--t3);font-size:8px">—</div>
@@ -266,8 +266,91 @@ td b{color:#fff}
     <div class="slide-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="height:14px;filter:brightness(10);opacity:0.3;vertical-align:middle;margin-right:6px">Проектный офис</div>
   </div>
 
-  <!-- СЛАЙД 7: ВАРИАНТЫ -->
+  <!-- СЛАЙД 7: ПЛАТФОРМА -->
   <div class="slide" data-num="7">
+    <h2>Прототип платформы управления</h2>
+    <div class="sub">ОРБИТА — вид директора департамента. Прототип работает, данные пилотные.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;cursor:pointer" onclick="window.open('https://sorvalliny.github.io/ecotech/catalog.html','_blank')">
+        <div style="font-size:15px;font-weight:800;color:#CB11AB;margin-bottom:6px">Каталог продуктов</div>
+        <div style="font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:8px">
+          Все продукты портфеля в одном месте.<br>
+          Стадия, владелец, статус, Gate-прогресс.<br>
+          Фильтры по департаменту и стадии.
+        </div>
+        <div style="font-size:10px;color:#CB11AB;border:1px solid rgba(203,17,171,0.3);display:inline-block;padding:4px 10px;border-radius:5px">Показать вживую →</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;cursor:pointer" onclick="window.open('https://sorvalliny.github.io/ecotech/registry.html','_blank')">
+        <div style="font-size:15px;font-weight:800;color:#9B59D0;margin-bottom:6px">Бэклог инициатив</div>
+        <div style="font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:8px">
+          Все инициативы с RICE-приоритизацией.<br>
+          Статус, владелец, квартал, продукт.<br>
+          Сортировка по приоритету.
+        </div>
+        <div style="font-size:10px;color:#9B59D0;border:1px solid rgba(155,89,208,0.3);display:inline-block;padding:4px 10px;border-radius:5px">Показать вживую →</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px">
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center;cursor:pointer" onclick="window.open('https://sorvalliny.github.io/ecotech/tools/gate-checklist.html','_blank')">
+        <div style="font-size:12px;font-weight:700">Gate-чеклист</div>
+        <div style="font-size:9px;color:var(--t3)">Критерии перехода</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center;cursor:pointer" onclick="window.open('https://sorvalliny.github.io/ecotech/tools/brief.html','_blank')">
+        <div style="font-size:12px;font-weight:700">Бриф продукта</div>
+        <div style="font-size:9px;color:var(--t3)">Заявка + RICE</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:10px;text-align:center;cursor:pointer" onclick="window.open('https://sorvalliny.github.io/ecotech/framework.html','_blank')">
+        <div style="font-size:12px;font-weight:700">Фреймворк</div>
+        <div style="font-size:9px;color:var(--t3)">6 стадий зрелости</div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:var(--t3);margin-top:10px;text-align:center">Логин: ceo.eco@rwb.ru &middot; Все данные пилотные, реальные продукты — после утверждения</div>
+    <div class="slide-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="height:14px;filter:brightness(10);opacity:0.3;vertical-align:middle;margin-right:6px">Проектный офис</div>
+  </div>
+
+  <!-- СЛАЙД 8: ПЛАНИРОВАНИЕ -->
+  <div class="slide" data-num="8">
+    <h2>Планирование и цели</h2>
+    <div class="sub">Как связываются бизнес-цели и работа команд. OKR/KPI для продуктов на стадии Разгон и выше.</div>
+    <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;margin-top:20px;align-items:center;text-align:center">
+      <div style="background:rgba(203,17,171,0.1);border:1px solid rgba(203,17,171,0.2);border-radius:10px;padding:14px">
+        <div style="font-size:14px;font-weight:800;color:#CB11AB">Цели на год</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:6px;line-height:1.5">OKR департамента<br>3-5 стратегических направлений<br>Согласование с CEO</div>
+      </div>
+      <div style="font-size:18px;color:rgba(255,255,255,0.2);padding:0 8px">→</div>
+      <div style="background:rgba(155,89,208,0.1);border:1px solid rgba(155,89,208,0.2);border-radius:10px;padding:14px">
+        <div style="font-size:14px;font-weight:800;color:#9B59D0">KPI полугодия</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:6px;line-height:1.5">Метрики по продуктам<br>DAU, retention, GMV<br>Образ результата</div>
+      </div>
+      <div style="font-size:18px;color:rgba(255,255,255,0.2);padding:0 8px">→</div>
+      <div style="background:rgba(108,61,175,0.1);border:1px solid rgba(108,61,175,0.2);border-radius:10px;padding:14px">
+        <div style="font-size:14px;font-weight:800;color:#6C3DAF">Инициативы Q</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:6px;line-height:1.5">RICE-приоритизация<br>PM подаёт через ПО<br>Комитет Go/No-Go</div>
+      </div>
+    </div>
+    <div style="margin-top:16px">
+      <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:8px">Пример: Wibes (стадия 4, Разгон)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:11px">
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px">
+          <div style="color:#CB11AB;font-weight:700;margin-bottom:4px">OKR 2026</div>
+          <div style="color:var(--t3);line-height:1.5">Рост GMV и аудитории<br>B2B-направление</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px">
+          <div style="color:#9B59D0;font-weight:700;margin-bottom:4px">KPI H1</div>
+          <div style="color:var(--t3);line-height:1.5">GMV +30%<br>MAU рост<br>B2B revenue</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px">
+          <div style="color:#6C3DAF;font-weight:700;margin-bottom:4px">Инициативы Q2</div>
+          <div style="color:var(--t3);line-height:1.5">Воронка B2C<br>Корп. продажи B2B<br>Рост конверсии checkout</div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:var(--t3);margin-top:10px;text-align:center">Каскад: цели CEO → KPI продукта → инициативы команды → задачи в трекере</div>
+    <div class="slide-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="height:14px;filter:brightness(10);opacity:0.3;vertical-align:middle;margin-right:6px">Проектный офис</div>
+  </div>
+
+  <!-- СЛАЙД 9: СТРУКТУРА -->
+  <div class="slide" data-num="9">
     <h2>Проектный офис в структуре департамента</h2>
     <div class="sub">Предлагаем начать с продуктового контура, расширить по результатам</div>
     <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-top:20px;font-size:12px;align-items:start">
@@ -305,7 +388,7 @@ td b{color:#fff}
 
 <script>
 let current = 0;
-const total = 7;
+const total = 9;
 const slides = document.getElementById('slides');
 const nav = document.getElementById('nav');
 
