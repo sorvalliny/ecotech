@@ -163,7 +163,7 @@ td b{color:#fff}
   <!-- СЛАЙД 5: СТАДИИ -->
   <div class="slide" data-num="5">
     <h2>Жизненный цикл продукта</h2>
-    <div class="sub">6 стадий зрелости. Каждая — свой набор процессов и артефактов, требующих операционную модель работы. Переход — через чеклист. Приоритеты — по формуле RICE.</div>
+    <div class="sub">Целевой подход (на обсуждение). 6 стадий зрелости. Каждая — свой набор процессов и артефактов. Переход — через чеклист.</div>
     <div class="funnel">
       <div class="funnel-stage" style="background:#3D2066;height:50px;cursor:pointer" onclick="showStage(this)" data-desc="Описание проблемы и аудитории. Оценка приоритета." data-gate="Есть проблема? Есть аудитория? Стоит исследовать?">0<small>Заявка</small></div>
       <div class="funnel-stage" style="background:#5B2D8E;height:65px;cursor:pointer" onclick="showStage(this)" data-desc="Интервью с пользователями, анализ конкурентов, бизнес-обоснование." data-gate="Проблема подтверждена? Рынок есть? Бизнес-кейс сходится?">1<small>Разведка</small></div>
@@ -176,10 +176,15 @@ td b{color:#fff}
       <div id="stage-desc" style="margin-bottom:6px"></div>
       <div id="stage-gate" style="color:#CB11AB;font-weight:600"></div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px;font-size:12px">
-      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px 12px"><b>Wibes</b> <span style="color:var(--ok)">→ стадия 4</span><br><span style="color:var(--t3)">В проде, экосистема</span></div>
-      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px 12px"><b>Kids</b> <span style="color:var(--b)">→ стадия 1</span><br><span style="color:var(--t3)">Разведка</span></div>
-      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px 12px"><b>Встречи</b> <span style="color:var(--t3)">→ стадия 0</span><br><span style="color:var(--t3)">Заявка</span></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;font-size:11px">
+      <div style="background:rgba(233,30,140,0.12);border:1px solid rgba(233,30,140,0.25);border-radius:8px;padding:8px 10px"><b>Wibes</b><br><span style="color:#E91E8C;font-weight:600">Стадия 4</span><br><span style="color:var(--t3);font-size:10px">Экосистема, в проде</span></div>
+      <div style="background:rgba(203,17,171,0.12);border:1px solid rgba(203,17,171,0.25);border-radius:8px;padding:8px 10px"><b>Мост поколений</b><br><span style="color:#CB11AB;font-weight:600">Стадия 3</span><br><span style="color:var(--t3);font-size:10px">Разгон, MAU растёт</span></div>
+      <div style="background:rgba(203,17,171,0.12);border:1px solid rgba(203,17,171,0.25);border-radius:8px;padding:8px 10px"><b>Tingli</b><br><span style="color:#CB11AB;font-weight:600">Стадия 3</span><br><span style="color:var(--t3);font-size:10px">Разгон, монетизация</span></div>
+      <div style="background:rgba(108,61,175,0.12);border:1px solid rgba(108,61,175,0.25);border-radius:8px;padding:8px 10px"><b>Книги</b><br><span style="color:#6C3DAF;font-weight:600">Стадия 2</span><br><span style="color:var(--t3);font-size:10px">Прототип, запуск MVP</span></div>
+      <div style="background:rgba(91,45,142,0.12);border:1px solid rgba(91,45,142,0.25);border-radius:8px;padding:8px 10px"><b>Kids</b><br><span style="color:#5B2D8E;font-weight:600">Стадия 1</span><br><span style="color:var(--t3);font-size:10px">Разведка</span></div>
+      <div style="background:rgba(91,45,142,0.12);border:1px solid rgba(91,45,142,0.25);border-radius:8px;padding:8px 10px"><b>Sport</b><br><span style="color:#5B2D8E;font-weight:600">Стадия 1</span><br><span style="color:var(--t3);font-size:10px">Разведка</span></div>
+      <div style="background:rgba(91,45,142,0.12);border:1px solid rgba(91,45,142,0.25);border-radius:8px;padding:8px 10px"><b>EdTech</b><br><span style="color:#5B2D8E;font-weight:600">Стадия 1</span><br><span style="color:var(--t3);font-size:10px">Разведка</span></div>
+      <div style="background:rgba(61,32,102,0.2);border:1px solid rgba(61,32,102,0.3);border-radius:8px;padding:8px 10px"><b>Встречи</b><br><span style="color:#3D2066;font-weight:600">Стадия 0</span><br><span style="color:var(--t3);font-size:10px">Заявка, прототип</span></div>
     </div>
     <div class="slide-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="height:14px;filter:brightness(10);opacity:0.3;vertical-align:middle;margin-right:6px">Проектный офис</div>
   </div>
