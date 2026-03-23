@@ -463,7 +463,7 @@
 
     <h4>Структура Gate-комитетов</h4>
     <ul>
-      <li><strong>Gate 0</strong> -- PMO Lead, 5-10 дней, асинхронный скрининг</li>
+      <li><strong>Gate 0</strong> -- PMO Lead, 5-10 дней, рассмотрение заявки</li>
       <li><strong>Gate 1</strong> -- PMO Lead + Lead, 3 дня, комитет 30 мин</li>
       <li><strong>Gate 2</strong> -- PMO Lead + CTO, 5 дней, комитет 45 мин</li>
       <li><strong>Gate 3</strong> -- PMO Lead + Директор, ежеквартально, ревью 60 мин</li>
@@ -661,7 +661,7 @@ var STAGES = {
       color:'#6B4FA0', r:440, angle:168, owner:'PMO-менеджер',
       roles:{
         pm:{ title:'Что делать PM', checks:['Заполнить бриф с описанием проблемы и ЦА','Провести RICE-оценку','Найти команду (PM, Tech Lead, дизайнер)'] },
-        pmo:{ title:'Что делать PMO', checks:['Проверить дубли в реестре','Калибровать RICE на синке','Вынести на скрининг (Gate 0)'] },
+        pmo:{ title:'Что делать PMO', checks:['Проверить дубли в реестре','Калибровать RICE на синке','Вынести на рассмотрение (Gate 0)'] },
         lead:{ title:'Что видит руководитель', checks:['Новая заявка в реестре','Решение Gate 0: запускаем разведку или нет'] }
       },
       artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','RICE-оценка','Решение Gate 0'],

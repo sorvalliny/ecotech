@@ -501,12 +501,12 @@ function submitBrief(){
       level: 'high',
       recipientRole: 'pmo_lead',
       title: 'Новая заявка: ' + idea.name,
-      text: 'RICE: ' + idea.riceScore.toFixed(1) + '. Требуется скрининг.',
-      action: { label: 'Провести скрининг', url: 'admin.html' }
+      text: 'RICE: ' + idea.riceScore.toFixed(1) + '. Требуется рассмотрение.',
+      action: { label: 'Рассмотреть заявку', url: 'admin.html' }
     });
   }
 
-  showToast('Заявка ' + idea.id + ' отправлена на скрининг');
+  showToast('Заявка ' + idea.id + ' отправлена на рассмотрение PMO');
 
   // Show success confirmation instead of form
   var formWrap = document.querySelector('.form-wrap') || document.querySelector('form') || document.querySelector('.page-wrap');
@@ -588,7 +588,7 @@ function formatBriefText(d,score){
   }
   lines.push('');
   lines.push('--- SLA ---');
-  lines.push(d.fast_track?'PMO: скрининг 24ч, мини-комитет 3 рабочих дня':'PMO: решение за 5 рабочих дней');
+  lines.push(d.fast_track?'PMO: рассмотрение 24ч, мини-комитет 3 рабочих дня':'PMO: решение за 5 рабочих дней');
   return lines.join('\n');
 }
 
