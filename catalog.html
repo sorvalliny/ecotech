@@ -166,12 +166,12 @@
     </select>
     <select id="cf-stage">
       <option value="">Все стадии</option>
-      <option value="0">О·0 Заявка</option>
-      <option value="1">О·1 Разведка</option>
-      <option value="2">О·2 Прототип</option>
-      <option value="3">О·3 MVP</option>
-      <option value="4">О·4 Рост</option>
-      <option value="5">О·5 Масштаб</option>
+      <option value="0">Заявка</option>
+      <option value="1">Разведка</option>
+      <option value="2">Прототип</option>
+      <option value="3">MVP</option>
+      <option value="4">Рост</option>
+      <option value="5">Масштаб</option>
     </select>
     <input type="text" id="cf-search" placeholder="Поиск по названию...">
   </div>
@@ -340,7 +340,7 @@
     for (var g = 0; g <= 5; g++) {
       if (stageCounts[g]) {
         var s = STAGES[g];
-        var label = s ? s.orbita : 'О·' + g;
+        var label = s ? s.name : 'Стадия ' + g;
         stageHtml += '<div class="cat-summary-item"><strong style="color:' + (s ? s.color : 'var(--text)') + '">' + stageCounts[g] + '</strong> ' + label + '</div>';
       }
     }
@@ -485,7 +485,7 @@
 
         // Row 2: Stage label + progress
         '<div class="cat-orbit-label">' +
-          '<span class="cat-orbit-tag" style="background:' + sColorDim + ';color:' + sColor + '">' + sOrbita + ' ' + esc(sName) + '</span>' +
+          '<span class="cat-orbit-tag" style="background:' + sColorDim + ';color:' + sColor + '">' + esc(sName) + '</span>' +
           '<span class="cat-orbit-name">' + esc(p.owner || '') + '</span>' +
         '</div>' +
         '<div class="cat-orbit">' + orbitSteps + '</div>' +
