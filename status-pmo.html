@@ -469,13 +469,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       if (webhookUrl) {
         fetch(webhookUrl, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)}).catch(()=>{});
       }
-      // Notify if not owner
+      // Log external visit (no visual notification)
       if (!isMe) {
-        const notif = document.createElement('div');
-        notif.style.cssText = 'position:fixed;bottom:60px;right:14px;background:#6C3DAF;color:#fff;padding:6px 12px;border-radius:6px;font-size:10px;font-family:Outfit,sans-serif;z-index:9999;opacity:0.9';
-        notif.textContent = 'Внешний просмотр: ' + ip + ' · ' + new Date().toLocaleString('ru');
-        document.body.appendChild(notif);
-        setTimeout(()=>notif.remove(), 10000);
+        console.warn('[PMO Track] External visit:', ip);
       }
     })
     .catch(()=>{});
