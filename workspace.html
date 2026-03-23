@@ -98,6 +98,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .ws-init-views{display:flex;gap:2px}
 .ws-view-btn{font-family:inherit;font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer}
 .ws-view-btn.active{background:var(--violet-dim);color:var(--violet);border-color:var(--violet-border)}
+.ws-init-filters{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ws-init-filters select{font-family:inherit;font-size:11px;font-weight:600;padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;outline:none}
+.ws-init-filters select:focus{border-color:var(--violet)}
+.ws-gate-schedule{display:flex;align-items:center;gap:4px;flex-wrap:wrap;padding:6px 0;font-size:11px;font-weight:600;color:var(--muted)}
+.ws-gate-schedule .gs-item{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);border-radius:5px;white-space:nowrap}
+.ws-gate-schedule .gs-item.gs-done{color:var(--teal);border-color:rgba(75,206,151,.3)}
+.ws-gate-schedule .gs-item.gs-current{color:var(--violet);border-color:var(--violet-border);background:var(--violet-dim)}
+.ws-gate-schedule .gs-item.gs-future{color:var(--muted)}
+.ws-gate-schedule .gs-sep{color:var(--border)}
 .ws-init-group-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding:10px 0 6px;border-bottom:1px solid var(--border);margin-bottom:8px;cursor:pointer;user-select:none}
 .ws-init-group-title:hover{color:var(--text)}
 .ws-init-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;border-left:3px solid var(--muted);overflow:hidden}
@@ -333,10 +342,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     actions.className = 'ws-umodal-actions';
     var btnCancel = document.createElement('button');
     btnCancel.className = 'ws-umodal-btn ws-umodal-btn-cancel';
-    btnCancel.textContent = 'Отмена';
+    btnCancel.textContent = opts.cancelLabel || 'Отмена';
     var btnOk = document.createElement('button');
     btnOk.className = 'ws-umodal-btn ws-umodal-btn-primary';
     btnOk.textContent = opts.confirmLabel || 'Подтвердить';
+    if (opts.disableConfirm) {
+      btnOk.disabled = true;
+      btnOk.style.opacity = '0.4';
+      btnOk.style.cursor = 'not-allowed';
+    }
     actions.appendChild(btnCancel);
     actions.appendChild(btnOk);
     modal.appendChild(actions);
@@ -354,10 +368,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       onConfirm(values);
     }
 
-    btnCancel.addEventListener('click', close);
-    overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+    btnCancel.addEventListener('click', function() { close(); if (opts.onCancel) opts.onCancel(); });
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) { close(); if (opts.onCancel) opts.onCancel(); } });
     document.addEventListener('keydown', function handler(e) {
-      if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); }
+      if (e.key === 'Escape') { close(); if (opts.onCancel) opts.onCancel(); document.removeEventListener('keydown', handler); }
     });
     btnOk.addEventListener('click', submit);
 
@@ -494,6 +508,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
   var _product = null, _allProducts = [], _backlog = [], _goals = [];
   var _expandedInit = null, _initView = 'type';
+  var _filterStatus = 'all', _filterQuarter = 'all';
   var productId = getParam('id');
   var activeTab = getParam('tab') || 'passport';
   var app = document.getElementById('ws-app');
@@ -551,20 +566,41 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   function saveGoals() { PT.save(PT.KEY_GOALS, _goals); }
   function addLog(action, details, entityType, entityId) { PT.addLog(productId, action, details, entityType, entityId); }
 
-  // Go / No-Go / Revise review
+  // W-09: Unified Go / Revise / No-Go review
   window.reviewInitiative = function(initId, decision) {
     var init = _backlog.find(function(i) { return i.id === initId; });
     if (!init) return;
     var labels = { go: 'Go', nogo: 'No-Go', revise: 'Revise' };
-    showModal('\u0420\u0435\u0432\u044C\u044E: ' + labels[decision], [
-      { label: '\u0420\u0435\u0448\u0435\u043D\u0438\u0435', type: 'select', id: 'decision', options: [
-        { value: 'go', label: 'Go' }, { value: 'nogo', label: 'No-Go' }, { value: 'revise', label: 'Revise' }
-      ], value: decision },
-      { label: '\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 (\u043D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E)', type: 'textarea', id: 'comment', placeholder: '\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439...' }
-    ], function(vals) {
-      var d = vals.decision;
+
+    // Go — confirm immediately (optional comment)
+    // Revise — require conditions textarea
+    // No-Go — require reason textarea
+    var modalTitle = decision === 'go' ? 'Go: подтверждение'
+      : decision === 'revise' ? 'Revise: условия доработки'
+      : 'No-Go: причина отклонения';
+
+    var fields = [];
+    if (decision === 'go') {
+      fields.push({ label: '\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 (\u043D\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E)', type: 'textarea', id: 'comment', placeholder: '\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439...' });
+    } else if (decision === 'revise') {
+      fields.push({ label: '\u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0434\u043E\u0440\u0430\u0431\u043E\u0442\u043A\u0438', type: 'textarea', id: 'comment', placeholder: '\u041E\u043F\u0438\u0448\u0438\u0442\u0435, \u0447\u0442\u043E \u043D\u0443\u0436\u043D\u043E \u0434\u043E\u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C...' });
+    } else {
+      fields.push({ label: '\u041F\u0440\u0438\u0447\u0438\u043D\u0430 \u043E\u0442\u043A\u043B\u043E\u043D\u0435\u043D\u0438\u044F', type: 'textarea', id: 'comment', placeholder: '\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043F\u0440\u0438\u0447\u0438\u043D\u0443...' });
+    }
+
+    showModal(modalTitle, fields, function(vals) {
+      var d = decision;
       var comment = vals.comment || '';
-      init.approval = d === 'go' ? 'approved' : d === 'nogo' ? 'rejected' : 'pending';
+      // W-09: Go → wip + approved; Revise → keep status, pending; No-Go → backlog + rejected
+      if (d === 'go') {
+        init.status = 'wip';
+        init.approval = 'approved';
+      } else if (d === 'revise') {
+        init.approval = 'pending';
+      } else {
+        init.status = 'backlog';
+        init.approval = 'rejected';
+      }
       if (!init.reviews) init.reviews = [];
       var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
       init.reviews.push({
@@ -786,9 +822,34 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       checklistHtml += '</div>';
     }
 
+    // ── W-04: Check stage metrics before transition ──
+    var metricsDef = STAGE_METRICS[currentGate];
+    var metricStatuses = (_product.stageMetricStatus && _product.stageMetricStatus['g' + currentGate]) || {};
+    var failCount = 0;
+    var totalMetrics = 0;
+    var metricWarningHtml = '';
+    if (metricsDef && metricsDef.metrics && metricsDef.metrics.length) {
+      totalMetrics = metricsDef.metrics.length;
+      metricsDef.metrics.forEach(function(m, idx) {
+        var st = metricStatuses[idx];
+        if (st === '\u2717') failCount++;
+      });
+      if (failCount > 0 && failCount < totalMetrics) {
+        metricWarningHtml = '<div style="background:var(--amber-dim);border:1px solid var(--amber-border);color:var(--amber);padding:10px 12px;border-radius:8px;margin-bottom:12px;font-size:12px;font-weight:600">' +
+          '\u26A0\uFE0F Внимание: ' + failCount + ' из ' + totalMetrics + ' метрик не пройдены. PMO может выполнить override.' +
+          '</div>';
+      } else if (failCount === totalMetrics) {
+        metricWarningHtml = '<div style="background:var(--red-dim);border:1px solid var(--red);color:var(--red);padding:10px 12px;border-radius:8px;margin-bottom:12px;font-size:12px;font-weight:700">' +
+          '\u274C Все метрики не пройдены. Переход заблокирован.' +
+          '</div>';
+      }
+    }
+    var allFail = totalMetrics > 0 && failCount === totalMetrics;
+
     showModal('Перевод на ' + nextName, [
       { label: 'Комментарий (необязательно)', type: 'textarea', id: 'comment', placeholder: '' }
     ], function(vals) {
+      var oldGate = currentGate;
       _product.gate = nextGate;
       if (_product.status === 'screening' || _product.status === 'pending') _product.status = 'on-track';
       _product.updatedAt = new Date().toISOString().split('T')[0];
@@ -819,8 +880,40 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       }
       showToast('Переведено на ' + nextName);
       render();
-    }, { confirmLabel: 'Перевести', htmlBefore: '<p style="font-size:13px;color:var(--text);margin-bottom:8px">Текущий Gate: <b>' + gateNames[currentGate] + '</b> → <b>' + nextName + '</b><br>Утверждает: ' + userName + '</p>' + checklistHtml });
+
+      // ── W-05: Show retro modal after gate transition ──
+      showRetroModal(oldGate, gateNames);
+    }, { confirmLabel: allFail ? 'Все метрики не пройдены' : 'Перевести', htmlBefore: '<p style="font-size:13px;color:var(--text);margin-bottom:8px">Текущий Gate: <b>' + gateNames[currentGate] + '</b> → <b>' + nextName + '</b><br>Утверждает: ' + userName + '</p>' + metricWarningHtml + checklistHtml, disableConfirm: allFail });
   };
+
+  // ── W-05: Retro modal after Gate transition ──
+  function showRetroModal(oldGate, gateNames) {
+    var gateName = gateNames[oldGate] || ('Gate ' + oldGate);
+    showModal('Ретроспектива Gate ' + gateName, [
+      { label: 'Что начать делать?', type: 'textarea', id: 'retro_start', placeholder: 'Start: новые практики, подходы...' },
+      { label: 'Что прекратить?', type: 'textarea', id: 'retro_stop', placeholder: 'Stop: что мешало, не работало...' },
+      { label: 'Что продолжать?', type: 'textarea', id: 'retro_continue', placeholder: 'Continue: что работало хорошо...' }
+    ], function(vals) {
+      if (!_product) return;
+      _product.retrospectives = _product.retrospectives || [];
+      _product.retrospectives.push({
+        gate: oldGate,
+        date: new Date().toISOString().split('T')[0],
+        start: vals.retro_start || '',
+        stop: vals.retro_stop || '',
+        continue: vals.retro_continue || ''
+      });
+      saveProducts();
+      addLog('retro', 'Ретроспектива Gate ' + gateName, 'product', productId);
+      showToast('Ретроспектива сохранена');
+    }, {
+      confirmLabel: 'Сохранить',
+      cancelLabel: 'Пропустить',
+      onCancel: function() {
+        addLog('retro_skipped', 'Ретроспектива Gate ' + gateName + ' пропущена', 'product', productId);
+      }
+    });
+  }
 
   // ── Stage Metric Status cycling (✓ / ✗ / —) ──
   window.cycleStageMetricStatus = function(td) {
@@ -1159,7 +1252,47 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       html += '</div>';
     }
     html += '</div>';
+
+    // W-11: Gate schedule — плановые даты Gate
+    var history = (_product && _product.gateHistory) ? _product.gateHistory : [];
+    var schedule = (_product && _product.gateSchedule) ? _product.gateSchedule : {};
+    // Build map: gate number → completion date from history
+    var gateDates = {};
+    for (var h = 0; h < history.length; h++) {
+      var entry = history[h];
+      // toGate means that gate was reached on that date; fromGate was completed
+      gateDates[entry.fromGate] = entry.date;
+    }
+    html += '<div class="ws-gate-schedule">';
+    for (var g = 0; g < names.length; g++) {
+      if (g > 0) html += '<span class="gs-sep">|</span>';
+      var gLabel = 'Gate ' + g;
+      if (g < current) {
+        // Completed gate
+        var doneDate = gateDates[g] || '';
+        var fmtDate = doneDate ? formatShortDate(doneDate) : '';
+        html += '<span class="gs-item gs-done">' + gLabel + ' \u2713' + (fmtDate ? ' ' + fmtDate : '') + '</span>';
+      } else if (g === current) {
+        // Current gate
+        var planDate = schedule[g] || schedule['g' + g] || '';
+        var planStr = planDate ? '\u043F\u043B\u0430\u043D: ' + formatShortDate(planDate) : '\u0442\u0435\u043A\u0443\u0449\u0438\u0439';
+        html += '<span class="gs-item gs-current">' + gLabel + ' \u2192 ' + planStr + '</span>';
+      } else {
+        // Future gate
+        var futureDate = schedule[g] || schedule['g' + g] || '';
+        var futureStr = futureDate ? '\u043F\u043B\u0430\u043D: ' + formatShortDate(futureDate) : '\u2014';
+        html += '<span class="gs-item gs-future">' + gLabel + ' ' + futureStr + '</span>';
+      }
+    }
+    html += '</div>';
     return html;
+  }
+
+  function formatShortDate(dateStr) {
+    if (!dateStr) return '';
+    var parts = String(dateStr).split('-');
+    if (parts.length === 3) return parts[2] + '.' + parts[1];
+    return dateStr;
   }
 
   function renderTeam(isEdit) {
@@ -1202,12 +1335,41 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   // ═══════════════════════════════════════════════════════════════
 
   function renderInitiatives(items, editable) {
+    // W-06: Apply filters before render
+    var filtered = items;
+    if (_filterStatus !== 'all') {
+      filtered = filtered.filter(function(it) { return it.status === _filterStatus; });
+    }
+    if (_filterQuarter !== 'all') {
+      filtered = filtered.filter(function(it) { return it.quarter === _filterQuarter; });
+    }
+
     var html = '<div class="ws-init-toolbar">';
     if (editable) html += '<button class="ws-create-init-btn" id="btn-create-init">+ \u041D\u043E\u0432\u0430\u044F \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430</button>';
     else html += '<div></div>';
+    html += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">';
+    // W-06: Filters
+    html += '<div class="ws-init-filters">';
+    html += '<select id="filter-status">';
+    html += '<option value="all"' + (_filterStatus === 'all' ? ' selected' : '') + '>\u0421\u0442\u0430\u0442\u0443\u0441: \u0412\u0441\u0435</option>';
+    html += '<option value="backlog"' + (_filterStatus === 'backlog' ? ' selected' : '') + '>\u0411\u044D\u043A\u043B\u043E\u0433</option>';
+    html += '<option value="planned"' + (_filterStatus === 'planned' ? ' selected' : '') + '>\u0417\u0430\u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043E</option>';
+    html += '<option value="wip"' + (_filterStatus === 'wip' ? ' selected' : '') + '>\u0412 \u0440\u0430\u0431\u043E\u0442\u0435</option>';
+    html += '<option value="done"' + (_filterStatus === 'done' ? ' selected' : '') + '>\u0413\u043E\u0442\u043E\u0432\u043E</option>';
+    html += '</select>';
+    html += '<select id="filter-quarter">';
+    html += '<option value="all"' + (_filterQuarter === 'all' ? ' selected' : '') + '>\u041A\u0432\u0430\u0440\u0442\u0430\u043B: \u0412\u0441\u0435</option>';
+    html += '<option value="Q1"' + (_filterQuarter === 'Q1' ? ' selected' : '') + '>Q1 2026</option>';
+    html += '<option value="Q2"' + (_filterQuarter === 'Q2' ? ' selected' : '') + '>Q2 2026</option>';
+    html += '<option value="Q3"' + (_filterQuarter === 'Q3' ? ' selected' : '') + '>Q3 2026</option>';
+    html += '<option value="Q4"' + (_filterQuarter === 'Q4' ? ' selected' : '') + '>Q4 2026</option>';
+    html += '</select>';
+    html += '</div>';
+    // View toggles
     html += '<div class="ws-init-views">';
     html += '<button class="ws-view-btn' + (_initView === 'type' ? ' active' : '') + '" data-view="type">\u041F\u043E \u0442\u0438\u043F\u0443</button>';
     html += '<button class="ws-view-btn' + (_initView === 'rice' ? ' active' : '') + '" data-view="rice">\u041F\u043E RICE</button>';
+    html += '</div>';
     html += '</div></div>';
 
     // Create form
@@ -1227,19 +1389,19 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     html += '<div class="ws-form-actions"><button class="ws-btn-primary" id="init-save">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button><button class="ws-btn-secondary" id="init-cancel">\u041E\u0442\u043C\u0435\u043D\u0430</button></div>';
     html += '</div>';
 
-    // List
+    // List (uses filtered items from W-06)
     html += '<div id="init-list">';
-    if (!items.length) {
-      html += '<div style="text-align:center;padding:40px;color:var(--muted);font-size:13px">\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442</div>';
+    if (!filtered.length) {
+      html += '<div style="text-align:center;padding:40px;color:var(--muted);font-size:13px">' + (items.length ? '\u041D\u0435\u0442 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 \u043F\u043E \u0444\u0438\u043B\u044C\u0442\u0440\u0443' : '\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442') + '</div>';
     } else if (_initView === 'rice') {
-      var sorted = items.slice().sort(function(a, b) { return riceScore(b) - riceScore(a); });
+      var sorted = filtered.slice().sort(function(a, b) { return riceScore(b) - riceScore(a); });
       for (var i = 0; i < sorted.length; i++) html += renderInitCard(sorted[i], editable);
     } else {
       var groups = {};
-      for (var j = 0; j < items.length; j++) {
-        var t = PT.getInitType(items[j]);
+      for (var j = 0; j < filtered.length; j++) {
+        var t = PT.getInitType(filtered[j]);
         if (!groups[t]) groups[t] = [];
-        groups[t].push(items[j]);
+        groups[t].push(filtered[j]);
       }
       var order = ['product', 'business', 'technical'];
       for (var g = 0; g < order.length; g++) {
@@ -1319,18 +1481,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
     // Methodology link
     html += '<a href="framework.html" style="font-size:11px;color:var(--muted);text-decoration:none;" onmouseover="this.style.color=\'var(--violet)\'" onmouseout="this.style.color=\'var(--muted)\'">Методология: стадия ' + (isTechSolution() ? 'T' : 'O') + '\u00b7' + (_product.gate||0) + '</a>';
-    if (editable && canReview()) {
-      html += '<div style="margin-top:10px;display:flex;gap:8px">';
-      html += '<button class="ws-btn-primary" data-approve="' + esc(item.id) + '" style="font-size:11px;padding:5px 12px">\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u0442\u044C</button>';
-      html += '<button class="ws-btn-secondary" data-reject="' + esc(item.id) + '" style="font-size:11px;padding:5px 12px">\u041E\u0442\u043A\u043B\u043E\u043D\u0438\u0442\u044C</button>';
-      html += '</div>';
-    }
-    // Go/No-Go/Revise review buttons for lead/pmo_lead/admin
-    if (getRole() === 'lead' || getRole() === 'pmo_lead' || getRole() === 'admin') {
+    // W-09: Unified review buttons — Go / Revise / No-Go for canReview()
+    if (canReview()) {
       html += '<div style="display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">';
       html += '<button onclick="reviewInitiative(\'' + esc(item.id) + '\',\'go\')" style="padding:6px 14px;border-radius:6px;border:1px solid rgba(75,206,151,.3);background:var(--teal-dim);color:var(--teal);font-size:11px;font-weight:700;cursor:pointer;">Go</button>';
-      html += '<button onclick="reviewInitiative(\'' + esc(item.id) + '\',\'nogo\')" style="padding:6px 14px;border-radius:6px;border:1px solid rgba(248,113,113,.3);background:var(--red-dim);color:var(--red);font-size:11px;font-weight:700;cursor:pointer;">No-Go</button>';
       html += '<button onclick="reviewInitiative(\'' + esc(item.id) + '\',\'revise\')" style="padding:6px 14px;border-radius:6px;border:1px solid rgba(245,205,71,.3);background:var(--amber-dim);color:var(--amber);font-size:11px;font-weight:700;cursor:pointer;">Revise</button>';
+      html += '<button onclick="reviewInitiative(\'' + esc(item.id) + '\',\'nogo\')" style="padding:6px 14px;border-radius:6px;border:1px solid rgba(248,113,113,.3);background:var(--red-dim);color:var(--red);font-size:11px;font-weight:700;cursor:pointer;">No-Go</button>';
       html += '</div>';
     }
     html += '</div>';
@@ -1897,54 +2053,18 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       });
     }
 
-    // Approve / Reject
-    var approveBtns = document.querySelectorAll('[data-approve]');
-    for (var a = 0; a < approveBtns.length; a++) {
-      approveBtns[a].addEventListener('click', function(e) {
-        e.stopPropagation();
-        var id = this.getAttribute('data-approve');
-        for (var bi = 0; bi < _backlog.length; bi++) {
-          if (_backlog[bi].id === id) { _backlog[bi].status = 'planned'; break; }
-        }
-        saveBacklog();
-        addLog('\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0430', id, 'initiative', id);
-        if (window.PT && PT.notify) {
-          PT.notify({
-            type: 'review_submitted',
-            level: 'high',
-            recipientRole: 'pm_owner',
-            productId: productId,
-            title: productId + ' — ревью: GO',
-            text: 'Инициатива ' + id + ' согласована',
-            action: { label: 'Открыть', url: 'workspace.html?id=' + productId + '&tab=initiatives' }
-          });
-        }
-        showToast('\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u043E');
+    // W-06: Filter change handlers
+    var filterStatusEl = document.getElementById('filter-status');
+    if (filterStatusEl) {
+      filterStatusEl.addEventListener('change', function() {
+        _filterStatus = this.value;
         render();
       });
     }
-    var rejectBtns = document.querySelectorAll('[data-reject]');
-    for (var rj = 0; rj < rejectBtns.length; rj++) {
-      rejectBtns[rj].addEventListener('click', function(e) {
-        e.stopPropagation();
-        var id = this.getAttribute('data-reject');
-        for (var bi = 0; bi < _backlog.length; bi++) {
-          if (_backlog[bi].id === id) { _backlog[bi].status = 'backlog'; break; }
-        }
-        saveBacklog();
-        addLog('\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430 \u043E\u0442\u043A\u043B\u043E\u043D\u0435\u043D\u0430', id, 'initiative', id);
-        if (window.PT && PT.notify) {
-          PT.notify({
-            type: 'review_submitted',
-            level: 'high',
-            recipientRole: 'pm_owner',
-            productId: productId,
-            title: productId + ' — ревью: NO-GO',
-            text: 'Инициатива ' + id + ' отклонена',
-            action: { label: 'Открыть', url: 'workspace.html?id=' + productId + '&tab=initiatives' }
-          });
-        }
-        showToast('\u041E\u0442\u043A\u043B\u043E\u043D\u0435\u043D\u043E');
+    var filterQuarterEl = document.getElementById('filter-quarter');
+    if (filterQuarterEl) {
+      filterQuarterEl.addEventListener('change', function() {
+        _filterQuarter = this.value;
         render();
       });
     }
