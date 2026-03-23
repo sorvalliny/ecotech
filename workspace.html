@@ -851,15 +851,56 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     html += '</div>';
 
     html += '<div class="ws-init-body" id="init-body-' + esc(item.id) + '" style="display:' + (expanded ? 'block' : 'none') + '">';
-    if (item.desc || item.description) html += '<div style="margin-bottom:10px">' + esc(item.desc || item.description) + '</div>';
-    html += '<div style="display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:8px">';
-    if (item.quarter) html += '<span style="background:var(--surface);padding:2px 8px;border-radius:4px;">' + esc(item.quarter) + '</span>';
+
+    // Description
+    if (item.desc) html += '<div style="font-size:13px;color:var(--text);margin-bottom:12px;line-height:1.6;">' + esc(item.desc) + '</div>';
+
+    // Spec grid: PM, Team, Quarter, Type, Goal
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">';
+
+    // PM
+    html += '<div style="font-size:12px;"><span style="color:var(--muted);">PM:</span> <strong style="color:var(--text);">' + esc(item.pm || '\u2014') + '</strong></div>';
+
+    // Team
+    var teamName = '\u2014';
+    if (item.teamId) {
+      var teams = JSON.parse(localStorage.getItem('ECOTECH_TEAMS') || '[]');
+      var team = teams.find(function(t) { return t.id === item.teamId; });
+      if (team) teamName = team.name;
+    }
+    html += '<div style="font-size:12px;"><span style="color:var(--muted);">Команда:</span> <strong style="color:var(--text);">' + esc(teamName) + '</strong></div>';
+
+    // Quarter
+    html += '<div style="font-size:12px;"><span style="color:var(--muted);">Квартал:</span> <strong style="color:var(--text);">' + esc(item.quarter || '\u2014') + '</strong></div>';
+
+    // Type
     var tp = PT.INITIATIVE_TYPES[t] || PT.INITIATIVE_TYPES.product;
-    html += '<span style="color:' + tp.color + '">' + tp.label + '</span>';
-    if (item.trackerUrl) html += '<span style="color:var(--violet)">Трекер</span>';
-    if (item.goalId) { var goal = _goals.find(function(g){return g.id===item.goalId}); if(goal) html += '<span>Цель: ' + esc(goal.title || goal.name || goal.id) + '</span>'; }
+    html += '<div style="font-size:12px;"><span style="color:var(--muted);">Тип:</span> <span style="color:' + tp.color + ';font-weight:600;">' + tp.label + '</span></div>';
+
+    // Goal link
+    if (item.goalId) {
+      var goal = _goals.find(function(g) { return g.id === item.goalId; });
+      if (goal) html += '<div style="font-size:12px;grid-column:1/-1;"><span style="color:var(--muted);">Цель:</span> <strong style="color:var(--teal);">' + esc(goal.title || goal.name) + '</strong></div>';
+    }
+
     html += '</div>';
-    if (item.trackerUrl) html += '<a href="' + esc(item.trackerUrl) + '" target="_blank" style="font-size:12px;color:var(--violet);text-decoration:none;font-weight:600">\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432 \u0442\u0440\u0435\u043A\u0435\u0440\u0435</a>';
+
+    // RICE breakdown (compact, for PM view)
+    html += '<div style="display:flex;gap:12px;margin-bottom:12px;padding:8px 12px;background:var(--surface);border-radius:6px;font-size:11px;">';
+    html += '<span style="color:var(--muted);">RICE:</span>';
+    html += '<span>R:' + (item.r||0) + '</span><span>I:' + (item.i||0) + '</span><span>C:' + (item.c||0) + '</span><span>E:' + (item.e||0) + '</span>';
+    html += '<span style="font-weight:700;color:var(--amber);margin-left:auto;">' + rice + '</span>';
+    html += '</div>';
+
+    // Tracker link
+    if (item.trackerUrl) {
+      html += '<a href="' + esc(item.trackerUrl) + '" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--violet);text-decoration:none;font-weight:600;padding:6px 12px;background:var(--violet-dim);border-radius:6px;border:1px solid var(--violet-border);margin-bottom:10px;">Открыть в трекере</a>';
+    } else {
+      html += '<div style="font-size:11px;color:var(--muted);margin-bottom:10px;">Трекер не привязан</div>';
+    }
+
+    // Methodology link
+    html += '<a href="framework.html" style="font-size:11px;color:var(--muted);text-decoration:none;" onmouseover="this.style.color=\'var(--violet)\'" onmouseout="this.style.color=\'var(--muted)\'">Методология: стадия ' + (isTechSolution() ? 'T' : 'O') + '\u00b7' + (_product.gate||0) + '</a>';
     if (editable && canReview()) {
       html += '<div style="margin-top:10px;display:flex;gap:8px">';
       html += '<button class="ws-btn-primary" data-approve="' + esc(item.id) + '" style="font-size:11px;padding:5px 12px">\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u0442\u044C</button>';
