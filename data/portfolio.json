@@ -23,7 +23,7 @@
   {
     "id": "ECO-01",
     "name": "Wibes",
-    "desc": "Маркетплейс. Рост GMV и аудитории.",
+    "desc": "Маркетплейс. Goal: GMV 2026 — 1 млрд. OKR: вовлечённость, воронка, рост аудитории.",
     "gate": 4,
     "status": "on-track",
     "cat": "b2c",
@@ -37,12 +37,17 @@
     "kpi": [
       {
         "icon": "trending-up",
-        "value": "GMV",
-        "label": "Оборот"
+        "value": "1 млрд",
+        "label": "GMV 2026"
+      },
+      {
+        "icon": "clock",
+        "value": "Time Spend",
+        "label": "Вовлечённость"
       },
       {
         "icon": "users",
-        "value": "MAU",
+        "value": "DAU",
         "label": "Аудитория"
       }
     ],
