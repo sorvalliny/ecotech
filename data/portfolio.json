@@ -87,5 +87,29 @@
     "owner": "Уточняется", "color": "#C4A5FF", "updated": "2026-03-10", "quarter": "Q2 2026",
     "kpi": [],
     "initiatives": []
+  },
+  {
+    "id": "EDU-01", "name": "WB Академия", "desc": "Корпоративный университет. Обучение сотрудников и партнёров экосистемы.",
+    "gate": 3, "status": "on-track", "cat": "edtech", "catLabel": "EdTech",
+    "type": "edu_product", "department": "education",
+    "owner": "PM WB Академия", "color": "#E774BB", "updated": "2026-03-20", "quarter": "Q2 2026",
+    "kpi": [{"icon":"users","value":"5K","label":"Студентов"},{"icon":"trending-up","value":"78%","label":"Completion Rate"}],
+    "initiatives": []
+  },
+  {
+    "id": "EDU-02", "name": "WB Курсы для селлеров", "desc": "Обучающая платформа для продавцов маркетплейса.",
+    "gate": 2, "status": "on-track", "cat": "edtech", "catLabel": "EdTech",
+    "type": "edu_product", "department": "education",
+    "owner": "PM WB Курсы", "color": "#E774BB", "updated": "2026-03-18", "quarter": "Q2 2026",
+    "kpi": [{"icon":"users","value":"12K","label":"Селлеров"},{"icon":"star","value":"4.6","label":"NPS"}],
+    "initiatives": []
+  },
+  {
+    "id": "EDU-03", "name": "WB Стажировки", "desc": "Программа стажировок для студентов. Отбор, обучение, трудоустройство.",
+    "gate": 1, "status": "on-track", "cat": "edtech", "catLabel": "EdTech",
+    "type": "edu_product", "department": "education",
+    "owner": "PM WB Стажировки", "color": "#E774BB", "updated": "2026-03-15", "quarter": "Q2 2026",
+    "kpi": [],
+    "initiatives": []
   }
 ]
