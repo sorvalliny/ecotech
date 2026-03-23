@@ -148,46 +148,66 @@ function renderWelcome(c) {
 function renderAuthorized(c, user) {
   var products = PT.load(PT.KEY_PRODUCTS) || [];
   products.forEach(function(p) { PT.migrateProductFields(p); });
+  var backlog = PT.load(PT.KEY_BACKLOG) || [];
   var h = '';
 
-  /* CTA block — context-aware */
-  h += '<div class="cta-block">';
-  if (user.role === 'pmo_lead' || user.role === 'pmo' || user.role === 'admin') {
-    var ideas = PT.load(PT.KEY_IDEAS) || [];
-    var newIdeas = ideas.filter(function(i) { return i.status === 'new'; });
-    if (newIdeas.length) {
-      h += '<a class="cta-main" href="admin.html">Новые заявки: ' + newIdeas.length + '</a>';
-      h += '<div class="cta-sub">Требуется скрининг</div>';
-    } else {
-      h += '<a class="cta-main" href="tools/brief.html">+ Подать заявку</a>';
-      h += '<div class="cta-sub">Все заявки рассмотрены</div>';
+  var isExec = user.role === 'admin' || user.role === 'pmo_lead' || user.role === 'lead';
+  var isPM = user.role === 'pm';
+  var isPMO = user.role === 'pmo' || user.role === 'pmo_lead';
+
+  /* ═══ PORTFOLIO SUMMARY (exec + PMO) ═══ */
+  if (isExec || isPMO) {
+    var onTrack = products.filter(function(p) { return p.status === 'on-track'; }).length;
+    var atRisk = products.filter(function(p) { return p.status === 'at-risk'; }).length;
+    var blocked = products.filter(function(p) { return p.status === 'blocked'; }).length;
+    var screening = products.filter(function(p) { return p.status === 'screening'; }).length;
+
+    // Q progress
+    var cq = PT.currentQuarter();
+    var qInits = backlog.filter(function(i) { return i.quarter === cq; });
+    var qDone = qInits.filter(function(i) { return i.status === 'done'; }).length;
+    var qWip = qInits.filter(function(i) { return i.status === 'wip'; }).length;
+    var qPct = qInits.length ? Math.round((qDone + qWip) / qInits.length * 100) : 0;
+
+    h += '<div style="margin-bottom:20px;">';
+    h += '<div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Портфель экосистемы</div>';
+    h += '<div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;">';
+    h += '<div style="flex:1;min-width:80px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-align:center;border-top:3px solid var(--teal)"><div style="font-size:22px;font-weight:800;color:var(--teal)">' + onTrack + '</div><div style="font-size:10px;color:var(--muted)">на треке</div></div>';
+    h += '<div style="flex:1;min-width:80px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-align:center;border-top:3px solid var(--amber)"><div style="font-size:22px;font-weight:800;color:var(--amber)">' + atRisk + '</div><div style="font-size:10px;color:var(--muted)">риск</div></div>';
+    h += '<div style="flex:1;min-width:80px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-align:center;border-top:3px solid var(--red)"><div style="font-size:22px;font-weight:800;color:var(--red)">' + blocked + '</div><div style="font-size:10px;color:var(--muted)">блок</div></div>';
+    h += '<div style="flex:1;min-width:80px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-align:center;border-top:3px solid var(--violet)"><div style="font-size:22px;font-weight:800;color:var(--violet)">' + screening + '</div><div style="font-size:10px;color:var(--muted)">скрининг</div></div>';
+    h += '</div>';
+    // Q progress bar
+    if (qInits.length) {
+      h += '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;">' + cq + ': ' + qDone + ' готово, ' + qWip + ' в работе из ' + qInits.length + ' (' + qPct + '%)</div>';
+      h += '<div style="height:6px;background:var(--surface);border-radius:3px;overflow:hidden;">';
+      if (qDone) h += '<div style="display:inline-block;height:100%;width:' + (qDone/qInits.length*100) + '%;background:var(--teal);"></div>';
+      if (qWip) h += '<div style="display:inline-block;height:100%;width:' + (qWip/qInits.length*100) + '%;background:var(--violet);"></div>';
+      h += '</div>';
     }
-  } else {
-    h += '<a class="cta-main" href="tools/brief.html">+ Подать заявку</a>';
-    h += '<div class="cta-sub">PMO рассмотрит за 5 рабочих дней</div>';
-  }
-  h += '</div>';
-
-  /* Portfolio summary stats */
-  var onTrack = products.filter(function(p) { return p.status === 'on-track'; }).length;
-  var atRisk = products.filter(function(p) { return p.status === 'at-risk'; }).length;
-  var blocked = products.filter(function(p) { return p.status === 'blocked'; }).length;
-  var screening = products.filter(function(p) { return p.status === 'screening'; }).length;
-
-  if (user.role === 'admin' || user.role === 'pmo_lead' || user.role === 'lead') {
-    h += '<div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">';
-    h += '<div style="flex:1;min-width:100px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-align:center;border-top:3px solid var(--teal)"><div style="font-size:24px;font-weight:800;color:var(--teal)">' + onTrack + '</div><div style="font-size:11px;color:var(--muted)">на треке</div></div>';
-    h += '<div style="flex:1;min-width:100px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-align:center;border-top:3px solid var(--amber)"><div style="font-size:24px;font-weight:800;color:var(--amber)">' + atRisk + '</div><div style="font-size:11px;color:var(--muted)">с рисками</div></div>';
-    h += '<div style="flex:1;min-width:100px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-align:center;border-top:3px solid var(--red)"><div style="font-size:24px;font-weight:800;color:var(--red)">' + blocked + '</div><div style="font-size:11px;color:var(--muted)">заблокировано</div></div>';
-    h += '<div style="flex:1;min-width:100px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-align:center;border-top:3px solid var(--violet)"><div style="font-size:24px;font-weight:800;color:var(--violet)">' + screening + '</div><div style="font-size:11px;color:var(--muted)">на скрининге</div></div>';
     h += '</div>';
   }
 
-  /* Notifications — Требует внимания */
+  /* ═══ ALERTS — Требует решения ═══ */
+  var alerts = window.PT ? PT.getAlerts() : [];
+  if (alerts.length) {
+    h += '<div class="sec-title">Требует решения</div>';
+    alerts.slice(0, 5).forEach(function(a) {
+      var cls = a.level === 'red' ? 'n-high' : 'n-medium';
+      h += '<a class="notif-card ' + cls + '" href="workspace.html?id=' + esc(a.productId) + '">';
+      h += '<div style="flex:1"><div class="notif-title">' + esc(a.text) + '</div>';
+      h += '<div class="notif-text">' + esc(a.action || '') + '</div></div>';
+      h += '<span style="font-size:11px;color:var(--violet);font-weight:600;">Открыть &rarr;</span>';
+      h += '</a>';
+    });
+  }
+
+  /* ═══ NOTIFICATIONS ═══ */
   var notifs = window.PT ? PT.getMyNotifications() : [];
-  if (notifs.length) {
-    h += '<div class="sec-title">Требует внимания (' + notifs.length + ')</div>';
-    notifs.slice(0, 5).forEach(function(n) {
+  var unreadNotifs = notifs.filter(function(n) { var u = OrbAuth.getCurrentUser(); return u && n.readBy.indexOf(u.id) < 0; });
+  if (unreadNotifs.length) {
+    h += '<div class="sec-title">Уведомления (' + unreadNotifs.length + ')</div>';
+    unreadNotifs.slice(0, 3).forEach(function(n) {
       var cls = n.level === 'high' ? 'n-high' : n.level === 'medium' ? 'n-medium' : '';
       var url = n.action && n.action.url ? n.action.url : '#';
       h += '<a class="notif-card ' + cls + '" href="' + url + '" onclick="if(window.PT){PT.markRead(\'' + n.id + '\')}">';
@@ -196,38 +216,68 @@ function renderAuthorized(c, user) {
       if (n.action) h += '<span style="font-size:11px;color:var(--violet);font-weight:600;white-space:nowrap">' + esc(n.action.label) + ' &rarr;</span>';
       h += '</a>';
     });
-    if (notifs.length > 5) h += '<div style="font-size:11px;color:var(--muted);margin-top:4px">+ ещё ' + (notifs.length - 5) + '</div>';
   }
 
-  /* My products (for PM) */
-  if (user.role === 'pm') {
-    var myProducts = [];
-    if (user.assignments && user.assignments.length) {
-      user.assignments.forEach(function(a) {
-        var p = products.find(function(pr) { return pr.id === a.productId; });
-        if (p) myProducts.push(p);
-      });
-    }
-    if (myProducts.length) {
-      h += '<div class="sec-title">Мои продукты</div>';
-      myProducts.forEach(function(p) {
-        var lc = 'pl-' + (p.statusLight || 'green');
-        h += '<a class="prod-card" href="workspace.html?id=' + esc(p.id) + '">';
-        h += '<span class="prod-light ' + lc + '"></span>';
-        h += '<span class="prod-name">' + esc(p.name) + '</span>';
-        h += '<span class="prod-stage">' + (GATE_NAMES[p.gate] || 'Gate ' + p.gate) + '</span>';
-        h += '</a>';
-      });
-    }
+  /* ═══ PRODUCTS LIST (for exec — all; for PM — mine) ═══ */
+  var showProducts = [];
+  if (isExec || isPMO) {
+    showProducts = products.filter(function(p) { return p.id !== 'ECO-00'; }); // exclude demo
+  } else if (isPM && user.assignments) {
+    user.assignments.forEach(function(a) {
+      var p = products.find(function(pr) { return pr.id === a.productId; });
+      if (p) showProducts.push(p);
+    });
   }
 
-  /* Quick links */
-  h += '<div class="sec-title">Быстрый доступ</div>';
-  h += '<div class="quick-links">';
+  if (showProducts.length) {
+    h += '<div class="sec-title">' + (isPM ? 'Мои продукты' : 'Продукты портфеля') + '</div>';
+    // Sort: at-risk first, then by gate desc
+    showProducts.sort(function(a, b) {
+      if (a.status === 'at-risk' && b.status !== 'at-risk') return -1;
+      if (b.status === 'at-risk' && a.status !== 'at-risk') return 1;
+      if (a.status === 'blocked' && b.status !== 'blocked') return -1;
+      return (b.gate || 0) - (a.gate || 0);
+    });
+    showProducts.forEach(function(p) {
+      var lc = 'pl-' + (p.statusLight || (p.status === 'at-risk' ? 'amber' : p.status === 'blocked' ? 'red' : 'green'));
+      var initCount = backlog.filter(function(i) { return i.productId === p.id; }).length;
+      var stageName = GATE_NAMES[p.gate] || 'Gate ' + (p.gate || 0);
+      h += '<a class="prod-card" href="workspace.html?id=' + esc(p.id) + '">';
+      h += '<span class="prod-light ' + lc + '"></span>';
+      h += '<span class="prod-name">' + esc(p.name) + '</span>';
+      h += '<span style="font-size:10px;color:var(--muted);margin-left:auto;">' + initCount + ' иниц.</span>';
+      h += '<span class="prod-stage">' + esc(stageName) + '</span>';
+      h += '</a>';
+    });
+  }
+
+  /* ═══ CALENDAR — ближайшие события ═══ */
+  var events = PT.load(PT.KEY_CALENDAR) || [];
+  var now = new Date();
+  var upcoming = events.filter(function(e) { return new Date(e.date) > now && e.status !== 'done'; }).sort(function(a, b) { return new Date(a.date) - new Date(b.date); }).slice(0, 3);
+  if (upcoming.length) {
+    h += '<div class="sec-title">Ближайшие события</div>';
+    upcoming.forEach(function(e) {
+      var d = new Date(e.date);
+      var dateStr = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+      h += '<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--card);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;font-size:12px;">';
+      h += '<span style="color:var(--violet);font-weight:700;min-width:50px;">' + dateStr + '</span>';
+      h += '<span style="color:var(--text);flex:1;">' + esc(e.name) + '</span>';
+      h += '<span style="color:var(--muted);font-size:10px;">' + (e.roles || []).join(', ') + '</span>';
+      h += '</div>';
+    });
+    h += '<a href="calendar.html" style="font-size:11px;color:var(--violet);text-decoration:none;font-weight:600;margin-top:4px;display:inline-block;">Все события &rarr;</a>';
+  }
+
+  /* ═══ CTA — role-specific ═══ */
+  h += '<div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap;">';
   h += '<a class="ql-btn" href="catalog.html">Портфель</a>';
   h += '<a class="ql-btn" href="framework.html">Методология</a>';
-  h += '<a class="ql-btn" href="registry.html">Реестр</a>';
-  h += '<a class="ql-btn" href="tools/brief.html">Бриф</a>';
+  h += '<a class="ql-btn" href="calendar.html">Календарь</a>';
+  if (isPM || isPMO) {
+    h += '<a class="ql-btn" href="registry.html">Реестр</a>';
+    h += '<a class="ql-btn" href="tools/brief.html">+ Заявка</a>';
+  }
   if (user.role === 'admin' || user.role === 'pmo_lead') {
     h += '<a class="ql-btn" href="admin.html">Admin</a>';
   }
