@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Профиль — Сорваль В. | Руководитель ПО</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+:root{--v:#6C3DAF;--vd:rgba(108,61,175,0.08);--b:#0052CC;--bd:rgba(0,82,204,0.07);--ok:#00875A;--okb:#E3FCEF;--warn:#FF8B00;--wb:#FFF7E6;--crit:#DE350B;--cb:#FFEBE6;--t1:#172B4D;--t2:#5E6C84;--t3:#97A0AF;--bg:#F4F5F7;--brd:#EBECF0;--brd2:#DFE1E6}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Outfit',system-ui,sans-serif;background:#FAFBFC;color:var(--t1);font-size:13px;line-height:1.6;-webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;min-height:100vh}
+@media print{
+body{background:#fff;font-size:11px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.p{box-shadow:none;max-width:100%;padding:20px 24px}
+*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+}
+.p{width:100%;max-width:840px;margin:0 auto;padding:28px 36px 22px;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,0.08);border-radius:10px}
+
+/* header */
+.hd{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:3px solid var(--v);margin-bottom:20px}
+.hd-left{display:flex;align-items:center;gap:16px}
+.hd-logo{background:var(--t1);padding:5px 12px;border-radius:5px}
+.hd-logo img{height:22px;display:block}
+.hd-name{font-size:20px;font-weight:800;letter-spacing:-0.02em;color:var(--t1)}
+.hd-role{font-size:10px;color:var(--t2);margin-top:2px;line-height:1.5}
+.hd-r{text-align:right;font-size:10px;color:var(--t2);line-height:1.8}
+.hd-r b{color:var(--t1);font-weight:700}
+.hd-r a{color:var(--b);text-decoration:none}
+.hd-r a:hover{text-decoration:underline}
+
+/* grid layout */
+.grid-main{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.grid-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+
+/* sections */
+.s{margin-bottom:0}
+.sh{font-size:11px;font-weight:800;color:var(--t1);padding-bottom:5px;border-bottom:1px solid var(--brd);margin-bottom:10px;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:0.04em}
+
+/* intro / role card */
+.role-card{background:var(--v);color:#fff;border-radius:8px;padding:16px 18px;height:100%}
+.role-card .label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;opacity:0.7;margin-bottom:4px}
+.role-card .name{font-size:22px;font-weight:800;letter-spacing:-0.02em;margin-bottom:2px}
+.role-card .title{font-size:11px;font-weight:600;opacity:0.9;line-height:1.4;margin-bottom:10px}
+.role-card .meta{font-size:10px;opacity:0.75;line-height:1.7}
+.role-card .meta b{opacity:1;font-weight:700;color:#fff}
+.role-card a{color:rgba(255,255,255,0.85);font-size:10px;text-decoration:none;border-bottom:1px dashed rgba(255,255,255,0.4)}
+.role-card a:hover{color:#fff;border-color:#fff}
+
+/* responsibility list */
+.resp-list{list-style:none;font-size:11px;color:var(--t1);line-height:1.5}
+.resp-list li{padding:5px 0 5px 14px;position:relative;border-bottom:1px solid var(--brd)}
+.resp-list li:last-child{border-bottom:none}
+.resp-list li::before{content:'';position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--v)}
+.resp-list li b{font-weight:700;color:var(--t1)}
+.resp-list li span{color:var(--t2);font-size:10px}
+
+/* achievement list */
+.ach-list{list-style:none;font-size:11px;color:var(--t1)}
+.ach-list li{padding:5px 0 5px 20px;position:relative;border-bottom:1px solid var(--brd);line-height:1.45}
+.ach-list li:last-child{border-bottom:none}
+.ach-list li::before{content:'';position:absolute;left:0;top:11px;width:12px;height:2px;background:var(--ok);border-radius:2px}
+
+/* team */
+.team-card{background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:11px 14px;margin-bottom:8px;font-size:11px;display:flex;gap:12px;align-items:flex-start}
+.team-card:last-child{margin-bottom:0}
+.team-avatar{width:32px;height:32px;border-radius:50%;background:var(--v);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:-0.03em}
+.team-avatar--b{background:var(--b)}
+.team-name{font-weight:700;color:var(--t1);font-size:11px}
+.team-desc{font-size:10px;color:var(--t2);margin-top:1px;line-height:1.4}
+.team-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;margin-top:4px;letter-spacing:0.03em}
+.tag--v{background:var(--vd);color:var(--v)}
+.tag--b{background:var(--bd);color:var(--b)}
+
+/* links */
+.link-list{list-style:none;font-size:11px}
+.link-list li{padding:6px 0;border-bottom:1px solid var(--brd)}
+.link-list li:last-child{border-bottom:none}
+.link-list a{color:var(--b);text-decoration:none;font-weight:600}
+.link-list a:hover{color:var(--v);text-decoration:underline}
+.link-list .link-desc{display:block;font-size:10px;color:var(--t3);margin-top:1px}
+
+/* footer */
+.ft{margin-top:14px;padding-top:10px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;font-size:9px;color:var(--t3);align-items:center}
+.ft a{color:var(--t3);text-decoration:none}
+.ft a:hover{color:var(--b)}
+
+@media(max-width:680px){
+.p{padding:18px 14px;border-radius:0}
+.grid-main,.grid-bottom{grid-template-columns:1fr}
+.hd{flex-direction:column;gap:10px;text-align:center}
+.hd-left{flex-direction:column;gap:8px}
+.hd-r{text-align:center}
+}
+</style>
+</head>
+<body>
+<main class="p">
+
+  <!-- HEADER -->
+  <div class="hd">
+    <div class="hd-left">
+      <div class="hd-logo">
+        <img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="filter:brightness(10)"
+             onerror="this.parentElement.innerHTML='<b style=font-size:14px;color:#fff;letter-spacing:-0.02em>RWB</b>'">
+      </div>
+      <div>
+        <div class="hd-name">Сорваль Виктор</div>
+        <div class="hd-role">Руководитель Проектного офиса &nbsp;&middot;&nbsp; Департамент инноваций и экосистемы &nbsp;&middot;&nbsp; RWB</div>
+      </div>
+    </div>
+    <div class="hd-r">
+      <b>В должности с декабря 2025</b><br>
+      <a href="mailto:sorval.viktor@rwb.ru">sorval.viktor@rwb.ru</a><br>
+      <span style="color:var(--t3)">Профиль актуален: март 2026</span>
+    </div>
+  </div>
+
+  <!-- MAIN GRID: роль + зона ответственности -->
+  <div class="grid-main">
+
+    <!-- Роль -->
+    <div class="role-card">
+      <div class="label">Руководитель ПО</div>
+      <div class="name">Сорваль В.</div>
+      <div class="title">Проектный офис<br>Департамент инноваций и экосистемы</div>
+      <div class="meta">
+        <b>Портфель:</b> 8 ИТ-продуктов (5 Экосистема + 3 Обучение)<br>
+        <b>Подчинение:</b> Директор по инновациям и экосистеме<br>
+        <b>В должности:</b> декабрь 2025 &mdash; настоящее время<br>
+        <b>Контакт:</b> <a href="mailto:sorval.viktor@rwb.ru">sorval.viktor@rwb.ru</a>
+      </div>
+    </div>
+
+    <!-- Зона ответственности -->
+    <div class="s">
+      <div class="sh">Зона ответственности</div>
+      <ul class="resp-list">
+        <li><b>8 ИТ-продуктов</b> <span>— 5 Экосистема + 3 Обучение</span></li>
+        <li><b>Методология</b> <span>— Gate-модель, стадии зрелости, RICE</span></li>
+        <li><b>Платформа ОРБИТА</b> <span>— прототип корп. трекера (20+ модулей)</span></li>
+        <li><b>Координация PM продуктов</b> <span>— синки, 1-1, приоритизация</span></li>
+        <li><b>Отчётность руководству</b> <span>— статусы, дашборды, решения</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM GRID: результаты Q1 + команда + ссылки -->
+  <div class="grid-bottom">
+
+    <!-- Результаты Q1 2026 -->
+    <div class="s" style="grid-column: span 2">
+      <div class="sh">Результаты Q1 2026</div>
+      <ul class="ach-list">
+        <li>Обзор портфеля 12 продуктов — цели, ключевые инициативы, роли PM</li>
+        <li>1-1 со 100% продукт-лидеров — собрана прямая обратная связь</li>
+        <li>Методология: стадии зрелости, приоритизация, Gate-чеклисты</li>
+        <li>Прототип платформы ОРБИТА — 20+ модулей управления портфелем</li>
+        <li>ТЗ для корпоративного трекера продуктов — передано в разработку</li>
+        <li>Обзор продуктов в Figma — единый визуальный стандарт карточек</li>
+      </ul>
+    </div>
+
+    <!-- Команда -->
+    <div class="s">
+      <div class="sh">Команда</div>
+      <div class="team-card">
+        <div class="team-avatar">СВ</div>
+        <div>
+          <div class="team-name">Сорваль В.</div>
+          <div class="team-desc">Методология, платформа, стратегия, отчётность</div>
+          <span class="team-tag tag--v">Проектная работа</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar team-avatar--b">ГА</div>
+        <div>
+          <div class="team-name">Гребнева А.</div>
+          <div class="team-desc">Статусы, синки, операционное взаимодействие</div>
+          <span class="team-tag tag--b">Функц. взаимодействие</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ССЫЛКИ -->
+  <div class="s">
+    <div class="sh">Материалы</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+      <div style="background:var(--bg);border:1px solid var(--brd);border-top:2px solid var(--v);border-radius:8px;padding:10px 14px">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--t2);margin-bottom:4px">Платформа</div>
+        <div style="font-size:11px;font-weight:700;color:var(--t1);margin-bottom:2px">ОРБИТА</div>
+        <div style="font-size:10px;color:var(--t2);margin-bottom:6px">Прототип портфельного трекера</div>
+        <a href="https://sorvalliny.github.io/ecotech/" target="_blank" style="font-size:10px;color:var(--v);text-decoration:none;font-weight:600;border-bottom:1px dashed rgba(108,61,175,0.3)">sorvalliny.github.io/ecotech/</a>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--brd);border-top:2px solid var(--b);border-radius:8px;padding:10px 14px">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--t2);margin-bottom:4px">Отчётность</div>
+        <div style="font-size:11px;font-weight:700;color:var(--t1);margin-bottom:2px">Статус ПО</div>
+        <div style="font-size:10px;color:var(--t2);margin-bottom:6px">Портфель экосистемы, март 2026</div>
+        <a href="https://sorvalliny.github.io/ecotech/status-pmo.html" target="_blank" style="font-size:10px;color:var(--b);text-decoration:none;font-weight:600;border-bottom:1px dashed rgba(0,82,204,0.3)">.../status-pmo.html</a>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--brd);border-top:2px solid var(--ok);border-radius:8px;padding:10px 14px">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--t2);margin-bottom:4px">Концепция</div>
+        <div style="font-size:11px;font-weight:700;color:var(--t1);margin-bottom:2px">Презентация ПО</div>
+        <div style="font-size:10px;color:var(--t2);margin-bottom:6px">Роль, методология, результаты</div>
+        <a href="https://sorvalliny.github.io/ecotech/pmo-concept.html" target="_blank" style="font-size:10px;color:var(--ok);text-decoration:none;font-weight:600;border-bottom:1px dashed rgba(0,135,90,0.3)">.../pmo-concept.html</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="ft">
+    <span>Проектный офис &mdash; Департамент инноваций и экосистемы &mdash; RWB</span>
+    <span><a href="mailto:sorval.viktor@rwb.ru">sorval.viktor@rwb.ru</a> &nbsp;&middot;&nbsp; март 2026</span>
+  </div>
+
+</main>
+</body>
+</html>
