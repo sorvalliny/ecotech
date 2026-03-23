@@ -341,9 +341,7 @@
 
   // ── Render Grid ──
   function renderGrid() {
-    console.log('[ORBITA] renderGrid: products=' + products.length + ', STAGES=' + STAGES.length);
     var filtered = filterProducts();
-    console.log('[ORBITA] filtered=' + filtered.length);
 
     // Sort: at-risk first, blocked second, transferring last, then by gate desc
     filtered.sort(function(a, b) {
@@ -371,7 +369,7 @@
     });
     if (transferring.length) {
       html += '<div style="grid-column:1/-1;padding:12px 0;border-top:1px solid var(--border);margin-top:8px;">';
-      html += '<div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Переходят в другие департаменты (' + transferring.length + ')</div>';
+      html += '<div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Архив (' + transferring.length + ')</div>';
       html += '</div>';
       transferring.forEach(function(p) {
         try { html += renderCard(p); }
@@ -504,9 +502,6 @@
 
   // ── Load data ──
   function init() {
-    // DEBUG: вывод прямо в grid если что-то пойдёт не так
-    elGrid.innerHTML = '<div style="padding:20px;color:orange;font-size:13px;">Загрузка продуктов...</div>';
-
     STAGES = window.STAGES_DB ? STAGES_DB.get() : [];
     backlog = (window.PT && PT.load) ? PT.load(PT.KEY_BACKLOG) || [] : [];
     changelog = (window.PT && PT.load) ? PT.load(PT.KEY_CHANGELOG) || [] : [];
@@ -514,12 +509,10 @@
     if (window.PT && PT.ensureProducts) {
       PT.ensureProducts(function(p) {
         products = p || [];
-        elGrid.innerHTML = '<div style="padding:20px;color:cyan;font-size:13px;">Получено продуктов: ' + products.length + ', STAGES: ' + STAGES.length + '. Рендерю...</div>';
         autoSelectDepartment();
         render();
       });
     } else {
-      elGrid.innerHTML = '<div style="padding:20px;color:red;font-size:13px;">PT.ensureProducts не найден!</div>';
       render();
     }
 
