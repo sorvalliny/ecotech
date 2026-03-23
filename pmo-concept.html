@@ -164,28 +164,62 @@ td b{color:#fff}
   <div class="slide" data-num="5">
     <h2>Жизненный цикл продукта</h2>
     <div class="sub">Целевой подход (на обсуждение). 6 стадий разработаны для инноваций и экосистемы на базе методологии Stage-Gate. Используется: Яндекс, Сбер, Тинькофф, МТС, VK, Газпром нефть.</div>
-    <div class="funnel">
-      <div class="funnel-stage" style="background:#3D2066;height:50px;cursor:pointer" onclick="showStage(this)" data-desc="Описание проблемы и аудитории. Оценка приоритета." data-gate="Есть проблема? Есть аудитория? Стоит исследовать?">0<small>Заявка</small></div>
-      <div class="funnel-stage" style="background:#5B2D8E;height:65px;cursor:pointer" onclick="showStage(this)" data-desc="Интервью с пользователями, анализ конкурентов, бизнес-обоснование." data-gate="Проблема подтверждена? Рынок есть? Бизнес-кейс сходится?">1<small>Разведка</small></div>
-      <div class="funnel-stage" style="background:#6C3DAF;height:80px;cursor:pointer" onclick="showStage(this)" data-desc="Первая версия продукта. Проверка ключевых гипотез на реальных пользователях." data-gate="Прототип работает? Пользователи возвращаются? Готовы к запуску?">2<small>Прототип</small></div>
-      <div class="funnel-stage" style="background:#9B59D0;height:95px;cursor:pointer" onclick="showStage(this)" data-desc="Выход на рынок. Рост аудитории, метрики запуска, маркетинг." data-gate="Есть product-market fit? Юнит-экономика положительная?">3<small>Разгон</small></div>
-      <div class="funnel-stage" style="background:#CB11AB;height:110px;cursor:pointer" onclick="showStage(this)" data-desc="Встраивание в экосистему RWB. Интеграции с другими продуктами, API." data-gate="Интегрирован с другими продуктами? Работает как часть платформы?">4<small>Экосистема</small></div>
-      <div class="funnel-stage" style="background:#E91E8C;height:125px;cursor:pointer" onclick="showStage(this)" data-desc="Устойчивый бизнес. Оптимизация экономики, масштабирование." data-gate="P&L положительный? Масштаб достигнут?">5<small>Зрелость</small></div>
+    <!-- LIFECYCLE: стадии + гейты + SLA + продукты -->
+    <div style="margin-top:16px">
+      <!-- SLA над стрелками -->
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-bottom:2px;text-align:center">
+        <div style="font-size:8px;color:var(--t3)">≤5 дней</div>
+        <div style="font-size:8px;color:var(--t3)">2-6 нед</div>
+        <div style="font-size:8px;color:var(--t3)">1-4 мес</div>
+        <div style="font-size:8px;color:var(--t3)">3-6 мес</div>
+        <div style="font-size:8px;color:var(--t3)">ongoing</div>
+        <div style="font-size:8px;color:var(--t3)">ongoing</div>
+      </div>
+      <!-- Стадии с гейтами -->
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;align-items:end">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="funnel-stage" style="background:#3D2066;height:40px;width:100%;cursor:pointer;border-radius:6px 0 0 6px" onclick="showStage(this)" data-desc="Описание проблемы и аудитории. Оценка приоритета." data-gate="Есть проблема? Стоит исследовать?">0<small>Заявка</small></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="funnel-stage" style="background:#5B2D8E;height:50px;width:100%;cursor:pointer" onclick="showStage(this)" data-desc="Интервью с пользователями, конкуренты, бизнес-кейс." data-gate="Проблема подтверждена? Рынок есть?">1<small>Разведка</small></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="funnel-stage" style="background:#6C3DAF;height:60px;width:100%;cursor:pointer" onclick="showStage(this)" data-desc="Первая версия. Проверка гипотез на пользователях." data-gate="Прототип работает? Пользователи возвращаются?">2<small>Прототип</small></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="funnel-stage" style="background:#9B59D0;height:70px;width:100%;cursor:pointer" onclick="showStage(this)" data-desc="Выход на рынок, рост аудитории, маркетинг." data-gate="PMF есть? Юнит-экономика плюс?">3<small>Разгон</small></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="funnel-stage" style="background:#CB11AB;height:80px;width:100%;cursor:pointer" onclick="showStage(this)" data-desc="Интеграции с другими продуктами, API, платформа." data-gate="Встроен в экосистему? Работает как часть платформы?">4<small>Экосистема</small></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="funnel-stage" style="background:#E91E8C;height:90px;width:100%;cursor:pointer;border-radius:0 6px 6px 0" onclick="showStage(this)" data-desc="Устойчивый бизнес, оптимизация, масштаб." data-gate="P&L положительный? Масштаб достигнут?">5<small>Зрелость</small></div>
+        </div>
+      </div>
+      <!-- Гейты (стрелки между стадиями) -->
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-top:2px;text-align:center">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3)">G0 →</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.3)">→ G1 →</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.3)">→ G2 →</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.3)">→ G3 →</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.3)">→ G4 →</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.3)">→ G5</div>
+      </div>
+      <!-- Продукты под стадиями -->
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:6px;font-size:9px">
+        <div style="text-align:center"><span style="background:rgba(61,32,102,0.3);padding:2px 6px;border-radius:4px;color:#fff;font-weight:600">Встречи</span></div>
+        <div style="text-align:center"><span style="background:rgba(91,45,142,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600">Kids</span><br><span style="background:rgba(91,45,142,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">Sport</span><br><span style="background:rgba(91,45,142,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">EdTech</span></div>
+        <div style="text-align:center"><span style="background:rgba(108,61,175,0.3);padding:2px 6px;border-radius:4px;color:#fff;font-weight:600">Книги</span></div>
+        <div style="text-align:center"><span style="background:rgba(203,17,171,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600">Мост</span><br><span style="background:rgba(203,17,171,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">Tingli</span></div>
+        <div style="text-align:center"><span style="background:rgba(233,30,140,0.3);padding:2px 6px;border-radius:4px;color:#fff;font-weight:600">Wibes</span></div>
+        <div style="text-align:center;color:var(--t3);font-size:8px">—</div>
+      </div>
     </div>
-    <div id="stage-info" style="display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px 18px;margin-top:12px;font-size:12px;line-height:1.6;cursor:pointer" onclick="this.style.display='none'">
-      <div id="stage-desc" style="margin-bottom:6px"></div>
+    <div id="stage-info" style="display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 16px;margin-top:8px;font-size:11px;line-height:1.5;cursor:pointer" onclick="this.style.display='none'">
+      <div id="stage-desc" style="margin-bottom:4px"></div>
       <div id="stage-gate" style="color:#CB11AB;font-weight:600"></div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;font-size:11px">
-      <div style="background:rgba(233,30,140,0.12);border:1px solid rgba(233,30,140,0.25);border-radius:8px;padding:8px 10px"><b>Wibes</b><br><span style="color:#E91E8C;font-weight:600">Стадия 4</span><br><span style="color:var(--t3);font-size:10px">Экосистема, в проде</span></div>
-      <div style="background:rgba(203,17,171,0.12);border:1px solid rgba(203,17,171,0.25);border-radius:8px;padding:8px 10px"><b>Мост поколений</b><br><span style="color:#CB11AB;font-weight:600">Стадия 3</span><br><span style="color:var(--t3);font-size:10px">Разгон, MAU растёт</span></div>
-      <div style="background:rgba(203,17,171,0.12);border:1px solid rgba(203,17,171,0.25);border-radius:8px;padding:8px 10px"><b>Tingli</b><br><span style="color:#CB11AB;font-weight:600">Стадия 3</span><br><span style="color:var(--t3);font-size:10px">Разгон, монетизация</span></div>
-      <div style="background:rgba(108,61,175,0.12);border:1px solid rgba(108,61,175,0.25);border-radius:8px;padding:8px 10px"><b>Книги</b><br><span style="color:#6C3DAF;font-weight:600">Стадия 2</span><br><span style="color:var(--t3);font-size:10px">Прототип, запуск MVP</span></div>
-      <div style="background:rgba(91,45,142,0.12);border:1px solid rgba(91,45,142,0.25);border-radius:8px;padding:8px 10px"><b>Kids</b><br><span style="color:#5B2D8E;font-weight:600">Стадия 1</span><br><span style="color:var(--t3);font-size:10px">Разведка</span></div>
-      <div style="background:rgba(91,45,142,0.12);border:1px solid rgba(91,45,142,0.25);border-radius:8px;padding:8px 10px"><b>Sport</b><br><span style="color:#5B2D8E;font-weight:600">Стадия 1</span><br><span style="color:var(--t3);font-size:10px">Разведка</span></div>
-      <div style="background:rgba(91,45,142,0.12);border:1px solid rgba(91,45,142,0.25);border-radius:8px;padding:8px 10px"><b>EdTech</b><br><span style="color:#5B2D8E;font-weight:600">Стадия 1</span><br><span style="color:var(--t3);font-size:10px">Разведка</span></div>
-      <div style="background:rgba(61,32,102,0.2);border:1px solid rgba(61,32,102,0.3);border-radius:8px;padding:8px 10px"><b>Встречи</b><br><span style="color:#3D2066;font-weight:600">Стадия 0</span><br><span style="color:var(--t3);font-size:10px">Заявка, прототип</span></div>
-    </div>
+    <div style="font-size:9px;color:var(--t3);margin-top:8px;text-align:center">SLA — целевое время прохождения стадии. Gate (G0-G5) — точка решения Go/No-Go. Кликните на стадию для деталей.</div>
     <div class="slide-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="height:14px;filter:brightness(10);opacity:0.3;vertical-align:middle;margin-right:6px">Проектный офис</div>
   </div>
 
