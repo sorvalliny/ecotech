@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОРБИТА — Каталог продуктов</title>
+<link rel="stylesheet" href="design-system.css">
+<style>
+/* ================================================================ PAGE */
+.cat-page{max-width:var(--content-max);margin:0 auto;padding:32px 24px 80px}
+
+/* ================================================================ HEADER */
+.cat-header{margin-bottom:28px}
+.cat-header h1{font-family:var(--font-head);font-size:22px;font-weight:900;color:var(--text);margin-bottom:4px}
+.cat-header-sub{font-size:13px;color:var(--muted)}
+
+/* ================================================================ FILTERS */
+.catalog-filters{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center}
+.catalog-filters select,
+.catalog-filters input{
+  font-family:var(--font);font-size:12px;
+  padding:7px 12px;border-radius:var(--radius-sm);
+  border:1px solid var(--border);background:var(--surface);color:var(--text);
+  outline:none;transition:border-color .15s;
+  min-width:0;
+}
+.catalog-filters select{cursor:pointer;min-width:140px}
+.catalog-filters select:focus,
+.catalog-filters input:focus{border-color:var(--violet-border)}
+.catalog-filters input{flex:1;min-width:160px;max-width:260px}
+.catalog-filters select option{background:var(--surface);color:var(--text)}
+
+/* ================================================================ GRID */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;margin-bottom:32px}
+
+/* ================================================================ CARD */
+.cat-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px;cursor:pointer;transition:border-color .15s,transform .15s;
+  text-decoration:none;display:block;
+}
+.cat-card:hover{border-color:var(--violet-border);transform:translateY(-2px)}
+
+.cat-card-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.cat-stage{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  padding:3px 8px;border-radius:var(--radius-xs);letter-spacing:.03em;
+  white-space:nowrap;
+}
+.cat-name{font-family:var(--font-head);font-size:14px;font-weight:800;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cat-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:var(--radius-xs);white-space:nowrap}
+
+.st-on-track{background:var(--teal-dim);color:var(--teal)}
+.st-at-risk{background:var(--amber-dim);color:var(--amber)}
+.st-blocked{background:var(--red-dim);color:var(--red)}
+.st-screening{background:var(--violet-dim);color:var(--violet)}
+
+.cat-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+.cat-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-bottom:12px}
+.cat-meta span{white-space:nowrap}
+
+/* ── Initiatives block ── */
+.cat-initiatives{border-top:1px solid var(--border);padding-top:10px}
+.cat-init-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.cat-init{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--gray2);padding:2px 0;line-height:1.4}
+.cat-init-id{font-family:var(--mono);font-size:10px;color:var(--muted);flex-shrink:0}
+.cat-init-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ci-rice{font-family:var(--mono);font-size:10px;font-weight:700;padding:1px 6px;border-radius:var(--radius-xs);flex-shrink:0}
+.ci-rice-hi{background:var(--teal-dim);color:var(--teal)}
+.ci-rice-mi{background:var(--amber-dim);color:var(--amber)}
+.ci-rice-lo{background:var(--red-dim);color:var(--red)}
+
+.cat-no-init{font-size:11px;color:var(--muted);font-style:italic}
+
+/* ================================================================ EMPTY */
+.cat-empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px;grid-column:1/-1}
+
+/* ================================================================ SUMMARY BAR */
+.cat-summary{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.cat-summary-item{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.cat-summary-item strong{font-family:var(--mono);font-size:14px;font-weight:800;color:var(--text)}
+
+/* ================================================================ CHANGELOG */
+.cat-changelog{border-top:1px solid var(--border);padding-top:20px;margin-top:8px}
+.cat-cl-title{
+  font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--text);
+  cursor:pointer;display:flex;align-items:center;gap:8px;
+  padding:8px 0;user-select:none;
+}
+.cat-cl-title:hover{color:var(--violet)}
+.cl-count{font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-pill);background:var(--violet-dim);color:var(--violet)}
+.cl-arrow{font-size:10px;color:var(--muted);transition:transform .2s;margin-left:auto}
+.cl-arrow.open{transform:rotate(90deg)}
+
+.cat-cl-list{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.cat-cl-list.open{max-height:2000px}
+
+.cl-entry{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+.cl-entry:last-child{border-bottom:none}
+.cl-date{font-family:var(--mono);font-size:11px;color:var(--muted);flex-shrink:0;min-width:44px}
+.cl-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:var(--radius-xs);white-space:nowrap;flex-shrink:0}
+.cl-gate{background:var(--teal-dim);color:var(--teal)}
+.cl-edit{background:var(--violet-dim);color:var(--violet)}
+.cl-create{background:var(--amber-dim);color:var(--amber)}
+.cl-delete{background:var(--red-dim);color:var(--red)}
+.cl-text{color:var(--gray2);flex:1}
+.cl-product{font-weight:600;color:var(--text)}
+.cl-user{color:var(--muted);font-size:11px;margin-left:4px}
+
+/* ================================================================ FOOTER */
+.cat-footer{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:10px;color:var(--muted);margin-top:40px}
+
+/* ================================================================ RESPONSIVE */
+@media(max-width:640px){
+  .cat-grid{grid-template-columns:1fr}
+  .catalog-filters{flex-direction:column}
+  .catalog-filters select,.catalog-filters input{width:100%;max-width:none}
+  .cat-summary{flex-direction:column;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="cat-page">
+
+  <!-- ── Header ── -->
+  <div class="cat-header">
+    <h1>Каталог продуктов</h1>
+    <div class="cat-header-sub">Портфель цифровых решений экосистемы RWB</div>
+  </div>
+
+  <!-- ── Summary ── -->
+  <div class="cat-summary" id="cat-summary"></div>
+
+  <!-- ── Filters ── -->
+  <div class="catalog-filters">
+    <select id="cf-dept">
+      <option value="">Все департаменты</option>
+      <option value="innovation">Экосистема</option>
+      <option value="education">Обучение</option>
+    </select>
+    <select id="cf-type">
+      <option value="">Все типы</option>
+      <option value="product">Продукт</option>
+      <option value="tech_solution">Тех.решение</option>
+      <option value="edu_product">Образовательный</option>
+      <option value="project">Проект</option>
+    </select>
+    <select id="cf-status">
+      <option value="">Все статусы</option>
+      <option value="on-track">Активен</option>
+      <option value="at-risk">Риск</option>
+      <option value="blocked">Заблокирован</option>
+      <option value="screening">Заявка (O·0)</option>
+    </select>
+    <input type="text" id="cf-search" placeholder="Поиск по названию...">
+  </div>
+
+  <!-- ── Product Grid ── -->
+  <div class="cat-grid" id="cat-grid"></div>
+
+  <!-- ── Changelog ── -->
+  <div class="cat-changelog">
+    <h3 class="cat-cl-title" id="cl-toggle">
+      Лог изменений <span class="cl-count" id="cl-count">0</span>
+      <span class="cl-arrow" id="cl-arrow">&#9654;</span>
+    </h3>
+    <div class="cat-cl-list" id="changelog-list"></div>
+  </div>
+
+</div>
+
+<div class="cat-footer">ОРБИТА · Каталог продуктов · WB Экосистема · 2026</div>
+
+<script src="platform.js"></script>
+<script src="stages.js"></script>
+<script src="js/auth.js"></script>
+<script src="nav.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ── Data ──
+  var products = [];
+  var backlog = [];
+  var changelog = [];
+  var STAGES = [];
+
+  // ── DOM refs ──
+  var elGrid    = document.getElementById('cat-grid');
+  var elSummary = document.getElementById('cat-summary');
+  var elCLList  = document.getElementById('changelog-list');
+  var elCLCount = document.getElementById('cl-count');
+  var elCLArrow = document.getElementById('cl-arrow');
+  var elCFDept  = document.getElementById('cf-dept');
+  var elCFType  = document.getElementById('cf-type');
+  var elCFStat  = document.getElementById('cf-status');
+  var elCFSearch= document.getElementById('cf-search');
+
+  // ── Helpers ──
+  function esc(t) { return String(t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function displayName(p) {
+    if (window.OrbAuth && OrbAuth.getDisplayName) return OrbAuth.getDisplayName(p, 'product');
+    return p.name || p.id;
+  }
+
+  function riceScore(item) {
+    if (!item.e || item.e === 0) return 0;
+    return Math.round((item.r * item.i * item.c) / item.e);
+  }
+
+  function riceClass(score) {
+    if (score >= 60) return 'ci-rice-hi';
+    if (score >= 30) return 'ci-rice-mi';
+    return 'ci-rice-lo';
+  }
+
+  function statusClass(s) {
+    if (s === 'on-track') return 'st-on-track';
+    if (s === 'at-risk')  return 'st-at-risk';
+    if (s === 'blocked')  return 'st-blocked';
+    return 'st-screening';
+  }
+
+  function statusLabel(s) {
+    if (s === 'on-track') return 'Активен';
+    if (s === 'at-risk')  return 'Риск';
+    if (s === 'blocked')  return 'Заблокирован';
+    if (s === 'pending')  return 'Заявка (O·0)';
+    if (s === 'screening') return 'Заявка (O·0)';
+    return s || 'N/A';
+  }
+
+  function mapStatusFilter(s) {
+    // Map product status to filter value
+    if (s === 'pending') return 'screening';
+    return s;
+  }
+
+  function currentQuarterLabel() {
+    var now = new Date();
+    var q = Math.ceil((now.getMonth() + 1) / 3);
+    return 'Q' + q + ' ' + now.getFullYear();
+  }
+
+  function getProductInitiatives(productId) {
+    var result = [];
+    for (var i = 0; i < backlog.length; i++) {
+      var item = backlog[i];
+      if (item.productId === productId || item.project === productId) {
+        result.push(item);
+      }
+    }
+    // Sort by RICE desc
+    result.sort(function(a, b) { return riceScore(b) - riceScore(a); });
+    return result;
+  }
+
+  function formatLogDate(iso) {
+    if (!iso) return '—';
+    var d = new Date(iso);
+    var day = String(d.getDate()).padStart(2, '0');
+    var mon = String(d.getMonth() + 1).padStart(2, '0');
+    return day + '.' + mon;
+  }
+
+  function logBadgeClass(action) {
+    var a = (action || '').toLowerCase();
+    if (a.indexOf('gate') !== -1) return 'cl-gate';
+    if (a.indexOf('creat') !== -1 || a.indexOf('add') !== -1) return 'cl-create';
+    if (a.indexOf('delet') !== -1 || a.indexOf('remov') !== -1 || a.indexOf('archiv') !== -1) return 'cl-delete';
+    return 'cl-edit';
+  }
+
+  function logBadgeLabel(action) {
+    var a = (action || '').toLowerCase();
+    if (a.indexOf('gate') !== -1) return 'Gate';
+    if (a.indexOf('creat') !== -1) return 'Create';
+    if (a.indexOf('add') !== -1) return 'Add';
+    if (a.indexOf('delet') !== -1 || a.indexOf('remov') !== -1) return 'Delete';
+    if (a.indexOf('archiv') !== -1) return 'Archive';
+    return 'Edit';
+  }
+
+  // ── Filters ──
+  function getFilters() {
+    return {
+      dept:   elCFDept.value,
+      type:   elCFType.value,
+      status: elCFStat.value,
+      search: (elCFSearch.value || '').trim().toLowerCase()
+    };
+  }
+
+  function filterProducts() {
+    var f = getFilters();
+    return products.filter(function(p) {
+      if (f.dept && (p.department || 'innovation') !== f.dept) return false;
+      if (f.type) {
+        var pType = p.cat || p.type || '';
+        // Map catLabel/cat to filter values
+        if (f.type === 'product' && pType !== 'b2c' && pType !== 'b2b' && pType !== 'internal') return false;
+        if (f.type === 'tech_solution' && pType !== 'tech') return false;
+        if (f.type === 'edu_product' && pType !== 'edu') return false;
+        if (f.type === 'project' && pType !== 'project') return false;
+      }
+      if (f.status) {
+        var pStatus = mapStatusFilter(p.status);
+        if (pStatus !== f.status) return false;
+      }
+      if (f.search) {
+        var hay = ((p.name || '') + ' ' + (p.id || '') + ' ' + (p.desc || '') + ' ' + (p.owner || '')).toLowerCase();
+        if (hay.indexOf(f.search) === -1) return false;
+      }
+      return true;
+    });
+  }
+
+  // ── Render Summary ──
+  function renderSummary() {
+    var total = products.length;
+    var active = 0, atRisk = 0, blocked = 0;
+    products.forEach(function(p) {
+      if (p.status === 'on-track') active++;
+      if (p.status === 'at-risk') atRisk++;
+      if (p.status === 'blocked') blocked++;
+    });
+    elSummary.innerHTML =
+      '<div class="cat-summary-item"><strong>' + total + '</strong> продуктов</div>' +
+      '<div class="cat-summary-item"><strong style="color:var(--teal)">' + active + '</strong> активных</div>' +
+      (atRisk ? '<div class="cat-summary-item"><strong style="color:var(--amber)">' + atRisk + '</strong> с риском</div>' : '') +
+      (blocked ? '<div class="cat-summary-item"><strong style="color:var(--red)">' + blocked + '</strong> заблокировано</div>' : '');
+  }
+
+  // ── Render Grid ──
+  function renderGrid() {
+    var filtered = filterProducts();
+
+    // Sort: at-risk first, blocked second, then by gate desc
+    filtered.sort(function(a, b) {
+      var pri = function(s) { return s === 'at-risk' ? 0 : s === 'blocked' ? 1 : 2; };
+      var d = pri(a.status) - pri(b.status);
+      if (d !== 0) return d;
+      return (b.gate || 0) - (a.gate || 0);
+    });
+
+    if (!filtered.length) {
+      elGrid.innerHTML = '<div class="cat-empty">Нет продуктов по выбранным фильтрам</div>';
+      return;
+    }
+
+    var qLabel = currentQuarterLabel();
+
+    elGrid.innerHTML = filtered.map(function(p) {
+      var stage = STAGES[p.gate] || STAGES[0] || { name: '?', color: '#94A3B8', colorDim: 'rgba(148,163,184,.1)' };
+      var inits = getProductInitiatives(p.id);
+      var topInits = inits.slice(0, 3);
+      var initCount = inits.length;
+
+      var initHtml = '';
+      if (topInits.length) {
+        initHtml = '<div class="cat-initiatives">' +
+          '<div class="cat-init-title">Инициативы ' + esc(qLabel) + ' (' + initCount + ')</div>' +
+          topInits.map(function(it) {
+            var score = riceScore(it);
+            var cls = riceClass(score);
+            return '<div class="cat-init">' +
+              '<span class="cat-init-id">' + esc(it.id) + '</span>' +
+              '<span class="cat-init-name">' + esc(it.title || it.name || it.id) + '</span>' +
+              (score > 0 ? '<span class="ci-rice ' + cls + '">RICE ' + score + '</span>' : '') +
+            '</div>';
+          }).join('') +
+          (initCount > 3 ? '<div class="cat-no-init">+ ещё ' + (initCount - 3) + '</div>' : '') +
+        '</div>';
+      } else {
+        initHtml = '<div class="cat-initiatives"><div class="cat-no-init">Нет инициатив</div></div>';
+      }
+
+      return '<div class="cat-card" onclick="location.href=\'workspace.html?id=' + esc(p.id) + '\'">' +
+        '<div class="cat-card-head">' +
+          '<span class="cat-stage" style="background:' + stage.colorDim + ';color:' + stage.color + '">' + stage.orbita + '</span>' +
+          '<span class="cat-name">' + esc(displayName(p)) + '</span>' +
+          '<span class="cat-status ' + statusClass(p.status) + '">' + statusLabel(p.status) + '</span>' +
+        '</div>' +
+        '<div class="cat-desc">' + esc(p.desc) + '</div>' +
+        '<div class="cat-meta">' +
+          '<span>Владелец: ' + esc(p.owner || 'N/A') + '</span>' +
+          '<span>Департамент: ' + esc(p.department === 'education' ? 'Обучение' : 'Экосистема') + '</span>' +
+          (p.catLabel ? '<span>' + esc(p.catLabel) + '</span>' : '') +
+        '</div>' +
+        initHtml +
+      '</div>';
+    }).join('');
+  }
+
+  // ── Render Changelog ──
+  function renderChangelog() {
+    var MAX_ENTRIES = 50;
+    var entries = changelog.slice(0, MAX_ENTRIES);
+    elCLCount.textContent = String(changelog.length);
+
+    if (!entries.length) {
+      elCLList.innerHTML = '<div style="padding:12px 0;font-size:12px;color:var(--muted)">Нет записей</div>';
+      return;
+    }
+
+    elCLList.innerHTML = entries.map(function(e) {
+      var badgeCls = logBadgeClass(e.action);
+      var badgeLbl = logBadgeLabel(e.action);
+      return '<div class="cl-entry">' +
+        '<span class="cl-date">' + formatLogDate(e.timestamp) + '</span>' +
+        '<span class="cl-badge ' + badgeCls + '">' + esc(badgeLbl) + '</span>' +
+        '<span class="cl-text">' +
+          '<span class="cl-product">' + esc(e.productId || '') + '</span> — ' +
+          esc(e.action || '') +
+          (e.details ? ': ' + esc(e.details) : '') +
+          '<span class="cl-user">' + esc(e.userName || '') + '</span>' +
+        '</span>' +
+      '</div>';
+    }).join('');
+  }
+
+  // ── Toggle changelog ──
+  function toggleChangelog() {
+    elCLList.classList.toggle('open');
+    elCLArrow.classList.toggle('open');
+  }
+
+  document.getElementById('cl-toggle').addEventListener('click', toggleChangelog);
+
+  // ── Filter events ──
+  elCFDept.addEventListener('change', renderGrid);
+  elCFType.addEventListener('change', renderGrid);
+  elCFStat.addEventListener('change', renderGrid);
+  elCFSearch.addEventListener('input', renderGrid);
+
+  // ── Auto-select department for PM/PMO ──
+  function autoSelectDepartment() {
+    if (!window.OrbAuth) return;
+    var user = OrbAuth.getCurrentUser();
+    if (!user) return;
+    var role = (user.role || '').toLowerCase();
+    if ((role === 'pm' || role === 'pmo') && user.department) {
+      elCFDept.value = user.department;
+    }
+  }
+
+  // ── Full render ──
+  function render() {
+    renderSummary();
+    renderGrid();
+    renderChangelog();
+  }
+
+  // ── Load data ──
+  function init() {
+    STAGES = window.STAGES_DB ? STAGES_DB.get() : [];
+    backlog = (window.PT && PT.load) ? PT.load(PT.KEY_BACKLOG) || [] : [];
+    changelog = (window.PT && PT.load) ? PT.load(PT.KEY_CHANGELOG) || [] : [];
+
+    if (window.PT && PT.ensureProducts) {
+      PT.ensureProducts(function(p) {
+        products = p || [];
+        autoSelectDepartment();
+        render();
+      });
+    } else {
+      render();
+    }
+
+    // Live refresh from other tabs
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'ECOTECH_PRODUCTS') {
+        try { products = JSON.parse(e.newValue || '[]'); } catch(x) { products = []; }
+        render();
+      }
+      if (e.key === 'ECOTECH_BACKLOG') {
+        try { backlog = JSON.parse(e.newValue || '[]'); } catch(x) { backlog = []; }
+        render();
+      }
+      if (e.key === 'ECOTECH_CHANGELOG') {
+        try { changelog = JSON.parse(e.newValue || '[]'); } catch(x) { changelog = []; }
+        renderChangelog();
+      }
+      if (e.key === 'ECOTECH_STAGES') {
+        STAGES = window.STAGES_DB ? STAGES_DB.get() : [];
+        renderGrid();
+      }
+    });
+  }
+
+  init();
+})();
+</script>
+
+</body>
+</html>
