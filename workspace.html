@@ -254,7 +254,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   // ── Constants ──
   var GATE_NAMES = ['O\xB70 Заявка','O\xB71 Разведка','O\xB72 Прототип','O\xB73 Разгон','O\xB74 Экосистема','O\xB75 Плато'];
   var TECH_GATE_NAMES = ['T\xB70 Заявка','T\xB71 Проектирование','T\xB72 Реализация','T\xB73 Приёмка'];
-  var STATUS_LABELS = {'on-track':'Активен','at-risk':'Риск','blocked':'Заблокирован','paused':'Paused','done':'Done','active':'Активен','pending':'Ожидает','archived':'Archived','draft':'Draft','wip':'В работе','planned':'Запланировано','backlog':'Бэклог','screening':'На скрининге'};
+  var STATUS_LABELS = {'on-track':'Активен','at-risk':'Риск','blocked':'Заблокирован','screening':'Заявка (O\xB70)','pending':'Заявка (O\xB70)','done':'Завершён','paused':'Приостановлен','active':'Активен','archived':'Архив','draft':'Черновик','wip':'В работе','planned':'Запланировано','backlog':'Бэклог'};
   var STATUS_CLS = {'on-track':'sb-on-track','at-risk':'sb-at-risk','blocked':'sb-blocked','paused':'sb-paused','done':'sb-done','active':'sb-active','pending':'sb-pending','archived':'sb-archived','draft':'sb-paused','screening':'sb-pending'};
   var GOAL_TYPE_LABELS = {'product':'Продуктовая','strategic':'Стратегическая','growth':'Рост'};
   var GOAL_TYPE_CLS = {'product':'gt-product','strategic':'gt-strategic','growth':'gt-growth'};
@@ -566,8 +566,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   window.advanceGate = function() {
     if (!_product) return;
     var role = getRole();
-    if (role !== 'admin' && role !== 'pmo_lead' && !isOwner()) {
-      showToast('Только PMO Lead может переводить продукт на следующую стадию');
+    if (role !== 'admin' && role !== 'pmo_lead' && role !== 'pmo') {
+      showToast('Только PMO Lead / PMO / Admin может переводить продукт на следующую стадию');
       return;
     }
     var currentGate = _product.gate || 0;
@@ -578,20 +578,48 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     }
     var nextGate = currentGate + 1;
     var nextName = gateNames[nextGate];
-    if (!confirm('Перевести ' + _product.name + ' на стадию ' + nextName + '?\n\nУбедитесь что все артефакты Gate ' + currentGate + ' заполнены.')) return;
+
+    // Build artifact status summary for current gate
+    var artifacts = _product.artifacts || [];
+    var gateArtifacts = artifacts.filter(function(a) { return a.gate === currentGate; });
+    var artStatus = '';
+    if (gateArtifacts.length) {
+      artStatus = '\n\nАртефакты Gate ' + currentGate + ':';
+      gateArtifacts.forEach(function(a) {
+        var icon = a.status === 'done' ? '✅' : a.status === 'wip' ? '⏳' : '❌';
+        artStatus += '\n  ' + icon + ' ' + a.name + ' — ' + (a.status === 'done' ? 'готов' : a.status === 'wip' ? 'в работе' : 'не начат');
+      });
+    }
+
+    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+    var userName = user ? user.name : 'Unknown';
+
+    if (!confirm('Перевести ' + _product.name + ' на стадию ' + nextName + '?' + artStatus + '\n\nТекущий Gate: ' + gateNames[currentGate] + ' → ' + nextName + '\nУтверждает: ' + userName)) return;
+
     _product.gate = nextGate;
-    if (_product.status === 'screening') _product.status = 'on-track';
+    if (_product.status === 'screening' || _product.status === 'pending') _product.status = 'on-track';
     _product.updatedAt = new Date().toISOString().split('T')[0];
+
+    // Gate approval record
+    if (!_product.gateHistory) _product.gateHistory = [];
+    _product.gateHistory.push({
+      fromGate: currentGate,
+      toGate: nextGate,
+      approvedBy: userName,
+      role: role,
+      date: new Date().toISOString().split('T')[0]
+    });
+
     saveProducts();
-    addLog('gate_transition', 'Переход: ' + gateNames[currentGate] + ' → ' + nextName, 'product', productId);
+    addLog('gate_transition', 'Переход: ' + gateNames[currentGate] + ' → ' + nextName + ' (утвердил: ' + userName + ')', 'product', productId);
     if (window.PT && PT.notify) {
       PT.notify({
         type: 'gate_transition',
         level: 'high',
-        recipientRole: 'pmo',
+        recipientRole: 'pm_owner',
         productId: productId,
         title: productId + ' переведён на ' + nextName,
-        text: 'Gate ' + currentGate + ' пройден.',
+        text: 'Gate ' + currentGate + ' пройден. Утвердил: ' + userName,
         action: { label: 'Открыть', url: 'workspace.html?id=' + productId }
       });
     }
@@ -676,13 +704,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     html += '<div class="ws-section"><h3>\u0421\u0442\u0430\u0434\u0438\u044F \u0437\u0440\u0435\u043B\u043E\u0441\u0442\u0438</h3>';
     html += renderGateTimeline(gateNum);
     // Advance gate button
-    if (canEdit() || getRole() === 'pmo_lead') {
+    var gateRole = getRole();
+    if (gateRole === 'admin' || gateRole === 'pmo_lead' || gateRole === 'pmo') {
       var currentGate = _product.gate || 0;
       var gateNames = isTechSolution() ? TECH_GATE_NAMES : GATE_NAMES;
       if (currentGate < gateNames.length - 1) {
         var nextName = gateNames[currentGate + 1];
         html += '<button class="ws-gate-advance-btn" onclick="advanceGate()" style="margin-top:12px;padding:10px 20px;background:var(--violet);color:#fff;border:none;border-radius:6px;font-family:var(--font-body);font-size:12px;font-weight:700;cursor:pointer;">';
-        html += '\u041F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438 \u043D\u0430 ' + esc(nextName) + ' \u2192';
+        html += '\u041F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438 \u043D\u0430 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E \u0441\u0442\u0430\u0434\u0438\u044E (' + esc(nextName) + ') \u2192';
         html += '</button>';
       }
     }
@@ -1529,22 +1558,31 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     var createBtn = document.getElementById('btn-create-goal');
     if (createBtn) {
       createBtn.addEventListener('click', function() {
-        var name = prompt('\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0446\u0435\u043B\u0438:');
-        if (!name) return;
+        var title = prompt('Название цели:');
+        if (!title) return;
+        var period = prompt('Период (H1 2026 / H2 2026):', 'H1 2026');
+        if (!period) return;
+        var typeInput = prompt('Тип цели (product / strategic / growth):', 'product');
+        var goalType = (typeInput === 'strategic' || typeInput === 'growth') ? typeInput : 'product';
+        var user = (window.OrbAuth && OrbAuth.getCurrentUser()) || {};
+
         var goal = {
-          id: genId('G'),
-          name: name,
+          id: 'G-' + Date.now(),
+          title: title,
+          name: title,
+          type: goalType,
+          period: period,
           productId: productId,
-          type: 'product',
+          owner: user.name || 'PM',
           status: 'draft',
           approvalStatus: 'pending',
           keyResults: [],
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString().split('T')[0]
         };
         _goals.push(goal);
         saveGoals();
-        addLog('\u0421\u043E\u0437\u0434\u0430\u043D\u0430 \u0446\u0435\u043B\u044C', name, 'goal', goal.id);
-        showToast('\u0426\u0435\u043B\u044C \u0441\u043E\u0437\u0434\u0430\u043D\u0430');
+        addLog('goal_created', title + ' (' + period + ', ' + goalType + ')', 'goal', goal.id);
+        showToast('Цель создана');
         render();
       });
     }
@@ -1622,6 +1660,18 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       render();
     });
   }
+
+  // ── Cross-tab sync via storage events ──
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'ECOTECH_BACKLOG' || e.key === 'ECOTECH_PRODUCTS' || e.key === 'ECOTECH_GOALS') {
+      _backlog = PT.load(PT.KEY_BACKLOG) || [];
+      _goals = PT.load(PT.KEY_GOALS) || [];
+      PT.ensureProducts(function(p) {
+        var prod = p.find(function(pr) { return pr.id === productId; });
+        if (prod) { _product = prod; _allProducts = p; render(); }
+      });
+    }
+  });
 
 })();
 </script>

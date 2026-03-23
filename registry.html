@@ -1122,5 +1122,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   init();
 });
+
+// ── Cross-tab sync via storage events ──
+window.addEventListener('storage', function(e) {
+  if (e.key === 'ECOTECH_BACKLOG' || e.key === 'ECOTECH_PRODUCTS') {
+    products = (window.PT ? PT.load(PT.KEY_PRODUCTS) : null) || [];
+    backlog = (window.PT ? PT.load(PT.KEY_BACKLOG) : null) || [];
+    renderCurrentTab(getFilteredInitiatives());
+  }
+});
 </script>
 </body></html>
