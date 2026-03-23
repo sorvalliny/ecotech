@@ -852,9 +852,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
     html += '<div class="ws-init-body" id="init-body-' + esc(item.id) + '" style="display:' + (expanded ? 'block' : 'none') + '">';
     if (item.desc || item.description) html += '<div style="margin-bottom:10px">' + esc(item.desc || item.description) + '</div>';
-    html += '<div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:8px">';
-    html += '<span>R:' + (item.r || 0) + '</span><span>I:' + (item.i || 0) + '</span><span>C:' + (item.c || 0) + '</span><span>E:' + (item.e || 0) + '</span>';
-    if (item.quarter) html += '<span>Q: ' + esc(item.quarter) + '</span>';
+    html += '<div style="display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:8px">';
+    if (item.quarter) html += '<span style="background:var(--surface);padding:2px 8px;border-radius:4px;">' + esc(item.quarter) + '</span>';
+    var tp = PT.INITIATIVE_TYPES[t] || PT.INITIATIVE_TYPES.product;
+    html += '<span style="color:' + tp.color + '">' + tp.label + '</span>';
+    if (item.trackerUrl) html += '<span style="color:var(--violet)">Трекер</span>';
+    if (item.goalId) { var goal = _goals.find(function(g){return g.id===item.goalId}); if(goal) html += '<span>Цель: ' + esc(goal.title || goal.name || goal.id) + '</span>'; }
     html += '</div>';
     if (item.trackerUrl) html += '<a href="' + esc(item.trackerUrl) + '" target="_blank" style="font-size:12px;color:var(--violet);text-decoration:none;font-weight:600">\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432 \u0442\u0440\u0435\u043A\u0435\u0440\u0435</a>';
     if (editable && canReview()) {

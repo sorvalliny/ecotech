@@ -687,7 +687,7 @@ function renderBacklog(items) {
     html += '<tr class="' + selected + '" onclick="openDrawer(\'' + item.id + '\')">';
     html += '<td class="rt-rank">' + (idx + 1) + '</td>';
     html += '<td><div class="rt-name">' + escHtml(item.name) + '</div><div class="rt-desc">' + escHtml(item.desc || '') + '</div></td>';
-    html += '<td class="rt-product"><a href="workspace.html#product=' + prodName + '" onclick="event.stopPropagation()">' + prodName + '</a></td>';
+    html += '<td class="rt-product"><a href="workspace.html?id=' + (item.productId || '') + '&tab=initiatives" onclick="event.stopPropagation()">' + (prod ? escHtml(prod.name) : prodName) + '</a></td>';
     html += '<td><span class="badge ' + tp.cls + '">' + tp.label + '</span></td>';
     html += '<td><span class="rice-score ' + riceClass(s) + '">' + s.toFixed(1) + '</span></td>';
     html += '<td><span class="badge ' + st.cls + '">' + st.label + '</span></td>';
