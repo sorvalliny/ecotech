@@ -1570,6 +1570,22 @@ body.edit-mode .edit-mode-banner { display: block; }
         <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5"></rect><path d="M5 1v4M11 1v4M2 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
         <span class="nav-text" data-id="e009" data-editable="">Планирование</span>
       </a>
+      <a class="nav-item" href="#roles" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"></circle><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text">Роли (RACI)</span>
+      </a>
+      <a class="nav-item" href="#metrics" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 14V8M6 14V5M10 14V2M14 14V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text">Метрики по стадиям</span>
+      </a>
+      <a class="nav-item" href="#rice" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 2h12M2 6h9M2 10h6M2 14h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
+        <span class="nav-text">RICE-оценка</span>
+      </a>
+      <a class="nav-item" href="#retro" onclick="setActive(this)">
+        <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8a6 6 0 1112 0A6 6 0 012 8z" stroke="currentColor" stroke-width="1.5"></path><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <span class="nav-text">Ретроспектива</span>
+      </a>
       <a class="nav-item" href="artifacts.html">
         <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5"></path><path d="M10 2v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span>
         <span class="nav-text">Артефакты и шаблоны ↗</span>
@@ -1681,7 +1697,7 @@ body.edit-mode .edit-mode-banner { display: block; }
         <div class="principle-card">
           <div class="principle-num">02</div>
           <div class="principle-title" data-id="e034" data-editable="">Данные решают</div>
-          <div class="principle-desc" data-id="e035" data-editable="">Приоритет инициативы определяет ICE-балл: влияние на метрику, уверенность в гипотезе, сложность реализации. Чем больше подтверждений — данные, CustDev, конкурентный анализ — тем выше балл.</div>
+          <div class="principle-desc" data-id="e035" data-editable="">Приоритет инициативы определяет RICE-оценка: Reach (охват), Impact (влияние), Confidence (уверенность), Effort (трудозатраты). Чем больше подтверждений — данные, CustDev, конкурентный анализ — тем выше балл.</div>
         </div>
         <div class="principle-card">
           <div class="principle-num">03</div>
@@ -3500,7 +3516,217 @@ body.edit-mode .edit-mode-banner { display: block; }
 
     </section>
 
-    <!-- ═══════════════ SECTION 5: ROLES ═══════════════ -->
+    <!-- ═══════════════ SECTION 5: ROLES & RACI ═══════════════ -->
+    <section class="section" id="roles" data-label="Роли (RACI)">
+      <div class="section-header">
+        <div class="section-eyebrow">Роли и ответственность</div>
+        <div class="section-title">Матрица RACI</div>
+        <div class="section-desc">Кто за что отвечает на каждом этапе процесса. R = Ответственный, A = Утверждающий, C = Консультируемый, I = Информируемый.</div>
+      </div>
+      <div class="grad-line"></div>
+
+      <div style="overflow-x:auto;margin-bottom:24px;">
+        <table style="width:100%;border-collapse:collapse;font-size:11px;">
+          <thead><tr>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Процесс</th>
+            <th style="text-align:center;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">PMO Lead</th>
+            <th style="text-align:center;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">PMO</th>
+            <th style="text-align:center;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">PM</th>
+            <th style="text-align:center;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Lead</th>
+            <th style="text-align:center;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">CTO</th>
+            <th style="text-align:center;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Архитектор</th>
+          </tr></thead>
+          <tbody>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Подача заявки (Gate 0)</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--amber);">A</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--violet);">R</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">RICE-оценка</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--amber);">A</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--violet);">R</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">CustDev (Gate 1)</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--violet);">R</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Gate Review комитет</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--amber);">A</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--violet);">R</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Утверждение Gate</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--amber);">A</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--violet);">R</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Техническое ревью</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--violet);">R</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Планирование квартала</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--amber);">A</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--violet);">R</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Портфельный отчёт</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--violet);">R</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Назначение команды</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--amber);">A</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--violet);">R</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Эскалация</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--violet);">R</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">C</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);">I</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:24px;">
+        <span style="color:var(--violet)">R</span> = Ответственный · <span style="color:var(--amber)">A</span> = Утверждающий · <span style="color:var(--muted)">C</span> = Консультируемый · <span style="color:var(--muted)">I</span> = Информируемый
+      </div>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;">Роли</div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead><tr>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border-hi);">Роль</th>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border-hi);">Что делает</th>
+            <th style="text-align:center;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border-hi);">Кол-во</th>
+          </tr></thead>
+          <tbody>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">PMO Lead</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Контроль портфеля, проведение Gate Review, эскалации</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">PMO-менеджер</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Координация по департаменту, подготовка комитетов</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1 на деп.</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">PM (владелец)</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Ведёт продукт: цели, инициативы, метрики, артефакты</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1 на продукт</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">Lead</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Стратегические решения, ревью на Gate, приоритеты портфеля</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">По запросу</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">Архитектор</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Техническое ревью, интеграции, стандарты</td><td style="text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════ SECTION 6: METRICS BY STAGE ═══════════════ -->
+    <section class="section" id="metrics" data-label="Метрики по стадиям">
+      <div class="section-header">
+        <div class="section-eyebrow">Метрики</div>
+        <div class="section-title">Метрики по стадиям</div>
+        <div class="section-desc">Каждая стадия требует фокусных метрик. Без них Gate Review субъективен.</div>
+      </div>
+      <div class="grad-line"></div>
+
+      <div style="overflow-x:auto;margin-bottom:24px;">
+        <table style="width:100%;border-collapse:collapse;font-size:11px;">
+          <thead><tr>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Стадия</th>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Фокусная метрика</th>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Порог Go</th>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Источник</th>
+          </tr></thead>
+          <tbody>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">Заявка</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Соответствие стратегии + размер рынка</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Бриф заполнен, RICE &ge; 15</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">ОРБИТА (бриф)</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">Разведка</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Problem-Solution Fit</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">&ge; 7 CustDev, HMW сформулирован</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">CustDev-отчёт</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">Прототип</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Activation Rate, Unit Economics</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Activation &ge; 30%, UE &ge; 0</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Аналитика / P&amp;L</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">Разгон</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Retention D7, NSM</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Retention D7 &ge; 40%, NSM растёт 2+ нед</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">BI-дашборд</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">Экосистема</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Revenue, NPS, Growth Rate</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Выручка > план, NPS &ge; 40</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">P&amp;L + NPS-опрос</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);white-space:nowrap;">Зрелость</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Market Share, EBITDA margin</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Доля рынка растёт, маржа &ge; целевой</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Фин.отчётность</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Health statuses -->
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;">Статусы здоровья продукта</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:24px;">
+        <div style="padding:10px;background:rgba(0,212,180,0.10);border:1px solid rgba(0,212,180,0.35);border-radius:8px;">
+          <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:4px;">&#9679; On-track</div>
+          <div style="font-size:11px;color:var(--muted);">Метрики в норме. Gate Review по плану. Нет блокеров.</div>
+        </div>
+        <div style="padding:10px;background:rgba(245,158,11,0.10);border:1px solid rgba(245,158,11,0.35);border-radius:8px;">
+          <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:4px;">&#9679; At-risk</div>
+          <div style="font-size:11px;color:var(--muted);">Метрики ниже порога или цели не определены. Требует внимания PMO.</div>
+        </div>
+        <div style="padding:10px;background:rgba(255,107,107,0.10);border:1px solid rgba(255,107,107,0.35);border-radius:8px;">
+          <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px;">&#9679; Blocked</div>
+          <div style="font-size:11px;color:var(--muted);">Критический блокер. Продукт не двигается. Эскалация обязательна.</div>
+        </div>
+      </div>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Когда менять статус</div>
+      <ul style="font-size:12px;color:var(--gray2);line-height:1.8;padding-left:20px;margin-bottom:0;">
+        <li>PM обновляет статус <strong style="color:var(--text);">еженедельно</strong> в карточке продукта (workspace)</li>
+        <li><strong style="color:var(--amber);">At-risk</strong> — если фокусная метрика ниже порога Go более 2 недель</li>
+        <li><strong style="color:var(--red);">Blocked</strong> — если нет прогресса более 2 недель и есть внешняя зависимость</li>
+        <li>PMO Lead проверяет статусы <strong style="color:var(--text);">на еженедельном синке</strong></li>
+      </ul>
+    </section>
+
+    <!-- ═══════════════ SECTION 7: RICE ═══════════════ -->
+    <section class="section" id="rice" data-label="RICE-оценка">
+      <div class="section-header">
+        <div class="section-eyebrow">Приоритизация</div>
+        <div class="section-title">RICE-оценка инициатив</div>
+        <div class="section-desc">RICE — метод приоритизации инициатив. Каждая инициатива в Реестре оценивается по 4 параметрам.</div>
+      </div>
+      <div class="grad-line"></div>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Формула</div>
+      <div style="padding:16px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:14px;text-align:center;margin-bottom:16px;color:var(--text);font-weight:700;">
+        RICE = (Reach &times; Impact &times; Confidence) &divide; Effort
+      </div>
+
+      <div style="overflow-x:auto;margin-bottom:16px;">
+        <table style="width:100%;border-collapse:collapse;font-size:11px;">
+          <thead><tr>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Параметр</th>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Шкала</th>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Что оценивает</th>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Пример (низкий)</th>
+            <th style="text-align:left;padding:8px 12px;font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border-hi);">Пример (высокий)</th>
+          </tr></thead>
+          <tbody>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Reach</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1-10</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Сколько пользователей затронет за квартал</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1 = &lt;100 юзеров</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">10 = 100K+ юзеров</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Impact</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1-10</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Насколько сильно повлияет на метрику</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1 = минимально</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">10 = кратный рост</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Confidence</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1-10</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Уверенность в оценках (есть ли данные?)</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1 = гипотеза</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">10 = подтверждено A/B</td></tr>
+            <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:var(--text);">Effort</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1-10</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">Трудозатраты команды (человеко-недели)</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">1 = &lt;1 недели</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--gray2);">10 = 3+ месяца</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Интерпретация</div>
+      <ul style="font-size:12px;color:var(--gray2);line-height:1.8;padding-left:20px;margin-bottom:16px;">
+        <li><strong style="color:var(--teal);">RICE &ge; 60</strong> — высокий приоритет, брать в текущий квартал</li>
+        <li><strong style="color:var(--amber);">RICE 20-59</strong> — средний, планировать на следующий квартал</li>
+        <li><strong style="color:var(--red);">RICE &lt; 20</strong> — низкий, оставить в бэклоге или отклонить</li>
+      </ul>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Пример</div>
+      <div style="padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--text);line-height:1.7;">
+        <strong>Инициатива:</strong> &laquo;Воронка B2C — оптимизация чекаута&raquo;<br>
+        <strong>Reach:</strong> 8 (50K+ юзеров проходят чекаут/мес)<br>
+        <strong>Impact:</strong> 7 (конверсия +15-20%)<br>
+        <strong>Confidence:</strong> 9 (данные A/B теста)<br>
+        <strong>Effort:</strong> 4 (2-3 недели разработки)<br>
+        <strong style="color:var(--teal);">RICE = (8 &times; 7 &times; 9) &divide; 4 = 126</strong> — высокий приоритет
+      </div>
+    </section>
+
+    <!-- ═══════════════ SECTION 8: RETROSPECTIVE ═══════════════ -->
+    <section class="section" id="retro" data-label="Ретроспектива">
+      <div class="section-header">
+        <div class="section-eyebrow">Процессы</div>
+        <div class="section-title">Ретроспектива</div>
+        <div class="section-desc">Ретроспектива — обязательный процесс для всех типов продуктов. Без неё портфель не учится.</div>
+      </div>
+      <div class="grad-line"></div>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Когда проводить</div>
+      <ul style="font-size:12px;color:var(--gray2);line-height:1.8;padding-left:20px;margin-bottom:16px;">
+        <li><strong style="color:var(--text);">Продукт / Edu:</strong> после каждого Gate Review (независимо от решения)</li>
+        <li><strong style="color:var(--text);">Тех.решение:</strong> после закрытия ключевой инициативы</li>
+        <li><strong style="color:var(--text);">Проект:</strong> после завершения (обязательно)</li>
+        <li><strong style="color:var(--text);">Квартальная:</strong> в конце каждого квартала — портфельная ретро PMO</li>
+      </ul>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Формат: Start / Stop / Continue</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;">
+        <div style="padding:10px;background:rgba(0,212,180,0.10);border:1px solid rgba(0,212,180,0.35);border-radius:8px;">
+          <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:4px;">Start</div>
+          <div style="font-size:11px;color:var(--muted);">Что начать делать? Новые практики, инструменты, процессы.</div>
+        </div>
+        <div style="padding:10px;background:rgba(255,107,107,0.10);border:1px solid rgba(255,107,107,0.35);border-radius:8px;">
+          <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px;">Stop</div>
+          <div style="font-size:11px;color:var(--muted);">Что прекратить? Лишние встречи, дублирование, неэффективные процессы.</div>
+        </div>
+        <div style="padding:10px;background:rgba(79,195,247,0.12);border:1px solid rgba(79,195,247,0.35);border-radius:8px;">
+          <div style="font-size:12px;font-weight:700;color:var(--violet);margin-bottom:4px;">Continue</div>
+          <div style="font-size:11px;color:var(--muted);">Что продолжать? Работающие практики, полезные ритуалы.</div>
+        </div>
+      </div>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Кто участвует</div>
+      <ul style="font-size:12px;color:var(--gray2);line-height:1.8;padding-left:20px;margin-bottom:16px;">
+        <li><strong style="color:var(--text);">Продуктовая ретро:</strong> PM + команда (TL, дизайнер, аналитик)</li>
+        <li><strong style="color:var(--text);">Портфельная ретро:</strong> PMO Lead + все PM + Lead</li>
+      </ul>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Результат</div>
+      <ul style="font-size:12px;color:var(--gray2);line-height:1.8;padding-left:20px;margin-bottom:16px;">
+        <li>3-5 Action Items с владельцами и сроками</li>
+        <li>Фиксация в workspace продукта (таб &laquo;Лог&raquo;)</li>
+        <li>Портфельные выводы — в квартальный отчёт PMO Lead</li>
+      </ul>
+
+      <div style="padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--muted);">
+        <strong style="color:var(--text);">Правило:</strong> Ретро без Action Items = ретро не было. Минимум 1 конкретное действие.
+      </div>
+    </section>
 
   </div><!-- /content -->
 </div><!-- /main -->

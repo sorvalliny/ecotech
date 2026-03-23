@@ -14,7 +14,11 @@
     "updated": "2026-03-23",
     "quarter": "Q2 2026",
     "kpi": [],
-    "initiatives": []
+    "initiatives": [],
+    "statusLight": "",
+    "statusText": "",
+    "statusDate": "",
+    "leadId": ""
   },
   {
     "id": "ECO-01",
@@ -42,7 +46,11 @@
         "label": "Аудитория"
       }
     ],
-    "initiatives": []
+    "initiatives": [],
+    "statusLight": "",
+    "statusText": "",
+    "statusDate": "",
+    "leadId": ""
   },
   {
     "id": "ECO-02",
@@ -67,7 +75,9 @@
     ],
     "initiatives": [],
     "statusLight": "",
-    "statusText": "Переходит в другой департамент"
+    "statusText": "Переходит в другой департамент",
+    "statusDate": "",
+    "leadId": ""
   },
   {
     "id": "ECO-03",
@@ -92,7 +102,9 @@
     ],
     "initiatives": [],
     "statusLight": "",
-    "statusText": "Переходит в другой департамент"
+    "statusText": "Переходит в другой департамент",
+    "statusDate": "",
+    "leadId": ""
   },
   {
     "id": "ECO-04",
@@ -109,7 +121,11 @@
     "updated": "2026-03-23",
     "quarter": "Q2 2026",
     "kpi": [],
-    "initiatives": []
+    "initiatives": [],
+    "statusLight": "",
+    "statusText": "",
+    "statusDate": "",
+    "leadId": ""
   },
   {
     "id": "ECO-05",
@@ -128,6 +144,7 @@
     "statusLight": "amber",
     "statusText": "Цели не определены",
     "statusDate": "2026-03-05",
+    "leadId": "",
     "kpi": [],
     "initiatives": []
   },
@@ -148,6 +165,7 @@
     "statusLight": "amber",
     "statusText": "Цели не определены",
     "statusDate": "2026-03-02",
+    "leadId": "",
     "kpi": [],
     "initiatives": []
   },
@@ -168,7 +186,9 @@
     "kpi": [],
     "initiatives": [],
     "statusLight": "",
-    "statusText": "Переходит в другой департамент"
+    "statusText": "Переходит в другой департамент",
+    "statusDate": "",
+    "leadId": ""
   },
   {
     "id": "ECO-08",
@@ -187,7 +207,9 @@
     "kpi": [],
     "initiatives": [],
     "statusLight": "",
-    "statusText": "Переходит в другой департамент"
+    "statusText": "Переходит в другой департамент",
+    "statusDate": "",
+    "leadId": ""
   },
   {
     "id": "ECO-09",
@@ -204,7 +226,11 @@
     "updated": "2026-03-23",
     "quarter": "Q2 2026",
     "kpi": [],
-    "initiatives": []
+    "initiatives": [],
+    "statusLight": "",
+    "statusText": "",
+    "statusDate": "",
+    "leadId": ""
   },
   {
     "id": "ECO-10",
@@ -223,7 +249,9 @@
     "kpi": [],
     "initiatives": [],
     "statusLight": "",
-    "statusText": "Переходит в другой департамент"
+    "statusText": "Переходит в другой департамент",
+    "statusDate": "",
+    "leadId": ""
   },
   {
     "id": "EDU-01",
@@ -241,6 +269,8 @@
     "quarter": "Q2 2026",
     "statusLight": "amber",
     "statusText": "Цели не определены",
+    "statusDate": "",
+    "leadId": "",
     "kpi": [],
     "initiatives": []
   },
@@ -265,7 +295,11 @@
         "label": "MAU"
       }
     ],
-    "initiatives": []
+    "initiatives": [],
+    "statusLight": "",
+    "statusText": "",
+    "statusDate": "",
+    "leadId": ""
   },
   {
     "id": "EDU-03",
@@ -288,6 +322,10 @@
         "label": "Выручка"
       }
     ],
-    "initiatives": []
+    "initiatives": [],
+    "statusLight": "",
+    "statusText": "",
+    "statusDate": "",
+    "leadId": ""
   }
 ]

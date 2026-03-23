@@ -130,7 +130,7 @@
     },
 
     // ── Data version — increment to force refresh from portfolio.json ──
-    DATA_VERSION: 11,
+    DATA_VERSION: 12,
 
     // ── Ensure products loaded (seed from portfolio.json if empty or outdated) ──
     ensureProducts: function(cb) {
@@ -233,6 +233,7 @@
     if (!product.type) product.type = 'product'; // product | tech_solution | edu_product | project
     if (!product.northStar) product.northStar = '';
     if (!product.businessModel) product.businessModel = '';
+    if (!product.leadId) product.leadId = '';
     return product;
   };
 
@@ -243,6 +244,9 @@
     if (!item.trackerUrl) item.trackerUrl = '';
     if (!item.teamId) item.teamId = '';
     if (!item.goalId) item.goalId = '';
+    if (!item.leadId) item.leadId = '';
+    if (!item.startDate) item.startDate = '';
+    if (!item.targetDate) item.targetDate = '';
     if (!item.influence) item.influence = '';
     return item;
   };
