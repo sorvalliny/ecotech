@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проектный офис — документы</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+:root{--v:#6C3DAF;--vd:rgba(108,61,175,0.08);--b:#0052CC;--bd:rgba(0,82,204,0.07);--ok:#00875A;--okb:#E3FCEF;--warn:#FF8B00;--wb:#FFF7E6;--crit:#DE350B;--cb:#FFEBE6;--t1:#172B4D;--t2:#5E6C84;--t3:#97A0AF;--bg:#F4F5F7;--brd:#EBECF0;--brd2:#DFE1E6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',system-ui,sans-serif;background:#FAFBFC;color:var(--t1);font-size:13px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.p{max-width:720px;margin:0 auto;padding:40px 40px 32px;background:#fff;min-height:100vh}
+
+.hd{display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:3px solid var(--v);margin-bottom:28px}
+.hd-logo{background:var(--t1);padding:4px 10px;border-radius:4px}
+.hd-logo img{height:22px;filter:brightness(10)}
+.hd h1{font-size:20px;font-weight:800;letter-spacing:-0.02em}
+.hd .sub{font-size:10px;color:var(--t2);margin-top:2px}
+
+.section{margin-bottom:28px}
+.section-title{font-size:14px;font-weight:800;color:var(--t1);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.card{background:var(--bg);border:1px solid var(--brd);border-radius:10px;padding:16px 18px;transition:border-color 0.15s,box-shadow 0.15s;text-decoration:none;color:var(--t1);display:block;position:relative}
+.card:hover{border-color:var(--b);box-shadow:0 2px 8px rgba(0,82,204,0.08)}
+.card-badge{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;padding:2px 7px;border-radius:3px;display:inline-block;margin-bottom:6px}
+.card-badge--v{background:var(--vd);color:var(--v)}
+.card-badge--b{background:var(--bd);color:var(--b)}
+.card-badge--ok{background:var(--okb);color:var(--ok)}
+.card-badge--w{background:var(--wb);color:var(--warn)}
+.card-badge--t{background:var(--bg);color:var(--t3);border:1px solid var(--brd)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:4px;line-height:1.3}
+.card p{font-size:11px;color:var(--t2);line-height:1.5;margin:0}
+.card-status{position:absolute;top:16px;right:16px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px}
+.card-status--sent{background:var(--okb);color:var(--ok)}
+.card-status--ready{background:var(--bd);color:var(--b)}
+.card-status--draft{background:var(--bg);color:var(--t3)}
+.card-status--internal{background:var(--cb);color:var(--crit)}
+
+.ft{margin-top:24px;padding-top:10px;border-top:1px solid var(--brd);font-size:9px;color:var(--t3);display:flex;justify-content:space-between}
+
+@media(max-width:600px){.grid{grid-template-columns:1fr}.p{padding:24px 16px}}
+</style>
+</head>
+<body>
+<main class="p">
+
+  <div class="hd">
+    <div class="hd-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" onerror="this.parentElement.innerHTML='<b style=color:#fff;font-size:14px>RWB</b>'"></div>
+    <div>
+      <h1>Проектный офис — документы</h1>
+      <div class="sub">Каталог встреч, статусов и материалов &middot; Март 2026</div>
+    </div>
+  </div>
+
+  <!-- ВСТРЕЧИ -->
+  <div class="section">
+    <div class="section-title"><div class="dot" style="background:var(--v)"></div>Встречи</div>
+    <div class="grid">
+      <a class="card" href="status-pmo.html">
+        <span class="card-badge card-badge--v">CEO Экосистемы</span>
+        <span class="card-status card-status--sent">Отправлен</span>
+        <h3>Статус Проектного офиса</h3>
+        <p>Портфель, текущее состояние, решения, план 6 недель. Отправлен 23.03.</p>
+      </a>
+      <a class="card" href="sync-cto.html">
+        <span class="card-badge card-badge--b">CTO Экосистемы</span>
+        <span class="card-status card-status--ready">Готов</span>
+        <h3>Синк ПО x CTO</h3>
+        <p>AI-стратегия, инфраструктура, ресурсы. Повестка на 55 мин.</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- СТАТУСЫ -->
+  <div class="section">
+    <div class="section-title"><div class="dot" style="background:var(--b)"></div>Платформа ОРБИТА</div>
+    <div class="grid">
+      <a class="card" href="index.html">
+        <span class="card-badge card-badge--b">Платформа</span>
+        <h3>Главная ОРБИТА</h3>
+        <p>Точка входа в платформу управления портфелем.</p>
+      </a>
+      <a class="card" href="framework.html">
+        <span class="card-badge card-badge--b">Фреймворк</span>
+        <h3>Стадии зрелости</h3>
+        <p>6 стадий, Gate-чеклисты, RICE-приоритизация.</p>
+      </a>
+      <a class="card" href="registry.html">
+        <span class="card-badge card-badge--b">Инструмент</span>
+        <h3>Реестр продуктов</h3>
+        <p>Все продукты портфеля: стадия, команда, метрики.</p>
+      </a>
+      <a class="card" href="tools/gate-checklist.html">
+        <span class="card-badge card-badge--b">Инструмент</span>
+        <h3>Gate-чеклист</h3>
+        <p>Критерии перехода между стадиями.</p>
+      </a>
+      <a class="card" href="tools/brief.html">
+        <span class="card-badge card-badge--b">Инструмент</span>
+        <h3>Бриф продукта</h3>
+        <p>Заявка на новый продукт + RICE-оценка.</p>
+      </a>
+      <a class="card" href="tools/index.html">
+        <span class="card-badge card-badge--b">Каталог</span>
+        <h3>Инструменты команды</h3>
+        <p>Все инструменты в одном месте.</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- ШПАРГАЛКИ -->
+  <div class="section">
+    <div class="section-title"><div class="dot" style="background:var(--crit)"></div>Внутренние (не отправлять)</div>
+    <div class="grid">
+      <div class="card" style="cursor:default">
+        <span class="card-badge card-badge--w">Шпаргалка</span>
+        <span class="card-status card-status--internal">Внутренний</span>
+        <h3>Ответы на вопросы CEO</h3>
+        <p>7 жёстких вопросов и готовые ответы. prep-meeting-answers.html в pmo-ecosys.</p>
+      </div>
+      <div class="card" style="cursor:default">
+        <span class="card-badge card-badge--w">Шпаргалка</span>
+        <span class="card-status card-status--internal">Внутренний</span>
+        <h3>Подготовка к встрече с руководителями</h3>
+        <p>Стейкхолдеры, сценарии, тезисы, риски. prep-leadership-meeting.html в pmo-ecosys.</p>
+      </div>
+      <div class="card" style="cursor:default">
+        <span class="card-badge card-badge--w">Шпаргалка</span>
+        <span class="card-status card-status--internal">Внутренний</span>
+        <h3>Подготовка к синку с CTO</h3>
+        <p>Цели, подготовка, сценарии по ресурсам. prep-cto-sync.html в pmo-ecosys.</p>
+      </div>
+      <div class="card" style="cursor:default">
+        <span class="card-badge card-badge--t">Дизайн-система</span>
+        <span class="card-status card-status--draft">Черновик</span>
+        <h3>Reporting Design System</h3>
+        <p>Токены, типографика, 3 шаблона отчётности. reporting-design-system.html в pmo-ecosys.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="ft">
+    <span>Проектный офис &middot; Инновации и экосистема &middot; RWB</span>
+    <span>23.03.2026</span>
+  </footer>
+
+</main>
+</body>
+</html>
