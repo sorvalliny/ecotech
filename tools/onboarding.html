@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ОРБИТА — Для команды</title>
+<title>ОРБИТА — 15-минутный онбординг PM</title>
 <script src="../icons.js"></script>
 <script src="../platform.js"></script>
 <script src="../nav.js"></script>
@@ -15,7 +15,7 @@
   --violet:#579DFF;--violet-dim:rgba(87,157,255,0.12);--violet-dimmer:rgba(87,157,255,0.06);--violet-border:rgba(87,157,255,0.30);
   --pink:#E774BB;--pink-dim:rgba(231,116,187,0.12);--pink-dimmer:rgba(231,116,187,0.06);--pink-border:rgba(231,116,187,0.30);
   --teal:#4BCE97;--teal-dim:rgba(75,206,151,0.10);--teal-dimmer:rgba(75,206,151,0.06);--teal-border:rgba(75,206,151,0.30);
-  --amber:#F5CD47;--amber-dim:rgba(245,205,71,0.10);
+  --amber:#F5CD47;--amber-dim:rgba(245,205,71,0.10);--amber-border:rgba(245,205,71,0.30);
   --green:#4BCE97;--green-dim:rgba(75,206,151,0.10);--green-border:rgba(75,206,151,0.30);
   --blue:#579DFF;--blue-dim:rgba(87,157,255,0.12);
   --text:#E2E8F0;--muted:#8899AA;--gray2:#CBD5E1;--white:#FFFFFF;
@@ -24,224 +24,301 @@
 }
 html{scroll-behavior:smooth;}
 body{font-family:var(--font-body);background:var(--dark);color:var(--text);line-height:1.65;min-height:100vh;overflow-x:hidden;}
-
+a{color:var(--violet);text-decoration:none;}
+a:hover{text-decoration:underline;}
 a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:2px;border-radius:4px;}
-.skip-link{position:absolute;top:-100px;left:16px;background:var(--teal);color:#000;padding:8px 16px;border-radius:8px;font-weight:700;z-index:999;transition:top .15s;}
-.skip-link:focus{top:16px;}
-.page{max-width:960px;margin:0 auto;padding:48px 40px 80px;position:relative;z-index:1;}
-.divider{height:1px;background:var(--border-hi);margin:48px 0;}
+
+.page{max-width:800px;margin:0 auto;padding:48px 40px 80px;position:relative;z-index:1;}
 
 /* ── HERO ── */
-.hero{padding:56px 0 0;position:relative;}
-.hero-grid{display:grid;grid-template-columns:1fr 200px;gap:32px;align-items:start;}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.14em;color:var(--teal);text-transform:uppercase;margin-bottom:16px;}
-.hero h1{font-family:var(--font-head);font-size:36px;font-weight:900;color:var(--text);line-height:1.1;letter-spacing:-1px;margin-bottom:14px;}
-.hero h1 .glow{background:linear-gradient(135deg,var(--teal),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;}
-.hero-sub{font-size:15px;color:var(--muted);max-width:520px;line-height:1.7;}
+.hero{padding:40px 0 0;text-align:center;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.14em;color:var(--teal);text-transform:uppercase;margin-bottom:12px;}
+.hero h1{font-family:var(--font-head);font-size:32px;font-weight:900;color:var(--text);line-height:1.15;letter-spacing:-0.5px;margin-bottom:10px;}
+.hero h1 .glow{background:linear-gradient(135deg,var(--teal),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:14px;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7;}
 
-/* ── STAGE THERMOMETER (right side of hero) ── */
-.stage-thermo{display:flex;flex-direction:column;gap:0;position:relative;padding-left:20px;}
-.stage-thermo::before{content:'';position:absolute;left:7px;top:12px;bottom:12px;width:2px;background:var(--teal-dim);border-radius:2px;}
-.thermo-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;transition:background .15s;position:relative;text-decoration:none;color:inherit;}
-.thermo-item:hover{background:var(--teal-dimmer);}
-.thermo-item::before{content:'';position:absolute;left:-13px;width:10px;height:10px;border-radius:50%;border:2px solid var(--muted);background:var(--dark);z-index:1;transition:border-color .15s,background .15s,box-shadow .15s;}
-.thermo-item.active::before{border-color:var(--teal);background:var(--teal);}
-.thermo-code{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.06em;color:var(--muted);min-width:24px;}
-.thermo-item.active .thermo-code{color:var(--teal);}
-.thermo-name{font-size:12px;font-weight:600;color:var(--gray2);}
-.thermo-item.active .thermo-name{color:var(--text);}
+/* ── PROGRESS BAR ── */
+.progress-bar{display:flex;align-items:center;gap:0;margin:36px 0 32px;position:relative;}
+.progress-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;position:relative;z-index:1;}
+.progress-dot{width:36px;height:36px;border-radius:50%;background:var(--card);border:2px solid var(--border-hi);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:13px;font-weight:900;color:var(--muted);transition:all .25s;}
+.progress-step.active .progress-dot{border-color:var(--violet);color:var(--violet);background:var(--violet-dim);}
+.progress-step.done .progress-dot{border-color:var(--teal);color:var(--white);background:var(--teal);}
+.progress-label{font-family:var(--font-head);font-size:10px;font-weight:700;color:var(--muted);text-align:center;line-height:1.3;transition:color .2s;}
+.progress-step.active .progress-label{color:var(--violet);}
+.progress-step.done .progress-label{color:var(--teal);}
+.progress-time{font-family:var(--font-head);font-size:9px;font-weight:600;color:var(--muted);opacity:0.6;}
+.progress-line{flex:1;height:2px;background:var(--border-hi);position:relative;margin:0 -4px;align-self:flex-start;margin-top:17px;}
+.progress-line.done{background:var(--teal);}
 
-/* ── STAGE SELECTOR BAR ── */
-.stage-bar{display:flex;gap:4px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin:0 0 40px;}
-.stage-btn{flex:1;padding:10px 8px;border:none;border-radius:9px;background:transparent;cursor:pointer;font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:0.04em;color:var(--muted);transition:background .15s,color .15s,box-shadow .15s;white-space:nowrap;}
-.stage-btn:hover{background:var(--teal-dimmer);color:var(--gray2);}
-.stage-btn.active{background:var(--teal-dim);color:var(--teal);}
+/* ── STEP CARDS ── */
+.step-card{display:none;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 28px 24px;animation:fadeIn .25s ease;}
+.step-card.visible{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── DYNAMIC STAGE CONTENT ── */
-.stage-content{min-height:300px;}
-.stage-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:28px;}
-.stage-badge{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:14px;font-weight:900;color:#fff;flex-shrink:0;}
-.stage-info{flex:1;}
-.stage-name{font-family:var(--font-head);font-size:20px;font-weight:900;color:var(--text);margin-bottom:4px;}
-.stage-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);}
-.stage-meta span{display:flex;align-items:center;gap:4px;}
-.stage-goal{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:24px;padding:16px 18px;background:var(--teal-dimmer);border:1px solid var(--teal-dim);border-radius:10px;}
+.step-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.step-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-title{font-family:var(--font-head);font-size:18px;font-weight:900;color:var(--text);}
+.step-time-badge{display:inline-block;font-family:var(--font-head);font-size:10px;font-weight:700;color:var(--teal);background:var(--teal-dim);border:1px solid var(--teal-border);padding:2px 10px;border-radius:50px;letter-spacing:0.04em;margin-left:auto;flex-shrink:0;}
 
-/* subsections: artifacts, checklist, kill */
-.sub-label{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.14em;color:var(--teal);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.sub-label::before{content:'';width:16px;height:1px;background:var(--teal);opacity:0.4;}
+/* ── CHECKLIST ── */
+.checklist{display:flex;flex-direction:column;gap:6px;}
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:border-color .15s,background .15s;user-select:none;}
+.check-item:hover{border-color:var(--border-hi);}
+.check-item.checked{border-color:var(--teal-border);background:var(--teal-dimmer);}
+.check-box{width:20px;height:20px;border-radius:6px;border:2px solid var(--muted);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;margin-top:1px;}
+.check-item.checked .check-box{border-color:var(--teal);background:var(--teal);}
+.check-box svg{display:none;}
+.check-item.checked .check-box svg{display:block;}
+.check-text{flex:1;}
+.check-label{font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:2px;}
+.check-item.checked .check-label{color:var(--teal);}
+.check-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+.check-desc a{color:var(--violet);font-weight:600;}
 
-.artifact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:28px;}
-.artifact-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;transition:border-color .15s;}
-.artifact-card:hover{border-color:var(--teal-border);}
-.artifact-id{font-family:var(--font-head);font-size:9px;font-weight:700;color:var(--muted);min-width:28px;}
-.artifact-name{font-size:12px;font-weight:600;color:var(--gray2);}
-
-.check-list{display:flex;flex-direction:column;gap:6px;margin-bottom:28px;}
-.check-row{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--text);line-height:1.5;}
-.check-dot{width:8px;height:8px;border-radius:50%;border:2px solid var(--teal);flex-shrink:0;margin-top:4px;}
-
-.kill-box{background:var(--pink-dimmer);border:1px solid var(--pink-border);border-radius:10px;padding:14px 18px;margin-bottom:28px;}
-.kill-label{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--pink);margin-bottom:6px;}
-.kill-text{font-size:12px;color:var(--muted);line-height:1.55;}
-
-/* ── PRODUCT CARD CTA (featured) ── */
-.product-card-cta{background:var(--teal-dimmer);border:1px solid var(--teal-border);border-radius:14px;padding:20px 22px;display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;transition:border-color .18s,transform .15s;margin-bottom:28px;}
-.product-card-cta:hover{border-color:var(--teal-border);transform:translateY(-2px);}
-.pcc-icon{width:44px;height:44px;border-radius:12px;background:var(--teal-dim);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.pcc-text{flex:1;}
-.pcc-title{font-family:var(--font-head);font-size:12px;font-weight:900;color:var(--text);margin-bottom:3px;}
-.pcc-desc{font-size:12px;color:var(--muted);line-height:1.5;}
-.pcc-arrow{color:var(--teal);flex-shrink:0;}
-
-/* ── STAGE TOOLS ── */
-.stage-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:28px;}
-.stool-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;transition:border-color .15s,transform .12s;}
-.stool-card:hover{border-color:var(--teal-border);transform:translateY(-1px);}
-.stool-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.stool-name{font-family:var(--font-head);font-size:10px;font-weight:700;color:var(--gray2);}
-
-/* ── PRODUCTS ON STAGE ── */
-.products-on-stage{margin-bottom:28px;}
-.pos-grid{display:flex;flex-wrap:wrap;gap:8px;}
-.pos-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--gray2);}
-.pos-gate{font-family:var(--font-head);font-size:9px;font-weight:700;color:var(--teal);}
-.pos-empty{font-size:12px;color:var(--muted);font-style:italic;}
-
-/* ── WHERE SELECTOR ── */
-.where-selector{margin-bottom:28px;}
-.where-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-.where-card{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .18s,background .15s;user-select:none;}
-.where-card:hover{border-color:var(--teal-border);background:var(--teal-dimmer);}
-.where-card.selected{border-color:var(--teal-border);background:var(--teal-dim);}
-.where-icon{width:36px;height:36px;border-radius:10px;background:var(--teal-dim);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.where-card.selected .where-icon{background:var(--teal-border);}
-.where-label{font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px;}
-.where-desc{font-size:11px;color:var(--muted);line-height:1.4;}
-@media(max-width:680px){.where-grid{grid-template-columns:1fr;}}
-
-/* ── ONBOARDING COLLAPSIBLE ── */
-.collapsible-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;background:var(--card);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:border-color .15s;}
-.collapsible-header:hover{border-color:var(--border-hi);}
-.collapsible-title{font-family:var(--font-head);font-size:13px;font-weight:900;color:var(--text);}
-.collapsible-chevron{color:var(--muted);transition:transform .2s;}
-.collapsible-body{display:none;padding:20px 22px 0;margin-top:-1px;}
-.collapsible-body.open{display:block;}
-.collapsible-header.open{border-radius:12px 12px 0 0;}
-.collapsible-header.open .collapsible-chevron{transform:rotate(180deg);}
-.collapsible-header.open + .collapsible-body{background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;padding-bottom:22px;}
-
-.onboard-track{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr;gap:0;align-items:start;}
-.onboard-card{padding:16px;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;}
-.onboard-num{width:28px;height:28px;border-radius:50%;background:var(--teal-dim);border:1px solid var(--teal-border);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:11px;font-weight:900;color:var(--teal);margin-bottom:10px;}
-.onboard-title{font-family:var(--font-head);font-size:12px;font-weight:900;color:var(--text);margin-bottom:6px;}
-.onboard-desc{font-size:11px;color:var(--muted);line-height:1.6;}
-.onboard-time{display:inline-block;margin-top:8px;font-family:var(--font-head);font-size:9px;font-weight:700;color:var(--teal);background:var(--teal-dim);border:1px solid var(--teal-border);padding:2px 8px;border-radius:50px;letter-spacing:0.06em;}
-.onboard-arrow{display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--muted);padding-top:24px;}
-
-/* ── CTA FOOTER ── */
-.cta-section{background:var(--violet-dimmer);border:1px solid var(--teal-border);border-radius:20px;padding:40px;text-align:center;}
-.cta-section h2{font-family:var(--font-head);font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;}
-.cta-section p{font-size:14px;color:var(--muted);margin-bottom:24px;max-width:440px;margin-left:auto;margin-right:auto;}
-.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-size:13px;font-weight:700;padding:11px 24px;border-radius:var(--radius-sm);text-decoration:none;transition:all .18s;border:1px solid transparent;}
+/* ── NAVIGATION BUTTONS ── */
+.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:12px;}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-size:13px;font-weight:700;padding:11px 24px;border-radius:var(--radius-sm);text-decoration:none;transition:all .18s;border:1px solid transparent;cursor:pointer;}
 .btn-primary{background:var(--violet);color:#fff;border-color:var(--violet-border);}
-.btn-primary:hover{opacity:0.85;transform:translateY(-1px);}
+.btn-primary:hover{opacity:0.85;transform:translateY(-1px);text-decoration:none;}
 .btn-ghost{background:var(--surface2);color:var(--text);border-color:var(--border-hi);}
-.btn-ghost:hover{background:var(--border);transform:translateY(-1px);}
+.btn-ghost:hover{background:var(--border);transform:translateY(-1px);text-decoration:none;}
+.btn:disabled{opacity:0.35;pointer-events:none;}
+.step-counter{font-size:12px;color:var(--muted);font-family:var(--font-head);font-weight:600;}
+
+/* ── COMPLETION ── */
+.completion{display:none;text-align:center;padding:48px 24px;animation:fadeIn .3s ease;}
+.completion.visible{display:block;}
+.completion-icon{width:64px;height:64px;border-radius:50%;background:var(--teal-dim);border:2px solid var(--teal-border);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+.completion h2{font-family:var(--font-head);font-size:22px;font-weight:900;color:var(--text);margin-bottom:8px;}
+.completion p{font-size:14px;color:var(--muted);max-width:400px;margin:0 auto 24px;line-height:1.7;}
+.completion-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 
 /* ── FOOTER ── */
-.footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);}
-.footer strong{color:var(--muted);}
+.footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);}
 
 @media(max-width:680px){
-  .page{padding:32px 20px 56px;}
-  .hero h1{font-size:28px;}
-  .hero-grid{grid-template-columns:1fr;}
-  .stage-thermo{display:none;}
-  .stage-bar{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-  .onboard-track{grid-template-columns:1fr;}
-  .onboard-arrow{display:none;}
-  .artifact-grid{grid-template-columns:1fr;}
-  .stage-tools{grid-template-columns:1fr 1fr;}
+  .page{padding:28px 16px 48px;}
+  .hero h1{font-size:24px;}
+  .progress-label{font-size:8px;}
+  .progress-dot{width:30px;height:30px;font-size:11px;}
+  .step-card{padding:20px 16px 18px;}
+  .step-head{flex-wrap:wrap;gap:10px;}
+  .step-time-badge{margin-left:0;}
+  .completion-links{flex-direction:column;align-items:center;}
 }
 </style>
 </head>
 <body>
 
-<a class="skip-link" href="#stage-selector">Перейти к выбору стадии</a>
-
 <div class="page">
 
   <!-- ── HERO ── -->
   <section class="hero">
-    <div class="hero-grid">
-      <div>
-        <div class="eyebrow">Для команды</div>
-        <h1>На какой стадии<br><span class="glow">твой продукт?</span></h1>
-        <p class="hero-sub">Выбери текущий Gate — получишь артефакты, чеклисты и инструменты именно для этого этапа.</p>
+    <div class="eyebrow">Онбординг</div>
+    <h1>Старт за <span class="glow">15 минут</span></h1>
+    <p class="hero-sub">4 шага — и вы полностью внутри платформы. Читайте и делайте одновременно.</p>
+  </section>
+
+  <!-- ── PROGRESS BAR ── -->
+  <div class="progress-bar" id="progress-bar">
+    <div class="progress-step active" data-step="0">
+      <div class="progress-dot">1</div>
+      <div class="progress-label">Войти</div>
+      <div class="progress-time">3 мин</div>
+    </div>
+    <div class="progress-line" data-line="0"></div>
+    <div class="progress-step" data-step="1">
+      <div class="progress-dot">2</div>
+      <div class="progress-label">Изучить</div>
+      <div class="progress-time">5 мин</div>
+    </div>
+    <div class="progress-line" data-line="1"></div>
+    <div class="progress-step" data-step="2">
+      <div class="progress-dot">3</div>
+      <div class="progress-label">Действия</div>
+      <div class="progress-time">5 мин</div>
+    </div>
+    <div class="progress-line" data-line="2"></div>
+    <div class="progress-step" data-step="3">
+      <div class="progress-dot">4</div>
+      <div class="progress-label">Подключиться</div>
+      <div class="progress-time">2 мин</div>
+    </div>
+  </div>
+
+  <!-- ── STEP 1: Войти в систему ── -->
+  <div class="step-card visible" id="step-0">
+    <div class="step-head">
+      <div class="step-icon" style="background:var(--violet-dim);color:var(--violet);">
+        <svg class="ei" width="22" height="22"><use href="#ic-log-in"/></svg>
       </div>
-      <div class="stage-thermo" id="thermo" role="navigation" aria-label="Стадии зрелости продукта"></div>
+      <div class="step-title">Войти в систему</div>
+      <span class="step-time-badge">~ 3 мин</span>
     </div>
-  </section>
-
-  <div class="divider" style="margin-bottom:32px;"></div>
-
-  <!-- ── STAGE SELECTOR ── -->
-  <div class="stage-bar" id="stage-selector" role="tablist" aria-label="Выбор стадии зрелости"></div>
-
-  <!-- ── DYNAMIC STAGE CONTENT ── -->
-  <div class="stage-content" id="stage-content" role="tabpanel"></div>
-
-  <div class="divider"></div>
-
-  <!-- ── ONBOARDING (collapsible) ── -->
-  <section>
-    <div class="collapsible-header" id="onboard-toggle" role="button" aria-expanded="false" tabindex="0">
-      <span class="collapsible-title">Впервые на платформе?</span>
-      <svg class="ei collapsible-chevron" width="18" height="18"><use href="#ic-chevron-down"/></svg>
-    </div>
-    <div class="collapsible-body" id="onboard-body">
-      <div class="onboard-track">
-        <div class="onboard-card">
-          <div class="onboard-num">1</div>
-          <div class="onboard-title">Вводная встреча</div>
-          <div class="onboard-desc">30 минут с Проектным офисом. Рассказываем про фреймворк, отвечаем на вопросы, смотрим на инициативу.</div>
-          <span class="onboard-time">30 мин</span>
+    <div class="checklist" data-step="0">
+      <div class="check-item" data-idx="0">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Авторизоваться</div>
+          <div class="check-desc">Введите email, получите код, войдите на платформу</div>
         </div>
-        <div class="onboard-arrow">→</div>
-        <div class="onboard-card">
-          <div class="onboard-num">2</div>
-          <div class="onboard-title">Оценка инициативы</div>
-          <div class="onboard-desc">Определяем текущий Gate, фиксируем в Трекере, назначаем первый чекпоинт и куратора от ПО.</div>
-          <span class="onboard-time">1–2 дня</span>
+      </div>
+      <div class="check-item" data-idx="1">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Найти свой продукт в Каталоге</div>
+          <div class="check-desc">Откройте <a href="catalog.html">Каталог продуктов</a> и найдите свой продукт по названию</div>
         </div>
-        <div class="onboard-arrow">→</div>
-        <div class="onboard-card">
-          <div class="onboard-num">3</div>
-          <div class="onboard-title">Работа по фреймворку</div>
-          <div class="onboard-desc">Используй шаблоны артефактов, проходи Gate-review с поддержкой ПО, двигайся к следующей стадии.</div>
-          <span class="onboard-time">Непрерывно</span>
+      </div>
+      <div class="check-item" data-idx="2">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Открыть Workspace</div>
+          <div class="check-desc">Перейдите в <a href="workspace.html">Workspace</a> — ваше рабочее пространство с задачами и метриками</div>
         </div>
       </div>
     </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ── CTA ── -->
-  <section class="cta-section">
-    <h2>Нужна помощь с Gate Review?</h2>
-    <p>Напишите в Проектный офис — поможем подготовить артефакты и пройти ревью</p>
-    <div class="cta-btns">
-      <a class="btn btn-primary" href="mailto:sorval.viktor@rwb.ru">Записаться на встречу</a>
-      <a class="btn btn-ghost" href="../framework.html">Открыть фреймворк</a>
+    <div class="step-nav">
+      <button class="btn btn-ghost" disabled>&larr; Назад</button>
+      <span class="step-counter">Шаг 1 из 4</span>
+      <button class="btn btn-primary" onclick="goStep(1)">Далее &rarr;</button>
     </div>
-  </section>
+  </div>
+
+  <!-- ── STEP 2: Изучить продукт ── -->
+  <div class="step-card" id="step-1">
+    <div class="step-head">
+      <div class="step-icon" style="background:var(--teal-dim);color:var(--teal);">
+        <svg class="ei" width="22" height="22"><use href="#ic-search"/></svg>
+      </div>
+      <div class="step-title">Изучить продукт</div>
+      <span class="step-time-badge">~ 5 мин</span>
+    </div>
+    <div class="checklist" data-step="1">
+      <div class="check-item" data-idx="0">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Прочитать паспорт продукта</div>
+          <div class="check-desc">Стадия, статус, описание, ключевые KPI — все в карточке продукта</div>
+        </div>
+      </div>
+      <div class="check-item" data-idx="1">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Посмотреть инициативы</div>
+          <div class="check-desc">Что в работе, что запланировано, приоритеты команды</div>
+        </div>
+      </div>
+      <div class="check-item" data-idx="2">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Проверить цели (OKR)</div>
+          <div class="check-desc">OKR на текущий период — убедитесь, что понимаете приоритеты</div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(0)">&larr; Назад</button>
+      <span class="step-counter">Шаг 2 из 4</span>
+      <button class="btn btn-primary" onclick="goStep(2)">Далее &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 3: Первые действия ── -->
+  <div class="step-card" id="step-2">
+    <div class="step-head">
+      <div class="step-icon" style="background:var(--amber-dim);color:var(--amber);">
+        <svg class="ei" width="22" height="22"><use href="#ic-zap"/></svg>
+      </div>
+      <div class="step-title">Первые действия</div>
+      <span class="step-time-badge">~ 5 мин</span>
+    </div>
+    <div class="checklist" data-step="2">
+      <div class="check-item" data-idx="0">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Обновить статус продукта</div>
+          <div class="check-desc">Если данные устарели — обновите стадию, статус и описание</div>
+        </div>
+      </div>
+      <div class="check-item" data-idx="1">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Проверить RICE-оценки инициатив</div>
+          <div class="check-desc">Откройте <a href="../registry.html">Реестр инициатив</a> и проверьте приоритизацию</div>
+        </div>
+      </div>
+      <div class="check-item" data-idx="2">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Познакомиться с методологией</div>
+          <div class="check-desc">Изучите <a href="../framework.html">фреймворк ОРБИТА</a> — Gate-модель, стадии, артефакты</div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(1)">&larr; Назад</button>
+      <span class="step-counter">Шаг 3 из 4</span>
+      <button class="btn btn-primary" onclick="goStep(3)">Далее &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 4: Подключиться ── -->
+  <div class="step-card" id="step-3">
+    <div class="step-head">
+      <div class="step-icon" style="background:var(--green-dim);color:var(--green);">
+        <svg class="ei" width="22" height="22"><use href="#ic-link"/></svg>
+      </div>
+      <div class="step-title">Подключиться</div>
+      <span class="step-time-badge">~ 2 мин</span>
+    </div>
+    <div class="checklist" data-step="3">
+      <div class="check-item" data-idx="0">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Настроить уведомления</div>
+          <div class="check-desc">Нажмите колокольчик в навигации — выберите, о чем получать оповещения</div>
+        </div>
+      </div>
+      <div class="check-item" data-idx="1">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Подключить трекер</div>
+          <div class="check-desc">YouTrack или Jira — заполните поле &laquo;Внешний трекер&raquo; в карточке инициативы</div>
+        </div>
+      </div>
+      <div class="check-item" data-idx="2">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-text">
+          <div class="check-label">Запланировать синк с PMO Lead</div>
+          <div class="check-desc">Договоритесь о первой встрече — обсудите план и ближайшие шаги</div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(2)">&larr; Назад</button>
+      <span class="step-counter">Шаг 4 из 4</span>
+      <button class="btn btn-primary" onclick="completeOnboarding()">Завершить</button>
+    </div>
+  </div>
+
+  <!-- ── COMPLETION ── -->
+  <div class="completion" id="completion">
+    <div class="completion-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>Онбординг пройден</h2>
+    <p>Вы готовы к работе на платформе. Возвращайтесь к этой странице, если нужно освежить информацию.</p>
+    <div class="completion-links">
+      <a class="btn btn-primary" href="catalog.html">Каталог продуктов</a>
+      <a class="btn btn-ghost" href="workspace.html">Мой Workspace</a>
+      <a class="btn btn-ghost" href="../framework.html">Фреймворк</a>
+    </div>
+  </div>
 
   <footer class="footer">
-    <div><strong>ОРБИТА</strong> · Для команды · Март 2026 · v1.0</div>
-    <div>Проектный офис RWB</div>
+    <div><strong>ОРБИТА</strong> · Онбординг PM · v2.0</div>
+    <div>Проектный офис</div>
   </footer>
 
 </div>
@@ -250,323 +327,107 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offse
 (function() {
   'use strict';
 
-  // ── STAGES DATA (fallback; overridden by localStorage STAGES_DB if available) ──
-  var STAGES_DEFAULT = [
-    {
-      id: 'o0', code: 'O·0', name: 'Заявка', color: '#64748B',
-      duration: '< 5 дней', lead: 'Product', goal: 'Скрининг заявки: сформулировать проблему, гипотезу ценности и целевую аудиторию. Пройти Gate 0 — получить одобрение на Разведку.',
-      artifacts: [{id:'T01',name:'Бриф инициативы'},{id:'T10',name:'Fast-Track бриф'}],
-      checklist: ['Проблема пользователя описана','Целевая аудитория определена','RICE-оценка проведена','Стратегическое соответствие подтверждено','PM назначен'],
+  var TOTAL_STEPS = 4;
+  var currentStep = 0;
+  var STORAGE_KEY = 'ORBITA_ONBOARD';
 
-      kill: null,
-      tools: [
-        {name:'Brief',icon:'bar-chart',href:'brief.html',bg:'var(--teal-dim)',color:'var(--teal)'},
-        {name:'Шаблоны',icon:'file-text',href:'templates.html',bg:'var(--amber-dim)',color:'var(--amber)'},
-        {name:'Product Brief',icon:'file-text',href:'brief.html',bg:'var(--green-dim)',color:'var(--green)'}
-      ],
-      whereOptions: [
-        {icon:'target',label:'CEO / Руководитель',desc:'Директивный приоритет'},
-        {icon:'layers',label:'OKR квартала',desc:'Стратегическое соответствие'},
-        {icon:'bar-chart',label:'Данные и метрики',desc:'Выявлена проблема в аналитике'},
-        {icon:'wrench',label:'Техдолг / UX',desc:'Внутренняя потребность команды'}
-      ]
-    },
-    {
-      id: 'o1', code: 'O·1', name: 'Разведка', color: '#3B82F6',
-      duration: '3–6 недель', lead: 'Product', goal: 'Валидация гипотез: CustDev (7-10 интервью), определение North Star Metric, тест прототипа с 5+ пользователями. Подтвердить бизнес-кейс для перехода к Прототипу.',
-      artifacts: [{id:'T02',name:'Отчёт Разведки'},{id:'T11',name:'CustDev Script'},{id:'T12',name:'ADR'}],
-      checklist: ['CustDev: 7-10 интервью проведено','North Star Metric определена','Прототип протестирован с 5+ пользователями','PRD финализирован','Activation > 30%','Бизнес-кейс подтверждён'],
-      kill: 'Activation < 10% за 8 недель без гипотезы пивота',
+  // Load saved state
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) {}
 
-      tools: [
-        {name:'Brief',icon:'bar-chart',href:'brief.html',bg:'var(--teal-dim)',color:'var(--teal)'},
-        {name:'Шаблоны',icon:'file-text',href:'templates.html',bg:'var(--amber-dim)',color:'var(--amber)'},
-        {name:'Стратегия',icon:'target',href:'strategy.html',bg:'var(--green-dim)',color:'var(--green)'}
-      ]
-    },
-    {
-      id: 'o2', code: 'O·2', name: 'Прототип', color: '#8B5CF6',
-      duration: 'После MVP', lead: 'Product + Dev', goal: 'MVP в продакшене. Мониторинг Activation с первого дня, отслеживание Retention и NPS. Формирование бэклога роста и подготовка P&L-модели.',
-      artifacts: [{id:'T03',name:'PRD / Спецификация'},{id:'T05',name:'Sprint Planning'},{id:'T07',name:'Health Metrics'}],
-      checklist: ['MVP в продакшене','Security review пройден','Runbook + мониторинг настроены','P&L-модель подготовлена','DORA-метрики отслеживаются','Бэклог роста сформирован'],
-      kill: null,
-      tools: [
-        {name:'Трекер',icon:'activity',href:'../registry.html',bg:'rgba(231,116,187,0.12)',color:'var(--pink)'},
-        {name:'Шаблоны',icon:'file-text',href:'templates.html',bg:'var(--amber-dim)',color:'var(--amber)'},
-        {name:'Стратегия',icon:'target',href:'strategy.html',bg:'var(--green-dim)',color:'var(--green)'}
-      ]
-    },
-    {
-      id: 'o3', code: 'O·3', name: 'Разгон', color: '#F59E0B',
-      duration: '1–3 мес', lead: 'Product + Business', goal: 'Рыночная валидация: Go-To-Market, A/B-тесты (2-3 параллельно), ежемесячный NPS. Достичь PMF (Retention D30 >= target) и выход на безубыточность.',
-      artifacts: [{id:'T04',name:'Gate Review Deck'},{id:'T07',name:'Health Metrics'},{id:'T08',name:'Release Notes'}],
-      checklist: ['PMF достигнут (Retention D30 >= target)','NPS >= 40','EBITDA -> 0 (безубыточность)','Команда >= 8 человек','NSM растёт 2 квартала подряд','Quarterly Gate Review проведён'],
-      kill: 'EBITDA отрицательна 2 квартала подряд без плана восстановления',
-      tools: [
-        {name:'Трекер',icon:'activity',href:'../registry.html',bg:'rgba(231,116,187,0.12)',color:'var(--pink)'},
-        {name:'Стратегия',icon:'target',href:'strategy.html',bg:'var(--green-dim)',color:'var(--green)'},
-        {name:'Фреймворк',icon:'layers',href:'../framework.html',bg:'var(--violet-dim)',color:'var(--violet)'}
-      ]
-    },
-    {
-      id: 'o4', code: 'O·4', name: 'Экосистема', color: '#F97316',
-      duration: '3–12 мес', lead: 'Business + Dev', goal: 'Экосистемная интеграция: стратегическое планирование с CPO и CEO BU, P&L-ревью ежеквартально, SLA для партнёров, масштабирование архитектуры на 10x нагрузку.',
-      artifacts: [{id:'T04',name:'Gate Review Deck'},{id:'T07',name:'Health Metrics'}],
-      checklist: ['P&L положительный 2 квартала подряд','>=2 продукта зависят от платформы','Архитектура масштабируется на 10x','NSM растёт 2 квартала подряд','SLA для партнёров определён'],
-      kill: 'NSM падает 3 квартала без стратегии',
-      tools: [
-        {name:'Стратегия',icon:'target',href:'strategy.html',bg:'var(--green-dim)',color:'var(--green)'},
-        {name:'Трекер',icon:'activity',href:'../registry.html',bg:'rgba(231,116,187,0.12)',color:'var(--pink)'}
-      ]
-    },
-    {
-      id: 'o5', code: 'O·5', name: 'Плато', color: '#4BCE97',
-      duration: 'Непрерывно', lead: 'Business', goal: 'Оптимизация: Quarterly Product Review, оптимизация воронки и юнит-экономики, оценка стратегических опций. Продукт операционно независим.',
-      artifacts: [{id:'T04',name:'Gate Review Deck'},{id:'T07',name:'Health Metrics'}],
-      checklist: ['Quarterly Product Review проводится','Юнит-экономика оптимизирована','Воронка оптимизирована','Стратегические опции оценены'],
-      kill: null,
-      tools: [
-        {name:'Стратегия',icon:'target',href:'strategy.html',bg:'var(--green-dim)',color:'var(--green)'},
-        {name:'Каталог',icon:'wrench',href:'tools.html',bg:'var(--blue-dim)',color:'var(--blue)'}
-      ]
-    }
-  ];
-
-  // Try loading custom stages from localStorage (synced with framework Stage Editor)
-  var stages = STAGES_DEFAULT;
-  try {
-    var custom = JSON.parse(localStorage.getItem('STAGES_DB'));
-    if (custom && custom.length >= 6) {
-      // Merge custom names/colors into defaults, preserving artifacts/tools
-      custom.forEach(function(cs, i) {
-        if (stages[i]) {
-          if (cs.name) stages[i].name = cs.name;
-          if (cs.color) stages[i].color = cs.color;
-          if (cs.duration) stages[i].duration = cs.duration;
+  // Restore checked items
+  function restoreChecks() {
+    for (var key in saved) {
+      if (key.indexOf('check_') === 0) {
+        var parts = key.replace('check_', '').split('_');
+        var stepEl = document.querySelector('.checklist[data-step="' + parts[0] + '"]');
+        if (stepEl) {
+          var item = stepEl.querySelector('.check-item[data-idx="' + parts[1] + '"]');
+          if (item && saved[key]) item.classList.add('checked');
         }
-      });
-    }
-  } catch(e) {}
-
-  var activeStage = 0;
-
-  // ── RENDER THERMOMETER ──
-  function renderThermo() {
-    var el = document.getElementById('thermo');
-    if (!el) return;
-    var html = '';
-    stages.forEach(function(s, i) {
-      html += '<a class="thermo-item' + (i === activeStage ? ' active' : '') + '" data-stage="' + i + '" href="#stage-selector">' +
-        '<span class="thermo-code">' + s.code + '</span>' +
-        '<span class="thermo-name">' + s.name + '</span>' +
-      '</a>';
-    });
-    el.innerHTML = html;
-    el.querySelectorAll('.thermo-item').forEach(function(item) {
-      item.addEventListener('click', function(e) {
-        e.preventDefault();
-        selectStage(parseInt(this.dataset.stage));
-        document.getElementById('stage-selector').scrollIntoView({behavior:'smooth'});
-      });
-    });
-  }
-
-  // ── RENDER SELECTOR BAR ──
-  function renderBar() {
-    var el = document.getElementById('stage-selector');
-    if (!el) return;
-    var html = '';
-    stages.forEach(function(s, i) {
-      html += '<button class="stage-btn' + (i === activeStage ? ' active' : '') + '" data-stage="' + i + '" role="tab" aria-selected="' + (i === activeStage) + '">' + s.code + ' ' + s.name + '</button>';
-    });
-    el.innerHTML = html;
-    el.querySelectorAll('.stage-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        selectStage(parseInt(this.dataset.stage));
-      });
-    });
-  }
-
-  // ── RENDER STAGE CONTENT ──
-  function renderContent() {
-    var s = stages[activeStage];
-    var el = document.getElementById('stage-content');
-    if (!el || !s) return;
-
-    var html = '';
-
-    // Header
-    html += '<div class="stage-header">';
-    html += '<div class="stage-badge" style="background:' + s.color + ';">' + s.code.replace('O·','') + '</div>';
-    html += '<div class="stage-info"><div class="stage-name">' + s.code + ' — ' + s.name + '</div>';
-    html += '<div class="stage-meta">';
-    html += '<span><svg class="ei" width="14" height="14"><use href="#ic-clock"/></svg> ' + s.duration + '</span>';
-    html += '<span><svg class="ei" width="14" height="14"><use href="#ic-user"/></svg> Ведёт: ' + s.lead + '</span>';
-    html += '</div></div></div>';
-
-    // Goal
-    html += '<div class="stage-goal">' + s.goal + '</div>';
-
-    // Where-selector (only for O·0)
-    if (s.whereOptions && s.whereOptions.length) {
-      html += '<div class="where-selector">';
-      html += '<div class="sub-label">Откуда пришла инициатива</div>';
-      html += '<div class="where-grid">';
-      s.whereOptions.forEach(function(w, wi) {
-        html += '<div class="where-card" data-where="' + wi + '">';
-        html += '<div class="where-icon"><svg class="ei" width="18" height="18"><use href="#ic-' + w.icon + '"/></svg></div>';
-        html += '<div><div class="where-label">' + w.label + '</div>';
-        html += '<div class="where-desc">' + w.desc + '</div></div>';
-        html += '</div>';
-      });
-      html += '</div></div>';
-    }
-
-    // Brief CTA (only for O·0)
-    if (s.id === 'o0') {
-      html += '<a class="product-card-cta" href="brief.html">';
-      html += '<div class="pcc-icon" style="background:var(--green-dim);color:var(--green);"><svg class="ei" width="22" height="22"><use href="#ic-file-text"/></svg></div>';
-      html += '<div class="pcc-text"><div class="pcc-title">Заполнить Product Brief</div>';
-      html += '<div class="pcc-desc">Структурированный бриф инициативы — первый шаг для прохождения Gate 0.</div></div>';
-      html += '<svg class="ei pcc-arrow" width="18" height="18"><use href="#ic-arrow-right"/></svg>';
-      html += '</a>';
-    }
-
-    // Product Card CTA
-    html += '<a class="product-card-cta" href="../registry.html#tab=portfolio">';
-    html += '<div class="pcc-icon"><svg class="ei" width="22" height="22"><use href="#ic-package"/></svg></div>';
-    html += '<div class="pcc-text"><div class="pcc-title">Карточка продукта</div>';
-    html += '<div class="pcc-desc">Единый источник правды: статус, метрики, команда и артефакты. Изменения видит и бизнес, и команда.</div></div>';
-    html += '<svg class="ei pcc-arrow" width="18" height="18"><use href="#ic-arrow-right"/></svg>';
-    html += '</a>';
-
-    // Products on this stage
-    html += '<div class="products-on-stage">';
-    html += '<div class="sub-label">Продукты на этой стадии</div>';
-    html += '<div class="pos-grid" id="pos-grid-' + activeStage + '"></div>';
-    html += '</div>';
-
-    // Artifacts
-    if (s.artifacts && s.artifacts.length) {
-      html += '<div class="sub-label">Артефакты</div>';
-      html += '<div class="artifact-grid">';
-      s.artifacts.forEach(function(a) {
-        html += '<a class="artifact-card" href="templates.html">';
-        html += '<span class="artifact-id">' + a.id + '</span>';
-        html += '<span class="artifact-name">' + a.name + '</span>';
-        html += '</a>';
-      });
-      html += '</div>';
-    }
-
-    // Checklist
-    if (s.checklist && s.checklist.length) {
-      html += '<div class="sub-label">Критерии прохождения Gate</div>';
-      html += '<div class="check-list">';
-      s.checklist.forEach(function(c) {
-        html += '<div class="check-row"><div class="check-dot"></div>' + c + '</div>';
-      });
-      html += '</div>';
-    }
-
-    // Kill conditions
-    if (s.kill) {
-      html += '<div class="kill-box">';
-      html += '<div class="kill-label">No-Go</div>';
-      html += '<div class="kill-text">' + s.kill + '</div>';
-      html += '</div>';
-    }
-
-    // Tools for this stage
-    if (s.tools && s.tools.length) {
-      html += '<div class="sub-label">Инструменты для этой стадии</div>';
-      html += '<div class="stage-tools">';
-      s.tools.forEach(function(t) {
-        html += '<a class="stool-card" href="' + t.href + '">';
-        html += '<div class="stool-icon" style="background:' + t.bg + ';color:' + t.color + ';"><svg class="ei" width="16" height="16"><use href="#ic-' + t.icon + '"/></svg></div>';
-        html += '<span class="stool-name">' + t.name + '</span>';
-        html += '</a>';
-      });
-      html += '</div>';
-    }
-
-    el.innerHTML = html;
-
-    // Where-selector click behavior
-    el.querySelectorAll('.where-card').forEach(function(card) {
-      card.addEventListener('click', function() {
-        var wasSelected = this.classList.contains('selected');
-        el.querySelectorAll('.where-card').forEach(function(c) { c.classList.remove('selected'); });
-        if (!wasSelected) this.classList.add('selected');
-      });
-    });
-
-    // Load products for this stage from unified source
-    loadProductsForStage(activeStage);
-  }
-
-  // ── LOAD PRODUCTS FOR STAGE ──
-  function loadProductsForStage(stageIdx) {
-    var grid = document.getElementById('pos-grid-' + stageIdx);
-    if (!grid) return;
-
-    function render(products) {
-      var matching = (products || []).filter(function(p) {
-        return parseInt(p.gate, 10) === stageIdx;
-      });
-      if (!matching.length) {
-        grid.innerHTML = '<span class="pos-empty">Нет продуктов на этой стадии</span>';
-        return;
       }
-      var html = '';
-      matching.forEach(function(p) {
-        html += '<span class="pos-chip"><span class="pos-gate">G' + p.gate + '</span> ' + p.name + '</span>';
-      });
-      grid.innerHTML = html;
-    }
-
-    if (window.PT && PT.ensureProducts) {
-      PT.ensureProducts(render);
-    } else {
-      render([]);
     }
   }
 
-  // ── SELECT STAGE ──
-  function selectStage(idx) {
-    activeStage = idx;
-    renderBar();
-    renderThermo();
-    renderContent();
+  // Save check state
+  function saveCheck(step, idx, val) {
+    saved['check_' + step + '_' + idx] = val;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(saved)); } catch(e) {}
   }
 
-  // ── COLLAPSIBLE ONBOARDING ──
-  var toggle = document.getElementById('onboard-toggle');
-  var body = document.getElementById('onboard-body');
-  if (toggle && body) {
-    toggle.addEventListener('click', function() {
-      var open = body.classList.toggle('open');
-      toggle.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open);
+  // Check if step is complete (all items checked)
+  function isStepDone(stepIdx) {
+    var items = document.querySelectorAll('.checklist[data-step="' + stepIdx + '"] .check-item');
+    for (var i = 0; i < items.length; i++) {
+      if (!items[i].classList.contains('checked')) return false;
+    }
+    return items.length > 0;
+  }
+
+  // Update progress bar
+  function updateProgress() {
+    for (var i = 0; i < TOTAL_STEPS; i++) {
+      var stepEl = document.querySelector('.progress-step[data-step="' + i + '"]');
+      if (!stepEl) continue;
+      stepEl.classList.remove('active', 'done');
+      if (i === currentStep) stepEl.classList.add('active');
+      else if (isStepDone(i)) stepEl.classList.add('done');
+    }
+    // Lines
+    var lines = document.querySelectorAll('.progress-line');
+    lines.forEach(function(line) {
+      var idx = parseInt(line.dataset.line);
+      line.classList.toggle('done', isStepDone(idx));
     });
-    toggle.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.click(); }
+  }
+
+  // Show step
+  window.goStep = function(idx) {
+    if (idx < 0 || idx >= TOTAL_STEPS) return;
+    currentStep = idx;
+    document.querySelectorAll('.step-card').forEach(function(c) { c.classList.remove('visible'); });
+    var target = document.getElementById('step-' + idx);
+    if (target) target.classList.add('visible');
+    document.getElementById('completion').classList.remove('visible');
+    updateProgress();
+    // Scroll to top of card
+    target && target.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+  };
+
+  // Complete
+  window.completeOnboarding = function() {
+    document.querySelectorAll('.step-card').forEach(function(c) { c.classList.remove('visible'); });
+    document.getElementById('completion').classList.add('visible');
+    // Mark all progress as done visually
+    document.querySelectorAll('.progress-step').forEach(function(s) {
+      s.classList.remove('active');
+      s.classList.add('done');
     });
-  }
+    document.querySelectorAll('.progress-line').forEach(function(l) { l.classList.add('done'); });
+  };
 
-  // ── INIT ──
-  // Check hash for pre-selected stage
-  if (window.PT) {
-    var hash = PT.parseHash();
-    if (hash.stage !== undefined) {
-      var si = parseInt(hash.stage, 10);
-      if (si >= 0 && si < stages.length) activeStage = si;
-    }
-  }
+  // Checklist click handlers
+  document.querySelectorAll('.check-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      var checked = this.classList.toggle('checked');
+      var stepIdx = this.closest('.checklist').dataset.step;
+      var idx = this.dataset.idx;
+      saveCheck(stepIdx, idx, checked);
+      updateProgress();
+    });
+  });
 
-  renderThermo();
-  renderBar();
-  renderContent();
+  // Progress step click navigation
+  document.querySelectorAll('.progress-step').forEach(function(step) {
+    step.addEventListener('click', function() {
+      var idx = parseInt(this.dataset.step);
+      goStep(idx);
+    });
+  });
+
+  // Init
+  restoreChecks();
+  updateProgress();
 
 })();
 </script>

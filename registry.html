@@ -13,6 +13,28 @@ body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sa
 .reg-header h1 { font-size:22px; font-weight:800; color:var(--text); margin-bottom:2px; }
 .reg-header p { font-size:13px; color:var(--muted); }
 
+/* ── INITIATIVE PIPELINE ── */
+.init-pipeline { display:flex; align-items:stretch; gap:0; margin-bottom:20px; overflow-x:auto; padding:4px 0; scrollbar-width:thin; }
+.init-pipeline::-webkit-scrollbar { height:4px; }
+.init-pipeline::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+.init-pipe-step { display:flex; align-items:center; flex-shrink:0; }
+.init-pipe-card { display:flex; flex-direction:column; align-items:center; gap:4px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px 20px; min-width:150px; text-align:center; transition:border-color .15s, box-shadow .15s; position:relative; }
+.init-pipe-card:hover { border-color:var(--violet-border); box-shadow:0 2px 12px rgba(87,157,255,0.12); }
+a.init-pipe-card { text-decoration:none; color:inherit; cursor:pointer; }
+.init-pipe-icon { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.init-pipe-icon.ip-initiator { background:rgba(87,157,255,0.15); color:var(--violet); }
+.init-pipe-icon.ip-screening { background:rgba(75,206,151,0.15); color:var(--teal); }
+.init-pipe-icon.ip-committee { background:rgba(255,193,94,0.15); color:var(--amber); }
+.init-pipe-icon.ip-team { background:rgba(87,157,255,0.15); color:var(--violet); }
+.init-pipe-name { font-size:12px; font-weight:700; color:var(--text); line-height:1.3; }
+.init-pipe-desc { font-size:10px; color:var(--muted); line-height:1.3; }
+.init-pipe-sla { font-size:10px; font-weight:600; color:var(--teal); margin-top:2px; }
+.init-pipe-arrow { display:flex; align-items:center; padding:0 6px; color:var(--border); font-size:18px; flex-shrink:0; }
+@media(max-width:640px) {
+  .init-pipeline { gap:0; padding-bottom:8px; }
+  .init-pipe-card { min-width:130px; padding:10px 14px; }
+}
+
 /* ── TABS ── */
 .reg-tabs { display:flex; gap:2px; background:var(--surface2); border-radius:10px; padding:3px; margin-bottom:16px; width:fit-content; }
 .reg-tab { padding:7px 20px; border:none; border-radius:8px; font-family:inherit; font-size:12px; font-weight:700; cursor:pointer; color:var(--muted); background:transparent; letter-spacing:.02em; transition:all .15s; white-space:nowrap; }
@@ -201,6 +223,45 @@ body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sa
   <div class="reg-header">
     <h1>Реестр инициатив</h1>
     <p>Планирование и управление бэклогом</p>
+  </div>
+
+  <!-- INITIATIVE PIPELINE -->
+  <div class="init-pipeline">
+    <div class="init-pipe-step">
+      <a href="tools/brief.html" class="init-pipe-card">
+        <div class="init-pipe-icon ip-initiator">&#128221;</div>
+        <div class="init-pipe-name">Инициатор</div>
+        <div class="init-pipe-desc">Бриф + RICE-оценка</div>
+        <div class="init-pipe-sla">&#8594; Подать бриф</div>
+      </a>
+    </div>
+    <div class="init-pipe-arrow">&#10132;</div>
+    <div class="init-pipe-step">
+      <div class="init-pipe-card">
+        <div class="init-pipe-icon ip-screening">&#128269;</div>
+        <div class="init-pipe-name">Скрининг PMO</div>
+        <div class="init-pipe-desc">Проверка дублей, стратегии</div>
+        <div class="init-pipe-sla">SLA: 5 дней</div>
+      </div>
+    </div>
+    <div class="init-pipe-arrow">&#10132;</div>
+    <div class="init-pipe-step">
+      <div class="init-pipe-card">
+        <div class="init-pipe-icon ip-committee">&#9878;</div>
+        <div class="init-pipe-name">Комитет (Gate)</div>
+        <div class="init-pipe-desc">Go / No-Go / Revise</div>
+        <div class="init-pipe-sla">SLA: 3-10 дней</div>
+      </div>
+    </div>
+    <div class="init-pipe-arrow">&#10132;</div>
+    <div class="init-pipe-step">
+      <a href="teams.html" class="init-pipe-card">
+        <div class="init-pipe-icon ip-team">&#128101;</div>
+        <div class="init-pipe-name">Команда</div>
+        <div class="init-pipe-desc">Назначение PM + TL</div>
+        <div class="init-pipe-sla">SLA: 5 дней</div>
+      </a>
+    </div>
   </div>
 
   <!-- TABS -->

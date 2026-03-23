@@ -215,6 +215,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   .ws-panel{display:block!important}
   .ws-section{break-inside:avoid}
 }
+
+/* ── STAGE METRICS ── */
+.ws-stage-metrics{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.ws-stage-metrics h3{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:14px}
+.ws-stage-metrics-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ws-stage-metrics-title .ws-sm-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--violet-dim);color:var(--violet);border:1px solid var(--violet-border)}
+.ws-sm-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:14px}
+.ws-sm-table th{text-align:left;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding:6px 10px;border-bottom:1px solid var(--border)}
+.ws-sm-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text)}
+.ws-sm-table tr:last-child td{border-bottom:none}
+.ws-sm-status{font-size:14px;text-align:center;cursor:pointer;user-select:none}
+.ws-sm-phase{margin-top:14px;padding:12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)}
+.ws-sm-phase-title{font-size:12px;font-weight:700;color:var(--violet);margin-bottom:6px}
+.ws-sm-phase ul{margin:0;padding-left:18px;font-size:12px;color:var(--text);line-height:1.7}
 </style>
 </head>
 <body>
@@ -261,6 +275,82 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   var APPROVAL_LABELS = {'approved':'Согласовано','pending':'На согласовании','rejected':'Отклонено'};
   var APPROVAL_CLS = {'approved':'ab-approved','pending':'ab-pending','rejected':'ab-rejected'};
   var DOC_STATUS_ICONS = {'done':'\u2705','wip':'\u23F3','none':'\u274C'};
+
+  // ── Stage Metrics (фокусные метрики по Gate) ──
+  var STAGE_METRICS = {
+    0: {
+      name: 'Заявка', phase: 'Discovery',
+      metrics: [
+        { label: 'RICE Score', threshold: '\u2265 15' },
+        { label: 'Бриф заполнен', threshold: '100%' }
+      ],
+      actions: [
+        'Заполнить бриф продукта и указать целевую аудиторию',
+        'Рассчитать RICE-приоритет',
+        'Подготовить материалы для скрининга Gate 0'
+      ]
+    },
+    1: {
+      name: 'Разведка', phase: 'Discovery',
+      metrics: [
+        { label: 'CustDev-интервью', threshold: '\u2265 7' },
+        { label: 'PSF подтверждён', threshold: 'Да' }
+      ],
+      actions: [
+        'Провести минимум 7 CustDev-интервью с целевой аудиторией',
+        'Зафиксировать Problem-Solution Fit',
+        'Подготовить отчёт Discovery для Gate 1'
+      ]
+    },
+    2: {
+      name: 'Прототип', phase: 'Delivery',
+      metrics: [
+        { label: 'Activation Rate', threshold: '\u2265 30%' },
+        { label: 'Unit Economics', threshold: '\u2265 0' }
+      ],
+      actions: [
+        'Запустить MVP и собрать первых пользователей',
+        'Замерить Activation Rate на реальном трафике',
+        'Рассчитать unit-экономику и убедиться в сходимости'
+      ]
+    },
+    3: {
+      name: 'Разгон', phase: 'Delivery',
+      metrics: [
+        { label: 'Revenue', threshold: '> план' },
+        { label: 'NPS', threshold: '\u2265 40' }
+      ],
+      actions: [
+        'Реализовать GTM-план и масштабировать каналы привлечения',
+        'Настроить SLA поддержки и мониторинг метрик',
+        'Достичь целевого NPS и выручки по плану'
+      ]
+    },
+    4: {
+      name: 'Экосистема', phase: 'Growth',
+      metrics: [
+        { label: 'Adoption (\u2265 2 продуктов)', threshold: '\u2265 2' },
+        { label: 'GMV', threshold: 'Растёт' }
+      ],
+      actions: [
+        'Интегрироваться минимум с 2 продуктами экосистемы',
+        'Масштабировать GMV через кросс-продуктовые сценарии',
+        'Снижать Churn и повышать Retention'
+      ]
+    },
+    5: {
+      name: 'Зрелость', phase: 'Growth',
+      metrics: [
+        { label: 'Market Share', threshold: 'Растёт' },
+        { label: 'EBITDA', threshold: '\u2265 целевой' }
+      ],
+      actions: [
+        'Оптимизировать маржинальность и операционные расходы',
+        'Удерживать и наращивать долю рынка',
+        'Оценить потенциал нового Discovery-цикла или архивации'
+      ]
+    }
+  };
 
   var DEFAULT_ARTIFACTS = [
     {gate:0, name:'Product Brief', url:'', status:'none'},
@@ -631,6 +721,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     render();
   };
 
+  // ── Stage Metric Status cycling (✓ / ✗ / —) ──
+  window.cycleStageMetricStatus = function(td) {
+    if (!_product || !canEditContent()) return;
+    var gate = td.getAttribute('data-gate');
+    var idx = td.getAttribute('data-idx');
+    var cycle = ['\u2014', '\u2713', '\u2717'];
+    var cur = td.textContent.trim();
+    var next = cycle[(cycle.indexOf(cur) + 1) % cycle.length];
+    td.textContent = next;
+    if (!_product.stageMetricStatus) _product.stageMetricStatus = {};
+    if (!_product.stageMetricStatus['g' + gate]) _product.stageMetricStatus['g' + gate] = {};
+    _product.stageMetricStatus['g' + gate][idx] = next;
+    saveProducts();
+  };
+
   // ── Teams rendering ──
   function renderTeams() {
     var container = document.getElementById('ws-teams');
@@ -747,6 +852,40 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       html += '</div>';
     }
     html += '</div>';
+
+    // ── Stage Metrics (Метрики стадии) ──
+    var _sm = STAGE_METRICS[gateNum];
+    if (_sm) {
+      var phaseColors = { 'Discovery': 'var(--amber)', 'Delivery': 'var(--violet)', 'Growth': 'var(--teal)' };
+      var phaseDims = { 'Discovery': 'var(--amber-dim)', 'Delivery': 'var(--violet-dim)', 'Growth': 'var(--teal-dim)' };
+      var phaseBorders = { 'Discovery': 'var(--amber-border)', 'Delivery': 'var(--violet-border)', 'Growth': 'var(--teal-border)' };
+      html += '<div class="ws-stage-metrics">';
+      html += '<h3>Метрики стадии</h3>';
+      html += '<div class="ws-stage-metrics-title">';
+      html += 'Фокус стадии: Gate ' + gateNum + ' \u2014 ' + esc(_sm.name);
+      html += ' <span class="ws-sm-badge" style="color:' + (phaseColors[_sm.phase] || 'var(--violet)') + ';background:' + (phaseDims[_sm.phase] || 'var(--violet-dim)') + ';border-color:' + (phaseBorders[_sm.phase] || 'var(--violet-border)') + '">' + esc(_sm.phase) + '</span>';
+      html += '</div>';
+      html += '<table class="ws-sm-table"><thead><tr><th>Метрика</th><th>Порог Go</th><th style="width:70px;text-align:center">Статус</th></tr></thead><tbody>';
+      var savedStatuses = (_product.stageMetricStatus && _product.stageMetricStatus['g' + gateNum]) || {};
+      for (var mi = 0; mi < _sm.metrics.length; mi++) {
+        var curSt = savedStatuses[mi] || '\u2014';
+        html += '<tr>';
+        html += '<td>' + esc(_sm.metrics[mi].label) + '</td>';
+        html += '<td style="font-weight:600">' + esc(_sm.metrics[mi].threshold) + '</td>';
+        html += '<td class="ws-sm-status" data-gate="' + gateNum + '" data-idx="' + mi + '" onclick="cycleStageMetricStatus(this)" title="Клик для смены статуса">' + curSt + '</td>';
+        html += '</tr>';
+      }
+      html += '</tbody></table>';
+      html += '<div class="ws-sm-phase">';
+      html += '<div class="ws-sm-phase-title">Что делать на этой стадии (' + esc(_sm.phase) + '):</div>';
+      html += '<ul>';
+      for (var ai = 0; ai < _sm.actions.length; ai++) {
+        html += '<li>' + esc(_sm.actions[ai]) + '</li>';
+      }
+      html += '</ul>';
+      html += '</div>';
+      html += '</div>';
+    }
 
     // ── Links ──
     html += '<div class="ws-section"><h3>\u0421\u0441\u044B\u043B\u043A\u0438</h3>';
@@ -1062,20 +1201,25 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
           html += '<div style="height:100%;width:' + Math.min(pct, 100) + '%;background:' + barColor + ';border-radius:2px;"></div>';
           html += '</div>';
 
-          // Linked initiatives for this KR
+          // B-040: OKR → KPI → Initiatives cascade
           var krInits = initiatives.filter(function(i) { return i.goalId === g.id; });
           if (krInits.length) {
             krInits.forEach(function(ini) {
               var iRice = riceScore(ini);
               var iStatus = STATUS_LABELS[ini.status] || ini.status;
-              html += '<div style="margin-left:16px;padding:6px 10px;background:var(--surface);border-radius:6px;margin-bottom:4px;display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;" onclick="switchTab(\'initiatives\');expandInit(\'' + esc(ini.id) + '\')">';
-              html += '<span style="color:var(--text);flex:1;">' + esc(ini.name) + '</span>';
-              html += '<span style="color:var(--amber);font-weight:700;font-size:11px;">RICE ' + iRice + '</span>';
-              html += '<span style="color:var(--muted);font-size:11px;">' + esc(iStatus) + '</span>';
+              html += '<div style="margin-left:20px;padding:2px 0;display:flex;align-items:center;gap:6px;font-size:11px;line-height:1.4;cursor:pointer;" onclick="switchTab(\'initiatives\');expandInit(\'' + esc(ini.id) + '\')" title="Перейти к инициативе">';
+              html += '<span style="color:var(--muted);flex-shrink:0;font-family:monospace;font-size:12px;">\u2514</span>';
+              html += '<span style="color:var(--violet);font-weight:600;flex-shrink:0;">' + esc(ini.id) + '</span>';
+              html += '<span style="color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(ini.name) + '</span>';
+              html += '<span style="color:var(--muted);flex-shrink:0;">(RICE ' + iRice + ')</span>';
+              html += '<span style="color:var(--muted);flex-shrink:0;">\u2014 ' + esc(iStatus) + '</span>';
               html += '</div>';
             });
           } else {
-            html += '<div style="margin-left:16px;font-size:12px;color:var(--muted);font-style:italic;padding:4px 0;">Нет инициатив — добавьте</div>';
+            html += '<div style="margin-left:20px;font-size:11px;color:var(--muted);padding:2px 0;">';
+            html += '<span style="font-family:monospace;font-size:12px;">\u2514</span> <span style="font-style:italic;">Нет инициатив</span> \u2192 ';
+            html += '<a href="#" onclick="event.preventDefault();switchTab(\'initiatives\');" style="color:var(--violet);text-decoration:none;font-weight:600;">Реестр</a>';
+            html += '</div>';
           }
 
           // Add initiative to this KR (only for editable)
