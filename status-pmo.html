@@ -445,6 +445,41 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
+
+// Visit tracking
+(function(){
+  const myIPs = ['unknown']; // заполнить свой IP
+  fetch('https://api.ipify.org?format=json')
+    .then(r=>r.json())
+    .then(data=>{
+      const ip = data.ip;
+      const isMe = myIPs.includes(ip);
+      const payload = {
+        page: location.pathname,
+        ip: ip,
+        ua: navigator.userAgent,
+        time: new Date().toISOString(),
+        referrer: document.referrer || 'direct',
+        isOwner: isMe
+      };
+      // Log to console
+      console.log('[PMO Track]', payload);
+      // Send to webhook (replace URL with your n8n/make/zapier endpoint)
+      const webhookUrl = localStorage.getItem('pmo_webhook');
+      if (webhookUrl) {
+        fetch(webhookUrl, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)}).catch(()=>{});
+      }
+      // Notify if not owner
+      if (!isMe) {
+        const notif = document.createElement('div');
+        notif.style.cssText = 'position:fixed;bottom:60px;right:14px;background:#6C3DAF;color:#fff;padding:6px 12px;border-radius:6px;font-size:10px;font-family:Outfit,sans-serif;z-index:9999;opacity:0.9';
+        notif.textContent = 'Внешний просмотр: ' + ip + ' · ' + new Date().toLocaleString('ru');
+        document.body.appendChild(notif);
+        setTimeout(()=>notif.remove(), 10000);
+      }
+    })
+    .catch(()=>{});
+})();
 </script>
 </body>
 </html>
