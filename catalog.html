@@ -36,36 +36,51 @@
 /* ================================================================ CARD */
 .cat-card{
   background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-  padding:20px;cursor:pointer;transition:border-color .15s,transform .15s;
-  text-decoration:none;display:block;
+  padding:18px 20px;cursor:pointer;transition:border-color .15s,transform .15s;
+  text-decoration:none;display:block;position:relative;
 }
 .cat-card:hover{border-color:var(--violet-border);transform:translateY(-2px)}
+.cat-card.is-transferring{opacity:.45;border-style:dashed}
 
-.cat-card-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.cat-stage{
-  display:inline-flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:10px;font-weight:700;
-  padding:3px 8px;border-radius:var(--radius-xs);letter-spacing:.03em;
-  white-space:nowrap;
-}
-.cat-name{font-family:var(--font-head);font-size:14px;font-weight:800;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cat-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:var(--radius-xs);white-space:nowrap}
+/* ── Header: name + health dot ── */
+.cat-card-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.cat-name{font-family:var(--font-head);font-size:15px;font-weight:800;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cat-health{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cat-health.h-green{background:#00D4B4;box-shadow:0 0 6px rgba(0,212,180,.4)}
+.cat-health.h-amber{background:#FFB830;box-shadow:0 0 6px rgba(255,184,48,.4)}
+.cat-health.h-red{background:#FF4D6A;box-shadow:0 0 6px rgba(255,77,106,.4)}
+.cat-health.h-gray{background:#6B778C}
 
-.st-on-track{background:var(--teal-dim);color:var(--teal)}
-.st-at-risk{background:var(--amber-dim);color:var(--amber)}
-.st-blocked{background:var(--red-dim);color:var(--red)}
-.st-screening{background:var(--violet-dim);color:var(--violet)}
-.st-transferring{background:var(--surface);color:var(--muted);font-style:italic}
-.cat-card.is-transferring{opacity:.5;border-style:dashed}
+/* ── Stage progress ── */
+.cat-orbit{display:flex;align-items:center;gap:0;margin-bottom:10px}
+.cat-orbit-step{flex:1;height:4px;border-radius:2px;background:var(--surface2);position:relative;margin-right:2px}
+.cat-orbit-step:last-child{margin-right:0}
+.cat-orbit-step.filled{background:var(--stage-color,var(--violet))}
+.cat-orbit-step.current{background:var(--stage-color,var(--violet));box-shadow:0 0 6px var(--stage-color,var(--violet))}
+.cat-orbit-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.cat-orbit-tag{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 7px;border-radius:var(--radius-xs);letter-spacing:.03em;white-space:nowrap}
+.cat-orbit-name{font-size:10px;color:var(--muted);font-weight:600}
 
+/* ── Status line (reason) ── */
+.cat-status-line{font-size:11px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.cat-status-line .reason{font-style:italic;color:var(--amber)}
+.cat-status-line .reason-red{color:var(--red)}
+
+/* ── Description ── */
 .cat-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
-.cat-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-bottom:12px}
+/* ── Data row: KPI + metrics ── */
+.cat-data{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.cat-data-chip{font-size:10px;font-weight:600;padding:3px 8px;border-radius:var(--radius-xs);background:var(--surface2);color:var(--text);display:flex;align-items:center;gap:4px}
+.cat-data-chip .chip-label{color:var(--muted);font-weight:400}
+
+/* ── Meta row ── */
+.cat-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-bottom:10px}
 .cat-meta span{white-space:nowrap}
 
 /* ── Initiatives block ── */
-.cat-initiatives{border-top:1px solid var(--border);padding-top:10px}
-.cat-init-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.cat-initiatives{border-top:1px solid var(--border);padding-top:8px}
+.cat-init-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
 .cat-init{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--gray2);padding:2px 0;line-height:1.4}
 .cat-init-id{font-family:var(--mono);font-size:10px;color:var(--muted);flex-shrink:0}
 .cat-init-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -73,7 +88,6 @@
 .ci-rice-hi{background:var(--teal-dim);color:var(--teal)}
 .ci-rice-mi{background:var(--amber-dim);color:var(--amber)}
 .ci-rice-lo{background:var(--red-dim);color:var(--red)}
-
 .cat-no-init{font-size:11px;color:var(--muted);font-style:italic}
 
 /* ================================================================ EMPTY */
@@ -220,14 +234,6 @@
     if (score >= 60) return 'ci-rice-hi';
     if (score >= 30) return 'ci-rice-mi';
     return 'ci-rice-lo';
-  }
-
-  function statusClass(s) {
-    if (s === 'on-track') return 'st-on-track';
-    if (s === 'at-risk')  return 'st-at-risk';
-    if (s === 'blocked')  return 'st-blocked';
-    if (s === 'transferring') return 'st-transferring';
-    return 'st-screening';
   }
 
   function statusLabel(s) {
@@ -385,19 +391,69 @@
     elGrid.innerHTML = html;
   }
 
+  function healthClass(p) {
+    if (p.status === 'transferring') return 'h-gray';
+    if (p.status === 'blocked') return 'h-red';
+    if (p.status === 'at-risk') return 'h-amber';
+    return 'h-green';
+  }
+
+  function daysSinceUpdate(p) {
+    if (!p.updated) return null;
+    var diff = Date.now() - new Date(p.updated).getTime();
+    return Math.floor(diff / 86400000);
+  }
+
   function renderCard(p) {
-      var stage = STAGES[p.gate] || STAGES[0];
+      var gate = p.gate || 0;
+      var stage = STAGES[gate] || STAGES[0];
       var sColor = stage ? stage.color : '#94A3B8';
       var sColorDim = stage ? stage.colorDim : 'rgba(148,163,184,.1)';
       var sOrbita = stage ? stage.orbita : 'O·?';
+      var sName = stage ? stage.name : '?';
       var pName = '';
       try { pName = displayName(p); } catch(e) { pName = p.name || p.id || '?'; }
 
-      var inits = getProductInitiatives(p.id);
-      var topInits = inits.slice(0, 3);
-      var initCount = inits.length;
-      var ql = currentQuarterLabel();
+      var isT = p.status === 'transferring';
+      var hCls = healthClass(p);
+      var maxGate = 5;
 
+      // ── Stage progress bar ──
+      var orbitSteps = '';
+      for (var gi = 0; gi <= maxGate; gi++) {
+        var cls = gi < gate ? 'filled' : gi === gate ? 'current' : '';
+        orbitSteps += '<div class="cat-orbit-step ' + cls + '" style="--stage-color:' + sColor + '"></div>';
+      }
+
+      // ── Status reason line ──
+      var reasonHtml = '';
+      if (p.statusText) {
+        var rCls = p.status === 'blocked' ? 'reason reason-red' : 'reason';
+        reasonHtml = '<div class="cat-status-line"><span class="' + rCls + '">' + esc(p.statusText) + '</span></div>';
+      }
+
+      // ── KPI chips + metrics ──
+      var dataHtml = '';
+      var chips = [];
+      if (p.kpi && p.kpi.length) {
+        for (var ki = 0; ki < p.kpi.length; ki++) {
+          var k = p.kpi[ki];
+          chips.push('<span class="cat-data-chip">' + esc(k.value) + ' <span class="chip-label">' + esc(k.label) + '</span></span>');
+        }
+      }
+      var inits = getProductInitiatives(p.id);
+      var initCount = inits.length;
+      chips.push('<span class="cat-data-chip">' + initCount + ' <span class="chip-label">инициатив</span></span>');
+      var days = daysSinceUpdate(p);
+      if (days !== null) {
+        var freshLabel = days === 0 ? 'сегодня' : days + ' дн. назад';
+        chips.push('<span class="cat-data-chip">' + freshLabel + ' <span class="chip-label">обновлён</span></span>');
+      }
+      if (chips.length) dataHtml = '<div class="cat-data">' + chips.join('') + '</div>';
+
+      // ── Initiatives ──
+      var topInits = inits.slice(0, 3);
+      var ql = currentQuarterLabel();
       var initHtml = '';
       if (topInits.length) {
         var initItems = '';
@@ -416,29 +472,37 @@
           initItems +
           (initCount > 3 ? '<div class="cat-no-init">+ ещё ' + (initCount - 3) + '</div>' : '') +
         '</div>';
-      } else {
-        initHtml = '<div class="cat-initiatives"><div class="cat-no-init">Нет инициатив</div></div>';
       }
-
-      var isT = p.status === 'transferring';
-      var deptLabel = (p.department === 'education') ? 'Обучение' : 'Экосистема';
 
       return '<div class="cat-card' + (isT ? ' is-transferring' : '') + '" data-pid="' + esc(p.id) + '">' +
         '<a href="workspace.html?id=' + encodeURIComponent(p.id) + '" style="text-decoration:none;color:inherit;display:block;">' +
+
+        // Row 1: Name + health dot
         '<div class="cat-card-head">' +
-          '<span class="cat-stage" style="background:' + sColorDim + ';color:' + sColor + '">' + sOrbita + '</span>' +
           '<span class="cat-name">' + esc(pName) + '</span>' +
-          '<span class="cat-status ' + statusClass(p.status) + '">' + statusLabel(p.status) + '</span>' +
+          '<span class="cat-health ' + hCls + '" title="' + esc(statusLabel(p.status)) + '"></span>' +
         '</div>' +
-        '<div class="cat-desc">' + esc(p.desc) + (isT ? ' (переходит в другой департамент)' : '') + '</div>' +
-        '<div class="cat-meta">' +
-          '<span>Владелец: ' + esc(p.owner || 'N/A') + '</span>' +
-          '<span>Департамент: ' + esc(deptLabel) + '</span>' +
-          (p.catLabel ? '<span>' + esc(p.catLabel) + '</span>' : '') +
+
+        // Row 2: Stage label + progress
+        '<div class="cat-orbit-label">' +
+          '<span class="cat-orbit-tag" style="background:' + sColorDim + ';color:' + sColor + '">' + sOrbita + ' ' + esc(sName) + '</span>' +
+          '<span class="cat-orbit-name">' + esc(p.owner || '') + '</span>' +
         '</div>' +
+        '<div class="cat-orbit">' + orbitSteps + '</div>' +
+
+        // Row 3: Status reason (if any)
+        reasonHtml +
+
+        // Row 4: Description
+        '<div class="cat-desc">' + esc(p.desc) + '</div>' +
+
+        // Row 5: KPI + metrics chips
+        dataHtml +
+
+        // Row 6: Initiatives
         initHtml +
-        '</a>' +
-      '</div>';
+
+        '</a></div>';
   }
 
   // ── Render Changelog ──
