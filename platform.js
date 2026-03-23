@@ -271,23 +271,24 @@
     products.forEach(function(p) {
       PT.migrateProductFields(p);
       // Screening > 7 days without owner
+      var pName = p.name || p.id;
       if (p.status === 'screening' && PT.daysSince(p.createdAt) > 7) {
-        alerts.push({ level: 'red', productId: p.id, text: p.id + ' — на скрининге ' + PT.daysSince(p.createdAt) + ' дней, нет владельца', action: 'Назначить PM или отклонить' });
+        alerts.push({ level: 'red', productId: p.id, text: pName + ' — на скрининге ' + PT.daysSince(p.createdAt) + ' дней, нет владельца', action: 'Назначить PM или отклонить' });
       }
       // Status not updated > 14 days
       if (p.statusDate && PT.daysSince(p.statusDate) > 14 && p.status !== 'screening') {
-        alerts.push({ level: 'amber', productId: p.id, text: p.id + ' — статус не обновлялся ' + PT.daysSince(p.statusDate) + ' дней', action: 'PM: обновить светофор' });
+        alerts.push({ level: 'amber', productId: p.id, text: pName + ' — статус не обновлялся ' + PT.daysSince(p.statusDate) + ' дней', action: 'PM: обновить светофор' });
       }
       // Gate deadline passed
       if (p.gateDeadline && new Date(p.gateDeadline) < new Date() && p.artifactsReady < p.artifactsTotal) {
-        alerts.push({ level: 'red', productId: p.id, text: p.id + ' — Gate просрочен, ' + p.artifactsReady + '/' + p.artifactsTotal + ' артефактов', action: 'PM: загрузить артефакты' });
+        alerts.push({ level: 'red', productId: p.id, text: pName + ' — Gate просрочен, ' + p.artifactsReady + '/' + p.artifactsTotal + ' артефактов', action: 'PM: загрузить артефакты' });
       }
       // At risk or blocked
       if (p.status === 'at-risk') {
-        alerts.push({ level: 'amber', productId: p.id, text: p.id + ' — в зоне риска', action: 'Проверить блокеры' });
+        alerts.push({ level: 'amber', productId: p.id, text: pName + ' — в зоне риска', action: 'Проверить блокеры' });
       }
       if (p.status === 'blocked') {
-        alerts.push({ level: 'red', productId: p.id, text: p.id + ' — заблокирован', action: 'Эскалация PMO Lead' });
+        alerts.push({ level: 'red', productId: p.id, text: pName + ' — заблокирован', action: 'Эскалация PMO Lead' });
       }
     });
 
@@ -295,7 +296,9 @@
     backlog.forEach(function(i) {
       PT.migrateInitiativeFields(i);
       if (i.status === 'wip' && PT.daysSince(i.updatedAt) > 30) {
-        alerts.push({ level: 'amber', productId: i.productId, text: (i.productId || '') + ' → ' + (i.name || i.id) + ' — в работе ' + PT.daysSince(i.updatedAt) + ' дней без обновления', action: 'Обновить статус или закрыть' });
+        var iProd = products.find(function(pp) { return pp.id === i.productId; });
+        var iProdName = iProd ? (iProd.name || i.productId) : (i.productId || '');
+        alerts.push({ level: 'amber', productId: i.productId, text: iProdName + ' → ' + (i.name || i.id) + ' — в работе ' + PT.daysSince(i.updatedAt) + ' дней без обновления', action: 'Обновить статус или закрыть' });
       }
     });
 
@@ -449,7 +452,7 @@
         PT.notify({
           type: 'screening_stale', level: 'high', recipientRole: 'pmo_lead',
           productId: p.id,
-          title: p.id + ' — на скрининге ' + PT.daysSince(p.createdAt) + ' дней',
+          title: (p.name||p.id) + ' — на скрининге ' + PT.daysSince(p.createdAt) + ' дней',
           text: 'Заявка ждёт решения. Назначьте владельца или отклоните.',
           action: { label: 'Скрининг', url: 'admin.html' }
         });
@@ -460,7 +463,7 @@
         PT.notify({
           type: 'status_stale', level: 'medium', recipientRole: 'pm_owner',
           productId: p.id,
-          title: p.id + ' — обновите статус',
+          title: (p.name||p.id) + ' — обновите статус',
           text: 'Светофор не обновлялся ' + PT.daysSince(p.statusDate) + ' дней.',
           action: { label: 'Обновить', url: 'workspace.html?id=' + p.id }
         });
@@ -473,7 +476,7 @@
           PT.notify({
             type: 'gate_upcoming', level: 'high', recipientRole: 'pm_owner',
             productId: p.id,
-            title: p.id + ' — Gate Review через ' + daysLeft + ' дней',
+            title: (p.name||p.id) + ' — Gate Review через ' + daysLeft + ' дней',
             text: 'Артефакты: ' + (p.artifactsReady || 0) + '/' + (p.artifactsTotal || 5) + '. Проверьте готовность.',
             action: { label: 'Gate-чеклист', url: 'tools/gate-checklist.html' }
           });
@@ -485,7 +488,7 @@
         PT.notify({
           type: 'product_blocked', level: 'high', recipientRole: 'pmo_lead',
           productId: p.id,
-          title: p.id + ' — заблокирован',
+          title: (p.name||p.id) + ' — заблокирован',
           text: 'Требуется эскалация.',
           action: { label: 'Открыть', url: 'workspace.html?id=' + p.id }
         });
