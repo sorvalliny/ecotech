@@ -1296,11 +1296,13 @@ function openStage(id) {
   document.getElementById('d-meta').textContent = s.result;
 
   // Build body with role filtering
-  var role = document.getElementById('f-role').value;
+  var authUser = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+  var role = authUser ? (authUser.role||'all') : 'all';
+  var roleMap = { pm:'pm', pmo:'pmo', pmo_lead:'pmo', admin:'pmo', lead:'lead', stakeholder:'lead' };
   var html = '<div style="font-size:11px;color:rgba(255,255,255,.35);margin-bottom:12px;">Владелец: ' + s.owner + '</div>';
 
   // Role-specific checks
-  var roleKeys = (role === 'all') ? ['pm','pmo','lead'] : [role];
+  var roleKeys = (!roleMap[role]) ? ['pm','pmo','lead'] : [roleMap[role]];
   roleKeys.forEach(function(rk) {
     var rd = s.roles[rk];
     if (!rd) return;
@@ -1346,12 +1348,6 @@ document.addEventListener('click', function(e) {
    FILTERS
    ================================================================ */
 function applyFilters() {
-  var roleVal = document.getElementById('f-role').value;
-  var indicator = document.getElementById('role-indicator');
-  if (indicator) {
-    if (roleVal === 'all') { indicator.style.display = 'none'; }
-    else { indicator.textContent = '\u25B8 Фильтр: ' + document.getElementById('f-role').selectedOptions[0].text; indicator.style.display = ''; }
-  }
   // Re-render current stage detail if open
   if (activeId) {
     openStage(activeId);
