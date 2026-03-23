@@ -95,6 +95,7 @@
   // ── active group detection ──────────────────────────────────
   var catalogActive    = (has('catalog') || has('workspace')) ? ' en-active' : '';
   var registryActive   = has('registry') ? ' en-active' : '';
+  var calendarActive   = has('calendar') ? ' en-active' : '';
   var methActive       = (has('framework') || has('glossary') || has('knowledge')) ? ' en-active' : '';
   var toolsActive      = has('tools') ? ' en-active' : '';
   var teamsActive      = has('teams') ? ' en-active' : '';
@@ -142,6 +143,9 @@
 
     // ── Реестр (direct link) ──────────────
     + '<a class="en-link' + registryActive + '" href="' + base + 'registry.html" role="menuitem">Реестр</a>'
+
+    // ── Календарь (direct link) ──────────────
+    + '<a class="en-link' + calendarActive + '" href="' + base + 'calendar.html" role="menuitem">Календарь</a>'
 
     // ── Методология (dropdown) ───────────────
     + '<div class="en-drop' + methActive + '">'

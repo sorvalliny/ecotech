@@ -18,6 +18,7 @@
     KEY_IDEAS:    'ECOTECH_IDEAS',
     KEY_TEAMS:    'ECOTECH_TEAMS',
     KEY_NOTIFICATIONS: 'ECOTECH_NOTIFICATIONS',
+    KEY_CALENDAR: 'ECOTECH_CALENDAR',
 
     // ── Типы инициатив ──────────────────────────────────────────────
     // Подтипы (для будущего расширения):

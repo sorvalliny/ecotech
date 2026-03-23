@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОРБИТА · Календарь событий</title>
+<link rel="stylesheet" href="design-system.css">
+<style>
+/* ── PAGE LAYOUT ── */
+body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif; min-height:100vh; font-size:14px; line-height:1.5; overflow-x:hidden; }
+.cal-page { max-width:1400px; margin:0 auto; padding:20px 24px 60px; }
+
+/* ── HEADER ── */
+.cal-header { margin-bottom:24px; display:flex; align-items:flex-start; justify-content:space-between; }
+.cal-header-left h1 { font-size:22px; font-weight:800; color:var(--text); margin-bottom:2px; }
+.cal-header-left p { font-size:13px; color:var(--muted); }
+.cal-btn-create { display:flex; align-items:center; gap:5px; padding:7px 18px; background:linear-gradient(135deg,var(--teal),var(--violet)); border:none; border-radius:9px; color:#fff; font-family:inherit; font-size:11px; font-weight:700; cursor:pointer; transition:opacity .15s; box-shadow:0 2px 8px rgba(75,206,151,0.2); }
+.cal-btn-create:hover { opacity:.85; }
+.cal-btn-create.hidden { display:none; }
+
+/* ── TIMELINE ── */
+.cal-timeline { display:flex; gap:2px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 8px; margin-bottom:24px; overflow-x:auto; }
+.cal-month { flex:1; min-width:72px; text-align:center; padding:10px 4px 8px; border-radius:8px; cursor:pointer; transition:background .15s; position:relative; }
+.cal-month:hover { background:var(--surface2); }
+.cal-month.cm-current { background:var(--violet-dim); border:1px solid var(--violet-border); }
+.cal-month.cm-selected { background:var(--surface2); box-shadow:inset 0 -2px 0 var(--violet); }
+.cm-label { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; display:block; margin-bottom:6px; }
+.cal-month.cm-current .cm-label { color:var(--violet); }
+.cm-dots { display:flex; gap:3px; justify-content:center; flex-wrap:wrap; min-height:10px; }
+.cm-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.cm-dot.t-planning { background:var(--violet); }
+.cm-dot.t-gate { background:var(--amber); }
+.cm-dot.t-sync { background:var(--teal); }
+.cm-dot.t-retro { background:var(--pink); }
+.cm-dot.t-strategy { background:var(--red); }
+
+/* ── QUARTER GROUP ── */
+.cal-quarter { margin-bottom:24px; }
+.cq-title { font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px; padding-left:4px; }
+.cq-title .cq-current { color:var(--violet); font-size:10px; margin-left:6px; background:var(--violet-dim); padding:2px 8px; border-radius:4px; text-transform:none; letter-spacing:0; font-weight:700; }
+
+/* ── EVENT CARD ── */
+.cal-event { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:6px; border-left:3px solid var(--border); transition:background .15s; }
+.cal-event:hover { background:var(--surface2); }
+.cal-event.et-planning { border-left-color:var(--violet); }
+.cal-event.et-gate { border-left-color:var(--amber); }
+.cal-event.et-sync { border-left-color:var(--teal); }
+.cal-event.et-retro { border-left-color:var(--pink); }
+.cal-event.et-strategy { border-left-color:var(--red); }
+
+.ce-date { font-size:12px; font-weight:700; color:var(--text); min-width:56px; flex-shrink:0; padding-top:1px; white-space:nowrap; }
+.ce-body { flex:1; min-width:0; }
+.ce-name { font-size:13px; font-weight:600; color:var(--text); margin-bottom:2px; }
+.ce-roles { font-size:11px; color:var(--muted); margin-bottom:4px; }
+.ce-desc { font-size:12px; color:var(--gray); line-height:1.5; }
+.ce-meta { display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; align-items:center; }
+
+/* ── BADGES ── */
+.ce-badge { font-size:9px; font-weight:700; padding:2px 8px; border-radius:4px; white-space:nowrap; }
+.ce-done { color:var(--muted); background:var(--surface2); }
+.ce-upcoming { color:var(--violet); background:var(--violet-dim); }
+.ce-planned { color:var(--muted); background:var(--surface2); opacity:.7; }
+.ce-recurring { color:var(--teal); background:var(--teal-dim); }
+
+.ce-type-badge { font-size:9px; font-weight:700; padding:2px 8px; border-radius:4px; white-space:nowrap; }
+.ce-type-planning { color:var(--violet); background:var(--violet-dim); }
+.ce-type-gate { color:var(--amber); background:var(--amber-dim); }
+.ce-type-sync { color:var(--teal); background:var(--teal-dim); }
+.ce-type-retro { color:var(--pink); background:var(--pink-dim); }
+.ce-type-strategy { color:var(--red); background:var(--red-dim); }
+
+.ce-recurrence { font-size:9px; color:var(--muted); font-weight:600; }
+.ce-action-link { font-size:11px; color:var(--violet); font-weight:600; text-decoration:none; margin-top:4px; display:inline-block; }
+.ce-action-link:hover { text-decoration:underline; }
+
+/* ── ADMIN CONTROLS ── */
+.ce-actions { display:none; flex-shrink:0; gap:4px; }
+.ce-actions.visible { display:flex; }
+.ce-actions button { background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--muted); font-family:inherit; font-size:11px; font-weight:600; padding:4px 10px; cursor:pointer; transition:all .15s; }
+.ce-actions button:hover { color:var(--text); border-color:var(--border-hi); }
+.ce-actions button.ce-del:hover { color:var(--red); border-color:var(--red); }
+
+/* ── STATUS ── */
+.ce-status { flex-shrink:0; }
+
+/* ── FILTER BAR ── */
+.cal-filters { display:flex; align-items:center; gap:10px; padding:10px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:16px; flex-wrap:wrap; }
+.cal-filters select { background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:inherit; font-size:12px; padding:7px 10px; outline:none; cursor:pointer; }
+.cal-filters select:focus { border-color:var(--violet-border); }
+.cf-count { font-size:11px; color:var(--muted); font-weight:600; white-space:nowrap; margin-left:auto; }
+
+/* ── MODAL ── */
+.cal-modal { position:fixed; inset:0; z-index:10000; display:none; }
+.cal-modal.open { display:flex; align-items:center; justify-content:center; }
+.cm-overlay { position:absolute; inset:0; background:rgba(0,0,0,.55); }
+.cm-panel { position:relative; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px 28px; width:480px; max-width:95vw; max-height:90vh; overflow-y:auto; box-shadow:0 12px 40px rgba(0,0,0,.3); }
+.cm-panel h3 { font-size:16px; font-weight:800; color:var(--text); margin-bottom:18px; }
+.cm-field { margin-bottom:14px; }
+.cm-field label { display:block; font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:.04em; }
+.cm-field input, .cm-field select, .cm-field textarea { width:100%; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:inherit; font-size:13px; padding:8px 12px; outline:none; }
+.cm-field input:focus, .cm-field select:focus, .cm-field textarea:focus { border-color:var(--violet-border); }
+.cm-field textarea { resize:vertical; }
+.cm-checks { display:flex; gap:12px; flex-wrap:wrap; padding-top:4px; }
+.cm-checks label { font-size:12px; color:var(--text); display:flex; align-items:center; gap:4px; cursor:pointer; }
+.cm-checks input[type="checkbox"] { accent-color:var(--violet); }
+.cm-actions { display:flex; gap:8px; margin-top:20px; }
+.cm-actions button { padding:8px 20px; border-radius:8px; font-family:inherit; font-size:12px; font-weight:700; cursor:pointer; transition:all .15s; border:none; }
+.cm-actions button:first-child { background:var(--violet); color:#fff; }
+.cm-actions button:first-child:hover { opacity:.85; }
+.cm-actions button:last-child { background:var(--surface2); color:var(--muted); border:1px solid var(--border); }
+.cm-actions button:last-child:hover { color:var(--text); }
+
+/* ── EMPTY STATE ── */
+.cal-empty { text-align:center; padding:40px; color:var(--muted); font-size:13px; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px) {
+  .cal-page { padding:12px 12px 40px; }
+  .cal-header { flex-direction:column; gap:10px; }
+  .cal-timeline { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .cal-month { min-width:56px; }
+  .cal-event { flex-direction:column; gap:6px; }
+  .ce-date { min-width:auto; }
+  .cm-panel { padding:18px; }
+  .cal-filters { flex-direction:column; align-items:stretch; }
+}
+</style>
+</head>
+<body>
+<script src="nav.js"></script>
+<script src="platform.js"></script>
+
+<div class="cal-page" id="main-content">
+  <!-- Header -->
+  <div class="cal-header">
+    <div class="cal-header-left">
+      <h1>Календарь событий</h1>
+      <p>Годовой цикл планирования и контроля</p>
+    </div>
+    <button class="cal-btn-create hidden" id="btn-create" onclick="createEvent()">+ Новое событие</button>
+  </div>
+
+  <!-- Timeline -->
+  <div class="cal-timeline" id="cal-timeline"></div>
+
+  <!-- Filters -->
+  <div class="cal-filters">
+    <select id="f-type" onchange="render()">
+      <option value="">Все типы</option>
+      <option value="planning">Планирование</option>
+      <option value="gate">Gate Review</option>
+      <option value="sync">Синк</option>
+      <option value="retro">Ретроспектива</option>
+      <option value="strategy">Стратегический</option>
+    </select>
+    <select id="f-status" onchange="render()">
+      <option value="">Все статусы</option>
+      <option value="done">Завершено</option>
+      <option value="upcoming">Предстоит</option>
+      <option value="planned">Запланировано</option>
+      <option value="recurring">Регулярное</option>
+    </select>
+    <span class="cf-count" id="cf-count"></span>
+  </div>
+
+  <!-- Event list -->
+  <div id="cal-events"></div>
+
+  <!-- Modal -->
+  <div class="cal-modal" id="cal-modal">
+    <div class="cm-overlay" onclick="closeEventModal()"></div>
+    <div class="cm-panel">
+      <h3 id="cm-title">Новое событие</h3>
+      <div class="cm-field">
+        <label>Название</label>
+        <input id="evt-name" placeholder="Название события">
+      </div>
+      <div class="cm-field">
+        <label>Дата</label>
+        <input id="evt-date" type="date">
+      </div>
+      <div class="cm-field">
+        <label>Тип</label>
+        <select id="evt-type">
+          <option value="planning">Планирование</option>
+          <option value="gate">Gate Review</option>
+          <option value="sync">Синк</option>
+          <option value="retro">Ретроспектива</option>
+          <option value="strategy">Стратегический ревью</option>
+        </select>
+      </div>
+      <div class="cm-field">
+        <label>Участники (роли)</label>
+        <div class="cm-checks" id="evt-roles">
+          <label><input type="checkbox" value="pm"> PM</label>
+          <label><input type="checkbox" value="pmo"> PMO</label>
+          <label><input type="checkbox" value="pmo_lead"> PMO Lead</label>
+          <label><input type="checkbox" value="lead"> Руководитель</label>
+          <label><input type="checkbox" value="cto"> CTO</label>
+        </div>
+      </div>
+      <div class="cm-field">
+        <label>Описание (что делать)</label>
+        <textarea id="evt-desc" rows="3" placeholder="Описание действий..."></textarea>
+      </div>
+      <div class="cm-field">
+        <label>Повторение</label>
+        <select id="evt-recurrence">
+          <option value="none">Однократно</option>
+          <option value="weekly">Еженедельно</option>
+          <option value="monthly">Ежемесячно</option>
+          <option value="quarterly">Ежеквартально</option>
+          <option value="biannual">Раз в полугодие</option>
+          <option value="annual">Ежегодно</option>
+        </select>
+      </div>
+      <div class="cm-field">
+        <label>Действие в ОРБИТА</label>
+        <select id="evt-action">
+          <option value="">Нет</option>
+          <option value="workspace-goals">Открыть цели (workspace)</option>
+          <option value="workspace-initiatives">Открыть инициативы (workspace)</option>
+          <option value="registry">Открыть реестр инициатив</option>
+          <option value="catalog">Открыть каталог</option>
+          <option value="framework-gate">Открыть Gate Review (framework)</option>
+        </select>
+      </div>
+      <div class="cm-actions">
+        <button onclick="saveEvent()">Сохранить</button>
+        <button onclick="closeEventModal()">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var MONTHS = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+  var MONTHS_FULL = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  var TYPE_LABELS = { planning:'Планирование', gate:'Gate Review', sync:'Синк', retro:'Ретроспектива', strategy:'Стратегический' };
+  var RECURRENCE_LABELS = { none:'Однократно', weekly:'Еженедельно', monthly:'Ежемесячно', quarterly:'Ежеквартально', biannual:'Раз в полугодие', annual:'Ежегодно' };
+  var STATUS_LABELS = { done:'Завершено', upcoming:'Предстоит', planned:'Запланировано', recurring:'Регулярное' };
+
+  var DEFAULT_EVENTS = [
+    { id:'EVT-001', name:'Годовое планирование OKR', date:'2026-01-15', type:'strategy', roles:['pmo_lead','lead'], desc:'CEO устанавливает OKR компании. PMO Lead каскадирует на департаменты.', recurrence:'annual', action:'', status:'done' },
+    { id:'EVT-002', name:'H1 планирование целей', date:'2026-02-01', type:'planning', roles:['pm','pmo'], desc:'PM создает цели продуктов на H1 в workspace -- таб "Цели и планирование".', recurrence:'biannual', action:'workspace-goals', status:'done' },
+    { id:'EVT-003', name:'Q1 планирование инициатив', date:'2026-03-01', type:'planning', roles:['pm','pmo'], desc:'PM декомпозирует цели H1 в инициативы Q1 с RICE-оценкой.', recurrence:'quarterly', action:'workspace-initiatives', status:'done' },
+    { id:'EVT-004', name:'Q2 планирование инициатив', date:'2026-04-01', type:'planning', roles:['pm','pmo'], desc:'PM создает инициативы на Q2 с RICE. PMO согласовывает.', recurrence:'quarterly', action:'workspace-initiatives', status:'upcoming' },
+    { id:'EVT-005', name:'Gate Review #1', date:'2026-04-15', type:'gate', roles:['pmo_lead','pm'], desc:'Комитет: ревью продуктов готовых к переходу. Чеклист артефактов.', recurrence:'monthly', action:'framework-gate', status:'upcoming' },
+    { id:'EVT-006', name:'Gate Review #2', date:'2026-05-15', type:'gate', roles:['pmo_lead','pm'], desc:'Ежемесячный Gate Review комитет.', recurrence:'monthly', action:'framework-gate', status:'upcoming' },
+    { id:'EVT-007', name:'Q2 mid-quarter review', date:'2026-05-15', type:'sync', roles:['pmo','pm'], desc:'PMO ревьюит прогресс Q2 инициатив. Корректировка приоритетов.', recurrence:'quarterly', action:'registry', status:'upcoming' },
+    { id:'EVT-008', name:'Gate Review #3', date:'2026-06-15', type:'gate', roles:['pmo_lead','pm'], desc:'Ежемесячный Gate Review комитет.', recurrence:'monthly', action:'framework-gate', status:'upcoming' },
+    { id:'EVT-009', name:'H1 Ретроспектива', date:'2026-06-30', type:'retro', roles:['pm','pmo','pmo_lead','lead'], desc:'Итоги H1: достижение целей, lessons learned, портфельный отчет.', recurrence:'biannual', action:'catalog', status:'upcoming' },
+    { id:'EVT-010', name:'H2 планирование целей', date:'2026-07-01', type:'planning', roles:['pm','pmo','lead'], desc:'CEO обновляет OKR на H2. PM создает цели продуктов.', recurrence:'biannual', action:'workspace-goals', status:'planned' },
+    { id:'EVT-011', name:'Q3 планирование инициатив', date:'2026-08-01', type:'planning', roles:['pm','pmo'], desc:'PM создает инициативы Q3 с RICE.', recurrence:'quarterly', action:'workspace-initiatives', status:'planned' },
+    { id:'EVT-100', name:'Еженедельный синк PM-PMO', date:'2026-04-02', type:'sync', roles:['pm','pmo'], desc:'PM обновляет статус. PMO проверяет блокеры. 30 мин.', recurrence:'weekly', action:'', status:'recurring' }
+  ];
+
+  var events = [];
+  var editingId = null;
+  var selectedMonth = null; // null = all
+
+  function init() {
+    events = (window.PT ? PT.load(PT.KEY_CALENDAR) : null) || DEFAULT_EVENTS;
+    if (canManageCalendar()) {
+      document.getElementById('btn-create').classList.remove('hidden');
+    }
+    render();
+    triggerEventNotifications();
+  }
+
+  function canManageCalendar() {
+    var user = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
+    if (!user) return false;
+    return user.role === 'admin' || user.role === 'pmo_lead';
+  }
+
+  function persist() {
+    if (window.PT) PT.save(PT.KEY_CALENDAR, events);
+  }
+
+  // ── Action URLs ──
+  function getActionUrl(action) {
+    var urls = {
+      'workspace-goals': 'workspace.html?tab=goals',
+      'workspace-initiatives': 'workspace.html?tab=initiatives',
+      'registry': 'registry.html',
+      'catalog': 'catalog.html',
+      'framework-gate': 'framework.html'
+    };
+    return urls[action] || '';
+  }
+
+  // ── Render ──
+  function render() {
+    renderTimeline();
+    renderEventList();
+  }
+  window.render = render;
+
+  function renderTimeline() {
+    var now = new Date();
+    var curMonth = now.getMonth() + 1;
+    var html = '';
+    for (var m = 1; m <= 12; m++) {
+      var isCurrent = m === curMonth;
+      var isSelected = selectedMonth === m;
+      var cls = 'cal-month' + (isCurrent ? ' cm-current' : '') + (isSelected ? ' cm-selected' : '');
+      html += '<div class="' + cls + '" data-month="' + m + '" onclick="selectMonth(' + m + ')">';
+      html += '<span class="cm-label">' + MONTHS[m - 1] + '</span>';
+      html += '<div class="cm-dots">';
+      var monthEvents = events.filter(function(e) {
+        var d = new Date(e.date);
+        return d.getMonth() + 1 === m;
+      });
+      monthEvents.forEach(function(e) {
+        html += '<span class="cm-dot t-' + e.type + '" title="' + escHtml(e.name) + '"></span>';
+      });
+      html += '</div></div>';
+    }
+    document.getElementById('cal-timeline').innerHTML = html;
+  }
+
+  function renderEventList() {
+    var fType = document.getElementById('f-type').value;
+    var fStatus = document.getElementById('f-status').value;
+
+    var filtered = events.filter(function(e) {
+      if (fType && e.type !== fType) return false;
+      if (fStatus && e.status !== fStatus) return false;
+      if (selectedMonth !== null) {
+        var d = new Date(e.date);
+        if (d.getMonth() + 1 !== selectedMonth) return false;
+      }
+      return true;
+    });
+
+    filtered.sort(function(a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+
+    document.getElementById('cf-count').textContent = filtered.length + ' ' + pluralEvents(filtered.length);
+
+    // Group by quarter
+    var quarters = {};
+    filtered.forEach(function(e) {
+      var d = new Date(e.date);
+      var q = Math.ceil((d.getMonth() + 1) / 3);
+      var y = d.getFullYear();
+      var key = y + '-Q' + q;
+      if (!quarters[key]) quarters[key] = { label: 'Q' + q + ' ' + y, events: [], q: q, y: y };
+      quarters[key].events.push(e);
+    });
+
+    var now = new Date();
+    var curQ = Math.ceil((now.getMonth() + 1) / 3);
+    var curY = now.getFullYear();
+    var isAdmin = canManageCalendar();
+
+    var keys = Object.keys(quarters).sort();
+    if (!keys.length) {
+      document.getElementById('cal-events').innerHTML = '<div class="cal-empty">Нет событий по выбранным фильтрам</div>';
+      return;
+    }
+
+    var html = '';
+    keys.forEach(function(k) {
+      var grp = quarters[k];
+      var isCurQ = grp.q === curQ && grp.y === curY;
+      html += '<div class="cal-quarter">';
+      html += '<div class="cq-title">' + grp.label + (isCurQ ? '<span class="cq-current">текущий</span>' : '') + '</div>';
+      grp.events.forEach(function(e) {
+        html += renderEventCard(e, isAdmin);
+      });
+      html += '</div>';
+    });
+
+    document.getElementById('cal-events').innerHTML = html;
+  }
+
+  function renderEventCard(e, isAdmin) {
+    var d = new Date(e.date);
+    var day = d.getDate();
+    var monthLabel = MONTHS_FULL[d.getMonth()];
+    var dateStr = day + ' ' + monthLabel.substring(0, 3);
+    var rolesStr = (e.roles || []).map(function(r) { return r.toUpperCase(); }).join(', ');
+
+    var html = '<div class="cal-event et-' + e.type + '" data-id="' + e.id + '">';
+    html += '<div class="ce-date">' + dateStr + '</div>';
+    html += '<div class="ce-body">';
+    html += '<div class="ce-name">' + escHtml(e.name) + '</div>';
+    html += '<div class="ce-roles">' + rolesStr + '</div>';
+    html += '<div class="ce-desc">' + escHtml(e.desc || '') + '</div>';
+    html += '<div class="ce-meta">';
+    html += '<span class="ce-type-badge ce-type-' + e.type + '">' + (TYPE_LABELS[e.type] || e.type) + '</span>';
+    if (e.recurrence && e.recurrence !== 'none') {
+      html += '<span class="ce-recurrence">' + (RECURRENCE_LABELS[e.recurrence] || '') + '</span>';
+    }
+    html += '</div>';
+    if (e.action) {
+      html += '<a class="ce-action-link" href="' + getActionUrl(e.action) + '">Открыть в ОРБИТА &rarr;</a>';
+    }
+    html += '</div>';
+    html += '<div class="ce-actions' + (isAdmin ? ' visible' : '') + '">';
+    html += '<button onclick="editEvent(\'' + e.id + '\')">Ред.</button>';
+    html += '<button class="ce-del" onclick="deleteEvent(\'' + e.id + '\')">x</button>';
+    html += '</div>';
+    html += '<div class="ce-status">';
+    html += '<span class="ce-badge ce-' + e.status + '">' + (STATUS_LABELS[e.status] || e.status) + '</span>';
+    html += '</div>';
+    html += '</div>';
+    return html;
+  }
+
+  // ── Month selection ──
+  window.selectMonth = function(m) {
+    selectedMonth = selectedMonth === m ? null : m;
+    render();
+  };
+
+  // ── Modal ──
+  window.createEvent = function() {
+    if (!canManageCalendar()) return;
+    editingId = null;
+    document.getElementById('cm-title').textContent = 'Новое событие';
+    document.getElementById('evt-name').value = '';
+    document.getElementById('evt-date').value = '';
+    document.getElementById('evt-type').value = 'planning';
+    document.getElementById('evt-desc').value = '';
+    document.getElementById('evt-recurrence').value = 'none';
+    document.getElementById('evt-action').value = '';
+    var checks = document.querySelectorAll('#evt-roles input');
+    for (var i = 0; i < checks.length; i++) checks[i].checked = false;
+    openModal();
+  };
+
+  window.editEvent = function(id) {
+    if (!canManageCalendar()) return;
+    var evt = events.find(function(e) { return e.id === id; });
+    if (!evt) return;
+    editingId = id;
+    document.getElementById('cm-title').textContent = 'Редактировать событие';
+    document.getElementById('evt-name').value = evt.name;
+    document.getElementById('evt-date').value = evt.date;
+    document.getElementById('evt-type').value = evt.type;
+    document.getElementById('evt-desc').value = evt.desc || '';
+    document.getElementById('evt-recurrence').value = evt.recurrence || 'none';
+    document.getElementById('evt-action').value = evt.action || '';
+    var checks = document.querySelectorAll('#evt-roles input');
+    for (var i = 0; i < checks.length; i++) {
+      checks[i].checked = (evt.roles || []).indexOf(checks[i].value) >= 0;
+    }
+    openModal();
+  };
+
+  window.deleteEvent = function(id) {
+    if (!canManageCalendar()) return;
+    if (!confirm('Удалить событие?')) return;
+    events = events.filter(function(e) { return e.id !== id; });
+    persist();
+    render();
+  };
+
+  window.saveEvent = function() {
+    if (!canManageCalendar()) return;
+    var name = document.getElementById('evt-name').value.trim();
+    var date = document.getElementById('evt-date').value;
+    if (!name || !date) return;
+
+    var type = document.getElementById('evt-type').value;
+    var desc = document.getElementById('evt-desc').value.trim();
+    var recurrence = document.getElementById('evt-recurrence').value;
+    var action = document.getElementById('evt-action').value;
+    var roles = [];
+    var checks = document.querySelectorAll('#evt-roles input:checked');
+    for (var i = 0; i < checks.length; i++) roles.push(checks[i].value);
+
+    var now = new Date();
+    var evtDate = new Date(date);
+    var status = evtDate < now ? 'done' : 'upcoming';
+    if (recurrence !== 'none') status = 'recurring';
+
+    if (editingId) {
+      var evt = events.find(function(e) { return e.id === editingId; });
+      if (evt) {
+        evt.name = name; evt.date = date; evt.type = type;
+        evt.desc = desc; evt.recurrence = recurrence;
+        evt.action = action; evt.roles = roles; evt.status = status;
+      }
+    } else {
+      events.push({
+        id: 'EVT-' + Date.now().toString(36).toUpperCase(),
+        name: name, date: date, type: type, roles: roles,
+        desc: desc, recurrence: recurrence, action: action, status: status
+      });
+    }
+
+    persist();
+    closeEventModal();
+    render();
+
+    // Notify participants about new/updated event
+    if (window.PT) {
+      roles.forEach(function(role) {
+        PT.notify({
+          type: 'calendar_event',
+          level: 'medium',
+          recipientRole: role,
+          title: (editingId ? 'Обновлено: ' : 'Новое событие: ') + name,
+          text: desc,
+          action: action ? { label: 'Открыть', url: getActionUrl(action) } : null
+        });
+      });
+      if (window.updateBellCount) updateBellCount();
+    }
+  };
+
+  function openModal() {
+    document.getElementById('cal-modal').classList.add('open');
+  }
+
+  window.closeEventModal = function() {
+    document.getElementById('cal-modal').classList.remove('open');
+    editingId = null;
+  };
+
+  // ── Notifications trigger ──
+  function triggerEventNotifications() {
+    if (!window.PT) return;
+    var now = new Date();
+    events.forEach(function(evt) {
+      if (evt.status === 'upcoming' || evt.status === 'recurring') {
+        var evtDate = new Date(evt.date);
+        var daysUntil = Math.ceil((evtDate - now) / 86400000);
+        if (daysUntil > 0 && daysUntil <= 7) {
+          (evt.roles || []).forEach(function(role) {
+            PT.notify({
+              type: 'calendar_event',
+              level: daysUntil <= 2 ? 'high' : 'medium',
+              recipientRole: role,
+              title: evt.name + ' через ' + daysUntil + ' ' + pluralDays(daysUntil),
+              text: evt.desc,
+              action: evt.action ? { label: 'Открыть', url: getActionUrl(evt.action) } : null
+            });
+          });
+        }
+      }
+    });
+    if (window.updateBellCount) updateBellCount();
+  }
+
+  // ── Helpers ──
+  function escHtml(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function pluralDays(n) {
+    if (n === 1) return 'день';
+    if (n >= 2 && n <= 4) return 'дня';
+    return 'дней';
+  }
+
+  function pluralEvents(n) {
+    var m = n % 10; var t = n % 100;
+    if (m === 1 && t !== 11) return 'событие';
+    if (m >= 2 && m <= 4 && (t < 12 || t > 14)) return 'события';
+    return 'событий';
+  }
+
+  // ── Keyboard: Escape closes modal ──
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeEventModal();
+  });
+
+  // ── Init on load ──
+  if (window.PT) { init(); }
+  else { document.addEventListener('DOMContentLoaded', function() { setTimeout(init, 100); }); }
+})();
+</script>
+</body>
+</html>
