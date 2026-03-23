@@ -948,7 +948,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Проверить дубли в реестре','Калибровать RICE на синке','Вынести на рассмотрение (Gate 0)'] },
         lead:{ title:'Что видит руководитель', checks:['Новая заявка в реестре','Решение Gate 0: запускаем разведку или нет'] }
       },
-      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','RICE-оценка','Решение Gate 0'],
+      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','<a class="d-art" href="#rice" style="text-decoration:none">RICE-оценка →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="admin.html" style="text-decoration:none">Назначить команду →</a>'],
       gate:{ name:'Gate 0 \u2014 Скрининг заявки', checks:['Проблема описана и понятна заказчику','ЦА определена','RICE > порога','Нет дублей в реестре','Соответствие OKR компании','Команда назначена'], decision:'PMO Lead', timeline:'5-10 рабочих дней' }
     },
     {
@@ -959,7 +959,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Контроль сроков разведки','Подготовка материалов к Gate 1','Обновление реестра'] },
         lead:{ title:'Что видит руководитель', checks:['Ревью Discovery Report','Решение Gate 1: строим прототип или отклоняем'] }
       },
-      artifacts:['Discovery Report','Результаты CustDev','Конкурентный анализ','ADR','Решение Gate 1'],
+      artifacts:['<a class="d-art" href="tools/templates.html" style="text-decoration:none">Discovery Report →</a>','<a class="d-art" href="#metrics" style="text-decoration:none">Метрики стадии →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','Конкурентный анализ','ADR'],
       gate:{ name:'Gate 1 \u2014 Переход к прототипу', checks:['Problem-Solution Fit подтверждён данными CustDev','Техническая реализуемость подтверждена (ADR)','Scope и сроки MVP зафиксированы','Бюджет согласован с Финансами','Команда и Tech Lead назначены','Корп. риски задокументированы'], decision:'PMO Lead + Lead', timeline:'3 рабочих дня' }
     },
     {
@@ -970,7 +970,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Контроль метрик: время до MVP, бюджет','Подготовка материалов к Gate 2'] },
         lead:{ title:'Что видит руководитель', checks:['Ревью MVP и первых метрик','Решение Gate 2: масштабируем или итерируем'] }
       },
-      artifacts:['PRD','MVP (рабочий продукт)','Метрики soft launch','Решение Gate 2'],
+      artifacts:['<a class="d-art" href="tools/templates.html" style="text-decoration:none">PRD шаблон →</a>','<a class="d-art" href="#metrics" style="text-decoration:none">Метрики: Activation ≥30% →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="#pre-gate" style="text-decoration:none">Pre-Gate подготовка →</a>'],
       gate:{ name:'Gate 2 \u2014 Переход к запуску', checks:['Activation Rate \u2265 30%','Business Case подтверждён данными','MVP acceptance criteria выполнены','Security review пройден (ИБ)','Retention D7 измеряется и растёт','Roadmap Growth сформирован'], decision:'PMO Lead + CTO', timeline:'5 рабочих дней' }
     },
     {
@@ -981,7 +981,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Квартальный ревью метрик','Портфельный отчёт'] },
         lead:{ title:'Что видит руководитель', checks:['Gate 3: решение Scale / Iterate / Kill'] }
       },
-      artifacts:['GTM-план','Результаты A/B тестов','Портфельный отчёт','Решение Gate 3'],
+      artifacts:['<a class="d-art" href="tools/strategy.html" style="text-decoration:none">GTM-стратегия →</a>','<a class="d-art" href="registry.html" style="text-decoration:none">Инициативы (A/B) →</a>','<a class="d-art" href="#metrics" style="text-decoration:none">Метрики: NPS ≥40 →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="catalog.html" style="text-decoration:none">Портфель →</a>'],
       gate:{ name:'Gate 3 \u2014 Переход к масштабированию', checks:['EBITDA стремится к нулю или положительный','NPS: \u2265 40 (B2C), \u2265 30 (B2B), \u2265 20 (B2G)','Команда 8+ человек','NSM растёт 2 квартала подряд','Архитектура масштабируется на 10x нагрузку'], decision:'PMO Lead + Директор', timeline:'Ежеквартально' }
     },
     {
@@ -992,7 +992,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Контроль adoption интеграций','Синхронизация с другими продуктами'] },
         lead:{ title:'Что видит руководитель', checks:['Экосистемный ревью: вклад продукта в общую ценность'] }
       },
-      artifacts:['Карта интеграций','Adoption report','Решение Gate 4'],
+      artifacts:['<a class="d-art" href="catalog.html" style="text-decoration:none">Карта продуктов →</a>','<a class="d-art" href="#metrics" style="text-decoration:none">Метрики: Revenue, Market Share →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="calendar.html" style="text-decoration:none">Календарь ревью →</a>'],
       gate:{ name:'Gate 4 \u2014 Экосистемная интеграция', checks:['P&L положительный 2 квартала подряд','\u22652 продукта экосистемы зависят от ядра','GMV растёт или есть платформенный потенциал','Форма выбрана: Платформа / P&L / Интеграция','Финансовая модель утверждена Советом'], decision:'PMO Lead + CTO', timeline:'На усмотрение Совета' }
     },
     {
@@ -1003,7 +1003,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Стратегический ревью (раз в полгода)','Решение: развивать / консервировать / закрывать'] },
         lead:{ title:'Что видит руководитель', checks:['Годовой Gate 5: стратегическая роль продукта в портфеле'] }
       },
-      artifacts:['P&L отчёт','Стратегический ревью','Решение Gate 5'],
+      artifacts:['<a class="d-art" href="tools/strategy.html" style="text-decoration:none">Стратегический ревью →</a>','<a class="d-art" href="#metrics" style="text-decoration:none">Метрики: EBITDA, Market Share →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="catalog.html" style="text-decoration:none">Портфель →</a>','<a class="d-art" href="#retro" style="text-decoration:none">Ретроспектива →</a>'],
       gate:{ name:'Gate 5 \u2014 Годовой ревью', checks:['P&L стабилен или положительный 4 квартала','NPS не деградирует','Понятный план следующего цикла','Техдолг не блокирует развитие','Команда укомплектована на \u226580%'], decision:'PMO Lead + CEO BU', timeline:'Ежегодно (QBR Q4)' }
     }
   ],
@@ -1016,7 +1016,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Зарегистрировать в реестре','Проверить дубли и пересечения'] },
         lead:{ title:'Что видит руководитель', checks:['Скрининг CTO: запускаем проектирование или нет'] }
       },
-      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','Техническое задание','Оценка ресурсов'],
+      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','Техническое задание','Оценка ресурсов'],
       gate:{ name:'Gate T0 \u2014 Скрининг', checks:['ТЗ согласовано','Стек определён','Ресурсы выделены'], decision:'CTO', timeline:'2 недели' }
     },
     {
@@ -1027,7 +1027,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Контроль сроков проектирования','Координация с зависимыми командами'] },
         lead:{ title:'Что видит руководитель', checks:['Ревью архитектуры','Решение: переходим к реализации'] }
       },
-      artifacts:['Архитектурная схема','API-контракты','PoC'],
+      artifacts:['<a class="d-art" href="tools/templates.html" style="text-decoration:none">Шаблоны →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','Архитектурная схема','API-контракты','PoC'],
       gate:{ name:'Gate T1 \u2014 Ревью архитектуры', checks:['Архитектура согласована','PoC работает','Риски описаны'], decision:'CTO', timeline:'4 недели' }
     },
     {
@@ -1038,7 +1038,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Контроль спринтов и бюджета','Подготовка к приёмке'] },
         lead:{ title:'Что видит руководитель', checks:['Прогресс реализации','Эскалация при блокерах'] }
       },
-      artifacts:['Код в репозитории','Тесты','ИБ-отчёт','Документация'],
+      artifacts:['<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="registry.html" style="text-decoration:none">Инициативы →</a>','Код в репозитории','Тесты','ИБ-отчёт'],
       gate:{ name:'Gate T2 \u2014 Готовность к приёмке', checks:['Код задеплоен на staging','Тесты пройдены','ИБ-аудит пройден','Документация готова','Code review: 0 критических замечаний'], decision:'CTO', timeline:'12 недель' }
     },
     {
@@ -1049,7 +1049,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Фиксация adoption-метрик','Закрытие в реестре'] },
         lead:{ title:'Что видит руководитель', checks:['Приёмка результата','SLA зафиксирован'] }
       },
-      artifacts:['Акт приёмки','SLA','Adoption report'],
+      artifacts:['<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="#retro" style="text-decoration:none">Ретроспектива →</a>','Акт приёмки','SLA','Adoption report'],
       gate:{ name:'Gate T3 \u2014 Финальная приёмка', checks:['Демо проведено','SLA согласован','Мониторинг настроен'], decision:'CTO', timeline:'2 недели' }
     }
   ],
@@ -1073,7 +1073,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Контроль сроков разработки','Координация с экспертами'] },
         lead:{ title:'Что видит руководитель', checks:['Ревью учебного плана','Готовность к пилоту'] }
       },
-      artifacts:['Учебный план','Контент модулей','Методика оценки'],
+      artifacts:['<a class="d-art" href="tools/templates.html" style="text-decoration:none">Шаблоны →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','Учебный план','Контент модулей'],
       gate:{ name:'Gate E1 \u2014 Готовность к пилоту', checks:['Учебный план утверждён','Контент готов на 80%+','Аккредитация (если нужна) запущена'], decision:'Руководитель обучения', timeline:'8 недель' }
     },
     {
@@ -1084,7 +1084,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Контроль метрик пилота','Подготовка к масштабированию'] },
         lead:{ title:'Что видит руководитель', checks:['Результаты пилота','Решение: масштабируем или дорабатываем'] }
       },
-      artifacts:['Отчёт пилота','NPS','Completion rate','Отчёт LMS'],
+      artifacts:['<a class="d-art" href="#metrics" style="text-decoration:none">Метрики: NPS, Completion →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','Отчёт пилота','Отчёт LMS'],
       gate:{ name:'Gate E2 \u2014 Результаты пилота', checks:['Пилот проведён','NPS > 7','Completion rate > 70%'], decision:'Руководитель обучения', timeline:'6 недель' }
     },
     {
@@ -1095,7 +1095,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Контроль охвата и бюджета','Портфельный отчёт'] },
         lead:{ title:'Что видит руководитель', checks:['Масштаб охвата','Экономика программы'] }
       },
-      artifacts:['Расписание потоков','Маркетинг-план','Отчёт по охвату'],
+      artifacts:['<a class="d-art" href="catalog.html" style="text-decoration:none">Портфель →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="calendar.html" style="text-decoration:none">Календарь →</a>','Расписание потоков','Маркетинг-план'],
       gate:{ name:'Gate E3 \u2014 Масштаб', checks:['3+ потока запущены','Охват в целевом коридоре','Экономика положительная'], decision:'Директор', timeline:'6 месяцев' }
     },
     {
@@ -1106,7 +1106,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Стратегический ревью (раз в год)','Решение: развивать / консервировать / закрывать'] },
         lead:{ title:'Что видит руководитель', checks:['Годовой ревью: актуальность и ROI программы'] }
       },
-      artifacts:['Годовой отчёт','Аккредитация','ROI-анализ'],
+      artifacts:['<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="#retro" style="text-decoration:none">Ретроспектива →</a>','<a class="d-art" href="tools/strategy.html" style="text-decoration:none">Стратегический ревью →</a>','Годовой отчёт','ROI-анализ'],
       gate:{ name:'Gate E4 \u2014 Годовой ревью', checks:['Контент актуален','Аккредитация действует','ROI положительный'], decision:'Директор', timeline:'Ежегодно' }
     }
   ],
@@ -1119,7 +1119,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Зарегистрировать в реестре проектов','Проверить приоритет'] },
         lead:{ title:'Что видит руководитель', checks:['Скрининг: запускаем планирование или нет'] }
       },
-      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','Бюджет','Состав команды'],
+      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','Бюджет','Состав команды'],
       gate:{ name:'Gate P0 \u2014 Скрининг', checks:['Цели определены','Бюджет утверждён','Спонсор согласовал'], decision:'PMO Lead', timeline:'1 неделя' }
     },
     {
@@ -1130,7 +1130,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Ревью плана и рисков','Интеграция в портфельный план'] },
         lead:{ title:'Что видит руководитель', checks:['Утверждение плана','Запуск исполнения'] }
       },
-      artifacts:['План-график','Реестр рисков','План коммуникаций'],
+      artifacts:['<a class="d-art" href="tools/templates.html" style="text-decoration:none">Шаблоны →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="calendar.html" style="text-decoration:none">Календарь →</a>','План-график','Реестр рисков'],
       gate:{ name:'Gate P1 \u2014 Утверждение плана', checks:['План согласован','Риски описаны','Коммуникации настроены'], decision:'PMO Lead', timeline:'4 недели' }
     },
     {
@@ -1141,7 +1141,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Портфельный мониторинг','Эскалация отклонений'] },
         lead:{ title:'Что видит руководитель', checks:['Еженедельный статус','Эскалации при отклонениях'] }
       },
-      artifacts:['Статус-отчёты','Журнал изменений','Результаты вех'],
+      artifacts:['<a class="d-art" href="registry.html" style="text-decoration:none">Инициативы →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="calendar.html" style="text-decoration:none">Календарь вех →</a>','Статус-отчёты','Журнал изменений'],
       gate:{ name:'Gate P2 \u2014 Готовность к закрытию', checks:['Все вехи выполнены','Бюджет в рамках','Результаты приняты'], decision:'PMO Lead + Спонсор', timeline:'По плану' }
     },
     {
@@ -1152,7 +1152,7 @@ var STAGES = {
         pmo:{ title:'Что делать PMO', checks:['Закрытие в реестре','Фиксация lessons learned'] },
         lead:{ title:'Что видит руководитель', checks:['Финальная приёмка','Выводы для будущих проектов'] }
       },
-      artifacts:['Акт приёмки','Ретроспектива','Lessons learned'],
+      artifacts:['<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="#retro" style="text-decoration:none">Ретроспектива →</a>','Акт приёмки','Lessons learned'],
       gate:{ name:'Gate P3 \u2014 Финальное закрытие', checks:['Результаты приняты спонсором','Ретро проведено','Документы в архиве'], decision:'PMO Lead', timeline:'2 недели' }
     }
   ]
