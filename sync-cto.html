@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Синк ПО x CTO</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+:root{--v:#6C3DAF;--vd:rgba(108,61,175,0.08);--b:#0052CC;--bd:rgba(0,82,204,0.07);--ok:#00875A;--okb:#E3FCEF;--warn:#FF8B00;--wb:#FFF7E6;--crit:#DE350B;--cb:#FFEBE6;--t1:#172B4D;--t2:#5E6C84;--t3:#97A0AF;--bg:#F4F5F7;--brd:#EBECF0;--brd2:#DFE1E6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',system-ui,sans-serif;background:#FAFBFC;color:var(--t1);font-size:13px;line-height:1.6;-webkit-font-smoothing:antialiased}
+@page{size:A4;margin:10mm 12mm}
+@media print{body{background:#fff;font-size:10px;-webkit-print-color-adjust:exact;print-color-adjust:exact}*{-webkit-print-color-adjust:exact!important}.p{box-shadow:none;padding:16px 20px}.toolbar{display:none!important}details{display:block!important}.s{page-break-inside:avoid}}
+.p{max-width:820px;margin:0 auto;padding:32px 40px 24px;background:#fff}
+
+.hd{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:3px solid var(--b);margin-bottom:20px}
+.hd-left{display:flex;align-items:center;gap:14px}
+.hd-logo img{height:22px}
+.hd h1{font-size:18px;font-weight:800;letter-spacing:-0.02em}
+.hd .sub{font-size:10px;color:var(--t2);margin-top:2px}
+.hd-r{text-align:right;font-size:10px;color:var(--t2)}
+.hd-r b{color:var(--t1)}
+
+.s{margin-bottom:20px}
+.sh{font-size:14px;font-weight:800;color:var(--t1);padding-bottom:5px;border-bottom:1px solid var(--brd);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sh .n{font-size:8px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:0.04em}
+
+.intro{font-size:13px;color:var(--t2);padding:12px 16px;background:var(--bg);border-radius:8px;border-left:3px solid var(--b);margin-bottom:18px;line-height:1.7}
+.intro b{color:var(--t1)}
+
+.tw{border:1px solid var(--brd);border-radius:8px;overflow:hidden;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:var(--bg);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--t2);padding:8px 12px;text-align:left;border-bottom:1px solid var(--brd)}
+td{padding:8px 12px;border-bottom:1px solid var(--brd);vertical-align:top;line-height:1.5}
+tr:last-child td{border-bottom:none}
+
+.bl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.bl-i{padding:10px 14px;border-radius:6px;font-size:12px;line-height:1.6}
+.bl-i b{display:block;margin-bottom:3px}
+.bl--c{background:var(--cb);border-left:3px solid var(--crit)}.bl--c b{color:var(--crit)}
+.bl--w{background:var(--wb);border-left:3px solid var(--warn)}.bl--w b{color:var(--warn)}
+.bl--b{background:var(--bd);border-left:3px solid var(--b)}.bl--b b{color:var(--b)}
+
+.note{font-size:12px;padding:10px 14px;border-radius:6px;margin-bottom:10px;line-height:1.6}
+.note--b{background:var(--bd);border-left:3px solid var(--b);color:var(--t1)}
+.note--v{background:var(--vd);border-left:3px solid var(--v);color:var(--t1)}
+
+.ft{margin-top:16px;padding-top:10px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;font-size:9px;color:var(--t3)}
+
+.toolbar{position:fixed;top:14px;right:14px;display:flex;gap:6px;z-index:999}
+.toolbar button{font-family:'Outfit',system-ui,sans-serif;font-size:10px;font-weight:700;padding:6px 14px;border-radius:5px;border:none;cursor:pointer}
+.btn-pdf{background:var(--b);color:#fff}.btn-pdf:hover{background:#003D99}
+
+@media(max-width:600px){.p{padding:20px 16px}.bl{grid-template-columns:1fr}.tw{overflow-x:auto}.tw table{min-width:500px}}
+</style>
+</head>
+<body>
+<main class="p">
+
+  <!-- HEADER -->
+  <div class="hd">
+    <div class="hd-left">
+      <div class="hd-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="filter:brightness(10);background:var(--t1);padding:4px 10px;border-radius:4px" onerror="this.parentElement.innerHTML='<b style=font-size:14px;color:var(--b)>RWB</b>'"></div>
+      <div>
+        <h1>Синк ПО x CTO — повестка</h1>
+        <div class="sub">Проектный офис &middot; ~55 мин</div>
+      </div>
+    </div>
+    <div class="hd-r"><b>Дата:</b> ________ 2026<br><b>Участники:</b> PMO Lead + CTO</div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div style="background:var(--b);color:#fff;border-radius:8px;padding:16px 20px;margin-bottom:20px;line-height:1.7;font-size:13px">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Главное</div>
+    <b>Проектный офис готовит запуск управления портфелем. Нужна помощь CTO по трём направлениям:</b>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px">
+      <div style="background:rgba(255,255,255,0.18);border-radius:6px;padding:8px 10px;font-size:11px"><b>1. AI-стратегия</b><br><span style="opacity:0.8">Стек инструментов, пилот вайбкодинга, метрики</span></div>
+      <div style="background:rgba(255,255,255,0.18);border-radius:6px;padding:8px 10px;font-size:11px"><b>2. Инфраструктура</b><br><span style="opacity:0.8">Миграция ОРБИТА на серверы RWB, SSO, backend</span></div>
+      <div style="background:rgba(255,255,255,0.18);border-radius:6px;padding:8px 10px;font-size:11px"><b>3. Ресурсы</b><br><span style="opacity:0.8">PM, архитектор, разработчики для платформы</span></div>
+    </div>
+  </div>
+
+  <!-- БЛОК 1: AI -->
+  <div class="s">
+    <div class="sh"><span class="n" style="background:var(--vd);color:var(--v)">1</span> AI-стратегия: оптимизация ресурсов <span style="font-size:11px;color:var(--t3);margin-left:auto">20 мин</span></div>
+
+    <div class="intro"><b>Контекст.</b> Руководство ожидает внедрение AI в команды. ПО предлагает совместную стратегию: CTO даёт инструменты, ПО встраивает в фреймворк, вместе измеряем результат.</div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Тема</th><th>Вопрос к CTO</th><th style="width:140px">Фиксация</th></tr></thead>
+        <tbody>
+          <tr><td><b>Текущий стек</b></td><td>Какие AI-инструменты используются, лицензии, покрытие команд</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td><b>Что оптимизируем</b></td><td>Время (time-to-feature), скорость (velocity), люди (нагрузка), компетенции (онбординг)</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td><b>Пилот вайбкодинга</b></td><td>2-3 команды. ПО координирует, CTO выделяет. Наш опыт: ОРБИТА создана через AI</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td><b>На выходе</b></td><td>Квартальный отчёт: velocity, quality, % автоматизации, ROI на лицензии</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- БЛОК 2: ИНФРАСТРУКТУРА -->
+  <div class="s">
+    <div class="sh"><span class="n" style="background:var(--bd);color:var(--b)">2</span> Инфраструктура <span style="font-size:11px;color:var(--t3);margin-left:auto">15 мин</span></div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Задача</th><th>Сейчас</th><th>Нужно</th><th style="width:120px">Фиксация</th></tr></thead>
+        <tbody>
+          <tr><td><b>GitLab RWB</b></td><td>Репо на GitHub, 0 CDN, готов к миграции</td><td>Namespace + CI/CD. ~5 дней</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td><b>SSO / WB ID</b></td><td>Клиентская авторизация</td><td>Интеграция с WB ID. ~5 дней. Блокер для прода</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td><b>Backend</b></td><td>localStorage = 1 браузер</td><td>API + БД. ~3 дня MVP. Блокер для масштаба</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note note--b"><b>ОРБИТА готова к показу:</b> <a href="https://sorvalliny.github.io/ecotech/" target="_blank" style="color:var(--b);border-bottom:1px dashed rgba(0,82,204,0.3);text-decoration:none">открыть прототип</a>. 20+ модулей, 5 продуктов, прототип работает.</div>
+  </div>
+
+  <!-- БЛОК 3: РЕСУРСЫ -->
+  <div class="s">
+    <div class="sh"><span class="n" style="background:rgba(0,135,90,0.08);color:var(--ok)">3</span> Ресурсы <span style="font-size:11px;color:var(--t3);margin-left:auto">10 мин</span></div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Роль</th><th>Зачем</th><th>Загрузка</th><th style="width:120px">Кандидат</th></tr></thead>
+        <tbody>
+          <tr><td><b>PM продуктов</b></td><td>Валидация данных, синки, Gate-чеклисты</td><td>2-3 чел., 2 ч/нед</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td><b>Архитектор</b></td><td>Техническая оценка на Gate Review</td><td>1 чел., ad hoc</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td><b>DevOps</b></td><td>Миграция на GitLab, CI/CD</td><td>1 чел., ~5 дней</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td><b>Backend</b></td><td>SSO + shared storage</td><td>1 чел., ~2 мес.</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td><b>AI-координатор</b></td><td>Внедрение AI в команды, метрики</td><td>1 чел.</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- БЛОК 4: ACTION ITEMS -->
+  <div class="s">
+    <div class="sh"><span class="n" style="background:var(--cb);color:var(--crit)">4</span> Action Items <span style="font-size:11px;color:var(--t3);margin-left:auto">10 мин</span></div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>#</th><th>Действие</th><th>Ответственный</th><th style="width:80px">Срок</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Список AI-инструментов + лицензии</td><td style="color:var(--b);font-weight:600">CTO</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td>2</td><td>Кандидаты: PM, архитектор, DevOps, backend</td><td style="color:var(--b);font-weight:600">CTO</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td>3</td><td>Доступ к GitLab RWB</td><td style="color:var(--b);font-weight:600">CTO</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td>4</td><td>Команды для AI-пилота</td><td style="color:var(--b);font-weight:600">CTO + PMO</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td>5</td><td>Совместная встреча с CEO BU ECO</td><td style="color:var(--v);font-weight:600">PMO + CTO</td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+          <tr><td>6</td><td></td><td style="border-bottom:1px dotted var(--brd2)"></td><td style="border-bottom:1px dotted var(--brd2)"></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note note--v"><b>Следующая встреча:</b> ________________ <b>Формат синков:</b> ________________</div>
+  </div>
+
+  <footer class="ft">
+    <span>Проектный офис &middot; Инновации и экосистема &middot; RWB</span>
+    <span>sorval.viktor@rwb.ru</span>
+  </footer>
+
+</main>
+
+<div class="toolbar">
+  <button class="btn-pdf" onclick="window.print()" title="Сохранить как PDF">Сохранить PDF</button>
+</div>
+</body>
+</html>
