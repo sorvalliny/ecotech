@@ -408,6 +408,11 @@
   <a href="#trackers">Трекеры</a>
   <a href="#templates">Шаблоны</a>
   <a href="#processes">Процессы</a>
+  <a href="#metrics">Метрики</a>
+  <a href="#onboarding">Онбординг PM</a>
+  <a href="#pre-gate">Pre-Gate</a>
+  <a href="#rice">RICE-оценка</a>
+  <a href="#retro">Ретроспектива</a>
 </nav>
 
 <!-- Main content -->
@@ -650,6 +655,225 @@
       <a href="tools/brief.html" style="padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-decoration:none;font-size:12px;color:var(--text);font-weight:600;">Бриф + RICE</a>
       <a href="tools/gate-checklist.html" style="padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-decoration:none;font-size:12px;color:var(--text);font-weight:600;">Gate-чеклист</a>
       <a href="tools/templates.html" style="padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-decoration:none;font-size:12px;color:var(--text);font-weight:600;">Все шаблоны</a>
+    </div>
+  </div>
+</details>
+
+<!-- ═══════════ PHASE 2: Метрики, Онбординг, Pre-Gate, RICE, Ретро ═══════════ -->
+
+<details class="fw-section" id="metrics">
+  <summary>Метрики по стадиям</summary>
+  <div class="fw-section-body">
+    <p>Каждая стадия требует фокусных метрик. Без них Gate Review субъективен.</p>
+
+    <div style="overflow-x:auto;margin-top:12px;">
+    <table class="roles-compact" style="font-size:11px;width:100%;">
+      <thead><tr>
+        <th>Стадия</th>
+        <th>Фокусная метрика</th>
+        <th>Порог Go</th>
+        <th>Источник</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><strong>Заявка</strong></td><td>Соответствие стратегии + размер рынка</td><td>Бриф заполнен, RICE ≥ 15</td><td>ОРБИТА (бриф)</td></tr>
+        <tr><td style="white-space:nowrap"><strong>Разведка</strong></td><td>Problem-Solution Fit</td><td>≥ 7 CustDev, HMW сформулирован</td><td>CustDev-отчёт</td></tr>
+        <tr><td style="white-space:nowrap"><strong>Прототип</strong></td><td>Activation Rate, Unit Economics</td><td>Activation ≥ 30%, UE ≥ 0</td><td>Аналитика / P&L</td></tr>
+        <tr><td style="white-space:nowrap"><strong>MVP</strong></td><td>Retention D7, NSM</td><td>Retention D7 ≥ 40%, NSM растёт 2+ нед</td><td>BI-дашборд</td></tr>
+        <tr><td style="white-space:nowrap"><strong>Рост</strong></td><td>Revenue, NPS, Growth Rate</td><td>Выручка > план, NPS ≥ 40</td><td>P&L + NPS-опрос</td></tr>
+        <tr><td style="white-space:nowrap"><strong>Масштаб</strong></td><td>Market Share, EBITDA margin</td><td>Доля рынка растёт, маржа ≥ целевой</td><td>Фин.отчётность</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h4 style="margin-top:16px;">Статусы здоровья продукта</h4>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px;">
+      <div style="padding:10px;background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:8px;">
+        <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:4px;">● On-track</div>
+        <div style="font-size:11px;color:var(--muted);">Метрики в норме. Gate Review по плану. Нет блокеров.</div>
+      </div>
+      <div style="padding:10px;background:var(--amber-dim);border:1px solid var(--amber-border);border-radius:8px;">
+        <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:4px;">● At-risk</div>
+        <div style="font-size:11px;color:var(--muted);">Метрики ниже порога или цели не определены. Требует внимания PMO.</div>
+      </div>
+      <div style="padding:10px;background:var(--red-dim);border:1px solid var(--red-border);border-radius:8px;">
+        <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px;">● Blocked</div>
+        <div style="font-size:11px;color:var(--muted);">Критический блокер. Продукт не двигается. Эскалация обязательна.</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top:16px;">Когда менять статус</h4>
+    <ul>
+      <li>PM обновляет статус <strong>еженедельно</strong> в карточке продукта (workspace)</li>
+      <li><strong>At-risk</strong> — если фокусная метрика ниже порога Go более 2 недель</li>
+      <li><strong>Blocked</strong> — если нет прогресса более 2 недель и есть внешняя зависимость</li>
+      <li>PMO Lead проверяет статусы <strong>на еженедельном синке</strong></li>
+    </ul>
+  </div>
+</details>
+
+<details class="fw-section" id="onboarding">
+  <summary>Онбординг PM</summary>
+  <div class="fw-section-body">
+    <p>Чеклист для нового PM, назначенного на продукт.</p>
+
+    <h4>День 1</h4>
+    <ul>
+      <li>☐ Получить доступ к ОРБИТА (email от PMO)</li>
+      <li>☐ Открыть <a href="catalog.html" style="color:var(--violet);">Каталог</a> → найти свой продукт → перейти в <a href="workspace.html" style="color:var(--violet);">Workspace</a></li>
+      <li>☐ Прочитать паспорт продукта: стадия, статус, описание, KPI</li>
+      <li>☐ Встреча с PMO Lead — контекст, ожидания, ближайший Gate</li>
+      <li>☐ Изучить эту страницу: <a href="#gate-review" style="color:var(--violet);">Gate Review</a> + <a href="#roles" style="color:var(--violet);">Роли</a></li>
+    </ul>
+
+    <h4>Неделя 1</h4>
+    <ul>
+      <li>☐ Познакомиться с командой (если назначена) → <a href="teams.html" style="color:var(--violet);">Реестр команд</a></li>
+      <li>☐ Изучить инициативы продукта → <a href="registry.html" style="color:var(--violet);">Реестр инициатив</a></li>
+      <li>☐ Подключить внешний трекер (YouTrack/Jira) → <a href="#trackers" style="color:var(--violet);">см. Трекеры</a></li>
+      <li>☐ Поставить цели на текущий период → workspace → Цели</li>
+      <li>☐ Пройти первый синк с PMO (статус, блокеры, план)</li>
+    </ul>
+
+    <h4>Месяц 1</h4>
+    <ul>
+      <li>☐ Провести ≥ 3 CustDev-интервью (если стадия Разведка)</li>
+      <li>☐ Подготовить артефакты для ближайшего Gate → <a href="#pre-gate" style="color:var(--violet);">Pre-Gate чеклист</a></li>
+      <li>☐ Обновить RICE-оценки всех инициатив → <a href="#rice" style="color:var(--violet);">RICE-оценка</a></li>
+      <li>☐ Первая ретроспектива (Start/Stop/Continue)</li>
+    </ul>
+
+    <div style="margin-top:12px;padding:12px;background:var(--violet-dim);border:1px solid var(--violet-border);border-radius:8px;font-size:12px;color:var(--text);">
+      <strong>Наставник:</strong> PMO-менеджер вашего департамента. Все вопросы — через ОРБИТА (уведомления) или на еженедельном синке.
+    </div>
+  </div>
+</details>
+
+<details class="fw-section" id="pre-gate">
+  <summary>Подготовка к Gate Review (Pre-Gate)</summary>
+  <div class="fw-section-body">
+    <p>Начинайте готовиться <strong>за 2 недели</strong> до запланированной даты Gate.</p>
+
+    <h4>Чеклист Pre-Gate</h4>
+    <ol style="line-height:2;">
+      <li><strong>Проверить артефакты</strong> — все обязательные документы для текущего Gate готовы? (см. <a href="tools/gate-checklist.html" style="color:var(--violet);">Gate-чеклист</a>)</li>
+      <li><strong>Обновить метрики</strong> — фокусные метрики стадии актуальны? (см. <a href="#metrics" style="color:var(--violet);">Метрики по стадиям</a>)</li>
+      <li><strong>Pre-Gate синк с PMO Lead</strong> — за 7-10 дней до Gate. Обсудить:
+        <ul style="margin:4px 0 4px 16px;color:var(--muted);">
+          <li>Готовность артефактов (что готово, что нет)</li>
+          <li>Проблемные метрики (ниже порога? почему?)</li>
+          <li>Блокеры и риски</li>
+          <li>Состав участников комитета</li>
+        </ul>
+      </li>
+      <li><strong>Подготовить презентацию</strong> — 5-7 слайдов:
+        <ul style="margin:4px 0 4px 16px;color:var(--muted);">
+          <li>Текущая стадия и что сделано</li>
+          <li>Метрики (факт vs порог)</li>
+          <li>Топ-3 инициативы на следующий квартал</li>
+          <li>Риски и запрос решений</li>
+        </ul>
+      </li>
+      <li><strong>Календарь</strong> — убедиться что Gate Review есть в <a href="calendar.html" style="color:var(--violet);">Календаре</a> и участники приглашены</li>
+      <li><strong>Заполнить протокол</strong> — черновик протокола Gate Review (шаблон в <a href="#gate-review" style="color:var(--violet);">Gate Review</a>)</li>
+    </ol>
+
+    <div style="margin-top:12px;padding:12px;background:var(--amber-dim);border:1px solid var(--amber-border);border-radius:8px;font-size:12px;color:var(--text);">
+      <strong>Если не готов к Gate:</strong> сообщите PMO Lead за 5 дней. Перенос Gate — нормально. Провал Gate без подготовки — нет.
+    </div>
+  </div>
+</details>
+
+<details class="fw-section" id="rice">
+  <summary>RICE-оценка инициатив</summary>
+  <div class="fw-section-body">
+    <p>RICE — метод приоритизации инициатив. Каждая инициатива в <a href="registry.html" style="color:var(--violet);">Реестре</a> оценивается по 4 параметрам.</p>
+
+    <h4>Формула</h4>
+    <div style="padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-family:var(--mono);font-size:14px;text-align:center;margin-bottom:12px;color:var(--text);">
+      RICE = (Reach × Impact × Confidence) ÷ Effort
+    </div>
+
+    <div style="overflow-x:auto;">
+    <table class="roles-compact" style="font-size:11px;width:100%;">
+      <thead><tr>
+        <th>Параметр</th>
+        <th>Шкала</th>
+        <th>Что оценивает</th>
+        <th>Пример (низкий)</th>
+        <th>Пример (высокий)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>Reach</strong></td><td>1-10</td><td>Сколько пользователей затронет за квартал</td><td>1 = &lt;100 юзеров</td><td>10 = 100K+ юзеров</td></tr>
+        <tr><td><strong>Impact</strong></td><td>1-10</td><td>Насколько сильно повлияет на метрику</td><td>1 = минимально</td><td>10 = кратный рост</td></tr>
+        <tr><td><strong>Confidence</strong></td><td>1-10</td><td>Уверенность в оценках (есть ли данные?)</td><td>1 = гипотеза</td><td>10 = подтверждено A/B</td></tr>
+        <tr><td><strong>Effort</strong></td><td>1-10</td><td>Трудозатраты команды (человеко-недели)</td><td>1 = &lt;1 недели</td><td>10 = 3+ месяца</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h4 style="margin-top:16px;">Интерпретация</h4>
+    <ul>
+      <li><strong style="color:var(--teal);">RICE ≥ 60</strong> — высокий приоритет, брать в текущий квартал</li>
+      <li><strong style="color:var(--amber);">RICE 20-59</strong> — средний, планировать на следующий квартал</li>
+      <li><strong style="color:var(--red);">RICE &lt; 20</strong> — низкий, оставить в бэклоге или отклонить</li>
+    </ul>
+
+    <h4 style="margin-top:16px;">Пример</h4>
+    <div style="padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--text);line-height:1.7;">
+      <strong>Инициатива:</strong> «Воронка B2C — оптимизация чекаута»<br>
+      <strong>Reach:</strong> 8 (50K+ юзеров проходят чекаут/мес)<br>
+      <strong>Impact:</strong> 7 (конверсия +15-20%)<br>
+      <strong>Confidence:</strong> 9 (данные A/B теста)<br>
+      <strong>Effort:</strong> 4 (2-3 недели разработки)<br>
+      <strong style="color:var(--teal);">RICE = (8 × 7 × 9) ÷ 4 = 126</strong> → высокий приоритет
+    </div>
+  </div>
+</details>
+
+<details class="fw-section" id="retro">
+  <summary>Ретроспектива</summary>
+  <div class="fw-section-body">
+    <p>Ретроспектива — обязательный процесс для всех типов продуктов. Без неё портфель не учится.</p>
+
+    <h4>Когда проводить</h4>
+    <ul>
+      <li><strong>Продукт / Edu:</strong> после каждого Gate Review (независимо от решения)</li>
+      <li><strong>Тех.решение:</strong> после закрытия ключевой инициативы</li>
+      <li><strong>Проект:</strong> после завершения (обязательно)</li>
+      <li><strong>Квартальная:</strong> в конце каждого квартала — портфельная ретро PMO</li>
+    </ul>
+
+    <h4>Формат: Start / Stop / Continue</h4>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 16px;">
+      <div style="padding:10px;background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:8px;">
+        <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:4px;">Start</div>
+        <div style="font-size:11px;color:var(--muted);">Что начать делать? Новые практики, инструменты, процессы.</div>
+      </div>
+      <div style="padding:10px;background:var(--red-dim);border:1px solid var(--red-border);border-radius:8px;">
+        <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px;">Stop</div>
+        <div style="font-size:11px;color:var(--muted);">Что прекратить? Лишние встречи, дублирование, неэффективные процессы.</div>
+      </div>
+      <div style="padding:10px;background:var(--violet-dim);border:1px solid var(--violet-border);border-radius:8px;">
+        <div style="font-size:12px;font-weight:700;color:var(--violet);margin-bottom:4px;">Continue</div>
+        <div style="font-size:11px;color:var(--muted);">Что продолжать? Работающие практики, полезные ритуалы.</div>
+      </div>
+    </div>
+
+    <h4>Кто участвует</h4>
+    <ul>
+      <li><strong>Продуктовая ретро:</strong> PM + команда (TL, дизайнер, аналитик)</li>
+      <li><strong>Портфельная ретро:</strong> PMO Lead + все PM + Lead</li>
+    </ul>
+
+    <h4>Результат</h4>
+    <ul>
+      <li>3-5 Action Items с владельцами и сроками</li>
+      <li>Фиксация в workspace продукта (таб «Лог»)</li>
+      <li>Портфельные выводы → в квартальный отчёт PMO Lead</li>
+    </ul>
+
+    <div style="margin-top:12px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--muted);">
+      <strong style="color:var(--text);">Правило:</strong> Ретро без Action Items = ретро не было. Минимум 1 конкретное действие.
     </div>
   </div>
 </details>
