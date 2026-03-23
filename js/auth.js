@@ -28,11 +28,15 @@
 
   // ── Seed-данные (W4-011) ───────────────────────────────────────────
   var DEFAULT_USERS = [
-    { id: 'U001', name: 'Администратор',  email: 'admin@rwb.ru',           role: 'admin',    department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
-    { id: 'U002', name: 'Виктор',         email: 'sorval.viktor@rwb.ru',   role: 'pmo_lead', department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],      contact: '', team: 'Проектный офис' },
-    { id: 'GUEST', name: 'Гость',         email: 'demo@orbita.demo',       role: 'guest',    department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: ['ECO-00'], contact: '', team: 'Демо' },
-    { id: 'U010', name: 'Петров И.',     email: 'petrov@rwb.ru',          role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-01', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' },
-    { id: 'U011', name: 'Сидоров К.',    email: 'sidorov@rwb.ru',         role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-01', scope: ['I-004', 'I-005'], role: 'member' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Продукт' }
+    { id: 'U001', name: 'Администратор',    email: 'admin@rwb.ru',           role: 'admin',    department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],        contact: '', team: 'ИТ' },
+    { id: 'U002', name: 'Виктор Сорваль',   email: 'sorval.viktor@rwb.ru',   role: 'pmo_lead', department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],        contact: '', team: 'Проектный офис' },
+    { id: 'GUEST', name: 'Гость',           email: 'demo@orbita.demo',       role: 'guest',    department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: ['ECO-00'], contact: '', team: 'Демо' },
+    { id: 'U010', name: 'PM Wibes',         email: 'pm.wibes@rwb.ru',        role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-01', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-01'], contact: '', team: 'Wibes' },
+    { id: 'U011', name: 'PM WB Цифровой',   email: 'pm.digital@rwb.ru',      role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-02', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-02'], contact: '', team: 'WB Цифровой' },
+    { id: 'U012', name: 'PM WB Stream',     email: 'pm.stream@rwb.ru',       role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-03', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-03'], contact: '', team: 'WB Stream' },
+    { id: 'U013', name: 'PM WB Книги',      email: 'pm.books@rwb.ru',        role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-04', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-04'], contact: '', team: 'WB Книги' },
+    { id: 'U014', name: 'PM WB Messenger',  email: 'pm.messenger@rwb.ru',    role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-07', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-07'], contact: '', team: 'WB Messenger' },
+    { id: 'U015', name: 'PM WB Boards',     email: 'pm.boards@rwb.ru',       role: 'pm',       department: 'innovation', assignments: [{ productId: 'ECO-08', scope: 'all', role: 'owner' }], active: true, createdBy: 'system', createdAt: '2026-03-18', productIds: ['ECO-08'], contact: '', team: 'WB Boards' }
   ];
 
   // ── Миграция старых пользователей ──────────────────────────────────

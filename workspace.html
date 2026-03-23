@@ -487,6 +487,42 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     if (dateEl) dateEl.textContent = _product.statusDate;
   };
 
+  window.advanceGate = function() {
+    if (!_product) return;
+    var role = getRole();
+    if (role !== 'admin' && role !== 'pmo_lead' && !isOwner()) {
+      showToast('Только PMO Lead может переводить продукт на следующую стадию');
+      return;
+    }
+    var currentGate = _product.gate || 0;
+    var gateNames = isTechSolution() ? TECH_GATE_NAMES : GATE_NAMES;
+    if (currentGate >= gateNames.length - 1) {
+      showToast('Продукт уже на финальной стадии');
+      return;
+    }
+    var nextGate = currentGate + 1;
+    var nextName = gateNames[nextGate];
+    if (!confirm('Перевести ' + _product.name + ' на стадию ' + nextName + '?\n\nУбедитесь что все артефакты Gate ' + currentGate + ' заполнены.')) return;
+    _product.gate = nextGate;
+    if (_product.status === 'screening') _product.status = 'on-track';
+    _product.updatedAt = new Date().toISOString().split('T')[0];
+    saveProducts();
+    addLog('gate_transition', 'Переход: ' + gateNames[currentGate] + ' → ' + nextName, 'product', productId);
+    if (window.PT && PT.notify) {
+      PT.notify({
+        type: 'gate_transition',
+        level: 'high',
+        recipientRole: 'pmo',
+        productId: productId,
+        title: productId + ' переведён на ' + nextName,
+        text: 'Gate ' + currentGate + ' пройден.',
+        action: { label: 'Открыть', url: 'workspace.html?id=' + productId }
+      });
+    }
+    showToast('Переведено на ' + nextName);
+    render();
+  };
+
   // ── Teams rendering ──
   function renderTeams() {
     var container = document.getElementById('ws-teams');
@@ -563,6 +599,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     // ── Gate Timeline ──
     html += '<div class="ws-section"><h3>\u0421\u0442\u0430\u0434\u0438\u044F \u0437\u0440\u0435\u043B\u043E\u0441\u0442\u0438</h3>';
     html += renderGateTimeline(gateNum);
+    // Advance gate button
+    if (canEdit() || getRole() === 'pmo_lead') {
+      var currentGate = _product.gate || 0;
+      var gateNames = isTechSolution() ? TECH_GATE_NAMES : GATE_NAMES;
+      if (currentGate < gateNames.length - 1) {
+        var nextName = gateNames[currentGate + 1];
+        html += '<button class="ws-gate-advance-btn" onclick="advanceGate()" style="margin-top:12px;padding:10px 20px;background:var(--violet);color:#fff;border:none;border-radius:6px;font-family:var(--font-body);font-size:12px;font-weight:700;cursor:pointer;">';
+        html += '\u041F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438 \u043D\u0430 ' + esc(nextName) + ' \u2192';
+        html += '</button>';
+      }
+    }
     html += '</div>';
 
     // ── Team ──

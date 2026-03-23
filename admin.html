@@ -830,16 +830,14 @@ body{font-family:var(--font);background:var(--dark);color:var(--text);display:fl
 
     // Create product at O·0
     var products = (typeof PT !== 'undefined') ? (PT.load(PT.KEY_PRODUCTS) || []) : [];
-    var nextNum = products.length;
-    var newProdId = 'ECO-' + String(nextNum).padStart(2, '0');
+    var newProdId = 'ECO-' + String(Date.now()).slice(-4);
     // Ensure ID is unique
     var idExists = true;
     while (idExists) {
       idExists = false;
       for (var pi = 0; pi < products.length; pi++) {
         if (products[pi].id === newProdId) {
-          nextNum++;
-          newProdId = 'ECO-' + String(nextNum).padStart(2, '0');
+          newProdId = 'ECO-' + String(Date.now()).slice(-4);
           idExists = true;
           break;
         }

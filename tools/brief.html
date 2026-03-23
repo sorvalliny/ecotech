@@ -506,10 +506,6 @@ function submitBrief(){
     });
   }
 
-  // Compose mailto
-  var subj=encodeURIComponent((d.fast_track?'[FAST-TRACK] ':'')+'Бриф: '+d.name);
-  var body=encodeURIComponent(formatBriefText(d,score));
-  window.open('mailto:sorval.viktor@rwb.ru?subject='+subj+'&body='+body,'_blank');
   showToast('Заявка ' + idea.id + ' отправлена на скрининг');
 }
 
