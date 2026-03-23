@@ -156,6 +156,7 @@ td b{color:#fff}
         <div style="font-size:12px;color:var(--t3);line-height:1.5">Стадии роста продукта. Чеклист перехода. Решения на данных.</div>
       </div>
     </div>
+    <div style="font-size:11px;color:var(--t3);margin-top:14px;text-align:center">Аналогичный подход: Spotify (Tribes + TPM), Amazon (Two-Pizza Teams + PMO), Яндекс (Product Ops)</div>
     <div class="slide-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="height:14px;filter:brightness(10);opacity:0.3;vertical-align:middle;margin-right:6px">Проектный офис</div>
   </div>
 
@@ -226,28 +227,35 @@ td b{color:#fff}
     <div class="slide-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="height:14px;filter:brightness(10);opacity:0.3;vertical-align:middle;margin-right:6px">Проектный офис</div>
   </div>
 
-  <!-- СЛАЙД 7: ЗАПРОС -->
+  <!-- СЛАЙД 7: ВАРИАНТЫ -->
   <div class="slide" data-num="7">
-    <h2>Один запрос</h2>
-    <div class="ask-box">
-      <h3>Определить место ПО в структуре департамента</h3>
-      <p>За что отвечает проектный офис, кому отчитывается, как взаимодействует с PM продуктов. Остальное — рабочим порядком после.</p>
+    <h2>Как встроить ПО в структуру</h2>
+    <div class="sub">Три варианта — для обсуждения</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px;font-size:12px">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px">
+        <div style="font-size:14px;font-weight:800;color:#CB11AB;margin-bottom:8px">А. При CEO</div>
+        <div style="color:var(--t3);line-height:1.6;margin-bottom:8px">ПО подчиняется напрямую руководителю департамента</div>
+        <div style="color:var(--ok);font-size:11px;margin-bottom:4px">+ Быстрые решения, прямой доступ</div>
+        <div style="color:var(--crit);font-size:11px">− Загрузка CEO операционкой</div>
+      </div>
+      <div style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.25);border-radius:10px;padding:14px 16px">
+        <div style="font-size:14px;font-weight:800;color:#CB11AB;margin-bottom:8px">Б. При CPO <span style="font-size:10px;color:var(--ok)">рек.</span></div>
+        <div style="color:var(--t3);line-height:1.6;margin-bottom:8px">ПО в продуктовой вертикали, отчитывается CPO, эскалация на CEO</div>
+        <div style="color:var(--ok);font-size:11px;margin-bottom:4px">+ Близость к продуктам, CPO координирует</div>
+        <div style="color:var(--crit);font-size:11px">− Зависит от силы CPO</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px">
+        <div style="font-size:14px;font-weight:800;color:#9B59D0;margin-bottom:8px">В. Матричная</div>
+        <div style="color:var(--t3);line-height:1.6;margin-bottom:8px">ПО работает на оба департамента, подчинение — CEO Экосистемы</div>
+        <div style="color:var(--ok);font-size:11px;margin-bottom:4px">+ Максимальный охват, единый стандарт</div>
+        <div style="color:var(--crit);font-size:11px">− Двойная отчётность, сложнее управлять</div>
+      </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:20px;font-size:12px">
-      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px">
-        <div style="font-weight:700;margin-bottom:4px">Контур</div>
-        <div style="color:var(--t3)">8 продуктов двух департаментов + не-ИТ направления с Q2</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px">
-        <div style="font-weight:700;margin-bottom:4px">Отчётность</div>
-        <div style="color:var(--t3)">Еженедельный статус руководству. Ежемесячный синк по проектам</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px">
-        <div style="font-weight:700;margin-bottom:4px">PM</div>
-        <div style="color:var(--t3)">Функциональное взаимодействие: PM передаёт статус в ПО, 30 мин/нед</div>
-      </div>
+    <div class="ask-box" style="margin-top:16px;padding:16px 24px">
+      <div style="font-size:14px;font-weight:700">Прошу выбрать вариант или предложить свой</div>
+      <div style="font-size:12px;opacity:0.8;margin-top:4px">Если не сработает за 6 недель — откатываем без последствий. Стоимость по запросу.</div>
     </div>
-    <div style="margin-top:20px;font-size:13px;color:var(--t3)">Детали: <a href="status-pmo.html" style="color:var(--b);text-decoration:none;border-bottom:1px dashed rgba(0,82,204,0.3)">status-pmo.html</a></div>
+    <div style="margin-top:12px;font-size:11px;color:var(--t3)">Детали: <a href="status-pmo.html" style="color:#9B59D0;text-decoration:none;border-bottom:1px dashed rgba(155,89,208,0.3)">status-pmo.html</a></div>
     <div class="slide-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="height:14px;filter:brightness(10);opacity:0.3;vertical-align:middle;margin-right:6px">Проектный офис</div>
   </div>
 
