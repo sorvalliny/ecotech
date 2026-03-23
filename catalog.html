@@ -504,6 +504,9 @@
 
   // ── Load data ──
   function init() {
+    // DEBUG: вывод прямо в grid если что-то пойдёт не так
+    elGrid.innerHTML = '<div style="padding:20px;color:orange;font-size:13px;">Загрузка продуктов...</div>';
+
     STAGES = window.STAGES_DB ? STAGES_DB.get() : [];
     backlog = (window.PT && PT.load) ? PT.load(PT.KEY_BACKLOG) || [] : [];
     changelog = (window.PT && PT.load) ? PT.load(PT.KEY_CHANGELOG) || [] : [];
@@ -511,10 +514,12 @@
     if (window.PT && PT.ensureProducts) {
       PT.ensureProducts(function(p) {
         products = p || [];
+        elGrid.innerHTML = '<div style="padding:20px;color:cyan;font-size:13px;">Получено продуктов: ' + products.length + ', STAGES: ' + STAGES.length + '. Рендерю...</div>';
         autoSelectDepartment();
         render();
       });
     } else {
+      elGrid.innerHTML = '<div style="padding:20px;color:red;font-size:13px;">PT.ensureProducts не найден!</div>';
       render();
     }
 
