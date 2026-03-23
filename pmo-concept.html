@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проектный офис — концепция</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+:root{--v:#6C3DAF;--vd:rgba(108,61,175,0.08);--b:#0052CC;--bd:rgba(0,82,204,0.07);--ok:#00875A;--okb:#E3FCEF;--warn:#FF8B00;--wb:#FFF7E6;--crit:#DE350B;--cb:#FFEBE6;--t1:#172B4D;--t2:#5E6C84;--t3:#97A0AF;--bg:#F4F5F7;--brd:#EBECF0;--brd2:#DFE1E6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',system-ui,sans-serif;background:#0a0a1a;color:#fff;-webkit-font-smoothing:antialiased;overflow:hidden;height:100vh}
+
+/* slide system */
+.slides{display:flex;transition:transform 0.4s ease;height:100vh;width:700vw}
+.slide{width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 80px;position:relative;flex-shrink:0}
+.slide::after{content:attr(data-num) ' / 7';position:absolute;bottom:24px;right:40px;font-size:11px;color:rgba(255,255,255,0.3)}
+.slide-logo{position:absolute;bottom:24px;left:40px;font-size:10px;color:rgba(255,255,255,0.3)}
+
+/* nav */
+.nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}
+.nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:all 0.2s}
+.nav-dot.active{background:var(--v);width:24px;border-radius:5px}
+.nav-keys{position:fixed;top:24px;right:40px;font-size:10px;color:rgba(255,255,255,0.2);z-index:10}
+
+/* typography */
+h1{font-size:42px;font-weight:900;letter-spacing:-0.03em;line-height:1.1;margin-bottom:16px}
+h2{font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px}
+.sub{font-size:14px;color:var(--t3);line-height:1.6}
+.accent{color:var(--v)}
+.accent-b{color:var(--b)}
+
+/* table */
+.tw{border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-top:16px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:rgba(255,255,255,0.04);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--t3);padding:10px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06)}
+td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.85);line-height:1.4}
+tr:last-child td{border-bottom:none}
+td b{color:#fff}
+
+/* schema */
+.schema{display:flex;align-items:center;justify-content:center;gap:20px;margin:24px 0}
+.schema-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 24px;text-align:center;min-width:120px}
+.schema-box--v{background:var(--vd);border-color:rgba(108,61,175,0.3)}
+.schema-box b{display:block;font-size:14px;margin-bottom:4px}
+.schema-box span{font-size:11px;color:var(--t3)}
+.schema-arrow{font-size:20px;color:rgba(255,255,255,0.2)}
+.schema-gap{width:80px;height:60px;border:2px dashed rgba(255,255,255,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;color:rgba(255,255,255,0.15)}
+
+/* funnel */
+.funnel{display:flex;gap:6px;margin:20px 0;align-items:flex-end}
+.funnel-stage{flex:1;border-radius:8px;text-align:center;padding:10px 6px;font-size:11px;font-weight:700;color:#fff}
+.funnel-stage small{display:block;font-weight:400;font-size:9px;opacity:0.7;margin-top:2px}
+
+/* ask */
+.ask-box{background:var(--v);border-radius:12px;padding:24px 32px;margin-top:20px}
+.ask-box h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.ask-box p{font-size:14px;opacity:0.85;line-height:1.6}
+
+/* demo */
+.demo-link{display:inline-block;background:var(--b);color:#fff;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;margin-top:16px;transition:background 0.15s}
+.demo-link:hover{background:#003D99}
+
+@media(max-width:800px){.slide{padding:32px 24px}h1{font-size:28px}h2{font-size:22px}}
+@media print{body{overflow:visible;height:auto;background:#fff;color:var(--t1)}.slides{flex-direction:column;width:100%}.slide{height:auto;min-height:100vh;page-break-after:always}.nav,.nav-keys{display:none}}
+</style>
+</head>
+<body>
+
+<div class="nav-keys">← → для навигации</div>
+<div class="nav" id="nav"></div>
+
+<div class="slides" id="slides">
+
+  <!-- СЛАЙД 1: ТИТУЛ -->
+  <div class="slide" data-num="1">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--t3);margin-bottom:24px">RWB &middot; Инновации и экосистема</div>
+    <h1>Проектный офис —<br><span class="accent">связь бизнес-целей<br>и продуктовых команд</span></h1>
+    <div class="sub">Прозрачное управление инициативами. Ускорение жизненного цикла продуктов через чёткие стадии роста.</div>
+    <div style="margin-top:32px;font-size:12px;color:var(--t3)">Сорваль В. &middot; PMO Lead &middot; Март 2026</div>
+    <div class="slide-logo">Проектный офис &middot; RWB</div>
+  </div>
+
+  <!-- СЛАЙД 2: ПОРТФЕЛЬ -->
+  <div class="slide" data-num="2">
+    <h2>Ваш портфель</h2>
+    <div class="sub">8 ИТ-продуктов двух департаментов. 5 перешли в другие.</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Продукт</th><th>Владелец</th><th>Этап</th><th>Цель 2026</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4" style="font-weight:700;color:var(--b);font-size:10px;letter-spacing:0.04em;background:rgba(0,82,204,0.08)">ЭКОСИСТЕМА &middot; Этин Е.</td></tr>
+          <tr><td><b>Wibes</b></td><td>Коваленко М.</td><td>В проде</td><td>Рост GMV и аудитории</td></tr>
+          <tr><td><b>WB Книги</b></td><td>Ким Э.</td><td>Разработка</td><td>#1 в книгах РФ/СНГ</td></tr>
+          <tr><td><b>WB Kids</b></td><td>Ревяшко А.</td><td>Разработка</td><td style="color:var(--warn)">Не определена</td></tr>
+          <tr><td><b>WB Sport</b></td><td>Ревяшко А.</td><td>Разработка</td><td style="color:var(--warn)">Не определена</td></tr>
+          <tr><td><b>WB Встречи</b></td><td>Митраков И.</td><td>Прототип</td><td>PMF, масштаб на РФ</td></tr>
+          <tr><td colspan="4" style="font-weight:700;color:var(--v);font-size:10px;letter-spacing:0.04em;background:rgba(108,61,175,0.08)">ОБУЧЕНИЕ &middot; Коваль И.</td></tr>
+          <tr style="color:var(--t3)"><td>EdTech</td><td>Суркова Е.</td><td>Разработка</td><td style="color:var(--warn)">Не определена</td></tr>
+          <tr style="color:var(--t3)"><td>Мост поколений</td><td>Суркова Е.</td><td>В проде</td><td>MAU >100 тыс</td></tr>
+          <tr style="color:var(--t3)"><td>Tingli</td><td>Суркова Е.</td><td>В проде</td><td>Монетизация</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-logo">Проектный офис &middot; RWB</div>
+  </div>
+
+  <!-- СЛАЙД 3: ПРОБЛЕМА -->
+  <div class="slide" data-num="3">
+    <h2>Сейчас</h2>
+    <div class="schema">
+      <div class="schema-box"><b>CEO</b><span>Бизнес-цели</span></div>
+      <div class="schema-arrow">→</div>
+      <div class="schema-gap">?</div>
+      <div class="schema-arrow">→</div>
+      <div class="schema-box"><b>8 продуктов</b><span>Каждый сам по себе</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:24px">
+      <div style="background:rgba(222,53,11,0.1);border:1px solid rgba(222,53,11,0.2);border-radius:10px;padding:14px 16px;text-align:center">
+        <div style="font-size:28px;font-weight:900;color:var(--crit)">3 из 8</div>
+        <div style="font-size:11px;color:var(--t3)">продуктов без целей на год</div>
+      </div>
+      <div style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2);border-radius:10px;padding:14px 16px;text-align:center">
+        <div style="font-size:28px;font-weight:900;color:var(--warn)">0</div>
+        <div style="font-size:11px;color:var(--t3)">общая панель по продуктам</div>
+      </div>
+      <div style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2);border-radius:10px;padding:14px 16px;text-align:center">
+        <div style="font-size:28px;font-weight:900;color:var(--warn)">0</div>
+        <div style="font-size:11px;color:var(--t3)">стадий зрелости продуктов</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--t3);margin-top:16px;text-align:center">Статус продукта — только у его менеджера. Приоритеты — без данных. Сроки — без контроля.</div>
+    <div class="slide-logo">Проектный офис &middot; RWB</div>
+  </div>
+
+  <!-- СЛАЙД 4: ЧТО МЕНЯЕТ ПО -->
+  <div class="slide" data-num="4">
+    <h2>Что меняет <span class="accent">Проектный офис</span></h2>
+    <div class="schema">
+      <div class="schema-box"><b>CEO</b><span>Бизнес-цели</span></div>
+      <div class="schema-arrow">→</div>
+      <div class="schema-box schema-box--v"><b>ПО</b><span>Связь и контроль</span></div>
+      <div class="schema-arrow">→</div>
+      <div class="schema-box"><b>8 продуктов</b><span>Единые правила</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:24px">
+      <div style="background:rgba(108,61,175,0.1);border:1px solid rgba(108,61,175,0.2);border-radius:10px;padding:16px">
+        <div style="font-size:16px;font-weight:800;color:var(--v);margin-bottom:6px">Прозрачность</div>
+        <div style="font-size:12px;color:var(--t3);line-height:1.5">Все продукты видны в одном месте. Статус без запросов к PM.</div>
+      </div>
+      <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.2);border-radius:10px;padding:16px">
+        <div style="font-size:16px;font-weight:800;color:var(--b);margin-bottom:6px">Сроки</div>
+        <div style="font-size:12px;color:var(--t3);line-height:1.5">Контроль инициатив. Кто что делает, когда дедлайн, где блокер.</div>
+      </div>
+      <div style="background:rgba(0,135,90,0.1);border:1px solid rgba(0,135,90,0.2);border-radius:10px;padding:16px">
+        <div style="font-size:16px;font-weight:800;color:var(--ok);margin-bottom:6px">Зрелость</div>
+        <div style="font-size:12px;color:var(--t3);line-height:1.5">Стадии роста продукта. Чеклист перехода. Решения на данных.</div>
+      </div>
+    </div>
+    <div class="slide-logo">Проектный офис &middot; RWB</div>
+  </div>
+
+  <!-- СЛАЙД 5: СТАДИИ -->
+  <div class="slide" data-num="5">
+    <h2>Жизненный цикл продукта</h2>
+    <div class="sub">6 стадий зрелости. Переход — через чеклист. Приоритеты — по формуле RICE.</div>
+    <div class="funnel">
+      <div class="funnel-stage" style="background:#5E6C84;height:50px">0<small>Заявка</small></div>
+      <div class="funnel-stage" style="background:var(--b);height:65px">1<small>Разведка</small></div>
+      <div class="funnel-stage" style="background:var(--v);height:80px">2<small>Прототип</small></div>
+      <div class="funnel-stage" style="background:#CD519D;height:95px">3<small>Разгон</small></div>
+      <div class="funnel-stage" style="background:var(--ok);height:110px">4<small>Экосистема</small></div>
+      <div class="funnel-stage" style="background:#5243AA;height:125px">5<small>Зрелость</small></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px;font-size:12px">
+      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px 12px"><b>Wibes</b> <span style="color:var(--ok)">→ стадия 4</span><br><span style="color:var(--t3)">В проде, экосистема</span></div>
+      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px 12px"><b>Kids</b> <span style="color:var(--b)">→ стадия 1</span><br><span style="color:var(--t3)">Разведка</span></div>
+      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px 12px"><b>Встречи</b> <span style="color:var(--t3)">→ стадия 0</span><br><span style="color:var(--t3)">Заявка</span></div>
+    </div>
+    <div class="slide-logo">Проектный офис &middot; RWB</div>
+  </div>
+
+  <!-- СЛАЙД 6: ДЕМО -->
+  <div class="slide" data-num="6">
+    <h2>Демо: <span class="accent-b">ОРБИТА</span></h2>
+    <div class="sub">Прототип платформы управления портфелем. Работает прямо сейчас.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:20px">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px">1. Реестр</div>
+        <div style="font-size:11px;color:var(--t3)">Все продукты, стадии, владельцы</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px">2. Карточка</div>
+        <div style="font-size:11px;color:var(--t3)">Wibes — цели, RICE, Gate</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px">3. Gate-чеклист</div>
+        <div style="font-size:11px;color:var(--t3)">Критерии перехода</div>
+      </div>
+    </div>
+    <a class="demo-link" href="https://sorvalliny.github.io/ecotech/" target="_blank">Открыть ОРБИТА</a>
+    <div style="font-size:11px;color:var(--t3);margin-top:8px">Логин: ceo.eco@rwb.ru</div>
+    <div class="slide-logo">Проектный офис &middot; RWB</div>
+  </div>
+
+  <!-- СЛАЙД 7: ЗАПРОС -->
+  <div class="slide" data-num="7">
+    <h2>Один запрос</h2>
+    <div class="ask-box">
+      <h3>Определить место ПО в структуре департамента</h3>
+      <p>За что отвечает проектный офис, кому отчитывается, как взаимодействует с PM продуктов. Остальное — рабочим порядком после.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:20px;font-size:12px">
+      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px">
+        <div style="font-weight:700;margin-bottom:4px">Контур</div>
+        <div style="color:var(--t3)">8 продуктов двух департаментов + не-ИТ направления с Q2</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px">
+        <div style="font-weight:700;margin-bottom:4px">Отчётность</div>
+        <div style="color:var(--t3)">Еженедельный статус руководству. Ежемесячный синк по проектам</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px">
+        <div style="font-weight:700;margin-bottom:4px">PM</div>
+        <div style="color:var(--t3)">Функциональное взаимодействие: PM передаёт статус в ПО, 30 мин/нед</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;font-size:13px;color:var(--t3)">Детали: <a href="status-pmo.html" style="color:var(--b);text-decoration:none;border-bottom:1px dashed rgba(0,82,204,0.3)">status-pmo.html</a></div>
+    <div class="slide-logo">Проектный офис &middot; RWB</div>
+  </div>
+
+</div>
+
+<script>
+let current = 0;
+const total = 7;
+const slides = document.getElementById('slides');
+const nav = document.getElementById('nav');
+
+// build nav dots
+for (let i = 0; i < total; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => goTo(i);
+  nav.appendChild(dot);
+}
+
+function goTo(n) {
+  current = Math.max(0, Math.min(n, total - 1));
+  slides.style.transform = `translateX(-${current * 100}vw)`;
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.className = 'nav-dot' + (i === current ? ' active' : ''));
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+});
+
+// touch support
+let touchX = 0;
+document.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
+document.addEventListener('touchend', e => {
+  const diff = touchX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+});
+</script>
+</body>
+</html>
