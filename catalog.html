@@ -150,12 +150,14 @@
       <option value="edu_product">Образовательный</option>
       <option value="project">Проект</option>
     </select>
-    <select id="cf-status">
-      <option value="">Все статусы</option>
-      <option value="on-track">Активен</option>
-      <option value="at-risk">Риск</option>
-      <option value="blocked">Заблокирован</option>
-      <option value="screening">Заявка (O·0)</option>
+    <select id="cf-stage">
+      <option value="">Все стадии</option>
+      <option value="0">О·0 Заявка</option>
+      <option value="1">О·1 Разведка</option>
+      <option value="2">О·2 Прототип</option>
+      <option value="3">О·3 MVP</option>
+      <option value="4">О·4 Рост</option>
+      <option value="5">О·5 Масштаб</option>
     </select>
     <input type="text" id="cf-search" placeholder="Поиск по названию...">
   </div>
@@ -198,7 +200,7 @@
   var elCLArrow = document.getElementById('cl-arrow');
   var elCFDept  = document.getElementById('cf-dept');
   var elCFType  = document.getElementById('cf-type');
-  var elCFStat  = document.getElementById('cf-status');
+  var elCFStage = document.getElementById('cf-stage');
   var elCFSearch= document.getElementById('cf-search');
 
   // ── Helpers ──
@@ -236,12 +238,6 @@
     if (s === 'pending')  return 'Заявка (O·0)';
     if (s === 'screening') return 'Заявка (O·0)';
     return s || 'N/A';
-  }
-
-  function mapStatusFilter(s) {
-    // Map product status to filter value
-    if (s === 'pending') return 'screening';
-    return s;
   }
 
   function currentQuarterLabel() {
@@ -294,7 +290,7 @@
     return {
       dept:   elCFDept.value,
       type:   elCFType.value,
-      status: elCFStat.value,
+      stage:  elCFStage.value,
       search: (elCFSearch.value || '').trim().toLowerCase()
     };
   }
@@ -305,15 +301,14 @@
       if (f.dept && (p.department || 'innovation') !== f.dept) return false;
       if (f.type) {
         var pType = p.cat || p.type || '';
-        // Map catLabel/cat to filter values
         if (f.type === 'product' && pType !== 'b2c' && pType !== 'b2b' && pType !== 'internal') return false;
         if (f.type === 'tech_solution' && pType !== 'tech') return false;
-        if (f.type === 'edu_product' && pType !== 'edu') return false;
+        if (f.type === 'edu_product' && pType !== 'edu' && pType !== 'edtech') return false;
         if (f.type === 'project' && pType !== 'project') return false;
       }
-      if (f.status) {
-        var pStatus = mapStatusFilter(p.status);
-        if (pStatus !== f.status) return false;
+      if (f.stage !== '') {
+        var gate = parseInt(f.stage, 10);
+        if ((p.gate || 0) !== gate) return false;
       }
       if (f.search) {
         var hay = ((p.name || '') + ' ' + (p.id || '') + ' ' + (p.desc || '') + ' ' + (p.owner || '')).toLowerCase();
@@ -326,17 +321,27 @@
   // ── Render Summary ──
   function renderSummary() {
     var total = products.length;
-    var active = 0, atRisk = 0, blocked = 0;
+    var active = products.filter(function(p) { return p.status !== 'transferring'; }).length;
+    var archived = total - active;
+    // Count by stage
+    var stageCounts = {};
     products.forEach(function(p) {
-      if (p.status === 'on-track') active++;
-      if (p.status === 'at-risk') atRisk++;
-      if (p.status === 'blocked') blocked++;
+      if (p.status === 'transferring') return;
+      var g = p.gate || 0;
+      stageCounts[g] = (stageCounts[g] || 0) + 1;
     });
+    var stageHtml = '';
+    for (var g = 0; g <= 5; g++) {
+      if (stageCounts[g]) {
+        var s = STAGES[g];
+        var label = s ? s.orbita : 'О·' + g;
+        stageHtml += '<div class="cat-summary-item"><strong style="color:' + (s ? s.color : 'var(--text)') + '">' + stageCounts[g] + '</strong> ' + label + '</div>';
+      }
+    }
     elSummary.innerHTML =
-      '<div class="cat-summary-item"><strong>' + total + '</strong> продуктов</div>' +
-      '<div class="cat-summary-item"><strong style="color:var(--teal)">' + active + '</strong> активных</div>' +
-      (atRisk ? '<div class="cat-summary-item"><strong style="color:var(--amber)">' + atRisk + '</strong> с риском</div>' : '') +
-      (blocked ? '<div class="cat-summary-item"><strong style="color:var(--red)">' + blocked + '</strong> заблокировано</div>' : '');
+      '<div class="cat-summary-item"><strong>' + active + '</strong> продуктов</div>' +
+      stageHtml +
+      (archived ? '<div class="cat-summary-item"><strong style="color:var(--muted)">' + archived + '</strong> в архиве</div>' : '');
   }
 
   // ── Render Grid ──
@@ -474,7 +479,7 @@
   // ── Filter events ──
   elCFDept.addEventListener('change', renderGrid);
   elCFType.addEventListener('change', renderGrid);
-  elCFStat.addEventListener('change', renderGrid);
+  elCFStage.addEventListener('change', renderGrid);
   elCFSearch.addEventListener('input', renderGrid);
 
   // ── Auto-select department for PM/PMO ──
