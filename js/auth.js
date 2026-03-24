@@ -107,9 +107,13 @@
           }
           return migrateUsers(merged);
         }
-        return migrateUsers(DEFAULT_USERS.map(function(u) { return JSON.parse(JSON.stringify(u)); }));
+        var seeded = migrateUsers(DEFAULT_USERS.map(function(u) { return JSON.parse(JSON.stringify(u)); }));
+        try { localStorage.setItem(USERS_KEY, JSON.stringify(seeded)); } catch(e2) {}
+        return seeded;
       } catch(e) {
-        return migrateUsers(DEFAULT_USERS.map(function(u) { return JSON.parse(JSON.stringify(u)); }));
+        var seeded2 = migrateUsers(DEFAULT_USERS.map(function(u) { return JSON.parse(JSON.stringify(u)); }));
+        try { localStorage.setItem(USERS_KEY, JSON.stringify(seeded2)); } catch(e3) {}
+        return seeded2;
       }
     },
 

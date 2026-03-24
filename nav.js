@@ -165,15 +165,20 @@
     + (function(){
         try {
           var au = JSON.parse(localStorage.getItem('ECOTECH_AUTH'));
+          if (!au) return '';
           var us = JSON.parse(localStorage.getItem('ECOTECH_USERS'));
-          console.log('[NAV DEBUG] auth:', au, 'users count:', us ? us.length : 0);
-          if (!au || !us) { console.log('[NAV DEBUG] no auth or users'); return ''; }
+          if (!us || !us.length) {
+            // fallback: seed users inline (nav loads before auth.js)
+            us = [
+              {id:'U001',role:'admin',department:''},
+              {id:'U002',role:'pmo_lead',department:''},
+              {id:'U003',role:'lead',department:'innovation'}
+            ];
+          }
           var cu = us.find(function(x){ return x.id === au.id; });
-          console.log('[NAV DEBUG] current user:', cu ? {id:cu.id, role:cu.role, dept:cu.department} : 'NOT FOUND');
           if (!cu) return '';
           var isAdmin = cu.role === 'admin' || cu.role === 'pmo_lead';
           var isCEO = cu.role === 'lead' && cu.department === 'innovation';
-          console.log('[NAV DEBUG] isAdmin:', isAdmin, 'isCEO:', isCEO);
           if (!isAdmin && !isCEO) return '';
           var items = '';
           if (isAdmin) items += '<a href="'+base+'admin.html"'+(has('admin')?' class="en-active"':'')+' role="menuitem">Настройки</a>';
