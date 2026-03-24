@@ -16,7 +16,7 @@
     var csp = document.createElement('meta');
     csp.id = 'en-csp';
     csp.httpEquiv = 'Content-Security-Policy';
-    csp.content = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'";
+    csp.content = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'";
     document.head.insertBefore(csp, document.head.firstChild);
   }
 

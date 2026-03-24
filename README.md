@@ -2,57 +2,63 @@
 
 Система управления портфелем цифровых решений экосистемы RWB.
 
-## Деплой
-
-https://sorvalliny.github.io/ecotech/
-
 ## Стек
 
 - Vanilla HTML / CSS / JS
 - Self-hosted Inter (fonts/)
-- 0 внешних CDN-зависимостей
 - GitHub Pages (main → deploy)
+
+## Зависимости
+
+Все зависимости хранятся локально в `js/`:
+
+| Библиотека | Версия | Назначение |
+|------------|--------|------------|
+| [Fuse.js](https://www.fusejs.io/) | 7.0.0 | Нечёткий поиск по каталогу |
+| [SheetJS (XLSX)](https://sheetjs.com/) | 0.18.5 | Экспорт/импорт Excel в стратегическом планировании |
 
 ## Структура
 
 ```
 ecotech/
 ├── index.html              — главная (точка входа)
-├── business.html           — каталог продуктов
-├── product.html            — хаб для команды
-├── product-card.html       — карточка продукта (workspace PM)
+├── catalog.html            — каталог продуктов
+├── workspace.html          — рабочее пространство продукта
 ├── admin.html              — администрирование
-├── dashboard.html          — статус портфеля
-├── terminology.html        — глоссарий
+├── calendar.html           — календарь
+├── committees.html         — комитеты
+├── framework.html          — методология (фреймворк)
+├── glossary.html           — глоссарий
+├── org-structure.html      — оргструктура
+├── registry.html           — реестр продуктов
+├── teams.html              — команды
 │
-├── Проектный офис/
-│   └── tracker.html        — реестр (мониторинг портфеля)
-│
-├── Продукту/
-│   ├── index.html          — онбординг команды
+├── tools/
+│   ├── index.html          — инструменты (хаб)
 │   ├── brief.html          — бриф + RICE
 │   ├── gate-checklist.html — Gate-чеклист
 │   ├── strategy.html       — стратегическое планирование
 │   ├── templates.html      — шаблоны артефактов
-│   └── tools.html          — инструменты
+│   └── onboarding.html     — онбординг команды
 │
-├── Фреймворк/
-│   └── framework-lite.html — как мы работаем (методология)
-│
-├── Хэндбук/
+├── knowledge/
 │   ├── roles.html          — матрица ролей
 │   ├── planning.html       — процесс планирования
 │   ├── impact-model.html   — модель влияния
-│   └── ai-integration.html — AI-интеграция
+│   ├── ai-integration.html — интеграция с ИИ
+│   └── cjm-roles.html      — CJM ролей
 │
+├── css/                    — стили
+├── js/                     — скрипты и библиотеки
+├── data/                   — данные (JSON)
+├── fonts/                  — Inter (self-hosted)
 ├── design-system.css       — дизайн-система
-├── css/theme-vars.css      — темы (light/dark)
 ├── nav.js                  — навигация
 ├── platform.js             — bridge (localStorage, helpers)
-├── js/auth.js              — авторизация и роли
-└── fonts/                  — Inter (self-hosted)
+├── stages.js               — логика стадий
+└── icons.js                — SVG-иконки
 ```
 
-## Связанные проекты
+## Деплой
 
-- **PMO Экосистемы**: [sorvalliny/pmo-ecosys](https://github.com/sorvalliny/pmo-ecosys) (стратегия, агенты, документы)
+GitHub Pages из ветки `main`.

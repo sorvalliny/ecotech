@@ -1,6 +1,10 @@
 .DS_Store
-files.zip
+.claude/
+*.swp
+*.swo
+*~
+.env
 node_modules/
-
+files.zip
 *storybook.log
 storybook-static

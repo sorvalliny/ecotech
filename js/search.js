@@ -52,13 +52,12 @@
     document.head.appendChild(link);
   }
 
-  // ── load Fuse.js via CDN ────────────────────────────────
   function loadFuse(cb) {
     if (window.Fuse) { cb(); return; }
     var s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
+    s.src = base + 'js/fuse.min.js';
     s.onload = cb;
-    s.onerror = function () { console.warn('Fuse.js CDN failed'); };
+    s.onerror = function () { /* noop */ };
     document.head.appendChild(s);
   }
 

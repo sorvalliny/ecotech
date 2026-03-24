@@ -508,7 +508,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   ];
 
   // ── State ──
-  // PL-001: Goal lifecycle statuses
+  // Состояния жизненного цикла целей
   var GOAL_STATUS = {
     draft: { label: 'Черновик', color: 'var(--muted)' },
     pending: { label: 'На согласовании', color: 'var(--amber)' },
@@ -607,7 +607,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   function saveGoals() { PT.save(PT.KEY_GOALS, _goals); }
   function addLog(action, details, entityType, entityId) { PT.addLog(productId, action, details, entityType, entityId); }
 
-  // W-09: Unified Go / Revise / No-Go review
+  // Единая ревью-система: Go / Revise / No-Go
   window.reviewInitiative = function(initId, decision) {
     var init = _backlog.find(function(i) { return i.id === initId; });
     if (!init) return;
@@ -632,7 +632,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     showModal(modalTitle, fields, function(vals) {
       var d = decision;
       var comment = vals.comment || '';
-      // W-09: Go → wip + approved; Revise → keep status, pending; No-Go → backlog + rejected
+      // Go → wip + approved; Revise → keep status, pending; No-Go → backlog + rejected
       if (d === 'go') {
         init.status = 'wip';
         init.approval = 'approved';
@@ -818,7 +818,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   }
 
   // ── Status Card handler ──
-  // setProductStatus removed — status auto-calculated from metrics/initiatives/KR
+  // Статус продукта вычисляется автоматически из метрик/инициатив/KR
 
   window.advanceGate = function() {
     if (!_product) return;
@@ -863,7 +863,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       checklistHtml += '</div>';
     }
 
-    // ── W-04: Check stage metrics before transition ──
+    // Проверка метрик стадии перед переходом
     var metricsDef = STAGE_METRICS[currentGate];
     var metricStatuses = (_product.stageMetricStatus && _product.stageMetricStatus['g' + currentGate]) || {};
     var failCount = 0;
@@ -922,12 +922,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       showToast('Переведено на ' + nextName);
       render();
 
-      // ── W-05: Show retro modal after gate transition ──
+      // Показ ретро-модала после перехода Gate
       showRetroModal(oldGate, gateNames);
     }, { confirmLabel: allFail ? 'Все метрики не пройдены' : 'Перевести', htmlBefore: '<p style="font-size:13px;color:var(--text);margin-bottom:8px">Текущий Gate: <b>' + gateNames[currentGate] + '</b> → <b>' + nextName + '</b><br>Утверждает: ' + userName + '</p>' + metricWarningHtml + checklistHtml, disableConfirm: allFail });
   };
 
-  // ── W-05: Retro modal after Gate transition ──
+  // Ретро-модал после перехода Gate
   function showRetroModal(oldGate, gateNames) {
     var gateName = gateNames[oldGate] || ('Gate ' + oldGate);
     showModal('Ретроспектива Gate ' + gateName, [
@@ -1294,7 +1294,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     }
     html += '</div>';
 
-    // W-11: Gate schedule — плановые даты Gate
+    // Плановые даты Gate
     var history = (_product && _product.gateHistory) ? _product.gateHistory : [];
     var schedule = (_product && _product.gateSchedule) ? _product.gateSchedule : {};
     // Build map: gate number → completion date from history
@@ -1376,7 +1376,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   // ═══════════════════════════════════════════════════════════════
 
   function renderInitiatives(items, editable) {
-    // W-06: Apply filters before render
+    // Применение фильтров перед рендером
     var filtered = items;
     if (_filterStatus !== 'all') {
       filtered = filtered.filter(function(it) { return it.status === _filterStatus; });
@@ -1389,7 +1389,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     if (editable) html += '<button class="ws-create-init-btn" id="btn-create-init">+ \u041D\u043E\u0432\u0430\u044F \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0430</button>';
     else html += '<div></div>';
     html += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">';
-    // W-06: Filters
+    // Фильтры
     html += '<div class="ws-init-filters">';
     html += '<select id="filter-status">';
     html += '<option value="all"' + (_filterStatus === 'all' ? ' selected' : '') + '>\u0421\u0442\u0430\u0442\u0443\u0441: \u0412\u0441\u0435</option>';
@@ -1430,7 +1430,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     html += '<div class="ws-form-actions"><button class="ws-btn-primary" id="init-save">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button><button class="ws-btn-secondary" id="init-cancel">\u041E\u0442\u043C\u0435\u043D\u0430</button></div>';
     html += '</div>';
 
-    // List (uses filtered items from W-06)
+    // Список отфильтрованных инициатив
     html += '<div id="init-list">';
     if (!filtered.length) {
       html += '<div style="text-align:center;padding:40px;color:var(--muted);font-size:13px">' + (items.length ? '\u041D\u0435\u0442 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 \u043F\u043E \u0444\u0438\u043B\u044C\u0442\u0440\u0443' : '\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442') + '</div>';
@@ -1522,7 +1522,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
     // Methodology link
     html += '<a href="framework.html" style="font-size:11px;color:var(--muted);text-decoration:none;" onmouseover="this.style.color=\'var(--violet)\'" onmouseout="this.style.color=\'var(--muted)\'">Методология: стадия ' + (isTechSolution() ? 'T' : 'O') + '\u00b7' + (_product.gate||0) + '</a>';
-    // W-09: Unified review buttons — Go / Revise / No-Go for canReview()
+    // Кнопки ревью: Go / Revise / No-Go
     if (canReview()) {
       html += '<div style="display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">';
       html += '<button onclick="reviewInitiative(\'' + esc(item.id) + '\',\'go\')" style="padding:6px 14px;border-radius:6px;border:1px solid rgba(75,206,151,.3);background:var(--teal-dim);color:var(--teal);font-size:11px;font-weight:700;cursor:pointer;">Go</button>';
@@ -1580,7 +1580,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     }
     html += '</div>';
 
-    // PL-007: Auto-notifications for planning phases
+    // Авто-уведомления для фаз планирования
     if (window.PT && PT.notify) {
       pGoals.forEach(function(g) {
         if (g.status === 'draft' && g.createdAt && PT.daysSince(g.createdAt) > 7) {
@@ -1589,11 +1589,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       });
     }
 
-    // Fix 5: Mode label
+    // Метка режима
     if (isReviewMode) {
       html += '<div style="font-size:16px;font-weight:800;color:var(--amber);margin-bottom:16px;">Итоги ' + qLabel + '</div>';
       html += renderReviewMode(pGoals, qInits, qLabel, selYear, selQ, editable);
-      // Fix 1: CTA bridge to next quarter
+      // Переход к следующему кварталу
       var nextQ = selQ < 4 ? selQ + 1 : 1;
       var nextY = selQ < 4 ? selYear : selYear + 1;
       html += '<div style="text-align:center;padding:16px;margin-top:8px;"><button class="pl-q-btn" style="padding:10px 24px;font-size:13px;background:var(--violet);color:#fff;border-color:var(--violet);" onclick="_plQ='+nextQ+';_plYear='+nextY+';render();">Перейти к планированию Q'+nextQ+' '+nextY+' →</button></div>';
@@ -1975,7 +1975,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     });
   }
 
-  // PL-002: approveGoal / rejectGoal
+  // Согласование / отклонение цели
   window.approveGoal = function(goalId) {
     var g = _goals.find(function(g) { return g.id === goalId; });
     if (!g) return;
@@ -2009,7 +2009,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     });
   };
 
-  // PL-003: updateKR inline
+  // Обновление KR (inline-редактирование)
   window.updateKR = function(goalId, krId) {
     var g = _goals.find(function(g) { return g.id === goalId; });
     if (!g || !g.keyResults) return;
@@ -2026,7 +2026,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     });
   };
 
-  // PL-004: Transfer to next quarter (updated for planning wizard)
+  // Перенос в следующий квартал
   function nextQ() {
     var nq = _plQ < 4 ? _plQ + 1 : 1;
     var ny = _plQ < 4 ? _plYear : _plYear + 1;
@@ -2050,7 +2050,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     render();
   };
 
-  // PL-005: Save retrospective (quarter-based)
+  // Сохранение ретроспективы (поквартально)
   window.saveRetro = function() {
     _product.retroDone = document.getElementById('retro-done') ? document.getElementById('retro-done').value : (_product.retroDone || '');
     _product.retroMissed = document.getElementById('retro-missed') ? document.getElementById('retro-missed').value : (_product.retroMissed || '');
@@ -2060,7 +2060,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     showToast('\u0420\u0435\u0442\u0440\u043E\u0441\u043F\u0435\u043A\u0442\u0438\u0432\u0430 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0430');
   };
 
-  // PL-005b: Save quarter retro (Start/Stop/Continue)
+  // Ретро квартала (Start/Stop/Continue)
   window.saveQuarterRetro = function(year, q) {
     if (!_product) return;
     if (!_product.quarterRetros) _product.quarterRetros = {};
@@ -2284,7 +2284,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       });
     }
 
-    // W-06: Filter change handlers
+    // Обработчики изменения фильтров
     var filterStatusEl = document.getElementById('filter-status');
     if (filterStatusEl) {
       filterStatusEl.addEventListener('change', function() {

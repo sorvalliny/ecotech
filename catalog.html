@@ -413,7 +413,7 @@
     var html = '';
     active.forEach(function(p) {
       try { html += renderCard(p); }
-      catch(err) { console.error('renderCard error for', p.id, err); html += '<div style="padding:12px;color:var(--red,red);font-size:11px;border:1px solid red;border-radius:8px;">Ошибка: ' + (p.id || '?') + ' — ' + (err.message || err) + '</div>'; }
+      catch(err) { html += '<div style="padding:12px;color:var(--red,red);font-size:11px;border:1px solid red;border-radius:8px;">Ошибка: ' + (p.id || '?') + ' — ' + (err.message || err) + '</div>'; }
     });
     if (transferring.length) {
       html += '<div style="grid-column:1/-1;padding:12px 0;border-top:1px solid var(--border);margin-top:8px;">';
@@ -421,7 +421,7 @@
       html += '</div>';
       transferring.forEach(function(p) {
         try { html += renderCard(p); }
-        catch(err) { console.error('renderCard error for', p.id, err); html += '<div style="padding:12px;color:var(--red,red);font-size:11px;border:1px solid red;border-radius:8px;">Ошибка: ' + (p.id || '?') + ' — ' + (err.message || err) + '</div>'; }
+        catch(err) { html += '<div style="padding:12px;color:var(--red,red);font-size:11px;border:1px solid red;border-radius:8px;">Ошибка: ' + (p.id || '?') + ' — ' + (err.message || err) + '</div>'; }
       });
     }
     if (!html) html = '<div class="cat-empty">Грид пуст: active=' + active.length + ', transferring=' + transferring.length + ', filtered=' + filtered.length + '</div>';
@@ -628,7 +628,7 @@
       renderGrid();
       renderChangelog();
     } catch(err) {
-      console.error('ORBITA catalog render error:', err);
+      /* noop */
       if (elGrid) elGrid.innerHTML = '<div style="padding:24px;color:var(--red,red);font-size:13px;">Ошибка отрисовки: ' + (err.message || err) + '</div>';
     }
   }
