@@ -160,66 +160,91 @@ td b{color:#fff}
     <div class="slide-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="height:14px;filter:brightness(10);opacity:0.3;vertical-align:middle;margin-right:6px">Проектный офис</div>
   </div>
 
-  <!-- СЛАЙД 5: СТАДИИ -->
+  <!-- СЛАЙД 5: ОРБИТАЛЬНАЯ ВИЗУАЛИЗАЦИЯ -->
   <div class="slide" data-num="5">
     <h2>Жизненный цикл продукта</h2>
-    <div class="sub">Целевой подход (на обсуждение). 6 стадий разработаны для инноваций и экосистемы на базе методологии Stage-Gate. Используется: Яндекс, Сбер, Тинькофф, МТС, VK, Газпром нефть.</div>
-    <!-- LIFECYCLE: стадии + гейты + SLA + продукты -->
-    <div style="margin-top:16px">
-      <!-- SLA над стрелками -->
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-bottom:2px;text-align:center">
-        <div style="font-size:8px;color:var(--t3)">≤5 дней</div>
-        <div style="font-size:8px;color:var(--t3)">2-6 нед</div>
-        <div style="font-size:8px;color:var(--t3)">1-4 мес</div>
-        <div style="font-size:8px;color:var(--t3)">3-6 мес</div>
-        <div style="font-size:8px;color:var(--t3)">ongoing</div>
-        <div style="font-size:8px;color:var(--t3)">ongoing</div>
-      </div>
-      <!-- Стадии с гейтами -->
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;align-items:end">
-        <div style="display:flex;flex-direction:column;align-items:center">
-          <div class="funnel-stage" style="background:#3D2066;height:40px;width:100%;cursor:pointer;border-radius:6px 0 0 6px" onclick="showStage(this)" data-desc="Описание проблемы и аудитории. Оценка приоритета." data-gate="Есть проблема? Стоит исследовать?">0<small>Заявка</small></div>
+    <div class="sub" style="margin-bottom:8px">Целевой подход (на обсуждение). Stage-Gate для экосистемы. Используется: Яндекс, Сбер, Тинькофф, МТС, VK.</div>
+
+    <div style="display:flex;gap:20px;align-items:flex-start">
+      <!-- SVG ORBITA -->
+      <svg viewBox="0 0 440 440" style="width:400px;height:400px;flex-shrink:0" xmlns="http://www.w3.org/2000/svg">
+        <!-- Орбиты (стадии) -->
+        <circle cx="220" cy="220" r="40" fill="none" stroke="rgba(61,32,102,0.4)" stroke-width="1" stroke-dasharray="4,4"/>
+        <circle cx="220" cy="220" r="80" fill="none" stroke="rgba(91,45,142,0.4)" stroke-width="1" stroke-dasharray="4,4"/>
+        <circle cx="220" cy="220" r="120" fill="none" stroke="rgba(108,61,175,0.4)" stroke-width="1" stroke-dasharray="4,4"/>
+        <circle cx="220" cy="220" r="160" fill="none" stroke="rgba(155,89,208,0.3)" stroke-width="1" stroke-dasharray="4,4"/>
+        <circle cx="220" cy="220" r="195" fill="none" stroke="rgba(203,17,171,0.3)" stroke-width="1" stroke-dasharray="4,4"/>
+
+        <!-- Центр: бизнес-цели -->
+        <circle cx="220" cy="220" r="22" fill="#CB11AB"/>
+        <text x="220" y="217" text-anchor="middle" fill="#fff" font-size="7" font-weight="800" font-family="Outfit">Бизнес</text>
+        <text x="220" y="228" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="6" font-family="Outfit">цели</text>
+
+        <!-- Лейблы стадий -->
+        <text x="220" y="175" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="Outfit" font-weight="600">O·0 Заявка</text>
+        <text x="220" y="135" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="Outfit" font-weight="600">O·1 Разведка</text>
+        <text x="220" y="95" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="Outfit" font-weight="600">O·2 Прототип</text>
+        <text x="220" y="55" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="Outfit" font-weight="600">O·3 Разгон</text>
+        <text x="220" y="20" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="Outfit" font-weight="600">O·4 Экосистема</text>
+
+        <!-- Гейты (ромбы на орбитах) -->
+        <rect x="256" y="216" width="8" height="8" transform="rotate(45,260,220)" fill="rgba(255,255,255,0.15)"/>
+        <rect x="296" y="216" width="8" height="8" transform="rotate(45,300,220)" fill="rgba(255,255,255,0.15)"/>
+        <rect x="336" y="216" width="8" height="8" transform="rotate(45,340,220)" fill="rgba(255,255,255,0.15)"/>
+        <rect x="376" y="216" width="8" height="8" transform="rotate(45,380,220)" fill="rgba(255,255,255,0.15)"/>
+        <text x="260" y="210" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="6" font-family="Outfit">G0</text>
+        <text x="300" y="210" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="6" font-family="Outfit">G1</text>
+        <text x="340" y="210" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="6" font-family="Outfit">G2</text>
+        <text x="380" y="210" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="6" font-family="Outfit">G3</text>
+
+        <!-- Планеты-продукты -->
+        <!-- O·1: Kids, Sport, EdTech -->
+        <circle cx="160" cy="155" r="14" fill="#5B2D8E" style="cursor:pointer" onclick="showOrbit('Kids — O·1 Разведка','CustDev с родителями, контент-стратегия','Проблема подтверждена? Рынок есть?')"/>
+        <text x="160" y="158" text-anchor="middle" fill="#fff" font-size="6" font-weight="700" font-family="Outfit">Kids</text>
+        <circle cx="280" cy="155" r="12" fill="#5B2D8E" style="cursor:pointer" onclick="showOrbit('Sport — O·1 Разведка','В процессе, ранняя стадия','Проблема подтверждена?')"/>
+        <text x="280" y="158" text-anchor="middle" fill="#fff" font-size="6" font-weight="700" font-family="Outfit">Sport</text>
+        <circle cx="220" cy="300" r="12" fill="#5B2D8E" style="cursor:pointer" onclick="showOrbit('EdTech — O·1 Разведка','В процессе, ранняя стадия','Проблема подтверждена?')"/>
+        <text x="220" y="303" text-anchor="middle" fill="#fff" font-size="6" font-weight="700" font-family="Outfit">EdTech</text>
+
+        <!-- O·2: Книги, Встречи -->
+        <circle cx="110" cy="260" r="15" fill="#6C3DAF" style="cursor:pointer" onclick="showOrbit('Книги — O·2 Прототип','Запуск MVP читалки, каталог','Прототип работает? Пользователи возвращаются?')"/>
+        <text x="110" y="263" text-anchor="middle" fill="#fff" font-size="6" font-weight="700" font-family="Outfit">Книги</text>
+        <circle cx="330" cy="130" r="13" fill="#6C3DAF" style="cursor:pointer" onclick="showOrbit('Встречи — O·2 Прототип','Защита концепции, эпик Клубы','Прототип работает?')"/>
+        <text x="330" y="133" text-anchor="middle" fill="#fff" font-size="5.5" font-weight="700" font-family="Outfit">Встречи</text>
+
+        <!-- O·3: Мост, Tingli -->
+        <circle cx="85" cy="140" r="16" fill="#9B59D0" style="cursor:pointer" onclick="showOrbit('Мост — O·3 Разгон','MAU >100 тыс, интеграция с архивами','PMF есть? Юнит-экономика плюс?')"/>
+        <text x="85" y="143" text-anchor="middle" fill="#fff" font-size="6" font-weight="700" font-family="Outfit">Мост</text>
+        <circle cx="355" cy="280" r="14" fill="#9B59D0" style="cursor:pointer" onclick="showOrbit('Tingli — O·3 Разгон','Монетизация, редизайн, платная версия','PMF? Юнит-экономика?')"/>
+        <text x="355" y="283" text-anchor="middle" fill="#fff" font-size="6" font-weight="700" font-family="Outfit">Tingli</text>
+
+        <!-- O·4: Wibes -->
+        <circle cx="50" cy="220" r="20" fill="#CB11AB" style="cursor:pointer" onclick="showOrbit('Wibes — O·4 Экосистема','Рост GMV, B2B, воронка. В проде.','Встроен в экосистему? Платформа?')"/>
+        <text x="50" y="223" text-anchor="middle" fill="#fff" font-size="7" font-weight="800" font-family="Outfit">Wibes</text>
+
+        <!-- SLA дуги -->
+        <text x="415" y="180" text-anchor="end" fill="rgba(255,255,255,0.15)" font-size="6" font-family="Outfit">≤5д</text>
+        <text x="415" y="140" text-anchor="end" fill="rgba(255,255,255,0.15)" font-size="6" font-family="Outfit">2-6нед</text>
+        <text x="415" y="100" text-anchor="end" fill="rgba(255,255,255,0.15)" font-size="6" font-family="Outfit">1-4мес</text>
+        <text x="415" y="60" text-anchor="end" fill="rgba(255,255,255,0.15)" font-size="6" font-family="Outfit">3-6мес</text>
+        <text x="415" y="25" text-anchor="end" fill="rgba(255,255,255,0.15)" font-size="6" font-family="Outfit">ongoing</text>
+      </svg>
+
+      <!-- Правая панель: инфо -->
+      <div style="flex:1;min-width:200px">
+        <div id="orbit-info" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;margin-bottom:12px;min-height:100px">
+          <div style="font-size:11px;color:var(--t3);text-align:center;padding:20px 0">Нажмите на продукт<br>для деталей</div>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center">
-          <div class="funnel-stage" style="background:#5B2D8E;height:50px;width:100%;cursor:pointer" onclick="showStage(this)" data-desc="Интервью с пользователями, конкуренты, бизнес-кейс." data-gate="Проблема подтверждена? Рынок есть?">1<small>Разведка</small></div>
+        <div style="font-size:10px;color:var(--t3);line-height:1.7">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><div style="width:10px;height:10px;border-radius:50%;background:#5B2D8E"></div> O·1 Разведка</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><div style="width:10px;height:10px;border-radius:50%;background:#6C3DAF"></div> O·2 Прототип</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><div style="width:10px;height:10px;border-radius:50%;background:#9B59D0"></div> O·3 Разгон</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><div style="width:10px;height:10px;border-radius:50%;background:#CB11AB"></div> O·4 Экосистема</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px"><div style="width:8px;height:8px;transform:rotate(45deg);background:rgba(255,255,255,0.2)"></div> Gate (точка решения)</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.3)">Чем дальше от центра — тем зрелее продукт</div>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center">
-          <div class="funnel-stage" style="background:#6C3DAF;height:60px;width:100%;cursor:pointer" onclick="showStage(this)" data-desc="Первая версия. Проверка гипотез на пользователях." data-gate="Прототип работает? Пользователи возвращаются?">2<small>Прототип</small></div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center">
-          <div class="funnel-stage" style="background:#9B59D0;height:70px;width:100%;cursor:pointer" onclick="showStage(this)" data-desc="Выход на рынок, рост аудитории, маркетинг." data-gate="PMF есть? Юнит-экономика плюс?">3<small>Разгон</small></div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center">
-          <div class="funnel-stage" style="background:#CB11AB;height:80px;width:100%;cursor:pointer" onclick="showStage(this)" data-desc="Интеграции с другими продуктами, API, платформа." data-gate="Встроен в экосистему? Работает как часть платформы?">4<small>Экосистема</small></div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center">
-          <div class="funnel-stage" style="background:#E91E8C;height:90px;width:100%;cursor:pointer;border-radius:0 6px 6px 0" onclick="showStage(this)" data-desc="Устойчивый бизнес, оптимизация, масштаб." data-gate="P&L положительный? Масштаб достигнут?">5<small>Зрелость</small></div>
-        </div>
-      </div>
-      <!-- Гейты (стрелки между стадиями) -->
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-top:2px;text-align:center">
-        <div style="font-size:9px;color:rgba(255,255,255,0.3)">G0 →</div>
-        <div style="font-size:9px;color:rgba(255,255,255,0.3)">→ G1 →</div>
-        <div style="font-size:9px;color:rgba(255,255,255,0.3)">→ G2 →</div>
-        <div style="font-size:9px;color:rgba(255,255,255,0.3)">→ G3 →</div>
-        <div style="font-size:9px;color:rgba(255,255,255,0.3)">→ G4 →</div>
-        <div style="font-size:9px;color:rgba(255,255,255,0.3)">→ G5</div>
-      </div>
-      <!-- Продукты под стадиями -->
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:6px;font-size:9px">
-        <div style="text-align:center;color:var(--t3);font-size:8px">—</div>
-        <div style="text-align:center"><span style="background:rgba(91,45,142,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600">Kids</span><br><span style="background:rgba(91,45,142,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">Sport</span><br><span style="background:rgba(91,45,142,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">EdTech</span></div>
-        <div style="text-align:center"><span style="background:rgba(108,61,175,0.3);padding:2px 6px;border-radius:4px;color:#fff;font-weight:600">Книги</span><br><span style="background:rgba(108,61,175,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">Встречи</span></div>
-        <div style="text-align:center"><span style="background:rgba(203,17,171,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600">Мост</span><br><span style="background:rgba(203,17,171,0.3);padding:2px 5px;border-radius:4px;color:#fff;font-weight:600;display:inline-block;margin-top:3px">Tingli</span></div>
-        <div style="text-align:center"><span style="background:rgba(233,30,140,0.3);padding:2px 6px;border-radius:4px;color:#fff;font-weight:600">Wibes</span></div>
-        <div style="text-align:center;color:var(--t3);font-size:8px">—</div>
       </div>
     </div>
-    <div id="stage-info" style="display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 16px;margin-top:8px;font-size:11px;line-height:1.5;cursor:pointer" onclick="this.style.display='none'">
-      <div id="stage-desc" style="margin-bottom:4px"></div>
-      <div id="stage-gate" style="color:#CB11AB;font-weight:600"></div>
-    </div>
-    <div style="font-size:9px;color:var(--t3);margin-top:8px;text-align:center">SLA — целевое время прохождения стадии. Gate (G0-G5) — точка решения Go/No-Go. Кликните на стадию для деталей.</div>
     <div class="slide-logo"><img src="https://rwb.ru/assets/svg/rwb-logo.svg" alt="RWB" style="height:14px;filter:brightness(10);opacity:0.3;vertical-align:middle;margin-right:6px">Проектный офис</div>
   </div>
 
@@ -408,11 +433,21 @@ function goTo(n) {
 
 function showStage(el) {
   const info = document.getElementById('stage-info');
-  const desc = document.getElementById('stage-desc');
-  const gate = document.getElementById('stage-gate');
-  desc.innerHTML = '<b>' + el.textContent.trim() + ':</b> ' + el.dataset.desc;
-  gate.innerHTML = 'Переход: ' + el.dataset.gate;
-  info.style.display = 'block';
+  if (info) {
+    const desc = document.getElementById('stage-desc');
+    const gate = document.getElementById('stage-gate');
+    desc.innerHTML = '<b>' + el.textContent.trim() + ':</b> ' + el.dataset.desc;
+    gate.innerHTML = 'Переход: ' + el.dataset.gate;
+    info.style.display = 'block';
+  }
+}
+function showOrbit(title, desc, gate) {
+  const info = document.getElementById('orbit-info');
+  if (info) {
+    info.innerHTML = '<div style="font-size:14px;font-weight:800;color:#CB11AB;margin-bottom:6px">' + title + '</div>'
+      + '<div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.6;margin-bottom:8px">' + desc + '</div>'
+      + '<div style="font-size:11px;color:#9B59D0;font-weight:600">Gate: ' + gate + '</div>';
+  }
 }
 
 document.addEventListener('keydown', e => {
