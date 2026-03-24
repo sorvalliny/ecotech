@@ -275,6 +275,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .pl-retro-area { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:8px; color:var(--text); font-family:inherit; font-size:12px; resize:vertical; min-height:60px; }
 .pl-retro-readonly { padding:8px 12px; background:var(--surface); border:1px solid var(--border); border-radius:6px; font-size:12px; color:var(--text); line-height:1.5; white-space:pre-wrap; min-height:40px; }
 .pl-prio-table { width:100%; border-collapse:collapse; font-size:12px; }
+.pl-prio-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
 .pl-prio-table th { text-align:left; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; padding:6px 8px; border-bottom:1px solid var(--border); }
 .pl-prio-table td { padding:8px; border-bottom:1px solid var(--border); color:var(--text); }
 .pl-prio-table tr:last-child td { border-bottom:none; }
@@ -1552,7 +1553,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     var qLabel = 'Q' + selQ + ' ' + selYear;
 
     // Filter goals for this product
-    var pGoals = goals.filter(function(g) { return !g.productId || g.productId === productId; });
+    var pGoals = goals.filter(function(g) { return g.productId === productId; });
 
     // Filter initiatives for selected quarter
     var qKey = 'Q' + selQ;
@@ -1588,9 +1589,16 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       });
     }
 
+    // Fix 5: Mode label
     if (isReviewMode) {
+      html += '<div style="font-size:16px;font-weight:800;color:var(--amber);margin-bottom:16px;">Итоги ' + qLabel + '</div>';
       html += renderReviewMode(pGoals, qInits, qLabel, selYear, selQ, editable);
+      // Fix 1: CTA bridge to next quarter
+      var nextQ = selQ < 4 ? selQ + 1 : 1;
+      var nextY = selQ < 4 ? selYear : selYear + 1;
+      html += '<div style="text-align:center;padding:16px;margin-top:8px;"><button class="pl-q-btn" style="padding:10px 24px;font-size:13px;background:var(--violet);color:#fff;border-color:var(--violet);" onclick="_plQ='+nextQ+';_plYear='+nextY+';render();">Перейти к планированию Q'+nextQ+' '+nextY+' →</button></div>';
     } else {
+      html += '<div style="font-size:16px;font-weight:800;color:var(--violet);margin-bottom:16px;">Планирование ' + qLabel + '</div>';
       html += renderPlanMode(pGoals, qInits, initiatives, qLabel, selYear, selQ, editable);
     }
 
@@ -1842,8 +1850,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
     if (qInits.length) {
       var sorted = qInits.slice().sort(function(a, b) { return riceScore(b) - riceScore(a); });
-      html += '<table class="pl-prio-table">';
-      html += '<thead><tr><th>#</th><th>RICE</th><th>\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</th><th>KR / \u0426\u0435\u043B\u044C</th><th>\u0421\u0442\u0430\u0442\u0443\u0441</th></tr></thead>';
+      html += '<div class="pl-prio-wrap"><table class="pl-prio-table">';
+      html += '<thead><tr><th>#</th><th>RICE</th><th>Название</th><th>KR / Цель</th><th>Статус</th></tr></thead>';
       html += '<tbody>';
       sorted.forEach(function(item, idx) {
         var rice = riceScore(item);
@@ -1858,9 +1866,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
         html += '<td style="font-size:11px;color:var(--muted);">' + esc(iStatus) + '</td>';
         html += '</tr>';
       });
-      html += '</tbody></table>';
+      html += '</tbody></table></div>';
     } else {
-      html += '<div style="font-size:13px;color:var(--muted);padding:12px;text-align:center;">\u041D\u0435\u0442 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 \u043D\u0430 \u044D\u0442\u043E\u0442 \u043A\u0432\u0430\u0440\u0442\u0430\u043B</div>';
+      html += '<div style="font-size:13px;color:var(--muted);padding:12px;text-align:center;">Нет инициатив на этот квартал</div>';
     }
     html += '</div>'; // /step 3
 
@@ -1870,13 +1878,16 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
     var hasGoals = pGoals.length > 0;
     var krUpdated = true;
+    var hasAnyKR = false;
     pGoals.forEach(function(g) {
       if (g.keyResults && g.keyResults.length) {
+        hasAnyKR = true;
         g.keyResults.forEach(function(kr) {
-          if (kr.current === undefined || kr.current === null) krUpdated = false;
+          if (!kr.current || kr.current <= 0) krUpdated = false;
         });
       }
     });
+    if (!hasAnyKR) krUpdated = false;
     var orphanPct = qInits.length ? (orphaned.length / qInits.length) : 0;
     var initLinked = orphanPct < 0.3;
     var allRiced = qInits.length > 0 && qInits.filter(function(i) { return (i.r||0) * (i.i||0) * (i.c||0) / (i.e||1) > 0; }).length === qInits.length;
@@ -1900,7 +1911,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     });
 
     if (editable && !allApproved) {
-      var canSend = hasGoals;
+      var canSend = hasGoals && krUpdated && allRiced;
       html += '<button id="pl-send-approval" style="margin-top:12px;padding:8px 16px;background:' + (canSend ? 'var(--violet)' : 'var(--surface2)') + ';color:' + (canSend ? '#fff' : 'var(--muted)') + ';border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:' + (canSend ? 'pointer' : 'default') + ';"' + (canSend ? '' : ' disabled') + '>\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u043D\u0430 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u0435 PMO</button>';
     }
 
@@ -2051,6 +2062,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
   // PL-005b: Save quarter retro (Start/Stop/Continue)
   window.saveQuarterRetro = function(year, q) {
+    if (!_product) return;
     if (!_product.quarterRetros) _product.quarterRetros = {};
     var key = year + 'Q' + q;
     var startEl = document.getElementById('pl-retro-start');
