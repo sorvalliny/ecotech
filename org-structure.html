@@ -8,80 +8,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-webkit-font-smoothing:antialiased;min-height:100vh}
-.p{max-width:960px;margin:0 auto;padding:32px 40px 24px}
+.p{max-width:1000px;margin:0 auto;padding:32px 40px 24px}
 
 .hd{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:2px solid rgba(108,61,175,0.3);margin-bottom:24px}
 .hd h1{font-size:20px;font-weight:800;letter-spacing:-0.02em}
 .hd .sub{font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px}
 .hd-r{font-size:9px;color:rgba(255,255,255,0.3)}
 
-.label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.label .dot{width:8px;height:8px;border-radius:50%}
+/* section titles */
+.sec{font-size:16px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.sec .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sec-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:16px}
 
-/* two-col layout */
-.compare{display:grid;grid-template-columns:1fr 40px 1fr;gap:0;align-items:start}
-.arrow-col{display:flex;align-items:center;justify-content:center;padding-top:120px;font-size:28px;color:rgba(255,255,255,0.15)}
-
-/* org chart shared */
+/* AS-IS */
 .ceo{text-align:center;margin-bottom:8px}
-.ceo-box{display:inline-block;background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:10px 24px;border-radius:8px;font-size:13px;font-weight:800}
-.ceo-box small{display:block;font-size:9px;font-weight:500;opacity:0.7;margin-top:2px}
-.line-down{width:2px;height:12px;background:rgba(255,255,255,0.15);margin:0 auto 6px}
+.ceo-box{display:inline-block;background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:8px 20px;border-radius:8px;font-size:12px;font-weight:800}
+.ceo-box small{display:block;font-size:8px;font-weight:500;opacity:0.7;margin-top:1px}
+.line-down{width:2px;height:10px;background:rgba(255,255,255,0.15);margin:0 auto 4px}
 .line-h{height:2px;background:rgba(255,255,255,0.1);margin:0 auto 6px}
 
-/* AS-IS: flat list */
-.flat-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:10px}
-.flat-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 10px;color:rgba(255,255,255,0.6);line-height:1.4}
+.flat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;font-size:9px}
+.flat-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:5px;padding:5px 8px;color:rgba(255,255,255,0.6);line-height:1.3}
 .flat-item b{color:rgba(255,255,255,0.85);font-weight:600}
 .flat-item--prod{border-left:3px solid #6C3DAF}
 .flat-item--dir{border-left:3px solid #CB11AB}
 .flat-item--func{border-left:3px solid rgba(255,255,255,0.15)}
-.flat-count{text-align:center;font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px}
+.flat-item--rud{border-left:3px solid rgba(255,255,255,0.08);opacity:0.5}
+.flat-count{text-align:center;font-size:10px;color:rgba(255,255,255,0.3);margin-top:6px}
 
-/* TO-BE: verticals */
-.vert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:6px}
-.vert{border-radius:8px;padding:10px 8px;text-align:center}
-.vert-name{font-size:11px;font-weight:800;margin-bottom:2px}
-.vert-desc{font-size:8px;opacity:0.6;line-height:1.4}
-.vert-items{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;margin-top:6px}
-.vert-tag{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:1px 5px;font-size:7px;color:rgba(255,255,255,0.6);font-weight:600}
-.vert--cpo{background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.25)}
-.vert--cpo .vert-name{color:#5B9BF2}
-.vert--rnd{background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2)}
-.vert--rnd .vert-name{color:#00D4B4}
-.vert--pmo{background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.3)}
-.vert--pmo .vert-name{color:#CB11AB}
-.vert--cto{background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.25)}
-.vert--cto .vert-name{color:#5B9BF2}
-.vert--an{background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2)}
-.vert--an .vert-name{color:#FFB830}
-.vert--exp{background:rgba(203,17,171,0.1);border:1px solid rgba(203,17,171,0.2)}
-.vert--exp .vert-name{color:#CB11AB}
+/* problems */
+.problems{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:14px}
+.prob{background:rgba(222,53,11,0.06);border:1px solid rgba(222,53,11,0.15);border-radius:6px;padding:8px 10px}
+.prob-title{font-size:9px;font-weight:800;color:rgba(222,53,11,0.8);margin-bottom:3px}
+.prob-desc{font-size:8px;color:rgba(255,255,255,0.4);line-height:1.5}
 
-/* contours */
-.contours{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.contour{border-radius:8px;padding:10px;font-size:9px}
-.contour--it{background:rgba(108,61,175,0.08);border:1px solid rgba(108,61,175,0.2)}
-.contour--biz{background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.2)}
-.contour-title{font-size:10px;font-weight:800;margin-bottom:6px}
-.contour--it .contour-title{color:#9B59D0}
-.contour--biz .contour-title{color:#CB11AB}
-.contour-items{display:flex;flex-wrap:wrap;gap:3px}
-.contour-tag{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:2px 6px;font-size:8px;color:rgba(255,255,255,0.7);font-weight:600}
+/* scenario card */
+.scenario{border-radius:12px;padding:20px 22px;margin-bottom:14px;position:relative}
+.sc-a{background:rgba(108,61,175,0.06);border:1px solid rgba(108,61,175,0.2)}
+.sc-b{background:rgba(0,82,204,0.06);border:1px solid rgba(0,82,204,0.2)}
+.sc-c{background:rgba(203,17,171,0.06);border:2px solid rgba(203,17,171,0.3)}
+.sc-title{font-size:15px;font-weight:800;margin-bottom:2px}
+.sc-sub{font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:12px}
+.sc-label{position:absolute;top:-8px;right:16px;font-size:8px;font-weight:800;padding:2px 8px;border-radius:4px}
 
-/* PMO role */
-.pmo-role{background:rgba(108,61,175,0.1);border:1px solid rgba(108,61,175,0.25);border-radius:10px;padding:16px 20px;margin-top:20px}
-.pmo-role h3{font-size:14px;font-weight:800;color:#CB11AB;margin-bottom:8px}
-.pmo-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:11px}
-.pmo-col{line-height:1.6;color:rgba(255,255,255,0.7)}
-.pmo-col b{color:#fff;display:block;margin-bottom:4px;font-size:12px}
+/* mini org chart inside scenario */
+.mini-org{background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;margin-bottom:12px}
+.mini-row{display:grid;gap:4px;margin-bottom:5px}
+.mini-box{border-radius:5px;padding:6px;text-align:center}
+.mini-box-name{font-size:9px;font-weight:800;margin-bottom:1px}
+.mini-box-desc{font-size:7px;color:rgba(255,255,255,0.4);line-height:1.3}
+.mini-prod{display:grid;gap:3px;margin-bottom:5px}
+.mini-tag{border-radius:4px;padding:3px 4px;text-align:center;font-size:7px;font-weight:700}
+
+/* oper model */
+.oper{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;margin-bottom:12px}
+.oper-title{font-size:11px;font-weight:800;color:rgba(255,255,255,0.6);margin-bottom:8px}
+.oper-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:9px}
+.oper-col b{display:block;color:rgba(255,255,255,0.7);margin-bottom:3px;font-size:10px}
+.oper-col{color:rgba(255,255,255,0.45);line-height:1.6}
+
+/* pros/cons */
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:9px}
+.pc span{display:block;line-height:1.5}
 
 .note{font-size:10px;color:rgba(255,255,255,0.3);text-align:center;margin-top:16px;line-height:1.5}
-
 .ft{margin-top:20px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,0.2)}
 
 @media print{body{background:#fff;color:#172B4D}*{-webkit-print-color-adjust:exact!important}}
-@media(max-width:700px){.compare{grid-template-columns:1fr}.arrow-col{padding:8px 0;transform:rotate(90deg)}.flat-grid{grid-template-columns:1fr}.vert-grid{grid-template-columns:1fr}.pmo-cols{grid-template-columns:1fr}}
+@media(max-width:700px){.flat-grid{grid-template-columns:1fr 1fr}.problems{grid-template-columns:1fr 1fr}.mini-row{grid-template-columns:1fr!important}.mini-prod{grid-template-columns:1fr 1fr!important}.oper-grid{grid-template-columns:1fr}.pc{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -90,315 +84,316 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
   <div class="hd">
     <div>
       <h1>Структура департамента</h1>
-      <div class="sub">AS-IS → TO-BE &middot; На обсуждение</div>
+      <div class="sub">AS-IS и контекст &middot; TO-BE: три сценария с операционной моделью</div>
     </div>
     <div class="hd-r">Проектный офис &middot; Март 2026</div>
   </div>
 
-  <div class="compare">
+  <!-- ═══════════════ AS-IS ═══════════════ -->
+  <div class="sec"><div class="dot" style="background:rgba(222,53,11,0.6)"></div> AS-IS: текущая структура</div>
+  <div class="sec-sub">19 прямых подчинений CEO. Продукты, направления, функции и рудименты — всё в одной плоскости.</div>
 
-    <!-- AS-IS -->
-    <div>
-      <div class="label"><div class="dot" style="background:rgba(222,53,11,0.6)"></div> Сейчас (AS-IS)</div>
-      <div class="ceo">
-        <div class="ceo-box">CEO<small>Департамент</small></div>
-      </div>
-      <div class="line-down"></div>
-      <div class="line-h" style="width:90%"></div>
-      <div class="flat-grid">
-        <div class="flat-item flat-item--prod"><b>Wibes</b></div>
-        <div class="flat-item flat-item--prod"><b>Книги</b></div>
-        <div class="flat-item flat-item--prod"><b>Kids</b></div>
-        <div class="flat-item flat-item--prod"><b>Sport</b></div>
-        <div class="flat-item flat-item--prod"><b>Встречи</b></div>
-        <div class="flat-item flat-item--dir"><b>Молодёжное</b></div>
-        <div class="flat-item flat-item--dir"><b>Маркетплейс закупок</b></div>
-        <div class="flat-item flat-item--dir"><b>Контент</b></div>
-        <div class="flat-item flat-item--dir"><b>Маркетинг</b></div>
-        <div class="flat-item flat-item--dir"><b>Ивенты</b></div>
-        <div class="flat-item flat-item--func"><b>CTO</b></div>
-        <div class="flat-item flat-item--func"><b>Аналитика</b></div>
-        <div class="flat-item flat-item--func"><b>PMO</b></div>
-        <div class="flat-item flat-item--func"><b>Монетизация</b></div>
-        <div class="flat-item flat-item--dir"><b>Соц. коммерция</b> <span style="font-size:8px;opacity:0.5">(рудимент)</span></div>
-        <div class="flat-item flat-item--dir"><b>Спецпроекты</b> <span style="font-size:8px;opacity:0.5">(рудимент)</span></div>
-        <div class="flat-item flat-item--dir"><b>Проект 8</b> <span style="font-size:8px;opacity:0.5">(рудимент)</span></div>
-        <div class="flat-item flat-item--dir"><b>Маркетинг в соцсетях</b> <span style="font-size:8px;opacity:0.5">(рудимент)</span></div>
-        <div class="flat-item flat-item--prod"><b>Проект 9</b> <span style="font-size:8px;opacity:0.5">(новый видеосервис)</span></div>
-      </div>
-      <div class="flat-count">19 прямых подчинений CEO</div>
-    </div>
+  <div class="ceo">
+    <div class="ceo-box">CEO<small>Департамент Экосистемы</small></div>
+  </div>
+  <div class="line-down"></div>
+  <div class="line-h" style="width:80%"></div>
 
-    <!-- Arrow -->
-    <div class="arrow-col">→</div>
-
-    <!-- TO-BE -->
-    <div>
-      <div class="label"><div class="dot" style="background:#00875A"></div> Целевая (TO-BE)</div>
-      <div class="ceo">
-        <div class="ceo-box">CEO<small>Департамент</small></div>
-      </div>
-      <div class="line-down"></div>
-      <div class="line-h" style="width:90%"></div>
-
-      <!-- Верхний ряд: продуктовые блоки -->
-      <div class="vert-grid">
-        <div class="vert vert--cpo">
-          <div class="vert-name">CPO</div>
-          <div class="vert-desc">Зрелые продукты, P&L, назначение лидеров, единая дизайн-система</div>
-          <div class="vert-items">
-            <span class="vert-tag">Wibes</span>
-            <span class="vert-tag">Проект 9</span>
-          </div>
-        </div>
-        <div class="vert vert--rnd">
-          <div class="vert-name">R&D</div>
-          <div class="vert-desc">Фаст-трек гипотез, упрощённые процессы, ранние продукты</div>
-          <div class="vert-items">
-            <span class="vert-tag">Kids</span>
-            <span class="vert-tag">Sport</span>
-            <span class="vert-tag">Встречи</span>
-            <span class="vert-tag">Книги</span>
-          </div>
-        </div>
-        <div class="vert vert--cto">
-          <div class="vert-name">CTO</div>
-          <div class="vert-desc">Разработка, инфра, платформенные сервисы</div>
-        </div>
-      </div>
-
-      <!-- Нижний ряд: поддерживающие блоки -->
-      <div class="vert-grid">
-        <div class="vert vert--pmo">
-          <div class="vert-name">Операционка и стратегия</div>
-          <div class="vert-desc">PMO, OKR-каскад, ресурсы, lifecycle, прозрачность для CEO</div>
-        </div>
-        <div class="vert vert--an">
-          <div class="vert-name">Аналитика</div>
-          <div class="vert-desc">Продуктовая + рыночная аналитика, данные, BI</div>
-        </div>
-        <div class="vert vert--exp">
-          <div class="vert-name">Направления и экспансия</div>
-          <div class="vert-desc">Молодёжное, Контент, Ивенты, РФ, СНГ/Мир</div>
-        </div>
-      </div>
-
-      <!-- На пересмотр -->
-      <div style="margin-top:6px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.15);border-radius:8px;padding:8px 10px;text-align:center">
-        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,0.4);margin-bottom:4px">На пересмотр CEO</div>
-        <div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:center">
-          <span class="contour-tag" style="opacity:0.5;border-style:dashed">Соц. коммерция</span>
-          <span class="contour-tag" style="opacity:0.5;border-style:dashed">Спецпроекты</span>
-          <span class="contour-tag" style="opacity:0.5;border-style:dashed">Проект 8</span>
-          <span class="contour-tag" style="opacity:0.5;border-style:dashed">Маркетинг в соцсетях</span>
-        </div>
-        <div style="font-size:8px;color:rgba(255,255,255,0.2);margin-top:4px">Закрыть / объединить / перезапустить</div>
-      </div>
-    </div>
-
+  <div class="flat-grid">
+    <div class="flat-item flat-item--prod"><b>Wibes</b></div>
+    <div class="flat-item flat-item--prod"><b>Книги</b></div>
+    <div class="flat-item flat-item--prod"><b>Kids</b></div>
+    <div class="flat-item flat-item--prod"><b>Sport</b></div>
+    <div class="flat-item flat-item--prod"><b>Встречи</b></div>
+    <div class="flat-item flat-item--prod"><b>Проект 9</b> <span style="font-size:7px;opacity:0.5">видеосервис</span></div>
+    <div class="flat-item flat-item--dir"><b>Молодёжное</b></div>
+    <div class="flat-item flat-item--dir"><b>Контент</b></div>
+    <div class="flat-item flat-item--dir"><b>Ивенты</b></div>
+    <div class="flat-item flat-item--dir"><b>Маркетплейс закупок</b></div>
+    <div class="flat-item flat-item--dir"><b>Маркетинг</b></div>
+    <div class="flat-item flat-item--func"><b>CTO</b></div>
+    <div class="flat-item flat-item--func"><b>Аналитика</b></div>
+    <div class="flat-item flat-item--func"><b>PMO</b></div>
+    <div class="flat-item flat-item--func"><b>Монетизация</b></div>
+    <div class="flat-item flat-item--rud"><b>Соц. коммерция</b> <span style="font-size:7px">руд.</span></div>
+    <div class="flat-item flat-item--rud"><b>Спецпроекты</b> <span style="font-size:7px">руд.</span></div>
+    <div class="flat-item flat-item--rud"><b>Проект 8</b> <span style="font-size:7px">руд.</span></div>
+    <div class="flat-item flat-item--rud"><b>Маркетинг в соцсетях</b> <span style="font-size:7px">руд.</span></div>
+  </div>
+  <div class="flat-count">
+    <span style="color:#6C3DAF">&#9632;</span> ИТ-продукты &nbsp;
+    <span style="color:#CB11AB">&#9632;</span> Направления &nbsp;
+    <span style="color:rgba(255,255,255,0.3)">&#9632;</span> Функции &nbsp;
+    <span style="color:rgba(255,255,255,0.15)">&#9632;</span> Рудименты &nbsp;&middot;&nbsp;
+    19 прямых подчинений
   </div>
 
-  <!-- СЦЕНАРИИ TO-BE -->
-  <div style="margin-top:24px;margin-bottom:20px">
-    <div style="font-size:16px;font-weight:800;color:#CB11AB;margin-bottom:4px">Три сценария структуры</div>
-    <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px">Общий вызов: монетизация, управляемость, скорость, прозрачность, ликвидация рудиментов</div>
+  <!-- Проблемы AS-IS -->
+  <div class="problems">
+    <div class="prob">
+      <div class="prob-title">Монетизация</div>
+      <div class="prob-desc">Нет P&L по продуктам. Непонятно кто за что отвечает финансово. Нет модели выручки.</div>
+    </div>
+    <div class="prob">
+      <div class="prob-title">Управляемость</div>
+      <div class="prob-desc">19 прямых подчинений. CEO — единая точка решений по всему. Bottleneck.</div>
+    </div>
+    <div class="prob">
+      <div class="prob-title">Рудименты</div>
+      <div class="prob-desc">4 направления без результата и ресурсов. Занимают внимание, не создают ценность.</div>
+    </div>
+    <div class="prob">
+      <div class="prob-title">Скорость</div>
+      <div class="prob-desc">Нет R&D-процесса. Новые идеи запускаются по личному push. Нет фаст-трека.</div>
+    </div>
+    <div class="prob">
+      <div class="prob-title">Прозрачность</div>
+      <div class="prob-desc">Статус — при личном запросе. Нет lifecycle. Нет единой аналитики. Каждый по-своему.</div>
+    </div>
+  </div>
 
-    <!-- Сценарий А -->
-    <div style="background:rgba(108,61,175,0.06);border:1px solid rgba(108,61,175,0.2);border-radius:10px;padding:16px 18px;margin-bottom:10px">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
-        <div>
-          <div style="font-size:14px;font-weight:800;color:#9B59D0">А. Максимальная автономия продуктов</div>
-          <div style="font-size:9px;color:rgba(255,255,255,0.3)">Каждый продукт — автономный P&L-юнит с полной ответственностью</div>
+  <!-- ═══════════════ СЦЕНАРИИ ═══════════════ -->
+  <div style="margin-top:32px">
+    <div class="sec"><div class="dot" style="background:#00875A"></div> TO-BE: три сценария</div>
+    <div class="sec-sub">Каждый решает все 5 проблем, но с разным фокусом и операционной моделью</div>
+  </div>
+
+  <!-- ─── СЦЕНАРИЙ А ─── -->
+  <div class="scenario sc-a">
+    <div class="sc-title" style="color:#9B59D0">А. Максимальная автономия продуктов</div>
+    <div class="sc-sub">Каждый продукт — автономный P&L-юнит. Быстрая монетизация зрелых. Конкуренция за результат.</div>
+
+    <div class="mini-org">
+      <div style="text-align:center;margin-bottom:8px">
+        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
+      </div>
+      <div class="mini-row" style="grid-template-columns:repeat(4,1fr)">
+        <div class="mini-box" style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2)">
+          <div class="mini-box-name" style="color:#5B9BF2">CPO</div>
+          <div class="mini-box-desc">Стратегия портфеля, назначение лидеров, дизайн-система</div>
+        </div>
+        <div class="mini-box" style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2)">
+          <div class="mini-box-name" style="color:#CB11AB">Стратегия и операционка</div>
+          <div class="mini-box-desc">PMO, OKR, прозрачность</div>
+        </div>
+        <div class="mini-box" style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2)">
+          <div class="mini-box-name" style="color:#5B9BF2">CTO</div>
+          <div class="mini-box-desc">Инфра, платформа</div>
+        </div>
+        <div class="mini-box" style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2)">
+          <div class="mini-box-name" style="color:#FFB830">Аналитика</div>
+          <div class="mini-box-desc">Продуктовая + рыночная</div>
         </div>
       </div>
-
-      <!-- Мини-структура А -->
-      <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;margin-bottom:10px">
-        <div style="text-align:center;margin-bottom:8px">
-          <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:6px">
-          <div style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#5B9BF2">CPO</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Стратегия портфеля, назначение лидеров, дизайн-система</div>
-          </div>
-          <div style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#CB11AB">Операционка</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">PMO, OKR, прозрачность</div>
-          </div>
-          <div style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#5B9BF2">CTO</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Инфра, платформа</div>
-          </div>
-          <div style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#FFB830">Аналитика</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Продуктовая + рыночная</div>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:3px;margin-bottom:6px">
-          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Wibes<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
-          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Проект 9<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
-          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Kids<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
-          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Sport<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
-          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Встречи<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
-          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Книги<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">
-          <div style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.15);border-radius:4px;padding:4px 6px;text-align:center;font-size:7px;color:rgba(255,255,255,0.5)"><b style="color:#CB11AB">Направления и экспансия</b> Молодёжное, Контент, Ивенты, РФ, СНГ/Мир</div>
-          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:4px;padding:4px 6px;text-align:center;font-size:7px;color:rgba(255,255,255,0.3)"><b>На пересмотр</b> 4 рудимента</div>
-        </div>
+      <div class="mini-prod" style="grid-template-columns:repeat(6,1fr)">
+        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Wibes<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Проект 9<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Kids<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Sport<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Встречи<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Книги<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
       </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:9px">
-        <div>
-          <span style="color:#34D399">+ Максимальная скорость монетизации</span><br>
-          <span style="color:#34D399">+ P&L-ответственность у каждого лидера</span><br>
-          <span style="color:#34D399">+ Конкуренция за результат</span>
-        </div>
-        <div>
-          <span style="color:rgba(222,53,11,0.7)">− Дублирование функций (маркетинг, аналитика)</span><br>
-          <span style="color:rgba(222,53,11,0.7)">− Ранние продукты не выживут без ресурсов</span><br>
-          <span style="color:rgba(222,53,11,0.7)">− Нет R&D — некому генерить новое</span>
-        </div>
+      <div class="mini-prod" style="grid-template-columns:1fr 1fr">
+        <div class="mini-tag" style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.15);color:#CB11AB;font-weight:600">Направления и экспансия <span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">Молодёжное, Контент, Ивенты, РФ, СНГ/Мир</span></div>
+        <div class="mini-tag" style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);color:rgba(255,255,255,0.3)">На пересмотр <span style="font-size:6px">4 рудимента</span></div>
       </div>
-      <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: 3+ продукта уже в проде и зарабатывают. Фокус — масштабировать выручку.</div>
     </div>
 
-    <!-- Сценарий Б -->
-    <div style="background:rgba(0,82,204,0.06);border:1px solid rgba(0,82,204,0.2);border-radius:10px;padding:16px 18px;margin-bottom:10px">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
-        <div>
-          <div style="font-size:14px;font-weight:800;color:#5B9BF2">Б. Платформа + R&D-фабрика</div>
-          <div style="font-size:9px;color:rgba(255,255,255,0.3)">Единая платформа, фаст-трек гипотез, общая монетизация</div>
+    <!-- Опер.модель А -->
+    <div class="oper">
+      <div class="oper-title">Операционная модель</div>
+      <div class="oper-grid">
+        <div class="oper-col">
+          <b>Принятие решений</b>
+          Product Lead решает внутри бюджета. CPO арбитраж между продуктами. CEO — стратегия и бюджет.
+        </div>
+        <div class="oper-col">
+          <b>Ритм и отчётность</b>
+          Каждый продукт — ежемесячный P&L-отчёт. PMO агрегирует в дашборд CEO. Квартальный портфельный ревью.
+        </div>
+        <div class="oper-col">
+          <b>Ресурсы и монетизация</b>
+          Бюджет делится по продуктам. Каждый сам зарабатывает. Внутренняя конкуренция за ресурс CTO.
         </div>
       </div>
-
-      <!-- Мини-структура Б -->
-      <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;margin-bottom:10px">
-        <div style="text-align:center;margin-bottom:8px">
-          <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px">
-          <div style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#5B9BF2">CTO + Платформа</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Единая инфра, дизайн-система, все продукты как сервисы</div>
-          </div>
-          <div style="background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#00D4B4">R&D</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Генерация гипотез, фаст-трек, все ранние идеи</div>
-          </div>
-          <div style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#CB11AB">Операционка и стратегия</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">PMO, OKR, lifecycle, прозрачность</div>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:3px;margin-bottom:6px">
-          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Wibes</div>
-          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Проект 9</div>
-          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Kids</div>
-          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Sport</div>
-          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Встречи</div>
-          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Книги</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px">
-          <div style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.15);border-radius:4px;padding:4px 6px;text-align:center;font-size:7px"><b style="color:#FFB830">Аналитика</b><br><span style="color:rgba(255,255,255,0.4)">Продуктовая + рыночная</span></div>
-          <div style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.15);border-radius:4px;padding:4px 6px;text-align:center;font-size:7px"><b style="color:#CB11AB">Направления</b><br><span style="color:rgba(255,255,255,0.4)">Молодёжное, Контент, Ивенты, РФ, СНГ</span></div>
-          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:4px;padding:4px 6px;text-align:center;font-size:7px;color:rgba(255,255,255,0.3)"><b>На пересмотр</b> 4 рудимента</div>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:9px">
-        <div>
-          <span style="color:#34D399">+ Единый UX и дизайн-система</span><br>
-          <span style="color:#34D399">+ Кросс-продуктовая монетизация (подписка, B2B)</span><br>
-          <span style="color:#34D399">+ R&D генерирует поток новых идей</span>
-        </div>
-        <div>
-          <span style="color:rgba(222,53,11,0.7)">− Медленный старт: сначала платформа</span><br>
-          <span style="color:rgba(222,53,11,0.7)">− Все зависят от CTO</span><br>
-          <span style="color:rgba(222,53,11,0.7)">− Зрелые продукты ждут пока строится общее</span>
-        </div>
-      </div>
-      <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: сильный CTO, продукты связаны, есть время на инвестиции в платформу.</div>
     </div>
 
-    <!-- Сценарий В -->
-    <div style="background:rgba(203,17,171,0.08);border:2px solid rgba(203,17,171,0.3);border-radius:10px;padding:16px 18px;margin-bottom:10px;position:relative">
-      <div style="position:absolute;top:-8px;right:16px;background:#34D399;color:#000;font-size:8px;font-weight:800;padding:2px 8px;border-radius:4px">РЕКОМЕНДАЦИЯ</div>
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
-        <div>
-          <div style="font-size:14px;font-weight:800;color:#CB11AB">В. Гибридный: зрелые зарабатывают, R&D генерирует</div>
-          <div style="font-size:9px;color:rgba(255,255,255,0.3)">Два режима: автономный P&L для зрелых + фаст-трек R&D для ранних</div>
-        </div>
+    <div class="pc">
+      <div>
+        <span style="color:#34D399">+ Максимальная скорость монетизации</span>
+        <span style="color:#34D399">+ P&L-ответственность у каждого лидера</span>
+        <span style="color:#34D399">+ Конкуренция за результат</span>
       </div>
+      <div>
+        <span style="color:rgba(222,53,11,0.7)">- Дублирование функций (маркетинг, аналитика)</span>
+        <span style="color:rgba(222,53,11,0.7)">- Ранние продукты не выживут без ресурсов</span>
+        <span style="color:rgba(222,53,11,0.7)">- Нет R&D — некому генерить новое</span>
+      </div>
+    </div>
+    <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: 3+ продукта уже зарабатывают. Фокус — масштабировать выручку, а не искать новое.</div>
+  </div>
 
-      <!-- Мини-структура В -->
-      <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;margin-bottom:10px">
-        <div style="text-align:center;margin-bottom:8px">
-          <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px">
-          <div style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#5B9BF2">CPO</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Зрелые продукты, P&L, лидеры, дизайн-система, продуктовая смелость</div>
-          </div>
-          <div style="background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#00D4B4">R&D</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Фаст-трек гипотез, упрощённые процессы, ранние продукты</div>
-          </div>
-          <div style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#5B9BF2">CTO</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Разработка, инфра, платформенные сервисы</div>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px">
-          <div style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#CB11AB">Операционка и стратегия</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">PMO, OKR-каскад, ресурсы, lifecycle, прозрачность</div>
-          </div>
-          <div style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#FFB830">Аналитика</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Продуктовая + рыночная аналитика, BI</div>
-          </div>
-          <div style="background:rgba(203,17,171,0.1);border:1px solid rgba(203,17,171,0.2);border-radius:5px;padding:6px;text-align:center">
-            <div style="font-size:9px;font-weight:800;color:#CB11AB">Направления и экспансия</div>
-            <div style="font-size:7px;color:rgba(255,255,255,0.4)">РФ, СНГ/Мир, Молодёжное, Контент, Ивенты</div>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3px;margin-bottom:6px">
-          <div style="background:rgba(0,82,204,0.12);border:1px solid rgba(0,82,204,0.2);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Wibes<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
-          <div style="background:rgba(0,82,204,0.12);border:1px solid rgba(0,82,204,0.2);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Проект 9<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
-          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Kids</div>
-          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Sport</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3px">
-          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Встречи</div>
-          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Книги</div>
-          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4;border-style:dashed">Новые гипотезы</div>
-          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:4px;padding:4px;text-align:center;font-size:7px;color:rgba(255,255,255,0.3)">4 рудимента<br>На пересмотр</div>
-        </div>
-      </div>
+  <!-- ─── СЦЕНАРИЙ Б ─── -->
+  <div class="scenario sc-b">
+    <div class="sc-title" style="color:#5B9BF2">Б. Платформа + R&D-фабрика</div>
+    <div class="sc-sub">Единая платформа, фаст-трек гипотез, общая монетизация. CTO в центре.</div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:9px">
-        <div>
-          <span style="color:#34D399">+ Зрелые зарабатывают сразу, не ждут</span><br>
-          <span style="color:#34D399">+ R&D — фаст-трек от гипотезы до MVP</span><br>
-          <span style="color:#34D399">+ Единая дизайн-система экосистемы</span><br>
-          <span style="color:#34D399">+ Общие функции экономят ФОТ</span><br>
-          <span style="color:#34D399">+ Рудименты — явная зона решений</span>
+    <div class="mini-org">
+      <div style="text-align:center;margin-bottom:8px">
+        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
+      </div>
+      <div class="mini-row" style="grid-template-columns:repeat(3,1fr)">
+        <div class="mini-box" style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2)">
+          <div class="mini-box-name" style="color:#5B9BF2">CTO + Платформа</div>
+          <div class="mini-box-desc">Единая инфра, дизайн-система, все продукты как сервисы</div>
         </div>
-        <div>
-          <span style="color:rgba(222,53,11,0.7)">− Два режима управления (зрелые vs R&D)</span><br>
-          <span style="color:rgba(222,53,11,0.7)">− Нужен сильный PMO для координации</span>
+        <div class="mini-box" style="background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2)">
+          <div class="mini-box-name" style="color:#00D4B4">R&D</div>
+          <div class="mini-box-desc">Генерация гипотез, фаст-трек, упрощённые процессы</div>
+        </div>
+        <div class="mini-box" style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2)">
+          <div class="mini-box-name" style="color:#CB11AB">Стратегия и операционка</div>
+          <div class="mini-box-desc">PMO, OKR, lifecycle, прозрачность</div>
         </div>
       </div>
-      <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: сейчас. Разная зрелость продуктов, нужна и монетизация, и генерация нового. CEO получает 6 блоков вместо 19.</div>
+      <div class="mini-prod" style="grid-template-columns:repeat(6,1fr)">
+        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Wibes</div>
+        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Проект 9</div>
+        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);color:#00D4B4">Kids</div>
+        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);color:#00D4B4">Sport</div>
+        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);color:#00D4B4">Встречи</div>
+        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);color:#00D4B4">Книги</div>
+      </div>
+      <div class="mini-prod" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="mini-tag" style="background:rgba(255,139,0,0.08);border:1px solid rgba(255,139,0,0.15);color:#FFB830;font-weight:600">Аналитика <span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">Продуктовая + рыночная</span></div>
+        <div class="mini-tag" style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.15);color:#CB11AB;font-weight:600">Направления <span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">Молодёжное, Контент, Ивенты, РФ, СНГ</span></div>
+        <div class="mini-tag" style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);color:rgba(255,255,255,0.3)">На пересмотр <span style="font-size:6px">4 руд.</span></div>
+      </div>
     </div>
 
+    <!-- Опер.модель Б -->
+    <div class="oper">
+      <div class="oper-title">Операционная модель</div>
+      <div class="oper-grid">
+        <div class="oper-col">
+          <b>Принятие решений</b>
+          CTO определяет технический roadmap. R&D решает что тестировать. CEO — приоритеты платформы и бюджет.
+        </div>
+        <div class="oper-col">
+          <b>Ритм и отчётность</b>
+          R&D — двухнедельные спринты гипотез. Продукты — общий бэклог платформы. PMO — единый статус, lifecycle для всех.
+        </div>
+        <div class="oper-col">
+          <b>Ресурсы и монетизация</b>
+          Общий бюджет. Монетизация единая: подписка, B2B, маркетплейс. Продукты не конкурируют — дополняют.
+        </div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div>
+        <span style="color:#34D399">+ Единый UX и дизайн-система</span>
+        <span style="color:#34D399">+ Кросс-продуктовая монетизация</span>
+        <span style="color:#34D399">+ R&D генерирует поток новых идей</span>
+      </div>
+      <div>
+        <span style="color:rgba(222,53,11,0.7)">- Медленный старт: сначала платформа</span>
+        <span style="color:rgba(222,53,11,0.7)">- Все зависят от CTO</span>
+        <span style="color:rgba(222,53,11,0.7)">- Зрелые продукты ждут пока строится общее</span>
+      </div>
+    </div>
+    <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: сильный CTO, продукты связаны, есть время инвестировать в платформу до монетизации.</div>
+  </div>
+
+  <!-- ─── СЦЕНАРИЙ В ─── -->
+  <div class="scenario sc-c">
+    <div class="sc-label" style="background:#34D399;color:#000">РЕКОМЕНДАЦИЯ</div>
+    <div class="sc-title" style="color:#CB11AB">В. Гибридный: зрелые зарабатывают, R&D генерирует</div>
+    <div class="sc-sub">Два режима: автономный P&L для зрелых + фаст-трек R&D для ранних. Разная зрелость — разные правила.</div>
+
+    <div class="mini-org">
+      <div style="text-align:center;margin-bottom:8px">
+        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
+      </div>
+      <div class="mini-row" style="grid-template-columns:repeat(3,1fr)">
+        <div class="mini-box" style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2)">
+          <div class="mini-box-name" style="color:#5B9BF2">CPO</div>
+          <div class="mini-box-desc">Зрелые продукты, P&L, лидеры, дизайн-система, продуктовая смелость</div>
+        </div>
+        <div class="mini-box" style="background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2)">
+          <div class="mini-box-name" style="color:#00D4B4">R&D</div>
+          <div class="mini-box-desc">Фаст-трек гипотез, упрощённые процессы, ранние продукты</div>
+        </div>
+        <div class="mini-box" style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2)">
+          <div class="mini-box-name" style="color:#5B9BF2">CTO</div>
+          <div class="mini-box-desc">Разработка, инфра, платформенные сервисы</div>
+        </div>
+      </div>
+      <div class="mini-row" style="grid-template-columns:repeat(3,1fr)">
+        <div class="mini-box" style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2)">
+          <div class="mini-box-name" style="color:#CB11AB">Стратегия и операционка</div>
+          <div class="mini-box-desc">PMO, OKR-каскад, ресурсы, lifecycle, прозрачность</div>
+        </div>
+        <div class="mini-box" style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2)">
+          <div class="mini-box-name" style="color:#FFB830">Аналитика</div>
+          <div class="mini-box-desc">Продуктовая + рыночная аналитика, BI</div>
+        </div>
+        <div class="mini-box" style="background:rgba(203,17,171,0.1);border:1px solid rgba(203,17,171,0.2)">
+          <div class="mini-box-name" style="color:#CB11AB">Направления и экспансия</div>
+          <div class="mini-box-desc">РФ, СНГ/Мир, Молодёжное, Контент, Ивенты</div>
+        </div>
+      </div>
+      <div class="mini-prod" style="grid-template-columns:repeat(4,1fr)">
+        <div class="mini-tag" style="background:rgba(0,82,204,0.12);border:1px solid rgba(0,82,204,0.2);color:#5B9BF2">Wibes<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:rgba(0,82,204,0.12);border:1px solid rgba(0,82,204,0.2);color:#5B9BF2">Проект 9<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);color:#00D4B4">Kids</div>
+        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);color:#00D4B4">Sport</div>
+      </div>
+      <div class="mini-prod" style="grid-template-columns:repeat(4,1fr)">
+        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);color:#00D4B4">Встречи</div>
+        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);color:#00D4B4">Книги</div>
+        <div class="mini-tag" style="background:rgba(0,212,180,0.06);border:1px dashed rgba(0,212,180,0.15);color:rgba(0,212,180,0.6)">Новые гипотезы</div>
+        <div class="mini-tag" style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);color:rgba(255,255,255,0.3)">4 рудимента<br><span style="font-size:6px">На пересмотр</span></div>
+      </div>
+    </div>
+
+    <!-- Опер.модель В -->
+    <div class="oper">
+      <div class="oper-title">Операционная модель</div>
+      <div class="oper-grid">
+        <div class="oper-col">
+          <b>Принятие решений</b>
+          Зрелые: Product Lead решает в рамках P&L. Ранние: R&D проверяет гипотезу, CPO решает масштабировать или нет. CEO — стратегия, бюджет, рудименты.
+        </div>
+        <div class="oper-col">
+          <b>Ритм и отчётность</b>
+          Зрелые — ежемесячный P&L. R&D — двухнедельные спринты гипотез. PMO — сквозной статус по всем. CEO-дашборд без запросов. Квартальный портфельный ревью.
+        </div>
+        <div class="oper-col">
+          <b>Ресурсы и монетизация</b>
+          Зрелые — собственный бюджет и выручка. R&D — общий пул (маркетинг, контент, аналитика). Переход из R&D в P&L по Gate-критериям. Экономия ФОТ на общих функциях.
+        </div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div>
+        <span style="color:#34D399">+ Зрелые зарабатывают сразу, не ждут</span>
+        <span style="color:#34D399">+ R&D — фаст-трек от гипотезы до MVP</span>
+        <span style="color:#34D399">+ Единая дизайн-система экосистемы</span>
+        <span style="color:#34D399">+ Общие функции экономят ФОТ</span>
+        <span style="color:#34D399">+ Рудименты — явная зона решений</span>
+      </div>
+      <div>
+        <span style="color:rgba(222,53,11,0.7)">- Два режима управления (зрелые vs R&D)</span>
+        <span style="color:rgba(222,53,11,0.7)">- Нужен сильный PMO для координации</span>
+      </div>
+    </div>
+    <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: сейчас. Разная зрелость продуктов. Нужна и монетизация, и генерация нового. CEO получает 6 блоков вместо 19.</div>
   </div>
 
   <div class="note">
-    Три сценария — на обсуждение. 19 прямых подчинений → 6 блоков.<br>
+    Три сценария — на обсуждение. 19 прямых подчинений &rarr; 6 блоков.<br>
     Структура подбирается под приоритеты руководителя.
   </div>
 
