@@ -162,7 +162,7 @@
 
     // ── Admin (role-based) ───────────────────
     + (function(){ try { var a = JSON.parse(localStorage.getItem('ECOTECH_AUTH')); var u = JSON.parse(localStorage.getItem('ECOTECH_USERS')); if(a&&u){ var cu=u.find(function(x){return x.id===a.id}); if(cu&&(cu.role==='admin'||cu.role==='pmo_lead')) return '<a class="en-link' + adminActive + '" href="'+base+'admin.html" role="menuitem">Admin</a>'; } } catch(e){} return ''; })()
-    + (function(){ try { var a = JSON.parse(localStorage.getItem('ECOTECH_AUTH')); var u = JSON.parse(localStorage.getItem('ECOTECH_USERS')); if(a&&u){ var cu=u.find(function(x){return x.id===a.id}); if(cu&&(cu.role==='admin'||cu.role==='pmo_lead'||(cu.role==='lead'&&cu.department==='innovation'))) return '<a class="en-link' + (has('org-structure')?' en-active':'') + '" href="'+base+'org-structure.html" role="menuitem">Структура</a>'; } } catch(e){} return ''; })()
+    + (function(){ try { var a = JSON.parse(localStorage.getItem('ECOTECH_AUTH')); var u = JSON.parse(localStorage.getItem('ECOTECH_USERS')); if(a&&u){ var cu=u.find(function(x){return x.id===a.id}); if(cu&&(cu.role==='admin'||cu.role==='pmo_lead'||(cu.role==='lead'&&cu.department==='innovation'))) { var ac = has('org-structure')?' en-active':''; return '<a class="en-link'+ac+'" href="'+base+'org-structure.html" role="menuitem">Структура</a>'; } } } catch(e){ console.warn('nav org-structure error',e); } return ''; })()
     + '</div>'
 
     // ── Notification bell ───────────────────
