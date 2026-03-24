@@ -188,6 +188,89 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
     </div>
   </div>
 
+  <!-- СЦЕНАРИИ TO-BE -->
+  <div style="margin-top:24px;margin-bottom:20px">
+    <div style="font-size:16px;font-weight:800;color:#CB11AB;margin-bottom:4px">Три сценария структуры</div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px">Общий вызов: вывести департамент на монетизацию и рост коммерческих показателей</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+
+      <!-- Сценарий А -->
+      <div style="background:rgba(108,61,175,0.08);border:1px solid rgba(108,61,175,0.2);border-radius:10px;padding:14px 16px">
+        <div style="font-size:13px;font-weight:800;color:#9B59D0;margin-bottom:2px">А. Продуктовый</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:8px">Каждый продукт — отдельный P&L</div>
+
+        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:10px">
+          Product Lead-ы автономны: свой бюджет, команда, метрики. Быстрый вывод в прод. CPO — стратегия портфеля. ПО — координация и контроль.
+        </div>
+
+        <div style="font-size:9px;margin-bottom:6px">
+          <span style="color:#34D399">+ Скорость монетизации зрелых продуктов</span><br>
+          <span style="color:#34D399">+ Ответственность за P&L у владельца</span><br>
+          <span style="color:#34D399">+ Конкуренция между продуктами за ресурс</span>
+        </div>
+        <div style="font-size:9px;margin-bottom:8px">
+          <span style="color:rgba(222,53,11,0.7)">− Дублирование функций (каждому свой маркетинг)</span><br>
+          <span style="color:rgba(222,53,11,0.7)">− Ранние продукты проигрывают за ресурсы</span>
+        </div>
+
+        <div style="font-size:8px;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">
+          Подходит: когда 3+ продукта уже в проде и готовы к P&L
+        </div>
+      </div>
+
+      <!-- Сценарий Б -->
+      <div style="background:rgba(0,82,204,0.08);border:1px solid rgba(0,82,204,0.2);border-radius:10px;padding:14px 16px">
+        <div style="font-size:13px;font-weight:800;color:#5B9BF2;margin-bottom:2px">Б. Платформенный</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:8px">Общая инфраструктура, единая монетизация</div>
+
+        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:10px">
+          CTO строит единую платформу. Продукты — сервисы внутри экосистемы. Монетизация общая: подписка, маркетплейс, B2B. ПО — lifecycle и стандарты.
+        </div>
+
+        <div style="font-size:9px;margin-bottom:6px">
+          <span style="color:#34D399">+ Экономия на инфраструктуре</span><br>
+          <span style="color:#34D399">+ Единый пользовательский опыт</span><br>
+          <span style="color:#34D399">+ Кросс-продуктовая монетизация</span>
+        </div>
+        <div style="font-size:9px;margin-bottom:8px">
+          <span style="color:rgba(222,53,11,0.7)">− Медленный старт (сначала платформа)</span><br>
+          <span style="color:rgba(222,53,11,0.7)">− Зависимость всех от CTO</span>
+        </div>
+
+        <div style="font-size:8px;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">
+          Подходит: когда есть сильный CTO и продукты связаны
+        </div>
+      </div>
+
+      <!-- Сценарий В -->
+      <div style="background:rgba(203,17,171,0.1);border:1px solid rgba(203,17,171,0.25);border-radius:10px;padding:14px 16px">
+        <div style="font-size:13px;font-weight:800;color:#CB11AB;margin-bottom:2px">В. Гибридный <span style="font-size:9px;color:#34D399">рек.</span></div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:8px">Зрелые — автономный P&L, ранние — инкубатор</div>
+
+        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:10px">
+          Wibes, Мост, Tingli — автономные P&L-юниты. Kids, Sport, Встречи, Книги — инкубатор с общими ресурсами (маркетинг, контент, аналитика). Направления — отдельный контур. ПО — сквозная координация.
+        </div>
+
+        <div style="font-size:9px;margin-bottom:6px">
+          <span style="color:#34D399">+ Зрелые зарабатывают, не ждут</span><br>
+          <span style="color:#34D399">+ Ранние не конкурируют за ресурс со зрелыми</span><br>
+          <span style="color:#34D399">+ Направления не мешают ИТ-контуру</span><br>
+          <span style="color:#34D399">+ Общие функции экономят ФОТ</span>
+        </div>
+        <div style="font-size:9px;margin-bottom:8px">
+          <span style="color:rgba(222,53,11,0.7)">− Сложнее управлять (два режима)</span><br>
+          <span style="color:rgba(222,53,11,0.7)">− Нужен сильный ПО для координации</span>
+        </div>
+
+        <div style="font-size:8px;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">
+          Подходит: текущая ситуация — разная зрелость продуктов
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- ТРАНСФОРМАЦИЯ -->
   <div style="margin-top:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:18px 22px">
     <div style="font-size:14px;font-weight:800;color:#CB11AB;margin-bottom:12px">Процесс трансформации</div>
