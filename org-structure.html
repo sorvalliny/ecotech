@@ -145,7 +145,43 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
 .tab:hover .tab-close{opacity:1}
 .tab-close:hover{color:#B83020}
 
-@media print{body{overflow:visible;height:auto}.board{height:auto;overflow:visible}.toolbar,.legend,.modal-bg,.node-del{display:none!important}*{-webkit-print-color-adjust:exact!important}}
+/* style popover */
+.style-pop{position:absolute;z-index:60;background:#fff;border:1px solid #E8E5EF;border-radius:10px;padding:10px 12px;box-shadow:0 6px 20px rgba(0,0,0,0.12);display:none;min-width:220px}
+.style-pop.open{display:block}
+.sp-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.sp-row:last-child{margin-bottom:0}
+.sp-label{font-size:8px;font-weight:700;color:#7A7A9D;width:42px;flex-shrink:0}
+.sp-colors{display:flex;gap:3px;flex-wrap:wrap}
+.sp-c{width:18px;height:18px;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:border-color .1s}
+.sp-c:hover,.sp-c.sel{border-color:#1A1A2E}
+.sp-sizes{display:flex;gap:3px}
+.sp-sz{padding:2px 8px;font-size:9px;font-weight:700;border-radius:4px;cursor:pointer;border:1px solid #E8E5EF;background:#fff;color:#5A5A7A;font-family:inherit}
+.sp-sz:hover,.sp-sz.sel{background:#F3EDFF;border-color:#6C3DAF;color:#6C3DAF}
+.sp-borders{display:flex;gap:3px}
+.sp-bd{width:28px;height:18px;border-radius:4px;cursor:pointer;border:1px solid #E8E5EF;display:flex;align-items:center;justify-content:center}
+.sp-bd:hover,.sp-bd.sel{border-color:#6C3DAF;background:#F3EDFF}
+.sp-bd-line{height:2px;width:16px;background:#5A5A7A;border-radius:1px}
+.sp-bd-dash{height:0;width:16px;border-top:2px dashed #5A5A7A}
+.sp-bd-thick{height:3px;width:16px;background:#5A5A7A;border-radius:1px}
+
+/* arrow style popover */
+.sp-arrow-colors{display:flex;gap:3px}
+.sp-arrow-w{display:flex;gap:3px}
+.sp-aw{padding:2px 6px;font-size:9px;font-weight:700;border-radius:4px;cursor:pointer;border:1px solid #E8E5EF;background:#fff;color:#5A5A7A;font-family:inherit}
+.sp-aw:hover,.sp-aw.sel{background:#F3EDFF;border-color:#6C3DAF;color:#6C3DAF}
+
+/* export dropdown */
+.export-wrap{position:relative}
+.export-menu{position:absolute;top:100%;right:0;background:#fff;border:1px solid #E8E5EF;border-radius:8px;padding:4px;box-shadow:0 6px 20px rgba(0,0,0,0.12);display:none;z-index:110;min-width:150px}
+.export-menu.open{display:block}
+.export-item{display:block;width:100%;text-align:left;padding:6px 10px;font-size:10px;font-weight:600;border:none;background:none;cursor:pointer;border-radius:5px;color:#5A5A7A;font-family:inherit}
+.export-item:hover{background:#F3EDFF;color:#6C3DAF}
+.export-item span{font-size:8px;color:#A0A0B8;display:block;font-weight:400}
+
+/* version badge */
+.version-badge{position:fixed;bottom:12px;right:12px;background:#fff;border:1px solid #E8E5EF;border-radius:6px;padding:4px 10px;font-size:8px;color:#7A7A9D;box-shadow:0 2px 6px rgba(0,0,0,0.04);z-index:100}
+
+@media print{body{overflow:visible;height:auto}.board{height:auto;overflow:visible}.toolbar,.legend,.modal-bg,.node-del,.node-port,.node-resize,.style-pop,.export-menu,.version-badge{display:none!important}.node{box-shadow:none!important}*{-webkit-print-color-adjust:exact!important}}
 </style>
 </head>
 <body>
@@ -160,12 +196,83 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
   <button class="tb-btn blue" id="btnGroup">Группа</button>
   <button class="tb-btn" id="btnConnect">Связь</button>
   <button class="tb-btn danger" id="btnReset">Сброс</button>
+  <div class="tb-sep"></div>
+  <div class="export-wrap">
+    <button class="tb-btn" id="btnExport">Экспорт</button>
+    <div class="export-menu" id="exportMenu">
+      <button class="export-item" data-fmt="pdf">PDF<span>Печать через браузер</span></button>
+      <button class="export-item" data-fmt="png">PNG<span>Скачать картинку доски</span></button>
+      <button class="export-item" data-fmt="svg">SVG → Figma<span>Копирует SVG в буфер</span></button>
+    </div>
+  </div>
   <div class="tb-hint" id="hint">Двойной клик — редактировать. Тяните точку на стрелке для изгиба.</div>
 </div>
 
 <div class="board" id="board">
   <svg id="svgLayer"><defs><marker id="ah" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 Z" class="arrow-head"/></marker></defs></svg>
 </div>
+
+<!-- Style popover (appears near selected node) -->
+<div class="style-pop" id="stylePop">
+  <div class="sp-row"><span class="sp-label">Фон</span><div class="sp-colors" id="spBg">
+    <div class="sp-c" data-v="#fff" style="background:#fff;border-color:#ddd"></div>
+    <div class="sp-c" data-v="#EEF2FF" style="background:#EEF2FF"></div>
+    <div class="sp-c" data-v="#EDFAF7" style="background:#EDFAF7"></div>
+    <div class="sp-c" data-v="#F3EDFF" style="background:#F3EDFF"></div>
+    <div class="sp-c" data-v="#FFF8ED" style="background:#FFF8ED"></div>
+    <div class="sp-c" data-v="#FFF0F8" style="background:#FFF0F8"></div>
+    <div class="sp-c" data-v="#F0FFF0" style="background:#F0FFF0"></div>
+    <div class="sp-c" data-v="#FFF5F5" style="background:#FFF5F5"></div>
+    <div class="sp-c" data-v="#FAFAFA" style="background:#FAFAFA"></div>
+    <div class="sp-c" data-v="#1A1A2E" style="background:#1A1A2E"></div>
+    <div class="sp-c" data-v="#6C3DAF" style="background:#6C3DAF"></div>
+  </div></div>
+  <div class="sp-row"><span class="sp-label">Текст</span><div class="sp-colors" id="spTxt">
+    <div class="sp-c" data-v="#1A1A2E" style="background:#1A1A2E"></div>
+    <div class="sp-c" data-v="#2B5FC2" style="background:#2B5FC2"></div>
+    <div class="sp-c" data-v="#0A8A70" style="background:#0A8A70"></div>
+    <div class="sp-c" data-v="#CB11AB" style="background:#CB11AB"></div>
+    <div class="sp-c" data-v="#B07A00" style="background:#B07A00"></div>
+    <div class="sp-c" data-v="#B83020" style="background:#B83020"></div>
+    <div class="sp-c" data-v="#fff" style="background:#fff;border-color:#ddd"></div>
+  </div></div>
+  <div class="sp-row"><span class="sp-label">Шрифт</span><div class="sp-sizes" id="spFz">
+    <button class="sp-sz" data-v="9">S</button>
+    <button class="sp-sz" data-v="11">M</button>
+    <button class="sp-sz" data-v="14">L</button>
+    <button class="sp-sz" data-v="18">XL</button>
+  </div></div>
+  <div class="sp-row"><span class="sp-label">Рамка</span><div class="sp-borders" id="spBd">
+    <div class="sp-bd" data-v="solid"><div class="sp-bd-line"></div></div>
+    <div class="sp-bd" data-v="dashed"><div class="sp-bd-dash"></div></div>
+    <div class="sp-bd" data-v="thick"><div class="sp-bd-thick"></div></div>
+    <div class="sp-bd" data-v="none" style="font-size:8px;color:#7A7A9D">-</div>
+  </div></div>
+</div>
+
+<!-- Arrow style popover -->
+<div class="style-pop" id="arrowPop">
+  <div class="sp-row"><span class="sp-label">Цвет</span><div class="sp-colors" id="spArrC">
+    <div class="sp-c" data-v="#B0B0C0" style="background:#B0B0C0"></div>
+    <div class="sp-c" data-v="#6C3DAF" style="background:#6C3DAF"></div>
+    <div class="sp-c" data-v="#2B5FC2" style="background:#2B5FC2"></div>
+    <div class="sp-c" data-v="#0A8A70" style="background:#0A8A70"></div>
+    <div class="sp-c" data-v="#CB11AB" style="background:#CB11AB"></div>
+    <div class="sp-c" data-v="#B83020" style="background:#B83020"></div>
+    <div class="sp-c" data-v="#1A1A2E" style="background:#1A1A2E"></div>
+  </div></div>
+  <div class="sp-row"><span class="sp-label">Толщина</span><div class="sp-arrow-w" id="spArrW">
+    <button class="sp-aw" data-v="1">1</button>
+    <button class="sp-aw" data-v="2">2</button>
+    <button class="sp-aw" data-v="3">3</button>
+  </div></div>
+  <div class="sp-row"><span class="sp-label">Стиль</span><div class="sp-borders" id="spArrS">
+    <div class="sp-bd" data-v="solid"><div class="sp-bd-line"></div></div>
+    <div class="sp-bd" data-v="dashed"><div class="sp-bd-dash"></div></div>
+  </div></div>
+</div>
+
+<div class="version-badge" id="versionBadge">v1.0 · сохранено локально</div>
 
 <!-- Edit modal -->
 <div class="modal-bg" id="editModal">
@@ -255,6 +362,10 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
       <div class="tpl-card" data-tpl="portfolio">
         <div class="tpl-title">Продуктовый портфель</div>
         <div class="tpl-desc">Группы по стадиям: R&D → Growth → Mature</div>
+      </div>
+      <div class="tpl-card" data-tpl="process">
+        <div class="tpl-title">Процессы</div>
+        <div class="tpl-desc">PM, Dev, QA, Design — функциональные связи</div>
       </div>
       <div class="tpl-card" data-tpl="dupCurrent">
         <div class="tpl-title">Копия текущей</div>
@@ -839,6 +950,24 @@ var TEMPLATES = {
     {name:'R&D / Ранние',color:'#0A8A70',x:40,y:230,w:280,h:120},
     {name:'Growth / Рост',color:'#B07A00',x:360,y:230,w:280,h:120},
     {name:'Mature / Зрелые',color:'#2B5FC2',x:680,y:230,w:280,h:120}
+  ]},
+  process:{nodes:[
+    {id:'pm',type:'n-prod',name:'Product Manager',desc:'Формулирует задачи, приоритеты',leader:'',x:60,y:40},
+    {id:'dev',type:'n-cto',name:'Разработка',desc:'Реализует фичи, техдолг',leader:'',x:340,y:40},
+    {id:'an',type:'n-an',name:'Аналитика',desc:'Метрики, A/B тесты, отчёты',leader:'',x:620,y:40},
+    {id:'pmo',type:'n-ops',name:'PMO',desc:'Статус, ресурсы, синки',leader:'',x:60,y:200},
+    {id:'qa',type:'n-func',name:'QA',desc:'Тестирование, регрессия',leader:'',x:340,y:200},
+    {id:'design',type:'n-exp',name:'Дизайн',desc:'UX/UI, дизайн-система',leader:'',x:620,y:200},
+    {id:'sales',type:'n-sales',name:'Продажи',desc:'B2B/B2C каналы',leader:'',x:60,y:360},
+    {id:'mkt',type:'n-dir',name:'Маркетинг',desc:'GTM, контент, лиды',leader:'',x:340,y:360},
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия, решения',leader:'',x:620,y:360}
+  ],edges:[
+    {f:'pm',t:'dev'},{f:'pm',t:'design'},{f:'dev',t:'qa'},{f:'qa',t:'pm'},
+    {f:'an',t:'pm'},{f:'pmo',t:'pm'},{f:'pmo',t:'ceo'},
+    {f:'pm',t:'sales'},{f:'mkt',t:'sales'},{f:'an',t:'mkt'}
+  ],groups:[
+    {name:'Продуктовый цикл',color:'#2B5FC2',x:30,y:15,w:640,h:170},
+    {name:'Поддержка',color:'#6C3DAF',x:30,y:180,w:640,h:160}
   ]}
 };
 
@@ -871,6 +1000,243 @@ document.getElementById('bName').addEventListener('keydown',function(ev){if(ev.k
 /* context menu group */
 $b.addEventListener('contextmenu',function(ev){var grp=ev.target.closest('.group');if(grp){ev.preventDefault();
   if(confirm('Удалить группу?')){var s=cs();s.groups.splice(parseInt(grp.dataset.gidx),1);ws(s);render()}}});
+
+/* ═══════ STYLE POPOVER ═══════ */
+var $sp=document.getElementById('stylePop'),$ap=document.getElementById('arrowPop');
+var styleTarget=null;
+
+function showStylePop(nid){
+  hideStylePop();
+  var el=nodeEls[nid];if(!el)return;
+  styleTarget=nid;
+  var r=el.getBoundingClientRect(),br=$b.getBoundingClientRect();
+  $sp.style.left=(r.left-br.left+$b.scrollLeft)+'px';
+  $sp.style.top=(r.bottom-br.top+$b.scrollTop+6)+'px';
+  $sp.classList.add('open');
+  // load current style
+  var s=cs(),n=s.nodes.find(function(x){return x.id===nid});if(!n)return;
+  var st=n.style||{};
+  markSel('spBg',st.bg);markSel('spTxt',st.color);markSzSel('spFz',st.fontSize);markBdSel('spBd',st.border);
+}
+function showArrowPop(idx){
+  hideStylePop();selectedEdge=idx;
+  var s=cs(),e=s.edges[idx];if(!e)return;
+  var fe=nodeEls[e.f],te=nodeEls[e.t];if(!fe||!te)return;
+  var fc=gc(fe),tc=gc(te);
+  var mx=(fc.x+tc.x)/2,my=(e.midY!=null?e.midY:(fc.b+tc.t)/2);
+  $ap.style.left=(mx-60)+'px';$ap.style.top=(my+10)+'px';
+  $ap.classList.add('open');
+  var ast=e.style||{};
+  markSel('spArrC',ast.color);markAwSel('spArrW',ast.width);markBdSel('spArrS',ast.dash);
+}
+function hideStylePop(){$sp.classList.remove('open');$ap.classList.remove('open');styleTarget=null}
+function markSel(pid,val){document.querySelectorAll('#'+pid+' .sp-c').forEach(function(e){e.classList.toggle('sel',e.dataset.v===val)})}
+function markSzSel(pid,val){document.querySelectorAll('#'+pid+' .sp-sz').forEach(function(e){e.classList.toggle('sel',e.dataset.v===String(val))})}
+function markAwSel(pid,val){document.querySelectorAll('#'+pid+' .sp-aw').forEach(function(e){e.classList.toggle('sel',e.dataset.v===String(val))})}
+function markBdSel(pid,val){document.querySelectorAll('#'+pid+' .sp-bd').forEach(function(e){e.classList.toggle('sel',e.dataset.v===val)})}
+
+// Node style handlers
+document.querySelectorAll('#spBg .sp-c').forEach(function(el){el.addEventListener('click',function(){
+  if(!styleTarget)return;var s=cs(),n=s.nodes.find(function(x){return x.id===styleTarget});if(!n)return;
+  if(!n.style)n.style={};n.style.bg=el.dataset.v;ws(s);applyNodeStyle(styleTarget,n.style);markSel('spBg',el.dataset.v);
+})});
+document.querySelectorAll('#spTxt .sp-c').forEach(function(el){el.addEventListener('click',function(){
+  if(!styleTarget)return;var s=cs(),n=s.nodes.find(function(x){return x.id===styleTarget});if(!n)return;
+  if(!n.style)n.style={};n.style.color=el.dataset.v;ws(s);applyNodeStyle(styleTarget,n.style);markSel('spTxt',el.dataset.v);
+})});
+document.querySelectorAll('#spFz .sp-sz').forEach(function(el){el.addEventListener('click',function(){
+  if(!styleTarget)return;var s=cs(),n=s.nodes.find(function(x){return x.id===styleTarget});if(!n)return;
+  if(!n.style)n.style={};n.style.fontSize=el.dataset.v;ws(s);applyNodeStyle(styleTarget,n.style);markSzSel('spFz',el.dataset.v);
+})});
+document.querySelectorAll('#spBd .sp-bd').forEach(function(el){el.addEventListener('click',function(){
+  if(!styleTarget)return;var s=cs(),n=s.nodes.find(function(x){return x.id===styleTarget});if(!n)return;
+  if(!n.style)n.style={};n.style.border=el.dataset.v;ws(s);applyNodeStyle(styleTarget,n.style);markBdSel('spBd',el.dataset.v);
+})});
+
+function applyNodeStyle(nid,st){
+  var el=nodeEls[nid];if(!el||!st)return;
+  if(st.bg)el.style.background=st.bg;
+  if(st.color){el.querySelector('.node-name').style.color=st.color;el.style.color=st.color}
+  if(st.fontSize)el.querySelector('.node-name').style.fontSize=st.fontSize+'px';
+  if(st.border==='solid')el.style.borderStyle='solid';
+  else if(st.border==='dashed')el.style.borderStyle='dashed';
+  else if(st.border==='thick'){el.style.borderStyle='solid';el.style.borderWidth='2px'}
+  else if(st.border==='none')el.style.border='none';
+}
+
+// Arrow style handlers
+document.querySelectorAll('#spArrC .sp-c').forEach(function(el){el.addEventListener('click',function(){
+  if(selectedEdge<0)return;var s=cs(),e=s.edges[selectedEdge];if(!e)return;
+  if(!e.style)e.style={};e.style.color=el.dataset.v;ws(s);drawEdges(s.edges);markSel('spArrC',el.dataset.v);
+})});
+document.querySelectorAll('#spArrW .sp-aw').forEach(function(el){el.addEventListener('click',function(){
+  if(selectedEdge<0)return;var s=cs(),e=s.edges[selectedEdge];if(!e)return;
+  if(!e.style)e.style={};e.style.width=el.dataset.v;ws(s);drawEdges(s.edges);markAwSel('spArrW',el.dataset.v);
+})});
+document.querySelectorAll('#spArrS .sp-bd').forEach(function(el){el.addEventListener('click',function(){
+  if(selectedEdge<0)return;var s=cs(),e=s.edges[selectedEdge];if(!e)return;
+  if(!e.style)e.style={};e.style.dash=el.dataset.v;ws(s);drawEdges(s.edges);markBdSel('spArrS',el.dataset.v);
+})});
+
+// Apply styles during render
+var origRender=render;
+render=function(){origRender();var s=cs();s.nodes.forEach(function(n){if(n.style)applyNodeStyle(n.id,n.style)})};
+
+// Show style pop on single click (not shift)
+var origNodeClick=null;
+$b.addEventListener('click',function(ev){
+  if(ev.shiftKey)return;
+  var node=ev.target.closest('.node');
+  if(node&&!ev.target.classList.contains('node-del')&&!ev.target.classList.contains('node-port')&&!ev.target.classList.contains('node-resize')){
+    showStylePop(node.dataset.id);return;
+  }
+  if(!ev.target.closest('.style-pop')&&!ev.target.closest('.edge-group')){hideStylePop()}
+});
+
+// Apply arrow styles in drawEdges — patch
+var origDrawEdges=drawEdges;
+drawEdges=function(edges){
+  origDrawEdges(edges);
+  // apply arrow custom styles
+  var groups=$svg.querySelectorAll('.edge-group');
+  edges.forEach(function(e,i){
+    if(!e.style||!groups[i])return;
+    var path=groups[i].querySelector('.arrow-path');if(!path)return;
+    if(e.style.color)path.style.stroke=e.style.color;
+    if(e.style.width)path.style.strokeWidth=e.style.width+'px';
+    if(e.style.dash==='dashed')path.style.strokeDasharray='6 4';
+    else if(e.style.dash==='solid')path.style.strokeDasharray='none';
+  });
+};
+
+// Show arrow style pop on edge select
+var origSelectEdge=selectEdge;
+selectEdge=function(idx){origSelectEdge(idx);if(selectedEdge>=0)showArrowPop(idx);else hideStylePop()};
+
+/* ═══════ EXPORT ═══════ */
+document.getElementById('btnExport').addEventListener('click',function(ev){
+  ev.stopPropagation();
+  document.getElementById('exportMenu').classList.toggle('open');
+});
+document.addEventListener('click',function(ev){
+  if(!ev.target.closest('.export-wrap'))document.getElementById('exportMenu').classList.remove('open');
+});
+
+document.querySelectorAll('.export-item').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var fmt=btn.dataset.fmt;
+    document.getElementById('exportMenu').classList.remove('open');
+    if(fmt==='pdf'){window.print();return}
+    if(fmt==='png'){exportPNG();return}
+    if(fmt==='svg'){exportSVG();return}
+  });
+});
+
+function exportPNG(){
+  // Use canvas to capture the board
+  var nodes=$b.querySelectorAll('.node,.group');
+  var minX=Infinity,minY=Infinity,maxX=0,maxY=0;
+  nodes.forEach(function(el){
+    var l=parseInt(el.style.left)||0,t=parseInt(el.style.top)||0;
+    var w=el.offsetWidth,h=el.offsetHeight;
+    if(l<minX)minX=l;if(t<minY)minY=t;if(l+w>maxX)maxX=l+w;if(t+h>maxY)maxY=t+h;
+  });
+  var pad=40;minX=Math.max(0,minX-pad);minY=Math.max(0,minY-pad);maxX+=pad;maxY+=pad;
+  var W=maxX-minX,H=maxY-minY;
+
+  var canvas=document.createElement('canvas');canvas.width=W*2;canvas.height=H*2;
+  var ctx=canvas.getContext('2d');ctx.scale(2,2);ctx.fillStyle='#F3F1F6';ctx.fillRect(0,0,W,H);
+
+  // draw groups
+  var s=cs();
+  (s.groups||[]).forEach(function(g){
+    ctx.fillStyle=hexA(g.color,0.06);ctx.strokeStyle=hexA(g.color,0.2);ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.roundRect(g.x-minX,g.y-minY,g.w,g.h,12);ctx.fill();ctx.stroke();
+    ctx.fillStyle=g.color;ctx.font='bold 9px Outfit,sans-serif';ctx.fillText(g.name,g.x-minX+12,g.y-minY-2);
+  });
+
+  // draw edges
+  s.edges.forEach(function(e){
+    var fe=nodeEls[e.f],te=nodeEls[e.t];if(!fe||!te)return;
+    var fc=gc(fe),tc=gc(te);
+    var fx=fc.x-minX,fy=fc.b-minY,tx=tc.x-minX,ty=tc.t-minY;
+    var my=e.midY!=null?e.midY-minY:(fy+ty)/2;
+    var est=e.style||{};
+    ctx.strokeStyle=est.color||'#B0B0C0';ctx.lineWidth=parseInt(est.width)||1.5;
+    if(est.dash==='dashed')ctx.setLineDash([6,4]);else ctx.setLineDash([]);
+    ctx.beginPath();ctx.moveTo(fx,fy);ctx.lineTo(fx,my);ctx.lineTo(tx,my);ctx.lineTo(tx,ty);ctx.stroke();
+    ctx.setLineDash([]);
+    // arrowhead
+    ctx.fillStyle=est.color||'#B0B0C0';
+    ctx.beginPath();ctx.moveTo(tx-4,ty-6);ctx.lineTo(tx,ty);ctx.lineTo(tx+4,ty-6);ctx.fill();
+  });
+
+  // draw nodes
+  s.nodes.forEach(function(n){
+    var el=nodeEls[n.id];if(!el)return;
+    var x=n.x-minX,y=n.y-minY,w=el.offsetWidth,h=el.offsetHeight;
+    var nst=n.style||{};
+    ctx.fillStyle=nst.bg||getComputedStyle(el).backgroundColor||'#fff';
+    ctx.strokeStyle=getComputedStyle(el).borderColor||'#ddd';ctx.lineWidth=1;
+    ctx.beginPath();ctx.roundRect(x,y,w,h,8);ctx.fill();ctx.stroke();
+    // name
+    ctx.fillStyle=nst.color||getComputedStyle(el.querySelector('.node-name')).color||'#1A1A2E';
+    ctx.font='bold '+(nst.fontSize||11)+'px Outfit,sans-serif';ctx.fillText(n.name,x+10,y+18);
+    if(n.desc){ctx.fillStyle='#7A7A9D';ctx.font='8px Outfit,sans-serif';ctx.fillText(n.desc,x+10,y+30)}
+    var ldr=n.leader||'вакансия';
+    ctx.fillStyle=n.leader?'#1A1A2E':'#B07A00';ctx.font=(n.leader?'600':'italic')+' 8px Outfit,sans-serif';
+    ctx.fillText(ldr,x+10,y+h-6);
+  });
+
+  canvas.toBlob(function(blob){
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='org-structure-'+cur+'.png';a.click();
+  });
+}
+
+function exportSVG(){
+  // Build SVG string of the board
+  var nodes=$b.querySelectorAll('.node,.group');
+  var minX=Infinity,minY=Infinity,maxX=0,maxY=0;
+  nodes.forEach(function(el){
+    var l=parseInt(el.style.left)||0,t=parseInt(el.style.top)||0;
+    if(l<minX)minX=l;if(t<minY)minY=t;if(l+el.offsetWidth>maxX)maxX=l+el.offsetWidth;if(t+el.offsetHeight>maxY)maxY=t+el.offsetHeight;
+  });
+  var pad=40;minX=Math.max(0,minX-pad);minY=Math.max(0,minY-pad);maxX+=pad;maxY+=pad;
+  var W=maxX-minX,H=maxY-minY;
+
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">';
+  svg+='<rect width="'+W+'" height="'+H+'" fill="#F3F1F6"/>';
+
+  var s=cs();
+  // edges
+  s.edges.forEach(function(e){
+    var fe=nodeEls[e.f],te=nodeEls[e.t];if(!fe||!te)return;
+    var fc=gc(fe),tc=gc(te);
+    var fx=fc.x-minX,fy=fc.b-minY,tx=tc.x-minX,ty=tc.t-minY;
+    var my=e.midY!=null?e.midY-minY:(fy+ty)/2;
+    var est=e.style||{};
+    svg+='<path d="M'+fx+','+fy+' L'+fx+','+my+' L'+tx+','+my+' L'+tx+','+ty+'" stroke="'+(est.color||'#B0B0C0')+'" stroke-width="'+(est.width||1.5)+'" fill="none"'+(est.dash==='dashed'?' stroke-dasharray="6 4"':'')+'/>';
+  });
+  // nodes
+  s.nodes.forEach(function(n){
+    var el=nodeEls[n.id];if(!el)return;
+    var x=n.x-minX,y=n.y-minY,w=el.offsetWidth,h=el.offsetHeight;
+    var nst=n.style||{};var bg=nst.bg||'#fff';
+    svg+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="8" fill="'+bg+'" stroke="#ddd"/>';
+    svg+='<text x="'+(x+10)+'" y="'+(y+16)+'" font-family="Outfit,sans-serif" font-size="'+(nst.fontSize||11)+'" font-weight="bold" fill="'+(nst.color||'#1A1A2E')+'">'+esc(n.name)+'</text>';
+    if(n.desc)svg+='<text x="'+(x+10)+'" y="'+(y+28)+'" font-family="Outfit,sans-serif" font-size="8" fill="#7A7A9D">'+esc(n.desc)+'</text>';
+  });
+  svg+='</svg>';
+
+  navigator.clipboard.writeText(svg).then(function(){
+    $hint.textContent='SVG скопирован в буфер! Вставьте в Figma (Ctrl+V).';
+    setTimeout(function(){$hint.textContent=''},3000);
+  });
+}
+
+/* ═══════ VERSION ═══════ */
+var verCount=Object.keys(store).length;
+document.getElementById('versionBadge').textContent='v1.0 · '+verCount+' досок · localStorage';
 
 renderTabs();render();
 })();
