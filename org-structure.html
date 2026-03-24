@@ -7,74 +7,74 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-webkit-font-smoothing:antialiased;min-height:100vh}
+body{font-family:'Outfit',system-ui,sans-serif;background:#F7F5FA;color:#1A1A2E;-webkit-font-smoothing:antialiased;min-height:100vh}
 .p{max-width:1000px;margin:0 auto;padding:32px 40px 24px}
 
-.hd{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:2px solid rgba(108,61,175,0.3);margin-bottom:24px}
-.hd h1{font-size:20px;font-weight:800;letter-spacing:-0.02em}
-.hd .sub{font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px}
-.hd-r{font-size:9px;color:rgba(255,255,255,0.3)}
+.hd{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:2px solid rgba(108,61,175,0.2);margin-bottom:24px}
+.hd h1{font-size:20px;font-weight:800;letter-spacing:-0.02em;color:#1A1A2E}
+.hd .sub{font-size:10px;color:#7A7A9D;margin-top:2px}
+.hd-r{font-size:9px;color:#7A7A9D}
 
 /* section titles */
-.sec{font-size:16px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.sec{font-size:16px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:8px;color:#1A1A2E}
 .sec .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.sec-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:16px}
+.sec-sub{font-size:10px;color:#7A7A9D;margin-bottom:16px}
 
 /* AS-IS */
 .ceo{text-align:center;margin-bottom:8px}
-.ceo-box{display:inline-block;background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:8px 20px;border-radius:8px;font-size:12px;font-weight:800}
-.ceo-box small{display:block;font-size:8px;font-weight:500;opacity:0.7;margin-top:1px}
-.line-down{width:2px;height:10px;background:rgba(255,255,255,0.15);margin:0 auto 4px}
-.line-h{height:2px;background:rgba(255,255,255,0.1);margin:0 auto 6px}
+.ceo-box{display:inline-block;background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:8px 20px;border-radius:8px;font-size:12px;font-weight:800;color:#fff}
+.ceo-box small{display:block;font-size:8px;font-weight:500;opacity:0.8;margin-top:1px}
+.line-down{width:2px;height:10px;background:rgba(108,61,175,0.2);margin:0 auto 4px}
+.line-h{height:2px;background:rgba(108,61,175,0.12);margin:0 auto 6px}
 
 .flat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;font-size:9px}
-.flat-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:5px;padding:5px 8px;color:rgba(255,255,255,0.6);line-height:1.3}
-.flat-item b{color:rgba(255,255,255,0.85);font-weight:600}
+.flat-item{background:#fff;border:1px solid #E8E5EF;border-radius:5px;padding:5px 8px;color:#5A5A7A;line-height:1.3;box-shadow:0 1px 2px rgba(0,0,0,0.04)}
+.flat-item b{color:#1A1A2E;font-weight:600}
 .flat-item--prod{border-left:3px solid #6C3DAF}
 .flat-item--dir{border-left:3px solid #CB11AB}
-.flat-item--func{border-left:3px solid rgba(255,255,255,0.15)}
-.flat-item--rud{border-left:3px solid rgba(255,255,255,0.08);opacity:0.5}
-.flat-count{text-align:center;font-size:10px;color:rgba(255,255,255,0.3);margin-top:6px}
+.flat-item--func{border-left:3px solid #A0A0B8}
+.flat-item--rud{border-left:3px solid #D0D0DA;opacity:0.6}
+.flat-count{text-align:center;font-size:10px;color:#7A7A9D;margin-top:6px}
 
 /* problems */
 .problems{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:14px}
-.prob{background:rgba(222,53,11,0.06);border:1px solid rgba(222,53,11,0.15);border-radius:6px;padding:8px 10px}
-.prob-title{font-size:9px;font-weight:800;color:rgba(222,53,11,0.8);margin-bottom:3px}
-.prob-desc{font-size:8px;color:rgba(255,255,255,0.4);line-height:1.5}
+.prob{background:#FFF5F5;border:1px solid #FCD5D5;border-radius:6px;padding:8px 10px}
+.prob-title{font-size:9px;font-weight:800;color:#C53030;margin-bottom:3px}
+.prob-desc{font-size:8px;color:#7A5A5A;line-height:1.5}
 
 /* scenario card */
-.scenario{border-radius:12px;padding:20px 22px;margin-bottom:14px;position:relative}
-.sc-a{background:rgba(108,61,175,0.06);border:1px solid rgba(108,61,175,0.2)}
-.sc-b{background:rgba(0,82,204,0.06);border:1px solid rgba(0,82,204,0.2)}
-.sc-c{background:rgba(203,17,171,0.06);border:2px solid rgba(203,17,171,0.3)}
+.scenario{border-radius:12px;padding:20px 22px;margin-bottom:14px;position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.sc-a{background:#FAF7FF;border:1px solid #D8CCF0}
+.sc-b{background:#F5F8FF;border:1px solid #C8D8F0}
+.sc-c{background:#FFF5FA;border:2px solid #E8B0D8}
 .sc-title{font-size:15px;font-weight:800;margin-bottom:2px}
-.sc-sub{font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:12px}
+.sc-sub{font-size:9px;color:#7A7A9D;margin-bottom:12px}
 .sc-label{position:absolute;top:-8px;right:16px;font-size:8px;font-weight:800;padding:2px 8px;border-radius:4px}
 
 /* mini org chart inside scenario */
-.mini-org{background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;margin-bottom:12px}
+.mini-org{background:#F0EDF5;border-radius:8px;padding:12px;margin-bottom:12px}
 .mini-row{display:grid;gap:4px;margin-bottom:5px}
-.mini-box{border-radius:5px;padding:6px;text-align:center}
+.mini-box{border-radius:5px;padding:6px;text-align:center;background:#fff}
 .mini-box-name{font-size:9px;font-weight:800;margin-bottom:1px}
-.mini-box-desc{font-size:7px;color:rgba(255,255,255,0.4);line-height:1.3}
+.mini-box-desc{font-size:7px;color:#7A7A9D;line-height:1.3}
 .mini-prod{display:grid;gap:3px;margin-bottom:5px}
-.mini-tag{border-radius:4px;padding:3px 4px;text-align:center;font-size:7px;font-weight:700}
+.mini-tag{border-radius:4px;padding:3px 4px;text-align:center;font-size:7px;font-weight:700;background:#fff}
 
 /* oper model */
-.oper{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;margin-bottom:12px}
-.oper-title{font-size:11px;font-weight:800;color:rgba(255,255,255,0.6);margin-bottom:8px}
+.oper{background:#fff;border:1px solid #E8E5EF;border-radius:8px;padding:12px 14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,0.03)}
+.oper-title{font-size:11px;font-weight:800;color:#5A5A7A;margin-bottom:8px}
 .oper-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:9px}
-.oper-col b{display:block;color:rgba(255,255,255,0.7);margin-bottom:3px;font-size:10px}
-.oper-col{color:rgba(255,255,255,0.45);line-height:1.6}
+.oper-col b{display:block;color:#1A1A2E;margin-bottom:3px;font-size:10px}
+.oper-col{color:#5A5A7A;line-height:1.6}
 
 /* pros/cons */
 .pc{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:9px}
 .pc span{display:block;line-height:1.5}
 
-.note{font-size:10px;color:rgba(255,255,255,0.3);text-align:center;margin-top:16px;line-height:1.5}
-.ft{margin-top:20px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,0.2)}
+.note{font-size:10px;color:#7A7A9D;text-align:center;margin-top:16px;line-height:1.5}
+.ft{margin-top:20px;padding-top:10px;border-top:1px solid #E8E5EF;display:flex;justify-content:space-between;font-size:9px;color:#A0A0B8}
 
-@media print{body{background:#fff;color:#172B4D}*{-webkit-print-color-adjust:exact!important}}
+@media print{*{-webkit-print-color-adjust:exact!important}}
 @media(max-width:700px){.flat-grid{grid-template-columns:1fr 1fr}.problems{grid-template-columns:1fr 1fr}.mini-row{grid-template-columns:1fr!important}.mini-prod{grid-template-columns:1fr 1fr!important}.oper-grid{grid-template-columns:1fr}.pc{grid-template-columns:1fr}}
 </style>
 </head>
@@ -123,8 +123,8 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
   <div class="flat-count">
     <span style="color:#6C3DAF">&#9632;</span> ИТ-продукты &nbsp;
     <span style="color:#CB11AB">&#9632;</span> Направления &nbsp;
-    <span style="color:rgba(255,255,255,0.3)">&#9632;</span> Функции &nbsp;
-    <span style="color:rgba(255,255,255,0.15)">&#9632;</span> Рудименты &nbsp;&middot;&nbsp;
+    <span style="color:#A0A0B8">&#9632;</span> Функции &nbsp;
+    <span style="color:#D0D0DA">&#9632;</span> Рудименты &nbsp;&middot;&nbsp;
     19 прямых подчинений
   </div>
 
@@ -165,37 +165,37 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
 
     <div class="mini-org">
       <div style="text-align:center;margin-bottom:8px">
-        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
+        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800;color:#fff">CEO</span>
       </div>
       <div class="mini-row" style="grid-template-columns:repeat(4,1fr)">
-        <div class="mini-box" style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2)">
-          <div class="mini-box-name" style="color:#5B9BF2">CPO</div>
+        <div class="mini-box" style="background:#EEF2FF;border:1px solid #C8D8F0">
+          <div class="mini-box-name" style="color:#2B5FC2">CPO</div>
           <div class="mini-box-desc">Стратегия портфеля, назначение лидеров, дизайн-система</div>
         </div>
-        <div class="mini-box" style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2)">
+        <div class="mini-box" style="background:#F3EDFF;border:1px solid #D8CCF0">
           <div class="mini-box-name" style="color:#CB11AB">Стратегия и операционка</div>
           <div class="mini-box-desc">PMO, OKR, прозрачность</div>
         </div>
-        <div class="mini-box" style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2)">
-          <div class="mini-box-name" style="color:#5B9BF2">CTO</div>
+        <div class="mini-box" style="background:#EEF2FF;border:1px solid #C8D8F0">
+          <div class="mini-box-name" style="color:#2B5FC2">CTO</div>
           <div class="mini-box-desc">Инфра, платформа</div>
         </div>
-        <div class="mini-box" style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2)">
-          <div class="mini-box-name" style="color:#FFB830">Аналитика</div>
+        <div class="mini-box" style="background:#FFF8ED;border:1px solid #F0D8A8">
+          <div class="mini-box-name" style="color:#B07A00">Аналитика</div>
           <div class="mini-box-desc">Продуктовая + рыночная</div>
         </div>
       </div>
       <div class="mini-prod" style="grid-template-columns:repeat(6,1fr)">
-        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Wibes<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Проект 9<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Kids<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Sport<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Встречи<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Книги<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Wibes<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Проект 9<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Kids<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Sport<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Встречи<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Книги<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
       </div>
       <div class="mini-prod" style="grid-template-columns:1fr 1fr">
-        <div class="mini-tag" style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.15);color:#CB11AB;font-weight:600">Направления и экспансия <span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">Молодёжное, Контент, Ивенты, РФ, СНГ/Мир</span></div>
-        <div class="mini-tag" style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);color:rgba(255,255,255,0.3)">На пересмотр <span style="font-size:6px">4 рудимента</span></div>
+        <div class="mini-tag" style="background:#FFF0F8;border:1px solid #F0C0E0;color:#CB11AB;font-weight:600">Направления и экспансия <span style="font-weight:400;color:#7A7A9D;font-size:6px">Молодёжное, Контент, Ивенты, РФ, СНГ/Мир</span></div>
+        <div class="mini-tag" style="background:#F0EDF5;border:1px dashed #C8C0D8;color:#7A7A9D">На пересмотр <span style="font-size:6px">4 рудимента</span></div>
       </div>
     </div>
 
@@ -220,54 +220,54 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
 
     <div class="pc">
       <div>
-        <span style="color:#34D399">+ Максимальная скорость монетизации</span>
-        <span style="color:#34D399">+ P&L-ответственность у каждого лидера</span>
-        <span style="color:#34D399">+ Конкуренция за результат</span>
+        <span style="color:#0A7A50">+ Максимальная скорость монетизации</span>
+        <span style="color:#0A7A50">+ P&L-ответственность у каждого лидера</span>
+        <span style="color:#0A7A50">+ Конкуренция за результат</span>
       </div>
       <div>
-        <span style="color:rgba(222,53,11,0.7)">- Дублирование функций (маркетинг, аналитика)</span>
-        <span style="color:rgba(222,53,11,0.7)">- Ранние продукты не выживут без ресурсов</span>
-        <span style="color:rgba(222,53,11,0.7)">- Нет R&D — некому генерить новое</span>
+        <span style="color:#B83020">- Дублирование функций (маркетинг, аналитика)</span>
+        <span style="color:#B83020">- Ранние продукты не выживут без ресурсов</span>
+        <span style="color:#B83020">- Нет R&D — некому генерить новое</span>
       </div>
     </div>
-    <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: 3+ продукта уже зарабатывают. Фокус — масштабировать выручку, а не искать новое.</div>
+    <div style="font-size:8px;color:#A0A0B8;margin-top:8px;border-top:1px solid #E8E5EF;padding-top:6px">Когда подходит: 3+ продукта уже зарабатывают. Фокус — масштабировать выручку, а не искать новое.</div>
   </div>
 
   <!-- ─── СЦЕНАРИЙ Б ─── -->
   <div class="scenario sc-b">
-    <div class="sc-title" style="color:#5B9BF2">Б. Платформа + R&D-фабрика</div>
+    <div class="sc-title" style="color:#2B5FC2">Б. Платформа + R&D-фабрика</div>
     <div class="sc-sub">Единая платформа, фаст-трек гипотез, общая монетизация. CTO в центре.</div>
 
     <div class="mini-org">
       <div style="text-align:center;margin-bottom:8px">
-        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
+        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800;color:#fff">CEO</span>
       </div>
       <div class="mini-row" style="grid-template-columns:repeat(3,1fr)">
-        <div class="mini-box" style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2)">
-          <div class="mini-box-name" style="color:#5B9BF2">CTO + Платформа</div>
+        <div class="mini-box" style="background:#EEF2FF;border:1px solid #C8D8F0">
+          <div class="mini-box-name" style="color:#2B5FC2">CTO + Платформа</div>
           <div class="mini-box-desc">Единая инфра, дизайн-система, все продукты как сервисы</div>
         </div>
-        <div class="mini-box" style="background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2)">
-          <div class="mini-box-name" style="color:#00D4B4">R&D</div>
+        <div class="mini-box" style="background:#EDFAF7;border:1px solid #B8E8DE">
+          <div class="mini-box-name" style="color:#0A8A70">R&D</div>
           <div class="mini-box-desc">Генерация гипотез, фаст-трек, упрощённые процессы</div>
         </div>
-        <div class="mini-box" style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2)">
+        <div class="mini-box" style="background:#F3EDFF;border:1px solid #D8CCF0">
           <div class="mini-box-name" style="color:#CB11AB">Стратегия и операционка</div>
           <div class="mini-box-desc">PMO, OKR, lifecycle, прозрачность</div>
         </div>
       </div>
       <div class="mini-prod" style="grid-template-columns:repeat(6,1fr)">
-        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Wibes</div>
-        <div class="mini-tag" style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);color:#5B9BF2">Проект 9</div>
-        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);color:#00D4B4">Kids</div>
-        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);color:#00D4B4">Sport</div>
-        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);color:#00D4B4">Встречи</div>
-        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);color:#00D4B4">Книги</div>
+        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Wibes</div>
+        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Проект 9</div>
+        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Kids</div>
+        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Sport</div>
+        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Встречи</div>
+        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Книги</div>
       </div>
       <div class="mini-prod" style="grid-template-columns:1fr 1fr 1fr">
-        <div class="mini-tag" style="background:rgba(255,139,0,0.08);border:1px solid rgba(255,139,0,0.15);color:#FFB830;font-weight:600">Аналитика <span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">Продуктовая + рыночная</span></div>
-        <div class="mini-tag" style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.15);color:#CB11AB;font-weight:600">Направления <span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">Молодёжное, Контент, Ивенты, РФ, СНГ</span></div>
-        <div class="mini-tag" style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);color:rgba(255,255,255,0.3)">На пересмотр <span style="font-size:6px">4 руд.</span></div>
+        <div class="mini-tag" style="background:#FFF8ED;border:1px solid #F0D8A8;color:#B07A00;font-weight:600">Аналитика <span style="font-weight:400;color:#7A7A9D;font-size:6px">Продуктовая + рыночная</span></div>
+        <div class="mini-tag" style="background:#FFF0F8;border:1px solid #F0C0E0;color:#CB11AB;font-weight:600">Направления <span style="font-weight:400;color:#7A7A9D;font-size:6px">Молодёжное, Контент, Ивенты, РФ, СНГ</span></div>
+        <div class="mini-tag" style="background:#F0EDF5;border:1px dashed #C8C0D8;color:#7A7A9D">На пересмотр <span style="font-size:6px">4 руд.</span></div>
       </div>
     </div>
 
@@ -292,17 +292,17 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
 
     <div class="pc">
       <div>
-        <span style="color:#34D399">+ Единый UX и дизайн-система</span>
-        <span style="color:#34D399">+ Кросс-продуктовая монетизация</span>
-        <span style="color:#34D399">+ R&D генерирует поток новых идей</span>
+        <span style="color:#0A7A50">+ Единый UX и дизайн-система</span>
+        <span style="color:#0A7A50">+ Кросс-продуктовая монетизация</span>
+        <span style="color:#0A7A50">+ R&D генерирует поток новых идей</span>
       </div>
       <div>
-        <span style="color:rgba(222,53,11,0.7)">- Медленный старт: сначала платформа</span>
-        <span style="color:rgba(222,53,11,0.7)">- Все зависят от CTO</span>
-        <span style="color:rgba(222,53,11,0.7)">- Зрелые продукты ждут пока строится общее</span>
+        <span style="color:#B83020">- Медленный старт: сначала платформа</span>
+        <span style="color:#B83020">- Все зависят от CTO</span>
+        <span style="color:#B83020">- Зрелые продукты ждут пока строится общее</span>
       </div>
     </div>
-    <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: сильный CTO, продукты связаны, есть время инвестировать в платформу до монетизации.</div>
+    <div style="font-size:8px;color:#A0A0B8;margin-top:8px;border-top:1px solid #E8E5EF;padding-top:6px">Когда подходит: сильный CTO, продукты связаны, есть время инвестировать в платформу до монетизации.</div>
   </div>
 
   <!-- ─── СЦЕНАРИЙ В ─── -->
@@ -313,47 +313,47 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
 
     <div class="mini-org">
       <div style="text-align:center;margin-bottom:8px">
-        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
+        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800;color:#fff">CEO</span>
       </div>
       <div class="mini-row" style="grid-template-columns:repeat(3,1fr)">
-        <div class="mini-box" style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2)">
-          <div class="mini-box-name" style="color:#5B9BF2">CPO</div>
+        <div class="mini-box" style="background:#EEF2FF;border:1px solid #C8D8F0">
+          <div class="mini-box-name" style="color:#2B5FC2">CPO</div>
           <div class="mini-box-desc">Зрелые продукты, P&L, лидеры, дизайн-система, продуктовая смелость</div>
         </div>
-        <div class="mini-box" style="background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2)">
-          <div class="mini-box-name" style="color:#00D4B4">R&D</div>
+        <div class="mini-box" style="background:#EDFAF7;border:1px solid #B8E8DE">
+          <div class="mini-box-name" style="color:#0A8A70">R&D</div>
           <div class="mini-box-desc">Фаст-трек гипотез, упрощённые процессы, ранние продукты</div>
         </div>
-        <div class="mini-box" style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2)">
-          <div class="mini-box-name" style="color:#5B9BF2">CTO</div>
+        <div class="mini-box" style="background:#EEF2FF;border:1px solid #C8D8F0">
+          <div class="mini-box-name" style="color:#2B5FC2">CTO</div>
           <div class="mini-box-desc">Разработка, инфра, платформенные сервисы</div>
         </div>
       </div>
       <div class="mini-row" style="grid-template-columns:repeat(3,1fr)">
-        <div class="mini-box" style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2)">
+        <div class="mini-box" style="background:#F3EDFF;border:1px solid #D8CCF0">
           <div class="mini-box-name" style="color:#CB11AB">Стратегия и операционка</div>
           <div class="mini-box-desc">PMO, OKR-каскад, ресурсы, lifecycle, прозрачность</div>
         </div>
-        <div class="mini-box" style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2)">
-          <div class="mini-box-name" style="color:#FFB830">Аналитика</div>
+        <div class="mini-box" style="background:#FFF8ED;border:1px solid #F0D8A8">
+          <div class="mini-box-name" style="color:#B07A00">Аналитика</div>
           <div class="mini-box-desc">Продуктовая + рыночная аналитика, BI</div>
         </div>
-        <div class="mini-box" style="background:rgba(203,17,171,0.1);border:1px solid rgba(203,17,171,0.2)">
+        <div class="mini-box" style="background:#FFF0F8;border:1px solid #F0C0E0">
           <div class="mini-box-name" style="color:#CB11AB">Направления и экспансия</div>
           <div class="mini-box-desc">РФ, СНГ/Мир, Молодёжное, Контент, Ивенты</div>
         </div>
       </div>
       <div class="mini-prod" style="grid-template-columns:repeat(4,1fr)">
-        <div class="mini-tag" style="background:rgba(0,82,204,0.12);border:1px solid rgba(0,82,204,0.2);color:#5B9BF2">Wibes<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:rgba(0,82,204,0.12);border:1px solid rgba(0,82,204,0.2);color:#5B9BF2">Проект 9<br><span style="font-weight:400;color:rgba(255,255,255,0.3);font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);color:#00D4B4">Kids</div>
-        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);color:#00D4B4">Sport</div>
+        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Wibes<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Проект 9<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
+        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Kids</div>
+        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Sport</div>
       </div>
       <div class="mini-prod" style="grid-template-columns:repeat(4,1fr)">
-        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);color:#00D4B4">Встречи</div>
-        <div class="mini-tag" style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);color:#00D4B4">Книги</div>
-        <div class="mini-tag" style="background:rgba(0,212,180,0.06);border:1px dashed rgba(0,212,180,0.15);color:rgba(0,212,180,0.6)">Новые гипотезы</div>
-        <div class="mini-tag" style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);color:rgba(255,255,255,0.3)">4 рудимента<br><span style="font-size:6px">На пересмотр</span></div>
+        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Встречи</div>
+        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Книги</div>
+        <div class="mini-tag" style="background:#F0FAF8;border:1px dashed #B8E8DE;color:#0A8A70">Новые гипотезы</div>
+        <div class="mini-tag" style="background:#F0EDF5;border:1px dashed #C8C0D8;color:rgba(255,255,255,0.3)">4 рудимента<br><span style="font-size:6px">На пересмотр</span></div>
       </div>
     </div>
 
@@ -378,18 +378,18 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
 
     <div class="pc">
       <div>
-        <span style="color:#34D399">+ Зрелые зарабатывают сразу, не ждут</span>
-        <span style="color:#34D399">+ R&D — фаст-трек от гипотезы до MVP</span>
-        <span style="color:#34D399">+ Единая дизайн-система экосистемы</span>
-        <span style="color:#34D399">+ Общие функции экономят ФОТ</span>
-        <span style="color:#34D399">+ Рудименты — явная зона решений</span>
+        <span style="color:#0A7A50">+ Зрелые зарабатывают сразу, не ждут</span>
+        <span style="color:#0A7A50">+ R&D — фаст-трек от гипотезы до MVP</span>
+        <span style="color:#0A7A50">+ Единая дизайн-система экосистемы</span>
+        <span style="color:#0A7A50">+ Общие функции экономят ФОТ</span>
+        <span style="color:#0A7A50">+ Рудименты — явная зона решений</span>
       </div>
       <div>
-        <span style="color:rgba(222,53,11,0.7)">- Два режима управления (зрелые vs R&D)</span>
-        <span style="color:rgba(222,53,11,0.7)">- Нужен сильный PMO для координации</span>
+        <span style="color:#B83020">- Два режима управления (зрелые vs R&D)</span>
+        <span style="color:#B83020">- Нужен сильный PMO для координации</span>
       </div>
     </div>
-    <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: сейчас. Разная зрелость продуктов. Нужна и монетизация, и генерация нового. CEO получает 6 блоков вместо 19.</div>
+    <div style="font-size:8px;color:#A0A0B8;margin-top:8px;border-top:1px solid #E8E5EF;padding-top:6px">Когда подходит: сейчас. Разная зрелость продуктов. Нужна и монетизация, и генерация нового. CEO получает 6 блоков вместо 19.</div>
   </div>
 
   <div class="note">
