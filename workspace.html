@@ -244,6 +244,44 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .ws-umodal-btn-cancel { background:transparent; border:1px solid var(--border); color:var(--muted); }
 .ws-umodal .ws-checklist-item { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text); margin-bottom:6px; }
 .ws-umodal .ws-checklist-icon { font-size:16px; }
+/* ── PLANNING WIZARD ── */
+.pl-selector { display:flex; align-items:center; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.pl-selector select { padding:6px 12px; background:var(--surface); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:inherit; font-size:12px; }
+.pl-q-btn { padding:6px 16px; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--muted); font-family:inherit; font-size:12px; font-weight:600; cursor:pointer; transition:all .15s; }
+.pl-q-btn.active { background:var(--violet); color:#fff; border-color:var(--violet); }
+.pl-q-btn:hover:not(.active) { color:var(--text); background:var(--surface2); }
+.pl-step { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:16px; margin-bottom:12px; }
+.pl-step-head { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.pl-step-num { width:28px; height:28px; border-radius:50%; background:var(--violet-dim); color:var(--violet); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; }
+.pl-step-title { font-size:14px; font-weight:700; color:var(--text); }
+.pl-goal-card { padding:12px; background:var(--surface); border:1px solid var(--border); border-radius:8px; margin-bottom:8px; }
+.pl-goal-title { font-size:13px; font-weight:700; color:var(--text); margin-bottom:6px; }
+.pl-kr-row { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text); padding:3px 0; }
+.pl-kr-bar { flex:1; height:5px; background:var(--surface2); border-radius:3px; overflow:hidden; max-width:120px; }
+.pl-kr-fill { height:100%; border-radius:3px; background:var(--teal); }
+.pl-kr-pct { font-family:var(--mono); font-size:11px; color:var(--teal); min-width:36px; }
+.pl-init-cols { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.pl-init-col h4 { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px; }
+.pl-init-item { display:flex; align-items:center; gap:8px; padding:6px 8px; background:var(--surface); border:1px solid var(--border); border-radius:6px; margin-bottom:4px; font-size:12px; }
+.pl-init-name { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--text); }
+.pl-init-rice { font-family:var(--mono); font-size:11px; font-weight:700; color:var(--violet); }
+.pl-check-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px; }
+.pl-check-row:last-child { border-bottom:none; }
+.pl-check-icon { font-size:16px; flex-shrink:0; }
+.pl-check-done .pl-check-icon { color:var(--teal); }
+.pl-check-pending .pl-check-icon { color:var(--muted); }
+.pl-progress-summary { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.pl-progress-chip { font-size:11px; padding:4px 10px; border-radius:4px; background:var(--surface); border:1px solid var(--border); }
+.pl-retro-area { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:8px; color:var(--text); font-family:inherit; font-size:12px; resize:vertical; min-height:60px; }
+.pl-retro-readonly { padding:8px 12px; background:var(--surface); border:1px solid var(--border); border-radius:6px; font-size:12px; color:var(--text); line-height:1.5; white-space:pre-wrap; min-height:40px; }
+.pl-prio-table { width:100%; border-collapse:collapse; font-size:12px; }
+.pl-prio-table th { text-align:left; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; padding:6px 8px; border-bottom:1px solid var(--border); }
+.pl-prio-table td { padding:8px; border-bottom:1px solid var(--border); color:var(--text); }
+.pl-prio-table tr:last-child td { border-bottom:none; }
+.pl-prio-table tr:hover td { background:var(--surface2); }
+.pl-unfinished-item { display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid var(--border); font-size:12px; }
+.pl-unfinished-item:last-child { border-bottom:none; }
+@media(max-width:640px) { .pl-init-cols { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -509,6 +547,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   var _product = null, _allProducts = [], _backlog = [], _goals = [];
   var _expandedInit = null, _initView = 'type';
   var _filterStatus = 'all', _filterQuarter = 'all';
+  var _plYear = new Date().getFullYear();
+  var _plQ = Math.ceil((new Date().getMonth() + 1) / 3);
   var productId = getParam('id');
   var activeTab = getParam('tab') || 'passport';
   var app = document.getElementById('ws-app');
@@ -744,7 +784,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     html += '<div class="ws-tabs" id="ws-tabs">';
     html += tabBtn('passport', '\u041F\u0430\u0441\u043F\u043E\u0440\u0442');
     html += tabBtn('initiatives', '\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B', initiatives.length);
-    html += tabBtn('goals', '\u0426\u0435\u043B\u0438 \u0438 \u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435', goals.length);
+    html += tabBtn('goals', '\u041F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435', goals.length);
     if (!isGuest()) {
       html += tabBtn('docs', '\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B');
       html += tabBtn('log', '\u041B\u043E\u0433');
@@ -754,7 +794,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     // ── PANELS ──
     html += '<div class="ws-panel' + (activeTab === 'passport' ? ' active' : '') + '" id="panel-passport">' + renderPassport(editable, initiatives, goals) + '</div>';
     html += '<div class="ws-panel' + (activeTab === 'initiatives' ? ' active' : '') + '" id="panel-initiatives">' + renderInitiatives(initiatives, editable) + '</div>';
-    html += '<div class="ws-panel' + (activeTab === 'goals' ? ' active' : '') + '" id="panel-goals">' + renderGoals(goals, initiatives, editable) + '</div>';
+    html += '<div class="ws-panel' + (activeTab === 'goals' ? ' active' : '') + '" id="panel-goals">' + renderPlanning(goals, initiatives, editable) + '</div>';
     if (!isGuest()) {
       html += '<div class="ws-panel' + (activeTab === 'docs' ? ' active' : '') + '" id="panel-docs">' + renderDocs(editable) + '</div>';
       html += '<div class="ws-panel' + (activeTab === 'log' ? ' active' : '') + '" id="panel-log">' + renderLog() + '</div>';
@@ -765,7 +805,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     initShareButton();
     initEditableFields(editable);
     initInitiatives(initiatives, editable);
-    initGoals(goals, editable);
+    initPlanning(goals, initiatives, editable);
     initAssignMember();
     renderTeams();
   }
@@ -1495,152 +1535,101 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   }
 
   // ═══════════════════════════════════════════════════════════════
-  //  TAB 3: GOALS
+  //  TAB 3: PLANNING (Quarterly Planning Wizard)
   // ═══════════════════════════════════════════════════════════════
 
-  function renderGoals(goals, initiatives, editable) {
+  function renderPlanning(goals, initiatives, editable) {
     var html = '';
+    var now = new Date();
+    var curQ = Math.ceil((now.getMonth() + 1) / 3);
+    var curYear = now.getFullYear();
+    var selYear = _plYear;
+    var selQ = _plQ;
+    var isPast = (selYear < curYear) || (selYear === curYear && selQ < curQ);
+    var isCurrent = (selYear === curYear && selQ === curQ);
+    var isFuture = (selYear > curYear) || (selYear === curYear && selQ > curQ);
+    var isReviewMode = isPast;
+    var qLabel = 'Q' + selQ + ' ' + selYear;
+
+    // Filter goals for this product
+    var pGoals = goals.filter(function(g) { return !g.productId || g.productId === productId; });
+
+    // Filter initiatives for selected quarter
+    var qKey = 'Q' + selQ;
+    var qFull = 'Q' + selQ + ' ' + selYear;
+    var qInits = initiatives.filter(function(i) {
+      var iq = i.quarter || '';
+      return iq === qKey || iq === qFull;
+    });
+
+    // ═══ QUARTER SELECTOR ═══
+    html += '<div class="pl-selector">';
+    html += '<select id="pl-year">';
+    for (var y = 2025; y <= 2027; y++) {
+      html += '<option value="' + y + '"' + (y === selYear ? ' selected' : '') + '>' + y + '</option>';
+    }
+    html += '</select>';
+    for (var q = 1; q <= 4; q++) {
+      var qIsPast = (selYear < curYear) || (selYear === curYear && q < curQ);
+      var qIsCur = (selYear === curYear && q === curQ);
+      var btnLabel = 'Q' + q;
+      if (qIsPast) btnLabel += ' \u0438\u0442\u043E\u0433\u0438';
+      else if (qIsCur) btnLabel += ' \u043F\u043B\u0430\u043D';
+      html += '<button class="pl-q-btn' + (q === selQ ? ' active' : '') + '" data-q="' + q + '">' + btnLabel + '</button>';
+    }
+    html += '</div>';
 
     // PL-007: Auto-notifications for planning phases
     if (window.PT && PT.notify) {
-      goals.forEach(function(g) {
+      pGoals.forEach(function(g) {
         if (g.status === 'draft' && g.createdAt && PT.daysSince(g.createdAt) > 7) {
-          PT.notify({ type:'goal_pending', level:'medium', recipientRole:'pmo', productId:productId, title: productId + ': цель ждёт согласования', text: g.title || g.name, action:{label:'Согласовать',url:'workspace.html?id='+productId+'&tab=goals'} });
+          PT.notify({ type:'goal_pending', level:'medium', recipientRole:'pmo', productId:productId, title: productId + ': \u0446\u0435\u043B\u044C \u0436\u0434\u0451\u0442 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u044F', text: g.title || g.name, action:{label:'\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u0442\u044C',url:'workspace.html?id='+productId+'&tab=goals'} });
         }
       });
     }
 
-    // ═══ PLANNING CHECKLIST ═══
-    html += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px;">';
-    html += '<h3 style="font-size:13px;font-weight:700;color:var(--violet);margin-bottom:10px;">Чеклист планирования</h3>';
-
-    var hasGoals = goals.length > 0;
-    var goalsWithKR = goals.filter(function(g) { return g.keyResults && g.keyResults.length; }).length;
-    var krWithInits = 0;
-    goals.forEach(function(g) {
-      if (g.keyResults) g.keyResults.forEach(function(kr) {
-        var linked = initiatives.filter(function(i) { return i.goalId === g.id; });
-        if (linked.length) krWithInits++;
-      });
-    });
-    var allRiced = initiatives.length > 0 && initiatives.filter(function(i) { return i.r && i.i && i.c && i.e; }).length === initiatives.length;
-
-    var checks = [
-      { text: 'Определить цели на полугодие (H1/H2)', done: hasGoals },
-      { text: 'Добавить Key Results к каждой цели', done: goalsWithKR === goals.length && goals.length > 0 },
-      { text: 'Декомпозировать KR в инициативы', done: krWithInits > 0 },
-      { text: 'Оценить RICE каждой инициативы', done: allRiced },
-      { text: 'Согласовать с PMO', done: false }
-    ];
-
-    checks.forEach(function(ch) {
-      var icon = ch.done ? '<span style="color:var(--teal);">&#10003;</span>' : '<span style="color:var(--muted);">&#9744;</span>';
-      html += '<div style="font-size:13px;color:var(--text);padding:4px 0;">' + icon + ' ' + ch.text + '</div>';
-    });
-
-    // Calendar link
-    html += '<div style="margin-top:10px;font-size:12px;color:var(--muted);">';
-    html += '<a href="calendar.html" style="color:var(--violet);text-decoration:none;font-weight:600;">Календарь событий</a> — ближайшее событие планирования';
-    html += '</div>';
-    html += '</div>';
-
-    // ═══ GOALS WITH KR → INITIATIVES TREE ═══
-    html += '<div style="margin-bottom:20px;">';
-
-    if (!goals.length) {
-      html += '<div style="color:var(--muted);font-size:13px;padding:16px;text-align:center;">Цели не добавлены. Начните с чеклиста выше.</div>';
+    if (isReviewMode) {
+      html += renderReviewMode(pGoals, qInits, qLabel, selYear, selQ, editable);
+    } else {
+      html += renderPlanMode(pGoals, qInits, initiatives, qLabel, selYear, selQ, editable);
     }
 
-    goals.forEach(function(g) {
-      var gtLabel = GOAL_TYPE_LABELS[g.type] || 'Продуктовая';
-      // PL-001: lifecycle status badge
-      var gs = GOAL_STATUS[g.status] || GOAL_STATUS.draft;
+    return html;
+  }
 
-      html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px;border-left:3px solid var(--teal);">';
+  // ── Review Mode (past quarter) ──
+  function renderReviewMode(pGoals, qInits, qLabel, selYear, selQ, editable) {
+    var html = '';
 
-      // Goal header
-      html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">';
-      html += '<span style="font-size:15px;font-weight:700;color:var(--text);">' + esc(g.title || g.name) + '</span>';
-      html += '<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--surface);color:var(--muted);">' + esc(g.period || 'H1 2026') + '</span>';
-      html += '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:var(--surface2);color:' + gs.color + ';border:1px solid ' + gs.color + ';">' + esc(gs.label) + '</span>';
-      html += '</div>';
+    // ═══ STEP 1: Results ═══
+    html += '<div class="pl-step">';
+    html += '<div class="pl-step-head"><div class="pl-step-num">1</div><div class="pl-step-title">\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B ' + esc(qLabel) + '</div></div>';
 
-      // PL-002: PMO approve/reject buttons for draft goals
-      if ((getRole() === 'pmo' || getRole() === 'pmo_lead' || getRole() === 'admin') && g.status === 'draft') {
-        html += '<div style="margin-bottom:10px;display:flex;gap:6px;">';
-        html += '<button onclick="approveGoal(\'' + esc(g.id) + '\')" style="padding:5px 12px;border-radius:5px;border:1px solid rgba(75,206,151,.3);background:var(--teal-dim);color:var(--teal);font-size:11px;font-weight:700;cursor:pointer;">Утвердить</button>';
-        html += '<button onclick="rejectGoal(\'' + esc(g.id) + '\')" style="padding:5px 12px;border-radius:5px;border:1px solid rgba(248,113,113,.3);background:var(--red-dim);color:var(--red);font-size:11px;font-weight:700;cursor:pointer;">На доработку</button>';
-        html += '</div>';
-      }
-
-      // Key Results with linked initiatives
-      if (g.keyResults && g.keyResults.length) {
-        g.keyResults.forEach(function(kr) {
-          var pct = kr.target ? Math.round((kr.current || 0) / kr.target * 100) : 0;
-          var barColor = pct >= 80 ? 'var(--teal)' : pct >= 40 ? 'var(--amber)' : 'var(--red)';
-
-          html += '<div style="margin-left:16px;margin-bottom:12px;">';
-          // KR header + progress
-          html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">';
-          html += '<span style="font-size:12px;font-weight:600;color:var(--text);flex:1;">' + esc(kr.text || kr.title || kr.name) + '</span>';
-          html += '<span style="font-size:11px;color:var(--muted);">' + (kr.current || 0) + '/' + (kr.target || '?') + '</span>';
-          // PL-003: inline KR update button
-          if (editable) {
-            html += '<button onclick="updateKR(\'' + esc(g.id) + '\',\'' + esc(kr.id) + '\')" style="font-size:10px;color:var(--violet);background:none;border:none;cursor:pointer;margin-left:4px;" title="Обновить прогресс">обновить</button>';
-          }
-          html += '</div>';
-          // Progress bar
-          html += '<div style="height:4px;background:var(--surface);border-radius:2px;margin-bottom:8px;">';
-          html += '<div style="height:100%;width:' + Math.min(pct, 100) + '%;background:' + barColor + ';border-radius:2px;"></div>';
-          html += '</div>';
-
-          // B-040: OKR → KPI → Initiatives cascade
-          var krInits = initiatives.filter(function(i) { return i.goalId === g.id; });
-          if (krInits.length) {
-            krInits.forEach(function(ini) {
-              var iRice = riceScore(ini);
-              var iStatus = STATUS_LABELS[ini.status] || ini.status;
-              html += '<div style="margin-left:20px;padding:2px 0;display:flex;align-items:center;gap:6px;font-size:11px;line-height:1.4;cursor:pointer;" onclick="switchTab(\'initiatives\');expandInit(\'' + esc(ini.id) + '\')" title="Перейти к инициативе">';
-              html += '<span style="color:var(--muted);flex-shrink:0;font-family:monospace;font-size:12px;">\u2514</span>';
-              html += '<span style="color:var(--violet);font-weight:600;flex-shrink:0;">' + esc(ini.id) + '</span>';
-              html += '<span style="color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(ini.name) + '</span>';
-              html += '<span style="color:var(--muted);flex-shrink:0;">(RICE ' + iRice + ')</span>';
-              html += '<span style="color:var(--muted);flex-shrink:0;">\u2014 ' + esc(iStatus) + '</span>';
-              html += '</div>';
-            });
-          } else {
-            html += '<div style="margin-left:20px;font-size:11px;color:var(--muted);padding:2px 0;">';
-            html += '<span style="font-family:monospace;font-size:12px;">\u2514</span> <span style="font-style:italic;">Нет инициатив</span> \u2192 ';
-            html += '<a href="#" onclick="event.preventDefault();switchTab(\'initiatives\');" style="color:var(--violet);text-decoration:none;font-weight:600;">Реестр</a>';
+    // Goals + KR progress
+    if (pGoals.length) {
+      pGoals.forEach(function(g) {
+        html += '<div class="pl-goal-card">';
+        html += '<div class="pl-goal-title">' + esc(g.title || g.name) + '</div>';
+        if (g.keyResults && g.keyResults.length) {
+          g.keyResults.forEach(function(kr) {
+            var pct = kr.target ? Math.round((kr.current || 0) / kr.target * 100) : 0;
+            html += '<div class="pl-kr-row">';
+            html += '<span style="flex:2;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(kr.text || kr.title || kr.name) + '</span>';
+            html += '<div class="pl-kr-bar"><div class="pl-kr-fill" style="width:' + Math.min(pct, 100) + '%;' + (pct < 40 ? 'background:var(--red)' : pct < 80 ? 'background:var(--amber)' : '') + '"></div></div>';
+            html += '<span class="pl-kr-pct">' + pct + '%</span>';
             html += '</div>';
-          }
+          });
+        } else {
+          html += '<div style="font-size:12px;color:var(--muted);font-style:italic;">\u041D\u0435\u0442 Key Results</div>';
+        }
+        html += '</div>';
+      });
+    } else {
+      html += '<div style="font-size:13px;color:var(--muted);padding:12px;text-align:center;">\u0426\u0435\u043B\u0438 \u043D\u0435 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u044B</div>';
+    }
 
-          // Add initiative to this KR (only for editable)
-          if (editable) {
-            html += '<button onclick="createInitForGoal(\'' + esc(g.id) + '\')" style="margin-left:16px;margin-top:4px;font-size:11px;color:var(--violet);background:none;border:1px dashed var(--violet-border,var(--violet));border-radius:4px;padding:4px 10px;cursor:pointer;">+ Инициатива к этому KR</button>';
-          }
-
-          html += '</div>'; // /kr
-        });
-      } else {
-        html += '<div style="margin-left:16px;font-size:12px;color:var(--muted);font-style:italic;">Нет Key Results — добавьте</div>';
-      }
-
-      // Add KR button
-      if (editable) {
-        html += '<button onclick="addKRToGoal(\'' + esc(g.id) + '\')" style="margin-top:8px;font-size:11px;color:var(--teal);background:none;border:1px dashed var(--teal-border,var(--teal));border-radius:4px;padding:4px 10px;cursor:pointer;">+ Key Result</button>';
-      }
-
-      html += '</div>'; // /goal card
-    });
-
-    html += '</div>'; // /goals section
-
-    // PL-008: Q-plan timeline visualization
-    var qInits = initiatives.filter(function(i) { return i.quarter === PT.currentQuarter().replace(/ /g, ' '); });
+    // Initiative progress summary
     if (qInits.length) {
-      html += '<div style="margin-bottom:16px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;">';
-      html += '<h4 style="font-size:12px;font-weight:700;color:var(--violet);margin-bottom:8px;">Q-план: ' + esc(PT.currentQuarter()) + '</h4>';
       var done = qInits.filter(function(i){return i.status==='done'}).length;
       var wip = qInits.filter(function(i){return i.status==='wip'}).length;
       var planned = qInits.filter(function(i){return i.status==='planned'}).length;
@@ -1648,66 +1637,278 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       var total = qInits.length;
       var pctDone = total ? Math.round(done/total*100) : 0;
 
-      // Progress bar
-      html += '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:8px;">';
+      html += '<div style="margin-top:12px;">';
+      html += '<div class="pl-progress-summary">';
+      html += '<span class="pl-progress-chip" style="color:var(--teal);border-color:var(--teal);">' + done + ' \u0433\u043E\u0442\u043E\u0432\u043E</span>';
+      html += '<span class="pl-progress-chip" style="color:var(--violet);border-color:var(--violet);">' + wip + ' \u0432 \u0440\u0430\u0431\u043E\u0442\u0435</span>';
+      html += '<span class="pl-progress-chip" style="color:var(--amber);border-color:var(--amber);">' + planned + ' \u043F\u043B\u0430\u043D</span>';
+      html += '<span class="pl-progress-chip">' + backlog + ' \u0431\u044D\u043A\u043B\u043E\u0433</span>';
+      html += '</div>';
+      html += '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;">';
       if (done) html += '<div style="width:' + (done/total*100) + '%;background:var(--teal);"></div>';
       if (wip) html += '<div style="width:' + (wip/total*100) + '%;background:var(--violet);"></div>';
       if (planned) html += '<div style="width:' + (planned/total*100) + '%;background:var(--amber);"></div>';
       if (backlog) html += '<div style="width:' + (backlog/total*100) + '%;background:var(--muted);"></div>';
       html += '</div>';
-
-      html += '<div style="display:flex;gap:12px;font-size:11px;color:var(--muted);">';
-      html += '<span style="color:var(--teal);">' + done + ' готово</span>';
-      html += '<span style="color:var(--violet);">' + wip + ' в работе</span>';
-      html += '<span style="color:var(--amber);">' + planned + ' план</span>';
-      html += '<span>' + backlog + ' бэклог</span>';
-      html += '<span style="margin-left:auto;font-weight:600;">' + pctDone + '% завершено</span>';
-      html += '</div>';
+      html += '<div style="text-align:right;font-size:12px;font-weight:600;color:var(--text);margin-top:4px;">' + pctDone + '% \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u043E</div>';
       html += '</div>';
     }
+    html += '</div>'; // /step 1
 
-    // ═══ TECH DEBT (initiatives without goals) ═══
-    var techDebt = initiatives.filter(function(i) { return !i.goalId; });
-    if (techDebt.length) {
-      html += '<div style="margin-bottom:20px;">';
-      html += '<h3 style="font-size:12px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Техдолг (инициативы без целей)</h3>';
-      techDebt.forEach(function(i) {
-        var iRice = riceScore(i);
-        var iStatus = STATUS_LABELS[i.status] || i.status;
-        html += '<div style="padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:6px;margin-bottom:4px;display:flex;align-items:center;gap:8px;font-size:12px;">';
-        html += '<span style="color:var(--text);flex:1;">' + esc(i.name) + '</span>';
-        html += '<span style="color:var(--violet);font-weight:700;font-size:11px;">RICE ' + iRice + '</span>';
-        html += '<span style="color:var(--muted);font-size:11px;">' + esc(iStatus) + '</span>';
-        if (editable) html += '<button onclick="linkInitToGoal(\'' + esc(i.id) + '\')" style="font-size:10px;color:var(--violet);background:none;border:1px solid var(--violet-border,var(--violet));border-radius:4px;padding:2px 8px;cursor:pointer;">Привязать</button>';
+    // ═══ STEP 2: Retrospective ═══
+    html += '<div class="pl-step">';
+    html += '<div class="pl-step-head"><div class="pl-step-num">2</div><div class="pl-step-title">\u0420\u0435\u0442\u0440\u043E\u0441\u043F\u0435\u043A\u0442\u0438\u0432\u0430</div></div>';
+
+    var retroKey = selYear + 'Q' + selQ;
+    var retros = _product.quarterRetros || {};
+    var retro = retros[retroKey] || null;
+    var retroSaved = retro && retro.date;
+
+    if (retroSaved && !editable) {
+      // readonly
+      html += '<div style="margin-bottom:10px;"><strong style="font-size:12px;color:var(--teal);">Start:</strong><div class="pl-retro-readonly">' + esc(retro.start || '\u2014') + '</div></div>';
+      html += '<div style="margin-bottom:10px;"><strong style="font-size:12px;color:var(--red);">Stop:</strong><div class="pl-retro-readonly">' + esc(retro.stop || '\u2014') + '</div></div>';
+      html += '<div style="margin-bottom:10px;"><strong style="font-size:12px;color:var(--amber);">Continue:</strong><div class="pl-retro-readonly">' + esc(retro.continue || '\u2014') + '</div></div>';
+      html += '<div style="font-size:11px;color:var(--muted);">\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043E: ' + esc(retro.date) + '</div>';
+    } else if (editable) {
+      var isEdit = retroSaved;
+      if (retroSaved && !window._plRetroEdit) {
+        html += '<div style="margin-bottom:10px;"><strong style="font-size:12px;color:var(--teal);">Start:</strong><div class="pl-retro-readonly">' + esc(retro.start || '\u2014') + '</div></div>';
+        html += '<div style="margin-bottom:10px;"><strong style="font-size:12px;color:var(--red);">Stop:</strong><div class="pl-retro-readonly">' + esc(retro.stop || '\u2014') + '</div></div>';
+        html += '<div style="margin-bottom:10px;"><strong style="font-size:12px;color:var(--amber);">Continue:</strong><div class="pl-retro-readonly">' + esc(retro.continue || '\u2014') + '</div></div>';
+        html += '<div style="font-size:11px;color:var(--muted);margin-bottom:8px;">\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043E: ' + esc(retro.date) + '</div>';
+        html += '<button class="pl-q-btn" id="pl-retro-edit-btn">\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C</button>';
+      } else {
+        html += '<div style="margin-bottom:10px;"><label style="font-size:12px;font-weight:600;color:var(--teal);display:block;margin-bottom:4px;">Start (\u0447\u0442\u043E \u043D\u0430\u0447\u0430\u0442\u044C)</label>';
+        html += '<textarea class="pl-retro-area" id="pl-retro-start" rows="2">' + esc(retro ? retro.start || '' : '') + '</textarea></div>';
+        html += '<div style="margin-bottom:10px;"><label style="font-size:12px;font-weight:600;color:var(--red);display:block;margin-bottom:4px;">Stop (\u0447\u0442\u043E \u043F\u0440\u0435\u043A\u0440\u0430\u0442\u0438\u0442\u044C)</label>';
+        html += '<textarea class="pl-retro-area" id="pl-retro-stop" rows="2">' + esc(retro ? retro.stop || '' : '') + '</textarea></div>';
+        html += '<div style="margin-bottom:10px;"><label style="font-size:12px;font-weight:600;color:var(--amber);display:block;margin-bottom:4px;">Continue (\u0447\u0442\u043E \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C)</label>';
+        html += '<textarea class="pl-retro-area" id="pl-retro-continue" rows="2">' + esc(retro ? retro.continue || '' : '') + '</textarea></div>';
+        html += '<button class="ws-btn-primary" id="pl-retro-save" style="padding:6px 16px;background:var(--violet);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0440\u0435\u0442\u0440\u043E</button>';
+      }
+    } else {
+      html += '<div style="font-size:13px;color:var(--muted);padding:8px;">\u0420\u0435\u0442\u0440\u043E\u0441\u043F\u0435\u043A\u0442\u0438\u0432\u0430 \u043D\u0435 \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0430</div>';
+    }
+    html += '</div>'; // /step 2
+
+    // ═══ STEP 3: Unfinished ═══
+    html += '<div class="pl-step">';
+    html += '<div class="pl-step-head"><div class="pl-step-num">3</div><div class="pl-step-title">\u041D\u0435\u0437\u0430\u0432\u0435\u0440\u0448\u0451\u043D\u043D\u043E\u0435</div></div>';
+
+    var unfinished = qInits.filter(function(i) { return i.status !== 'done'; });
+    if (unfinished.length) {
+      unfinished.forEach(function(item, idx) {
+        var iStatus = STATUS_LABELS[item.status] || item.status || 'backlog';
+        html += '<div class="pl-unfinished-item">';
+        html += '<input type="checkbox" class="pl-transfer-cb" data-init-id="' + esc(item.id) + '" data-action="transfer" checked>';
+        html += '<span style="color:var(--text);flex:1;">' + esc(item.name || item.title || item.id) + '</span>';
+        html += '<span style="font-size:11px;color:var(--muted);">' + esc(iStatus) + '</span>';
+        html += '<select class="pl-transfer-action" data-init-id="' + esc(item.id) + '" style="font-size:11px;padding:2px 6px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--text);">';
+        html += '<option value="transfer">\u041F\u0435\u0440\u0435\u043D\u0435\u0441\u0442\u0438</option>';
+        html += '<option value="cancel">\u041E\u0442\u043C\u0435\u043D\u0438\u0442\u044C</option>';
+        html += '</select>';
         html += '</div>';
       });
-      html += '</div>';
+
+      var nextQNum = selQ < 4 ? selQ + 1 : 1;
+      var nextQYear = selQ < 4 ? selYear : selYear + 1;
+      var nextQLabel = 'Q' + nextQNum + ' ' + nextQYear;
+
+      if (editable) {
+        html += '<button id="pl-transfer-btn" style="margin-top:10px;padding:8px 16px;background:var(--violet);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">\u041F\u0435\u0440\u0435\u043D\u0435\u0441\u0442\u0438 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0435 \u0432 ' + esc(nextQLabel) + '</button>';
+      }
+    } else {
+      html += '<div style="font-size:13px;color:var(--teal);padding:8px;text-align:center;">\u0412\u0441\u0435 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u044B!</div>';
+    }
+    html += '</div>'; // /step 3
+
+    return html;
+  }
+
+  // ── Plan Mode (current/future quarter) ──
+  function renderPlanMode(pGoals, qInits, allInits, qLabel, selYear, selQ, editable) {
+    var html = '';
+
+    // ═══ STEP 1: Goals ═══
+    html += '<div class="pl-step">';
+    html += '<div class="pl-step-head"><div class="pl-step-num">1</div><div class="pl-step-title">\u0426\u0435\u043B\u0438</div></div>';
+
+    if (pGoals.length) {
+      pGoals.forEach(function(g) {
+        var gs = GOAL_STATUS[g.status] || GOAL_STATUS.draft;
+        html += '<div class="pl-goal-card" style="border-left:3px solid var(--teal);">';
+
+        // Goal header
+        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">';
+        html += '<div class="pl-goal-title" style="flex:1;margin-bottom:0;">' + esc(g.title || g.name) + '</div>';
+        html += '<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--surface2);color:' + gs.color + ';border:1px solid ' + gs.color + ';font-weight:700;">' + esc(gs.label) + '</span>';
+        html += '<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--surface);color:var(--muted);">' + esc(g.period || 'H1 2026') + '</span>';
+        html += '</div>';
+
+        // PMO approve/reject
+        if ((getRole() === 'pmo' || getRole() === 'pmo_lead' || getRole() === 'admin') && g.status === 'draft') {
+          html += '<div style="margin-bottom:8px;display:flex;gap:6px;">';
+          html += '<button onclick="approveGoal(\'' + esc(g.id) + '\')" style="padding:5px 12px;border-radius:5px;border:1px solid rgba(75,206,151,.3);background:var(--teal-dim);color:var(--teal);font-size:11px;font-weight:700;cursor:pointer;">\u0423\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C</button>';
+          html += '<button onclick="rejectGoal(\'' + esc(g.id) + '\')" style="padding:5px 12px;border-radius:5px;border:1px solid rgba(248,113,113,.3);background:var(--red-dim);color:var(--red);font-size:11px;font-weight:700;cursor:pointer;">\u041D\u0430 \u0434\u043E\u0440\u0430\u0431\u043E\u0442\u043A\u0443</button>';
+          html += '</div>';
+        }
+
+        // Key Results
+        if (g.keyResults && g.keyResults.length) {
+          g.keyResults.forEach(function(kr) {
+            var pct = kr.target ? Math.round((kr.current || 0) / kr.target * 100) : 0;
+            html += '<div class="pl-kr-row">';
+            html += '<span style="flex:2;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(kr.text || kr.title || kr.name) + '</span>';
+            html += '<span style="font-size:11px;color:var(--muted);">' + (kr.current || 0) + '/' + (kr.target || '?') + '</span>';
+            html += '<div class="pl-kr-bar"><div class="pl-kr-fill" style="width:' + Math.min(pct, 100) + '%;' + (pct < 40 ? 'background:var(--red)' : pct < 80 ? 'background:var(--amber)' : '') + '"></div></div>';
+            html += '<span class="pl-kr-pct">' + pct + '%</span>';
+            if (editable) {
+              html += '<button onclick="updateKR(\'' + esc(g.id) + '\',\'' + esc(kr.id) + '\')" style="font-size:10px;color:var(--violet);background:none;border:none;cursor:pointer;" title="\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C">\u043E\u0431\u043D\u043E\u0432\u0438\u0442\u044C</button>';
+            }
+            html += '</div>';
+          });
+        } else {
+          html += '<div style="font-size:12px;color:var(--muted);font-style:italic;">\u041D\u0435\u0442 Key Results</div>';
+        }
+
+        // Add KR button
+        if (editable) {
+          html += '<button onclick="addKRToGoal(\'' + esc(g.id) + '\')" style="margin-top:6px;font-size:11px;color:var(--teal);background:none;border:1px dashed var(--teal-border,var(--teal));border-radius:4px;padding:4px 10px;cursor:pointer;">+ Key Result</button>';
+        }
+        html += '</div>';
+      });
+    } else {
+      html += '<div style="font-size:13px;color:var(--muted);padding:16px;text-align:center;">\u0426\u0435\u043B\u0438 \u043D\u0435 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u044B</div>';
     }
 
-    // PL-004: Transfer overdue initiatives to Q+1
-    var overdueInits = initiatives.filter(function(i) { return i.status !== 'done' && i.quarter && i.quarter < PT.currentQuarter().replace(/ /g, ' '); });
-    if (overdueInits.length && editable) {
-      html += '<div style="margin-bottom:16px;padding:12px;background:var(--amber-dim);border:1px solid var(--amber-border);border-radius:8px;">';
-      html += '<div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:6px;">Незакрытые инициативы из прошлых кварталов: ' + overdueInits.length + '</div>';
-      html += '<button onclick="transferToNextQ()" style="font-size:11px;padding:5px 12px;border-radius:5px;border:1px solid var(--amber-border);background:var(--amber-dim);color:var(--amber);font-weight:600;cursor:pointer;">Перенести все в ' + esc(nextQ()) + '</button>';
-      html += '</div>';
-    }
-
-    // Create goal button
     if (editable) {
-      html += '<button id="btn-create-goal" style="width:100%;padding:12px;background:var(--teal-dim,rgba(0,200,150,0.08));border:1px dashed var(--teal-border,var(--teal));border-radius:8px;color:var(--teal);font-size:13px;font-weight:600;cursor:pointer;text-align:center;">+ Создать цель</button>';
+      html += '<button id="btn-create-goal" style="width:100%;padding:10px;margin-top:8px;background:var(--teal-dim,rgba(0,200,150,0.08));border:1px dashed var(--teal-border,var(--teal));border-radius:8px;color:var(--teal);font-size:12px;font-weight:600;cursor:pointer;text-align:center;">+ \u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0446\u0435\u043B\u044C</button>';
+    }
+    html += '</div>'; // /step 1
+
+    // ═══ STEP 2: Initiatives of the quarter ═══
+    html += '<div class="pl-step">';
+    html += '<div class="pl-step-head"><div class="pl-step-num">2</div><div class="pl-step-title">\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B \u043A\u0432\u0430\u0440\u0442\u0430\u043B\u0430</div></div>';
+
+    var linked = qInits.filter(function(i) { return !!i.goalId; });
+    var orphaned = qInits.filter(function(i) { return !i.goalId; });
+
+    html += '<div class="pl-init-cols">';
+
+    // Column: linked to goals
+    html += '<div class="pl-init-col"><h4>\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u044B \u043A \u0446\u0435\u043B\u044F\u043C (' + linked.length + ')</h4>';
+    if (linked.length) {
+      linked.forEach(function(item) {
+        var goal = pGoals.find(function(g) { return g.id === item.goalId; });
+        var rice = riceScore(item);
+        html += '<div class="pl-init-item" style="cursor:pointer;" onclick="switchTab(\'initiatives\');expandInit(\'' + esc(item.id) + '\')">';
+        html += '<span class="pl-init-name">' + esc(item.name || item.title || item.id) + '</span>';
+        if (rice > 0) html += '<span class="pl-init-rice">' + rice + '</span>';
+        html += '</div>';
+        if (goal) html += '<div style="font-size:10px;color:var(--teal);padding:0 8px 4px;margin-top:-4px;">\u2192 ' + esc(goal.title || goal.name) + '</div>';
+      });
+    } else {
+      html += '<div style="font-size:12px;color:var(--muted);font-style:italic;">\u041D\u0435\u0442 \u043F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u043D\u044B\u0445</div>';
+    }
+    html += '</div>';
+
+    // Column: orphaned (not linked to goals)
+    html += '<div class="pl-init-col"><h4>\u041D\u0435 \u043F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u044B (' + orphaned.length + ')</h4>';
+    if (orphaned.length) {
+      orphaned.forEach(function(item) {
+        var rice = riceScore(item);
+        html += '<div class="pl-init-item">';
+        html += '<span class="pl-init-name">' + esc(item.name || item.title || item.id) + '</span>';
+        if (rice > 0) html += '<span class="pl-init-rice">' + rice + '</span>';
+        if (editable) html += '<button onclick="event.stopPropagation();linkInitToGoal(\'' + esc(item.id) + '\')" style="font-size:10px;color:var(--violet);background:none;border:1px solid var(--violet-border,var(--violet));border-radius:4px;padding:2px 6px;cursor:pointer;flex-shrink:0;">\u041F\u0440\u0438\u0432\u044F\u0437\u0430\u0442\u044C</button>';
+        html += '</div>';
+      });
+    } else {
+      html += '<div style="font-size:12px;color:var(--muted);font-style:italic;">\u0412\u0441\u0435 \u043F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u044B</div>';
+    }
+    html += '</div>';
+
+    html += '</div>'; // /pl-init-cols
+
+    if (editable) {
+      html += '<button class="ws-create-init-btn" id="pl-create-init" style="margin-top:10px;">+ \u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0443</button>';
+    }
+    html += '</div>'; // /step 2
+
+    // ═══ STEP 3: Prioritization ═══
+    html += '<div class="pl-step">';
+    html += '<div class="pl-step-head"><div class="pl-step-num">3</div><div class="pl-step-title">\u041F\u0440\u0438\u043E\u0440\u0438\u0442\u0438\u0437\u0430\u0446\u0438\u044F</div></div>';
+
+    if (qInits.length) {
+      var sorted = qInits.slice().sort(function(a, b) { return riceScore(b) - riceScore(a); });
+      html += '<table class="pl-prio-table">';
+      html += '<thead><tr><th>#</th><th>RICE</th><th>\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</th><th>KR / \u0426\u0435\u043B\u044C</th><th>\u0421\u0442\u0430\u0442\u0443\u0441</th></tr></thead>';
+      html += '<tbody>';
+      sorted.forEach(function(item, idx) {
+        var rice = riceScore(item);
+        var goal = item.goalId ? pGoals.find(function(g) { return g.id === item.goalId; }) : null;
+        var goalLabel = goal ? (goal.title || goal.name) : '\u2014';
+        var iStatus = STATUS_LABELS[item.status] || item.status || 'backlog';
+        html += '<tr style="cursor:pointer;" onclick="switchTab(\'initiatives\');expandInit(\'' + esc(item.id) + '\')">';
+        html += '<td style="font-weight:700;color:var(--muted);">' + (idx + 1) + '</td>';
+        html += '<td><span class="pl-init-rice">' + rice + '</span></td>';
+        html += '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(item.name || item.title || item.id) + '</td>';
+        html += '<td style="font-size:11px;color:var(--teal);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(goalLabel) + '</td>';
+        html += '<td style="font-size:11px;color:var(--muted);">' + esc(iStatus) + '</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+    } else {
+      html += '<div style="font-size:13px;color:var(--muted);padding:12px;text-align:center;">\u041D\u0435\u0442 \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 \u043D\u0430 \u044D\u0442\u043E\u0442 \u043A\u0432\u0430\u0440\u0442\u0430\u043B</div>';
+    }
+    html += '</div>'; // /step 3
+
+    // ═══ STEP 4: Approval checklist ═══
+    html += '<div class="pl-step">';
+    html += '<div class="pl-step-head"><div class="pl-step-num">4</div><div class="pl-step-title">\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u0435</div></div>';
+
+    var hasGoals = pGoals.length > 0;
+    var krUpdated = true;
+    pGoals.forEach(function(g) {
+      if (g.keyResults && g.keyResults.length) {
+        g.keyResults.forEach(function(kr) {
+          if (kr.current === undefined || kr.current === null) krUpdated = false;
+        });
+      }
+    });
+    var orphanPct = qInits.length ? (orphaned.length / qInits.length) : 0;
+    var initLinked = orphanPct < 0.3;
+    var allRiced = qInits.length > 0 && qInits.filter(function(i) { return (i.r||0) * (i.i||0) * (i.c||0) / (i.e||1) > 0; }).length === qInits.length;
+    var allApproved = pGoals.length > 0 && pGoals.filter(function(g) { return g.status === 'approved'; }).length === pGoals.length;
+
+    var checks = [
+      { text: '\u0426\u0435\u043B\u0438 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u044B', done: hasGoals },
+      { text: 'KR \u0430\u043A\u0442\u0443\u0430\u043B\u0438\u0437\u0438\u0440\u043E\u0432\u0430\u043D\u044B', done: krUpdated && hasGoals },
+      { text: '\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B \u043F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u044B \u043A \u0446\u0435\u043B\u044F\u043C' + (orphaned.length ? ' (' + orphaned.length + ' \u0431\u0435\u0437 \u0446\u0435\u043B\u0438)' : ''), done: initLinked },
+      { text: 'RICE \u043E\u0446\u0435\u043D\u0451\u043D', done: allRiced },
+      { text: 'PMO \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043B', done: allApproved }
+    ];
+
+    checks.forEach(function(ch) {
+      var cls = ch.done ? 'pl-check-done' : 'pl-check-pending';
+      var icon = ch.done ? '&#10003;' : '&#9744;';
+      html += '<div class="pl-check-row ' + cls + '">';
+      html += '<span class="pl-check-icon">' + icon + '</span>';
+      html += '<span>' + ch.text + '</span>';
+      html += '</div>';
+    });
+
+    if (editable && !allApproved) {
+      var canSend = hasGoals;
+      html += '<button id="pl-send-approval" style="margin-top:12px;padding:8px 16px;background:' + (canSend ? 'var(--violet)' : 'var(--surface2)') + ';color:' + (canSend ? '#fff' : 'var(--muted)') + ';border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:' + (canSend ? 'pointer' : 'default') + ';"' + (canSend ? '' : ' disabled') + '>\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u043D\u0430 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u0435 PMO</button>';
     }
 
-    // PL-005: Retrospective form
-    if (editable) {
-      html += '<details style="margin-top:16px;"><summary style="font-size:13px;font-weight:600;color:var(--text);cursor:pointer;padding:10px;background:var(--card);border:1px solid var(--border);border-radius:8px;">Ретроспектива квартала</summary>';
-      html += '<div style="padding:16px;border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;background:var(--card);">';
-      html += '<div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px;">Что сделали</label><textarea id="retro-done" rows="2" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px;color:var(--text);font-size:12px;resize:vertical;">' + esc(_product.retroDone || '') + '</textarea></div>';
-      html += '<div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px;">Что не успели</label><textarea id="retro-missed" rows="2" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px;color:var(--text);font-size:12px;resize:vertical;">' + esc(_product.retroMissed || '') + '</textarea></div>';
-      html += '<div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px;">Lessons learned</label><textarea id="retro-lessons" rows="2" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px;color:var(--text);font-size:12px;resize:vertical;">' + esc(_product.retroLessons || '') + '</textarea></div>';
-      html += '<button onclick="saveRetro()" style="padding:6px 16px;background:var(--violet);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Сохранить ретро</button>';
-      html += '</div></details>';
+    if (allApproved && pGoals.length) {
+      html += '<div style="margin-top:12px;padding:10px;background:var(--teal-dim);border:1px solid var(--teal);border-radius:6px;font-size:12px;color:var(--teal);font-weight:600;text-align:center;">&#10003; \u0412\u0441\u0435 \u0446\u0435\u043B\u0438 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u044B PMO</div>';
     }
+
+    html += '</div>'; // /step 4
 
     return html;
   }
@@ -1814,13 +2015,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     });
   };
 
-  // PL-004: Transfer to next quarter
+  // PL-004: Transfer to next quarter (updated for planning wizard)
   function nextQ() {
-    var cq = PT.currentQuarter();
-    var m = cq.match(/Q(\d)/);
-    if (!m) return 'Q2 2026';
-    var n = parseInt(m[1]);
-    return 'Q' + (n < 4 ? n + 1 : 1) + ' 2026';
+    var nq = _plQ < 4 ? _plQ + 1 : 1;
+    var ny = _plQ < 4 ? _plYear : _plYear + 1;
+    return 'Q' + nq + ' ' + ny;
   }
   window.nextQ = nextQ;
 
@@ -1835,19 +2034,39 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       }
     });
     saveBacklog();
-    addLog('transfer_q', count + ' инициатив перенесено в ' + nq, 'product', productId);
-    showToast(count + ' перенесено в ' + nq);
+    addLog('transfer_q', count + ' \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u0435\u043D\u043E \u0432 ' + nq, 'product', productId);
+    showToast(count + ' \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u0435\u043D\u043E \u0432 ' + nq);
     render();
   };
 
-  // PL-005: Save retrospective
+  // PL-005: Save retrospective (quarter-based)
   window.saveRetro = function() {
-    _product.retroDone = document.getElementById('retro-done').value;
-    _product.retroMissed = document.getElementById('retro-missed').value;
-    _product.retroLessons = document.getElementById('retro-lessons').value;
+    _product.retroDone = document.getElementById('retro-done') ? document.getElementById('retro-done').value : (_product.retroDone || '');
+    _product.retroMissed = document.getElementById('retro-missed') ? document.getElementById('retro-missed').value : (_product.retroMissed || '');
+    _product.retroLessons = document.getElementById('retro-lessons') ? document.getElementById('retro-lessons').value : (_product.retroLessons || '');
     saveProducts();
-    addLog('retro_saved', 'Ретроспектива обновлена', 'product', productId);
-    showToast('Ретроспектива сохранена');
+    addLog('retro_saved', '\u0420\u0435\u0442\u0440\u043E\u0441\u043F\u0435\u043A\u0442\u0438\u0432\u0430 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0430', 'product', productId);
+    showToast('\u0420\u0435\u0442\u0440\u043E\u0441\u043F\u0435\u043A\u0442\u0438\u0432\u0430 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0430');
+  };
+
+  // PL-005b: Save quarter retro (Start/Stop/Continue)
+  window.saveQuarterRetro = function(year, q) {
+    if (!_product.quarterRetros) _product.quarterRetros = {};
+    var key = year + 'Q' + q;
+    var startEl = document.getElementById('pl-retro-start');
+    var stopEl = document.getElementById('pl-retro-stop');
+    var contEl = document.getElementById('pl-retro-continue');
+    _product.quarterRetros[key] = {
+      start: startEl ? startEl.value : '',
+      stop: stopEl ? stopEl.value : '',
+      continue: contEl ? contEl.value : '',
+      date: new Date().toISOString().split('T')[0]
+    };
+    saveProducts();
+    addLog('retro_saved', '\u0420\u0435\u0442\u0440\u043E ' + key + ' \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0430', 'product', productId);
+    showToast('\u0420\u0435\u0442\u0440\u043E\u0441\u043F\u0435\u043A\u0442\u0438\u0432\u0430 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0430');
+    window._plRetroEdit = false;
+    render();
   };
 
   function expandInit(initId) {
@@ -2070,17 +2289,36 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     }
   }
 
-  function initGoals(goals, editable) {
+  function initPlanning(goals, initiatives, editable) {
+    // Quarter selector buttons
+    var qBtns = document.querySelectorAll('.pl-q-btn');
+    for (var qb = 0; qb < qBtns.length; qb++) {
+      qBtns[qb].addEventListener('click', function() {
+        _plQ = parseInt(this.getAttribute('data-q'));
+        render();
+      });
+    }
+
+    // Year selector
+    var yearSel = document.getElementById('pl-year');
+    if (yearSel) {
+      yearSel.addEventListener('change', function() {
+        _plYear = parseInt(this.value);
+        render();
+      });
+    }
+
+    // Create goal button
     var createBtn = document.getElementById('btn-create-goal');
     if (createBtn) {
       createBtn.addEventListener('click', function() {
-        showModal('Создать цель', [
-          { label: 'Название цели', type: 'text', id: 'title', placeholder: 'Введите название...' },
-          { label: 'Период', type: 'select', id: 'period', options: ['H1 2026', 'H2 2026'] },
-          { label: 'Тип цели', type: 'select', id: 'goaltype', options: [
-            { value: 'product', label: 'Продуктовая' },
-            { value: 'strategic', label: 'Стратегическая' },
-            { value: 'growth', label: 'Рост' }
+        showModal('\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0446\u0435\u043B\u044C', [
+          { label: '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0446\u0435\u043B\u0438', type: 'text', id: 'title', placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435...' },
+          { label: '\u041F\u0435\u0440\u0438\u043E\u0434', type: 'select', id: 'period', options: ['H1 2026', 'H2 2026', 'H1 2027', 'H2 2027'] },
+          { label: '\u0422\u0438\u043F \u0446\u0435\u043B\u0438', type: 'select', id: 'goaltype', options: [
+            { value: 'product', label: '\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432\u0430\u044F' },
+            { value: 'strategic', label: '\u0421\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u0447\u0435\u0441\u043A\u0430\u044F' },
+            { value: 'growth', label: '\u0420\u043E\u0441\u0442' }
           ] }
         ], function(vals) {
           if (!vals.title) return;
@@ -2103,13 +2341,95 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
           _goals.push(goal);
           saveGoals();
           addLog('goal_created', vals.title + ' (' + period + ', ' + goalType + ')', 'goal', goal.id);
-          showToast('Цель создана');
+          showToast('\u0426\u0435\u043B\u044C \u0441\u043E\u0437\u0434\u0430\u043D\u0430');
           render();
         });
       });
     }
 
-    // Goal approve/reject
+    // Create initiative from planning tab
+    var plCreateInit = document.getElementById('pl-create-init');
+    if (plCreateInit) {
+      plCreateInit.addEventListener('click', function() {
+        switchTab('initiatives');
+        var createInitBtn = document.querySelector('[data-create-init]') || document.getElementById('btn-create-init');
+        if (createInitBtn) createInitBtn.click();
+      });
+    }
+
+    // Retro edit button
+    var retroEditBtn = document.getElementById('pl-retro-edit-btn');
+    if (retroEditBtn) {
+      retroEditBtn.addEventListener('click', function() {
+        window._plRetroEdit = true;
+        render();
+      });
+    }
+
+    // Retro save button
+    var retroSaveBtn = document.getElementById('pl-retro-save');
+    if (retroSaveBtn) {
+      retroSaveBtn.addEventListener('click', function() {
+        saveQuarterRetro(_plYear, _plQ);
+      });
+    }
+
+    // Transfer button (review mode)
+    var transferBtn = document.getElementById('pl-transfer-btn');
+    if (transferBtn) {
+      transferBtn.addEventListener('click', function() {
+        var nextQNum = _plQ < 4 ? _plQ + 1 : 1;
+        var nextQYear = _plQ < 4 ? _plYear : _plYear + 1;
+        var nqLabel = 'Q' + nextQNum + ' ' + nextQYear;
+        var count = 0;
+        var cbList = document.querySelectorAll('.pl-transfer-cb');
+        for (var cb = 0; cb < cbList.length; cb++) {
+          if (cbList[cb].checked) {
+            var initId = cbList[cb].getAttribute('data-init-id');
+            var actionSel = document.querySelector('.pl-transfer-action[data-init-id="' + initId + '"]');
+            var action = actionSel ? actionSel.value : 'transfer';
+            var init = _backlog.find(function(i) { return i.id === initId; });
+            if (init) {
+              if (action === 'transfer') {
+                init.quarter = nqLabel;
+                init.updatedAt = new Date().toISOString().split('T')[0];
+                count++;
+              } else if (action === 'cancel') {
+                init.status = 'archived';
+                init.updatedAt = new Date().toISOString().split('T')[0];
+              }
+            }
+          }
+        }
+        saveBacklog();
+        addLog('transfer_q', count + ' \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432 \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u0435\u043D\u043E \u0432 ' + nqLabel, 'product', productId);
+        showToast(count + ' \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u0435\u043D\u043E \u0432 ' + nqLabel);
+        render();
+      });
+    }
+
+    // Send for approval button
+    var sendApproval = document.getElementById('pl-send-approval');
+    if (sendApproval) {
+      sendApproval.addEventListener('click', function() {
+        var pGoals = _goals.filter(function(g) { return !g.productId || g.productId === productId; });
+        pGoals.forEach(function(g) {
+          if (g.status !== 'approved') {
+            g.status = 'pending';
+            g.approvalStatus = 'pending';
+          }
+        });
+        saveGoals();
+        if (window.PT && PT.notify) {
+          PT.notify({ type:'goal_pending', level:'medium', recipientRole:'pmo', productId:productId, title: productId + ': \u0446\u0435\u043B\u0438 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u044B \u043D\u0430 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u0435', action:{label:'\u0421\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u0442\u044C',url:'workspace.html?id='+productId+'&tab=goals'} });
+        }
+        addLog('goals_sent_approval', '\u0426\u0435\u043B\u0438 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u044B \u043D\u0430 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u0435 PMO', 'product', productId);
+        showToast('\u041E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043E \u043D\u0430 \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u0435');
+        render();
+      });
+    }
+
+    // Goal approve/reject (delegated from data attributes)
     var gAppBtns = document.querySelectorAll('[data-goal-approve]');
     for (var ga = 0; ga < gAppBtns.length; ga++) {
       gAppBtns[ga].addEventListener('click', function() {
