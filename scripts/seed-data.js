@@ -59,26 +59,26 @@
 
   var USERS = [
     // PMO Lead
-    { id: 'U001', name: 'Администратор', email: 'admin@rwb.ru', role: 'admin', department: '', team: 'ИТ', active: true },
-    { id: 'U002', name: 'Виктор Сорваль', email: 'sorval.viktor@rwb.ru', role: 'pmo_lead', department: '', team: 'Проектный офис', active: true },
+    { id: 'U001', name: 'Администратор', email: 'admin@orbita.demo', role: 'admin', department: '', team: 'ИТ', active: true },
+    { id: 'U002', name: 'PMO Lead', email: 'pmo@orbita.demo', role: 'pmo_lead', department: '', team: 'Проектный офис', active: true },
 
     // PMO-менеджеры
-    // { id: 'U010', name: '[ФИО]', email: '[email]@rwb.ru', role: 'pmo', department: 'innovation', team: 'PMO Экосистема', active: true },
-    // { id: 'U011', name: '[ФИО]', email: '[email]@rwb.ru', role: 'pmo', department: 'education', team: 'PMO Обучение', active: true },
+    // { id: 'U010', name: '[ФИО]', email: '[email]@orbita.demo', role: 'pmo', department: 'innovation', team: 'PMO Экосистема', active: true },
+    // { id: 'U011', name: '[ФИО]', email: '[email]@orbita.demo', role: 'pmo', department: 'education', team: 'PMO Обучение', active: true },
 
     // PM продуктов (по одному на продукт)
-    // { id: 'U020', name: '[ФИО]', email: '[email]@rwb.ru', role: 'pm', department: 'innovation', team: 'Продукт', active: true,
+    // { id: 'U020', name: '[ФИО]', email: '[email]@orbita.demo', role: 'pm', department: 'innovation', team: 'Продукт', active: true,
     //   assignments: [{ productId: 'ECO-01', scope: 'all', role: 'owner' }] },
 
     // Руководители (ревью)
-    // { id: 'U030', name: '[ФИО]', email: '[email]@rwb.ru', role: 'lead', department: '', team: 'Руководство', active: true },
+    // { id: 'U030', name: '[ФИО]', email: '[email]@orbita.demo', role: 'lead', department: '', team: 'Руководство', active: true },
 
     // Заказчики
-    // { id: 'U040', name: '[ФИО]', email: '[email]@rwb.ru', role: 'stakeholder', department: 'innovation', team: 'Бизнес', active: true,
+    // { id: 'U040', name: '[ФИО]', email: '[email]@orbita.demo', role: 'stakeholder', department: 'innovation', team: 'Бизнес', active: true,
     //   assignments: [{ productId: 'ECO-01', scope: ['I-001', 'I-002'] }] },
 
     // CTO
-    // { id: 'U050', name: '[ФИО]', email: '[email]@rwb.ru', role: 'lead', department: '', team: 'CTO Office', active: true },
+    // { id: 'U050', name: '[ФИО]', email: '[email]@orbita.demo', role: 'lead', department: '', team: 'CTO Office', active: true },
   ];
 
   // ═══════════════════════════════════════════════════
