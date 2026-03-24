@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Структура департамента — AS-IS → TO-BE</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-webkit-font-smoothing:antialiased;min-height:100vh}
+.p{max-width:960px;margin:0 auto;padding:32px 40px 24px}
+
+.hd{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:2px solid rgba(108,61,175,0.3);margin-bottom:24px}
+.hd h1{font-size:20px;font-weight:800;letter-spacing:-0.02em}
+.hd .sub{font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px}
+.hd-r{font-size:9px;color:rgba(255,255,255,0.3)}
+
+.label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.label .dot{width:8px;height:8px;border-radius:50%}
+
+/* two-col layout */
+.compare{display:grid;grid-template-columns:1fr 40px 1fr;gap:0;align-items:start}
+.arrow-col{display:flex;align-items:center;justify-content:center;padding-top:120px;font-size:28px;color:rgba(255,255,255,0.15)}
+
+/* org chart shared */
+.ceo{text-align:center;margin-bottom:8px}
+.ceo-box{display:inline-block;background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:10px 24px;border-radius:8px;font-size:13px;font-weight:800}
+.ceo-box small{display:block;font-size:9px;font-weight:500;opacity:0.7;margin-top:2px}
+.line-down{width:2px;height:12px;background:rgba(255,255,255,0.15);margin:0 auto 6px}
+.line-h{height:2px;background:rgba(255,255,255,0.1);margin:0 auto 6px}
+
+/* AS-IS: flat list */
+.flat-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:10px}
+.flat-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 10px;color:rgba(255,255,255,0.6);line-height:1.4}
+.flat-item b{color:rgba(255,255,255,0.85);font-weight:600}
+.flat-item--prod{border-left:3px solid #6C3DAF}
+.flat-item--dir{border-left:3px solid #CB11AB}
+.flat-item--func{border-left:3px solid rgba(255,255,255,0.15)}
+.flat-count{text-align:center;font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px}
+
+/* TO-BE: verticals */
+.vert-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px}
+.vert{border-radius:8px;padding:10px 8px;text-align:center}
+.vert-name{font-size:11px;font-weight:800;margin-bottom:2px}
+.vert-desc{font-size:8px;opacity:0.6;line-height:1.4}
+.vert--cpo{background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.25)}
+.vert--cpo .vert-name{color:#5B9BF2}
+.vert--pmo{background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.3)}
+.vert--pmo .vert-name{color:#CB11AB}
+.vert--cto{background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.25)}
+.vert--cto .vert-name{color:#5B9BF2}
+.vert--mon{background:rgba(0,135,90,0.12);border:1px solid rgba(0,135,90,0.2)}
+.vert--mon .vert-name{color:#34D399}
+.vert--an{background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2)}
+.vert--an .vert-name{color:#FFB830}
+
+/* contours */
+.contours{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.contour{border-radius:8px;padding:10px;font-size:9px}
+.contour--it{background:rgba(108,61,175,0.08);border:1px solid rgba(108,61,175,0.2)}
+.contour--biz{background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.2)}
+.contour-title{font-size:10px;font-weight:800;margin-bottom:6px}
+.contour--it .contour-title{color:#9B59D0}
+.contour--biz .contour-title{color:#CB11AB}
+.contour-items{display:flex;flex-wrap:wrap;gap:3px}
+.contour-tag{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:2px 6px;font-size:8px;color:rgba(255,255,255,0.7);font-weight:600}
+
+/* PMO role */
+.pmo-role{background:rgba(108,61,175,0.1);border:1px solid rgba(108,61,175,0.25);border-radius:10px;padding:16px 20px;margin-top:20px}
+.pmo-role h3{font-size:14px;font-weight:800;color:#CB11AB;margin-bottom:8px}
+.pmo-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:11px}
+.pmo-col{line-height:1.6;color:rgba(255,255,255,0.7)}
+.pmo-col b{color:#fff;display:block;margin-bottom:4px;font-size:12px}
+
+.note{font-size:10px;color:rgba(255,255,255,0.3);text-align:center;margin-top:16px;line-height:1.5}
+
+.ft{margin-top:20px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,0.2)}
+
+@media print{body{background:#fff;color:#172B4D}*{-webkit-print-color-adjust:exact!important}}
+@media(max-width:700px){.compare{grid-template-columns:1fr}.arrow-col{padding:8px 0;transform:rotate(90deg)}.flat-grid{grid-template-columns:1fr}.vert-grid{grid-template-columns:repeat(3,1fr)}.pmo-cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="p">
+
+  <div class="hd">
+    <div>
+      <h1>Структура департамента</h1>
+      <div class="sub">AS-IS → TO-BE &middot; На обсуждение</div>
+    </div>
+    <div class="hd-r">Проектный офис &middot; Март 2026</div>
+  </div>
+
+  <div class="compare">
+
+    <!-- AS-IS -->
+    <div>
+      <div class="label"><div class="dot" style="background:rgba(222,53,11,0.6)"></div> Сейчас (AS-IS)</div>
+      <div class="ceo">
+        <div class="ceo-box">CEO<small>Департамент</small></div>
+      </div>
+      <div class="line-down"></div>
+      <div class="line-h" style="width:90%"></div>
+      <div class="flat-grid">
+        <div class="flat-item flat-item--prod"><b>Wibes</b></div>
+        <div class="flat-item flat-item--prod"><b>Книги</b></div>
+        <div class="flat-item flat-item--prod"><b>Kids</b></div>
+        <div class="flat-item flat-item--prod"><b>Sport</b></div>
+        <div class="flat-item flat-item--prod"><b>Встречи</b></div>
+        <div class="flat-item flat-item--dir"><b>Молодёжное</b></div>
+        <div class="flat-item flat-item--dir"><b>Маркетплейс закупок</b></div>
+        <div class="flat-item flat-item--dir"><b>Контент</b></div>
+        <div class="flat-item flat-item--dir"><b>Маркетинг</b></div>
+        <div class="flat-item flat-item--dir"><b>Ивенты</b></div>
+        <div class="flat-item flat-item--func"><b>CTO</b></div>
+        <div class="flat-item flat-item--func"><b>Аналитика</b></div>
+        <div class="flat-item flat-item--func"><b>PMO</b></div>
+        <div class="flat-item flat-item--func"><b>Монетизация</b></div>
+      </div>
+      <div class="flat-count">14+ прямых подчинений CEO</div>
+    </div>
+
+    <!-- Arrow -->
+    <div class="arrow-col">→</div>
+
+    <!-- TO-BE -->
+    <div>
+      <div class="label"><div class="dot" style="background:#00875A"></div> Целевая (TO-BE)</div>
+      <div class="ceo">
+        <div class="ceo-box">CEO<small>Департамент</small></div>
+      </div>
+      <div class="line-down"></div>
+      <div class="line-h" style="width:90%"></div>
+
+      <div class="vert-grid">
+        <div class="vert vert--cpo"><div class="vert-name">CPO</div><div class="vert-desc">Развитие продуктов</div></div>
+        <div class="vert vert--pmo"><div class="vert-name">PMO</div><div class="vert-desc">Координация</div></div>
+        <div class="vert vert--cto"><div class="vert-name">CTO</div><div class="vert-desc">Разработка</div></div>
+        <div class="vert vert--mon"><div class="vert-name">Монетизация</div><div class="vert-desc">P&L, бизнес</div></div>
+        <div class="vert vert--an"><div class="vert-name">Аналитика</div><div class="vert-desc">Данные</div></div>
+      </div>
+
+      <div class="line-down" style="height:6px"></div>
+
+      <div class="contours">
+        <div class="contour contour--it">
+          <div class="contour-title">Контур 1: ИТ-продукты</div>
+          <div class="contour-items">
+            <span class="contour-tag">Wibes</span>
+            <span class="contour-tag">Книги</span>
+            <span class="contour-tag">Kids</span>
+            <span class="contour-tag">Sport</span>
+            <span class="contour-tag">Встречи</span>
+          </div>
+        </div>
+        <div class="contour contour--biz">
+          <div class="contour-title">Контур 2: Направления</div>
+          <div class="contour-items">
+            <span class="contour-tag">Молодёжное</span>
+            <span class="contour-tag">Закупки</span>
+            <span class="contour-tag">Контент</span>
+            <span class="contour-tag">Маркетинг</span>
+            <span class="contour-tag">Ивенты</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Роль ПО -->
+  <div class="pmo-role">
+    <h3>Роль Проектного офиса в целевой структуре</h3>
+    <div class="pmo-cols">
+      <div class="pmo-col">
+        <b>Что делает</b>
+        Единая картина по всем проектам. Контроль сроков и инициатив. Приоритизация на данных. Отчётность CEO.
+      </div>
+      <div class="pmo-col">
+        <b>Чем отличается от CPO/CTO</b>
+        CPO — стратегия продуктов ("что делаем"). CTO — разработка ("как делаем"). PMO — координация ("делаем ли в срок и по приоритету").
+      </div>
+      <div class="pmo-col">
+        <b>Как взаимодействует</b>
+        PM продуктов функционально отчитываются в ПО (30 мин/нед). Направления — через владельцев. CEO получает статус без запросов.
+      </div>
+    </div>
+  </div>
+
+  <!-- ТРАНСФОРМАЦИЯ -->
+  <div style="margin-top:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:18px 22px">
+    <div style="font-size:14px;font-weight:800;color:#CB11AB;margin-bottom:12px">Процесс трансформации</div>
+
+    <!-- 3 фазы -->
+    <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:start;margin-bottom:14px">
+      <div style="background:rgba(108,61,175,0.1);border:1px solid rgba(108,61,175,0.2);border-radius:8px;padding:12px">
+        <div style="font-size:11px;font-weight:800;color:#9B59D0;margin-bottom:4px">Фаза 1: Апрель</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6">
+          Ничего не ломаем.<br>
+          ПО встраивается как координатор поверх текущей структуры.<br>
+          PM продолжают работать как раньше + 30 мин/нед отчётность.<br>
+          Направления не трогаем.
+        </div>
+      </div>
+      <div style="font-size:18px;color:rgba(255,255,255,0.1);padding:30px 8px">→</div>
+      <div style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.2);border-radius:8px;padding:12px">
+        <div style="font-size:11px;font-weight:800;color:#CB11AB;margin-bottom:4px">Фаза 2: Май-Июнь</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6">
+          Вертикали формируются.<br>
+          CPO/CTO/Монетизация/Аналитика получают явный контур.<br>
+          ПО ведёт портфель ИТ-продуктов.<br>
+          Направления пока при CEO.
+        </div>
+      </div>
+      <div style="font-size:18px;color:rgba(255,255,255,0.1);padding:30px 8px">→</div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px">
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.5);margin-bottom:4px">Фаза 3: Q3+</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6">
+          Направления структурируются.<br>
+          Отдельная модель для не-ИТ.<br>
+          CEO видит 5-6 вертикалей вместо 14+ подчинений.<br>
+          Полная прозрачность.
+        </div>
+      </div>
+    </div>
+
+    <!-- Влияние на процессы -->
+    <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:8px">Как структура влияет на процессы</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:10px">
+      <div style="background:rgba(222,53,11,0.06);border:1px solid rgba(222,53,11,0.15);border-radius:6px;padding:10px">
+        <div style="font-weight:700;color:rgba(222,53,11,0.8);margin-bottom:4px">AS-IS: плоская</div>
+        <div style="color:rgba(255,255,255,0.5);line-height:1.6">
+          CEO — единая точка принятия решений по всему<br>
+          Приоритеты конкурируют: продукт vs направление vs функция<br>
+          Статус — только при личном запросе<br>
+          Нет единого lifecycle — каждый по-своему<br>
+          Кросс-проекты — через CEO лично
+        </div>
+      </div>
+      <div style="background:rgba(0,135,90,0.06);border:1px solid rgba(0,135,90,0.15);border-radius:6px;padding:10px">
+        <div style="font-weight:700;color:rgba(0,135,90,0.8);margin-bottom:4px">TO-BE: вертикали</div>
+        <div style="color:rgba(255,255,255,0.5);line-height:1.6">
+          CEO принимает стратегические решения, операционка — в вертикалях<br>
+          Приоритеты — по RICE внутри контура, CEO решает между контурами<br>
+          Статус — автоматически через ПО, без запроса<br>
+          Единый lifecycle (Stage-Gate) для всех ИТ-продуктов<br>
+          Кросс-проекты — через ПО, не через CEO
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:10px;text-align:center">Принцип: ничего не ломаем. Сначала надстраиваем координацию, потом формализуем структуру.</div>
+  </div>
+
+  <div class="note">
+    Целевой подход — на обсуждение. Предлагаем начать с контура 1 (ИТ-продукты), расширить на контур 2 по результатам.<br>
+    5 вертикалей агрегируют 14+ прямых подчинений в управляемую структуру.
+  </div>
+
+  <footer class="ft">
+    <span>Проектный офис &middot; Инновации и экосистема &middot; RWB</span>
+    <span>Март 2026 &middot; На обсуждение</span>
+  </footer>
+
+</main>
+</body>
+</html>
