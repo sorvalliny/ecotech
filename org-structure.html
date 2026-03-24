@@ -36,7 +36,10 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
 .group-resize::after{content:'';position:absolute;right:3px;bottom:3px;width:6px;height:6px;border-right:2px solid rgba(0,0,0,0.15);border-bottom:2px solid rgba(0,0,0,0.15)}
 
 /* node */
-.node{position:absolute;border-radius:8px;padding:10px 14px;min-width:100px;max-width:220px;cursor:grab;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:box-shadow .15s;user-select:none}
+.node{position:absolute;border-radius:8px;padding:10px 14px;min-width:80px;cursor:grab;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:box-shadow .15s;user-select:none;overflow:hidden}
+.node-resize{position:absolute;right:0;bottom:0;width:12px;height:12px;cursor:nwse-resize;z-index:25;opacity:0;transition:opacity .15s}
+.node:hover .node-resize{opacity:1}
+.node-resize::after{content:'';position:absolute;right:2px;bottom:2px;width:5px;height:5px;border-right:2px solid rgba(0,0,0,0.2);border-bottom:2px solid rgba(0,0,0,0.2)}
 .node:hover{box-shadow:0 4px 16px rgba(0,0,0,0.1);z-index:20}
 .node.dragging{cursor:grabbing;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:50;opacity:0.9}
 .node.connect-source{outline:2px solid #6C3DAF;outline-offset:2px}
@@ -436,9 +439,12 @@ function render(){
     h+='<div class="node-leader'+(isVacancy?' vacancy':'')+'"><div class="node-leader-avatar">'+(isVacancy?'?':esc(initials(ldr)))+'</div><div class="node-leader-name">'+(isVacancy?'вакансия':esc(ldr))+'</div></div>';
     if(n.type==='n-app')h+='<div class="node-badge">опция</div>';
     h+='<div class="node-del" title="Удалить">x</div>';
+    h+='<div class="node-resize"></div>';
     h+='<div class="node-port port-b" data-side="b"></div><div class="node-port port-t" data-side="t"></div><div class="node-port port-l" data-side="l"></div><div class="node-port port-r" data-side="r"></div>';
     el.innerHTML=h;
     el.style.left=n.x+'px';el.style.top=n.y+'px';
+    if(n.w)el.style.width=n.w+'px';
+    if(n.h)el.style.height=n.h+'px';
     $b.appendChild(el);nodeEls[n.id]=el;
   });
 
@@ -534,6 +540,15 @@ function removeDragLine(){if(dragLine){dragLine.remove();dragLine=null}}
 $b.addEventListener('mousedown',function(ev){
   if(ev.button!==0)return;
 
+  // node resize
+  if(ev.target.classList.contains('node-resize')){
+    var nd=ev.target.closest('.node');if(!nd)return;
+    dragType='nresize';dragging=nd;
+    dragOff.x=ev.clientX;dragOff.y=ev.clientY;
+    dragOff.w=nd.offsetWidth;dragOff.h=nd.offsetHeight;
+    ev.preventDefault();ev.stopPropagation();return;
+  }
+
   // port drag to connect
   if(ev.target.classList.contains('node-port')){
     var node=ev.target.closest('.node');if(!node)return;
@@ -608,6 +623,14 @@ document.addEventListener('mousemove',function(ev){
     var my=ev.clientY-br.top+$b.scrollTop;
     var s=cs();if(s.edges[dragEdgeIdx]){s.edges[dragEdgeIdx].midY=my;ws(s);drawEdges(s.edges)}
     return;
+  }
+  if(dragType==='nresize'&&dragging){
+    var dw=ev.clientX-dragOff.x,dh=ev.clientY-dragOff.y;
+    var nw=Math.max(80,dragOff.w+dw),nh=Math.max(40,dragOff.h+dh);
+    dragging.style.width=nw+'px';dragging.style.height=nh+'px';
+    var s=cs(),nd=s.nodes.find(function(n){return n.id===dragging.dataset.id});
+    if(nd){nd.w=nw;nd.h=nh;ws(s)}
+    drawEdges(cs().edges);return;
   }
   if(!dragging)return;
   if(dragType==='multi'){
