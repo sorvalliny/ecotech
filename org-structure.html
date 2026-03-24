@@ -3,426 +3,562 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Структура департамента — AS-IS → TO-BE</title>
+<title>Структура департамента — Интерактивная доска</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Outfit',system-ui,sans-serif;background:#F7F5FA;color:#1A1A2E;-webkit-font-smoothing:antialiased;min-height:100vh}
-.p{max-width:1000px;margin:0 auto;padding:32px 40px 24px}
+body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;-webkit-font-smoothing:antialiased;overflow:hidden;height:100vh}
 
-.hd{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:2px solid rgba(108,61,175,0.2);margin-bottom:24px}
-.hd h1{font-size:20px;font-weight:800;letter-spacing:-0.02em;color:#1A1A2E}
-.hd .sub{font-size:10px;color:#7A7A9D;margin-top:2px}
-.hd-r{font-size:9px;color:#7A7A9D}
+/* toolbar */
+.toolbar{display:flex;align-items:center;gap:8px;padding:8px 16px;background:#fff;border-bottom:1px solid #E8E5EF;box-shadow:0 1px 4px rgba(0,0,0,0.04);z-index:100;position:relative}
+.toolbar h1{font-size:14px;font-weight:800;color:#1A1A2E;margin-right:12px}
+.tabs{display:flex;gap:2px;background:#F0EDF5;border-radius:6px;padding:2px}
+.tab{padding:5px 14px;font-size:11px;font-weight:700;border-radius:5px;cursor:pointer;color:#7A7A9D;border:none;background:none;transition:all .15s}
+.tab:hover{color:#1A1A2E}
+.tab.active{background:#fff;color:#6C3DAF;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.tb-sep{width:1px;height:20px;background:#E8E5EF;margin:0 6px}
+.tb-btn{padding:4px 12px;font-size:10px;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid #E8E5EF;background:#fff;color:#5A5A7A;transition:all .15s;font-family:inherit}
+.tb-btn:hover{background:#F7F5FA;border-color:#D8CCF0}
+.tb-btn.active{background:#6C3DAF;color:#fff;border-color:#6C3DAF}
+.tb-btn.danger{color:#B83020}
+.tb-btn.danger:hover{background:#FFF5F5;border-color:#FCD5D5}
+.tb-hint{font-size:9px;color:#A0A0B8;margin-left:auto}
 
-/* section titles */
-.sec{font-size:16px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:8px;color:#1A1A2E}
-.sec .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.sec-sub{font-size:10px;color:#7A7A9D;margin-bottom:16px}
+/* board */
+.board{position:relative;width:100%;height:calc(100vh - 44px);overflow:auto;cursor:default}
+.board.connecting{cursor:crosshair}
+.board svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.board svg line,.board svg path{pointer-events:stroke}
 
-/* AS-IS */
-.ceo{text-align:center;margin-bottom:8px}
-.ceo-box{display:inline-block;background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:8px 20px;border-radius:8px;font-size:12px;font-weight:800;color:#fff}
-.ceo-box small{display:block;font-size:8px;font-weight:500;opacity:0.8;margin-top:1px}
-.line-down{width:2px;height:10px;background:rgba(108,61,175,0.2);margin:0 auto 4px}
-.line-h{height:2px;background:rgba(108,61,175,0.12);margin:0 auto 6px}
+/* node */
+.node{position:absolute;border-radius:8px;padding:10px 14px;min-width:110px;max-width:220px;cursor:grab;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:box-shadow .15s;user-select:none}
+.node:hover{box-shadow:0 4px 16px rgba(0,0,0,0.1);z-index:20}
+.node.dragging{cursor:grabbing;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:50;opacity:0.9}
+.node.connect-source{outline:2px solid #6C3DAF;outline-offset:2px}
+.node-name{font-size:11px;font-weight:800;margin-bottom:2px}
+.node-desc{font-size:8px;color:#5A5A7A;line-height:1.4}
+.node-badge{display:inline-block;font-size:7px;font-weight:700;padding:1px 5px;border-radius:3px;margin-top:3px}
 
-.flat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;font-size:9px}
-.flat-item{background:#fff;border:1px solid #E8E5EF;border-radius:5px;padding:5px 8px;color:#5A5A7A;line-height:1.3;box-shadow:0 1px 2px rgba(0,0,0,0.04)}
-.flat-item b{color:#1A1A2E;font-weight:600}
-.flat-item--prod{border-left:3px solid #6C3DAF}
-.flat-item--dir{border-left:3px solid #CB11AB}
-.flat-item--func{border-left:3px solid #A0A0B8}
-.flat-item--rud{border-left:3px solid #D0D0DA;opacity:0.6}
-.flat-count{text-align:center;font-size:10px;color:#7A7A9D;margin-top:6px}
+/* node variants */
+.n-ceo{background:linear-gradient(135deg,#6C3DAF,#CB11AB);color:#fff;text-align:center;min-width:80px}
+.n-ceo .node-desc{color:rgba(255,255,255,0.7)}
+.n-cpo{background:#EEF2FF;border:1px solid #C8D8F0}.n-cpo .node-name{color:#2B5FC2}
+.n-rnd{background:#EDFAF7;border:1px solid #B8E8DE}.n-rnd .node-name{color:#0A8A70}
+.n-cto{background:#EEF2FF;border:1px solid #C8D8F0}.n-cto .node-name{color:#2B5FC2}
+.n-ops{background:#F3EDFF;border:1px solid #D8CCF0}.n-ops .node-name{color:#CB11AB}
+.n-an{background:#FFF8ED;border:1px solid #F0D8A8}.n-an .node-name{color:#B07A00}
+.n-sales{background:#F0FFF0;border:1px solid #B8E0B8}.n-sales .node-name{color:#2A7A2A}
+.n-exp{background:#FFF0F8;border:1px solid #F0C0E0}.n-exp .node-name{color:#CB11AB}
+.n-prod{background:#fff;border:1px solid #C8D8F0}.n-prod .node-name{color:#2B5FC2;font-size:10px}
+.n-prod-rnd{background:#fff;border:1px solid #B8E8DE}.n-prod-rnd .node-name{color:#0A8A70;font-size:10px}
+.n-rud{background:#FAFAFA;border:1px dashed #C8C0D8}.n-rud .node-name{color:#7A7A9D;font-size:10px}
+.n-dir{background:#fff;border:1px solid #F0C0E0}.n-dir .node-name{color:#CB11AB;font-size:10px}
+.n-func{background:#fff;border:1px solid #D0D0DA}.n-func .node-name{color:#5A5A7A;font-size:10px}
+.n-app{background:#FAFAFA;border:1px dashed #C8C0D8}.n-app .node-name{color:#7A7A9D;font-size:9px}
+.n-app .node-badge{background:#F0EDF5;color:#7A7A9D}
 
-/* problems */
-.problems{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:14px}
-.prob{background:#FFF5F5;border:1px solid #FCD5D5;border-radius:6px;padding:8px 10px}
-.prob-title{font-size:9px;font-weight:800;color:#C53030;margin-bottom:3px}
-.prob-desc{font-size:8px;color:#7A5A5A;line-height:1.5}
+/* arrow */
+.arrow{stroke:#A0A0B8;stroke-width:1.5;fill:none;cursor:pointer;pointer-events:stroke;transition:stroke .15s}
+.arrow:hover{stroke:#6C3DAF;stroke-width:2.5}
+.arrow-head{fill:#A0A0B8;pointer-events:none;transition:fill .15s}
+.arrow:hover+.arrow-head{fill:#6C3DAF}
+.arrow-temp{stroke:#6C3DAF;stroke-width:1.5;stroke-dasharray:6 4;fill:none;pointer-events:none}
 
-/* scenario card */
-.scenario{border-radius:12px;padding:20px 22px;margin-bottom:14px;position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
-.sc-a{background:#FAF7FF;border:1px solid #D8CCF0}
-.sc-b{background:#F5F8FF;border:1px solid #C8D8F0}
-.sc-c{background:#FFF5FA;border:2px solid #E8B0D8}
-.sc-title{font-size:15px;font-weight:800;margin-bottom:2px}
-.sc-sub{font-size:9px;color:#7A7A9D;margin-bottom:12px}
-.sc-label{position:absolute;top:-8px;right:16px;font-size:8px;font-weight:800;padding:2px 8px;border-radius:4px}
+/* legend */
+.legend{position:fixed;bottom:12px;left:12px;background:#fff;border:1px solid #E8E5EF;border-radius:8px;padding:8px 12px;font-size:8px;color:#7A7A9D;box-shadow:0 2px 8px rgba(0,0,0,0.06);z-index:100;line-height:1.8}
+.legend b{color:#1A1A2E;font-size:9px}
+.legend kbd{display:inline-block;background:#F0EDF5;border:1px solid #D8CCF0;border-radius:3px;padding:0 4px;font-size:8px;font-family:inherit;color:#5A5A7A}
 
-/* mini org chart inside scenario */
-.mini-org{background:#F0EDF5;border-radius:8px;padding:12px;margin-bottom:12px}
-.mini-row{display:grid;gap:4px;margin-bottom:5px}
-.mini-box{border-radius:5px;padding:6px;text-align:center;background:#fff}
-.mini-box-name{font-size:9px;font-weight:800;margin-bottom:1px}
-.mini-box-desc{font-size:7px;color:#7A7A9D;line-height:1.3}
-.mini-prod{display:grid;gap:3px;margin-bottom:5px}
-.mini-tag{border-radius:4px;padding:3px 4px;text-align:center;font-size:7px;font-weight:700;background:#fff}
+/* problems bar */
+.problems-bar{position:absolute;top:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:50}
+.prob-chip{background:#FFF5F5;border:1px solid #FCD5D5;border-radius:6px;padding:5px 10px;font-size:8px;color:#C53030;font-weight:700;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.prob-chip span{font-weight:400;color:#7A5A5A;display:block;font-size:7px;margin-top:1px}
 
-/* oper model */
-.oper{background:#fff;border:1px solid #E8E5EF;border-radius:8px;padding:12px 14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,0.03)}
-.oper-title{font-size:11px;font-weight:800;color:#5A5A7A;margin-bottom:8px}
-.oper-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:9px}
-.oper-col b{display:block;color:#1A1A2E;margin-bottom:3px;font-size:10px}
-.oper-col{color:#5A5A7A;line-height:1.6}
+/* scenario badge */
+.sc-badge{position:absolute;top:12px;left:12px;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:800;z-index:50}
+.sc-badge.rec{background:#0A7A50;color:#fff}
 
-/* pros/cons */
-.pc{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:9px}
-.pc span{display:block;line-height:1.5}
-
-.note{font-size:10px;color:#7A7A9D;text-align:center;margin-top:16px;line-height:1.5}
-.ft{margin-top:20px;padding-top:10px;border-top:1px solid #E8E5EF;display:flex;justify-content:space-between;font-size:9px;color:#A0A0B8}
-
-@media print{*{-webkit-print-color-adjust:exact!important}}
-@media(max-width:700px){.flat-grid{grid-template-columns:1fr 1fr}.problems{grid-template-columns:1fr 1fr}.mini-row{grid-template-columns:1fr!important}.mini-prod{grid-template-columns:1fr 1fr!important}.oper-grid{grid-template-columns:1fr}.pc{grid-template-columns:1fr}}
+@media print{body{overflow:visible;height:auto}.board{height:auto;overflow:visible}.toolbar,.legend{display:none}*{-webkit-print-color-adjust:exact!important}}
 </style>
 </head>
 <body>
-<main class="p">
 
-  <div class="hd">
-    <div>
-      <h1>Структура департамента</h1>
-      <div class="sub">AS-IS и контекст &middot; TO-BE: три сценария с операционной моделью</div>
-    </div>
-    <div class="hd-r">Проектный офис &middot; Март 2026</div>
+<div class="toolbar">
+  <h1>Структура департамента</h1>
+  <div class="tabs">
+    <button class="tab active" data-board="asis">AS-IS</button>
+    <button class="tab" data-board="sca">А. Автономия</button>
+    <button class="tab" data-board="scb">Б. Платформа</button>
+    <button class="tab" data-board="scc">В. Гибридный</button>
   </div>
+  <div class="tb-sep"></div>
+  <button class="tb-btn" id="btnConnect">Связь</button>
+  <button class="tb-btn danger" id="btnReset">Сброс</button>
+  <div class="tb-hint" id="hint">Перетаскивайте блоки. Нажмите «Связь» для создания иерархии.</div>
+</div>
 
-  <!-- ═══════════════ AS-IS ═══════════════ -->
-  <div class="sec"><div class="dot" style="background:rgba(222,53,11,0.6)"></div> AS-IS: текущая структура</div>
-  <div class="sec-sub">19 прямых подчинений CEO. Продукты, направления, функции и рудименты — всё в одной плоскости.</div>
+<div class="board" id="board">
+  <svg id="svgLayer"><defs><marker id="arrowMarker" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" class="arrow-head"/></marker></defs></svg>
+</div>
 
-  <div class="ceo">
-    <div class="ceo-box">CEO<small>Департамент Экосистемы</small></div>
-  </div>
-  <div class="line-down"></div>
-  <div class="line-h" style="width:80%"></div>
+<div class="legend">
+  <b>Управление</b><br>
+  Перетаскивание — двигать блоки<br>
+  <kbd>Связь</kbd> — клик по источнику, затем по цели<br>
+  ПКМ по стрелке — удалить связь<br>
+  <kbd>Сброс</kbd> — вернуть к начальному виду
+</div>
 
-  <div class="flat-grid">
-    <div class="flat-item flat-item--prod"><b>Wibes</b></div>
-    <div class="flat-item flat-item--prod"><b>Книги</b></div>
-    <div class="flat-item flat-item--prod"><b>Kids</b></div>
-    <div class="flat-item flat-item--prod"><b>Sport</b></div>
-    <div class="flat-item flat-item--prod"><b>Встречи</b></div>
-    <div class="flat-item flat-item--prod"><b>Проект 9</b> <span style="font-size:7px;opacity:0.5">видеосервис</span></div>
-    <div class="flat-item flat-item--dir"><b>Молодёжное</b></div>
-    <div class="flat-item flat-item--dir"><b>Контент</b></div>
-    <div class="flat-item flat-item--dir"><b>Ивенты</b></div>
-    <div class="flat-item flat-item--dir"><b>Маркетплейс закупок</b></div>
-    <div class="flat-item flat-item--dir"><b>Маркетинг</b></div>
-    <div class="flat-item flat-item--func"><b>CTO</b></div>
-    <div class="flat-item flat-item--func"><b>Аналитика</b></div>
-    <div class="flat-item flat-item--func"><b>PMO</b></div>
-    <div class="flat-item flat-item--func"><b>Монетизация</b></div>
-    <div class="flat-item flat-item--rud"><b>Соц. коммерция</b> <span style="font-size:7px">руд.</span></div>
-    <div class="flat-item flat-item--rud"><b>Спецпроекты</b> <span style="font-size:7px">руд.</span></div>
-    <div class="flat-item flat-item--rud"><b>Проект 8</b> <span style="font-size:7px">руд.</span></div>
-    <div class="flat-item flat-item--rud"><b>Маркетинг в соцсетях</b> <span style="font-size:7px">руд.</span></div>
-  </div>
-  <div class="flat-count">
-    <span style="color:#6C3DAF">&#9632;</span> ИТ-продукты &nbsp;
-    <span style="color:#CB11AB">&#9632;</span> Направления &nbsp;
-    <span style="color:#A0A0B8">&#9632;</span> Функции &nbsp;
-    <span style="color:#D0D0DA">&#9632;</span> Рудименты &nbsp;&middot;&nbsp;
-    19 прямых подчинений
-  </div>
+<script>
+(function(){
+/* ═══════ DATA ═══════ */
+var BOARDS = {
 
-  <!-- Проблемы AS-IS -->
-  <div class="problems">
-    <div class="prob">
-      <div class="prob-title">Монетизация</div>
-      <div class="prob-desc">Нет P&L по продуктам. Непонятно кто за что отвечает финансово. Нет модели выручки.</div>
-    </div>
-    <div class="prob">
-      <div class="prob-title">Управляемость</div>
-      <div class="prob-desc">19 прямых подчинений. CEO — единая точка решений по всему. Bottleneck.</div>
-    </div>
-    <div class="prob">
-      <div class="prob-title">Рудименты</div>
-      <div class="prob-desc">4 направления без результата и ресурсов. Занимают внимание, не создают ценность.</div>
-    </div>
-    <div class="prob">
-      <div class="prob-title">Скорость</div>
-      <div class="prob-desc">Нет R&D-процесса. Новые идеи запускаются по личному push. Нет фаст-трека.</div>
-    </div>
-    <div class="prob">
-      <div class="prob-title">Прозрачность</div>
-      <div class="prob-desc">Статус — при личном запросе. Нет lifecycle. Нет единой аналитики. Каждый по-своему.</div>
-    </div>
-  </div>
+asis: {
+  label: 'AS-IS',
+  nodes: [
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Департамент Экосистемы',x:420,y:50,w:100},
+    {id:'wibes',type:'n-prod',name:'Wibes',x:40,y:160},
+    {id:'books',type:'n-prod',name:'Книги',x:160,y:160},
+    {id:'kids',type:'n-prod',name:'Kids',x:280,y:160},
+    {id:'sport',type:'n-prod',name:'Sport',x:400,y:160},
+    {id:'meets',type:'n-prod',name:'Встречи',x:520,y:160},
+    {id:'p9',type:'n-prod',name:'Проект 9',desc:'видеосервис',x:640,y:160},
+    {id:'youth',type:'n-dir',name:'Молодёжное',x:760,y:160},
+    {id:'content',type:'n-dir',name:'Контент',x:40,y:250},
+    {id:'events',type:'n-dir',name:'Ивенты',x:160,y:250},
+    {id:'procure',type:'n-dir',name:'Маркетплейс закупок',x:280,y:250},
+    {id:'mkt',type:'n-dir',name:'Маркетинг',x:420,y:250},
+    {id:'ctof',type:'n-func',name:'CTO',x:540,y:250},
+    {id:'anf',type:'n-func',name:'Аналитика',x:640,y:250},
+    {id:'pmof',type:'n-func',name:'PMO',x:740,y:250},
+    {id:'monf',type:'n-func',name:'Монетизация',x:840,y:250},
+    {id:'soccom',type:'n-rud',name:'Соц. коммерция',desc:'рудимент',x:40,y:340},
+    {id:'specpr',type:'n-rud',name:'Спецпроекты',desc:'рудимент',x:180,y:340},
+    {id:'p8',type:'n-rud',name:'Проект 8',desc:'рудимент',x:320,y:340},
+    {id:'smm',type:'n-rud',name:'Маркетинг в соцсетях',desc:'рудимент',x:460,y:340}
+  ],
+  edges: [
+    ['ceo','wibes'],['ceo','books'],['ceo','kids'],['ceo','sport'],['ceo','meets'],['ceo','p9'],['ceo','youth'],
+    ['ceo','content'],['ceo','events'],['ceo','procure'],['ceo','mkt'],
+    ['ceo','ctof'],['ceo','anf'],['ceo','pmof'],['ceo','monf'],
+    ['ceo','soccom'],['ceo','specpr'],['ceo','p8'],['ceo','smm']
+  ]
+},
 
-  <!-- ═══════════════ СЦЕНАРИИ ═══════════════ -->
-  <div style="margin-top:32px">
-    <div class="sec"><div class="dot" style="background:#00875A"></div> TO-BE: три сценария</div>
-    <div class="sec-sub">Каждый решает все 5 проблем, но с разным фокусом и операционной моделью</div>
-  </div>
+sca: {
+  label: 'А. Максимальная автономия',
+  nodes: [
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия и бюджет',x:400,y:40,w:100},
+    {id:'cpo',type:'n-cpo',name:'CPO',desc:'Стратегия портфеля, лидеры, дизайн-система',x:80,y:150},
+    {id:'sales',type:'n-sales',name:'Продажи',desc:'B2B/B2C/B2G — у каждого продукта свои',x:260,y:150},
+    {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR, прозрачность',x:450,y:150},
+    {id:'cto',type:'n-cto',name:'CTO',desc:'Инфра, платформа',x:650,y:150},
+    {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная',x:810,y:150},
+    {id:'wibes',type:'n-prod',name:'Wibes',desc:'P&L',x:40,y:280},
+    {id:'p9',type:'n-prod',name:'Проект 9',desc:'P&L',x:160,y:280},
+    {id:'kids',type:'n-prod',name:'Kids',desc:'P&L',x:280,y:280},
+    {id:'sport',type:'n-prod',name:'Sport',desc:'P&L',x:400,y:280},
+    {id:'meets',type:'n-prod',name:'Встречи',desc:'P&L',x:520,y:280},
+    {id:'books',type:'n-prod',name:'Книги',desc:'P&L',x:640,y:280},
+    {id:'exp',type:'n-exp',name:'Направления и экспансия',desc:'Молодёжное, Контент, Ивенты, РФ, СНГ/Мир',x:60,y:390},
+    {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',x:320,y:390},
+    {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',x:560,y:390}
+  ],
+  edges: [
+    ['ceo','cpo'],['ceo','sales'],['ceo','ops'],['ceo','cto'],['ceo','an'],
+    ['cpo','wibes'],['cpo','p9'],['cpo','kids'],['cpo','sport'],['cpo','meets'],['cpo','books'],
+    ['ceo','exp'],['ceo','review']
+  ]
+},
 
-  <!-- ─── СЦЕНАРИЙ А ─── -->
-  <div class="scenario sc-a">
-    <div class="sc-title" style="color:#9B59D0">А. Максимальная автономия продуктов</div>
-    <div class="sc-sub">Каждый продукт — автономный P&L-юнит. Быстрая монетизация зрелых. Конкуренция за результат.</div>
+scb: {
+  label: 'Б. Платформа + R&D',
+  nodes: [
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Приоритеты и бюджет',x:400,y:40,w:100},
+    {id:'cto',type:'n-cto',name:'CTO + Платформа',desc:'Единая инфра, дизайн-система, продукты как сервисы',x:60,y:150},
+    {id:'rnd',type:'n-rnd',name:'R&D',desc:'Генерация гипотез, фаст-трек',x:280,y:150},
+    {id:'sales',type:'n-sales',name:'Продажи',desc:'Единый канал B2B/B2C/B2G, пакетные решения',x:450,y:150},
+    {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR, lifecycle, прозрачность',x:660,y:150},
+    {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная',x:60,y:280},
+    {id:'wibes',type:'n-prod',name:'Wibes',x:220,y:280},
+    {id:'p9',type:'n-prod',name:'Проект 9',x:330,y:280},
+    {id:'kids',type:'n-prod-rnd',name:'Kids',x:440,y:280},
+    {id:'sport',type:'n-prod-rnd',name:'Sport',x:540,y:280},
+    {id:'meets',type:'n-prod-rnd',name:'Встречи',x:640,y:280},
+    {id:'books',type:'n-prod-rnd',name:'Книги',x:750,y:280},
+    {id:'exp',type:'n-exp',name:'Направления',desc:'Молодёжное, Контент, Ивенты, РФ, СНГ',x:60,y:380},
+    {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',x:300,y:380},
+    {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',x:530,y:380}
+  ],
+  edges: [
+    ['ceo','cto'],['ceo','rnd'],['ceo','sales'],['ceo','ops'],
+    ['cto','wibes'],['cto','p9'],['cto','an'],
+    ['rnd','kids'],['rnd','sport'],['rnd','meets'],['rnd','books'],
+    ['ceo','exp'],['ceo','review']
+  ]
+},
 
-    <div class="mini-org">
-      <div style="text-align:center;margin-bottom:8px">
-        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800;color:#fff">CEO</span>
-      </div>
-      <div class="mini-row" style="grid-template-columns:repeat(5,1fr)">
-        <div class="mini-box" style="background:#EEF2FF;border:1px solid #C8D8F0">
-          <div class="mini-box-name" style="color:#2B5FC2">CPO</div>
-          <div class="mini-box-desc">Стратегия портфеля, назначение лидеров, дизайн-система</div>
-        </div>
-        <div class="mini-box" style="background:#F0FFF0;border:1px solid #B8E0B8">
-          <div class="mini-box-name" style="color:#2A7A2A">Продажи</div>
-          <div class="mini-box-desc">B2B/B2C/B2G, партнёры — у каждого продукта свои</div>
-        </div>
-        <div class="mini-box" style="background:#F3EDFF;border:1px solid #D8CCF0">
-          <div class="mini-box-name" style="color:#CB11AB">Стратегия и операционка</div>
-          <div class="mini-box-desc">PMO, OKR, прозрачность</div>
-        </div>
-        <div class="mini-box" style="background:#EEF2FF;border:1px solid #C8D8F0">
-          <div class="mini-box-name" style="color:#2B5FC2">CTO</div>
-          <div class="mini-box-desc">Инфра, платформа</div>
-        </div>
-        <div class="mini-box" style="background:#FFF8ED;border:1px solid #F0D8A8">
-          <div class="mini-box-name" style="color:#B07A00">Аналитика</div>
-          <div class="mini-box-desc">Продуктовая + рыночная</div>
-        </div>
-      </div>
-      <div class="mini-prod" style="grid-template-columns:repeat(6,1fr)">
-        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Wibes<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Проект 9<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Kids<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Sport<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Встречи<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Книги<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
-      </div>
-      <div class="mini-prod" style="grid-template-columns:1fr 1fr">
-        <div class="mini-tag" style="background:#FFF0F8;border:1px solid #F0C0E0;color:#CB11AB;font-weight:600">Направления и экспансия <span style="font-weight:400;color:#7A7A9D;font-size:6px">Молодёжное, Контент, Ивенты, РФ, СНГ/Мир</span></div>
-        <div class="mini-tag" style="background:#F0EDF5;border:1px dashed #C8C0D8;color:#7A7A9D">На пересмотр <span style="font-size:6px">4 рудимента</span></div>
-      </div>
-      <div style="margin-top:4px;border:1px dashed #C8C0D8;border-radius:4px;padding:3px 8px;text-align:center;background:#FAFAFA">
-        <span style="font-size:8px;font-weight:700;color:#7A7A9D">Аппарат</span> <span style="font-size:7px;color:#A0A0B8">контроль исполнения поручений CEO &middot; 1 чел. &middot; сквозная функция</span> <span style="font-size:6px;color:#B8B0C8;border:1px solid #D8D0E0;border-radius:3px;padding:0 3px;margin-left:2px">опция</span>
-      </div>
-    </div>
+scc: {
+  label: 'В. Гибридный',
+  badge: 'rec',
+  nodes: [
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия, бюджет, рудименты',x:400,y:40,w:100},
+    {id:'cpo',type:'n-cpo',name:'CPO',desc:'Зрелые продукты, P&L, лидеры, дизайн-система',x:60,y:150},
+    {id:'rnd',type:'n-rnd',name:'R&D',desc:'Фаст-трек гипотез, упрощённые процессы',x:260,y:150},
+    {id:'cto',type:'n-cto',name:'CTO',desc:'Разработка, инфра, платформа',x:450,y:150},
+    {id:'sales',type:'n-sales',name:'Продажи',desc:'Зрелые — свои. R&D — общий канал B2B/B2C/B2G',x:640,y:150},
+    {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR-каскад, lifecycle, прозрачность',x:60,y:280},
+    {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная, BI',x:280,y:280},
+    {id:'exp',type:'n-exp',name:'Направления и экспансия',desc:'РФ, СНГ/Мир, Молодёжное, Контент, Ивенты',x:490,y:280},
+    {id:'wibes',type:'n-prod',name:'Wibes',desc:'P&L',x:40,y:400},
+    {id:'p9',type:'n-prod',name:'Проект 9',desc:'P&L',x:160,y:400},
+    {id:'kids',type:'n-prod-rnd',name:'Kids',x:300,y:400},
+    {id:'sport',type:'n-prod-rnd',name:'Sport',x:400,y:400},
+    {id:'meets',type:'n-prod-rnd',name:'Встречи',x:500,y:400},
+    {id:'books',type:'n-prod-rnd',name:'Книги',x:610,y:400},
+    {id:'newhyp',type:'n-prod-rnd',name:'Новые гипотезы',x:720,y:400},
+    {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',x:840,y:400},
+    {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',x:730,y:280}
+  ],
+  edges: [
+    ['ceo','cpo'],['ceo','rnd'],['ceo','cto'],['ceo','sales'],
+    ['ceo','ops'],['ceo','an'],['ceo','exp'],
+    ['cpo','wibes'],['cpo','p9'],
+    ['rnd','kids'],['rnd','sport'],['rnd','meets'],['rnd','books'],['rnd','newhyp'],
+    ['ceo','review']
+  ]
+}
 
-    <!-- Опер.модель А -->
-    <div class="oper">
-      <div class="oper-title">Операционная модель</div>
-      <div class="oper-grid">
-        <div class="oper-col">
-          <b>Принятие решений</b>
-          Product Lead решает внутри бюджета. CPO арбитраж между продуктами. CEO — стратегия и бюджет.
-        </div>
-        <div class="oper-col">
-          <b>Ритм и отчётность</b>
-          Каждый продукт — ежемесячный P&L-отчёт. PMO агрегирует в дашборд CEO. Квартальный портфельный ревью.
-        </div>
-        <div class="oper-col">
-          <b>Ресурсы и монетизация</b>
-          Бюджет делится по продуктам. Каждый сам зарабатывает. Продажи внутри каждого P&L-юнита. Внутренняя конкуренция за ресурс CTO.
-        </div>
-      </div>
-    </div>
+};
 
-    <div class="pc">
-      <div>
-        <span style="color:#0A7A50">+ Максимальная скорость монетизации</span>
-        <span style="color:#0A7A50">+ P&L-ответственность у каждого лидера</span>
-        <span style="color:#0A7A50">+ Конкуренция за результат</span>
-      </div>
-      <div>
-        <span style="color:#B83020">- Дублирование функций (маркетинг, аналитика)</span>
-        <span style="color:#B83020">- Ранние продукты не выживут без ресурсов</span>
-        <span style="color:#B83020">- Нет R&D — некому генерить новое</span>
-      </div>
-    </div>
-    <div style="font-size:8px;color:#A0A0B8;margin-top:8px;border-top:1px solid #E8E5EF;padding-top:6px">Когда подходит: 3+ продукта уже зарабатывают. Фокус — масштабировать выручку, а не искать новое.</div>
-  </div>
+/* ═══════ STATE ═══════ */
+var currentBoard = 'asis';
+var connecting = false;
+var connectSource = null;
+var dragging = null;
+var dragOff = {x:0,y:0};
+var nodeEls = {};
+var savedState = {};
 
-  <!-- ─── СЦЕНАРИЙ Б ─── -->
-  <div class="scenario sc-b">
-    <div class="sc-title" style="color:#2B5FC2">Б. Платформа + R&D-фабрика</div>
-    <div class="sc-sub">Единая платформа, фаст-трек гипотез, общая монетизация. CTO в центре.</div>
+var board = document.getElementById('board');
+var svg = document.getElementById('svgLayer');
+var btnConnect = document.getElementById('btnConnect');
+var btnReset = document.getElementById('btnReset');
+var hint = document.getElementById('hint');
 
-    <div class="mini-org">
-      <div style="text-align:center;margin-bottom:8px">
-        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800;color:#fff">CEO</span>
-      </div>
-      <div class="mini-row" style="grid-template-columns:repeat(4,1fr)">
-        <div class="mini-box" style="background:#EEF2FF;border:1px solid #C8D8F0">
-          <div class="mini-box-name" style="color:#2B5FC2">CTO + Платформа</div>
-          <div class="mini-box-desc">Единая инфра, дизайн-система, все продукты как сервисы</div>
-        </div>
-        <div class="mini-box" style="background:#EDFAF7;border:1px solid #B8E8DE">
-          <div class="mini-box-name" style="color:#0A8A70">R&D</div>
-          <div class="mini-box-desc">Генерация гипотез, фаст-трек, упрощённые процессы</div>
-        </div>
-        <div class="mini-box" style="background:#F0FFF0;border:1px solid #B8E0B8">
-          <div class="mini-box-name" style="color:#2A7A2A">Продажи</div>
-          <div class="mini-box-desc">Единый канал B2B/B2C/B2G, пакетные решения экосистемы</div>
-        </div>
-        <div class="mini-box" style="background:#F3EDFF;border:1px solid #D8CCF0">
-          <div class="mini-box-name" style="color:#CB11AB">Стратегия и операционка</div>
-          <div class="mini-box-desc">PMO, OKR, lifecycle, прозрачность</div>
-        </div>
-      </div>
-      <div class="mini-prod" style="grid-template-columns:repeat(6,1fr)">
-        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Wibes</div>
-        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Проект 9</div>
-        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Kids</div>
-        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Sport</div>
-        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Встречи</div>
-        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Книги</div>
-      </div>
-      <div class="mini-prod" style="grid-template-columns:1fr 1fr 1fr">
-        <div class="mini-tag" style="background:#FFF8ED;border:1px solid #F0D8A8;color:#B07A00;font-weight:600">Аналитика <span style="font-weight:400;color:#7A7A9D;font-size:6px">Продуктовая + рыночная</span></div>
-        <div class="mini-tag" style="background:#FFF0F8;border:1px solid #F0C0E0;color:#CB11AB;font-weight:600">Направления <span style="font-weight:400;color:#7A7A9D;font-size:6px">Молодёжное, Контент, Ивенты, РФ, СНГ</span></div>
-        <div class="mini-tag" style="background:#F0EDF5;border:1px dashed #C8C0D8;color:#7A7A9D">На пересмотр <span style="font-size:6px">4 руд.</span></div>
-      </div>
-      <div style="margin-top:4px;border:1px dashed #C8C0D8;border-radius:4px;padding:3px 8px;text-align:center;background:#FAFAFA">
-        <span style="font-size:8px;font-weight:700;color:#7A7A9D">Аппарат</span> <span style="font-size:7px;color:#A0A0B8">контроль исполнения поручений CEO &middot; 1 чел. &middot; сквозная функция</span> <span style="font-size:6px;color:#B8B0C8;border:1px solid #D8D0E0;border-radius:3px;padding:0 3px;margin-left:2px">опция</span>
-      </div>
-    </div>
+/* ═══════ STORAGE ═══════ */
+var STORE_KEY = 'orgboard_v2';
+function loadStore(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||{}}catch(e){return{}}}
+function saveStore(){localStorage.setItem(STORE_KEY, JSON.stringify(savedState))}
 
-    <!-- Опер.модель Б -->
-    <div class="oper">
-      <div class="oper-title">Операционная модель</div>
-      <div class="oper-grid">
-        <div class="oper-col">
-          <b>Принятие решений</b>
-          CTO определяет технический roadmap. R&D решает что тестировать. CEO — приоритеты платформы и бюджет.
-        </div>
-        <div class="oper-col">
-          <b>Ритм и отчётность</b>
-          R&D — двухнедельные спринты гипотез. Продукты — общий бэклог платформы. PMO — единый статус, lifecycle для всех.
-        </div>
-        <div class="oper-col">
-          <b>Ресурсы и монетизация</b>
-          Общий бюджет. Единые продажи экосистемы: подписка, B2B, маркетплейс. Пакетные предложения. Продукты не конкурируют — дополняют.
-        </div>
-      </div>
-    </div>
+function getBoardState(bid){
+  if(!savedState[bid]) return null;
+  return savedState[bid];
+}
+function setBoardState(bid, positions, edges){
+  savedState[bid] = {positions:positions, edges:edges};
+  saveStore();
+}
 
-    <div class="pc">
-      <div>
-        <span style="color:#0A7A50">+ Единый UX и дизайн-система</span>
-        <span style="color:#0A7A50">+ Кросс-продуктовая монетизация</span>
-        <span style="color:#0A7A50">+ R&D генерирует поток новых идей</span>
-      </div>
-      <div>
-        <span style="color:#B83020">- Медленный старт: сначала платформа</span>
-        <span style="color:#B83020">- Все зависят от CTO</span>
-        <span style="color:#B83020">- Зрелые продукты ждут пока строится общее</span>
-      </div>
-    </div>
-    <div style="font-size:8px;color:#A0A0B8;margin-top:8px;border-top:1px solid #E8E5EF;padding-top:6px">Когда подходит: сильный CTO, продукты связаны, есть время инвестировать в платформу до монетизации.</div>
-  </div>
+/* ═══════ RENDER ═══════ */
+function getPositions(bid){
+  var s = getBoardState(bid);
+  if(s && s.positions) return s.positions;
+  var p = {};
+  BOARDS[bid].nodes.forEach(function(n){ p[n.id] = {x:n.x, y:n.y}; });
+  return p;
+}
+function getEdges(bid){
+  var s = getBoardState(bid);
+  if(s && s.edges) return s.edges;
+  return BOARDS[bid].edges.map(function(e){return [e[0],e[1]]});
+}
 
-  <!-- ─── СЦЕНАРИЙ В ─── -->
-  <div class="scenario sc-c">
-    <div class="sc-label" style="background:#34D399;color:#000">РЕКОМЕНДАЦИЯ</div>
-    <div class="sc-title" style="color:#CB11AB">В. Гибридный: зрелые зарабатывают, R&D генерирует</div>
-    <div class="sc-sub">Два режима: автономный P&L для зрелых + фаст-трек R&D для ранних. Разная зрелость — разные правила.</div>
+function render(bid){
+  // clear
+  board.querySelectorAll('.node').forEach(function(el){el.remove()});
+  board.querySelectorAll('.problems-bar,.sc-badge').forEach(function(el){el.remove()});
+  svg.querySelectorAll('line,path,.arrow,.arrow-head-el,.arrow-temp').forEach(function(el){
+    if(el.tagName!=='defs' && !el.closest('defs')) el.remove();
+  });
+  nodeEls = {};
 
-    <div class="mini-org">
-      <div style="text-align:center;margin-bottom:8px">
-        <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800;color:#fff">CEO</span>
-      </div>
-      <div class="mini-row" style="grid-template-columns:repeat(3,1fr)">
-        <div class="mini-box" style="background:#EEF2FF;border:1px solid #C8D8F0">
-          <div class="mini-box-name" style="color:#2B5FC2">CPO</div>
-          <div class="mini-box-desc">Зрелые продукты, P&L, лидеры, дизайн-система, продуктовая смелость</div>
-        </div>
-        <div class="mini-box" style="background:#EDFAF7;border:1px solid #B8E8DE">
-          <div class="mini-box-name" style="color:#0A8A70">R&D</div>
-          <div class="mini-box-desc">Фаст-трек гипотез, упрощённые процессы, ранние продукты</div>
-        </div>
-        <div class="mini-box" style="background:#EEF2FF;border:1px solid #C8D8F0">
-          <div class="mini-box-name" style="color:#2B5FC2">CTO</div>
-          <div class="mini-box-desc">Разработка, инфра, платформенные сервисы</div>
-        </div>
-      </div>
-      <div class="mini-row" style="grid-template-columns:repeat(4,1fr)">
-        <div class="mini-box" style="background:#F0FFF0;border:1px solid #B8E0B8">
-          <div class="mini-box-name" style="color:#2A7A2A">Продажи</div>
-          <div class="mini-box-desc">Зрелые — свои каналы. R&D — через общий канал экосистемы</div>
-        </div>
-        <div class="mini-box" style="background:#F3EDFF;border:1px solid #D8CCF0">
-          <div class="mini-box-name" style="color:#CB11AB">Стратегия и операционка</div>
-          <div class="mini-box-desc">PMO, OKR-каскад, ресурсы, lifecycle</div>
-        </div>
-        <div class="mini-box" style="background:#FFF8ED;border:1px solid #F0D8A8">
-          <div class="mini-box-name" style="color:#B07A00">Аналитика</div>
-          <div class="mini-box-desc">Продуктовая + рыночная, BI</div>
-        </div>
-        <div class="mini-box" style="background:#FFF0F8;border:1px solid #F0C0E0">
-          <div class="mini-box-name" style="color:#CB11AB">Направления и экспансия</div>
-          <div class="mini-box-desc">РФ, СНГ/Мир, Молодёжное, Контент, Ивенты</div>
-        </div>
-      </div>
-      <div class="mini-prod" style="grid-template-columns:repeat(4,1fr)">
-        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Wibes<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:#EEF2FF;border:1px solid #C8D8F0;color:#2B5FC2">Проект 9<br><span style="font-weight:400;color:#7A7A9D;font-size:6px">P&L</span></div>
-        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Kids</div>
-        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Sport</div>
-      </div>
-      <div class="mini-prod" style="grid-template-columns:repeat(4,1fr)">
-        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Встречи</div>
-        <div class="mini-tag" style="background:#EDFAF7;border:1px solid #B8E8DE;color:#0A8A70">Книги</div>
-        <div class="mini-tag" style="background:#F0FAF8;border:1px dashed #B8E8DE;color:#0A8A70">Новые гипотезы</div>
-        <div class="mini-tag" style="background:#F0EDF5;border:1px dashed #C8C0D8;color:#7A7A9D">4 рудимента<br><span style="font-size:6px">На пересмотр</span></div>
-      </div>
-      <div style="margin-top:4px;border:1px dashed #C8C0D8;border-radius:4px;padding:3px 8px;text-align:center;background:#FAFAFA">
-        <span style="font-size:8px;font-weight:700;color:#7A7A9D">Аппарат</span> <span style="font-size:7px;color:#A0A0B8">контроль исполнения поручений CEO &middot; 1 чел. &middot; сквозная функция</span> <span style="font-size:6px;color:#B8B0C8;border:1px solid #D8D0E0;border-radius:3px;padding:0 3px;margin-left:2px">опция</span>
-      </div>
-    </div>
+  var data = BOARDS[bid];
+  var positions = getPositions(bid);
+  var edges = getEdges(bid);
 
-    <!-- Опер.модель В -->
-    <div class="oper">
-      <div class="oper-title">Операционная модель</div>
-      <div class="oper-grid">
-        <div class="oper-col">
-          <b>Принятие решений</b>
-          Зрелые: Product Lead решает в рамках P&L. Ранние: R&D проверяет гипотезу, CPO решает масштабировать или нет. CEO — стратегия, бюджет, рудименты.
-        </div>
-        <div class="oper-col">
-          <b>Ритм и отчётность</b>
-          Зрелые — ежемесячный P&L. R&D — двухнедельные спринты гипотез. PMO — сквозной статус по всем. CEO-дашборд без запросов. Квартальный портфельный ревью.
-        </div>
-        <div class="oper-col">
-          <b>Ресурсы и монетизация</b>
-          Зрелые — собственный бюджет, выручка и продажи. R&D — общий пул (маркетинг, контент, аналитика) + общий канал продаж экосистемы. Переход из R&D в P&L по Gate-критериям. Экономия ФОТ на общих функциях.
-        </div>
-      </div>
-    </div>
+  // badge
+  if(data.badge === 'rec'){
+    var badge = document.createElement('div');
+    badge.className = 'sc-badge rec';
+    badge.textContent = 'РЕКОМЕНДАЦИЯ';
+    board.appendChild(badge);
+  }
 
-    <div class="pc">
-      <div>
-        <span style="color:#0A7A50">+ Зрелые зарабатывают сразу, не ждут</span>
-        <span style="color:#0A7A50">+ R&D — фаст-трек от гипотезы до MVP</span>
-        <span style="color:#0A7A50">+ Единая дизайн-система экосистемы</span>
-        <span style="color:#0A7A50">+ Общие функции экономят ФОТ</span>
-        <span style="color:#0A7A50">+ Рудименты — явная зона решений</span>
-      </div>
-      <div>
-        <span style="color:#B83020">- Два режима управления (зрелые vs R&D)</span>
-        <span style="color:#B83020">- Нужен сильный PMO для координации</span>
-      </div>
-    </div>
-    <div style="font-size:8px;color:#A0A0B8;margin-top:8px;border-top:1px solid #E8E5EF;padding-top:6px">Когда подходит: сейчас. Разная зрелость продуктов. Нужна и монетизация, и генерация нового. CEO получает 6 блоков вместо 19.</div>
-  </div>
+  // problems for AS-IS
+  if(bid === 'asis'){
+    var pbar = document.createElement('div');
+    pbar.className = 'problems-bar';
+    var probs = [
+      ['Монетизация','Нет P&L'],
+      ['Управляемость','19 подчинений'],
+      ['Рудименты','4 без результата'],
+      ['Скорость','Нет R&D'],
+      ['Прозрачность','Нет lifecycle']
+    ];
+    probs.forEach(function(p){
+      var chip = document.createElement('div');
+      chip.className = 'prob-chip';
+      chip.innerHTML = p[0] + '<span>' + p[1] + '</span>';
+      pbar.appendChild(chip);
+    });
+    board.appendChild(pbar);
+  }
 
-  <div class="note">
-    Три сценария — на обсуждение. 19 прямых подчинений &rarr; 6 блоков.<br>
-    Структура подбирается под приоритеты руководителя.
-  </div>
+  // nodes
+  data.nodes.forEach(function(n){
+    var el = document.createElement('div');
+    el.className = 'node ' + n.type;
+    el.dataset.id = n.id;
+    el.dataset.board = bid;
 
-  <footer class="ft">
-    <span>Проектный офис &middot; Инновации и экосистема &middot; RWB</span>
-    <span>Март 2026 &middot; На обсуждение</span>
-  </footer>
+    var html = '<div class="node-name">' + n.name + '</div>';
+    if(n.desc) html += '<div class="node-desc">' + n.desc + '</div>';
+    if(n.type === 'n-app') html += '<div class="node-badge">опция</div>';
+    el.innerHTML = html;
 
-</main>
+    var pos = positions[n.id] || {x:n.x, y:n.y};
+    el.style.left = pos.x + 'px';
+    el.style.top = pos.y + 'px';
+    if(n.w) el.style.minWidth = n.w + 'px';
+
+    board.appendChild(el);
+    nodeEls[n.id] = el;
+  });
+
+  // edges
+  drawEdges(edges);
+}
+
+function getCenter(el){
+  var r = el.getBoundingClientRect();
+  var br = board.getBoundingClientRect();
+  return {
+    x: r.left - br.left + board.scrollLeft + r.width/2,
+    y: r.top - br.top + board.scrollTop + r.height/2,
+    top: r.top - br.top + board.scrollTop,
+    bottom: r.top - br.top + board.scrollTop + r.height,
+    left: r.left - br.left + board.scrollLeft,
+    right: r.left - br.left + board.scrollLeft + r.width,
+    w: r.width,
+    h: r.height
+  };
+}
+
+function bestAnchors(from, to){
+  var fc = getCenter(from);
+  var tc = getCenter(to);
+  // find best side: bottom of parent to top of child usually
+  var dy = tc.y - fc.y;
+  var dx = tc.x - fc.x;
+
+  var fx, fy, tx, ty;
+
+  if(Math.abs(dy) > Math.abs(dx) * 0.3){
+    // vertical dominant
+    if(dy > 0){
+      fx = fc.x; fy = fc.bottom;
+      tx = tc.x; ty = tc.top;
+    } else {
+      fx = fc.x; fy = fc.top;
+      tx = tc.x; ty = tc.bottom;
+    }
+  } else {
+    // horizontal
+    if(dx > 0){
+      fx = fc.right; fy = fc.y;
+      tx = tc.left; ty = tc.y;
+    } else {
+      fx = fc.left; fy = fc.y;
+      tx = tc.right; ty = tc.y;
+    }
+  }
+  return {fx:fx, fy:fy, tx:tx, ty:ty};
+}
+
+function drawEdges(edges){
+  svg.querySelectorAll('.edge-group').forEach(function(el){el.remove()});
+
+  edges.forEach(function(e, i){
+    var fromEl = nodeEls[e[0]];
+    var toEl = nodeEls[e[1]];
+    if(!fromEl || !toEl) return;
+
+    var a = bestAnchors(fromEl, toEl);
+    var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.classList.add('edge-group');
+    g.dataset.from = e[0];
+    g.dataset.to = e[1];
+    g.dataset.idx = i;
+
+    var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1', a.fx);
+    line.setAttribute('y1', a.fy);
+    line.setAttribute('x2', a.tx);
+    line.setAttribute('y2', a.ty);
+    line.classList.add('arrow');
+    line.setAttribute('marker-end','url(#arrowMarker)');
+
+    // hit area (wider invisible line for easier clicking)
+    var hit = document.createElementNS('http://www.w3.org/2000/svg','line');
+    hit.setAttribute('x1', a.fx);
+    hit.setAttribute('y1', a.fy);
+    hit.setAttribute('x2', a.tx);
+    hit.setAttribute('y2', a.ty);
+    hit.setAttribute('stroke','transparent');
+    hit.setAttribute('stroke-width','12');
+    hit.style.cursor = 'pointer';
+    hit.style.pointerEvents = 'stroke';
+
+    hit.addEventListener('contextmenu', function(ev){
+      ev.preventDefault();
+      removeEdge(e[0], e[1]);
+    });
+
+    g.appendChild(line);
+    g.appendChild(hit);
+    svg.appendChild(g);
+  });
+}
+
+function refreshEdges(){
+  var edges = getEdges(currentBoard);
+  drawEdges(edges);
+}
+
+function addEdge(from, to){
+  if(from === to) return;
+  var edges = getEdges(currentBoard);
+  // check duplicate
+  for(var i=0;i<edges.length;i++){
+    if(edges[i][0]===from && edges[i][1]===to) return;
+  }
+  edges.push([from, to]);
+  saveCurrentState(edges);
+  refreshEdges();
+}
+
+function removeEdge(from, to){
+  var edges = getEdges(currentBoard);
+  edges = edges.filter(function(e){ return !(e[0]===from && e[1]===to); });
+  saveCurrentState(edges);
+  refreshEdges();
+}
+
+function saveCurrentState(edges){
+  var positions = {};
+  Object.keys(nodeEls).forEach(function(id){
+    var el = nodeEls[id];
+    positions[id] = {x: parseInt(el.style.left), y: parseInt(el.style.top)};
+  });
+  if(!edges) edges = getEdges(currentBoard);
+  setBoardState(currentBoard, positions, edges);
+}
+
+/* ═══════ DRAG ═══════ */
+board.addEventListener('mousedown', function(ev){
+  var node = ev.target.closest('.node');
+  if(!node) return;
+  if(connecting){
+    handleConnect(node);
+    return;
+  }
+  ev.preventDefault();
+  dragging = node;
+  dragging.classList.add('dragging');
+  var r = node.getBoundingClientRect();
+  dragOff.x = ev.clientX - r.left;
+  dragOff.y = ev.clientY - r.top;
+});
+
+document.addEventListener('mousemove', function(ev){
+  if(!dragging) return;
+  var br = board.getBoundingClientRect();
+  var x = ev.clientX - br.left + board.scrollLeft - dragOff.x;
+  var y = ev.clientY - br.top + board.scrollTop - dragOff.y;
+  dragging.style.left = Math.max(0, x) + 'px';
+  dragging.style.top = Math.max(0, y) + 'px';
+  refreshEdges();
+});
+
+document.addEventListener('mouseup', function(){
+  if(!dragging) return;
+  dragging.classList.remove('dragging');
+  dragging = null;
+  saveCurrentState();
+});
+
+/* ═══════ CONNECT ═══════ */
+function handleConnect(node){
+  var id = node.dataset.id;
+  if(!connectSource){
+    connectSource = id;
+    node.classList.add('connect-source');
+    hint.textContent = 'Выберите цель для связи от «' + BOARDS[currentBoard].nodes.find(function(n){return n.id===id}).name + '»';
+  } else {
+    // create edge
+    var sourceNode = nodeEls[connectSource];
+    if(sourceNode) sourceNode.classList.remove('connect-source');
+    addEdge(connectSource, id);
+    connectSource = null;
+    hint.textContent = 'Связь создана. Нажмите «Связь» ещё раз для выхода.';
+  }
+}
+
+btnConnect.addEventListener('click', function(){
+  connecting = !connecting;
+  btnConnect.classList.toggle('active', connecting);
+  board.classList.toggle('connecting', connecting);
+  if(connecting){
+    hint.textContent = 'Режим связей: кликните источник, затем цель. ПКМ по стрелке — удалить.';
+  } else {
+    if(connectSource){
+      var el = nodeEls[connectSource];
+      if(el) el.classList.remove('connect-source');
+      connectSource = null;
+    }
+    hint.textContent = 'Перетаскивайте блоки. Нажмите «Связь» для создания иерархии.';
+  }
+});
+
+btnReset.addEventListener('click', function(){
+  if(!confirm('Сбросить доску «' + BOARDS[currentBoard].label + '» к начальному виду?')) return;
+  delete savedState[currentBoard];
+  saveStore();
+  render(currentBoard);
+});
+
+/* ═══════ TABS ═══════ */
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click', function(){
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+    tab.classList.add('active');
+    currentBoard = tab.dataset.board;
+    connecting = false;
+    connectSource = null;
+    btnConnect.classList.remove('active');
+    board.classList.remove('connecting');
+    hint.textContent = 'Перетаскивайте блоки. Нажмите «Связь» для создания иерархии.';
+    render(currentBoard);
+  });
+});
+
+/* ═══════ INIT ═══════ */
+savedState = loadStore();
+render('asis');
+
+})();
+</script>
 </body>
 </html>
