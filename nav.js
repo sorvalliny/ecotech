@@ -101,6 +101,7 @@
   var teamsActive      = has('teams') ? ' en-active' : '';
   var committeesActive = has('committees') ? ' en-active' : '';
   var adminActive      = has('admin') ? ' en-active' : '';
+  var mgmtActive       = (has('admin') || has('org-structure') || has('teams')) ? ' en-active' : '';
 
   // ── link builder (auto-detects active by filename) ──────────
   function a(href, label) {
@@ -160,9 +161,24 @@
     // ── + Заявка (CTA button) ───────────────
     + '<a class="en-link en-cta" href="' + base + 'tools/brief.html" role="menuitem">+ Заявка</a>'
 
-    // ── Admin (role-based) ───────────────────
-    + (function(){ try { var a = JSON.parse(localStorage.getItem('ECOTECH_AUTH')); var u = JSON.parse(localStorage.getItem('ECOTECH_USERS')); if(a&&u){ var cu=u.find(function(x){return x.id===a.id}); if(cu&&(cu.role==='admin'||cu.role==='pmo_lead')) return '<a class="en-link' + adminActive + '" href="'+base+'admin.html" role="menuitem">Admin</a>'; } } catch(e){} return ''; })()
-    + (function(){ try { var a = JSON.parse(localStorage.getItem('ECOTECH_AUTH')); var u = JSON.parse(localStorage.getItem('ECOTECH_USERS')); if(a&&u){ var cu=u.find(function(x){return x.id===a.id}); if(cu&&(cu.role==='admin'||cu.role==='pmo_lead'||(cu.role==='lead'&&cu.department==='innovation'))) { var ac = has('org-structure')?' en-active':''; return '<a class="en-link'+ac+'" href="'+base+'org-structure.html" role="menuitem">Структура</a>'; } } } catch(e){ console.warn('nav org-structure error',e); } return ''; })()
+    // ── Управление (role-based dropdown) ───────────────────
+    + (function(){
+        try {
+          var au = JSON.parse(localStorage.getItem('ECOTECH_AUTH'));
+          var us = JSON.parse(localStorage.getItem('ECOTECH_USERS'));
+          if (!au || !us) return '';
+          var cu = us.find(function(x){ return x.id === au.id; });
+          if (!cu) return '';
+          var isAdmin = cu.role === 'admin' || cu.role === 'pmo_lead';
+          var isCEO = cu.role === 'lead' && cu.department === 'innovation';
+          if (!isAdmin && !isCEO) return '';
+          var items = '';
+          if (isAdmin) items += '<a href="'+base+'admin.html"'+(has('admin')?' class="en-active"':'')+' role="menuitem">Настройки</a>';
+          items += '<a href="'+base+'org-structure.html"'+(has('org-structure')?' class="en-active"':'')+' role="menuitem">Структура</a>';
+          if (isAdmin) items += '<a href="'+base+'teams.html"'+(has('teams')?' class="en-active"':'')+' role="menuitem">Команды</a>';
+          return '<div class="en-drop'+mgmtActive+'"><a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Управление</a><div class="en-drop-menu" role="menu">'+items+'</div></div>';
+        } catch(e) { return ''; }
+      })()
     + '</div>'
 
     // ── Notification bell ───────────────────
