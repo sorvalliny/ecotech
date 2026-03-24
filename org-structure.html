@@ -39,20 +39,24 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
 .flat-count{text-align:center;font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px}
 
 /* TO-BE: verticals */
-.vert-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px}
+.vert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:6px}
 .vert{border-radius:8px;padding:10px 8px;text-align:center}
 .vert-name{font-size:11px;font-weight:800;margin-bottom:2px}
 .vert-desc{font-size:8px;opacity:0.6;line-height:1.4}
+.vert-items{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;margin-top:6px}
+.vert-tag{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:1px 5px;font-size:7px;color:rgba(255,255,255,0.6);font-weight:600}
 .vert--cpo{background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.25)}
 .vert--cpo .vert-name{color:#5B9BF2}
+.vert--rnd{background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2)}
+.vert--rnd .vert-name{color:#00D4B4}
 .vert--pmo{background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.3)}
 .vert--pmo .vert-name{color:#CB11AB}
 .vert--cto{background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.25)}
 .vert--cto .vert-name{color:#5B9BF2}
-.vert--mon{background:rgba(0,135,90,0.12);border:1px solid rgba(0,135,90,0.2)}
-.vert--mon .vert-name{color:#34D399}
 .vert--an{background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2)}
 .vert--an .vert-name{color:#FFB830}
+.vert--exp{background:rgba(203,17,171,0.1);border:1px solid rgba(203,17,171,0.2)}
+.vert--exp .vert-name{color:#CB11AB}
 
 /* contours */
 .contours{display:grid;grid-template-columns:1fr 1fr;gap:6px}
@@ -77,7 +81,7 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
 .ft{margin-top:20px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,0.2)}
 
 @media print{body{background:#fff;color:#172B4D}*{-webkit-print-color-adjust:exact!important}}
-@media(max-width:700px){.compare{grid-template-columns:1fr}.arrow-col{padding:8px 0;transform:rotate(90deg)}.flat-grid{grid-template-columns:1fr}.vert-grid{grid-template-columns:repeat(3,1fr)}.pmo-cols{grid-template-columns:1fr}}
+@media(max-width:700px){.compare{grid-template-columns:1fr}.arrow-col{padding:8px 0;transform:rotate(90deg)}.flat-grid{grid-template-columns:1fr}.vert-grid{grid-template-columns:1fr}.pmo-cols{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -137,42 +141,50 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
       <div class="line-down"></div>
       <div class="line-h" style="width:90%"></div>
 
+      <!-- Верхний ряд: продуктовые блоки -->
       <div class="vert-grid">
-        <div class="vert vert--cpo"><div class="vert-name">CPO</div><div class="vert-desc">Развитие продуктов</div></div>
-        <div class="vert vert--pmo"><div class="vert-name">PMO</div><div class="vert-desc">Координация</div></div>
-        <div class="vert vert--cto"><div class="vert-name">CTO</div><div class="vert-desc">Разработка</div></div>
-        <div class="vert vert--mon"><div class="vert-name">Монетизация</div><div class="vert-desc">P&L, бизнес</div></div>
-        <div class="vert vert--an"><div class="vert-name">Аналитика</div><div class="vert-desc">Данные</div></div>
-      </div>
-
-      <div class="line-down" style="height:6px"></div>
-
-      <div class="contours">
-        <div class="contour contour--it">
-          <div class="contour-title">Контур 1: ИТ-продукты</div>
-          <div class="contour-items">
-            <span class="contour-tag">Wibes</span>
-            <span class="contour-tag">Книги</span>
-            <span class="contour-tag">Kids</span>
-            <span class="contour-tag">Sport</span>
-            <span class="contour-tag">Встречи</span>
-            <span class="contour-tag">Проект 9</span>
+        <div class="vert vert--cpo">
+          <div class="vert-name">CPO</div>
+          <div class="vert-desc">Зрелые продукты, P&L, назначение лидеров, единая дизайн-система</div>
+          <div class="vert-items">
+            <span class="vert-tag">Wibes</span>
+            <span class="vert-tag">Проект 9</span>
           </div>
         </div>
-        <div class="contour contour--biz">
-          <div class="contour-title">Контур 2: Направления</div>
-          <div class="contour-items">
-            <span class="contour-tag">Молодёжное</span>
-            <span class="contour-tag">Закупки</span>
-            <span class="contour-tag">Контент</span>
-            <span class="contour-tag">Маркетинг</span>
-            <span class="contour-tag">Ивенты</span>
+        <div class="vert vert--rnd">
+          <div class="vert-name">R&D</div>
+          <div class="vert-desc">Фаст-трек гипотез, упрощённые процессы, ранние продукты</div>
+          <div class="vert-items">
+            <span class="vert-tag">Kids</span>
+            <span class="vert-tag">Sport</span>
+            <span class="vert-tag">Встречи</span>
+            <span class="vert-tag">Книги</span>
           </div>
+        </div>
+        <div class="vert vert--cto">
+          <div class="vert-name">CTO</div>
+          <div class="vert-desc">Разработка, инфра, платформенные сервисы</div>
         </div>
       </div>
 
-      <div class="line-down" style="height:6px"></div>
-      <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.15);border-radius:8px;padding:8px 10px;text-align:center">
+      <!-- Нижний ряд: поддерживающие блоки -->
+      <div class="vert-grid">
+        <div class="vert vert--pmo">
+          <div class="vert-name">Операционка и стратегия</div>
+          <div class="vert-desc">PMO, OKR-каскад, ресурсы, lifecycle, прозрачность для CEO</div>
+        </div>
+        <div class="vert vert--an">
+          <div class="vert-name">Аналитика</div>
+          <div class="vert-desc">Продуктовая + рыночная аналитика, данные, BI</div>
+        </div>
+        <div class="vert vert--exp">
+          <div class="vert-name">Направления и экспансия</div>
+          <div class="vert-desc">Молодёжное, Контент, Ивенты, РФ, СНГ/Мир</div>
+        </div>
+      </div>
+
+      <!-- На пересмотр -->
+      <div style="margin-top:6px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.15);border-radius:8px;padding:8px 10px;text-align:center">
         <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,0.4);margin-bottom:4px">На пересмотр CEO</div>
         <div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:center">
           <span class="contour-tag" style="opacity:0.5;border-style:dashed">Соц. коммерция</span>
@@ -196,7 +208,7 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
       </div>
       <div class="pmo-col">
         <b>Чем отличается от CPO/CTO</b>
-        CPO — стратегия продуктов ("что делаем"). CTO — разработка ("как делаем"). PMO — координация ("делаем ли в срок и по приоритету").
+        CPO — какие продукты и кто их ведёт. R&D — генерация и проверка гипотез. CTO — как строим. PMO — делаем ли в срок и по приоритету.
       </div>
       <div class="pmo-col">
         <b>Как взаимодействует</b>
@@ -298,29 +310,29 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
         <div style="font-size:11px;font-weight:800;color:#9B59D0;margin-bottom:4px">Фаза 1: Апрель</div>
         <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6">
           Ничего не ломаем.<br>
-          ПО встраивается как координатор поверх текущей структуры.<br>
-          PM продолжают работать как раньше + 30 мин/нед отчётность.<br>
-          Направления не трогаем.
+          ПО встраивается как координатор.<br>
+          R&D запускает фаст-трек для новых гипотез.<br>
+          Рудименты — аудит и решение CEO.
         </div>
       </div>
       <div style="font-size:18px;color:rgba(255,255,255,0.1);padding:30px 8px">→</div>
       <div style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.2);border-radius:8px;padding:12px">
         <div style="font-size:11px;font-weight:800;color:#CB11AB;margin-bottom:4px">Фаза 2: Май-Июнь</div>
         <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6">
-          Вертикали формируются.<br>
-          CPO/CTO/Монетизация/Аналитика получают явный контур.<br>
-          ПО ведёт портфель ИТ-продуктов.<br>
-          Направления пока при CEO.
+          CPO назначает лидеров зрелых продуктов.<br>
+          R&D — pipeline от гипотезы до MVP.<br>
+          Единая дизайн-система экосистемы.<br>
+          Аналитика: продуктовая + рыночная.
         </div>
       </div>
       <div style="font-size:18px;color:rgba(255,255,255,0.1);padding:30px 8px">→</div>
       <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px">
         <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.5);margin-bottom:4px">Фаза 3: Q3+</div>
         <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6">
-          Направления структурируются.<br>
-          Отдельная модель для не-ИТ.<br>
-          CEO видит 5-6 вертикалей вместо 14+ подчинений.<br>
-          Полная прозрачность.
+          Экспансия: РФ регионы + СНГ/Мир.<br>
+          P&L по каждому зрелому продукту.<br>
+          CEO видит 6 блоков вместо 19 подчинений.<br>
+          Полная прозрачность и управляемость.
         </div>
       </div>
     </div>
@@ -341,11 +353,11 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
       <div style="background:rgba(0,135,90,0.06);border:1px solid rgba(0,135,90,0.15);border-radius:6px;padding:10px">
         <div style="font-weight:700;color:rgba(0,135,90,0.8);margin-bottom:4px">TO-BE: вертикали</div>
         <div style="color:rgba(255,255,255,0.5);line-height:1.6">
-          CEO принимает стратегические решения, операционка — в вертикалях<br>
-          Приоритеты — по RICE внутри контура, CEO решает между контурами<br>
+          CEO — 6 блоков вместо 19, стратегические решения<br>
+          CPO отвечает за монетизацию зрелых, R&D — за скорость ранних<br>
           Статус — автоматически через ПО, без запроса<br>
-          Единый lifecycle (Stage-Gate) для всех ИТ-продуктов<br>
-          Кросс-проекты — через ПО, не через CEO
+          Два режима: полный lifecycle (зрелые) и фаст-трек (R&D)<br>
+          Рудименты — явная зона решений, не размазаны по структуре
         </div>
       </div>
     </div>
@@ -355,7 +367,7 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
 
   <div class="note">
     Целевой подход — на обсуждение. Предлагаем начать с контура 1 (ИТ-продукты), расширить на контур 2 по результатам.<br>
-    5 вертикалей агрегируют 14+ прямых подчинений в управляемую структуру.
+    6 блоков агрегируют 19 прямых подчинений в управляемую структуру.
   </div>
 
   <footer class="ft">
