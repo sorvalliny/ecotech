@@ -25,7 +25,7 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
 .tb-btn.danger{color:#B83020}.tb-btn.danger:hover{background:#FFF5F5;border-color:#FCD5D5}
 .tb-hint{font-size:9px;color:#A0A0B8;margin-left:auto}
 
-.board{position:relative;width:100%;height:calc(100vh - 44px);overflow:auto;cursor:default}
+.board{position:relative;width:100%;height:calc(100vh - 88px);overflow:auto;cursor:default}
 .board.connecting{cursor:crosshair}
 .board.adding{cursor:cell}
 .board svg{position:absolute;top:0;left:0;width:3000px;height:3000px;pointer-events:none;z-index:5}
@@ -1239,6 +1239,25 @@ var verCount=Object.keys(store).length;
 document.getElementById('versionBadge').textContent='v1.0 · '+verCount+' досок · localStorage';
 
 renderTabs();render();
+})();
+</script>
+<script src="platform.js"></script>
+<script src="nav.js"></script>
+<script>
+// Auth gate: only admin, pmo_lead, CEO BU ECO
+(function(){
+  try {
+    var auth = JSON.parse(localStorage.getItem('ECOTECH_AUTH'));
+    var users = JSON.parse(localStorage.getItem('ECOTECH_USERS'));
+    if (auth && users) {
+      var cu = users.find(function(u){ return u.id === auth.id; });
+      if (cu && (cu.role === 'admin' || cu.role === 'pmo_lead' || (cu.role === 'lead' && cu.department === 'innovation'))) {
+        return; // authorized
+      }
+    }
+  } catch(e) {}
+  // Not authorized — show message and redirect
+  document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:Outfit,sans-serif;color:#7A7A9D;font-size:14px">Доступ ограничен. <a href="index.html" style="margin-left:8px;color:#6C3DAF">Войти в ОРБИТУ</a></div>';
 })();
 </script>
 </body>
