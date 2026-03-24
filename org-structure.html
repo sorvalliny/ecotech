@@ -9,37 +9,48 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;-webkit-font-smoothing:antialiased;overflow:hidden;height:100vh}
 
-/* toolbar */
-.toolbar{display:flex;align-items:center;gap:8px;padding:8px 16px;background:#fff;border-bottom:1px solid #E8E5EF;box-shadow:0 1px 4px rgba(0,0,0,0.04);z-index:100;position:relative}
-.toolbar h1{font-size:14px;font-weight:800;color:#1A1A2E;margin-right:12px}
+.toolbar{display:flex;align-items:center;gap:6px;padding:6px 14px;background:#fff;border-bottom:1px solid #E8E5EF;box-shadow:0 1px 4px rgba(0,0,0,0.04);z-index:100;position:relative;flex-wrap:wrap}
+.toolbar h1{font-size:14px;font-weight:800;color:#1A1A2E;margin-right:8px}
 .tabs{display:flex;gap:2px;background:#F0EDF5;border-radius:6px;padding:2px}
-.tab{padding:5px 14px;font-size:11px;font-weight:700;border-radius:5px;cursor:pointer;color:#7A7A9D;border:none;background:none;transition:all .15s}
+.tab{padding:4px 12px;font-size:10px;font-weight:700;border-radius:5px;cursor:pointer;color:#7A7A9D;border:none;background:none;transition:all .15s}
 .tab:hover{color:#1A1A2E}
 .tab.active{background:#fff;color:#6C3DAF;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
-.tb-sep{width:1px;height:20px;background:#E8E5EF;margin:0 6px}
-.tb-btn{padding:4px 12px;font-size:10px;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid #E8E5EF;background:#fff;color:#5A5A7A;transition:all .15s;font-family:inherit}
+.tb-sep{width:1px;height:20px;background:#E8E5EF;margin:0 4px}
+.tb-btn{padding:4px 10px;font-size:10px;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid #E8E5EF;background:#fff;color:#5A5A7A;transition:all .15s;font-family:inherit}
 .tb-btn:hover{background:#F7F5FA;border-color:#D8CCF0}
 .tb-btn.active{background:#6C3DAF;color:#fff;border-color:#6C3DAF}
+.tb-btn.green{color:#0A7A50;border-color:#B8E0B8}
+.tb-btn.green:hover{background:#EDFAF7}
+.tb-btn.blue{color:#2B5FC2;border-color:#C8D8F0}
+.tb-btn.blue:hover{background:#EEF2FF}
 .tb-btn.danger{color:#B83020}
 .tb-btn.danger:hover{background:#FFF5F5;border-color:#FCD5D5}
 .tb-hint{font-size:9px;color:#A0A0B8;margin-left:auto}
 
-/* board */
 .board{position:relative;width:100%;height:calc(100vh - 44px);overflow:auto;cursor:default}
 .board.connecting{cursor:crosshair}
-.board svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1}
-.board svg line,.board svg path{pointer-events:stroke}
+.board.adding{cursor:cell}
+.board svg{position:absolute;top:0;left:0;width:3000px;height:3000px;pointer-events:none;z-index:5}
+.board svg line{pointer-events:stroke}
+
+/* groups */
+.group{position:absolute;border-radius:12px;z-index:2;min-width:100px;min-height:60px}
+.group-label{position:absolute;top:-10px;left:12px;font-size:9px;font-weight:800;padding:2px 8px;border-radius:4px;cursor:pointer;z-index:3}
+.group-resize{position:absolute;right:0;bottom:0;width:14px;height:14px;cursor:nwse-resize;z-index:4}
+.group-resize::after{content:'';position:absolute;right:3px;bottom:3px;width:6px;height:6px;border-right:2px solid rgba(0,0,0,0.15);border-bottom:2px solid rgba(0,0,0,0.15)}
 
 /* node */
-.node{position:absolute;border-radius:8px;padding:10px 14px;min-width:110px;max-width:220px;cursor:grab;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:box-shadow .15s;user-select:none}
+.node{position:absolute;border-radius:8px;padding:10px 14px;min-width:100px;max-width:220px;cursor:grab;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:box-shadow .15s;user-select:none}
 .node:hover{box-shadow:0 4px 16px rgba(0,0,0,0.1);z-index:20}
 .node.dragging{cursor:grabbing;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:50;opacity:0.9}
 .node.connect-source{outline:2px solid #6C3DAF;outline-offset:2px}
+.node.selected{outline:2px solid #2B5FC2;outline-offset:2px}
 .node-name{font-size:11px;font-weight:800;margin-bottom:2px}
 .node-desc{font-size:8px;color:#5A5A7A;line-height:1.4}
 .node-badge{display:inline-block;font-size:7px;font-weight:700;padding:1px 5px;border-radius:3px;margin-top:3px}
+.node-del{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:#B83020;color:#fff;font-size:10px;line-height:16px;text-align:center;cursor:pointer;display:none;z-index:30;font-weight:700}
+.node:hover .node-del{display:block}
 
-/* node variants */
 .n-ceo{background:linear-gradient(135deg,#6C3DAF,#CB11AB);color:#fff;text-align:center;min-width:80px}
 .n-ceo .node-desc{color:rgba(255,255,255,0.7)}
 .n-cpo{background:#EEF2FF;border:1px solid #C8D8F0}.n-cpo .node-name{color:#2B5FC2}
@@ -56,29 +67,43 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
 .n-func{background:#fff;border:1px solid #D0D0DA}.n-func .node-name{color:#5A5A7A;font-size:10px}
 .n-app{background:#FAFAFA;border:1px dashed #C8C0D8}.n-app .node-name{color:#7A7A9D;font-size:9px}
 .n-app .node-badge{background:#F0EDF5;color:#7A7A9D}
+.n-custom{background:#fff;border:1px solid #D0D0DA}.n-custom .node-name{color:#1A1A2E}
 
-/* arrow */
 .arrow{stroke:#A0A0B8;stroke-width:1.5;fill:none;cursor:pointer;pointer-events:stroke;transition:stroke .15s}
 .arrow:hover{stroke:#6C3DAF;stroke-width:2.5}
-.arrow-head{fill:#A0A0B8;pointer-events:none;transition:fill .15s}
-.arrow:hover+.arrow-head{fill:#6C3DAF}
-.arrow-temp{stroke:#6C3DAF;stroke-width:1.5;stroke-dasharray:6 4;fill:none;pointer-events:none}
+.arrow-head{fill:#A0A0B8;pointer-events:none}
 
-/* legend */
+/* modal */
+.modal-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.3);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:12px;padding:20px 24px;width:360px;box-shadow:0 12px 40px rgba(0,0,0,0.15)}
+.modal h3{font-size:14px;font-weight:800;margin-bottom:12px}
+.modal label{display:block;font-size:10px;font-weight:700;color:#5A5A7A;margin-bottom:3px;margin-top:10px}
+.modal input,.modal textarea,.modal select{width:100%;padding:6px 10px;border:1px solid #E8E5EF;border-radius:6px;font-size:11px;font-family:inherit;color:#1A1A2E;outline:none}
+.modal input:focus,.modal textarea:focus,.modal select:focus{border-color:#6C3DAF}
+.modal textarea{height:50px;resize:vertical}
+.modal select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237A7A9D'/%3E%3C/svg%3E") no-repeat right 10px center}
+.modal-btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
+.modal-btns button{padding:6px 16px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid #E8E5EF;background:#fff;color:#5A5A7A;font-family:inherit}
+.modal-btns .primary{background:#6C3DAF;color:#fff;border-color:#6C3DAF}
+.modal-btns .primary:hover{background:#5A2E96}
+
+/* color options */
+.color-opts{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
+.color-opt{width:22px;height:22px;border-radius:5px;cursor:pointer;border:2px solid transparent;transition:border-color .1s}
+.color-opt:hover,.color-opt.sel{border-color:#1A1A2E}
+
 .legend{position:fixed;bottom:12px;left:12px;background:#fff;border:1px solid #E8E5EF;border-radius:8px;padding:8px 12px;font-size:8px;color:#7A7A9D;box-shadow:0 2px 8px rgba(0,0,0,0.06);z-index:100;line-height:1.8}
 .legend b{color:#1A1A2E;font-size:9px}
 .legend kbd{display:inline-block;background:#F0EDF5;border:1px solid #D8CCF0;border-radius:3px;padding:0 4px;font-size:8px;font-family:inherit;color:#5A5A7A}
 
-/* problems bar */
 .problems-bar{position:absolute;top:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:50}
 .prob-chip{background:#FFF5F5;border:1px solid #FCD5D5;border-radius:6px;padding:5px 10px;font-size:8px;color:#C53030;font-weight:700;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
 .prob-chip span{font-weight:400;color:#7A5A5A;display:block;font-size:7px;margin-top:1px}
-
-/* scenario badge */
 .sc-badge{position:absolute;top:12px;left:12px;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:800;z-index:50}
 .sc-badge.rec{background:#0A7A50;color:#fff}
 
-@media print{body{overflow:visible;height:auto}.board{height:auto;overflow:visible}.toolbar,.legend{display:none}*{-webkit-print-color-adjust:exact!important}}
+@media print{body{overflow:visible;height:auto}.board{height:auto;overflow:visible}.toolbar,.legend,.modal-bg,.node-del{display:none!important}*{-webkit-print-color-adjust:exact!important}}
 </style>
 </head>
 <body>
@@ -92,32 +117,99 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
     <button class="tab" data-board="scc">В. Гибридный</button>
   </div>
   <div class="tb-sep"></div>
+  <button class="tb-btn green" id="btnAdd">+ Блок</button>
+  <button class="tb-btn blue" id="btnGroup">Группа</button>
   <button class="tb-btn" id="btnConnect">Связь</button>
   <button class="tb-btn danger" id="btnReset">Сброс</button>
-  <div class="tb-hint" id="hint">Перетаскивайте блоки. Нажмите «Связь» для создания иерархии.</div>
+  <div class="tb-hint" id="hint">Двойной клик — редактировать. Наведите — крестик удалить.</div>
 </div>
 
 <div class="board" id="board">
-  <svg id="svgLayer"><defs><marker id="arrowMarker" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" class="arrow-head"/></marker></defs></svg>
+  <svg id="svgLayer"><defs><marker id="ah" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" class="arrow-head"/></marker></defs></svg>
+</div>
+
+<!-- Edit modal -->
+<div class="modal-bg" id="editModal">
+  <div class="modal">
+    <h3 id="modalTitle">Редактировать блок</h3>
+    <label>Название</label>
+    <input id="mName" placeholder="Название блока">
+    <label>Описание</label>
+    <textarea id="mDesc" placeholder="Описание (необязательно)"></textarea>
+    <label>Тип</label>
+    <select id="mType">
+      <option value="n-ceo">CEO</option>
+      <option value="n-cpo">CPO (синий)</option>
+      <option value="n-cto">CTO (синий)</option>
+      <option value="n-rnd">R&D (зелёный)</option>
+      <option value="n-ops">Операционка (фиолетовый)</option>
+      <option value="n-an">Аналитика (оранжевый)</option>
+      <option value="n-sales">Продажи (зелёный)</option>
+      <option value="n-exp">Направления (розовый)</option>
+      <option value="n-prod">Продукт</option>
+      <option value="n-prod-rnd">Продукт R&D</option>
+      <option value="n-dir">Направление</option>
+      <option value="n-func">Функция</option>
+      <option value="n-rud">Рудимент / Пересмотр</option>
+      <option value="n-app">Аппарат / Опция</option>
+      <option value="n-custom">Кастомный</option>
+    </select>
+    <div class="modal-btns">
+      <button id="mCancel">Отмена</button>
+      <button class="primary" id="mSave">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Group modal -->
+<div class="modal-bg" id="groupModal">
+  <div class="modal">
+    <h3>Создать группу</h3>
+    <label>Название группы</label>
+    <input id="gName" placeholder="Например: Зрелые продукты">
+    <label>Цвет</label>
+    <div class="color-opts" id="gColors">
+      <div class="color-opt sel" data-c="#6C3DAF" style="background:rgba(108,61,175,0.12)"></div>
+      <div class="color-opt" data-c="#2B5FC2" style="background:rgba(43,95,194,0.12)"></div>
+      <div class="color-opt" data-c="#0A8A70" style="background:rgba(10,138,112,0.12)"></div>
+      <div class="color-opt" data-c="#B07A00" style="background:rgba(176,122,0,0.12)"></div>
+      <div class="color-opt" data-c="#CB11AB" style="background:rgba(203,17,171,0.12)"></div>
+      <div class="color-opt" data-c="#B83020" style="background:rgba(184,48,32,0.12)"></div>
+      <div class="color-opt" data-c="#5A5A7A" style="background:rgba(90,90,122,0.08)"></div>
+    </div>
+    <div class="modal-btns">
+      <button id="gCancel">Отмена</button>
+      <button class="primary" id="gSave">Создать</button>
+    </div>
+  </div>
 </div>
 
 <div class="legend">
-  <b>Управление</b><br>
-  Перетаскивание — двигать блоки<br>
-  <kbd>Связь</kbd> — клик по источнику, затем по цели<br>
+  <b>Управление доской</b><br>
+  Перетаскивание — двигать блоки и группы<br>
+  Двойной клик — редактировать блок/группу<br>
+  <kbd>+ Блок</kbd> — добавить, кликните на доске<br>
+  <kbd>Группа</kbd> — создать группу, затем перетащите размер<br>
+  <kbd>Связь</kbd> — клик источник → цель<br>
   ПКМ по стрелке — удалить связь<br>
-  <kbd>Сброс</kbd> — вернуть к начальному виду
+  Крестик на блоке — удалить
 </div>
 
 <script>
 (function(){
-/* ═══════ DATA ═══════ */
-var BOARDS = {
 
+var NODE_TYPES = {
+  'n-ceo':'CEO','n-cpo':'CPO','n-cto':'CTO','n-rnd':'R&D','n-ops':'Операционка',
+  'n-an':'Аналитика','n-sales':'Продажи','n-exp':'Направления','n-prod':'Продукт',
+  'n-prod-rnd':'Продукт R&D','n-dir':'Направление','n-func':'Функция',
+  'n-rud':'Рудимент','n-app':'Аппарат','n-custom':'Кастомный'
+};
+
+/* ═══════ DEFAULT DATA ═══════ */
+var DEFAULTS = {
 asis: {
-  label: 'AS-IS',
   nodes: [
-    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Департамент Экосистемы',x:420,y:50,w:100},
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Департамент Экосистемы',x:420,y:50},
     {id:'wibes',type:'n-prod',name:'Wibes',x:40,y:160},
     {id:'books',type:'n-prod',name:'Книги',x:160,y:160},
     {id:'kids',type:'n-prod',name:'Kids',x:280,y:160},
@@ -138,18 +230,12 @@ asis: {
     {id:'p8',type:'n-rud',name:'Проект 8',desc:'рудимент',x:320,y:340},
     {id:'smm',type:'n-rud',name:'Маркетинг в соцсетях',desc:'рудимент',x:460,y:340}
   ],
-  edges: [
-    ['ceo','wibes'],['ceo','books'],['ceo','kids'],['ceo','sport'],['ceo','meets'],['ceo','p9'],['ceo','youth'],
-    ['ceo','content'],['ceo','events'],['ceo','procure'],['ceo','mkt'],
-    ['ceo','ctof'],['ceo','anf'],['ceo','pmof'],['ceo','monf'],
-    ['ceo','soccom'],['ceo','specpr'],['ceo','p8'],['ceo','smm']
-  ]
+  edges:[['ceo','wibes'],['ceo','books'],['ceo','kids'],['ceo','sport'],['ceo','meets'],['ceo','p9'],['ceo','youth'],['ceo','content'],['ceo','events'],['ceo','procure'],['ceo','mkt'],['ceo','ctof'],['ceo','anf'],['ceo','pmof'],['ceo','monf'],['ceo','soccom'],['ceo','specpr'],['ceo','p8'],['ceo','smm']],
+  groups:[]
 },
-
 sca: {
-  label: 'А. Максимальная автономия',
   nodes: [
-    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия и бюджет',x:400,y:40,w:100},
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия и бюджет',x:400,y:40},
     {id:'cpo',type:'n-cpo',name:'CPO',desc:'Стратегия портфеля, лидеры, дизайн-система',x:80,y:150},
     {id:'sales',type:'n-sales',name:'Продажи',desc:'B2B/B2C/B2G — у каждого продукта свои',x:260,y:150},
     {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR, прозрачность',x:450,y:150},
@@ -165,21 +251,16 @@ sca: {
     {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',x:320,y:390},
     {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',x:560,y:390}
   ],
-  edges: [
-    ['ceo','cpo'],['ceo','sales'],['ceo','ops'],['ceo','cto'],['ceo','an'],
-    ['cpo','wibes'],['cpo','p9'],['cpo','kids'],['cpo','sport'],['cpo','meets'],['cpo','books'],
-    ['ceo','exp'],['ceo','review']
-  ]
+  edges:[['ceo','cpo'],['ceo','sales'],['ceo','ops'],['ceo','cto'],['ceo','an'],['cpo','wibes'],['cpo','p9'],['cpo','kids'],['cpo','sport'],['cpo','meets'],['cpo','books'],['ceo','exp'],['ceo','review']],
+  groups:[]
 },
-
 scb: {
-  label: 'Б. Платформа + R&D',
   nodes: [
-    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Приоритеты и бюджет',x:400,y:40,w:100},
-    {id:'cto',type:'n-cto',name:'CTO + Платформа',desc:'Единая инфра, дизайн-система, продукты как сервисы',x:60,y:150},
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Приоритеты и бюджет',x:400,y:40},
+    {id:'cto',type:'n-cto',name:'CTO + Платформа',desc:'Единая инфра, дизайн-система',x:60,y:150},
     {id:'rnd',type:'n-rnd',name:'R&D',desc:'Генерация гипотез, фаст-трек',x:280,y:150},
-    {id:'sales',type:'n-sales',name:'Продажи',desc:'Единый канал B2B/B2C/B2G, пакетные решения',x:450,y:150},
-    {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR, lifecycle, прозрачность',x:660,y:150},
+    {id:'sales',type:'n-sales',name:'Продажи',desc:'Единый канал B2B/B2C/B2G',x:450,y:150},
+    {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR, lifecycle',x:660,y:150},
     {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная',x:60,y:280},
     {id:'wibes',type:'n-prod',name:'Wibes',x:220,y:280},
     {id:'p9',type:'n-prod',name:'Проект 9',x:330,y:280},
@@ -191,24 +272,17 @@ scb: {
     {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',x:300,y:380},
     {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',x:530,y:380}
   ],
-  edges: [
-    ['ceo','cto'],['ceo','rnd'],['ceo','sales'],['ceo','ops'],
-    ['cto','wibes'],['cto','p9'],['cto','an'],
-    ['rnd','kids'],['rnd','sport'],['rnd','meets'],['rnd','books'],
-    ['ceo','exp'],['ceo','review']
-  ]
+  edges:[['ceo','cto'],['ceo','rnd'],['ceo','sales'],['ceo','ops'],['cto','wibes'],['cto','p9'],['cto','an'],['rnd','kids'],['rnd','sport'],['rnd','meets'],['rnd','books'],['ceo','exp'],['ceo','review']],
+  groups:[]
 },
-
 scc: {
-  label: 'В. Гибридный',
-  badge: 'rec',
   nodes: [
-    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия, бюджет, рудименты',x:400,y:40,w:100},
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия, бюджет, рудименты',x:400,y:40},
     {id:'cpo',type:'n-cpo',name:'CPO',desc:'Зрелые продукты, P&L, лидеры, дизайн-система',x:60,y:150},
     {id:'rnd',type:'n-rnd',name:'R&D',desc:'Фаст-трек гипотез, упрощённые процессы',x:260,y:150},
     {id:'cto',type:'n-cto',name:'CTO',desc:'Разработка, инфра, платформа',x:450,y:150},
-    {id:'sales',type:'n-sales',name:'Продажи',desc:'Зрелые — свои. R&D — общий канал B2B/B2C/B2G',x:640,y:150},
-    {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR-каскад, lifecycle, прозрачность',x:60,y:280},
+    {id:'sales',type:'n-sales',name:'Продажи',desc:'Зрелые — свои. R&D — общий B2B/B2C/B2G',x:640,y:150},
+    {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR-каскад, lifecycle',x:60,y:280},
     {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная, BI',x:280,y:280},
     {id:'exp',type:'n-exp',name:'Направления и экспансия',desc:'РФ, СНГ/Мир, Молодёжное, Контент, Ивенты',x:490,y:280},
     {id:'wibes',type:'n-prod',name:'Wibes',desc:'P&L',x:40,y:400},
@@ -221,342 +295,348 @@ scc: {
     {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',x:840,y:400},
     {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',x:730,y:280}
   ],
-  edges: [
-    ['ceo','cpo'],['ceo','rnd'],['ceo','cto'],['ceo','sales'],
-    ['ceo','ops'],['ceo','an'],['ceo','exp'],
-    ['cpo','wibes'],['cpo','p9'],
-    ['rnd','kids'],['rnd','sport'],['rnd','meets'],['rnd','books'],['rnd','newhyp'],
-    ['ceo','review']
-  ]
+  edges:[['ceo','cpo'],['ceo','rnd'],['ceo','cto'],['ceo','sales'],['ceo','ops'],['ceo','an'],['ceo','exp'],['cpo','wibes'],['cpo','p9'],['rnd','kids'],['rnd','sport'],['rnd','meets'],['rnd','books'],['rnd','newhyp'],['ceo','review']],
+  groups:[]
 }
-
 };
 
 /* ═══════ STATE ═══════ */
-var currentBoard = 'asis';
-var connecting = false;
-var connectSource = null;
-var dragging = null;
-var dragOff = {x:0,y:0};
-var nodeEls = {};
-var savedState = {};
+var cur = 'asis';
+var mode = ''; // '' | 'connect' | 'add' | 'group'
+var connectSrc = null;
+var dragging = null, dragOff={x:0,y:0}, dragType='';
+var groupDraw = null;
+var nodeEls = {}, groupEls = {};
+var uidCounter = Date.now();
 
-var board = document.getElementById('board');
-var svg = document.getElementById('svgLayer');
-var btnConnect = document.getElementById('btnConnect');
-var btnReset = document.getElementById('btnReset');
-var hint = document.getElementById('hint');
+var $board = document.getElementById('board');
+var $svg = document.getElementById('svgLayer');
+var $hint = document.getElementById('hint');
+var $editModal = document.getElementById('editModal');
+var $groupModal = document.getElementById('groupModal');
+
+function uid(){return 'n'+(uidCounter++)}
 
 /* ═══════ STORAGE ═══════ */
-var STORE_KEY = 'orgboard_v2';
-function loadStore(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||{}}catch(e){return{}}}
-function saveStore(){localStorage.setItem(STORE_KEY, JSON.stringify(savedState))}
-
-function getBoardState(bid){
-  if(!savedState[bid]) return null;
-  return savedState[bid];
+var SK = 'orgboard_v3';
+var store = {};
+try{store=JSON.parse(localStorage.getItem(SK))||{}}catch(e){}
+function save(){localStorage.setItem(SK,JSON.stringify(store))}
+function getState(bid){
+  if(store[bid]) return JSON.parse(JSON.stringify(store[bid]));
+  return JSON.parse(JSON.stringify(DEFAULTS[bid]));
 }
-function setBoardState(bid, positions, edges){
-  savedState[bid] = {positions:positions, edges:edges};
-  saveStore();
-}
+function setState(bid,s){store[bid]=JSON.parse(JSON.stringify(s));save()}
+function curState(){return getState(cur)}
+function saveCur(s){setState(cur,s)}
 
 /* ═══════ RENDER ═══════ */
-function getPositions(bid){
-  var s = getBoardState(bid);
-  if(s && s.positions) return s.positions;
-  var p = {};
-  BOARDS[bid].nodes.forEach(function(n){ p[n.id] = {x:n.x, y:n.y}; });
-  return p;
-}
-function getEdges(bid){
-  var s = getBoardState(bid);
-  if(s && s.edges) return s.edges;
-  return BOARDS[bid].edges.map(function(e){return [e[0],e[1]]});
-}
-
-function render(bid){
-  // clear
-  board.querySelectorAll('.node').forEach(function(el){el.remove()});
-  board.querySelectorAll('.problems-bar,.sc-badge').forEach(function(el){el.remove()});
-  svg.querySelectorAll('line,path,.arrow,.arrow-head-el,.arrow-temp').forEach(function(el){
-    if(el.tagName!=='defs' && !el.closest('defs')) el.remove();
-  });
-  nodeEls = {};
-
-  var data = BOARDS[bid];
-  var positions = getPositions(bid);
-  var edges = getEdges(bid);
+function render(){
+  $board.querySelectorAll('.node,.group,.problems-bar,.sc-badge').forEach(function(e){e.remove()});
+  $svg.querySelectorAll('.edge-group').forEach(function(e){e.remove()});
+  nodeEls={};groupEls={};
+  var s=curState();
 
   // badge
-  if(data.badge === 'rec'){
-    var badge = document.createElement('div');
-    badge.className = 'sc-badge rec';
-    badge.textContent = 'РЕКОМЕНДАЦИЯ';
-    board.appendChild(badge);
+  if(cur==='scc'){var b=document.createElement('div');b.className='sc-badge rec';b.textContent='РЕКОМЕНДАЦИЯ';$board.appendChild(b)}
+
+  // problems
+  if(cur==='asis'){
+    var pb=document.createElement('div');pb.className='problems-bar';
+    [['Монетизация','Нет P&L'],['Управляемость','19 подчинений'],['Рудименты','4 без результата'],['Скорость','Нет R&D'],['Прозрачность','Нет lifecycle']].forEach(function(p){
+      var c=document.createElement('div');c.className='prob-chip';c.innerHTML=p[0]+'<span>'+p[1]+'</span>';pb.appendChild(c);
+    });$board.appendChild(pb);
   }
 
-  // problems for AS-IS
-  if(bid === 'asis'){
-    var pbar = document.createElement('div');
-    pbar.className = 'problems-bar';
-    var probs = [
-      ['Монетизация','Нет P&L'],
-      ['Управляемость','19 подчинений'],
-      ['Рудименты','4 без результата'],
-      ['Скорость','Нет R&D'],
-      ['Прозрачность','Нет lifecycle']
-    ];
-    probs.forEach(function(p){
-      var chip = document.createElement('div');
-      chip.className = 'prob-chip';
-      chip.innerHTML = p[0] + '<span>' + p[1] + '</span>';
-      pbar.appendChild(chip);
-    });
-    board.appendChild(pbar);
-  }
-
-  // nodes
-  data.nodes.forEach(function(n){
-    var el = document.createElement('div');
-    el.className = 'node ' + n.type;
-    el.dataset.id = n.id;
-    el.dataset.board = bid;
-
-    var html = '<div class="node-name">' + n.name + '</div>';
-    if(n.desc) html += '<div class="node-desc">' + n.desc + '</div>';
-    if(n.type === 'n-app') html += '<div class="node-badge">опция</div>';
-    el.innerHTML = html;
-
-    var pos = positions[n.id] || {x:n.x, y:n.y};
-    el.style.left = pos.x + 'px';
-    el.style.top = pos.y + 'px';
-    if(n.w) el.style.minWidth = n.w + 'px';
-
-    board.appendChild(el);
-    nodeEls[n.id] = el;
+  // groups
+  (s.groups||[]).forEach(function(g,i){
+    var el=document.createElement('div');
+    el.className='group';el.dataset.gidx=i;
+    el.style.left=g.x+'px';el.style.top=g.y+'px';el.style.width=g.w+'px';el.style.height=g.h+'px';
+    el.style.background=hexToRgba(g.color,0.06);el.style.border='1.5px solid '+hexToRgba(g.color,0.2);
+    var lbl=document.createElement('div');lbl.className='group-label';
+    lbl.style.background=hexToRgba(g.color,0.12);lbl.style.color=g.color;lbl.textContent=g.name;
+    var rz=document.createElement('div');rz.className='group-resize';
+    el.appendChild(lbl);el.appendChild(rz);
+    $board.appendChild(el);groupEls[i]=el;
   });
 
-  // edges
-  drawEdges(edges);
+  // nodes
+  s.nodes.forEach(function(n){
+    var el=document.createElement('div');
+    el.className='node '+n.type;el.dataset.id=n.id;
+    var h='<div class="node-name">'+esc(n.name)+'</div>';
+    if(n.desc)h+='<div class="node-desc">'+esc(n.desc)+'</div>';
+    if(n.type==='n-app')h+='<div class="node-badge">опция</div>';
+    h+='<div class="node-del" title="Удалить">x</div>';
+    el.innerHTML=h;
+    el.style.left=n.x+'px';el.style.top=n.y+'px';
+    $board.appendChild(el);nodeEls[n.id]=el;
+  });
+
+  drawEdges(s.edges);
 }
+
+function esc(t){return t.replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function hexToRgba(hex,a){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return 'rgba('+r+','+g+','+b+','+a+')'}
 
 function getCenter(el){
-  var r = el.getBoundingClientRect();
-  var br = board.getBoundingClientRect();
-  return {
-    x: r.left - br.left + board.scrollLeft + r.width/2,
-    y: r.top - br.top + board.scrollTop + r.height/2,
-    top: r.top - br.top + board.scrollTop,
-    bottom: r.top - br.top + board.scrollTop + r.height,
-    left: r.left - br.left + board.scrollLeft,
-    right: r.left - br.left + board.scrollLeft + r.width,
-    w: r.width,
-    h: r.height
-  };
-}
-
-function bestAnchors(from, to){
-  var fc = getCenter(from);
-  var tc = getCenter(to);
-  // find best side: bottom of parent to top of child usually
-  var dy = tc.y - fc.y;
-  var dx = tc.x - fc.x;
-
-  var fx, fy, tx, ty;
-
-  if(Math.abs(dy) > Math.abs(dx) * 0.3){
-    // vertical dominant
-    if(dy > 0){
-      fx = fc.x; fy = fc.bottom;
-      tx = tc.x; ty = tc.top;
-    } else {
-      fx = fc.x; fy = fc.top;
-      tx = tc.x; ty = tc.bottom;
-    }
-  } else {
-    // horizontal
-    if(dx > 0){
-      fx = fc.right; fy = fc.y;
-      tx = tc.left; ty = tc.y;
-    } else {
-      fx = fc.left; fy = fc.y;
-      tx = tc.right; ty = tc.y;
-    }
-  }
-  return {fx:fx, fy:fy, tx:tx, ty:ty};
+  var r=el.getBoundingClientRect(),br=$board.getBoundingClientRect();
+  return{x:r.left-br.left+$board.scrollLeft+r.width/2,y:r.top-br.top+$board.scrollTop+r.height/2,
+    top:r.top-br.top+$board.scrollTop,bottom:r.top-br.top+$board.scrollTop+r.height,
+    left:r.left-br.left+$board.scrollLeft,right:r.left-br.left+$board.scrollLeft+r.width};
 }
 
 function drawEdges(edges){
-  svg.querySelectorAll('.edge-group').forEach(function(el){el.remove()});
-
-  edges.forEach(function(e, i){
-    var fromEl = nodeEls[e[0]];
-    var toEl = nodeEls[e[1]];
-    if(!fromEl || !toEl) return;
-
-    var a = bestAnchors(fromEl, toEl);
-    var g = document.createElementNS('http://www.w3.org/2000/svg','g');
-    g.classList.add('edge-group');
-    g.dataset.from = e[0];
-    g.dataset.to = e[1];
-    g.dataset.idx = i;
-
-    var line = document.createElementNS('http://www.w3.org/2000/svg','line');
-    line.setAttribute('x1', a.fx);
-    line.setAttribute('y1', a.fy);
-    line.setAttribute('x2', a.tx);
-    line.setAttribute('y2', a.ty);
-    line.classList.add('arrow');
-    line.setAttribute('marker-end','url(#arrowMarker)');
-
-    // hit area (wider invisible line for easier clicking)
-    var hit = document.createElementNS('http://www.w3.org/2000/svg','line');
-    hit.setAttribute('x1', a.fx);
-    hit.setAttribute('y1', a.fy);
-    hit.setAttribute('x2', a.tx);
-    hit.setAttribute('y2', a.ty);
-    hit.setAttribute('stroke','transparent');
-    hit.setAttribute('stroke-width','12');
-    hit.style.cursor = 'pointer';
-    hit.style.pointerEvents = 'stroke';
-
-    hit.addEventListener('contextmenu', function(ev){
-      ev.preventDefault();
-      removeEdge(e[0], e[1]);
+  $svg.querySelectorAll('.edge-group').forEach(function(e){e.remove()});
+  edges.forEach(function(e){
+    var f=nodeEls[e[0]],t=nodeEls[e[1]];if(!f||!t)return;
+    var fc=getCenter(f),tc=getCenter(t),dy=tc.y-fc.y,dx=tc.x-fc.x;
+    var fx,fy,tx,ty;
+    if(Math.abs(dy)>Math.abs(dx)*0.3){
+      if(dy>0){fx=fc.x;fy=fc.bottom;tx=tc.x;ty=tc.top}else{fx=fc.x;fy=fc.top;tx=tc.x;ty=tc.bottom}
+    }else{if(dx>0){fx=fc.right;fy=fc.y;tx=tc.left;ty=tc.y}else{fx=fc.left;fy=fc.y;tx=tc.right;ty=tc.y}}
+    var g=document.createElementNS('http://www.w3.org/2000/svg','g');g.classList.add('edge-group');
+    var ln=document.createElementNS('http://www.w3.org/2000/svg','line');
+    ln.setAttribute('x1',fx);ln.setAttribute('y1',fy);ln.setAttribute('x2',tx);ln.setAttribute('y2',ty);
+    ln.classList.add('arrow');ln.setAttribute('marker-end','url(#ah)');
+    var hit=document.createElementNS('http://www.w3.org/2000/svg','line');
+    hit.setAttribute('x1',fx);hit.setAttribute('y1',fy);hit.setAttribute('x2',tx);hit.setAttribute('y2',ty);
+    hit.setAttribute('stroke','transparent');hit.setAttribute('stroke-width','12');hit.style.cursor='pointer';hit.style.pointerEvents='stroke';
+    hit.addEventListener('contextmenu',function(ev){ev.preventDefault();
+      var s=curState();s.edges=s.edges.filter(function(x){return!(x[0]===e[0]&&x[1]===e[1])});saveCur(s);render();
     });
-
-    g.appendChild(line);
-    g.appendChild(hit);
-    svg.appendChild(g);
+    g.appendChild(ln);g.appendChild(hit);$svg.appendChild(g);
   });
-}
-
-function refreshEdges(){
-  var edges = getEdges(currentBoard);
-  drawEdges(edges);
-}
-
-function addEdge(from, to){
-  if(from === to) return;
-  var edges = getEdges(currentBoard);
-  // check duplicate
-  for(var i=0;i<edges.length;i++){
-    if(edges[i][0]===from && edges[i][1]===to) return;
-  }
-  edges.push([from, to]);
-  saveCurrentState(edges);
-  refreshEdges();
-}
-
-function removeEdge(from, to){
-  var edges = getEdges(currentBoard);
-  edges = edges.filter(function(e){ return !(e[0]===from && e[1]===to); });
-  saveCurrentState(edges);
-  refreshEdges();
-}
-
-function saveCurrentState(edges){
-  var positions = {};
-  Object.keys(nodeEls).forEach(function(id){
-    var el = nodeEls[id];
-    positions[id] = {x: parseInt(el.style.left), y: parseInt(el.style.top)};
-  });
-  if(!edges) edges = getEdges(currentBoard);
-  setBoardState(currentBoard, positions, edges);
 }
 
 /* ═══════ DRAG ═══════ */
-board.addEventListener('mousedown', function(ev){
-  var node = ev.target.closest('.node');
-  if(!node) return;
-  if(connecting){
-    handleConnect(node);
+$board.addEventListener('mousedown',function(ev){
+  if(ev.button!==0)return;
+  // group resize?
+  if(ev.target.classList.contains('group-resize')){
+    var gel=ev.target.parentElement;dragType='gresize';dragging=gel;
+    dragOff.x=ev.clientX;dragOff.y=ev.clientY;
+    dragOff.w=parseInt(gel.style.width);dragOff.h=parseInt(gel.style.height);
+    ev.preventDefault();return;
+  }
+  // group drag?
+  if(ev.target.classList.contains('group-label')||ev.target.classList.contains('group')){
+    var gel2=ev.target.closest('.group');if(!gel2)return;
+    dragType='group';dragging=gel2;
+    var r=gel2.getBoundingClientRect();dragOff.x=ev.clientX-r.left;dragOff.y=ev.clientY-r.top;
+    ev.preventDefault();return;
+  }
+  // node delete?
+  if(ev.target.classList.contains('node-del')){
+    var nd=ev.target.closest('.node');if(!nd)return;
+    var s=curState();var nid=nd.dataset.id;
+    s.nodes=s.nodes.filter(function(n){return n.id!==nid});
+    s.edges=s.edges.filter(function(e){return e[0]!==nid&&e[1]!==nid});
+    saveCur(s);render();return;
+  }
+  var node=ev.target.closest('.node');
+  if(node){
+    if(mode==='connect'){handleConnect(node);return}
+    ev.preventDefault();dragType='node';dragging=node;dragging.classList.add('dragging');
+    var r2=node.getBoundingClientRect();dragOff.x=ev.clientX-r2.left;dragOff.y=ev.clientY-r2.top;
     return;
   }
-  ev.preventDefault();
-  dragging = node;
-  dragging.classList.add('dragging');
-  var r = node.getBoundingClientRect();
-  dragOff.x = ev.clientX - r.left;
-  dragOff.y = ev.clientY - r.top;
+  // board click for add mode
+  if(mode==='add'){
+    var br=$board.getBoundingClientRect();
+    var px=ev.clientX-br.left+$board.scrollLeft;
+    var py=ev.clientY-br.top+$board.scrollTop;
+    openEditModal(null,px,py);setMode('');return;
+  }
+  // board click for group draw
+  if(mode==='group'){
+    var br2=$board.getBoundingClientRect();
+    groupDraw={x:ev.clientX-br2.left+$board.scrollLeft,y:ev.clientY-br2.top+$board.scrollTop};
+    ev.preventDefault();return;
+  }
 });
 
-document.addEventListener('mousemove', function(ev){
-  if(!dragging) return;
-  var br = board.getBoundingClientRect();
-  var x = ev.clientX - br.left + board.scrollLeft - dragOff.x;
-  var y = ev.clientY - br.top + board.scrollTop - dragOff.y;
-  dragging.style.left = Math.max(0, x) + 'px';
-  dragging.style.top = Math.max(0, y) + 'px';
-  refreshEdges();
+document.addEventListener('mousemove',function(ev){
+  if(!dragging)return;
+  var br=$board.getBoundingClientRect();
+  if(dragType==='node'){
+    var x=ev.clientX-br.left+$board.scrollLeft-dragOff.x;
+    var y=ev.clientY-br.top+$board.scrollTop-dragOff.y;
+    dragging.style.left=Math.max(0,x)+'px';dragging.style.top=Math.max(0,y)+'px';
+    var s=curState();var nd=s.nodes.find(function(n){return n.id===dragging.dataset.id});
+    if(nd){nd.x=Math.max(0,x);nd.y=Math.max(0,y);saveCur(s)}
+    drawEdges(curState().edges);
+  }else if(dragType==='group'){
+    var x2=ev.clientX-br.left+$board.scrollLeft-dragOff.x;
+    var y2=ev.clientY-br.top+$board.scrollTop-dragOff.y;
+    dragging.style.left=Math.max(0,x2)+'px';dragging.style.top=Math.max(0,y2)+'px';
+    var s2=curState();var gi=parseInt(dragging.dataset.gidx);
+    if(s2.groups&&s2.groups[gi]){s2.groups[gi].x=Math.max(0,x2);s2.groups[gi].y=Math.max(0,y2);saveCur(s2)}
+  }else if(dragType==='gresize'){
+    var dw=ev.clientX-dragOff.x,dh=ev.clientY-dragOff.y;
+    dragging.style.width=Math.max(80,dragOff.w+dw)+'px';
+    dragging.style.height=Math.max(40,dragOff.h+dh)+'px';
+    var s3=curState();var gi2=parseInt(dragging.dataset.gidx);
+    if(s3.groups&&s3.groups[gi2]){s3.groups[gi2].w=Math.max(80,dragOff.w+dw);s3.groups[gi2].h=Math.max(40,dragOff.h+dh);saveCur(s3)}
+  }
 });
 
-document.addEventListener('mouseup', function(){
-  if(!dragging) return;
-  dragging.classList.remove('dragging');
-  dragging = null;
-  saveCurrentState();
+document.addEventListener('mouseup',function(){
+  if(dragging&&dragType==='node')dragging.classList.remove('dragging');
+  dragging=null;dragType='';
 });
+
+/* ═══════ DBLCLICK EDIT ═══════ */
+$board.addEventListener('dblclick',function(ev){
+  var node=ev.target.closest('.node');
+  if(node){openEditModal(node.dataset.id);return}
+  var grp=ev.target.closest('.group');
+  if(grp){
+    var gi=parseInt(grp.dataset.gidx);var s=curState();var g=s.groups[gi];
+    var nn=prompt('Название группы:',g.name);
+    if(nn!==null&&nn.trim()){g.name=nn.trim();saveCur(s);render()}
+    return;
+  }
+});
+
+/* ═══════ EDIT MODAL ═══════ */
+var editingId=null,addPos=null;
+function openEditModal(nid,px,py){
+  var s=curState();
+  if(nid){
+    editingId=nid;addPos=null;
+    var n=s.nodes.find(function(x){return x.id===nid});
+    document.getElementById('modalTitle').textContent='Редактировать блок';
+    document.getElementById('mName').value=n.name;
+    document.getElementById('mDesc').value=n.desc||'';
+    document.getElementById('mType').value=n.type;
+  }else{
+    editingId=null;addPos={x:px,y:py};
+    document.getElementById('modalTitle').textContent='Новый блок';
+    document.getElementById('mName').value='';
+    document.getElementById('mDesc').value='';
+    document.getElementById('mType').value='n-custom';
+  }
+  $editModal.classList.add('open');
+  document.getElementById('mName').focus();
+}
+
+document.getElementById('mCancel').onclick=function(){$editModal.classList.remove('open')};
+document.getElementById('mSave').onclick=function(){
+  var name=document.getElementById('mName').value.trim();
+  if(!name)return;
+  var desc=document.getElementById('mDesc').value.trim();
+  var type=document.getElementById('mType').value;
+  var s=curState();
+  if(editingId){
+    var n=s.nodes.find(function(x){return x.id===editingId});
+    if(n){n.name=name;n.desc=desc;n.type=type}
+  }else{
+    s.nodes.push({id:uid(),type:type,name:name,desc:desc,x:addPos.x,y:addPos.y});
+  }
+  saveCur(s);$editModal.classList.remove('open');render();
+};
+document.getElementById('mName').addEventListener('keydown',function(ev){if(ev.key==='Enter')document.getElementById('mSave').click()});
+
+/* ═══════ GROUP MODAL ═══════ */
+var groupColor='#6C3DAF',groupRect=null;
+document.querySelectorAll('.color-opt').forEach(function(el){
+  el.addEventListener('click',function(){
+    document.querySelectorAll('.color-opt').forEach(function(e){e.classList.remove('sel')});
+    el.classList.add('sel');groupColor=el.dataset.c;
+  });
+});
+function openGroupModal(rect){
+  groupRect=rect;
+  document.getElementById('gName').value='';
+  document.querySelectorAll('.color-opt').forEach(function(e){e.classList.remove('sel')});
+  document.querySelector('.color-opt').classList.add('sel');groupColor='#6C3DAF';
+  $groupModal.classList.add('open');document.getElementById('gName').focus();
+}
+document.getElementById('gCancel').onclick=function(){$groupModal.classList.remove('open')};
+document.getElementById('gSave').onclick=function(){
+  var name=document.getElementById('gName').value.trim()||'Группа';
+  var s=curState();if(!s.groups)s.groups=[];
+  s.groups.push({name:name,color:groupColor,x:groupRect.x,y:groupRect.y,w:groupRect.w,h:groupRect.h});
+  saveCur(s);$groupModal.classList.remove('open');render();
+};
+document.getElementById('gName').addEventListener('keydown',function(ev){if(ev.key==='Enter')document.getElementById('gSave').click()});
 
 /* ═══════ CONNECT ═══════ */
 function handleConnect(node){
-  var id = node.dataset.id;
-  if(!connectSource){
-    connectSource = id;
-    node.classList.add('connect-source');
-    hint.textContent = 'Выберите цель для связи от «' + BOARDS[currentBoard].nodes.find(function(n){return n.id===id}).name + '»';
-  } else {
-    // create edge
-    var sourceNode = nodeEls[connectSource];
-    if(sourceNode) sourceNode.classList.remove('connect-source');
-    addEdge(connectSource, id);
-    connectSource = null;
-    hint.textContent = 'Связь создана. Нажмите «Связь» ещё раз для выхода.';
+  var id=node.dataset.id;
+  if(!connectSrc){connectSrc=id;node.classList.add('connect-source');
+    $hint.textContent='Выберите цель...';
+  }else{
+    if(nodeEls[connectSrc])nodeEls[connectSrc].classList.remove('connect-source');
+    if(connectSrc!==id){
+      var s=curState();var dup=s.edges.some(function(e){return e[0]===connectSrc&&e[1]===id});
+      if(!dup){s.edges.push([connectSrc,id]);saveCur(s);render()}
+    }
+    connectSrc=null;$hint.textContent='Связь создана.';
   }
 }
 
-btnConnect.addEventListener('click', function(){
-  connecting = !connecting;
-  btnConnect.classList.toggle('active', connecting);
-  board.classList.toggle('connecting', connecting);
-  if(connecting){
-    hint.textContent = 'Режим связей: кликните источник, затем цель. ПКМ по стрелке — удалить.';
-  } else {
-    if(connectSource){
-      var el = nodeEls[connectSource];
-      if(el) el.classList.remove('connect-source');
-      connectSource = null;
-    }
-    hint.textContent = 'Перетаскивайте блоки. Нажмите «Связь» для создания иерархии.';
-  }
-});
+/* ═══════ TOOLBAR ═══════ */
+function setMode(m){
+  mode=m;connectSrc=null;
+  document.querySelectorAll('.node.connect-source').forEach(function(e){e.classList.remove('connect-source')});
+  $board.className='board'+(m==='connect'?' connecting':'')+(m==='add'?' adding':'');
+  document.getElementById('btnConnect').classList.toggle('active',m==='connect');
+  document.getElementById('btnAdd').classList.toggle('active',m==='add');
+  document.getElementById('btnGroup').classList.toggle('active',m==='group');
+  var hints={'':'Двойной клик — редактировать. Наведите — крестик удалить.',
+    'connect':'Режим связей: клик источник → цель. ПКМ по стрелке — удалить.',
+    'add':'Кликните на доске чтобы разместить новый блок.',
+    'group':'Нарисуйте прямоугольник на доске (зажмите и тяните).'};
+  $hint.textContent=hints[m]||'';
+}
 
-btnReset.addEventListener('click', function(){
-  if(!confirm('Сбросить доску «' + BOARDS[currentBoard].label + '» к начальному виду?')) return;
-  delete savedState[currentBoard];
-  saveStore();
-  render(currentBoard);
+document.getElementById('btnConnect').onclick=function(){setMode(mode==='connect'?'':'connect')};
+document.getElementById('btnAdd').onclick=function(){setMode(mode==='add'?'':'add')};
+document.getElementById('btnGroup').onclick=function(){setMode(mode==='group'?'':'group')};
+document.getElementById('btnReset').onclick=function(){
+  if(!confirm('Сбросить эту доску к начальному виду?'))return;
+  delete store[cur];save();render();
+};
+
+// group draw on mouseup
+document.addEventListener('mouseup',function(ev){
+  if(mode==='group'&&groupDraw){
+    var br=$board.getBoundingClientRect();
+    var ex=ev.clientX-br.left+$board.scrollLeft;
+    var ey=ev.clientY-br.top+$board.scrollTop;
+    var x=Math.min(groupDraw.x,ex),y=Math.min(groupDraw.y,ey);
+    var w=Math.abs(ex-groupDraw.x),h=Math.abs(ey-groupDraw.y);
+    groupDraw=null;
+    if(w>30&&h>20){openGroupModal({x:x,y:y,w:w,h:h})}
+    setMode('');
+  }
 });
 
 /* ═══════ TABS ═══════ */
 document.querySelectorAll('.tab').forEach(function(tab){
-  tab.addEventListener('click', function(){
+  tab.addEventListener('click',function(){
     document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
-    tab.classList.add('active');
-    currentBoard = tab.dataset.board;
-    connecting = false;
-    connectSource = null;
-    btnConnect.classList.remove('active');
-    board.classList.remove('connecting');
-    hint.textContent = 'Перетаскивайте блоки. Нажмите «Связь» для создания иерархии.';
-    render(currentBoard);
+    tab.classList.add('active');cur=tab.dataset.board;setMode('');render();
   });
 });
 
+/* ═══════ CONTEXT MENU BLOCK ═══════ */
+$board.addEventListener('contextmenu',function(ev){
+  var grp=ev.target.closest('.group');
+  if(grp){
+    ev.preventDefault();
+    if(confirm('Удалить группу?')){
+      var s=curState();var gi=parseInt(grp.dataset.gidx);
+      s.groups.splice(gi,1);saveCur(s);render();
+    }
+  }
+});
+
 /* ═══════ INIT ═══════ */
-savedState = loadStore();
-render('asis');
+render();
 
 })();
 </script>
