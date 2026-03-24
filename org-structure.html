@@ -19,19 +19,15 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
 .tb-btn{padding:4px 10px;font-size:10px;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid #E8E5EF;background:#fff;color:#5A5A7A;transition:all .15s;font-family:inherit}
 .tb-btn:hover{background:#F7F5FA;border-color:#D8CCF0}
 .tb-btn.active{background:#6C3DAF;color:#fff;border-color:#6C3DAF}
-.tb-btn.green{color:#0A7A50;border-color:#B8E0B8}
-.tb-btn.green:hover{background:#EDFAF7}
-.tb-btn.blue{color:#2B5FC2;border-color:#C8D8F0}
-.tb-btn.blue:hover{background:#EEF2FF}
-.tb-btn.danger{color:#B83020}
-.tb-btn.danger:hover{background:#FFF5F5;border-color:#FCD5D5}
+.tb-btn.green{color:#0A7A50;border-color:#B8E0B8}.tb-btn.green:hover{background:#EDFAF7}
+.tb-btn.blue{color:#2B5FC2;border-color:#C8D8F0}.tb-btn.blue:hover{background:#EEF2FF}
+.tb-btn.danger{color:#B83020}.tb-btn.danger:hover{background:#FFF5F5;border-color:#FCD5D5}
 .tb-hint{font-size:9px;color:#A0A0B8;margin-left:auto}
 
 .board{position:relative;width:100%;height:calc(100vh - 44px);overflow:auto;cursor:default}
 .board.connecting{cursor:crosshair}
 .board.adding{cursor:cell}
 .board svg{position:absolute;top:0;left:0;width:3000px;height:3000px;pointer-events:none;z-index:5}
-.board svg line{pointer-events:stroke}
 
 /* groups */
 .group{position:absolute;border-radius:12px;z-index:2;min-width:100px;min-height:60px}
@@ -44,15 +40,24 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
 .node:hover{box-shadow:0 4px 16px rgba(0,0,0,0.1);z-index:20}
 .node.dragging{cursor:grabbing;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:50;opacity:0.9}
 .node.connect-source{outline:2px solid #6C3DAF;outline-offset:2px}
-.node.selected{outline:2px solid #2B5FC2;outline-offset:2px}
-.node-name{font-size:11px;font-weight:800;margin-bottom:2px}
+.node-name{font-size:11px;font-weight:800;margin-bottom:1px}
 .node-desc{font-size:8px;color:#5A5A7A;line-height:1.4}
+.node-leader{display:flex;align-items:center;gap:3px;margin-top:4px;padding-top:4px;border-top:1px solid rgba(0,0,0,0.06)}
+.node-leader-avatar{width:14px;height:14px;border-radius:50%;background:#E8E5EF;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:800;color:#5A5A7A;flex-shrink:0}
+.node-leader-name{font-size:8px;font-weight:600;color:#1A1A2E}
+.node-leader.vacancy .node-leader-avatar{background:#FFF0E0;color:#B07A00}
+.node-leader.vacancy .node-leader-name{color:#B07A00;font-style:italic}
 .node-badge{display:inline-block;font-size:7px;font-weight:700;padding:1px 5px;border-radius:3px;margin-top:3px}
 .node-del{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:#B83020;color:#fff;font-size:10px;line-height:16px;text-align:center;cursor:pointer;display:none;z-index:30;font-weight:700}
 .node:hover .node-del{display:block}
 
 .n-ceo{background:linear-gradient(135deg,#6C3DAF,#CB11AB);color:#fff;text-align:center;min-width:80px}
 .n-ceo .node-desc{color:rgba(255,255,255,0.7)}
+.n-ceo .node-leader{border-top-color:rgba(255,255,255,0.15)}
+.n-ceo .node-leader-name{color:rgba(255,255,255,0.9)}
+.n-ceo .node-leader-avatar{background:rgba(255,255,255,0.2);color:#fff}
+.n-ceo .node-leader.vacancy .node-leader-avatar{background:rgba(255,200,100,0.3);color:#FFD080}
+.n-ceo .node-leader.vacancy .node-leader-name{color:#FFD080}
 .n-cpo{background:#EEF2FF;border:1px solid #C8D8F0}.n-cpo .node-name{color:#2B5FC2}
 .n-rnd{background:#EDFAF7;border:1px solid #B8E8DE}.n-rnd .node-name{color:#0A8A70}
 .n-cto{background:#EEF2FF;border:1px solid #C8D8F0}.n-cto .node-name{color:#2B5FC2}
@@ -69,26 +74,32 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
 .n-app .node-badge{background:#F0EDF5;color:#7A7A9D}
 .n-custom{background:#fff;border:1px solid #D0D0DA}.n-custom .node-name{color:#1A1A2E}
 
-.arrow{stroke:#A0A0B8;stroke-width:1.5;fill:none;cursor:pointer;pointer-events:stroke;transition:stroke .15s}
-.arrow:hover{stroke:#6C3DAF;stroke-width:2.5}
-.arrow-head{fill:#A0A0B8;pointer-events:none}
+/* elbow arrows */
+.arrow-path{stroke:#B0B0C0;stroke-width:1.5;fill:none;transition:stroke .15s}
+.arrow-path:hover{stroke:#6C3DAF;stroke-width:2}
+.arrow-hit{stroke:transparent;stroke-width:14;fill:none;cursor:pointer;pointer-events:stroke}
+.arrow-head{fill:#B0B0C0;pointer-events:none}
+.edge-mid{r:4;fill:#D0D0E0;stroke:#fff;stroke-width:1.5;cursor:ns-resize;pointer-events:all;transition:fill .15s}
+.edge-mid:hover{fill:#6C3DAF;r:5}
 
 /* modal */
 .modal-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.3);z-index:200;display:none;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:12px;padding:20px 24px;width:360px;box-shadow:0 12px 40px rgba(0,0,0,0.15)}
+.modal{background:#fff;border-radius:12px;padding:20px 24px;width:380px;box-shadow:0 12px 40px rgba(0,0,0,0.15)}
 .modal h3{font-size:14px;font-weight:800;margin-bottom:12px}
 .modal label{display:block;font-size:10px;font-weight:700;color:#5A5A7A;margin-bottom:3px;margin-top:10px}
 .modal input,.modal textarea,.modal select{width:100%;padding:6px 10px;border:1px solid #E8E5EF;border-radius:6px;font-size:11px;font-family:inherit;color:#1A1A2E;outline:none}
 .modal input:focus,.modal textarea:focus,.modal select:focus{border-color:#6C3DAF}
 .modal textarea{height:50px;resize:vertical}
 .modal select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237A7A9D'/%3E%3C/svg%3E") no-repeat right 10px center}
+.modal-row{display:flex;gap:8px}
+.modal-row>*{flex:1}
 .modal-btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
 .modal-btns button{padding:6px 16px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid #E8E5EF;background:#fff;color:#5A5A7A;font-family:inherit}
 .modal-btns .primary{background:#6C3DAF;color:#fff;border-color:#6C3DAF}
 .modal-btns .primary:hover{background:#5A2E96}
+.modal .hint{font-size:8px;color:#A0A0B8;margin-top:2px}
 
-/* color options */
 .color-opts{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
 .color-opt{width:22px;height:22px;border-radius:5px;cursor:pointer;border:2px solid transparent;transition:border-color .1s}
 .color-opt:hover,.color-opt.sel{border-color:#1A1A2E}
@@ -121,11 +132,11 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
   <button class="tb-btn blue" id="btnGroup">Группа</button>
   <button class="tb-btn" id="btnConnect">Связь</button>
   <button class="tb-btn danger" id="btnReset">Сброс</button>
-  <div class="tb-hint" id="hint">Двойной клик — редактировать. Наведите — крестик удалить.</div>
+  <div class="tb-hint" id="hint">Двойной клик — редактировать. Тяните точку на стрелке для изгиба.</div>
 </div>
 
 <div class="board" id="board">
-  <svg id="svgLayer"><defs><marker id="ah" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" class="arrow-head"/></marker></defs></svg>
+  <svg id="svgLayer"><defs><marker id="ah" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 Z" class="arrow-head"/></marker></defs></svg>
 </div>
 
 <!-- Edit modal -->
@@ -136,24 +147,33 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
     <input id="mName" placeholder="Название блока">
     <label>Описание</label>
     <textarea id="mDesc" placeholder="Описание (необязательно)"></textarea>
-    <label>Тип</label>
-    <select id="mType">
-      <option value="n-ceo">CEO</option>
-      <option value="n-cpo">CPO (синий)</option>
-      <option value="n-cto">CTO (синий)</option>
-      <option value="n-rnd">R&D (зелёный)</option>
-      <option value="n-ops">Операционка (фиолетовый)</option>
-      <option value="n-an">Аналитика (оранжевый)</option>
-      <option value="n-sales">Продажи (зелёный)</option>
-      <option value="n-exp">Направления (розовый)</option>
-      <option value="n-prod">Продукт</option>
-      <option value="n-prod-rnd">Продукт R&D</option>
-      <option value="n-dir">Направление</option>
-      <option value="n-func">Функция</option>
-      <option value="n-rud">Рудимент / Пересмотр</option>
-      <option value="n-app">Аппарат / Опция</option>
-      <option value="n-custom">Кастомный</option>
-    </select>
+    <div class="modal-row">
+      <div>
+        <label>Тип</label>
+        <select id="mType">
+          <option value="n-ceo">CEO</option>
+          <option value="n-cpo">CPO</option>
+          <option value="n-cto">CTO</option>
+          <option value="n-rnd">R&D</option>
+          <option value="n-ops">Операционка</option>
+          <option value="n-an">Аналитика</option>
+          <option value="n-sales">Продажи</option>
+          <option value="n-exp">Направления</option>
+          <option value="n-prod">Продукт</option>
+          <option value="n-prod-rnd">Продукт R&D</option>
+          <option value="n-dir">Направление</option>
+          <option value="n-func">Функция</option>
+          <option value="n-rud">Рудимент</option>
+          <option value="n-app">Аппарат</option>
+          <option value="n-custom">Кастомный</option>
+        </select>
+      </div>
+      <div>
+        <label>Руководитель</label>
+        <input id="mLeader" placeholder="ФИО или пусто = вакансия">
+        <div class="hint">Пусто — покажет «вакансия»</div>
+      </div>
+    </div>
     <div class="modal-btns">
       <button id="mCancel">Отмена</button>
       <button class="primary" id="mSave">Сохранить</button>
@@ -186,458 +206,380 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
 
 <div class="legend">
   <b>Управление доской</b><br>
-  Перетаскивание — двигать блоки и группы<br>
-  Двойной клик — редактировать блок/группу<br>
+  Перетаскивание — двигать блоки<br>
+  Двойной клик — редактировать (имя, тип, руководитель)<br>
   <kbd>+ Блок</kbd> — добавить, кликните на доске<br>
-  <kbd>Группа</kbd> — создать группу, затем перетащите размер<br>
-  <kbd>Связь</kbd> — клик источник → цель<br>
-  ПКМ по стрелке — удалить связь<br>
-  Крестик на блоке — удалить
+  <kbd>Группа</kbd> — нарисуйте область<br>
+  <kbd>Связь</kbd> — клик источник, затем цель<br>
+  Точка на стрелке — тянуть для изгиба<br>
+  ПКМ по стрелке — удалить
 </div>
 
 <script>
 (function(){
 
-var NODE_TYPES = {
-  'n-ceo':'CEO','n-cpo':'CPO','n-cto':'CTO','n-rnd':'R&D','n-ops':'Операционка',
-  'n-an':'Аналитика','n-sales':'Продажи','n-exp':'Направления','n-prod':'Продукт',
-  'n-prod-rnd':'Продукт R&D','n-dir':'Направление','n-func':'Функция',
-  'n-rud':'Рудимент','n-app':'Аппарат','n-custom':'Кастомный'
-};
-
-/* ═══════ DEFAULT DATA ═══════ */
+/* ═══════ DEFAULTS ═══════ */
 var DEFAULTS = {
-asis: {
-  nodes: [
-    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Департамент Экосистемы',x:420,y:50},
-    {id:'wibes',type:'n-prod',name:'Wibes',x:40,y:160},
-    {id:'books',type:'n-prod',name:'Книги',x:160,y:160},
-    {id:'kids',type:'n-prod',name:'Kids',x:280,y:160},
-    {id:'sport',type:'n-prod',name:'Sport',x:400,y:160},
-    {id:'meets',type:'n-prod',name:'Встречи',x:520,y:160},
-    {id:'p9',type:'n-prod',name:'Проект 9',desc:'видеосервис',x:640,y:160},
-    {id:'youth',type:'n-dir',name:'Молодёжное',x:760,y:160},
-    {id:'content',type:'n-dir',name:'Контент',x:40,y:250},
-    {id:'events',type:'n-dir',name:'Ивенты',x:160,y:250},
-    {id:'procure',type:'n-dir',name:'Маркетплейс закупок',x:280,y:250},
-    {id:'mkt',type:'n-dir',name:'Маркетинг',x:420,y:250},
-    {id:'ctof',type:'n-func',name:'CTO',x:540,y:250},
-    {id:'anf',type:'n-func',name:'Аналитика',x:640,y:250},
-    {id:'pmof',type:'n-func',name:'PMO',x:740,y:250},
-    {id:'monf',type:'n-func',name:'Монетизация',x:840,y:250},
-    {id:'soccom',type:'n-rud',name:'Соц. коммерция',desc:'рудимент',x:40,y:340},
-    {id:'specpr',type:'n-rud',name:'Спецпроекты',desc:'рудимент',x:180,y:340},
-    {id:'p8',type:'n-rud',name:'Проект 8',desc:'рудимент',x:320,y:340},
-    {id:'smm',type:'n-rud',name:'Маркетинг в соцсетях',desc:'рудимент',x:460,y:340}
-  ],
-  edges:[['ceo','wibes'],['ceo','books'],['ceo','kids'],['ceo','sport'],['ceo','meets'],['ceo','p9'],['ceo','youth'],['ceo','content'],['ceo','events'],['ceo','procure'],['ceo','mkt'],['ceo','ctof'],['ceo','anf'],['ceo','pmof'],['ceo','monf'],['ceo','soccom'],['ceo','specpr'],['ceo','p8'],['ceo','smm']],
-  groups:[]
-},
-sca: {
-  nodes: [
-    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия и бюджет',x:400,y:40},
-    {id:'cpo',type:'n-cpo',name:'CPO',desc:'Стратегия портфеля, лидеры, дизайн-система',x:80,y:150},
-    {id:'sales',type:'n-sales',name:'Продажи',desc:'B2B/B2C/B2G — у каждого продукта свои',x:260,y:150},
-    {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR, прозрачность',x:450,y:150},
-    {id:'cto',type:'n-cto',name:'CTO',desc:'Инфра, платформа',x:650,y:150},
-    {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная',x:810,y:150},
-    {id:'wibes',type:'n-prod',name:'Wibes',desc:'P&L',x:40,y:280},
-    {id:'p9',type:'n-prod',name:'Проект 9',desc:'P&L',x:160,y:280},
-    {id:'kids',type:'n-prod',name:'Kids',desc:'P&L',x:280,y:280},
-    {id:'sport',type:'n-prod',name:'Sport',desc:'P&L',x:400,y:280},
-    {id:'meets',type:'n-prod',name:'Встречи',desc:'P&L',x:520,y:280},
-    {id:'books',type:'n-prod',name:'Книги',desc:'P&L',x:640,y:280},
-    {id:'exp',type:'n-exp',name:'Направления и экспансия',desc:'Молодёжное, Контент, Ивенты, РФ, СНГ/Мир',x:60,y:390},
-    {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',x:320,y:390},
-    {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',x:560,y:390}
-  ],
-  edges:[['ceo','cpo'],['ceo','sales'],['ceo','ops'],['ceo','cto'],['ceo','an'],['cpo','wibes'],['cpo','p9'],['cpo','kids'],['cpo','sport'],['cpo','meets'],['cpo','books'],['ceo','exp'],['ceo','review']],
-  groups:[]
-},
-scb: {
-  nodes: [
-    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Приоритеты и бюджет',x:400,y:40},
-    {id:'cto',type:'n-cto',name:'CTO + Платформа',desc:'Единая инфра, дизайн-система',x:60,y:150},
-    {id:'rnd',type:'n-rnd',name:'R&D',desc:'Генерация гипотез, фаст-трек',x:280,y:150},
-    {id:'sales',type:'n-sales',name:'Продажи',desc:'Единый канал B2B/B2C/B2G',x:450,y:150},
-    {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR, lifecycle',x:660,y:150},
-    {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная',x:60,y:280},
-    {id:'wibes',type:'n-prod',name:'Wibes',x:220,y:280},
-    {id:'p9',type:'n-prod',name:'Проект 9',x:330,y:280},
-    {id:'kids',type:'n-prod-rnd',name:'Kids',x:440,y:280},
-    {id:'sport',type:'n-prod-rnd',name:'Sport',x:540,y:280},
-    {id:'meets',type:'n-prod-rnd',name:'Встречи',x:640,y:280},
-    {id:'books',type:'n-prod-rnd',name:'Книги',x:750,y:280},
-    {id:'exp',type:'n-exp',name:'Направления',desc:'Молодёжное, Контент, Ивенты, РФ, СНГ',x:60,y:380},
-    {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',x:300,y:380},
-    {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',x:530,y:380}
-  ],
-  edges:[['ceo','cto'],['ceo','rnd'],['ceo','sales'],['ceo','ops'],['cto','wibes'],['cto','p9'],['cto','an'],['rnd','kids'],['rnd','sport'],['rnd','meets'],['rnd','books'],['ceo','exp'],['ceo','review']],
-  groups:[]
-},
-scc: {
-  nodes: [
-    {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия, бюджет, рудименты',x:400,y:40},
-    {id:'cpo',type:'n-cpo',name:'CPO',desc:'Зрелые продукты, P&L, лидеры, дизайн-система',x:60,y:150},
-    {id:'rnd',type:'n-rnd',name:'R&D',desc:'Фаст-трек гипотез, упрощённые процессы',x:260,y:150},
-    {id:'cto',type:'n-cto',name:'CTO',desc:'Разработка, инфра, платформа',x:450,y:150},
-    {id:'sales',type:'n-sales',name:'Продажи',desc:'Зрелые — свои. R&D — общий B2B/B2C/B2G',x:640,y:150},
-    {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR-каскад, lifecycle',x:60,y:280},
-    {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная, BI',x:280,y:280},
-    {id:'exp',type:'n-exp',name:'Направления и экспансия',desc:'РФ, СНГ/Мир, Молодёжное, Контент, Ивенты',x:490,y:280},
-    {id:'wibes',type:'n-prod',name:'Wibes',desc:'P&L',x:40,y:400},
-    {id:'p9',type:'n-prod',name:'Проект 9',desc:'P&L',x:160,y:400},
-    {id:'kids',type:'n-prod-rnd',name:'Kids',x:300,y:400},
-    {id:'sport',type:'n-prod-rnd',name:'Sport',x:400,y:400},
-    {id:'meets',type:'n-prod-rnd',name:'Встречи',x:500,y:400},
-    {id:'books',type:'n-prod-rnd',name:'Книги',x:610,y:400},
-    {id:'newhyp',type:'n-prod-rnd',name:'Новые гипотезы',x:720,y:400},
-    {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',x:840,y:400},
-    {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',x:730,y:280}
-  ],
-  edges:[['ceo','cpo'],['ceo','rnd'],['ceo','cto'],['ceo','sales'],['ceo','ops'],['ceo','an'],['ceo','exp'],['cpo','wibes'],['cpo','p9'],['rnd','kids'],['rnd','sport'],['rnd','meets'],['rnd','books'],['rnd','newhyp'],['ceo','review']],
-  groups:[]
-}
+asis:{nodes:[
+  {id:'ceo',type:'n-ceo',name:'CEO',desc:'Департамент Экосистемы',leader:'',x:420,y:50},
+  {id:'wibes',type:'n-prod',name:'Wibes',leader:'',x:40,y:160},
+  {id:'books',type:'n-prod',name:'Книги',leader:'',x:160,y:160},
+  {id:'kids',type:'n-prod',name:'Kids',leader:'',x:280,y:160},
+  {id:'sport',type:'n-prod',name:'Sport',leader:'',x:400,y:160},
+  {id:'meets',type:'n-prod',name:'Встречи',leader:'',x:520,y:160},
+  {id:'p9',type:'n-prod',name:'Проект 9',desc:'видеосервис',leader:'',x:640,y:160},
+  {id:'youth',type:'n-dir',name:'Молодёжное',leader:'',x:760,y:160},
+  {id:'content',type:'n-dir',name:'Контент',leader:'',x:40,y:250},
+  {id:'events',type:'n-dir',name:'Ивенты',leader:'',x:160,y:250},
+  {id:'procure',type:'n-dir',name:'Маркетплейс закупок',leader:'',x:280,y:250},
+  {id:'mkt',type:'n-dir',name:'Маркетинг',leader:'',x:420,y:250},
+  {id:'ctof',type:'n-func',name:'CTO',leader:'',x:540,y:250},
+  {id:'anf',type:'n-func',name:'Аналитика',leader:'',x:640,y:250},
+  {id:'pmof',type:'n-func',name:'PMO',leader:'',x:740,y:250},
+  {id:'monf',type:'n-func',name:'Монетизация',leader:'',x:840,y:250},
+  {id:'soccom',type:'n-rud',name:'Соц. коммерция',desc:'рудимент',leader:'',x:40,y:340},
+  {id:'specpr',type:'n-rud',name:'Спецпроекты',desc:'рудимент',leader:'',x:180,y:340},
+  {id:'p8',type:'n-rud',name:'Проект 8',desc:'рудимент',leader:'',x:320,y:340},
+  {id:'smm',type:'n-rud',name:'Маркетинг в соцсетях',desc:'рудимент',leader:'',x:460,y:340}
+],edges:[
+  {f:'ceo',t:'wibes'},{f:'ceo',t:'books'},{f:'ceo',t:'kids'},{f:'ceo',t:'sport'},{f:'ceo',t:'meets'},{f:'ceo',t:'p9'},{f:'ceo',t:'youth'},
+  {f:'ceo',t:'content'},{f:'ceo',t:'events'},{f:'ceo',t:'procure'},{f:'ceo',t:'mkt'},
+  {f:'ceo',t:'ctof'},{f:'ceo',t:'anf'},{f:'ceo',t:'pmof'},{f:'ceo',t:'monf'},
+  {f:'ceo',t:'soccom'},{f:'ceo',t:'specpr'},{f:'ceo',t:'p8'},{f:'ceo',t:'smm'}
+],groups:[]},
+
+sca:{nodes:[
+  {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия и бюджет',leader:'',x:400,y:40},
+  {id:'cpo',type:'n-cpo',name:'CPO',desc:'Стратегия портфеля, лидеры, дизайн-система',leader:'',x:80,y:150},
+  {id:'sales',type:'n-sales',name:'Продажи',desc:'B2B/B2C/B2G',leader:'',x:260,y:150},
+  {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR, прозрачность',leader:'',x:450,y:150},
+  {id:'cto',type:'n-cto',name:'CTO',desc:'Инфра, платформа',leader:'',x:650,y:150},
+  {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная',leader:'',x:810,y:150},
+  {id:'wibes',type:'n-prod',name:'Wibes',desc:'P&L',leader:'',x:40,y:280},
+  {id:'p9',type:'n-prod',name:'Проект 9',desc:'P&L',leader:'',x:160,y:280},
+  {id:'kids',type:'n-prod',name:'Kids',desc:'P&L',leader:'',x:280,y:280},
+  {id:'sport',type:'n-prod',name:'Sport',desc:'P&L',leader:'',x:400,y:280},
+  {id:'meets',type:'n-prod',name:'Встречи',desc:'P&L',leader:'',x:520,y:280},
+  {id:'books',type:'n-prod',name:'Книги',desc:'P&L',leader:'',x:640,y:280},
+  {id:'exp',type:'n-exp',name:'Направления и экспансия',desc:'Молодёжное, Контент, Ивенты, РФ, СНГ/Мир',leader:'',x:60,y:390},
+  {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',leader:'',x:320,y:390},
+  {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',leader:'',x:560,y:390}
+],edges:[
+  {f:'ceo',t:'cpo'},{f:'ceo',t:'sales'},{f:'ceo',t:'ops'},{f:'ceo',t:'cto'},{f:'ceo',t:'an'},
+  {f:'cpo',t:'wibes'},{f:'cpo',t:'p9'},{f:'cpo',t:'kids'},{f:'cpo',t:'sport'},{f:'cpo',t:'meets'},{f:'cpo',t:'books'},
+  {f:'ceo',t:'exp'},{f:'ceo',t:'review'}
+],groups:[]},
+
+scb:{nodes:[
+  {id:'ceo',type:'n-ceo',name:'CEO',desc:'Приоритеты и бюджет',leader:'',x:400,y:40},
+  {id:'cto',type:'n-cto',name:'CTO + Платформа',desc:'Единая инфра, дизайн-система',leader:'',x:60,y:150},
+  {id:'rnd',type:'n-rnd',name:'R&D',desc:'Генерация гипотез, фаст-трек',leader:'',x:280,y:150},
+  {id:'sales',type:'n-sales',name:'Продажи',desc:'Единый канал B2B/B2C/B2G',leader:'',x:450,y:150},
+  {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR, lifecycle',leader:'',x:660,y:150},
+  {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная',leader:'',x:60,y:280},
+  {id:'wibes',type:'n-prod',name:'Wibes',leader:'',x:220,y:280},
+  {id:'p9',type:'n-prod',name:'Проект 9',leader:'',x:330,y:280},
+  {id:'kids',type:'n-prod-rnd',name:'Kids',leader:'',x:440,y:280},
+  {id:'sport',type:'n-prod-rnd',name:'Sport',leader:'',x:540,y:280},
+  {id:'meets',type:'n-prod-rnd',name:'Встречи',leader:'',x:640,y:280},
+  {id:'books',type:'n-prod-rnd',name:'Книги',leader:'',x:750,y:280},
+  {id:'exp',type:'n-exp',name:'Направления',desc:'Молодёжное, Контент, Ивенты, РФ, СНГ',leader:'',x:60,y:380},
+  {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',leader:'',x:300,y:380},
+  {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',leader:'',x:530,y:380}
+],edges:[
+  {f:'ceo',t:'cto'},{f:'ceo',t:'rnd'},{f:'ceo',t:'sales'},{f:'ceo',t:'ops'},
+  {f:'cto',t:'wibes'},{f:'cto',t:'p9'},{f:'cto',t:'an'},
+  {f:'rnd',t:'kids'},{f:'rnd',t:'sport'},{f:'rnd',t:'meets'},{f:'rnd',t:'books'},
+  {f:'ceo',t:'exp'},{f:'ceo',t:'review'}
+],groups:[]},
+
+scc:{nodes:[
+  {id:'ceo',type:'n-ceo',name:'CEO',desc:'Стратегия, бюджет, рудименты',leader:'',x:400,y:40},
+  {id:'cpo',type:'n-cpo',name:'CPO',desc:'Зрелые продукты, P&L, лидеры, дизайн-система',leader:'',x:60,y:150},
+  {id:'rnd',type:'n-rnd',name:'R&D',desc:'Фаст-трек гипотез, упрощённые процессы',leader:'',x:260,y:150},
+  {id:'cto',type:'n-cto',name:'CTO',desc:'Разработка, инфра, платформа',leader:'',x:450,y:150},
+  {id:'sales',type:'n-sales',name:'Продажи',desc:'Зрелые — свои. R&D — общий B2B/B2C/B2G',leader:'',x:640,y:150},
+  {id:'ops',type:'n-ops',name:'Стратегия и операционка',desc:'PMO, OKR-каскад, lifecycle',leader:'',x:60,y:280},
+  {id:'an',type:'n-an',name:'Аналитика',desc:'Продуктовая + рыночная, BI',leader:'',x:280,y:280},
+  {id:'exp',type:'n-exp',name:'Направления и экспансия',desc:'РФ, СНГ/Мир, Молодёжное, Контент, Ивенты',leader:'',x:490,y:280},
+  {id:'wibes',type:'n-prod',name:'Wibes',desc:'P&L',leader:'',x:40,y:400},
+  {id:'p9',type:'n-prod',name:'Проект 9',desc:'P&L',leader:'',x:160,y:400},
+  {id:'kids',type:'n-prod-rnd',name:'Kids',leader:'',x:300,y:400},
+  {id:'sport',type:'n-prod-rnd',name:'Sport',leader:'',x:400,y:400},
+  {id:'meets',type:'n-prod-rnd',name:'Встречи',leader:'',x:500,y:400},
+  {id:'books',type:'n-prod-rnd',name:'Книги',leader:'',x:610,y:400},
+  {id:'newhyp',type:'n-prod-rnd',name:'Новые гипотезы',leader:'',x:720,y:400},
+  {id:'review',type:'n-rud',name:'На пересмотр',desc:'4 рудимента',leader:'',x:840,y:400},
+  {id:'app',type:'n-app',name:'Аппарат',desc:'Контроль поручений CEO, 1 чел.',leader:'',x:730,y:280}
+],edges:[
+  {f:'ceo',t:'cpo'},{f:'ceo',t:'rnd'},{f:'ceo',t:'cto'},{f:'ceo',t:'sales'},
+  {f:'ceo',t:'ops'},{f:'ceo',t:'an'},{f:'ceo',t:'exp'},
+  {f:'cpo',t:'wibes'},{f:'cpo',t:'p9'},
+  {f:'rnd',t:'kids'},{f:'rnd',t:'sport'},{f:'rnd',t:'meets'},{f:'rnd',t:'books'},{f:'rnd',t:'newhyp'},
+  {f:'ceo',t:'review'}
+],groups:[]}
 };
 
 /* ═══════ STATE ═══════ */
-var cur = 'asis';
-var mode = ''; // '' | 'connect' | 'add' | 'group'
-var connectSrc = null;
-var dragging = null, dragOff={x:0,y:0}, dragType='';
-var groupDraw = null;
-var nodeEls = {}, groupEls = {};
-var uidCounter = Date.now();
+var cur='asis',mode='',connectSrc=null,dragging=null,dragOff={x:0,y:0},dragType='',dragEdgeIdx=-1,groupDraw=null;
+var nodeEls={},uidC=Date.now();
+var $b=document.getElementById('board'),$svg=document.getElementById('svgLayer'),$hint=document.getElementById('hint');
 
-var $board = document.getElementById('board');
-var $svg = document.getElementById('svgLayer');
-var $hint = document.getElementById('hint');
-var $editModal = document.getElementById('editModal');
-var $groupModal = document.getElementById('groupModal');
+function uid(){return 'n'+(uidC++)}
+function esc(t){return String(t||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function hexA(hex,a){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return'rgba('+r+','+g+','+b+','+a+')'}
+function initials(name){var p=name.trim().split(/\s+/);return p.length>1?(p[0][0]+p[p.length-1][0]).toUpperCase():name.slice(0,2).toUpperCase()}
 
-function uid(){return 'n'+(uidCounter++)}
-
-/* ═══════ STORAGE ═══════ */
-var SK = 'orgboard_v3';
-var store = {};
+/* storage */
+var SK='orgboard_v4',store={};
 try{store=JSON.parse(localStorage.getItem(SK))||{}}catch(e){}
 function save(){localStorage.setItem(SK,JSON.stringify(store))}
-function getState(bid){
-  if(store[bid]) return JSON.parse(JSON.stringify(store[bid]));
-  return JSON.parse(JSON.stringify(DEFAULTS[bid]));
-}
-function setState(bid,s){store[bid]=JSON.parse(JSON.stringify(s));save()}
-function curState(){return getState(cur)}
-function saveCur(s){setState(cur,s)}
+function S(bid){return store[bid]?JSON.parse(JSON.stringify(store[bid])):JSON.parse(JSON.stringify(DEFAULTS[bid]))}
+function W(bid,s){store[bid]=JSON.parse(JSON.stringify(s));save()}
+function cs(){return S(cur)}
+function ws(s){W(cur,s)}
 
 /* ═══════ RENDER ═══════ */
 function render(){
-  $board.querySelectorAll('.node,.group,.problems-bar,.sc-badge').forEach(function(e){e.remove()});
+  $b.querySelectorAll('.node,.group,.problems-bar,.sc-badge').forEach(function(e){e.remove()});
   $svg.querySelectorAll('.edge-group').forEach(function(e){e.remove()});
-  nodeEls={};groupEls={};
-  var s=curState();
+  nodeEls={};
+  var s=cs();
 
-  // badge
-  if(cur==='scc'){var b=document.createElement('div');b.className='sc-badge rec';b.textContent='РЕКОМЕНДАЦИЯ';$board.appendChild(b)}
-
-  // problems
+  if(cur==='scc'){var bd=document.createElement('div');bd.className='sc-badge rec';bd.textContent='РЕКОМЕНДАЦИЯ';$b.appendChild(bd)}
   if(cur==='asis'){
     var pb=document.createElement('div');pb.className='problems-bar';
-    [['Монетизация','Нет P&L'],['Управляемость','19 подчинений'],['Рудименты','4 без результата'],['Скорость','Нет R&D'],['Прозрачность','Нет lifecycle']].forEach(function(p){
+    [['Монетизация','Нет P&L'],['Управляемость','19 подч.'],['Рудименты','4 без результата'],['Скорость','Нет R&D'],['Прозрачность','Нет lifecycle']].forEach(function(p){
       var c=document.createElement('div');c.className='prob-chip';c.innerHTML=p[0]+'<span>'+p[1]+'</span>';pb.appendChild(c);
-    });$board.appendChild(pb);
+    });$b.appendChild(pb);
   }
 
   // groups
   (s.groups||[]).forEach(function(g,i){
-    var el=document.createElement('div');
-    el.className='group';el.dataset.gidx=i;
-    el.style.left=g.x+'px';el.style.top=g.y+'px';el.style.width=g.w+'px';el.style.height=g.h+'px';
-    el.style.background=hexToRgba(g.color,0.06);el.style.border='1.5px solid '+hexToRgba(g.color,0.2);
-    var lbl=document.createElement('div');lbl.className='group-label';
-    lbl.style.background=hexToRgba(g.color,0.12);lbl.style.color=g.color;lbl.textContent=g.name;
+    var el=document.createElement('div');el.className='group';el.dataset.gidx=i;
+    el.style.cssText='left:'+g.x+'px;top:'+g.y+'px;width:'+g.w+'px;height:'+g.h+'px;background:'+hexA(g.color,0.06)+';border:1.5px solid '+hexA(g.color,0.2);
+    var lb=document.createElement('div');lb.className='group-label';lb.style.cssText='background:'+hexA(g.color,0.12)+';color:'+g.color;lb.textContent=g.name;
     var rz=document.createElement('div');rz.className='group-resize';
-    el.appendChild(lbl);el.appendChild(rz);
-    $board.appendChild(el);groupEls[i]=el;
+    el.appendChild(lb);el.appendChild(rz);$b.appendChild(el);
   });
 
   // nodes
   s.nodes.forEach(function(n){
-    var el=document.createElement('div');
-    el.className='node '+n.type;el.dataset.id=n.id;
+    var el=document.createElement('div');el.className='node '+n.type;el.dataset.id=n.id;
     var h='<div class="node-name">'+esc(n.name)+'</div>';
     if(n.desc)h+='<div class="node-desc">'+esc(n.desc)+'</div>';
+    // leader badge
+    var ldr=n.leader||'';
+    var isVacancy=!ldr;
+    h+='<div class="node-leader'+(isVacancy?' vacancy':'')+'"><div class="node-leader-avatar">'+(isVacancy?'?':esc(initials(ldr)))+'</div><div class="node-leader-name">'+(isVacancy?'вакансия':esc(ldr))+'</div></div>';
     if(n.type==='n-app')h+='<div class="node-badge">опция</div>';
     h+='<div class="node-del" title="Удалить">x</div>';
     el.innerHTML=h;
     el.style.left=n.x+'px';el.style.top=n.y+'px';
-    $board.appendChild(el);nodeEls[n.id]=el;
+    $b.appendChild(el);nodeEls[n.id]=el;
   });
 
   drawEdges(s.edges);
 }
 
-function esc(t){return t.replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function hexToRgba(hex,a){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return 'rgba('+r+','+g+','+b+','+a+')'}
-
-function getCenter(el){
-  var r=el.getBoundingClientRect(),br=$board.getBoundingClientRect();
-  return{x:r.left-br.left+$board.scrollLeft+r.width/2,y:r.top-br.top+$board.scrollTop+r.height/2,
-    top:r.top-br.top+$board.scrollTop,bottom:r.top-br.top+$board.scrollTop+r.height,
-    left:r.left-br.left+$board.scrollLeft,right:r.left-br.left+$board.scrollLeft+r.width};
+function gc(el){
+  var r=el.getBoundingClientRect(),br=$b.getBoundingClientRect();
+  return{x:r.left-br.left+$b.scrollLeft+r.width/2,y:r.top-br.top+$b.scrollTop+r.height/2,
+    t:r.top-br.top+$b.scrollTop,b:r.top-br.top+$b.scrollTop+r.height,
+    l:r.left-br.left+$b.scrollLeft,r:r.left-br.left+$b.scrollLeft+r.width};
 }
 
 function drawEdges(edges){
   $svg.querySelectorAll('.edge-group').forEach(function(e){e.remove()});
-  edges.forEach(function(e){
-    var f=nodeEls[e[0]],t=nodeEls[e[1]];if(!f||!t)return;
-    var fc=getCenter(f),tc=getCenter(t),dy=tc.y-fc.y,dx=tc.x-fc.x;
-    var fx,fy,tx,ty;
-    if(Math.abs(dy)>Math.abs(dx)*0.3){
-      if(dy>0){fx=fc.x;fy=fc.bottom;tx=tc.x;ty=tc.top}else{fx=fc.x;fy=fc.top;tx=tc.x;ty=tc.bottom}
-    }else{if(dx>0){fx=fc.right;fy=fc.y;tx=tc.left;ty=tc.y}else{fx=fc.left;fy=fc.y;tx=tc.right;ty=tc.y}}
+  edges.forEach(function(e,i){
+    var fe=nodeEls[e.f],te=nodeEls[e.t];if(!fe||!te)return;
+    var fc=gc(fe),tc=gc(te);
+
+    // elbow connector: bottom of parent → midY → top of child
+    var fx=fc.x,fy=fc.b,tx=tc.x,ty=tc.t;
+    var midY=e.midY!=null?e.midY:(fy+ty)/2;
+
+    // build path: vertical down, horizontal, vertical down
+    var d='M'+fx+','+fy+' L'+fx+','+midY+' L'+tx+','+midY+' L'+tx+','+ty;
+
     var g=document.createElementNS('http://www.w3.org/2000/svg','g');g.classList.add('edge-group');
-    var ln=document.createElementNS('http://www.w3.org/2000/svg','line');
-    ln.setAttribute('x1',fx);ln.setAttribute('y1',fy);ln.setAttribute('x2',tx);ln.setAttribute('y2',ty);
-    ln.classList.add('arrow');ln.setAttribute('marker-end','url(#ah)');
-    var hit=document.createElementNS('http://www.w3.org/2000/svg','line');
-    hit.setAttribute('x1',fx);hit.setAttribute('y1',fy);hit.setAttribute('x2',tx);hit.setAttribute('y2',ty);
-    hit.setAttribute('stroke','transparent');hit.setAttribute('stroke-width','12');hit.style.cursor='pointer';hit.style.pointerEvents='stroke';
+
+    // visible path
+    var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d',d);p.classList.add('arrow-path');p.setAttribute('marker-end','url(#ah)');
+    // hit path
+    var hit=document.createElementNS('http://www.w3.org/2000/svg','path');
+    hit.setAttribute('d',d);hit.classList.add('arrow-hit');
     hit.addEventListener('contextmenu',function(ev){ev.preventDefault();
-      var s=curState();s.edges=s.edges.filter(function(x){return!(x[0]===e[0]&&x[1]===e[1])});saveCur(s);render();
+      var s=cs();s.edges.splice(i,1);ws(s);render();
     });
-    g.appendChild(ln);g.appendChild(hit);$svg.appendChild(g);
+
+    // midpoint handle
+    var mx=(fx+tx)/2,my=midY;
+    var dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    dot.setAttribute('cx',mx);dot.setAttribute('cy',my);dot.classList.add('edge-mid');
+    dot.dataset.eidx=i;
+
+    g.appendChild(hit);g.appendChild(p);g.appendChild(dot);
+    $svg.appendChild(g);
   });
 }
 
 /* ═══════ DRAG ═══════ */
-$board.addEventListener('mousedown',function(ev){
+$b.addEventListener('mousedown',function(ev){
   if(ev.button!==0)return;
-  // group resize?
+
+  // edge midpoint drag
+  if(ev.target.classList.contains('edge-mid')){
+    dragType='edge';dragEdgeIdx=parseInt(ev.target.dataset.eidx);
+    ev.preventDefault();return;
+  }
   if(ev.target.classList.contains('group-resize')){
     var gel=ev.target.parentElement;dragType='gresize';dragging=gel;
-    dragOff.x=ev.clientX;dragOff.y=ev.clientY;
-    dragOff.w=parseInt(gel.style.width);dragOff.h=parseInt(gel.style.height);
+    dragOff.x=ev.clientX;dragOff.y=ev.clientY;dragOff.w=parseInt(gel.style.width);dragOff.h=parseInt(gel.style.height);
     ev.preventDefault();return;
   }
-  // group drag?
   if(ev.target.classList.contains('group-label')||ev.target.classList.contains('group')){
-    var gel2=ev.target.closest('.group');if(!gel2)return;
-    dragType='group';dragging=gel2;
-    var r=gel2.getBoundingClientRect();dragOff.x=ev.clientX-r.left;dragOff.y=ev.clientY-r.top;
-    ev.preventDefault();return;
+    var gel2=ev.target.closest('.group');if(!gel2)return;dragType='group';dragging=gel2;
+    var r=gel2.getBoundingClientRect();dragOff.x=ev.clientX-r.left;dragOff.y=ev.clientY-r.top;ev.preventDefault();return;
   }
-  // node delete?
   if(ev.target.classList.contains('node-del')){
-    var nd=ev.target.closest('.node');if(!nd)return;
-    var s=curState();var nid=nd.dataset.id;
+    var nd=ev.target.closest('.node');if(!nd)return;var s=cs(),nid=nd.dataset.id;
     s.nodes=s.nodes.filter(function(n){return n.id!==nid});
-    s.edges=s.edges.filter(function(e){return e[0]!==nid&&e[1]!==nid});
-    saveCur(s);render();return;
+    s.edges=s.edges.filter(function(e){return e.f!==nid&&e.t!==nid});ws(s);render();return;
   }
   var node=ev.target.closest('.node');
   if(node){
     if(mode==='connect'){handleConnect(node);return}
     ev.preventDefault();dragType='node';dragging=node;dragging.classList.add('dragging');
-    var r2=node.getBoundingClientRect();dragOff.x=ev.clientX-r2.left;dragOff.y=ev.clientY-r2.top;
-    return;
+    var r2=node.getBoundingClientRect();dragOff.x=ev.clientX-r2.left;dragOff.y=ev.clientY-r2.top;return;
   }
-  // board click for add mode
-  if(mode==='add'){
-    var br=$board.getBoundingClientRect();
-    var px=ev.clientX-br.left+$board.scrollLeft;
-    var py=ev.clientY-br.top+$board.scrollTop;
-    openEditModal(null,px,py);setMode('');return;
-  }
-  // board click for group draw
-  if(mode==='group'){
-    var br2=$board.getBoundingClientRect();
-    groupDraw={x:ev.clientX-br2.left+$board.scrollLeft,y:ev.clientY-br2.top+$board.scrollTop};
-    ev.preventDefault();return;
-  }
+  if(mode==='add'){var br=$b.getBoundingClientRect();openEditModal(null,ev.clientX-br.left+$b.scrollLeft,ev.clientY-br.top+$b.scrollTop);setMode('');return}
+  if(mode==='group'){var br2=$b.getBoundingClientRect();groupDraw={x:ev.clientX-br2.left+$b.scrollLeft,y:ev.clientY-br2.top+$b.scrollTop};ev.preventDefault();return}
 });
 
 document.addEventListener('mousemove',function(ev){
+  var br=$b.getBoundingClientRect();
+  if(dragType==='edge'){
+    var my=ev.clientY-br.top+$b.scrollTop;
+    var s=cs();if(s.edges[dragEdgeIdx]){s.edges[dragEdgeIdx].midY=my;ws(s);drawEdges(s.edges)}
+    return;
+  }
   if(!dragging)return;
-  var br=$board.getBoundingClientRect();
   if(dragType==='node'){
-    var x=ev.clientX-br.left+$board.scrollLeft-dragOff.x;
-    var y=ev.clientY-br.top+$board.scrollTop-dragOff.y;
+    var x=ev.clientX-br.left+$b.scrollLeft-dragOff.x,y=ev.clientY-br.top+$b.scrollTop-dragOff.y;
     dragging.style.left=Math.max(0,x)+'px';dragging.style.top=Math.max(0,y)+'px';
-    var s=curState();var nd=s.nodes.find(function(n){return n.id===dragging.dataset.id});
-    if(nd){nd.x=Math.max(0,x);nd.y=Math.max(0,y);saveCur(s)}
-    drawEdges(curState().edges);
+    var s=cs(),nd=s.nodes.find(function(n){return n.id===dragging.dataset.id});
+    if(nd){nd.x=Math.max(0,x);nd.y=Math.max(0,y);ws(s)}drawEdges(cs().edges);
   }else if(dragType==='group'){
-    var x2=ev.clientX-br.left+$board.scrollLeft-dragOff.x;
-    var y2=ev.clientY-br.top+$board.scrollTop-dragOff.y;
+    var x2=ev.clientX-br.left+$b.scrollLeft-dragOff.x,y2=ev.clientY-br.top+$b.scrollTop-dragOff.y;
     dragging.style.left=Math.max(0,x2)+'px';dragging.style.top=Math.max(0,y2)+'px';
-    var s2=curState();var gi=parseInt(dragging.dataset.gidx);
-    if(s2.groups&&s2.groups[gi]){s2.groups[gi].x=Math.max(0,x2);s2.groups[gi].y=Math.max(0,y2);saveCur(s2)}
+    var s2=cs(),gi=parseInt(dragging.dataset.gidx);
+    if(s2.groups&&s2.groups[gi]){s2.groups[gi].x=Math.max(0,x2);s2.groups[gi].y=Math.max(0,y2);ws(s2)}
   }else if(dragType==='gresize'){
     var dw=ev.clientX-dragOff.x,dh=ev.clientY-dragOff.y;
-    dragging.style.width=Math.max(80,dragOff.w+dw)+'px';
-    dragging.style.height=Math.max(40,dragOff.h+dh)+'px';
-    var s3=curState();var gi2=parseInt(dragging.dataset.gidx);
-    if(s3.groups&&s3.groups[gi2]){s3.groups[gi2].w=Math.max(80,dragOff.w+dw);s3.groups[gi2].h=Math.max(40,dragOff.h+dh);saveCur(s3)}
+    dragging.style.width=Math.max(80,dragOff.w+dw)+'px';dragging.style.height=Math.max(40,dragOff.h+dh)+'px';
+    var s3=cs(),gi2=parseInt(dragging.dataset.gidx);
+    if(s3.groups&&s3.groups[gi2]){s3.groups[gi2].w=Math.max(80,dragOff.w+dw);s3.groups[gi2].h=Math.max(40,dragOff.h+dh);ws(s3)}
   }
 });
-
-document.addEventListener('mouseup',function(){
+document.addEventListener('mouseup',function(ev){
   if(dragging&&dragType==='node')dragging.classList.remove('dragging');
-  dragging=null;dragType='';
+  if(mode==='group'&&groupDraw){
+    var br=$b.getBoundingClientRect(),ex=ev.clientX-br.left+$b.scrollLeft,ey=ev.clientY-br.top+$b.scrollTop;
+    var x=Math.min(groupDraw.x,ex),y=Math.min(groupDraw.y,ey),w=Math.abs(ex-groupDraw.x),h=Math.abs(ey-groupDraw.y);
+    groupDraw=null;if(w>30&&h>20){openGroupModal({x:x,y:y,w:w,h:h})}setMode('');
+  }
+  dragging=null;dragType='';dragEdgeIdx=-1;
 });
 
-/* ═══════ DBLCLICK EDIT ═══════ */
-$board.addEventListener('dblclick',function(ev){
-  var node=ev.target.closest('.node');
-  if(node){openEditModal(node.dataset.id);return}
-  var grp=ev.target.closest('.group');
-  if(grp){
-    var gi=parseInt(grp.dataset.gidx);var s=curState();var g=s.groups[gi];
-    var nn=prompt('Название группы:',g.name);
-    if(nn!==null&&nn.trim()){g.name=nn.trim();saveCur(s);render()}
-    return;
+/* ═══════ DBLCLICK ═══════ */
+$b.addEventListener('dblclick',function(ev){
+  var node=ev.target.closest('.node');if(node){openEditModal(node.dataset.id);return}
+  var grp=ev.target.closest('.group');if(grp){
+    var gi=parseInt(grp.dataset.gidx),s=cs(),g=s.groups[gi];
+    var nn=prompt('Название группы:',g.name);if(nn!==null&&nn.trim()){g.name=nn.trim();ws(s);render()}
   }
 });
 
 /* ═══════ EDIT MODAL ═══════ */
 var editingId=null,addPos=null;
 function openEditModal(nid,px,py){
-  var s=curState();
-  if(nid){
-    editingId=nid;addPos=null;
+  var s=cs();
+  if(nid){editingId=nid;addPos=null;
     var n=s.nodes.find(function(x){return x.id===nid});
     document.getElementById('modalTitle').textContent='Редактировать блок';
-    document.getElementById('mName').value=n.name;
-    document.getElementById('mDesc').value=n.desc||'';
-    document.getElementById('mType').value=n.type;
-  }else{
-    editingId=null;addPos={x:px,y:py};
+    document.getElementById('mName').value=n.name;document.getElementById('mDesc').value=n.desc||'';
+    document.getElementById('mType').value=n.type;document.getElementById('mLeader').value=n.leader||'';
+  }else{editingId=null;addPos={x:px,y:py};
     document.getElementById('modalTitle').textContent='Новый блок';
-    document.getElementById('mName').value='';
-    document.getElementById('mDesc').value='';
-    document.getElementById('mType').value='n-custom';
+    document.getElementById('mName').value='';document.getElementById('mDesc').value='';
+    document.getElementById('mType').value='n-custom';document.getElementById('mLeader').value='';
   }
-  $editModal.classList.add('open');
-  document.getElementById('mName').focus();
+  document.getElementById('editModal').classList.add('open');document.getElementById('mName').focus();
 }
-
-document.getElementById('mCancel').onclick=function(){$editModal.classList.remove('open')};
+document.getElementById('mCancel').onclick=function(){document.getElementById('editModal').classList.remove('open')};
 document.getElementById('mSave').onclick=function(){
-  var name=document.getElementById('mName').value.trim();
-  if(!name)return;
-  var desc=document.getElementById('mDesc').value.trim();
-  var type=document.getElementById('mType').value;
-  var s=curState();
-  if(editingId){
-    var n=s.nodes.find(function(x){return x.id===editingId});
-    if(n){n.name=name;n.desc=desc;n.type=type}
-  }else{
-    s.nodes.push({id:uid(),type:type,name:name,desc:desc,x:addPos.x,y:addPos.y});
-  }
-  saveCur(s);$editModal.classList.remove('open');render();
+  var name=document.getElementById('mName').value.trim();if(!name)return;
+  var desc=document.getElementById('mDesc').value.trim(),type=document.getElementById('mType').value,leader=document.getElementById('mLeader').value.trim();
+  var s=cs();
+  if(editingId){var n=s.nodes.find(function(x){return x.id===editingId});if(n){n.name=name;n.desc=desc;n.type=type;n.leader=leader}}
+  else{s.nodes.push({id:uid(),type:type,name:name,desc:desc,leader:leader,x:addPos.x,y:addPos.y})}
+  ws(s);document.getElementById('editModal').classList.remove('open');render();
 };
 document.getElementById('mName').addEventListener('keydown',function(ev){if(ev.key==='Enter')document.getElementById('mSave').click()});
 
 /* ═══════ GROUP MODAL ═══════ */
 var groupColor='#6C3DAF',groupRect=null;
-document.querySelectorAll('.color-opt').forEach(function(el){
-  el.addEventListener('click',function(){
-    document.querySelectorAll('.color-opt').forEach(function(e){e.classList.remove('sel')});
-    el.classList.add('sel');groupColor=el.dataset.c;
-  });
-});
-function openGroupModal(rect){
-  groupRect=rect;
-  document.getElementById('gName').value='';
-  document.querySelectorAll('.color-opt').forEach(function(e){e.classList.remove('sel')});
-  document.querySelector('.color-opt').classList.add('sel');groupColor='#6C3DAF';
-  $groupModal.classList.add('open');document.getElementById('gName').focus();
-}
-document.getElementById('gCancel').onclick=function(){$groupModal.classList.remove('open')};
+document.querySelectorAll('.color-opt').forEach(function(el){el.addEventListener('click',function(){
+  document.querySelectorAll('.color-opt').forEach(function(e){e.classList.remove('sel')});el.classList.add('sel');groupColor=el.dataset.c;
+})});
+function openGroupModal(rect){groupRect=rect;document.getElementById('gName').value='';
+  document.querySelectorAll('.color-opt').forEach(function(e){e.classList.remove('sel')});document.querySelector('.color-opt').classList.add('sel');groupColor='#6C3DAF';
+  document.getElementById('groupModal').classList.add('open');document.getElementById('gName').focus();}
+document.getElementById('gCancel').onclick=function(){document.getElementById('groupModal').classList.remove('open')};
 document.getElementById('gSave').onclick=function(){
-  var name=document.getElementById('gName').value.trim()||'Группа';
-  var s=curState();if(!s.groups)s.groups=[];
+  var name=document.getElementById('gName').value.trim()||'Группа';var s=cs();if(!s.groups)s.groups=[];
   s.groups.push({name:name,color:groupColor,x:groupRect.x,y:groupRect.y,w:groupRect.w,h:groupRect.h});
-  saveCur(s);$groupModal.classList.remove('open');render();
+  ws(s);document.getElementById('groupModal').classList.remove('open');render();
 };
 document.getElementById('gName').addEventListener('keydown',function(ev){if(ev.key==='Enter')document.getElementById('gSave').click()});
 
 /* ═══════ CONNECT ═══════ */
 function handleConnect(node){
   var id=node.dataset.id;
-  if(!connectSrc){connectSrc=id;node.classList.add('connect-source');
-    $hint.textContent='Выберите цель...';
-  }else{
-    if(nodeEls[connectSrc])nodeEls[connectSrc].classList.remove('connect-source');
-    if(connectSrc!==id){
-      var s=curState();var dup=s.edges.some(function(e){return e[0]===connectSrc&&e[1]===id});
-      if(!dup){s.edges.push([connectSrc,id]);saveCur(s);render()}
-    }
-    connectSrc=null;$hint.textContent='Связь создана.';
-  }
+  if(!connectSrc){connectSrc=id;node.classList.add('connect-source');$hint.textContent='Выберите цель...';}
+  else{if(nodeEls[connectSrc])nodeEls[connectSrc].classList.remove('connect-source');
+    if(connectSrc!==id){var s=cs();var dup=s.edges.some(function(e){return e.f===connectSrc&&e.t===id});
+      if(!dup){s.edges.push({f:connectSrc,t:id});ws(s);render()}}
+    connectSrc=null;$hint.textContent='Связь создана.';}
 }
 
 /* ═══════ TOOLBAR ═══════ */
-function setMode(m){
-  mode=m;connectSrc=null;
+function setMode(m){mode=m;connectSrc=null;
   document.querySelectorAll('.node.connect-source').forEach(function(e){e.classList.remove('connect-source')});
-  $board.className='board'+(m==='connect'?' connecting':'')+(m==='add'?' adding':'');
+  $b.className='board'+(m==='connect'?' connecting':'')+(m==='add'?' adding':'');
   document.getElementById('btnConnect').classList.toggle('active',m==='connect');
   document.getElementById('btnAdd').classList.toggle('active',m==='add');
   document.getElementById('btnGroup').classList.toggle('active',m==='group');
-  var hints={'':'Двойной клик — редактировать. Наведите — крестик удалить.',
-    'connect':'Режим связей: клик источник → цель. ПКМ по стрелке — удалить.',
-    'add':'Кликните на доске чтобы разместить новый блок.',
-    'group':'Нарисуйте прямоугольник на доске (зажмите и тяните).'};
-  $hint.textContent=hints[m]||'';
+  var h={'':'Двойной клик — редактировать. Тяните точку на стрелке для изгиба.','connect':'Клик источник → цель. ПКМ по стрелке — удалить.','add':'Кликните на доске для нового блока.','group':'Нарисуйте прямоугольник.'};
+  $hint.textContent=h[m]||'';
 }
-
 document.getElementById('btnConnect').onclick=function(){setMode(mode==='connect'?'':'connect')};
 document.getElementById('btnAdd').onclick=function(){setMode(mode==='add'?'':'add')};
 document.getElementById('btnGroup').onclick=function(){setMode(mode==='group'?'':'group')};
-document.getElementById('btnReset').onclick=function(){
-  if(!confirm('Сбросить эту доску к начальному виду?'))return;
-  delete store[cur];save();render();
-};
+document.getElementById('btnReset').onclick=function(){if(!confirm('Сбросить доску?'))return;delete store[cur];save();render()};
 
-// group draw on mouseup
-document.addEventListener('mouseup',function(ev){
-  if(mode==='group'&&groupDraw){
-    var br=$board.getBoundingClientRect();
-    var ex=ev.clientX-br.left+$board.scrollLeft;
-    var ey=ev.clientY-br.top+$board.scrollTop;
-    var x=Math.min(groupDraw.x,ex),y=Math.min(groupDraw.y,ey);
-    var w=Math.abs(ex-groupDraw.x),h=Math.abs(ey-groupDraw.y);
-    groupDraw=null;
-    if(w>30&&h>20){openGroupModal({x:x,y:y,w:w,h:h})}
-    setMode('');
-  }
-});
+/* tabs */
+document.querySelectorAll('.tab').forEach(function(tab){tab.addEventListener('click',function(){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});tab.classList.add('active');cur=tab.dataset.board;setMode('');render();
+})});
 
-/* ═══════ TABS ═══════ */
-document.querySelectorAll('.tab').forEach(function(tab){
-  tab.addEventListener('click',function(){
-    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
-    tab.classList.add('active');cur=tab.dataset.board;setMode('');render();
-  });
-});
+/* context menu group */
+$b.addEventListener('contextmenu',function(ev){var grp=ev.target.closest('.group');if(grp){ev.preventDefault();
+  if(confirm('Удалить группу?')){var s=cs();s.groups.splice(parseInt(grp.dataset.gidx),1);ws(s);render()}}});
 
-/* ═══════ CONTEXT MENU BLOCK ═══════ */
-$board.addEventListener('contextmenu',function(ev){
-  var grp=ev.target.closest('.group');
-  if(grp){
-    ev.preventDefault();
-    if(confirm('Удалить группу?')){
-      var s=curState();var gi=parseInt(grp.dataset.gidx);
-      s.groups.splice(gi,1);saveCur(s);render();
-    }
-  }
-});
-
-/* ═══════ INIT ═══════ */
 render();
-
 })();
 </script>
 </body>
