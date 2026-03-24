@@ -114,6 +114,18 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
 .sc-badge{position:absolute;top:12px;left:12px;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:800;z-index:50}
 .sc-badge.rec{background:#0A7A50;color:#fff}
 
+/* template cards */
+.tpl-card{border:1px solid #E8E5EF;border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .15s}
+.tpl-card:hover{border-color:#D8CCF0;background:#FAF7FF}
+.tpl-card.sel{border-color:#6C3DAF;background:#F3EDFF}
+.tpl-title{font-size:10px;font-weight:800;color:#1A1A2E;margin-bottom:2px}
+.tpl-desc{font-size:8px;color:#7A7A9D;line-height:1.4}
+
+/* tab close */
+.tab-close{margin-left:4px;font-size:9px;color:#A0A0B8;cursor:pointer;font-weight:800;opacity:0;transition:opacity .15s}
+.tab:hover .tab-close{opacity:1}
+.tab-close:hover{color:#B83020}
+
 @media print{body{overflow:visible;height:auto}.board{height:auto;overflow:visible}.toolbar,.legend,.modal-bg,.node-del{display:none!important}*{-webkit-print-color-adjust:exact!important}}
 </style>
 </head>
@@ -121,12 +133,8 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
 
 <div class="toolbar">
   <h1>Структура департамента</h1>
-  <div class="tabs">
-    <button class="tab active" data-board="asis">AS-IS</button>
-    <button class="tab" data-board="sca">А. Автономия</button>
-    <button class="tab" data-board="scb">Б. Платформа</button>
-    <button class="tab" data-board="scc">В. Гибридный</button>
-  </div>
+  <div class="tabs" id="tabBar"></div>
+  <button class="tb-btn" id="btnNewBoard" style="color:#6C3DAF;border-color:#D8CCF0;margin-left:4px">+ Доска</button>
   <div class="tb-sep"></div>
   <button class="tb-btn green" id="btnAdd">+ Блок</button>
   <button class="tb-btn blue" id="btnGroup">Группа</button>
@@ -200,6 +208,42 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F3F1F6;color:#1A1A2E;
     <div class="modal-btns">
       <button id="gCancel">Отмена</button>
       <button class="primary" id="gSave">Создать</button>
+    </div>
+  </div>
+</div>
+
+<!-- New Board modal -->
+<div class="modal-bg" id="boardModal">
+  <div class="modal">
+    <h3>Новая доска</h3>
+    <label>Название</label>
+    <input id="bName" placeholder="Например: Вариант Д">
+    <label>Шаблон</label>
+    <div id="tplList" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px">
+      <div class="tpl-card sel" data-tpl="empty">
+        <div class="tpl-title">Пустая доска</div>
+        <div class="tpl-desc">Только CEO. Стройте с нуля.</div>
+      </div>
+      <div class="tpl-card" data-tpl="org3">
+        <div class="tpl-title">Оргструктура (3 уровня)</div>
+        <div class="tpl-desc">CEO → 4 вертикали → продукты</div>
+      </div>
+      <div class="tpl-card" data-tpl="matrix">
+        <div class="tpl-title">Матричная</div>
+        <div class="tpl-desc">CEO → функции + продукты в группах</div>
+      </div>
+      <div class="tpl-card" data-tpl="portfolio">
+        <div class="tpl-title">Продуктовый портфель</div>
+        <div class="tpl-desc">Группы по стадиям: R&D → Growth → Mature</div>
+      </div>
+      <div class="tpl-card" data-tpl="dupCurrent">
+        <div class="tpl-title">Копия текущей</div>
+        <div class="tpl-desc">Дублировать активную доску</div>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button id="bCancel">Отмена</button>
+      <button class="primary" id="bSave">Создать</button>
     </div>
   </div>
 </div>
@@ -570,16 +614,116 @@ document.getElementById('btnAdd').onclick=function(){setMode(mode==='add'?'':'ad
 document.getElementById('btnGroup').onclick=function(){setMode(mode==='group'?'':'group')};
 document.getElementById('btnReset').onclick=function(){if(!confirm('Сбросить доску?'))return;delete store[cur];save();render()};
 
-/* tabs */
-document.querySelectorAll('.tab').forEach(function(tab){tab.addEventListener('click',function(){
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});tab.classList.add('active');cur=tab.dataset.board;setMode('');render();
+/* ═══════ DYNAMIC TABS ═══════ */
+var BUILTIN=['asis','sca','scb','scc'];
+var BUILTIN_LABELS={asis:'AS-IS',sca:'А. Автономия',scb:'Б. Платформа',scc:'В. Гибридный'};
+var BK='orgboard_boards';
+var boards=[];
+try{boards=JSON.parse(localStorage.getItem(BK))||[]}catch(e){}
+function saveBoards(){localStorage.setItem(BK,JSON.stringify(boards))}
+
+function renderTabs(){
+  var $tb=document.getElementById('tabBar');$tb.innerHTML='';
+  // builtin tabs
+  BUILTIN.forEach(function(bid){
+    var btn=document.createElement('button');btn.className='tab'+(cur===bid?' active':'');btn.dataset.board=bid;
+    btn.textContent=BUILTIN_LABELS[bid];
+    btn.addEventListener('click',function(){switchBoard(bid)});
+    $tb.appendChild(btn);
+  });
+  // custom tabs
+  boards.forEach(function(b,i){
+    var btn=document.createElement('button');btn.className='tab'+(cur===b.id?' active':'');btn.dataset.board=b.id;
+    btn.innerHTML=esc(b.name)+'<span class="tab-close" data-bidx="'+i+'">x</span>';
+    btn.addEventListener('click',function(ev){
+      if(ev.target.classList.contains('tab-close')){
+        ev.stopPropagation();
+        if(!confirm('Удалить доску «'+b.name+'»?'))return;
+        if(cur===b.id)switchBoard('asis');
+        delete store[b.id];save();boards.splice(i,1);saveBoards();renderTabs();
+        return;
+      }
+      switchBoard(b.id);
+    });
+    btn.addEventListener('dblclick',function(ev){
+      if(ev.target.classList.contains('tab-close'))return;
+      var nn=prompt('Переименовать доску:',b.name);
+      if(nn&&nn.trim()){b.name=nn.trim();saveBoards();renderTabs()}
+    });
+    $tb.appendChild(btn);
+  });
+}
+
+function switchBoard(bid){cur=bid;setMode('');renderTabs();render()}
+
+/* ═══════ NEW BOARD ═══════ */
+var TEMPLATES = {
+  empty:{nodes:[{id:'ceo',type:'n-ceo',name:'CEO',desc:'',leader:'',x:400,y:60}],edges:[],groups:[]},
+  org3:{nodes:[
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'',leader:'',x:400,y:40},
+    {id:'v1',type:'n-cpo',name:'Вертикаль 1',desc:'',leader:'',x:100,y:160},
+    {id:'v2',type:'n-cto',name:'Вертикаль 2',desc:'',leader:'',x:300,y:160},
+    {id:'v3',type:'n-ops',name:'Вертикаль 3',desc:'',leader:'',x:500,y:160},
+    {id:'v4',type:'n-an',name:'Вертикаль 4',desc:'',leader:'',x:700,y:160},
+    {id:'p1',type:'n-prod',name:'Продукт 1',desc:'',leader:'',x:50,y:290},
+    {id:'p2',type:'n-prod',name:'Продукт 2',desc:'',leader:'',x:200,y:290},
+    {id:'p3',type:'n-prod',name:'Продукт 3',desc:'',leader:'',x:350,y:290},
+    {id:'p4',type:'n-prod',name:'Продукт 4',desc:'',leader:'',x:500,y:290},
+    {id:'p5',type:'n-prod',name:'Продукт 5',desc:'',leader:'',x:650,y:290}
+  ],edges:[{f:'ceo',t:'v1'},{f:'ceo',t:'v2'},{f:'ceo',t:'v3'},{f:'ceo',t:'v4'},{f:'v1',t:'p1'},{f:'v1',t:'p2'},{f:'v2',t:'p3'},{f:'v3',t:'p4'},{f:'v4',t:'p5'}],groups:[]},
+  matrix:{nodes:[
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'',leader:'',x:400,y:40},
+    {id:'f1',type:'n-cto',name:'Разработка',desc:'',leader:'',x:100,y:160},
+    {id:'f2',type:'n-sales',name:'Продажи',desc:'',leader:'',x:300,y:160},
+    {id:'f3',type:'n-an',name:'Аналитика',desc:'',leader:'',x:500,y:160},
+    {id:'f4',type:'n-ops',name:'Операционка',desc:'',leader:'',x:700,y:160},
+    {id:'p1',type:'n-prod',name:'Продукт A',desc:'',leader:'',x:150,y:310},
+    {id:'p2',type:'n-prod',name:'Продукт B',desc:'',leader:'',x:400,y:310},
+    {id:'p3',type:'n-prod',name:'Продукт C',desc:'',leader:'',x:650,y:310}
+  ],edges:[{f:'ceo',t:'f1'},{f:'ceo',t:'f2'},{f:'ceo',t:'f3'},{f:'ceo',t:'f4'}],
+  groups:[{name:'Продуктовые команды',color:'#6C3DAF',x:100,y:280,w:650,h:80}]},
+  portfolio:{nodes:[
+    {id:'ceo',type:'n-ceo',name:'CEO',desc:'',leader:'',x:400,y:40},
+    {id:'cpo',type:'n-cpo',name:'CPO',desc:'Портфель',leader:'',x:400,y:140}
+  ],edges:[{f:'ceo',t:'cpo'}],
+  groups:[
+    {name:'R&D / Ранние',color:'#0A8A70',x:40,y:230,w:280,h:120},
+    {name:'Growth / Рост',color:'#B07A00',x:360,y:230,w:280,h:120},
+    {name:'Mature / Зрелые',color:'#2B5FC2',x:680,y:230,w:280,h:120}
+  ]}
+};
+
+var selTpl='empty';
+document.querySelectorAll('.tpl-card').forEach(function(el){el.addEventListener('click',function(){
+  document.querySelectorAll('.tpl-card').forEach(function(e){e.classList.remove('sel')});el.classList.add('sel');selTpl=el.dataset.tpl;
 })});
+
+document.getElementById('btnNewBoard').onclick=function(){
+  document.getElementById('bName').value='';selTpl='empty';
+  document.querySelectorAll('.tpl-card').forEach(function(e){e.classList.remove('sel')});
+  document.querySelector('.tpl-card').classList.add('sel');
+  document.getElementById('boardModal').classList.add('open');document.getElementById('bName').focus();
+};
+document.getElementById('bCancel').onclick=function(){document.getElementById('boardModal').classList.remove('open')};
+document.getElementById('bSave').onclick=function(){
+  var name=document.getElementById('bName').value.trim()||'Доска '+(boards.length+1);
+  var bid='custom_'+Date.now();
+  var data;
+  if(selTpl==='dupCurrent'){data=cs()}
+  else{data=JSON.parse(JSON.stringify(TEMPLATES[selTpl]||TEMPLATES.empty))}
+  // register board
+  boards.push({id:bid,name:name});saveBoards();
+  W(bid,data);
+  document.getElementById('boardModal').classList.remove('open');
+  switchBoard(bid);
+};
+document.getElementById('bName').addEventListener('keydown',function(ev){if(ev.key==='Enter')document.getElementById('bSave').click()});
 
 /* context menu group */
 $b.addEventListener('contextmenu',function(ev){var grp=ev.target.closest('.group');if(grp){ev.preventDefault();
   if(confirm('Удалить группу?')){var s=cs();s.groups.splice(parseInt(grp.dataset.gidx),1);ws(s);render()}}});
 
-render();
+renderTabs();render();
 })();
 </script>
 </body>
