@@ -198,176 +198,208 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#1a0a2e;color:#fff;-we
 
   </div>
 
-  <!-- Роль ПО -->
-  <div class="pmo-role">
-    <h3>Роль Проектного офиса в целевой структуре</h3>
-    <div class="pmo-cols">
-      <div class="pmo-col">
-        <b>Что делает</b>
-        Единая картина по всем проектам. Контроль сроков и инициатив. Приоритизация на данных. Отчётность CEO.
-      </div>
-      <div class="pmo-col">
-        <b>Чем отличается от CPO/CTO</b>
-        CPO — какие продукты и кто их ведёт. R&D — генерация и проверка гипотез. CTO — как строим. PMO — делаем ли в срок и по приоритету.
-      </div>
-      <div class="pmo-col">
-        <b>Как взаимодействует</b>
-        PM продуктов функционально отчитываются в ПО (30 мин/нед). Направления — через владельцев. CEO получает статус без запросов.
-      </div>
-    </div>
-  </div>
-
   <!-- СЦЕНАРИИ TO-BE -->
   <div style="margin-top:24px;margin-bottom:20px">
     <div style="font-size:16px;font-weight:800;color:#CB11AB;margin-bottom:4px">Три сценария структуры</div>
-    <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px">Общий вызов: вывести департамент на монетизацию и рост коммерческих показателей</div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px">Общий вызов: монетизация, управляемость, скорость, прозрачность, ликвидация рудиментов</div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
-
-      <!-- Сценарий А -->
-      <div style="background:rgba(108,61,175,0.08);border:1px solid rgba(108,61,175,0.2);border-radius:10px;padding:14px 16px">
-        <div style="font-size:13px;font-weight:800;color:#9B59D0;margin-bottom:2px">А. Продуктовый</div>
-        <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:8px">Каждый продукт — отдельный P&L</div>
-
-        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:10px">
-          Product Lead-ы автономны: свой бюджет, команда, метрики. Быстрый вывод в прод. CPO — стратегия портфеля. ПО — координация и контроль.
-        </div>
-
-        <div style="font-size:9px;margin-bottom:6px">
-          <span style="color:#34D399">+ Скорость монетизации зрелых продуктов</span><br>
-          <span style="color:#34D399">+ Ответственность за P&L у владельца</span><br>
-          <span style="color:#34D399">+ Конкуренция между продуктами за ресурс</span>
-        </div>
-        <div style="font-size:9px;margin-bottom:8px">
-          <span style="color:rgba(222,53,11,0.7)">− Дублирование функций (каждому свой маркетинг)</span><br>
-          <span style="color:rgba(222,53,11,0.7)">− Ранние продукты проигрывают за ресурсы</span>
-        </div>
-
-        <div style="font-size:8px;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">
-          Подходит: когда 3+ продукта уже в проде и готовы к P&L
+    <!-- Сценарий А -->
+    <div style="background:rgba(108,61,175,0.06);border:1px solid rgba(108,61,175,0.2);border-radius:10px;padding:16px 18px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+        <div>
+          <div style="font-size:14px;font-weight:800;color:#9B59D0">А. Максимальная автономия продуктов</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.3)">Каждый продукт — автономный P&L-юнит с полной ответственностью</div>
         </div>
       </div>
 
-      <!-- Сценарий Б -->
-      <div style="background:rgba(0,82,204,0.08);border:1px solid rgba(0,82,204,0.2);border-radius:10px;padding:14px 16px">
-        <div style="font-size:13px;font-weight:800;color:#5B9BF2;margin-bottom:2px">Б. Платформенный</div>
-        <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:8px">Общая инфраструктура, единая монетизация</div>
-
-        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:10px">
-          CTO строит единую платформу. Продукты — сервисы внутри экосистемы. Монетизация общая: подписка, маркетплейс, B2B. ПО — lifecycle и стандарты.
+      <!-- Мини-структура А -->
+      <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;margin-bottom:10px">
+        <div style="text-align:center;margin-bottom:8px">
+          <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
         </div>
-
-        <div style="font-size:9px;margin-bottom:6px">
-          <span style="color:#34D399">+ Экономия на инфраструктуре</span><br>
-          <span style="color:#34D399">+ Единый пользовательский опыт</span><br>
-          <span style="color:#34D399">+ Кросс-продуктовая монетизация</span>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:6px">
+          <div style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#5B9BF2">CPO</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Стратегия портфеля, назначение лидеров, дизайн-система</div>
+          </div>
+          <div style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#CB11AB">Операционка</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">PMO, OKR, прозрачность</div>
+          </div>
+          <div style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#5B9BF2">CTO</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Инфра, платформа</div>
+          </div>
+          <div style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#FFB830">Аналитика</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Продуктовая + рыночная</div>
+          </div>
         </div>
-        <div style="font-size:9px;margin-bottom:8px">
-          <span style="color:rgba(222,53,11,0.7)">− Медленный старт (сначала платформа)</span><br>
-          <span style="color:rgba(222,53,11,0.7)">− Зависимость всех от CTO</span>
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:3px;margin-bottom:6px">
+          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Wibes<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
+          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Проект 9<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
+          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Kids<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
+          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Sport<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
+          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Встречи<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
+          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Книги<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
         </div>
-
-        <div style="font-size:8px;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">
-          Подходит: когда есть сильный CTO и продукты связаны
-        </div>
-      </div>
-
-      <!-- Сценарий В -->
-      <div style="background:rgba(203,17,171,0.1);border:1px solid rgba(203,17,171,0.25);border-radius:10px;padding:14px 16px">
-        <div style="font-size:13px;font-weight:800;color:#CB11AB;margin-bottom:2px">В. Гибридный <span style="font-size:9px;color:#34D399">рек.</span></div>
-        <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:8px">Зрелые — автономный P&L, ранние — инкубатор</div>
-
-        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:10px">
-          Wibes, Мост, Tingli — автономные P&L-юниты. Kids, Sport, Встречи, Книги — инкубатор с общими ресурсами (маркетинг, контент, аналитика). Направления — отдельный контур. ПО — сквозная координация.
-        </div>
-
-        <div style="font-size:9px;margin-bottom:6px">
-          <span style="color:#34D399">+ Зрелые зарабатывают, не ждут</span><br>
-          <span style="color:#34D399">+ Ранние не конкурируют за ресурс со зрелыми</span><br>
-          <span style="color:#34D399">+ Направления не мешают ИТ-контуру</span><br>
-          <span style="color:#34D399">+ Общие функции экономят ФОТ</span>
-        </div>
-        <div style="font-size:9px;margin-bottom:8px">
-          <span style="color:rgba(222,53,11,0.7)">− Сложнее управлять (два режима)</span><br>
-          <span style="color:rgba(222,53,11,0.7)">− Нужен сильный ПО для координации</span>
-        </div>
-
-        <div style="font-size:8px;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">
-          Подходит: текущая ситуация — разная зрелость продуктов
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">
+          <div style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.15);border-radius:4px;padding:4px 6px;text-align:center;font-size:7px;color:rgba(255,255,255,0.5)"><b style="color:#CB11AB">Направления и экспансия</b> Молодёжное, Контент, Ивенты, РФ, СНГ/Мир</div>
+          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:4px;padding:4px 6px;text-align:center;font-size:7px;color:rgba(255,255,255,0.3)"><b>На пересмотр</b> 4 рудимента</div>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- ТРАНСФОРМАЦИЯ -->
-  <div style="margin-top:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:18px 22px">
-    <div style="font-size:14px;font-weight:800;color:#CB11AB;margin-bottom:12px">Процесс трансформации</div>
-
-    <!-- 3 фазы -->
-    <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:start;margin-bottom:14px">
-      <div style="background:rgba(108,61,175,0.1);border:1px solid rgba(108,61,175,0.2);border-radius:8px;padding:12px">
-        <div style="font-size:11px;font-weight:800;color:#9B59D0;margin-bottom:4px">Фаза 1: Апрель</div>
-        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6">
-          Ничего не ломаем.<br>
-          ПО встраивается как координатор.<br>
-          R&D запускает фаст-трек для новых гипотез.<br>
-          Рудименты — аудит и решение CEO.
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:9px">
+        <div>
+          <span style="color:#34D399">+ Максимальная скорость монетизации</span><br>
+          <span style="color:#34D399">+ P&L-ответственность у каждого лидера</span><br>
+          <span style="color:#34D399">+ Конкуренция за результат</span>
+        </div>
+        <div>
+          <span style="color:rgba(222,53,11,0.7)">− Дублирование функций (маркетинг, аналитика)</span><br>
+          <span style="color:rgba(222,53,11,0.7)">− Ранние продукты не выживут без ресурсов</span><br>
+          <span style="color:rgba(222,53,11,0.7)">− Нет R&D — некому генерить новое</span>
         </div>
       </div>
-      <div style="font-size:18px;color:rgba(255,255,255,0.1);padding:30px 8px">→</div>
-      <div style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.2);border-radius:8px;padding:12px">
-        <div style="font-size:11px;font-weight:800;color:#CB11AB;margin-bottom:4px">Фаза 2: Май-Июнь</div>
-        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6">
-          CPO назначает лидеров зрелых продуктов.<br>
-          R&D — pipeline от гипотезы до MVP.<br>
-          Единая дизайн-система экосистемы.<br>
-          Аналитика: продуктовая + рыночная.
-        </div>
-      </div>
-      <div style="font-size:18px;color:rgba(255,255,255,0.1);padding:30px 8px">→</div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px">
-        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.5);margin-bottom:4px">Фаза 3: Q3+</div>
-        <div style="font-size:10px;color:rgba(255,255,255,0.6);line-height:1.6">
-          Экспансия: РФ регионы + СНГ/Мир.<br>
-          P&L по каждому зрелому продукту.<br>
-          CEO видит 6 блоков вместо 19 подчинений.<br>
-          Полная прозрачность и управляемость.
-        </div>
-      </div>
+      <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: 3+ продукта уже в проде и зарабатывают. Фокус — масштабировать выручку.</div>
     </div>
 
-    <!-- Влияние на процессы -->
-    <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:8px">Как структура влияет на процессы</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:10px">
-      <div style="background:rgba(222,53,11,0.06);border:1px solid rgba(222,53,11,0.15);border-radius:6px;padding:10px">
-        <div style="font-weight:700;color:rgba(222,53,11,0.8);margin-bottom:4px">AS-IS: плоская</div>
-        <div style="color:rgba(255,255,255,0.5);line-height:1.6">
-          CEO — единая точка принятия решений по всему<br>
-          Приоритеты конкурируют: продукт vs направление vs функция<br>
-          Статус — только при личном запросе<br>
-          Нет единого lifecycle — каждый по-своему<br>
-          Кросс-проекты — через CEO лично
+    <!-- Сценарий Б -->
+    <div style="background:rgba(0,82,204,0.06);border:1px solid rgba(0,82,204,0.2);border-radius:10px;padding:16px 18px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+        <div>
+          <div style="font-size:14px;font-weight:800;color:#5B9BF2">Б. Платформа + R&D-фабрика</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.3)">Единая платформа, фаст-трек гипотез, общая монетизация</div>
         </div>
       </div>
-      <div style="background:rgba(0,135,90,0.06);border:1px solid rgba(0,135,90,0.15);border-radius:6px;padding:10px">
-        <div style="font-weight:700;color:rgba(0,135,90,0.8);margin-bottom:4px">TO-BE: вертикали</div>
-        <div style="color:rgba(255,255,255,0.5);line-height:1.6">
-          CEO — 6 блоков вместо 19, стратегические решения<br>
-          CPO отвечает за монетизацию зрелых, R&D — за скорость ранних<br>
-          Статус — автоматически через ПО, без запроса<br>
-          Два режима: полный lifecycle (зрелые) и фаст-трек (R&D)<br>
-          Рудименты — явная зона решений, не размазаны по структуре
+
+      <!-- Мини-структура Б -->
+      <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;margin-bottom:10px">
+        <div style="text-align:center;margin-bottom:8px">
+          <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px">
+          <div style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#5B9BF2">CTO + Платформа</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Единая инфра, дизайн-система, все продукты как сервисы</div>
+          </div>
+          <div style="background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#00D4B4">R&D</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Генерация гипотез, фаст-трек, все ранние идеи</div>
+          </div>
+          <div style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#CB11AB">Операционка и стратегия</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">PMO, OKR, lifecycle, прозрачность</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:3px;margin-bottom:6px">
+          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Wibes</div>
+          <div style="background:rgba(0,82,204,0.1);border:1px solid rgba(0,82,204,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Проект 9</div>
+          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Kids</div>
+          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Sport</div>
+          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Встречи</div>
+          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.12);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Книги</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px">
+          <div style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.15);border-radius:4px;padding:4px 6px;text-align:center;font-size:7px"><b style="color:#FFB830">Аналитика</b><br><span style="color:rgba(255,255,255,0.4)">Продуктовая + рыночная</span></div>
+          <div style="background:rgba(203,17,171,0.08);border:1px solid rgba(203,17,171,0.15);border-radius:4px;padding:4px 6px;text-align:center;font-size:7px"><b style="color:#CB11AB">Направления</b><br><span style="color:rgba(255,255,255,0.4)">Молодёжное, Контент, Ивенты, РФ, СНГ</span></div>
+          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:4px;padding:4px 6px;text-align:center;font-size:7px;color:rgba(255,255,255,0.3)"><b>На пересмотр</b> 4 рудимента</div>
         </div>
       </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:9px">
+        <div>
+          <span style="color:#34D399">+ Единый UX и дизайн-система</span><br>
+          <span style="color:#34D399">+ Кросс-продуктовая монетизация (подписка, B2B)</span><br>
+          <span style="color:#34D399">+ R&D генерирует поток новых идей</span>
+        </div>
+        <div>
+          <span style="color:rgba(222,53,11,0.7)">− Медленный старт: сначала платформа</span><br>
+          <span style="color:rgba(222,53,11,0.7)">− Все зависят от CTO</span><br>
+          <span style="color:rgba(222,53,11,0.7)">− Зрелые продукты ждут пока строится общее</span>
+        </div>
+      </div>
+      <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: сильный CTO, продукты связаны, есть время на инвестиции в платформу.</div>
     </div>
 
-    <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:10px;text-align:center">Принцип: ничего не ломаем. Сначала надстраиваем координацию, потом формализуем структуру.</div>
+    <!-- Сценарий В -->
+    <div style="background:rgba(203,17,171,0.08);border:2px solid rgba(203,17,171,0.3);border-radius:10px;padding:16px 18px;margin-bottom:10px;position:relative">
+      <div style="position:absolute;top:-8px;right:16px;background:#34D399;color:#000;font-size:8px;font-weight:800;padding:2px 8px;border-radius:4px">РЕКОМЕНДАЦИЯ</div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+        <div>
+          <div style="font-size:14px;font-weight:800;color:#CB11AB">В. Гибридный: зрелые зарабатывают, R&D генерирует</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.3)">Два режима: автономный P&L для зрелых + фаст-трек R&D для ранних</div>
+        </div>
+      </div>
+
+      <!-- Мини-структура В -->
+      <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;margin-bottom:10px">
+        <div style="text-align:center;margin-bottom:8px">
+          <span style="background:linear-gradient(135deg,#6C3DAF,#CB11AB);padding:4px 14px;border-radius:5px;font-size:10px;font-weight:800">CEO</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px">
+          <div style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#5B9BF2">CPO</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Зрелые продукты, P&L, лидеры, дизайн-система, продуктовая смелость</div>
+          </div>
+          <div style="background:rgba(0,212,180,0.1);border:1px solid rgba(0,212,180,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#00D4B4">R&D</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Фаст-трек гипотез, упрощённые процессы, ранние продукты</div>
+          </div>
+          <div style="background:rgba(0,82,204,0.15);border:1px solid rgba(0,82,204,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#5B9BF2">CTO</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Разработка, инфра, платформенные сервисы</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px">
+          <div style="background:rgba(108,61,175,0.15);border:1px solid rgba(108,61,175,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#CB11AB">Операционка и стратегия</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">PMO, OKR-каскад, ресурсы, lifecycle, прозрачность</div>
+          </div>
+          <div style="background:rgba(255,139,0,0.1);border:1px solid rgba(255,139,0,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#FFB830">Аналитика</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">Продуктовая + рыночная аналитика, BI</div>
+          </div>
+          <div style="background:rgba(203,17,171,0.1);border:1px solid rgba(203,17,171,0.2);border-radius:5px;padding:6px;text-align:center">
+            <div style="font-size:9px;font-weight:800;color:#CB11AB">Направления и экспансия</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.4)">РФ, СНГ/Мир, Молодёжное, Контент, Ивенты</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3px;margin-bottom:6px">
+          <div style="background:rgba(0,82,204,0.12);border:1px solid rgba(0,82,204,0.2);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Wibes<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
+          <div style="background:rgba(0,82,204,0.12);border:1px solid rgba(0,82,204,0.2);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#5B9BF2">Проект 9<br><span style="font-weight:400;color:rgba(255,255,255,0.3)">P&L</span></div>
+          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Kids</div>
+          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Sport</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3px">
+          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Встречи</div>
+          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4">Книги</div>
+          <div style="background:rgba(0,212,180,0.08);border:1px solid rgba(0,212,180,0.15);border-radius:4px;padding:4px;text-align:center;font-size:7px;font-weight:700;color:#00D4B4;border-style:dashed">Новые гипотезы</div>
+          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:4px;padding:4px;text-align:center;font-size:7px;color:rgba(255,255,255,0.3)">4 рудимента<br>На пересмотр</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:9px">
+        <div>
+          <span style="color:#34D399">+ Зрелые зарабатывают сразу, не ждут</span><br>
+          <span style="color:#34D399">+ R&D — фаст-трек от гипотезы до MVP</span><br>
+          <span style="color:#34D399">+ Единая дизайн-система экосистемы</span><br>
+          <span style="color:#34D399">+ Общие функции экономят ФОТ</span><br>
+          <span style="color:#34D399">+ Рудименты — явная зона решений</span>
+        </div>
+        <div>
+          <span style="color:rgba(222,53,11,0.7)">− Два режима управления (зрелые vs R&D)</span><br>
+          <span style="color:rgba(222,53,11,0.7)">− Нужен сильный PMO для координации</span>
+        </div>
+      </div>
+      <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px">Когда подходит: сейчас. Разная зрелость продуктов, нужна и монетизация, и генерация нового. CEO получает 6 блоков вместо 19.</div>
+    </div>
+
   </div>
 
   <div class="note">
-    Целевой подход — на обсуждение. Предлагаем начать с контура 1 (ИТ-продукты), расширить на контур 2 по результатам.<br>
-    6 блоков агрегируют 19 прямых подчинений в управляемую структуру.
+    Три сценария — на обсуждение. 19 прямых подчинений → 6 блоков.<br>
+    Структура подбирается под приоритеты руководителя.
   </div>
 
   <footer class="ft">
