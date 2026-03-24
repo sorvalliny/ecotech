@@ -756,10 +756,10 @@ function renderBacklog(items) {
       : '<span style="color:var(--muted);font-size:10px">—</span>';
     var selected = editId === item.id ? ' selected' : '';
 
-    html += '<tr class="' + selected + '" onclick="openDrawer(\'' + item.id + '\')">';
+    html += '<tr class="' + selected + '" data-init-id="' + escHtml(item.id) + '" onclick="openDrawer(this.getAttribute(\'data-init-id\'))">';
     html += '<td class="rt-rank">' + (idx + 1) + '</td>';
     html += '<td><div class="rt-name">' + escHtml(item.name) + '</div><div class="rt-desc">' + escHtml(item.desc || '') + '</div></td>';
-    html += '<td class="rt-product"><a href="workspace.html?id=' + (item.productId || '') + '&tab=initiatives" onclick="event.stopPropagation()">' + (prod ? escHtml(prod.name) : prodName) + '</a></td>';
+    html += '<td class="rt-product"><a href="workspace.html?id=' + encodeURIComponent(item.productId || '') + '&tab=initiatives" onclick="event.stopPropagation()">' + (prod ? escHtml(prod.name) : escHtml(prodName)) + '</a></td>';
     html += '<td><span class="badge ' + tp.cls + '">' + tp.label + '</span></td>';
     html += '<td><span class="rice-score ' + riceClass(s) + '">' + s.toFixed(1) + '</span></td>';
     html += '<td><span class="badge ' + st.cls + '">' + st.label + '</span></td>';
@@ -810,12 +810,12 @@ function renderPlanQuarter(items) {
         var s = rice(item);
         var t = window.PT ? PT.getInitType(item) : (item.type || 'product');
         var tp = TP[t] || TP.product;
-        html += '<div class="plan-card" onclick="openDrawer(\'' + item.id + '\')">';
+        html += '<div class="plan-card" data-init-id="' + escHtml(item.id) + '" onclick="openDrawer(this.getAttribute(\'data-init-id\'))">';
         html += '<div class="plan-card-name">' + escHtml(item.name) + '</div>';
         html += '<div class="plan-card-meta">';
         html += '<span class="badge ' + tp.cls + '">' + tp.label + '</span>';
         html += '<span class="rice-score ' + riceClass(s) + '" style="font-size:11px">' + s.toFixed(0) + '</span>';
-        html += '<span style="font-size:10px;color:var(--muted)">' + (item.productId || '') + '</span>';
+        html += '<span style="font-size:10px;color:var(--muted)">' + escHtml(item.productId || '') + '</span>';
         html += '</div></div>';
       });
     } else {
@@ -852,7 +852,7 @@ function renderPlanHalf(items) {
       hGoals.forEach(function(g) {
         html += '<div style="margin-bottom:10px;padding:8px 10px;background:var(--amber-dim);border:1px solid var(--amber-border);border-radius:8px;">';
         html += '<div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:4px;">' + escHtml(g.title) + '</div>';
-        html += '<div style="font-size:10px;color:var(--muted)">' + (g.period || '') + ' · ' + (g.owner || '') + '</div>';
+        html += '<div style="font-size:10px;color:var(--muted)">' + escHtml(g.period || '') + ' · ' + escHtml(g.owner || '') + '</div>';
         html += '</div>';
       });
     }
@@ -864,7 +864,7 @@ function renderPlanHalf(items) {
         var t = window.PT ? PT.getInitType(item) : (item.type || 'product');
         var tp = TP[t] || TP.product;
         var st = ST[item.status] || ST.backlog;
-        html += '<div class="plan-card" onclick="openDrawer(\'' + item.id + '\')">';
+        html += '<div class="plan-card" data-init-id="' + escHtml(item.id) + '" onclick="openDrawer(this.getAttribute(\'data-init-id\'))">';
         html += '<div class="plan-card-name">' + escHtml(item.name) + '</div>';
         html += '<div class="plan-card-meta">';
         html += '<span class="badge ' + tp.cls + '">' + tp.label + '</span>';
@@ -910,12 +910,12 @@ function renderKanban(items) {
         var s = rice(item);
         var t = window.PT ? PT.getInitType(item) : (item.type || 'product');
         var tp = TP[t] || TP.product;
-        html += '<div class="kanban-card" draggable="true" data-id="' + item.id + '" ondragstart="onDragStart(event,\'' + item.id + '\')" ondragend="onDragEnd(event)" onclick="openDrawer(\'' + item.id + '\')">';
+        html += '<div class="kanban-card" draggable="true" data-id="' + escHtml(item.id) + '" ondragstart="onDragStart(event,this.getAttribute(\'data-id\'))" ondragend="onDragEnd(event)" onclick="openDrawer(this.getAttribute(\'data-id\'))">';
         html += '<div class="kanban-card-name">' + escHtml(item.name) + '</div>';
         html += '<div class="kanban-card-meta">';
         html += '<span class="badge ' + tp.cls + '">' + tp.label + '</span>';
         html += '<span class="rice-score ' + riceClass(s) + '" style="font-size:11px">' + s.toFixed(0) + '</span>';
-        html += '<span style="font-size:10px;color:var(--muted)">' + (item.productId || '') + '</span>';
+        html += '<span style="font-size:10px;color:var(--muted)">' + escHtml(item.productId || '') + '</span>';
         html += '</div></div>';
       });
     } else {
@@ -1158,7 +1158,7 @@ function deleteInitiative() {
 
 function escHtml(s) {
   if (!s) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 function showToast(msg) {

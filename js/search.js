@@ -132,7 +132,7 @@
 
   function esc(s) {
     if (!s) return '';
-    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
   // ── render results grouped by category ──────────────────
@@ -194,7 +194,7 @@
         var titleHTML = matches ? highlight(item.title, matches, 'title') : esc(item.title);
         var descHTML = matches ? highlight(item.description, matches, 'description') : esc(item.description);
 
-        html += '<a class="search-item" href="' + base + item.url + '" data-id="' + item.id + '">'
+        html += '<a class="search-item" href="' + base + esc(item.url) + '" data-id="' + esc(item.id) + '">'
           + '<div class="search-item-icon search-item-icon--' + iconClass + '">' + icon + '</div>'
           + '<div class="search-item-body">'
           + '<div class="search-item-title">' + titleHTML + '</div>'

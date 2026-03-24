@@ -132,6 +132,20 @@
     // ── Data version — increment to force refresh from portfolio.json ──
     DATA_VERSION: 13,
 
+    // ── UI error toast ──────────────────────────────────────────────
+    showError: function(msg) {
+      var el = document.getElementById('pt-error');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'pt-error';
+        el.style.cssText = 'position:fixed;top:60px;right:20px;padding:12px 20px;background:var(--red,#FF4D6A);color:#fff;border-radius:8px;font-size:12px;font-weight:600;z-index:9999;max-width:320px;';
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.style.display = 'block';
+      setTimeout(function() { el.style.display = 'none'; }, 5000);
+    },
+
     // ── Ensure products loaded (seed from portfolio.json if empty or outdated) ──
     ensureProducts: function(cb) {
       var self = this;
@@ -140,7 +154,11 @@
 
       // Если данные есть И версия актуальна — используем localStorage
       if (products && products.length && currentVersion >= self.DATA_VERSION) {
-        products.forEach(function(p) { self.migrateProductFields(p); });
+        try {
+          products.forEach(function(p) { self.migrateProductFields(p); });
+        } catch(migErr) {
+          self.showError('Ошибка миграции данных продуктов');
+        }
         if (cb) cb(products);
         return;
       }
@@ -153,22 +171,66 @@
       }
       var xhr = new XMLHttpRequest();
       xhr.open('GET', base + 'data/portfolio.json', true);
+      xhr.timeout = 5000;
       xhr.onload = function() {
         if (xhr.status === 200) {
           try {
             products = JSON.parse(xhr.responseText);
             // Миграция: добавить department и новые поля если отсутствуют
-            products.forEach(function(p) {
-              if (!p.department) p.department = 'innovation';
-              self.migrateProductFields(p);
-            });
+            try {
+              products.forEach(function(p) {
+                if (!p.department) p.department = 'innovation';
+                self.migrateProductFields(p);
+              });
+            } catch(migErr) {
+              self.showError('Ошибка миграции полей продуктов');
+            }
             self.save(self.KEY_PRODUCTS, products);
             localStorage.setItem('ECOTECH_DATA_VERSION', String(self.DATA_VERSION));
-          } catch(e) { products = []; }
-        } else { products = []; }
+          } catch(e) {
+            // JSON невалиден — пробуем fallback из localStorage
+            var fallback = self.load(self.KEY_PRODUCTS);
+            if (fallback && fallback.length) {
+              products = fallback;
+              self.showError('Ошибка загрузки данных, используется кэш');
+            } else {
+              products = [];
+              self.showError('Не удалось загрузить данные портфолио');
+            }
+          }
+        } else {
+          // HTTP ошибка — пробуем fallback из localStorage
+          var fallback = self.load(self.KEY_PRODUCTS);
+          if (fallback && fallback.length) {
+            products = fallback;
+            self.showError('Сервер недоступен, используется кэш');
+          } else {
+            products = [];
+            self.showError('Не удалось загрузить данные (HTTP ' + xhr.status + ')');
+          }
+        }
         if (cb) cb(products);
       };
-      xhr.onerror = function() { if (cb) cb([]); };
+      xhr.onerror = function() {
+        var fallback = self.load(self.KEY_PRODUCTS);
+        if (fallback && fallback.length) {
+          self.showError('Сеть недоступна, используется кэш');
+          if (cb) cb(fallback);
+        } else {
+          self.showError('Сеть недоступна, данные отсутствуют');
+          if (cb) cb([]);
+        }
+      };
+      xhr.ontimeout = function() {
+        var fallback = self.load(self.KEY_PRODUCTS);
+        if (fallback && fallback.length) {
+          self.showError('Таймаут загрузки, используется кэш');
+          if (cb) cb(fallback);
+        } else {
+          self.showError('Таймаут загрузки данных портфолио');
+          if (cb) cb([]);
+        }
+      };
       xhr.send();
     },
 
@@ -526,4 +588,13 @@
   PT.migrate();
 
   window.PT = PT;
+
+  // Cross-tab sync: при изменении данных в другой вкладке — обновить страницу
+  window.addEventListener('storage', function(e) {
+    if (e.key && e.key.indexOf('ECOTECH_') === 0) {
+      if (e.key === 'ECOTECH_PRODUCTS' || e.key === 'ECOTECH_BACKLOG' || e.key === 'ECOTECH_GOALS') {
+        location.reload();
+      }
+    }
+  });
 })();

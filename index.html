@@ -114,7 +114,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-body); ma
 <script src="js/auth.js"></script>
 <script src="js/auth-ui.js"></script>
 <script>
-function esc(s) { var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 var GATE_NAMES = ['Gate 0 Скрининг','Gate 1 Концепция','Gate 2 MVP','Gate 3 Масштабирование','Gate 4 Рост','Gate 5 Зрелость'];
 
 /* ── Guest / Unauthorized ─────────────────────── */
@@ -317,7 +317,7 @@ function renderAuthorized(c, user) {
     unreadNotifs.slice(0, 3).forEach(function(n) {
       var cls = n.level === 'high' ? 'n-high' : n.level === 'medium' ? 'n-medium' : '';
       var url = n.action && n.action.url ? n.action.url : '#';
-      h += '<a class="notif-card ' + cls + '" href="' + url + '" onclick="if(window.PT){PT.markRead(\'' + n.id + '\')}">';
+      h += '<a class="notif-card ' + cls + '" href="' + esc(url) + '" data-notif-id="' + esc(n.id) + '" onclick="if(window.PT){PT.markRead(this.getAttribute(\'data-notif-id\'))}">';
       h += '<div style="flex:1"><div class="notif-title">' + esc(n.title) + '</div>';
       h += '<div class="notif-text">' + esc(n.text) + '</div></div>';
       if (n.action) h += '<span style="font-size:11px;color:var(--violet);font-weight:600;white-space:nowrap">' + esc(n.action.label) + ' &rarr;</span>';
@@ -370,7 +370,7 @@ function renderAuthorized(c, user) {
       h += '<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--card);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;font-size:12px;">';
       h += '<span style="color:var(--violet);font-weight:700;min-width:50px;">' + dateStr + '</span>';
       h += '<span style="color:var(--text);flex:1;">' + esc(e.name) + '</span>';
-      h += '<span style="color:var(--muted);font-size:10px;">' + (e.roles || []).join(', ') + '</span>';
+      h += '<span style="color:var(--muted);font-size:10px;">' + esc((e.roles || []).join(', ')) + '</span>';
       h += '</div>';
     });
     h += '<a href="calendar.html" style="font-size:11px;color:var(--violet);text-decoration:none;font-weight:600;margin-top:4px;display:inline-block;">Все события &rarr;</a>';

@@ -16,7 +16,7 @@
     var csp = document.createElement('meta');
     csp.id = 'en-csp';
     csp.httpEquiv = 'Content-Security-Policy';
-    csp.content = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'";
+    csp.content = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'";
     document.head.insertBefore(csp, document.head.firstChild);
   }
 
@@ -381,6 +381,8 @@
     if (panel.style.display === 'block') renderNotifications();
   };
 
+  function esc(t) { return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
   function renderNotifications() {
     var list = document.getElementById('en-notif-list');
     if (!list || !window.PT) return;
@@ -397,23 +399,34 @@
       var isRead = user && n.readBy.indexOf(user.id) >= 0;
       var levelClass = n.level === 'high' ? ' en-notif-level-high' : n.level === 'medium' ? ' en-notif-level-medium' : '';
       var time = n.createdAt ? new Date(n.createdAt).toLocaleDateString('ru-RU', {day:'numeric',month:'short'}) : '';
+      var url = n.action && n.action.url ? n.action.url : '';
 
-      html += '<div class="en-notif-item' + (isRead ? ' read' : ' unread') + levelClass + '" onclick="handleNotifClick(\'' + n.id + '\',\'' + (n.action && n.action.url ? n.action.url : '') + '\')">';
-      html += '<div class="en-notif-title">' + (n.title || '') + '</div>';
-      html += '<div class="en-notif-text">' + (n.text || '') + '</div>';
-      if (n.action) html += '<a class="en-notif-action" href="' + n.action.url + '">' + n.action.label + ' &rarr;</a>';
+      html += '<div class="en-notif-item' + (isRead ? ' read' : ' unread') + levelClass + '" data-notif-id="' + esc(n.id) + '" data-notif-url="' + esc(url) + '">';
+      html += '<div class="en-notif-title">' + esc(n.title) + '</div>';
+      html += '<div class="en-notif-text">' + esc(n.text) + '</div>';
+      if (n.action) html += '<a class="en-notif-action" href="' + esc(n.action.url) + '">' + esc(n.action.label) + ' &rarr;</a>';
       html += '<div class="en-notif-time">' + time + '</div>';
       html += '</div>';
     });
 
     list.innerHTML = html;
+
+    // Event delegation for notification clicks (attach once)
+    if (!list._notifBound) {
+      list._notifBound = true;
+      list.addEventListener('click', function(e) {
+        var item = e.target.closest('[data-notif-id]');
+        if (!item) return;
+        var notifId = item.getAttribute('data-notif-id');
+        var notifUrl = item.getAttribute('data-notif-url');
+        if (window.PT) PT.markRead(notifId);
+        updateBellCount();
+        if (notifUrl) window.location.href = notifUrl;
+      });
+    }
   }
 
-  window.handleNotifClick = function(notifId, url) {
-    if (window.PT) PT.markRead(notifId);
-    updateBellCount();
-    if (url) window.location.href = url;
-  };
+  // handleNotifClick removed — replaced by event delegation in renderNotifications()
 
   function updateBellCount() {
     var countEl = document.getElementById('en-bell-count');
