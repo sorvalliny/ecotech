@@ -494,25 +494,67 @@
 
 <!-- ═══════════ ПЕСОЧНИЦА MVP (Приоритет 2 Этина) ═══════════ -->
 <div style="max-width:100%;margin:0 auto 28px;">
-  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:12px;">Песочница MVP — инфраструктурные ограничения</h3>
+  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:12px;">Песочница MVP — как меняется по стадиям</h3>
   <div style="padding:16px;background:var(--card);border:1px solid var(--teal-border);border-radius:10px;border-left:4px solid var(--teal);">
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;">Не все MVP проходят полный аудит безопасности</div>
-    <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:10px;">MVP-песочница — изолированная среда с ограничениями на уровне инфраструктуры. Цель: проверить гипотезу на ограниченной аудитории, не нагружая основную систему WB.</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-      <div style="padding:10px;background:var(--surface);border-radius:6px;">
-        <div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:3px;">Лимиты запросов</div>
-        <div style="font-size:10px;color:var(--muted);">Пороговые значения RPS к основным API WB. Если MVP создаёт нагрузку выше порога — автоматическое отключение.</div>
-      </div>
-      <div style="padding:10px;background:var(--surface);border-radius:6px;">
-        <div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:3px;">Когорта</div>
-        <div style="font-size:10px;color:var(--muted);">Тестирование на ограниченной группе (100-1000 пользователей). Нет доступа к полной базе покупателей WB до прохождения технического комитета.</div>
-      </div>
-      <div style="padding:10px;background:var(--surface);border-radius:6px;">
-        <div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:3px;">Уровень ИБ</div>
-        <div style="font-size:10px;color:var(--muted);">Полный аудит безопасности — только перед выходом на рынок (O·3). На стадии прототипа (O·2) достаточно sandbox-ограничений.</div>
-      </div>
-    </div>
-    <div style="font-size:10px;color:var(--muted);margin-top:8px;font-style:italic;"><b>Пример:</b> WB Знакомства — когорта 1000 пользователей, лимит 50 RPS к WB ID API, без доступа к платёжным данным. Полный аудит — перед открытым запуском.</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px;">Уровень инфраструктурных ограничений растёт от стадии к стадии</div>
+
+    <!-- Progress table -->
+    <table style="width:100%;border-collapse:collapse;font-size:10px;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px;">
+      <thead>
+        <tr>
+          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:13%;">Стадия</th>
+          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:18%;">Аудитория</th>
+          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:18%;">Доступ к API WB</th>
+          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:18%;">Безопасность</th>
+          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:18%;">Данные</th>
+          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:15%;">Комитет</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:#6B4FA0;">O·0 Заявка</b></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Нет доступа</td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Нет</td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Не требуется</td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Только desk research</td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">—</td>
+        </tr>
+        <tr>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:#7B5CB8;">O·1 Разведка</b></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">15-20 интервью (ручной отбор)</td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Нет. Прототип на мокапах</td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Не требуется</td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Аналитика рынка, без данных WB</td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">ФК</td>
+        </tr>
+        <tr style="background:rgba(0,212,180,.03);">
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:#8B6AD0;">O·2 Прототип</b><br><span style="font-size:8px;color:var(--teal);font-weight:700;">ПЕСОЧНИЦА</span></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Когорта 100-1000</b><br><span style="color:var(--muted);">закрытое тестирование</span></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Лимиты RPS</b><br><span style="color:var(--muted);">sandbox-среда, автоотключение при превышении</span></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Sandbox-ограничения</b><br><span style="color:var(--muted);">без полного аудита ИБ, лимиты на уровне инфры</span></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Ограниченный доступ</b><br><span style="color:var(--muted);">нет платёжных данных, нет полной базы</span></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">ТК</b></td>
+        </tr>
+        <tr>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:#9B7AE8;">O·3 Разгон</b><br><span style="font-size:8px;color:var(--amber);font-weight:700;">ПОЛНЫЙ ДОСТУП</span></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">70 млн покупателей WB</b></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Полный доступ к API</b><br><span style="color:var(--muted);">трафик WB, рекомендации, таргетинг</span></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Полный аудит ИБ</b><br><span style="color:var(--muted);">пройден перед запуском</span></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Полный доступ</b><br><span style="color:var(--muted);">товарная история, профили, Кошелёк</span></td>
+          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">ФК+ТК+УК</b></td>
+        </tr>
+        <tr>
+          <td style="padding:7px 10px;"><b style="color:#AB8AF0;">O·4-O·5</b></td>
+          <td style="padding:7px 10px;color:var(--muted);">Полная аудитория</td>
+          <td style="padding:7px 10px;color:var(--muted);">Глубокая интеграция (WB ID, ПВЗ, CRM)</td>
+          <td style="padding:7px 10px;color:var(--muted);">Постоянный мониторинг + SLA</td>
+          <td style="padding:7px 10px;color:var(--muted);">Перекрёстные продажи</td>
+          <td style="padding:7px 10px;color:var(--muted);">УК</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="font-size:10px;color:var(--muted);font-style:italic;"><b>Ключевой переход O·2 → O·3:</b> полный аудит безопасности — обязательное условие. Технический комитет не пропустит на разгон без пройденного ИБ-аудита. До этого момента продукт работает в изолированной среде с лимитами.</div>
   </div>
 </div>
 
