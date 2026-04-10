@@ -448,24 +448,7 @@
   </div>
 </div>
 
-<!-- ═══════════ РАЗВИЛКИ (по брифу Этина) ═══════════ -->
-<div style="max-width:100%;margin:0 auto 28px;">
-  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:12px;">Три развилки в жизненном цикле</h3>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--amber);">
-      <div style="font-size:12px;font-weight:800;color:var(--amber);margin-bottom:6px;">Развилка 1: после исследования</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.5;">Идея простая и понятная &rarr; передаём в коммерцию, департамент остаётся менеджером проекта.<br>Идея требует MVP &rarr; делаем сами, идём на комитеты.</div>
-    </div>
-    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--teal);">
-      <div style="font-size:12px;font-weight:800;color:var(--teal);margin-bottom:6px;">Развилка 2: градация MVP</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.5;">Высокий репутационный риск &rarr; полноценный прототип, полный аудит.<br>Низкий риск &rarr; песочница с когортой, лимиты запросов, без полного аудита ИБ.</div>
-    </div>
-    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--pink);">
-      <div style="font-size:12px;font-weight:800;color:var(--pink);margin-bottom:6px;">Развилка 3: после запуска</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.5;">Проект технологический &rarr; остаётся в экосистеме.<br>Завязан на коммерцию/категории &rarr; передаётся, департамент сопровождает.</div>
-    </div>
-  </div>
-</div>
+<!-- Развилки вшиты в стадии O·1, O·2, O·3 — видны в detail card -->
 
 <!-- ═══════════ КОГДА ОСТАНАВЛИВАЕМ ═══════════ -->
 <div style="max-width:100%;margin:0 auto 28px;">
@@ -1473,9 +1456,16 @@ function openStage(id) {
   roleKeys.forEach(function(rk) {
     var rd = s.roles[rk];
     if (!rd) return;
-    html += '<div class="d-section"><h4>' + rd.title + '</h4><div class="d-checks">';
-    rd.checks.forEach(function(c) { html += '<div class="d-check">' + c + '</div>'; });
-    html += '</div></div>';
+    var isFork = rd.title.indexOf('\u26a0') >= 0 || rd.title.indexOf('Развилка') >= 0;
+    if (isFork) {
+      html += '<div class="d-section d-fork"><h4 style="color:var(--amber);font-size:11px;padding:6px 10px;background:var(--amber-dim);border:1px dashed var(--amber-border);border-radius:6px;margin-bottom:8px;">' + rd.title + '</h4><div class="d-checks">';
+      rd.checks.forEach(function(c) { html += '<div class="d-check" style="border-left:2px solid var(--amber);background:var(--amber-dim);">' + c + '</div>'; });
+      html += '</div></div>';
+    } else {
+      html += '<div class="d-section"><h4>' + rd.title + '</h4><div class="d-checks">';
+      rd.checks.forEach(function(c) { html += '<div class="d-check">' + c + '</div>'; });
+      html += '</div></div>';
+    }
   });
 
   // Artifacts
