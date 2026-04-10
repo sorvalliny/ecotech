@@ -448,7 +448,53 @@
   </div>
 </div>
 
-<!-- Примеры, песочница, ядро команды — вшиты в detail card стадий -->
+<!-- ═══════════ КОНВЕЙЕР: БЭКЛОГ + КВАРТАЛЬНЫЙ ПЛАН ═══════════ -->
+<div style="max-width:100%;margin:0 auto 28px;">
+  <h3 style="font-size:14px;font-weight:800;color:var(--violet);margin-bottom:14px;">Конвейер: бэклог → квартальный план → 90-Day Sprint</h3>
+
+  <div style="display:flex;align-items:stretch;gap:0;margin-bottom:16px;">
+    <div style="flex:1;padding:18px;background:var(--card);border:1px solid var(--border);border-radius:10px 0 0 10px;border-left:4px solid var(--violet);">
+      <div style="font-size:14px;font-weight:800;color:var(--violet);margin-bottom:6px;">Бэклог</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55;">Живая очередь идей. Пополняется постоянно: коммерция, партнёры, рынок, руководство. 12-15 ниш в работе.</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">Ежемесячная чистка: директор + блок «бизнес и финансы» архивируют неактуальные.</div>
+    </div>
+    <div style="width:36px;display:flex;align-items:center;justify-content:center;color:var(--violet);font-size:20px;flex-shrink:0;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">→</div>
+    <div style="flex:1;padding:18px;background:var(--card);border:1px solid var(--border);border-top:3px solid var(--teal);">
+      <div style="font-size:14px;font-weight:800;color:var(--teal);margin-bottom:6px;">Квартальный план</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55;">Директор отбирает 8-12 проектов на квартал. Фиксирует команды (2-3 чел. на проект). Конвейер: новый старт каждые 1.5 нед.</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">Внутри квартала план не меняется. Исключение: 1 замещение при kill.</div>
+    </div>
+    <div style="width:36px;display:flex;align-items:center;justify-content:center;color:var(--teal);font-size:20px;flex-shrink:0;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">→</div>
+    <div style="flex:1;padding:18px;background:var(--card);border:1px solid var(--border);border-radius:0 10px 10px 0;border-right:4px solid var(--amber);">
+      <div style="font-size:14px;font-weight:800;color:var(--amber);margin-bottom:6px;">90-Day Sprint</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55;">S1→S2→S3→S4 за 13 недель. День 90: УК решает go / kill / pivot. Kill освобождает слот — берём следующий из бэклога.</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">Прошёл S4 → переход в Рост (R1). Полный аудит ИБ, трафик WB.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ УЗКИЕ МЕСТА ═══════════ -->
+<div style="max-width:100%;margin:0 auto 28px;">
+  <h3 style="font-size:14px;font-weight:800;color:var(--amber);margin-bottom:14px;">Узкие места и как решаем</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="padding:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">ФК перегружен</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55;">3-4 проекта на одну неделю. <b style="color:var(--teal);">Решение:</b> максимум 2 проекта на ФК в неделю. Остальные буферятся в бэклоге.</div>
+    </div>
+    <div style="padding:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Техблок перегружен</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55;">Все MVP на нед. 6-10 одновременно. <b style="color:var(--teal);">Решение:</b> конвейер со сдвигом — старты каждые 1.5 нед, пики не совпадают.</div>
+    </div>
+    <div style="padding:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Kill rate > 50%</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55;">Убиваем больше половины. <b style="color:var(--teal);">Решение:</b> усилить S1 — жёстче отбирать, лучше данные WB на входе.</div>
+    </div>
+    <div style="padding:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">CEO просит бросить всё</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55;">Срочный приоритет посреди квартала. <b style="color:var(--teal);">Решение:</b> «слот замещения» — убиваем самый слабый проект. Не более 1 замещения/квартал.</div>
+    </div>
+  </div>
+</div>
 
 <div style="display:none"><!-- hidden old layout -->
 <nav class="fw-toc" id="fw-toc">
