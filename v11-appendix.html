@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Департамент Развития Экосистемы · Приложения к 1-pager</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+:root{--bg:#FAFAFE;--ink:#1A1430;--muted:#5E5880;--lav:#B8A4E3;--wb:#CB11AB;--line:#D9D1EC;--card:#FFF;--accent:#6E49C7;--ok:#2E8B57;--warn:#C77A00;--red:#D03050;--teal:#0D9488;
+--c0:#8B5CF6;--c1:#579DFF;--c2:#4BCE97;--c3:#F5CD47;--c4:#F59E0B;--c5:#F87171}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:13px}
+.slide{max-width:1100px;margin:0 auto;padding:48px 40px 56px;page-break-after:always;min-height:100vh;position:relative}
+.slide+.slide{border-top:2px solid var(--line)}
+.kicker{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--wb);font-weight:700;margin-bottom:6px}
+h1{font-size:28px;font-weight:900;letter-spacing:-.03em;margin-bottom:6px}
+h2{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+h3{font-size:14px;font-weight:800;margin-bottom:4px}
+.sub{font-size:12px;color:var(--muted);margin-bottom:24px;max-width:800px;line-height:1.6}
+.label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.c h4{font-size:11px;font-weight:800;margin-bottom:4px}
+.c p,.c li{font-size:11px;color:var(--muted);line-height:1.5}
+.c ul{padding-left:14px;margin-top:3px}
+.pill{display:inline-block;font-size:9px;padding:2px 8px;border-radius:999px;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:11px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th{background:var(--lav);color:#fff;padding:8px 10px;text-align:left;font-size:9px;letter-spacing:.05em;font-weight:700}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.slide-num{position:absolute;bottom:20px;right:40px;font-size:10px;color:var(--muted)}
+.tag{display:inline-block;font-size:9px;padding:3px 8px;border-radius:6px;font-weight:700;margin:2px}
+footer{text-align:center;padding:24px 0;font-size:10px;color:var(--muted);border-top:1px solid var(--line)}
+
+/* ═══ ECOSYSTEM MAP ═══ */
+.eco-map{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.eco-vert{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--card);position:relative;transition:all .2s}
+.eco-vert h5{font-size:10px;font-weight:800;margin-bottom:4px;letter-spacing:-.02em}
+.eco-vert .eco-items{font-size:9px;color:var(--muted);line-height:1.5}
+.eco-vert.highlight{border-color:var(--wb);background:rgba(203,17,171,.03)}
+.eco-vert.highlight::after{content:'DEPT';position:absolute;top:6px;right:8px;font-size:7px;font-weight:800;color:var(--wb);letter-spacing:.1em;background:rgba(203,17,171,.08);padding:1px 5px;border-radius:4px}
+.eco-new{color:var(--wb);font-weight:700;font-size:9px}
+
+/* ═══ ORBIT MINI ═══ */
+.orbit-flow{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin:12px 0}
+.orbit-step{padding:8px 14px;border-radius:8px;font-size:10px;font-weight:700;text-align:center;min-width:80px}
+.orbit-arrow{color:var(--lav);font-size:14px}
+.orbit-fork{font-size:9px;color:var(--warn);font-weight:600;padding:4px 8px;background:rgba(199,122,0,.08);border-radius:6px;border:1px dashed var(--warn)}
+
+/* ═══ COMMITTEE MINI ═══ */
+.comm-mini{display:flex;align-items:stretch;gap:0;margin:12px 0}
+.comm-block{flex:1;padding:14px 16px;border:1px solid var(--line);text-align:center}
+.comm-block:first-child{border-radius:10px 0 0 10px}
+.comm-block:last-child{border-radius:0 10px 10px 0}
+.comm-block h4{font-size:12px;font-weight:800;margin-bottom:2px}
+.comm-block p{font-size:10px;color:var(--muted)}
+.comm-connector{width:32px;display:flex;align-items:center;justify-content:center;color:var(--lav);font-size:16px;flex-shrink:0}
+
+/* ═══ INITIATIVE CARDS ═══ */
+.ini-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;border-left:4px solid var(--c1)}
+.ini-card h4{font-size:12px;font-weight:800;margin-bottom:2px}
+.ini-meta{font-size:10px;color:var(--muted);margin-bottom:6px}
+.ini-kpi{display:flex;gap:12px}
+.ini-kpi span{font-size:10px;color:var(--ink);font-weight:600}
+.ini-kpi small{font-size:9px;color:var(--muted)}
+
+@media print{
+  .slide{min-height:auto;page-break-after:always;padding:24px 20px 32px}
+  body{background:#fff}
+}
+@media(max-width:768px){.eco-map,.g2,.g3,.g4{grid-template-columns:1fr}.slide{padding:24px 16px}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 1: TITLE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="slide" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+  <div class="kicker">Департамент Развития Экосистемы · Приложения</div>
+  <h1 style="font-size:32px;max-width:700px">Строим бизнесы, за которыми наши покупатели уходят к&nbsp;Яндексу и&nbsp;Авито</h1>
+  <div class="sub" style="text-align:center;margin-top:12px">Детализация к 1-pager: карта экосистемы, ОРБИТА, комитеты, приоритетные инициативы</div>
+  <div style="display:flex;gap:8px;margin-top:20px">
+    <span class="tag" style="background:rgba(203,17,171,.08);color:var(--wb)">7 слайдов</span>
+    <span class="tag" style="background:rgba(110,73,199,.08);color:var(--accent)">v11 · апрель 2026</span>
+    <span class="tag" style="background:rgba(46,139,87,.08);color:var(--ok)">для согласования</span>
+  </div>
+  <div class="slide-num">1 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 2: ECOSYSTEM AS-IS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="kicker">Экосистема RWB · As-Is 2026</div>
+  <h2>Бизнесы и продукты экосистемы</h2>
+  <div class="sub">Текущая карта: 13 вертикалей, 80+ продуктов и направлений. Департамент развития экосистемы работает с выделенными нишами.</div>
+
+  <div class="eco-map">
+    <div class="eco-vert" style="border-top:3px solid #579DFF">
+      <h5 style="color:#579DFF">ECOM</h5>
+      <div class="eco-items">Wildberries — маркетплейс товаров</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #4BCE97">
+      <h5 style="color:#4BCE97">FINTECH</h5>
+      <div class="eco-items">WB Bank, Кошелёк, Рассрочки, Страхование, Факторинг, Лизинг, WB Карты, ЦФА/Крипто, Финтех школа</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #E774BB">
+      <h5 style="color:#E774BB">RWB MEDIA</h5>
+      <div class="eco-items">Wibes, WB Книги, WB Stream, WB Video, WB Музыка, WB Games, Маркетплейс для креаторов</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #8B5CF6">
+      <h5 style="color:#8B5CF6">C2C</h5>
+      <div class="eco-items">Ресейл, C2C-услуги</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #F59E0B">
+      <h5 style="color:#F59E0B">B2B</h5>
+      <div class="eco-items">WB JOB, HR Tech, CRM, MyTeam, Tracker, Forms</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #0D9488">
+      <h5 style="color:#0D9488">SERVICES / СРЕДА</h5>
+      <div class="eco-items">Такси, Cloud, Сотовая связь, WB Travel, Умные устройства, WB Pharma, eАптека, Медсервисы, Sport</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #F5CD47">
+      <h5 style="color:#F5CD47">FUNTECH</h5>
+      <div class="eco-items">WB Kids, WB Sport, ДБШ, Олимпиады, WB Встречи, Доски</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #94A3B8">
+      <h5 style="color:#94A3B8">GLOBAL</h5>
+      <div class="eco-items">Беларусь, Узбекистан, Казахстан, Кыргызстан, Таджикистан, Грузия, Китай, Турция, Армения, ОАЭ, Эфиопия</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #6366F1">
+      <h5 style="color:#6366F1">ЛОГИСТИКА</h5>
+      <div class="eco-items">Склады, ПВЗ, Доставка, Курьеры</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #10B981">
+      <h5 style="color:#10B981">ESG / ОБРАЗОВАНИЕ</h5>
+      <div class="eco-items">Fun&Sun, Впечатления, Платформа роста, Университет RWB, Учебный центр, Культурные центры, Маркетплейс знаний, Техношкола, Стартап как диплом, RWB Таланты</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #EC4899">
+      <h5 style="color:#EC4899">RETAIL</h5>
+      <div class="eco-items">РИВ ГОШ, Бренды</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #8B5CF6">
+      <h5 style="color:#8B5CF6">ИНФРА</h5>
+      <div class="eco-items">WB ID, Messenger B2C/B2B, WB Band, WB Arch, Web Mail, WB Club/Подписки</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #F87171">
+      <h5 style="color:#F87171">RUSS / РЕКЛАМА</h5>
+      <div class="eco-items">WB Реклама</div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;font-size:10px;color:var(--muted)"><b>Источник:</b> Презентация прошлого руководителя экосистемы, Q1 2026. Карта фиксирует текущее состояние — без учёта новых инициатив департамента.</div>
+  <div class="slide-num">2 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 3: ECOSYSTEM TO-BE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="kicker">Экосистема RWB · To-Be 2026+</div>
+  <h2>Куда садятся 12 ниш департамента</h2>
+  <div class="sub">Те же 13 вертикалей — но с подсветкой новых продуктов и направлений, которые запускает департамент. <b style="color:var(--wb)">DEPT</b> = инициатива департамента развития экосистемы.</div>
+
+  <div class="eco-map">
+    <div class="eco-vert highlight" style="border-top:3px solid #579DFF">
+      <h5 style="color:#579DFF">ECOM</h5>
+      <div class="eco-items">Wildberries — маркетплейс товаров</div>
+      <div class="eco-new" style="margin-top:4px">+ Питомцы (груминг, ветеринария, корма)</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #4BCE97">
+      <h5 style="color:#4BCE97">FINTECH</h5>
+      <div class="eco-items">WB Bank, Кошелёк, Рассрочки, Страхование, Факторинг, Лизинг, WB Карты, ЦФА/Крипто</div>
+    </div>
+    <div class="eco-vert highlight" style="border-top:3px solid #E774BB">
+      <h5 style="color:#E774BB">RWB MEDIA</h5>
+      <div class="eco-items">Wibes, WB Книги, WB Stream, WB Video, WB Музыка, WB Games, Креаторы</div>
+      <div class="eco-new" style="margin-top:4px">+ Игры (каталог, детский сегмент, ИРИ)<br>+ Книги-как-сервис, издательство<br>+ Блогерская платформа</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #8B5CF6">
+      <h5 style="color:#8B5CF6">C2C</h5>
+      <div class="eco-items">Ресейл, C2C-услуги</div>
+    </div>
+    <div class="eco-vert highlight" style="border-top:3px solid #F59E0B">
+      <h5 style="color:#F59E0B">B2B</h5>
+      <div class="eco-items">WB JOB, HR Tech, CRM, MyTeam, Tracker, Forms</div>
+      <div class="eco-new" style="margin-top:4px">+ SaaS B2B (для МСП, фрилансеры)</div>
+    </div>
+    <div class="eco-vert highlight" style="border-top:3px solid #0D9488">
+      <h5 style="color:#0D9488">SERVICES / СРЕДА</h5>
+      <div class="eco-items">Такси, Cloud, Сотовая связь, WB Travel, Умные устройства, WB Pharma</div>
+      <div class="eco-new" style="margin-top:4px">+ Маркетплейс Услуг (8 вертикалей, флагман)<br>+ Здоровье (телемед, аптека через ПВЗ)<br>+ Стиль (онлайн-стилист)<br>+ Стройка (отбор строителей, дизайн)</div>
+    </div>
+    <div class="eco-vert highlight" style="border-top:3px solid #F5CD47">
+      <h5 style="color:#F5CD47">FUNTECH</h5>
+      <div class="eco-items">WB Kids, WB Sport, ДБШ, Олимпиады, WB Встречи</div>
+      <div class="eco-new" style="margin-top:4px">+ Семья (мероприятия, семейный маркетплейс)<br>+ Дети (маркетплейс, игры, контент)<br>+ Спорт (мероприятия, тренировки, залы)</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #94A3B8">
+      <h5 style="color:#94A3B8">GLOBAL</h5>
+      <div class="eco-items">Беларусь, Узбекистан, Казахстан, Кыргызстан, Таджикистан, Грузия, Китай, Турция, Армения, ОАЭ, Эфиопия</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #6366F1">
+      <h5 style="color:#6366F1">ЛОГИСТИКА</h5>
+      <div class="eco-items">Склады, ПВЗ, Доставка, Курьеры</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #10B981">
+      <h5 style="color:#10B981">ESG / ОБРАЗОВАНИЕ</h5>
+      <div class="eco-items">Fun&Sun, Впечатления, Платформа роста, Университет RWB, Учебный центр, Маркетплейс знаний, Техношкола</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #EC4899">
+      <h5 style="color:#EC4899">RETAIL</h5>
+      <div class="eco-items">РИВ ГОШ, Бренды</div>
+    </div>
+    <div class="eco-vert highlight" style="border-top:3px solid #8B5CF6">
+      <h5 style="color:#8B5CF6">ИНФРА</h5>
+      <div class="eco-items">WB ID, Messenger, WB Band, WB Arch, WB Club/Подписки</div>
+      <div class="eco-new" style="margin-top:4px">+ Облако (GPU для AI, ML для e-commerce)</div>
+    </div>
+    <div class="eco-vert" style="border-top:3px solid #F87171">
+      <h5 style="color:#F87171">RUSS / РЕКЛАМА</h5>
+      <div class="eco-items">WB Реклама</div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;padding:12px 16px;background:rgba(203,17,171,.04);border:1px solid rgba(203,17,171,.15);border-radius:10px;font-size:11px">
+    <b style="color:var(--wb)">6 из 13 вертикалей</b> получают новые продукты от департамента. Ключевой сервис: <b>Маркетплейс Услуг</b> — сквозной продукт, монетизирующий 8 ниш одновременно. Рынок: 5,0 трлн руб.
+  </div>
+  <div class="slide-num">3 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 4: ORBITA LIFECYCLE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="kicker">ОРБИТА · Жизненный цикл проекта</div>
+  <h2>От заявки до зрелого бизнеса</h2>
+  <div class="sub">Каждая инициатива проходит 6 стадий. На каждом переходе — комитет с понятными критериями. Три развилки определяют судьбу проекта.</div>
+
+  <div class="orbit-flow">
+    <div class="orbit-step" style="background:rgba(139,92,246,.1);color:var(--c0)">O·0<br>Заявка</div>
+    <div class="orbit-arrow">→</div>
+    <div class="orbit-step" style="background:rgba(87,157,255,.1);color:var(--c1)">O·1<br>Разведка</div>
+    <div class="orbit-arrow">→</div>
+    <div class="orbit-fork">⚠ Развилка 1:<br>MVP или коммерция?</div>
+    <div class="orbit-arrow">→</div>
+    <div class="orbit-step" style="background:rgba(75,206,151,.1);color:var(--c2)">O·2<br>Прототип</div>
+    <div class="orbit-arrow">→</div>
+    <div class="orbit-fork">⚠ Развилка 2:<br>Градация MVP</div>
+    <div class="orbit-arrow">→</div>
+    <div class="orbit-step" style="background:rgba(245,205,71,.1);color:var(--c3)">O·3<br>Разгон</div>
+    <div class="orbit-arrow">→</div>
+    <div class="orbit-fork">⚠ Развилка 3:<br>Экосистема или коммерция?</div>
+    <div class="orbit-arrow">→</div>
+    <div class="orbit-step" style="background:rgba(245,158,11,.1);color:var(--c4)">O·4<br>Экосистема</div>
+    <div class="orbit-arrow">→</div>
+    <div class="orbit-step" style="background:rgba(248,113,113,.1);color:var(--c5)">O·5<br>Зрелость</div>
+  </div>
+
+  <div class="label">Развилки</div>
+  <div class="g3">
+    <div class="c" style="border-top:2px solid var(--warn)">
+      <h4 style="color:var(--warn)">Развилка 1: после исследования</h4>
+      <ul>
+        <li>Идея простая → передать в коммерцию (департамент = менеджер проекта)</li>
+        <li>Идея требует MVP → делаем сами, проходим комитеты</li>
+      </ul>
+    </div>
+    <div class="c" style="border-top:2px solid var(--teal)">
+      <h4 style="color:var(--teal)">Развилка 2: градация MVP</h4>
+      <ul>
+        <li>Высокий репутационный риск → полноценный прототип + аудит ИБ</li>
+        <li>Низкий риск → песочница с когортой, лимиты запросов</li>
+      </ul>
+    </div>
+    <div class="c" style="border-top:2px solid var(--accent)">
+      <h4 style="color:var(--accent)">Развилка 3: после запуска</h4>
+      <ul>
+        <li>Технологический проект → остаётся в экосистеме</li>
+        <li>Завязан на коммерцию → передаётся, департамент сопровождает</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="label">Когда останавливаем проект</div>
+  <div class="g3">
+    <div class="c" style="border-top:2px solid var(--red)">
+      <h4 style="color:var(--red)">Комитет дважды не пропустил</h4>
+      <p>Максимум 2 попытки на одной контрольной точке</p>
+    </div>
+    <div class="c" style="border-top:2px solid var(--red)">
+      <h4 style="color:var(--red)">Нет прогресса 3 месяца</h4>
+      <p>Директор решает: ресурс, смена команды или закрытие</p>
+    </div>
+    <div class="c" style="border-top:2px solid var(--red)">
+      <h4 style="color:var(--red)">90 дней без метрики</h4>
+      <p>Автоматический вынос на управляющий комитет</p>
+    </div>
+  </div>
+  <div class="slide-num">4 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 5: COMMITTEES -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="kicker">Управление и принятие решений</div>
+  <h2>Три комитета — органы принятия решений</h2>
+  <div class="sub">Каждый комитет ведёт тот блок CORE, который за него отвечает. Руководитель блока организует повестку, готовит материалы, ведёт протокол и контролирует исполнение.</div>
+
+  <div style="display:flex;align-items:stretch;gap:0;margin:16px 0">
+    <div style="flex:1;padding:18px 16px;background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.2);border-radius:12px 0 0 12px">
+      <h3 style="color:var(--c0);font-size:13px">Финансовый комитет</h3>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:8px"><b>Цель:</b> стоит ли строить? Есть ли рынок и деньги</p>
+      <p style="font-size:10px;color:var(--muted)"><b>Частота:</b> еженедельно</p>
+      <p style="font-size:10px;color:var(--muted)"><b>Состав:</b> директор + инвест-директор + рук. «бизнес и финансы» + эксперт коммерции</p>
+      <p style="font-size:10px;color:var(--muted);margin-top:6px"><b>Стадии:</b> Заявка → Разведка → Разгон</p>
+    </div>
+    <div style="width:28px;display:flex;align-items:center;justify-content:center;color:var(--lav);font-size:18px;flex-shrink:0">→</div>
+    <div style="flex:1;padding:18px 16px;background:rgba(13,148,136,.04);border:1px solid rgba(13,148,136,.2)">
+      <h3 style="color:var(--teal);font-size:13px">Технический комитет</h3>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:8px"><b>Цель:</b> можно ли построить? Безопасно ли</p>
+      <p style="font-size:10px;color:var(--muted)"><b>Частота:</b> после финансового, по готовности</p>
+      <p style="font-size:10px;color:var(--muted)"><b>Состав:</b> рук. техблока + ИБ + техлид проекта</p>
+      <p style="font-size:10px;color:var(--muted);margin-top:6px"><b>Стадии:</b> Разведка → Прототип → Экосистема</p>
+    </div>
+    <div style="width:28px;display:flex;align-items:center;justify-content:center;color:var(--lav);font-size:18px;flex-shrink:0">→</div>
+    <div style="flex:1;padding:18px 16px;background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.2);border-radius:0 12px 12px 0">
+      <h3 style="color:var(--c4);font-size:13px">Управляющий комитет</h3>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:8px"><b>Цель:</b> финальное решение — запускаем, останавливаем, перенаправляем</p>
+      <p style="font-size:10px;color:var(--muted)"><b>Частота:</b> еженедельно</p>
+      <p style="font-size:10px;color:var(--muted)"><b>Состав:</b> CEO + директор департамента + инвест-директор</p>
+      <p style="font-size:10px;color:var(--muted);margin-top:6px"><b>Стадии:</b> все (от заявки до зрелости)</p>
+    </div>
+  </div>
+
+  <div class="label">4 блока CORE — управляющая команда</div>
+  <div class="g4">
+    <div class="c" style="border-top:3px solid var(--wb)">
+      <h4 style="color:var(--wb)">Проектный</h4>
+      <p><span class="pill" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></p>
+      <p style="margin-top:4px"><b>Когда · кем · за сколько</b></p>
+      <ul><li>Управление проектами</li><li>Сводный план ресурсов</li><li>Контроль сроков</li><li>M&A сопровождение</li></ul>
+      <div style="margin-top:6px;font-size:9px;color:var(--wb)"><b>→ Лидирует УК</b></div>
+    </div>
+    <div class="c" style="border-top:3px solid var(--c3)">
+      <h4 style="color:var(--c3)">Бизнес и финансы</h4>
+      <p><span class="pill" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></p>
+      <p style="margin-top:4px"><b>Стоит ли строить · сколько</b></p>
+      <ul><li>Бизнес-обоснование</li><li>Анализ рынка</li><li>Гранты (ИРИ, ФРИИ)</li><li>Проверка цифр</li></ul>
+      <div style="margin-top:6px;font-size:9px;color:var(--c3)"><b>→ Лидирует ФК</b></div>
+    </div>
+    <div class="c" style="border-top:3px solid var(--c1)">
+      <h4 style="color:var(--c1)">Технический</h4>
+      <p><span class="pill" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></p>
+      <p style="margin-top:4px"><b>Как построить · безопасно ли</b></p>
+      <ul><li>Архитектура и стек</li><li>Безопасность</li><li>Инфраструктура WB</li><li>Тех. партнёрства</li></ul>
+      <div style="margin-top:6px;font-size:9px;color:var(--c1)"><b>→ Лидирует ТК</b></div>
+    </div>
+    <div class="c" style="border-top:3px solid var(--c4)">
+      <h4 style="color:var(--c4)">Продуктовое развитие</h4>
+      <p><span class="pill" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></p>
+      <p style="margin-top:4px"><b>Что строим · для кого</b></p>
+      <ul><li>Продуктовая стратегия</li><li>Исследования</li><li>Дизайн и прототипы</li></ul>
+      <div style="margin-top:6px;font-size:9px;color:var(--c4)"><b>→ Повестка для всех</b></div>
+    </div>
+  </div>
+  <div class="slide-num">5 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 6: PRIORITY INITIATIVES -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="kicker">Портфель инициатив</div>
+  <h2>Приоритетные проекты Q2-Q3 2026</h2>
+  <div class="sub">Два стрима: собственные продукты (высокая маржа, длинный цикл) + дистрибуция через партнёров (быстрые деньги, валидация ниш).</div>
+
+  <div class="label">Стрим 1: Собственные продукты</div>
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+    <div class="ini-card" style="border-left-color:#579DFF">
+      <div style="display:flex;justify-content:space-between;align-items:start">
+        <div><h4>Маркетплейс Услуг</h4><div class="ini-meta">Заявка · Флагман · Q2-Q3 2026 · <span style="color:var(--warn)">вакансия</span></div></div>
+        <span class="pill" style="background:rgba(87,157,255,.12);color:var(--c1)">8 вертикалей</span>
+      </div>
+      <p style="font-size:11px;color:var(--muted)">Единая точка входа для услуг в WB. Два стрима: своя витрина + партнёры через API. Рынок 5,0 трлн руб.</p>
+      <div class="ini-kpi" style="margin-top:8px">
+        <span>10-15% <small>revenue share</small></span>
+        <span>3 <small>партнёра на пилот</small></span>
+        <span>70 млн <small>покупателей WB</small></span>
+      </div>
+    </div>
+    <div class="ini-card" style="border-left-color:#F5CD47">
+      <div style="display:flex;justify-content:space-between;align-items:start">
+        <div><h4>ВБ Игры</h4><div class="ini-meta">Заявка · Флагман · Q2-Q3 2026 · <span style="color:var(--warn)">вакансия</span></div></div>
+        <span class="pill" style="background:rgba(245,205,71,.12);color:var(--c3)">5 вертикалей</span>
+      </div>
+      <p style="font-size:11px;color:var(--muted)">Каталог игр с Кошельком, детский сегмент «Вэбэшка», гранты ИРИ 90-100%, киберспорт.</p>
+      <div class="ini-kpi" style="margin-top:8px">
+        <span>15-30% <small>комиссия</small></span>
+        <span>20+ <small>игр на старте</small></span>
+        <span>ИРИ <small>90-100% финансирование</small></span>
+      </div>
+    </div>
+    <div class="ini-card" style="border-left-color:#4BCE97">
+      <div style="display:flex;justify-content:space-between;align-items:start">
+        <div><h4>Здоровье</h4><div class="ini-meta">Заявка · Q3 2026 · <span style="color:var(--warn)">вакансия</span></div></div>
+        <span class="pill" style="background:rgba(75,206,151,.12);color:var(--c2)">5 вертикалей</span>
+      </div>
+      <p style="font-size:11px;color:var(--muted)">Телемедицина, аптека через ПВЗ, лаборатория, запись в клиники. 40К+ точек выдачи.</p>
+    </div>
+  </div>
+
+  <div class="label">Стрим 2: Дистрибуция партнёров (быстрая валидация)</div>
+  <div class="g3">
+    <div class="c" style="border-top:2px solid var(--teal)">
+      <h4 style="color:var(--teal)">Профи.ру</h4>
+      <p>Ремонт, клининг, репетиторы. 8 млн исполнителей. Revenue share 15%.</p>
+      <p style="margin-top:4px;font-size:10px"><b>Цель:</b> 500 транзакций/мес</p>
+    </div>
+    <div class="c" style="border-top:2px solid var(--teal)">
+      <h4 style="color:var(--teal)">YCLIENTS</h4>
+      <p>Beauty-услуги, 150К салонов. Revenue share 12%.</p>
+      <p style="margin-top:4px;font-size:10px"><b>Цель:</b> 300 записей/мес</p>
+    </div>
+    <div class="c" style="border-top:2px solid var(--teal)">
+      <h4 style="color:var(--teal)">СберЗдоровье</h4>
+      <p>Телемедицина + запись к врачу. White-label виджет. Revenue share 10%.</p>
+      <p style="margin-top:4px;font-size:10px"><b>Цель:</b> 200 консультаций/мес</p>
+    </div>
+  </div>
+  <div style="font-size:10px;color:var(--muted);margin-top:8px"><b>Синергия:</b> Стрим 2 валидирует ниши для стрима 1. Партнёр показал спрос → данные для решения: строить своё или продолжать через партнёра.</div>
+  <div class="slide-num">6 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 7: RESOURCE MODEL + CTA -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="kicker">Ресурсная модель и запрос</div>
+  <h2>Фиксированная команда + решение комитета</h2>
+  <div class="sub">Штат не раздуваем. Новый человек — только через обоснование и решение управляющего комитета.</div>
+
+  <div class="g2" style="margin-bottom:20px">
+    <div class="c">
+      <h4>Основной ресурс — фиксированная команда</h4>
+      <ul>
+        <li>На старте утверждается штат с грейдами</li>
+        <li>Каждый квартал директор выбирает 3-5 приоритетов</li>
+        <li>Рук. блоков оценивают: сколько людей на проект</li>
+        <li>Стоимость проекта = грейды × срок. Прозрачно для CEO</li>
+        <li>Если людей не хватает — проект ждёт следующий квартал</li>
+      </ul>
+    </div>
+    <div class="c">
+      <h4>Дополнительный ресурс — когда ждать нельзя</h4>
+      <ul>
+        <li>Руководитель блока готовит обоснование</li>
+        <li>Обоснование выносится на управляющий комитет</li>
+        <li>Одобрили → людей на конкретный проект и срок</li>
+        <li>Не одобрили → приоритеты внутри текущей команды</li>
+        <li>Внешние эксперты — через запрос, не в штат</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="label">Ритм управления</div>
+  <div class="g4" style="margin-bottom:20px">
+    <div class="c" style="text-align:center"><h4>Ежедневно</h4><p>Летучки проектных команд</p></div>
+    <div class="c" style="text-align:center"><h4>Еженедельно</h4><p>Статус у директора → сводка руководству</p></div>
+    <div class="c" style="text-align:center"><h4>Ежемесячно</h4><p>Кросс-деп. ревью с C-level RWB</p></div>
+    <div class="c" style="text-align:center"><h4>Ежеквартально</h4><p>План инициатив + распределение FTE</p></div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#FAF0FF,#FFF5FC);border:2px solid var(--wb);border-radius:14px;padding:24px 28px;text-align:center">
+    <h3 style="font-size:16px;color:var(--wb);margin-bottom:6px">Что просим</h3>
+    <div style="font-size:20px;font-weight:900;margin:8px 0">Два параллельных стрима: собственные продукты + дистрибуция партнёров</div>
+    <p style="font-size:12px;color:var(--ink);max-width:700px;margin:0 auto">CORE-команда из 4 блоков работает на оба стрима. Стрим 1 — длинный цикл, высокая маржа. Стрим 2 — быстрые деньги и валидация ниш за 60 дней. Три блока укомплектованы, один — вакансия. Через 90 дней — первые транзакции.</p>
+  </div>
+  <div class="slide-num">7 / 7</div>
+</div>
+
+<footer>Департамент Развития Экосистемы · Приложения к 1-pager · v11 · апрель 2026</footer>
+
+</body>
+</html>
