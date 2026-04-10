@@ -46,6 +46,12 @@
   padding:40px 40px 24px;
   overflow:hidden;
 }
+/* Split layout: orbit left, detail right */
+.solar-split { display:flex; gap:0; align-items:flex-start; }
+.solar-left { flex:1; min-width:0; transition:flex .35s ease; }
+.solar-split.has-detail .solar-left { flex:0 0 55%; }
+.solar-right { flex:0 0 0; overflow:hidden; transition:flex .35s ease, opacity .3s ease; opacity:0; }
+.solar-split.has-detail .solar-right { flex:0 0 45%; opacity:1; }
 /* Detail card follows design system */
 .detail { background:var(--card); border:1px solid var(--border); }
 .detail .d-name { color:var(--text); }
@@ -164,15 +170,16 @@
 .planet { animation:orbitFloat var(--ad,6s) ease-in-out infinite var(--del,0s); }
 @keyframes orbitFloat { 0%,100%{transform:translate(-50%,-50%) translateY(0)} 50%{transform:translate(-50%,-50%) translateY(-4px)} }
 
-/* ═══ DETAIL CARD (space theme) ═══ */
+/* ═══ DETAIL CARD (right panel) ═══ */
 .detail {
-  display:none; width:100%; max-width:700px; margin:16px auto 0;
+  display:none; width:100%;
   background:var(--card); border:1px solid var(--violet-border); border-radius:14px;
   padding:18px 22px;
   box-shadow:var(--shadow-lg); backdrop-filter:blur(12px); z-index:30; position:relative;
+  max-height:calc(100vh - 140px); overflow-y:auto;
 }
-.detail.visible { display:block; animation:cardUp .3s ease; }
-@keyframes cardUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.detail.visible { display:block; animation:cardSlide .3s ease; }
+@keyframes cardSlide { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
 
 .d-head { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
 .d-badge {
@@ -309,6 +316,9 @@
   .fw-stats { gap:16px; }
   .gate-grid { grid-template-columns:1fr; }
   .support-grid { grid-template-columns:1fr; }
+  .solar-split { flex-direction:column; }
+  .solar-split.has-detail .solar-left { flex:1; }
+  .solar-split.has-detail .solar-right { flex:1; }
 }
 
 /* ── MOBILE: orbit becomes horizontal scroll ── */
@@ -387,27 +397,32 @@
     <div style="padding:4px 12px;border-radius:6px;background:rgba(245,158,11,.1);border:1px dashed rgba(245,158,11,.3);font-size:9px;font-weight:700;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;">🔒 Полный режим · O·3—O·5 · аудит ИБ, доступ к WB</div>
   </div>
 
-  <div class="solar" id="solar">
-    <div class="solar-scene" id="scene">
-      <div class="star-aura"></div>
-      <div class="star-wrap">
-        <div class="star">
-          <span class="star-text">WB</span>
+  <div class="solar-split" id="solar-split">
+    <div class="solar-left">
+      <div class="solar" id="solar">
+        <div class="solar-scene" id="scene">
+          <div class="star-aura"></div>
+          <div class="star-wrap">
+            <div class="star">
+              <span class="star-text">WB</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="detail" id="detail">
-    <div class="d-head">
-      <div class="d-badge" id="d-badge">O&middot;0</div>
-      <div>
-        <div class="d-name" id="d-name">Заявка</div>
-        <div class="d-meta" id="d-meta"></div>
+    <div class="solar-right">
+      <div class="detail" id="detail">
+        <div class="d-head">
+          <div class="d-badge" id="d-badge">O&middot;0</div>
+          <div>
+            <div class="d-name" id="d-name">Заявка</div>
+            <div class="d-meta" id="d-meta"></div>
+          </div>
+          <button class="d-close" onclick="closeDetail()">&times;</button>
+        </div>
+        <div id="d-body"></div>
       </div>
-      <button class="d-close" onclick="closeDetail()">&times;</button>
     </div>
-    <div id="d-body"></div>
   </div>
 </div>
 
@@ -1481,6 +1496,7 @@ function openStage(id) {
 
   document.getElementById('d-body').innerHTML = html;
   detail.classList.add('visible');
+  document.getElementById('solar-split').classList.add('has-detail');
 
   // Scroll detail into view
   detail.scrollIntoView({ behavior:'smooth', block:'nearest' });
@@ -1489,6 +1505,7 @@ function openStage(id) {
 function closeDetail() {
   var detail = document.getElementById('detail');
   detail.classList.remove('visible');
+  document.getElementById('solar-split').classList.remove('has-detail');
   if (activeId) {
     var p = document.getElementById('planet-' + activeId);
     if (p) p.classList.remove('active');
@@ -1517,6 +1534,56 @@ function switchEntity() {
   closeDetail();
   renderOrbit(currentEntity);
 }
+
+// Re-render orbit when split layout transitions (planets need new positions)
+(function() {
+  var split = document.getElementById('solar-split');
+  if (!split) return;
+  var leftEl = split.querySelector('.solar-left');
+  if (!leftEl) return;
+  leftEl.addEventListener('transitionend', function(e) {
+    if (e.propertyName === 'flex') {
+      // Save active stage, re-render, re-open
+      var wasActive = activeId;
+      var scene = document.getElementById('scene');
+      var toRemove = scene.querySelectorAll('.planet, .ring');
+      for (var i = 0; i < toRemove.length; i++) toRemove[i].remove();
+      var stages = STAGES[currentEntity];
+      var cx = scene.offsetWidth ? scene.offsetWidth / 2 : 480;
+      var cy = 170;
+      var ELLIPSE = 0.35;
+      var scale = scene.offsetWidth ? scene.offsetWidth / 960 : 1;
+      stages.forEach(function(s, idx) {
+        var r = s.r * scale;
+        var ring = document.createElement('div');
+        ring.className = 'ring'; ring.id = 'ring-' + s.id;
+        ring.style.width = r * 2 + 'px'; ring.style.height = Math.round(r * 2 * ELLIPSE) + 'px';
+        scene.appendChild(ring);
+        var rad = s.angle * Math.PI / 180;
+        var px = cx + r * Math.cos(rad);
+        var py = cy + r * ELLIPSE * Math.sin(rad);
+        var maxSize = 44, minSize = 28, count = stages.length;
+        var sizeStep = count > 1 ? (maxSize - minSize) / (count - 1) : 0;
+        var planetSize = Math.round(maxSize - idx * sizeStep);
+        var fontSize = Math.max(9, Math.round(11 - idx * 0.5));
+        var planet = document.createElement('div');
+        planet.className = 'planet'; planet.id = 'planet-' + s.id;
+        planet.style.left = px + 'px'; planet.style.top = py + 'px';
+        planet.style.setProperty('--pc', s.color);
+        planet.style.setProperty('--ps', planetSize + 'px');
+        planet.style.setProperty('--pf', fontSize + 'px');
+        planet.style.setProperty('--ad', (5 + idx * 0.8) + 's');
+        planet.style.setProperty('--del', (idx * 0.4) + 's');
+        planet.innerHTML = '<div class="planet-body" style="background:' + s.color + '">' + s.code + '</div><div class="planet-name">' + s.name + '</div>';
+        planet.onmouseenter = function() { document.getElementById('ring-' + s.id).classList.add('r-hover'); };
+        planet.onmouseleave = function() { if (activeId !== s.id) document.getElementById('ring-' + s.id).classList.remove('r-hover'); };
+        planet.onclick = function(e) { e.stopPropagation(); toggleStage(s.id); };
+        scene.appendChild(planet);
+        if (wasActive === s.id) { planet.classList.add('active'); ring.classList.add('r-hover'); }
+      });
+    }
+  });
+})();
 
 /* ================================================================
    CONTEXT GUIDE — dynamic content based on product + role
