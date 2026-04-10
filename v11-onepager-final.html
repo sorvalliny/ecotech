@@ -290,17 +290,38 @@ footer{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);color:v
 
 <div class="label" style="margin-top:16px">Текущий статус приоритетных инициатив</div>
 <table>
-  <thead><tr><th>Инициатива</th><th>Стадия</th><th>Ближайшее решение</th><th>Прогноз оборота Y1</th><th>Руководитель</th></tr></thead>
+  <thead><tr><th>Инициатива</th><th>Фаза</th><th>Ближайшее решение</th><th>Руководитель</th></tr></thead>
   <tbody>
-    <tr><td><b>Маркетплейс Услуг</b> (ключевой, 8 вертикалей)</td><td><span class="pill" style="background:rgba(87,157,255,.15);color:var(--c1)">Исследование</span></td><td>Решение о старте разработки: Q2 2026</td><td>5,0 трлн (рынок)</td><td><span class="pill" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></td></tr>
-    <tr><td><b>Игры</b> (каталог, детский сегмент)</td><td><span class="pill" style="background:rgba(87,157,255,.15);color:var(--c1)">Исследование</span></td><td>Решение о старте разработки: Q2 2026</td><td>—</td><td><span class="pill" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></td></tr>
-    <tr><td><b>Книги</b></td><td><span class="pill" style="background:rgba(0,212,180,.12);color:var(--c2)">Выход на рынок</span></td><td>Продукт запущен. Рост аудитории и метрик</td><td>—</td><td><span class="pill" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></td></tr>
-    <tr><td><b>Знакомства</b></td><td><span class="pill" style="background:rgba(59,130,246,.12);color:var(--c1)">Первая версия</span></td><td>До запуска. Разработка первой версии</td><td>—</td><td><span class="pill" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></td></tr>
-    <tr><td><b>Здоровье</b></td><td><span class="pill" style="background:rgba(139,92,246,.12);color:var(--c0)">Заявка</span></td><td>Решение брать ли в работу: май 2026</td><td>—</td><td><span class="pill" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></td></tr>
-    <tr><td colspan="5" style="font-size:10px;color:var(--muted);font-style:italic">Остальные 7 направлений (Питомцы, Семья, Дети, Стиль, Стройка, Спорт, Блогеры) + Облако и SaaS B2B — на стадии заявки/исследования</td></tr>
+    <tr><td><b>Маркетплейс Услуг</b> (8 вертикалей)</td><td><span class="pill" style="background:rgba(107,79,160,.12);color:#6B4FA0">S1 Скрининг</span></td><td>Карточка ниши + данные WB → go/no-go</td><td><span class="pill" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></td></tr>
+    <tr><td><b>Игры</b> (каталог + Вэбэшка)</td><td><span class="pill" style="background:rgba(107,79,160,.12);color:#6B4FA0">S1 Скрининг</span></td><td>Карточка ниши + ИРИ заявка</td><td><span class="pill" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></td></tr>
+    <tr><td><b>Книги</b></td><td><span class="pill" style="background:rgba(171,138,240,.12);color:#AB8AF0">R1 Рост</span></td><td>Рост MAU, платная подписка</td><td><span class="pill" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></td></tr>
+    <tr><td><b>Знакомства</b></td><td><span class="pill" style="background:rgba(139,106,208,.12);color:#8B6AD0">S3 MVP</span></td><td>Когорта 1000, тестирование → ТК</td><td><span class="pill" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></td></tr>
+    <tr><td><b>Здоровье</b></td><td><span class="pill" style="background:rgba(107,79,160,.12);color:#6B4FA0">S1 Скрининг</span></td><td>Данные WB + регуляторный скан</td><td><span class="pill" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></td></tr>
+    <tr><td colspan="4" style="font-size:10px;color:var(--muted);font-style:italic">+ 7 ниш в бэклоге (Питомцы, Семья, Дети, Стиль, Стройка, Спорт, Блогеры) + Облако, SaaS B2B</td></tr>
   </tbody>
 </table>
-<div class="note">12 направлений прорабатываются параллельно. Маркетплейс Услуг — ключевой, монетизирует 8 вертикалей. Ресурс ограничен: каждый квартал выбираем 3–5 приоритетов из 12.</div>
+
+<!-- ═══ КЕЙСЫ: КАК УПРАВЛЯЕМ ═══ -->
+<div class="label" style="margin-top:14px">Как это работает на практике</div>
+<div class="g2">
+  <div class="c" style="border-left:3px solid #8B6AD0">
+    <h4 style="color:#8B6AD0">WB Знакомства · S3 MVP</h4>
+    <p>Прошёл S1 за 5 дней (карточка + данные WB по аудитории 20-40). Разведка S2: 8 интервью, ФК одобрил. Сейчас S3: MVP за 4 спринта, когорта 1000 через WB ID, лимит 50 RPS. <b>Песочница без платёжных данных.</b> На нед. 11: первые метрики — матчи, удержание D7.</p>
+  </div>
+  <div class="c" style="border-left:3px solid #AB8AF0">
+    <h4 style="color:#AB8AF0">WB Книги · R1 Рост</h4>
+    <p>Прошёл весь 90-Day Sprint в Q4 2025. День 90: MAU растёт, удержание стабильно. УК решил: масштабировать. Сейчас R1: полный аудит ИБ пройден, трафик WB подключён. <b>Развилка: технологический проект → остаётся в экосистеме.</b> Следующий шаг: платная подписка.</p>
+  </div>
+  <div class="c" style="border-left:3px solid #0D9488">
+    <h4 style="color:#0D9488">Профи.ру · Партнёрский трек</h4>
+    <p>Развилка S2: готовый API у партнёра → не делаем полную разведку. LOI за 1 нед, интеграция Partner API за 4 нед, пилот 3 нед. <b>Итого 8 недель вместо 13.</b> Метрика: 500 транзакций/мес через витрину WB. Revenue share 15%.</p>
+  </div>
+  <div class="c" style="border-left:3px solid #C4A5FF">
+    <h4 style="color:#C4A5FF">Мост поколений · R2 вопрос</h4>
+    <p>MAU >100К, школьная программа работает. Но модель монетизации не найдена. <b>Стоп-сигнал: 90 дней без выручки.</b> Q3: УК решает — подписка на архивы, школьные лицензии (B2G) или kill с миграцией пользователей.</p>
+  </div>
+</div>
+<div class="note">Каждый проект управляется по единому 90-Day Sprint. Kill освобождает слот → берём следующий из бэклога. 8-12 проектов в квартале.</div>
 
 
 <!-- ═══ СТРИМ 2 · ДИСТРИБУЦИЯ ═══ -->
