@@ -130,7 +130,7 @@
     },
 
     // ── Data version — increment to force refresh from portfolio.json ──
-    DATA_VERSION: 13,
+    DATA_VERSION: 20,
 
     // ── UI error toast ──────────────────────────────────────────────
     showError: function(msg) {

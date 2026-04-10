@@ -22,13 +22,15 @@
 
   // ── Департаменты (портфели) ────────────────────────────────────────
   var DEPARTMENTS = {
-    innovation: { label: 'Инновации и экосистема', color: '#7B2FFF' },
+    ecosystem:  { label: 'Развитие экосистемы', color: '#7B2FFF' },
+    innovation: { label: 'Инновации (архив)', color: '#7B2FFF' },
     education:  { label: 'Обучение', color: '#4FC3F7' }
   };
 
   // ── Seed-данные (W4-011) ───────────────────────────────────────────
   var DEFAULT_USERS = [
     { id: 'U001', name: 'Администратор',    email: 'admin@orbita.demo',           role: 'admin',    department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],        contact: '', team: 'ИТ' },
+    { id: 'U100', name: 'Администратор RWB', email: 'admin@rwb.ru',              role: 'admin',    department: 'ecosystem', assignments: [], active: true, createdBy: 'system', createdAt: '2026-04-10', productIds: [],        contact: '', team: 'Руководство' },
     { id: 'U002', name: 'PMO Lead',   email: 'pmo@orbita.demo',   role: 'pmo_lead', department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: [],        contact: '', team: 'Проектный офис' },
     { id: 'U003', name: 'CEO BU ECO',        email: 'ceo@orbita.demo',         role: 'lead',     department: 'innovation', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-23', productIds: [], contact: '', team: 'Руководство' },
     { id: 'GUEST', name: 'Гость',           email: 'demo@orbita.demo',       role: 'guest',    department: '', assignments: [], active: true, createdBy: 'system', createdAt: '2026-03-17', productIds: ['ECO-00'], contact: '', team: 'Демо' },

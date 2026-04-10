@@ -76,19 +76,19 @@
   position:relative;
   z-index:1;
 }
-.solar-subtitle .ss-title { color:var(--text);
-  font-size:15px; font-weight:700; color:rgba(255,255,255,.85); margin-bottom:6px;
+.solar-subtitle .ss-title {
+  font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px;
 }
-.solar-subtitle .ss-desc { color:var(--muted);
-  font-size:12px; color:rgba(255,255,255,.35); line-height:1.6; max-width:700px; margin:0 auto;
+.solar-subtitle .ss-desc {
+  font-size:12px; color:var(--muted); line-height:1.6; max-width:700px; margin:0 auto;
 }
 
 .solar { position:relative; width:100%; height:400px; z-index:1; }
 .solar-scene { position:relative; width:100%; height:100%; }
 
 /* Elliptical rings */
-.ring { position:absolute; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); border:1px solid var(--border); opacity:.5; transition:border-color .4s, box-shadow .4s, opacity .4s; }
-.ring.r-hover { border-color:var(--violet-border); box-shadow:0 0 30px var(--violet-dim) inset; opacity:.8; }
+.ring { position:absolute; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); border:1.5px solid var(--violet-border); opacity:.8; transition:border-color .4s, box-shadow .4s, opacity .4s; }
+.ring.r-hover { border-color:var(--violet); box-shadow:0 0 40px var(--violet-dim) inset; opacity:1; }
 
 /* ═══ CENTER: WB App Icon ═══ */
 .star-wrap { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:20; }
@@ -158,7 +158,7 @@
 @keyframes chipPulse { 0%,100%{opacity:.25} 50%{opacity:.45} }
 
 .planet-name { font-size:12px; font-weight:600; color:var(--text); margin-top:6px; white-space:nowrap; text-align:center; }
-.planet-result { font-size:8px; color:rgba(255,255,255,.3); margin-top:1px; text-shadow:0 1px 4px rgba(0,0,0,.6); }
+.planet-result { font-size:8px; color:var(--muted); margin-top:1px; text-shadow:0 1px 4px rgba(0,0,0,.3); }
 
 /* Gentle orbit float animation */
 .planet { animation:orbitFloat var(--ad,6s) ease-in-out infinite var(--del,0s); }
@@ -167,11 +167,9 @@
 /* ═══ DETAIL CARD (space theme) ═══ */
 .detail {
   display:none; width:100%; max-width:700px; margin:16px auto 0;
-  background:linear-gradient(135deg, rgba(30,20,50,.95), rgba(20,15,40,.95));
-  border:1px solid rgba(139,92,246,.15); border-radius:14px;
+  background:var(--card); border:1px solid var(--violet-border); border-radius:14px;
   padding:18px 22px;
-  box-shadow:0 16px 48px rgba(0,0,0,.4), 0 0 1px rgba(139,92,246,.3);
-  backdrop-filter:blur(12px); z-index:30; position:relative;
+  box-shadow:var(--shadow-lg); backdrop-filter:blur(12px); z-index:30; position:relative;
 }
 .detail.visible { display:block; animation:cardUp .3s ease; }
 @keyframes cardUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
@@ -181,28 +179,28 @@
   width:38px; height:38px; border-radius:10px;
   display:flex; align-items:center; justify-content:center;
   font-size:12px; font-weight:800; color:#fff;
-  position:relative; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.3);
+  position:relative; overflow:hidden; box-shadow:var(--shadow);
 }
 .d-badge::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,.2), transparent); border-radius:10px; }
-.d-name { font-size:17px; font-weight:700; color:#fff; }
-.d-meta { font-size:11px; color:rgba(255,255,255,.4); margin-top:2px; }
+.d-name { font-size:17px; font-weight:700; color:var(--text); }
+.d-meta { font-size:11px; color:var(--muted); margin-top:2px; }
 .d-close { margin-left:auto; background:none; border:none; color:var(--muted); font-size:22px; cursor:pointer; padding:4px 8px; border-radius:6px; transition:all .15s; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
-.d-close:hover { color:#fff; background:rgba(255,255,255,.06); }
+.d-close:hover { color:var(--text); background:var(--surface2); }
 
 .d-section { margin-top:14px; }
-.d-section h4 { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:rgba(139,92,246,.8); margin-bottom:6px; }
+.d-section h4 { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--violet); margin-bottom:6px; }
 .d-checks { display:flex; flex-direction:column; gap:3px; }
-.d-check { font-size:12px; color:rgba(255,255,255,.75); padding:6px 10px 6px 26px; background:rgba(255,255,255,.03); border-radius:6px; position:relative; transition:background .15s; line-height:1.5; }
-.d-check:hover { background:rgba(255,255,255,.06); }
-.d-check::before { content:'\2610'; position:absolute; left:9px; color:rgba(139,92,246,.6); font-size:11px; }
+.d-check { font-size:12px; color:var(--text); padding:6px 10px 6px 26px; background:var(--surface); border-radius:6px; position:relative; transition:background .15s; line-height:1.5; }
+.d-check:hover { background:var(--surface2); }
+.d-check::before { content:'\2610'; position:absolute; left:9px; color:var(--violet); font-size:11px; }
 .d-arts { display:flex; flex-wrap:wrap; gap:5px; margin-top:6px; }
-.d-art { font-size:10px; font-weight:600; padding:3px 10px; border-radius:0; background:rgba(139,92,246,.1); color:rgba(139,92,246,.8); border:1px solid rgba(139,92,246,.15); }
+.d-art { font-size:10px; font-weight:600; padding:3px 10px; border-radius:0; background:var(--violet-dim); color:var(--violet); border:1px solid var(--violet-border); }
 
 /* Gate items inside detail */
 .d-gate { display:flex; flex-direction:column; gap:3px; }
-.d-gi { font-size:12px; color:rgba(255,255,255,.75); padding:6px 10px 6px 26px; background:rgba(245,205,71,.05); border-radius:6px; position:relative; line-height:1.5; }
-.d-gi::before { content:'\2610'; position:absolute; left:9px; color:rgba(245,205,71,.7); font-size:11px; }
-.d-gate-meta { font-size:10px; color:rgba(255,255,255,.3); font-style:italic; margin-top:6px; }
+.d-gi { font-size:12px; color:var(--text); padding:6px 10px 6px 26px; background:var(--amber-dim); border-radius:6px; position:relative; line-height:1.5; }
+.d-gi::before { content:'\2610'; position:absolute; left:9px; color:var(--amber); font-size:11px; }
+.d-gate-meta { font-size:10px; color:var(--muted); font-style:italic; margin-top:6px; }
 
 /* ── Quick stats ── */
 .fw-stats { display:flex; justify-content:center; gap:24px; margin-bottom:28px; flex-wrap:wrap; }
@@ -379,8 +377,8 @@
 <!-- ═══════════ ORBITAL VISUALIZATION (solar system) ═══════════ -->
 <div class="solar-section">
   <div class="solar-subtitle">
-    <div class="ss-title" id="ss-title">6 стадий зрелости продукта</div>
-    <div class="ss-desc">Каждая стадия -- свой набор процессов, артефактов и критериев перехода. Цель Проектного офиса -- довести продукт от заявки до зрелости в экосистеме.</div>
+    <div class="ss-title" id="ss-title">6 стадий: от идеи до зрелого бизнеса</div>
+    <div class="ss-desc" style="font-size:13px;">Выбери стадию и узнай: что делать, какие артефакты подготовить и на какой комитет идти</div>
   </div>
 
   <div class="solar" id="solar">
@@ -408,38 +406,69 @@
 </div>
 
 
-<!-- ═══════════ АРХИТЕКТУРА СИСТЕМЫ (кликабельная) ═══════════ -->
+<!-- ═══════════ ЖИЗНЕННЫЙ ЦИКЛ (по брифу Этина) ═══════════ -->
 <div style="max-width:100%;margin:24px auto 28px;">
-  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:12px;">Архитектура системы</h3>
+  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:12px;">Жизненный цикл инициативы</h3>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:16px;max-width:700px;">Каждая инициатива проходит путь от заявки до зрелого бизнеса. На каждом переходе — комитет с понятными критериями. Три развилки определяют судьбу проекта.</p>
+
   <div style="display:flex;flex-direction:column;gap:2px;">
-    <a href="javascript:void(0)" onclick="document.querySelector('.fw-section:nth-of-type(2)').open=true;document.querySelector('.fw-section:nth-of-type(2)').scrollIntoView({behavior:'smooth'})" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--violet);border-radius:6px 6px 0 0;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
-      <div style="font-size:12px;font-weight:800;color:var(--violet);min-width:120px;">СТРАТЕГИЯ</div>
-      <div style="font-size:12px;color:var(--muted);">OKR компании &rarr; Цели департаментов &rarr; Портфель продуктов</div>
+    <a href="catalog.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--violet);border-radius:6px 6px 0 0;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
+      <div style="font-size:12px;font-weight:800;color:var(--violet);min-width:120px;">ПОРТФЕЛЬ</div>
+      <div style="font-size:12px;color:var(--muted);">Все проекты и заявки департамента &rarr;</div>
     </a>
-    <a href="catalog.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
-      <div style="font-size:12px;font-weight:800;color:var(--teal);min-width:120px;">УПРАВЛЕНИЕ</div>
-      <div style="font-size:12px;color:var(--muted);">Каталог продуктов &middot; Продукт / Тех.решение / Edu / Проект</div>
+    <a href="committees.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
+      <div style="font-size:12px;font-weight:800;color:var(--teal);min-width:120px;">КОМИТЕТЫ</div>
+      <div style="font-size:12px;color:var(--muted);">Финансовый &rarr; Технический &rarr; Управляющий</div>
     </a>
-    <a href="registry.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--amber);text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
-      <div style="font-size:12px;font-weight:800;color:var(--amber);min-width:120px;">ПЛАНИРОВАНИЕ</div>
-      <div style="font-size:12px;color:var(--muted);">Цели (H1/H2) &rarr; Инициативы (Q) &rarr; RICE &rarr; Команды</div>
-    </a>
-    <a href="workspace.html?id=ECO-00" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--pink);text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
-      <div style="font-size:12px;font-weight:800;color:var(--pink);min-width:120px;">ИСПОЛНЕНИЕ</div>
-      <div style="font-size:12px;color:var(--muted);">Карточка продукта &rarr; Реестр инициатив &rarr; Внешний трекер</div>
-    </a>
-    <a href="javascript:void(0)" onclick="document.querySelector('.fw-section:nth-of-type(1)').open=true;document.querySelector('.fw-section:nth-of-type(1)').scrollIntoView({behavior:'smooth'})" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 0 6px 6px;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
-      <div style="font-size:12px;font-weight:800;color:var(--red);min-width:120px;">КОНТРОЛЬ</div>
-      <div style="font-size:12px;color:var(--muted);">Gate Review &rarr; Комитеты &rarr; Уведомления &rarr; Лог изменений</div>
+    <a href="tools/brief.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:0 0 6px 6px;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
+      <div style="font-size:12px;font-weight:800;color:var(--amber);min-width:120px;">ПОДАТЬ ЗАЯВКУ</div>
+      <div style="font-size:12px;color:var(--muted);">Заполнить бриф новой инициативы &rarr;</div>
     </a>
   </div>
 </div>
 
-<!-- ═══════════ COLLAPSIBLE SECTIONS (with sidebar TOC) ═══════════ -->
+<!-- ═══════════ РАЗВИЛКИ (по брифу Этина) ═══════════ -->
+<div style="max-width:100%;margin:0 auto 28px;">
+  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:12px;">Три развилки в жизненном цикле</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--amber);">
+      <div style="font-size:12px;font-weight:800;color:var(--amber);margin-bottom:6px;">Развилка 1: после исследования</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.5;">Идея простая и понятная &rarr; передаём в коммерцию, департамент остаётся менеджером проекта.<br>Идея требует MVP &rarr; делаем сами, идём на комитеты.</div>
+    </div>
+    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--teal);">
+      <div style="font-size:12px;font-weight:800;color:var(--teal);margin-bottom:6px;">Развилка 2: градация MVP</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.5;">Высокий репутационный риск &rarr; полноценный прототип, полный аудит.<br>Низкий риск &rarr; песочница с когортой, лимиты запросов, без полного аудита ИБ.</div>
+    </div>
+    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:3px solid var(--pink);">
+      <div style="font-size:12px;font-weight:800;color:var(--pink);margin-bottom:6px;">Развилка 3: после запуска</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.5;">Проект технологический &rarr; остаётся в экосистеме.<br>Завязан на коммерцию/категории &rarr; передаётся, департамент сопровождает.</div>
+    </div>
+  </div>
+</div>
 
-<div class="fw-layout">
+<!-- ═══════════ КОГДА ОСТАНАВЛИВАЕМ ═══════════ -->
+<div style="max-width:100%;margin:0 auto 28px;">
+  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:12px;">Когда останавливаем проект</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+    <div style="padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:2px solid var(--red);">
+      <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:4px;">Комитет дважды не пропустил</div>
+      <div style="font-size:11px;color:var(--muted);">Максимум две попытки на одной контрольной точке. После второго отказа — эскалация и решение об архивации.</div>
+    </div>
+    <div style="padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:2px solid var(--red);">
+      <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:4px;">Проект не двигается 3 месяца</div>
+      <div style="font-size:11px;color:var(--muted);">Автоматический обзор. Директор решает: дать ресурс, сменить команду или закрыть.</div>
+    </div>
+    <div style="padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:2px solid var(--red);">
+      <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:4px;">Целевая метрика не достигнута за 90 дней</div>
+      <div style="font-size:11px;color:var(--muted);">Проект автоматически выносится на управляющий комитет с рекомендацией: продолжить, развернуть или закрыть.</div>
+    </div>
+  </div>
+</div>
 
-<!-- Sidebar TOC -->
+<!-- убрано: Архитектура системы, Collapsible sections, sidebar TOC, все fw-section -->
+<!-- оставлено: орбитальная визуализация + жизненный цикл + развилки + стоп-сигналы -->
+
+<div style="display:none"><!-- hidden old layout -->
 <nav class="fw-toc" id="fw-toc">
   <a href="#gate-review">Gate Review</a>
   <a href="#roles">Роли (RACI)</a>
@@ -768,7 +797,7 @@
     <h4>Неделя 1</h4>
     <ul>
       <li>☐ Познакомиться с командой (если назначена) → <a href="teams.html" style="color:var(--violet);">Реестр команд</a></li>
-      <li>☐ Изучить инициативы продукта → <a href="registry.html" style="color:var(--violet);">Реестр инициатив</a></li>
+      <li>☐ Изучить инициативы продукта → <a href="registry.html" style="color:var(--violet);">Портфель проектов</a></li>
       <li>☐ Подключить внешний трекер (YouTrack/Jira) → <a href="#trackers" style="color:var(--violet);">см. Трекеры</a></li>
       <li>☐ Поставить цели на текущий период → workspace → Цели</li>
       <li>☐ Пройти первый синк с PMO (статус, блокеры, план)</li>
@@ -921,13 +950,13 @@
 </div><!-- /.fw-main -->
 </div><!-- /.fw-layout -->
 
+</div><!-- /hidden old layout -->
+
 <!-- ═══════════ FOOTER ═══════════ -->
 <div class="fw-footer">
-  <a href="glossary.html">Глоссарий</a>
-  <a href="knowledge/roles.html">Матрица ролей</a>
-  <a href="knowledge/planning.html">Планирование</a>
-  <a href="catalog.html">Каталог продуктов</a>
-  <a href="registry.html">Реестр инициатив</a>
+  <a href="catalog.html">Портфель проектов</a>
+  <a href="committees.html">Комитеты</a>
+  <a href="tools/brief.html">Подать заявку</a>
 </div>
 
 </div><!-- /.fw-wrap -->
@@ -942,69 +971,69 @@ var STAGES = {
   product: [
     {
       id:'o0', code:'O\u00b70', name:'Заявка', result:'Заявка принята, команда назначена',
-      color:'#6B4FA0', r:440, angle:168, owner:'PMO-менеджер',
+      color:'#6B4FA0', r:440, angle:168, owner:'Рук. проектного блока',
       roles:{
-        pm:{ title:'Что делать PM', checks:['Заполнить бриф с описанием проблемы и ЦА','Провести RICE-оценку','Найти команду (PM, Tech Lead, дизайнер)'] },
-        pmo:{ title:'Что делать PMO', checks:['Проверить дубли в реестре','Калибровать RICE на синке','Вынести на рассмотрение (Gate 0)'] },
-        lead:{ title:'Что видит руководитель', checks:['Новая заявка в реестре','Решение Gate 0: запускаем разведку или нет'] }
+        pm:{ title:'Что делает инициатор', checks:['Заполнить бриф: проблема, целевая аудитория, ожидаемый результат','Провести приоритизацию (RICE)','Предложить состав команды'] },
+        pmo:{ title:'Что делает проектный блок', checks:['Проверить: нет ли такого же проекта в реестре','Экспресс-оценка рынка (блок «бизнес и финансы»)','Зарегистрировать в реестре инициатив'] },
+        lead:{ title:'Что видит директор', checks:['Новая заявка в реестре','Решение: берём в работу или отклоняем'] }
       },
-      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф + RICE →</a>','<a class="d-art" href="#rice" style="text-decoration:none">RICE-оценка →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="admin.html" style="text-decoration:none">Назначить команду →</a>'],
-      gate:{ name:'Gate 0 \u2014 Скрининг заявки', checks:['Проблема описана и понятна заказчику','ЦА определена','RICE > порога','Нет дублей в реестре','Соответствие OKR компании','Команда назначена'], decision:'PMO Lead', timeline:'5-10 рабочих дней' }
+      artifacts:['<a class="d-art" href="tools/brief.html" style="text-decoration:none">Бриф инициативы \u2192</a>','<span class="d-art">Экспресс-оценка рынка</span>','<span class="d-art">Проверка на дубли</span>'],
+      gate:{ name:'Скрининг заявки', checks:['Проблема описана и понятна','Целевая аудитория определена','Приоритет выше порога','Нет дублей в реестре','Соответствует целям департамента','Предложен состав команды'], decision:'Рук. проектного блока', timeline:'до 10 рабочих дней' }
     },
     {
-      id:'o1', code:'O\u00b71', name:'Разведка', result:'Проблема валидирована, PSF подтверждён',
-      color:'#7B5CB8', r:360, angle:142, owner:'PM',
+      id:'o1', code:'O\u00b71', name:'Разведка', result:'Проблема подтверждена, решение нужно рынку',
+      color:'#7B5CB8', r:360, angle:142, owner:'Руководитель инициативы',
       roles:{
-        pm:{ title:'Что делать PM', checks:['Провести CustDev: 7-10 интервью','Конкурентный анализ (топ-5 аналогов)','Подготовить Discovery Report','Техническое исследование, ADR'] },
-        pmo:{ title:'Что делать PMO', checks:['Контроль сроков разведки','Подготовка материалов к Gate 1','Обновление реестра'] },
-        lead:{ title:'Что видит руководитель', checks:['Ревью Discovery Report','Решение Gate 1: строим прототип или отклоняем'] }
+        pm:{ title:'Что делает руководитель инициативы', checks:['Провести 15-20 интервью с клиентами','Конкурентный анализ (топ-5 аналогов)','Подготовить отчёт о разведке','Техническое обоснование решения'] },
+        pmo:{ title:'Что делает блок «бизнес и финансы»', checks:['Финансовая модель и юнит-экономика','Анализ рынка: объём, доля, конкуренты','Подготовка материалов к финансовому комитету'] },
+        lead:{ title:'\u26a0 Развилка 1', checks:['Идея простая \u2192 передать в коммерцию (департамент остаётся менеджером проекта)','Идея требует MVP \u2192 делаем сами, идём на комитеты'] }
       },
-      artifacts:['<a class="d-art" href="tools/templates.html" style="text-decoration:none">Discovery Report →</a>','<a class="d-art" href="#metrics" style="text-decoration:none">Метрики стадии →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','Конкурентный анализ','ADR'],
-      gate:{ name:'Gate 1 \u2014 Переход к прототипу', checks:['Problem-Solution Fit подтверждён данными CustDev','Техническая реализуемость подтверждена (ADR)','Scope и сроки MVP зафиксированы','Бюджет согласован с Финансами','Команда и Tech Lead назначены','Корп. риски задокументированы'], decision:'PMO Lead + Lead', timeline:'3 рабочих дня' }
+      artifacts:['<span class="d-art">Отчёт о разведке</span>','<span class="d-art">Финансовая модель</span>','<span class="d-art">Конкурентный анализ</span>','<span class="d-art">Техническое обоснование</span>','<span class="d-art">Анализ: делаем сами / покупаем / берём партнёра</span>'],
+      gate:{ name:'Финансовый комитет \u2192 Технический комитет \u2192 Управляющий комитет', checks:['Проблема подтверждена интервью с клиентами','Техническая реализуемость подтверждена','Объём и сроки MVP зафиксированы','Бюджет согласован с финансами','Команда назначена','Риски задокументированы'], decision:'Финансовый \u2192 Технический \u2192 Управляющий', timeline:'ФК 5 дн + ТК 5 дн + УК еженедельно' }
     },
     {
-      id:'o2', code:'O\u00b72', name:'Прототип', result:'MVP работает, метрики определены',
-      color:'#8B6AD0', r:290, angle:110, owner:'PM',
+      id:'o2', code:'O\u00b72', name:'Прототип', result:'Первая версия работает, тестируется',
+      color:'#8B6AD0', r:290, angle:110, owner:'Руководитель инициативы',
       roles:{
-        pm:{ title:'Что делать PM', checks:['Написать PRD и запустить спринты','Довести до MVP','Провести soft launch на тестовой группе','Мониторинг Activation Rate, feature flags'] },
-        pmo:{ title:'Что делать PMO', checks:['Контроль метрик: время до MVP, бюджет','Подготовка материалов к Gate 2'] },
-        lead:{ title:'Что видит руководитель', checks:['Ревью MVP и первых метрик','Решение Gate 2: масштабируем или итерируем'] }
+        pm:{ title:'Что делает руководитель инициативы', checks:['Требования к продукту и спринтовая разработка','Дизайн \u2192 ревью \u2192 тестирование с пользователями','Закрытое тестирование на ограниченной аудитории'] },
+        pmo:{ title:'Что делает технический блок', checks:['Определить уровень проработки MVP','Проверка безопасности','Настройка лимитов запросов (песочница)','Подготовка к техническому комитету'] },
+        lead:{ title:'\u26a0 Развилка 2: градация MVP', checks:['Высокий репутационный риск \u2192 полноценный прототип, полный аудит безопасности','Низкий риск \u2192 песочница с когортой, лимиты запросов, без полного аудита','Уровень интеграции с внешними системами зависит от рисков'] }
       },
-      artifacts:['<a class="d-art" href="tools/templates.html" style="text-decoration:none">PRD шаблон →</a>','<a class="d-art" href="#metrics" style="text-decoration:none">Метрики: Activation ≥30% →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="#pre-gate" style="text-decoration:none">Pre-Gate подготовка →</a>'],
-      gate:{ name:'Gate 2 \u2014 Переход к запуску', checks:['Activation Rate \u2265 30%','Business Case подтверждён данными','MVP acceptance criteria выполнены','Security review пройден (ИБ)','Retention D7 измеряется и растёт','Roadmap Growth сформирован'], decision:'PMO Lead + CTO', timeline:'5 рабочих дней' }
+      artifacts:['<span class="d-art">Требования к продукту</span>','<span class="d-art">MVP (рабочая версия)</span>','<span class="d-art">Отчёт о безопасности</span>','<span class="d-art">Инструкция по эксплуатации</span>','<span class="d-art">План отката при сбое</span>'],
+      gate:{ name:'Технический комитет \u2192 Управляющий комитет', checks:['\u226530% пользователей совершают целевое действие','Бизнес-модель подтверждена данными','Критерии приёмки выполнены','Проверка безопасности пройдена','Удержание на 7-й день измеряется и растёт','План роста сформирован'], decision:'Технический \u2192 Управляющий', timeline:'ТК 5 дн + УК еженедельно' }
     },
     {
-      id:'o3', code:'O\u00b73', name:'Разгон', result:'PMF подтверждён, unit-economics сходится',
-      color:'#9B7AE8', r:220, angle:65, owner:'PM',
+      id:'o3', code:'O\u00b73', name:'Разгон', result:'Продукт нужен рынку, экономика сходится',
+      color:'#9B7AE8', r:220, angle:65, owner:'Руководитель инициативы',
       roles:{
-        pm:{ title:'Что делать PM', checks:['Запустить GTM-стратегию','A/B тесты и growth experiments','Масштабировать привлечение','P&L ревью ежеквартально'] },
-        pmo:{ title:'Что делать PMO', checks:['Квартальный ревью метрик','Портфельный отчёт'] },
-        lead:{ title:'Что видит руководитель', checks:['Gate 3: решение Scale / Iterate / Kill'] }
+        pm:{ title:'Что делает руководитель инициативы', checks:['Стратегия вывода на рынок','Подключение трафика WB (70 млн покупателей)','A/B тесты и эксперименты роста','Мониторинг: лояльность, удержание, доход на пользователя'] },
+        pmo:{ title:'Что делают все 4 блока CORE', checks:['Проектный: контроль сроков и бюджета, ревью для комитета','Бизнес и финансы: ревью прибылей и убытков ежеквартально','Технический: масштабирование архитектуры','Продуктовый: анализ поведения пользователей'] },
+        lead:{ title:'\u26a0 Развилка 3', checks:['Проект технологический \u2192 остаётся в экосистеме','Проект завязан на коммерцию/категории \u2192 передаётся, департамент сопровождает'] }
       },
-      artifacts:['<a class="d-art" href="tools/strategy.html" style="text-decoration:none">GTM-стратегия →</a>','<a class="d-art" href="registry.html" style="text-decoration:none">Инициативы (A/B) →</a>','<a class="d-art" href="#metrics" style="text-decoration:none">Метрики: NPS ≥40 →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="catalog.html" style="text-decoration:none">Портфель →</a>'],
-      gate:{ name:'Gate 3 \u2014 Переход к масштабированию', checks:['EBITDA стремится к нулю или положительный','NPS: \u2265 40 (B2C), \u2265 30 (B2B), \u2265 20 (B2G)','Команда 8+ человек','NSM растёт 2 квартала подряд','Архитектура масштабируется на 10x нагрузку'], decision:'PMO Lead + Директор', timeline:'Ежеквартально' }
+      artifacts:['<span class="d-art">Стратегия вывода на рынок</span>','<span class="d-art">Результаты A/B тестов</span>','<span class="d-art">Отчёт о прибылях и убытках</span>','<span class="d-art">Метрики: лояльность, удержание</span>'],
+      gate:{ name:'Финансовый \u2192 Технический \u2192 Управляющий комитет', checks:['Прибыль до вычетов стремится к нулю или положительная','Индекс лояльности \u2265 40','Команда 8+ человек','Ключевая метрика растёт 2 квартала подряд','Архитектура выдерживает 10-кратный рост'], decision:'Финансовый \u2192 Технический \u2192 Управляющий', timeline:'Ежеквартально' }
     },
     {
-      id:'o4', code:'O\u00b74', name:'Экосистема', result:'Интегрирован в экосистему RWB',
-      color:'#AB8AF0', r:155, angle:-5, owner:'Архитектор',
+      id:'o4', code:'O\u00b74', name:'Экосистема', result:'Встроен в экосистему RWB',
+      color:'#AB8AF0', r:155, angle:-5, owner:'Технический блок + руководитель инициативы',
       roles:{
-        pm:{ title:'Что делать PM', checks:['Интеграции с другими продуктами экосистемы','Развитие партнёрств и API','Кросс-продуктовые метрики'] },
-        pmo:{ title:'Что делать PMO', checks:['Контроль adoption интеграций','Синхронизация с другими продуктами'] },
-        lead:{ title:'Что видит руководитель', checks:['Экосистемный ревью: вклад продукта в общую ценность'] }
+        pm:{ title:'Что делает руководитель инициативы', checks:['Глубокая интеграция: WB ID, Кошелёк, ПВЗ, CRM','Перекрёстные продажи с товарным каталогом','Масштабирование: новые города, сегменты'] },
+        pmo:{ title:'Что делает технический блок', checks:['Интеграция с инфраструктурой WB','Подготовка M&A-сделок (если нужны активы)','Подготовка к управляющему комитету'] },
+        lead:{ title:'Что видит директор', checks:['Вклад продукта в общую ценность экосистемы','Решение: платформа / центр прибыли / интеграция'] }
       },
-      artifacts:['<a class="d-art" href="catalog.html" style="text-decoration:none">Карта продуктов →</a>','<a class="d-art" href="#metrics" style="text-decoration:none">Метрики: Revenue, Market Share →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="calendar.html" style="text-decoration:none">Календарь ревью →</a>'],
-      gate:{ name:'Gate 4 \u2014 Экосистемная интеграция', checks:['P&L положительный 2 квартала подряд','\u22652 продукта экосистемы зависят от ядра','GMV растёт или есть платформенный потенциал','Форма выбрана: Платформа / P&L / Интеграция','Финансовая модель утверждена Советом'], decision:'PMO Lead + CTO', timeline:'На усмотрение Совета' }
+      artifacts:['<span class="d-art">Карта интеграций с WB</span>','<span class="d-art">Отчёт о выручке и доле рынка</span>','<span class="d-art">Финансовая модель (обновлённая)</span>'],
+      gate:{ name:'Управляющий комитет', checks:['Прибыль положительная 2 квартала подряд','\u22652 продукта экосистемы зависят от ядра','Оборот растёт или есть платформенный потенциал','Форма определена: платформа / центр прибыли / интеграция','Финансовая модель утверждена руководством'], decision:'Управляющий комитет', timeline:'По решению руководства' }
     },
     {
-      id:'o5', code:'O\u00b75', name:'Зрелость', result:'P&L положительный, продукт самодостаточен',
-      color:'#C4A5FF', r:90, angle:-45, owner:'PMO Lead',
+      id:'o5', code:'O\u00b75', name:'Зрелость', result:'Бизнес работает и зарабатывает',
+      color:'#C4A5FF', r:90, angle:-45, owner:'Руководитель инициативы + проектный блок',
       roles:{
-        pm:{ title:'Что делать PM', checks:['Оптимизация и снижение издержек','P&L ответственность','Развитие новых фич по данным'] },
-        pmo:{ title:'Что делать PMO', checks:['Стратегический ревью (раз в полгода)','Решение: развивать / консервировать / закрывать'] },
-        lead:{ title:'Что видит руководитель', checks:['Годовой Gate 5: стратегическая роль продукта в портфеле'] }
+        pm:{ title:'Что делает руководитель инициативы', checks:['Оптимизация расходов, снижение стоимости привлечения','Ответственность за прибыли и убытки','Ревизия комиссии и ценообразования'] },
+        pmo:{ title:'Что делает проектный блок', checks:['Годовой обзор для руководства','Подготовка материалов к управляющему комитету','Стратегический выбор: развивать / снимать прибыль / закрыть'] },
+        lead:{ title:'Три пути', checks:['Развивать дальше \u2192 новый цикл разведки (O\u00b71)','Снимать прибыль \u2192 остаёмся на текущей стадии','Закрыть \u2192 корректное завершение, миграция пользователей'] }
       },
-      artifacts:['<a class="d-art" href="tools/strategy.html" style="text-decoration:none">Стратегический ревью →</a>','<a class="d-art" href="#metrics" style="text-decoration:none">Метрики: EBITDA, Market Share →</a>','<a class="d-art" href="tools/gate-checklist.html" style="text-decoration:none">Gate-чеклист →</a>','<a class="d-art" href="catalog.html" style="text-decoration:none">Портфель →</a>','<a class="d-art" href="#retro" style="text-decoration:none">Ретроспектива →</a>'],
-      gate:{ name:'Gate 5 \u2014 Годовой ревью', checks:['P&L стабилен или положительный 4 квартала','NPS не деградирует','Понятный план следующего цикла','Техдолг не блокирует развитие','Команда укомплектована на \u226580%'], decision:'PMO Lead + CEO BU', timeline:'Ежегодно (QBR Q4)' }
+      artifacts:['<span class="d-art">Стратегический обзор</span>','<span class="d-art">Прибыль и доля рынка</span>','<span class="d-art">Ретроспектива</span>'],
+      gate:{ name:'Управляющий комитет (годовой обзор)', checks:['Прибыль стабильна 4 квартала','Лояльность не падает','Есть план на следующий цикл','Технический долг не блокирует развитие','Команда укомплектована \u226580%'], decision:'Управляющий комитет (руководство RWB)', timeline:'Ежегодно (Q4)' }
     }
   ],
   tech: [
@@ -1160,7 +1189,7 @@ var STAGES = {
 
 /* Subtitle text per entity type */
 var SUBTITLES = {
-  product: { title:'6 стадий зрелости продукта', desc:'Каждая стадия -- свой набор процессов, артефактов и критериев перехода. Цель Проектного офиса -- довести продукт от заявки до зрелости в экосистеме.' },
+  product: { title:'6 стадий: от идеи до зрелого бизнеса', desc:'Выбери стадию и узнай: что делать, какие артефакты подготовить и на какой комитет идти' },
   tech:    { title:'4 стадии тех.решения',       desc:'От технического задания до приёмки в эксплуатацию. Архитектор и CTO контролируют качество на каждом Gate.' },
   edu:     { title:'5 стадий образовательной программы', desc:'От заявки до зрелой программы с регулярным обновлением контента и аккредитацией.' },
   project: { title:'4 стадии проекта',            desc:'Классический проектный цикл: инициация, планирование, исполнение, закрытие с Gate Review на каждом переходе.' }
@@ -1299,7 +1328,7 @@ function openStage(id) {
   var authUser = window.OrbAuth ? OrbAuth.getCurrentUser() : null;
   var role = authUser ? (authUser.role||'all') : 'all';
   var roleMap = { pm:'pm', pmo:'pmo', pmo_lead:'pmo', admin:'pmo', lead:'lead', stakeholder:'lead' };
-  var html = '<div style="font-size:11px;color:rgba(255,255,255,.35);margin-bottom:12px;">Владелец: ' + s.owner + '</div>';
+  var html = '<div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Владелец: ' + s.owner + '</div>';
 
   // Role-specific checks
   var roleKeys = (!roleMap[role]) ? ['pm','pmo','lead'] : [roleMap[role]];
@@ -1316,10 +1345,16 @@ function openStage(id) {
   s.artifacts.forEach(function(a) { if (a.indexOf('<a') >= 0) { html += a; } else { html += '<span class="d-art">' + a + '</span>'; } });
   html += '</div></div>';
 
-  // Gate
-  html += '<div class="d-section"><h4>' + s.gate.name + '</h4><div class="d-gate">';
+  // Gate — link committee names to committees.html
+  function linkComm(text) {
+    return text
+      .replace(/Финансов\S*/g, '<a href="committees.html#fk" style="color:var(--violet);text-decoration:underline;text-decoration-style:dotted">$&</a>')
+      .replace(/Технически\S*/g, '<a href="committees.html#tk" style="color:var(--teal);text-decoration:underline;text-decoration-style:dotted">$&</a>')
+      .replace(/Управляющи\S*/g, '<a href="committees.html#uk" style="color:var(--amber);text-decoration:underline;text-decoration-style:dotted">$&</a>');
+  }
+  html += '<div class="d-section"><h4>' + linkComm(s.gate.name) + '</h4><div class="d-gate">';
   s.gate.checks.forEach(function(g) { html += '<div class="d-gi">' + g + '</div>'; });
-  html += '</div><div class="d-gate-meta">Решение: ' + s.gate.decision + ' \u00b7 Срок: ' + s.gate.timeline + '</div></div>';
+  html += '</div><div class="d-gate-meta">Решение: ' + linkComm(s.gate.decision) + ' \u00b7 Срок: ' + s.gate.timeline + '</div></div>';
 
   document.getElementById('d-body').innerHTML = html;
   detail.classList.add('visible');
@@ -1575,7 +1610,7 @@ function renderPortfolioGuide(el, products, stages, backlog, goals, role, user) 
   // Actions
   var actHtml = '<div class="ctx-actions">';
   actHtml += '<a class="ctx-action" href="catalog.html">Каталог продуктов</a>';
-  actHtml += '<a class="ctx-action" href="registry.html">Реестр инициатив</a>';
+  actHtml += '<a class="ctx-action" href="registry.html">Портфель проектов</a>';
   actHtml += '<a class="ctx-action" href="calendar.html">Календарь</a>';
   actHtml += '<a class="ctx-action" href="#gate-review">Gate Review</a>';
   actHtml += '<a class="ctx-action" href="#metrics">Метрики</a>';
@@ -1649,13 +1684,18 @@ window.addEventListener('resize', function() {
   window.addEventListener('scroll', updateActive);
   updateActive();
 
-  // Open section from URL hash
+  // Open section/stage from URL hash
   if (location.hash) {
     var id = location.hash.replace('#', '');
     var section = document.getElementById(id);
     if (section && section.tagName === 'DETAILS') {
       section.open = true;
       setTimeout(function() { section.scrollIntoView({ behavior: 'smooth' }); }, 100);
+    }
+    // Open orbital stage by id (o0-o5, t0-t3, e0-e3)
+    var stage = findStage(id);
+    if (stage) {
+      setTimeout(function() { openStage(id); }, 300);
     }
   }
 })();
