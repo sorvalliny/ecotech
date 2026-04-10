@@ -238,20 +238,26 @@ footer{text-align:center;padding:24px 0;font-size:10px;color:var(--muted);border
 <div class="slide">
   <div class="kicker">ОРБИТА · Жизненный цикл проекта</div>
   <h2>От заявки до зрелого бизнеса</h2>
-  <div class="sub">Каждая инициатива проходит 6 стадий. На каждом переходе — комитет с понятными критериями. Три развилки определяют судьбу проекта.</div>
+  <div class="sub">Два режима: <b style="color:var(--teal)">фаст-трек</b> (O·0—O·2) — песочница, когорта до 1000, минимум согласований. <b style="color:var(--c4)">Полный режим</b> (O·3—O·5) — аудит ИБ пройден, доступ к 70 млн WB, все комитеты.</div>
+
+  <!-- Zone indicators -->
+  <div style="display:flex;gap:8px;margin-bottom:6px">
+    <div style="padding:3px 10px;border-radius:5px;background:rgba(75,206,151,.08);border:1px dashed rgba(75,206,151,.3);font-size:8px;font-weight:700;color:var(--teal);letter-spacing:.08em;text-transform:uppercase">⚡ Фаст-трек · O·0—O·2</div>
+    <div style="padding:3px 10px;border-radius:5px;background:rgba(245,158,11,.08);border:1px dashed rgba(245,158,11,.3);font-size:8px;font-weight:700;color:var(--c4);letter-spacing:.08em;text-transform:uppercase">🔒 Полный режим · O·3—O·5</div>
+  </div>
 
   <div class="orbit-flow">
-    <div class="orbit-step" style="background:rgba(139,92,246,.1);color:var(--c0)">O·0<br>Заявка</div>
+    <div class="orbit-step" style="background:rgba(139,92,246,.1);color:var(--c0);border:1px dashed rgba(75,206,151,.3)">O·0<br>Заявка</div>
     <div class="orbit-arrow">→</div>
-    <div class="orbit-step" style="background:rgba(87,157,255,.1);color:var(--c1)">O·1<br>Разведка</div>
+    <div class="orbit-step" style="background:rgba(87,157,255,.1);color:var(--c1);border:1px dashed rgba(75,206,151,.3)">O·1<br>Разведка</div>
     <div class="orbit-arrow">→</div>
     <div class="orbit-fork">⚠ Развилка 1:<br>MVP или коммерция?</div>
     <div class="orbit-arrow">→</div>
-    <div class="orbit-step" style="background:rgba(75,206,151,.1);color:var(--c2)">O·2<br>Прототип</div>
+    <div class="orbit-step" style="background:rgba(75,206,151,.1);color:var(--c2);border:1px dashed rgba(75,206,151,.3)">O·2<br>Прототип</div>
     <div class="orbit-arrow">→</div>
     <div class="orbit-fork">⚠ Развилка 2:<br>Градация MVP</div>
-    <div class="orbit-arrow">→</div>
-    <div class="orbit-step" style="background:rgba(245,205,71,.1);color:var(--c3)">O·3<br>Разгон</div>
+    <div class="orbit-arrow" style="font-size:16px;color:var(--c4)">⟹</div>
+    <div class="orbit-step" style="background:rgba(245,205,71,.15);color:var(--c3);border:2px solid rgba(245,158,11,.3)">O·3<br>Разгон</div>
     <div class="orbit-arrow">→</div>
     <div class="orbit-fork">⚠ Развилка 3:<br>Экосистема или коммерция?</div>
     <div class="orbit-arrow">→</div>
