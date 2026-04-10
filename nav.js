@@ -142,11 +142,11 @@
     // ── Портфель (direct link) ──────────────
     + '<a class="en-link' + catalogActive + '" href="' + base + 'catalog.html" role="menuitem">Портфель</a>'
 
-    // ── Реестр (direct link) ──────────────
-    + '<a class="en-link' + registryActive + '" href="' + base + 'registry.html" role="menuitem">Реестр</a>'
+    // ── Реестр (hidden for CEO demo) ──────────────
+    // + '<a class="en-link' + registryActive + '" href="' + base + 'registry.html" role="menuitem">Реестр</a>'
 
-    // ── Календарь (direct link) ──────────────
-    + '<a class="en-link' + calendarActive + '" href="' + base + 'calendar.html" role="menuitem">Календарь</a>'
+    // ── Календарь (hidden for CEO demo) ──────────────
+    // + '<a class="en-link' + calendarActive + '" href="' + base + 'calendar.html" role="menuitem">Календарь</a>'
 
     // ── Методология (dropdown) ───────────────
     + '<div class="en-drop' + methActive + '">'
