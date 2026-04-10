@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90-Day Sprint · Жизненный цикл проекта</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+:root{--bg:#FAFAFE;--ink:#1A1430;--muted:#5E5880;--lav:#B8A4E3;--wb:#CB11AB;--line:#D9D1EC;--card:#FFF;--accent:#6E49C7;--ok:#2E8B57;--warn:#C77A00;--red:#D03050;--teal:#0D9488;--amber:#D97706}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:14px}
+.page{max-width:900px;margin:0 auto;padding:48px 32px 80px}
+h1{font-size:32px;font-weight:900;letter-spacing:-.03em;margin-bottom:4px}
+h2{font-size:22px;font-weight:800;margin-bottom:4px;margin-top:48px}
+.sub{font-size:14px;color:var(--muted);margin-bottom:32px;max-width:700px}
+.kicker{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--wb);font-weight:700;margin-bottom:8px}
+
+/* Stage card */
+.stage{margin-bottom:36px;border-radius:14px;border:1px solid var(--line);overflow:hidden;background:var(--card)}
+.stage-head{padding:24px 28px 20px;display:flex;align-items:center;gap:16px}
+.stage-code{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;flex-shrink:0}
+.stage-info h3{font-size:18px;font-weight:800;margin-bottom:2px}
+.stage-info .meta{font-size:13px;color:var(--muted)}
+.stage-timing{margin-left:auto;text-align:right;flex-shrink:0}
+.stage-timing .weeks{font-size:20px;font-weight:900;color:var(--accent)}
+.stage-timing .label{font-size:11px;color:var(--muted)}
+
+.stage-body{padding:0 28px 24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.col-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.check{font-size:13px;color:var(--ink);padding:6px 0 6px 20px;position:relative;line-height:1.5}
+.check::before{content:'☐';position:absolute;left:0;color:var(--lav);font-size:12px}
+.fork-check{background:rgba(217,119,6,.06);border-left:2px solid var(--amber);padding:6px 8px 6px 20px;border-radius:4px;margin-bottom:4px}
+.fork-check::before{color:var(--amber)}
+.art{display:inline-block;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;background:rgba(110,73,199,.06);color:var(--accent);border:1px solid rgba(110,73,199,.15);margin:2px}
+
+/* Gate */
+.gate{margin:0 28px 24px;padding:16px 20px;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+.gate-title{font-size:13px;font-weight:800;color:var(--accent);margin-bottom:8px}
+.gate-checks{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px}
+.gate-check{font-size:12px;color:var(--muted);padding-left:16px;position:relative;line-height:1.5}
+.gate-check::before{content:'✓';position:absolute;left:0;color:var(--ok);font-size:11px}
+.gate-meta{font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+
+/* Infra badge */
+.infra{display:inline-block;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700;margin-left:auto}
+.infra.sprint{background:rgba(13,148,136,.08);color:var(--teal);border:1px dashed rgba(13,148,136,.3)}
+.infra.growth{background:rgba(217,119,6,.08);color:var(--amber);border:1px dashed rgba(217,119,6,.3)}
+
+/* Divider */
+.phase-div{text-align:center;margin:48px 0 8px;padding:16px 0;border-top:2px dashed var(--line)}
+.phase-div h2{margin-top:0;color:var(--amber)}
+
+/* Timeline bar */
+.timeline{display:flex;margin-bottom:40px;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.tl-seg{padding:14px 8px;text-align:center;font-size:11px;font-weight:700;color:#fff;flex:1}
+.tl-seg small{display:block;font-weight:400;font-size:10px;opacity:.8;margin-top:2px}
+
+footer{text-align:center;padding:24px 0;font-size:11px;color:var(--muted);border-top:1px solid var(--line);margin-top:48px}
+
+@media print{body{background:#fff}.stage{page-break-inside:avoid}}
+@media(max-width:700px){.stage-body{grid-template-columns:1fr}.gate-checks{grid-template-columns:1fr}.stage-head{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="kicker">Департамент Развития Экосистемы · ОРБИТА</div>
+<h1>90-Day Sprint</h1>
+<div class="sub">От идеи до MVP с метриками за один квартал. 8-12 проектов параллельно. Конвейер: новый старт каждые 1.5 недели.</div>
+
+<!-- ═══ TIMELINE ═══ -->
+<div class="timeline">
+  <div class="tl-seg" style="background:#6B4FA0">S1<small>Нед 1-2</small></div>
+  <div class="tl-seg" style="background:#7B5CB8">S2<small>Нед 3-5</small></div>
+  <div class="tl-seg" style="background:#8B6AD0">S3<small>Нед 6-10</small></div>
+  <div class="tl-seg" style="background:#9B7AE8">S4<small>Нед 11-13</small></div>
+  <div class="tl-seg" style="background:#AB8AF0;flex:.7;opacity:.6">R1<small>после</small></div>
+  <div class="tl-seg" style="background:#C4A5FF;flex:.5;opacity:.4">R2<small></small></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- S1: СКРИНИНГ -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="stage" style="border-top:4px solid #6B4FA0">
+  <div class="stage-head">
+    <div class="stage-code" style="background:#6B4FA0">S1</div>
+    <div class="stage-info">
+      <h3>Скрининг</h3>
+      <div class="meta">Ниша одобрена, команда 2 чел. назначена</div>
+    </div>
+    <div class="stage-timing">
+      <div class="weeks">Нед 1-2</div>
+      <div class="label">до 10 дней</div>
+    </div>
+    <span class="infra sprint">⚡ 90-Day Sprint</span>
+  </div>
+  <div class="stage-body">
+    <div>
+      <div class="col-title">Инициатор</div>
+      <div class="check">Карточка ниши (1 стр.): проблема, ЦА, гипотеза, метрика успеха</div>
+      <div class="check">Данные WB: что покупают в нише, объём, сезонность</div>
+      <div class="check">Предложить 2-3 человека на разведку</div>
+    </div>
+    <div>
+      <div class="col-title">Проектный блок</div>
+      <div class="check">Нет ли дубля в реестре</div>
+      <div class="check">Экспресс-оценка рынка (1 день)</div>
+      <div class="check">Зарегистрировать в реестре</div>
+    </div>
+    <div>
+      <div class="col-title">Директор</div>
+      <div class="check">Go / No-go за 48 часов</div>
+      <div class="check">Приоритет в квартальном конвейере</div>
+    </div>
+  </div>
+  <div class="gate">
+    <div class="gate-title">Скрининг директора</div>
+    <div class="gate-checks">
+      <div class="gate-check">Проблема понятна</div>
+      <div class="gate-check">ЦА определена</div>
+      <div class="gate-check">Нет дублей</div>
+      <div class="gate-check">Есть данные WB по нише</div>
+      <div class="gate-check">Команда предложена</div>
+    </div>
+    <div class="gate-meta">Артефакты: карточка ниши, данные WB</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- S2: РАЗВЕДКА -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="stage" style="border-top:4px solid #7B5CB8">
+  <div class="stage-head">
+    <div class="stage-code" style="background:#7B5CB8">S2</div>
+    <div class="stage-info">
+      <h3>Разведка</h3>
+      <div class="meta">Есть спрос, экономика считается</div>
+    </div>
+    <div class="stage-timing">
+      <div class="weeks">Нед 3-5</div>
+      <div class="label">~3 недели</div>
+    </div>
+    <span class="infra sprint">⚡ 90-Day Sprint</span>
+  </div>
+  <div class="stage-body">
+    <div>
+      <div class="col-title">Руководитель инициативы</div>
+      <div class="check">5–10 интервью с клиентами (фокус: платят ли за это?)</div>
+      <div class="check">Конкуренты: топ-3, их слабые места</div>
+      <div class="check">Лайт-финмодель: юнит-экономика на салфетке</div>
+    </div>
+    <div>
+      <div class="col-title">Блок «бизнес и финансы»</div>
+      <div class="check">Проверить финмодель</div>
+      <div class="check">Подготовить 3 слайда к ФК</div>
+    </div>
+    <div>
+      <div class="col-title">⚠ Развилка</div>
+      <div class="check fork-check">Простая идея → передать в коммерцию, мы менеджерим</div>
+      <div class="check fork-check">Нужен MVP → делаем сами</div>
+      <div class="check fork-check">Есть партнёр с API → LOI + интеграция, без полного цикла</div>
+    </div>
+  </div>
+  <div class="gate">
+    <div class="gate-title">Финансовый комитет</div>
+    <div class="gate-checks">
+      <div class="gate-check">Спрос подтверждён интервью</div>
+      <div class="gate-check">Юнит-экономика сходится</div>
+      <div class="gate-check">Решение: сами или партнёр</div>
+      <div class="gate-check">Команда 2-3 чел. на MVP</div>
+      <div class="gate-check">Срок MVP ≤ 5 недель</div>
+    </div>
+    <div class="gate-meta">Артефакты: отчёт разведки (3 слайда), лайт-финмодель, решение</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- S3: MVP -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="stage" style="border-top:4px solid #8B6AD0">
+  <div class="stage-head">
+    <div class="stage-code" style="background:#8B6AD0">S3</div>
+    <div class="stage-info">
+      <h3>MVP</h3>
+      <div class="meta">Рабочая версия, когорта тестирует</div>
+    </div>
+    <div class="stage-timing">
+      <div class="weeks">Нед 6-10</div>
+      <div class="label">~5 недель</div>
+    </div>
+    <span class="infra sprint">⚡ Песочница</span>
+  </div>
+  <div class="stage-body">
+    <div>
+      <div class="col-title">Руководитель инициативы</div>
+      <div class="check">Спринтовая разработка: 2-3 спринта по 1.5 нед</div>
+      <div class="check">Закрытое тестирование на когорте 100–1000</div>
+      <div class="check">Сбор обратной связи, итерация</div>
+    </div>
+    <div>
+      <div class="col-title">Технический блок</div>
+      <div class="check">Sandbox: лимиты RPS, изолированная среда</div>
+      <div class="check">Проверка безопасности (sandbox-уровень)</div>
+      <div class="check">Подготовка к ТК</div>
+    </div>
+    <div>
+      <div class="col-title">⚠ Градация MVP</div>
+      <div class="check fork-check">Высокий репутационный риск → полноценный прототип + аудит</div>
+      <div class="check fork-check">Низкий риск → песочница с когортой, без полного аудита ИБ</div>
+    </div>
+  </div>
+  <div class="gate">
+    <div class="gate-title">Технический комитет</div>
+    <div class="gate-checks">
+      <div class="gate-check">MVP работает в sandbox</div>
+      <div class="gate-check">Когорта подключена</div>
+      <div class="gate-check">Безопасность sandbox-уровня пройдена</div>
+      <div class="gate-check">Метрика ниши определена и измеряется</div>
+    </div>
+    <div class="gate-meta">Артефакты: MVP (рабочая версия), sandbox-конфигурация, план отката</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- S4: МЕТРИКИ -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="stage" style="border-top:4px solid #9B7AE8">
+  <div class="stage-head">
+    <div class="stage-code" style="background:#9B7AE8">S4</div>
+    <div class="stage-info">
+      <h3>Метрики</h3>
+      <div class="meta">Первые данные: go / kill / pivot</div>
+    </div>
+    <div class="stage-timing">
+      <div class="weeks">Нед 11-13</div>
+      <div class="label">день 90</div>
+    </div>
+    <span class="infra sprint">⚡ Продукт в проде</span>
+  </div>
+  <div class="stage-body">
+    <div>
+      <div class="col-title">Руководитель инициативы</div>
+      <div class="check">Продукт в проде на ограниченной аудитории</div>
+      <div class="check">Сбор метрик 3 недели: конверсия, удержание, выручка</div>
+      <div class="check">Отчёт: метрики + рекомендация</div>
+    </div>
+    <div>
+      <div class="col-title">Все блоки CORE</div>
+      <div class="check">Бизнес: ревью юнит-экономики по реальным данным</div>
+      <div class="check">Технический: стабильность, нагрузка, инциденты</div>
+      <div class="check">Проектный: сводка для УК</div>
+    </div>
+    <div>
+      <div class="col-title">Решение за 90 дней</div>
+      <div class="check fork-check">Метрики в коридоре → масштабировать (→ Рост)</div>
+      <div class="check fork-check">Тренд растёт, но рано → ещё 30 дней</div>
+      <div class="check fork-check">Метрик нет или падают → kill / pivot / коммерция</div>
+    </div>
+  </div>
+  <div class="gate">
+    <div class="gate-title">Управляющий комитет — решение 90-го дня</div>
+    <div class="gate-checks">
+      <div class="gate-check">Целевая метрика ниши (услуги: ≥5 оплат/нед, игры: ≥200 DAU D7)</div>
+      <div class="gate-check">Юнит-экономика по реальным данным</div>
+      <div class="gate-check">Удержание D7 измерено</div>
+      <div class="gate-check">Команда справляется без доп. ресурса</div>
+      <div class="gate-check">Рекомендация руководителя проекта</div>
+    </div>
+    <div class="gate-meta">Артефакты: отчёт метрик (1 стр.), юнит-экономика, рекомендация go/kill/pivot</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- PHASE DIVIDER -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="phase-div">
+  <h2>Рост и зрелость — после 90-Day Sprint</h2>
+  <div class="sub" style="margin:8px auto 0;text-align:center">Проекты, прошедшие S4, получают полный доступ к WB: аудит ИБ, трафик 70 млн, глубокая интеграция.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- R1: РОСТ -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="stage" style="border-top:4px solid #AB8AF0">
+  <div class="stage-head">
+    <div class="stage-code" style="background:#AB8AF0">R1</div>
+    <div class="stage-info">
+      <h3>Рост</h3>
+      <div class="meta">Экономика сходится, аудитория растёт</div>
+    </div>
+    <div class="stage-timing">
+      <div class="weeks">Q+1</div>
+      <div class="label">квартальные ревью</div>
+    </div>
+    <span class="infra growth">🔒 Полный режим</span>
+  </div>
+  <div class="stage-body">
+    <div>
+      <div class="col-title">Руководитель</div>
+      <div class="check">Полный аудит ИБ (обязателен перед трафиком WB)</div>
+      <div class="check">Подключение трафика WB: 70 млн покупателей</div>
+      <div class="check">A/B тесты, эксперименты роста</div>
+      <div class="check">Интеграция: WB ID, Кошелёк, ПВЗ</div>
+    </div>
+    <div>
+      <div class="col-title">Все блоки CORE</div>
+      <div class="check">Бизнес: ревью P&L ежеквартально</div>
+      <div class="check">Технический: масштабирование архитектуры</div>
+      <div class="check">Проектный: контроль бюджета</div>
+    </div>
+    <div>
+      <div class="col-title">⚠ Развилка</div>
+      <div class="check fork-check">Технологический проект → остаётся в экосистеме</div>
+      <div class="check fork-check">Завязан на коммерцию → передаётся, мы сопровождаем</div>
+    </div>
+  </div>
+  <div class="gate">
+    <div class="gate-title">Финансовый → Технический → Управляющий комитет</div>
+    <div class="gate-checks">
+      <div class="gate-check">Прибыль стремится к нулю или положительная</div>
+      <div class="gate-check">Метрика растёт 2 квартала подряд</div>
+      <div class="gate-check">Команда укомплектована под план роста</div>
+      <div class="gate-check">Аудит ИБ пройден</div>
+      <div class="gate-check">Архитектура выдерживает 10x рост</div>
+    </div>
+    <div class="gate-meta">Ежеквартально. Артефакты: полный аудит ИБ, стратегия роста, P&L</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- R2: ЗРЕЛОСТЬ -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="stage" style="border-top:4px solid #C4A5FF">
+  <div class="stage-head">
+    <div class="stage-code" style="background:#C4A5FF">R2</div>
+    <div class="stage-info">
+      <h3>Зрелость</h3>
+      <div class="meta">Бизнес работает и зарабатывает</div>
+    </div>
+    <div class="stage-timing">
+      <div class="weeks">Y+1</div>
+      <div class="label">годовой ревью</div>
+    </div>
+    <span class="infra growth">🔒 Полный режим</span>
+  </div>
+  <div class="stage-body">
+    <div>
+      <div class="col-title">Руководитель</div>
+      <div class="check">Оптимизация расходов</div>
+      <div class="check">P&L ответственность</div>
+      <div class="check">Перекрёстные продажи с каталогом WB</div>
+    </div>
+    <div>
+      <div class="col-title">Проектный блок</div>
+      <div class="check">Годовой обзор для руководства</div>
+      <div class="check">Стратегический выбор: развивать / снимать прибыль / закрыть</div>
+    </div>
+    <div>
+      <div class="col-title">Три пути</div>
+      <div class="check fork-check">Развивать → новый цикл из S2</div>
+      <div class="check fork-check">Снимать прибыль → остаёмся</div>
+      <div class="check fork-check">Закрыть → миграция пользователей</div>
+    </div>
+  </div>
+  <div class="gate">
+    <div class="gate-title">Управляющий комитет (годовой)</div>
+    <div class="gate-checks">
+      <div class="gate-check">Прибыль стабильна 4 квартала</div>
+      <div class="gate-check">Лояльность не падает</div>
+      <div class="gate-check">План на следующий цикл</div>
+      <div class="gate-check">Команда укомплектована ≥80%</div>
+    </div>
+    <div class="gate-meta">Ежегодно (Q4). Артефакты: стратегический обзор, P&L и доля рынка</div>
+  </div>
+</div>
+
+<footer>Департамент Развития Экосистемы · ОРБИТА · 90-Day Sprint LifeCycle · v11 · апрель 2026</footer>
+
+</div>
+</body>
+</html>
