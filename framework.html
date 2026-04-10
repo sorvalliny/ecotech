@@ -31,8 +31,8 @@
 
 /* ── Header + Filters (sticky) ── */
 .fw-header { position:sticky; top:var(--nav-h,48px); z-index:90; background:var(--bg); border-bottom:1px solid var(--border); padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
-.fw-title h1 { font-family:var(--font-head); font-size:22px; font-weight:800; color:var(--text); letter-spacing:-0.4px; margin-bottom:2px; }
-.fw-title p { font-size:12px; color:var(--muted); }
+.fw-title h1 { font-family:var(--font-head); font-size:26px; font-weight:800; color:var(--text); letter-spacing:-0.4px; margin-bottom:4px; }
+.fw-title p { font-size:14px; color:var(--muted); }
 .fw-filters { display:flex; gap:8px; align-items:center; }
 .fw-filters select { font-family:var(--font-body); font-size:12px; font-weight:600; padding:6px 12px; border-radius:6px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; appearance:auto; }
 
@@ -83,10 +83,10 @@
   z-index:1;
 }
 .solar-subtitle .ss-title {
-  font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px;
+  font-size:20px; font-weight:800; color:var(--text); margin-bottom:8px;
 }
 .solar-subtitle .ss-desc {
-  font-size:12px; color:var(--muted); line-height:1.6; max-width:700px; margin:0 auto;
+  font-size:14px; color:var(--muted); line-height:1.6; max-width:700px; margin:0 auto;
 }
 
 .solar { position:relative; width:100%; height:400px; z-index:1; }
@@ -163,7 +163,7 @@
 .planet.active .planet-body::after { opacity:.5; }
 @keyframes chipPulse { 0%,100%{opacity:.25} 50%{opacity:.45} }
 
-.planet-name { font-size:12px; font-weight:600; color:var(--text); margin-top:6px; white-space:nowrap; text-align:center; }
+.planet-name { font-size:13px; font-weight:700; color:var(--text); margin-top:6px; white-space:nowrap; text-align:center; }
 .planet-result { font-size:8px; color:var(--muted); margin-top:1px; text-shadow:0 1px 4px rgba(0,0,0,.3); }
 
 /* Gentle orbit float animation */
@@ -189,15 +189,15 @@
   position:relative; overflow:hidden; box-shadow:var(--shadow);
 }
 .d-badge::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,.2), transparent); border-radius:10px; }
-.d-name { font-size:17px; font-weight:700; color:var(--text); }
-.d-meta { font-size:11px; color:var(--muted); margin-top:2px; }
+.d-name { font-size:18px; font-weight:800; color:var(--text); }
+.d-meta { font-size:13px; color:var(--muted); margin-top:2px; }
 .d-close { margin-left:auto; background:none; border:none; color:var(--muted); font-size:22px; cursor:pointer; padding:4px 8px; border-radius:6px; transition:all .15s; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
 .d-close:hover { color:var(--text); background:var(--surface2); }
 
 .d-section { margin-top:14px; }
-.d-section h4 { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--violet); margin-bottom:6px; }
+.d-section h4 { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--violet); margin-bottom:8px; }
 .d-checks { display:flex; flex-direction:column; gap:3px; }
-.d-check { font-size:12px; color:var(--text); padding:6px 10px 6px 26px; background:var(--surface); border-radius:6px; position:relative; transition:background .15s; line-height:1.5; }
+.d-check { font-size:13px; color:var(--text); padding:8px 12px 8px 28px; background:var(--surface); border-radius:6px; position:relative; transition:background .15s; line-height:1.55; }
 .d-check:hover { background:var(--surface2); }
 .d-check::before { content:'\2610'; position:absolute; left:9px; color:var(--violet); font-size:11px; }
 .d-arts { display:flex; flex-wrap:wrap; gap:5px; margin-top:6px; }
@@ -205,7 +205,7 @@
 
 /* Gate items inside detail */
 .d-gate { display:flex; flex-direction:column; gap:3px; }
-.d-gi { font-size:12px; color:var(--text); padding:6px 10px 6px 26px; background:var(--amber-dim); border-radius:6px; position:relative; line-height:1.5; }
+.d-gi { font-size:13px; color:var(--text); padding:8px 12px 8px 28px; background:var(--amber-dim); border-radius:6px; position:relative; line-height:1.55; }
 .d-gi::before { content:'\2610'; position:absolute; left:9px; color:var(--amber); font-size:11px; }
 .d-gate-meta { font-size:10px; color:var(--muted); font-style:italic; margin-top:6px; }
 
@@ -392,9 +392,9 @@
   </div>
 
   <!-- Zone labels -->
-  <div style="display:flex;justify-content:space-between;margin:0 40px 4px;position:relative;z-index:2;">
-    <div style="padding:4px 12px;border-radius:6px;background:rgba(75,206,151,.1);border:1px dashed rgba(75,206,151,.3);font-size:9px;font-weight:700;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;">⚡ Фаст-трек · O·0—O·2 · песочница, без бюрократии</div>
-    <div style="padding:4px 12px;border-radius:6px;background:rgba(245,158,11,.1);border:1px dashed rgba(245,158,11,.3);font-size:9px;font-weight:700;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;">🔒 Полный режим · O·3—O·5 · аудит ИБ, доступ к WB</div>
+  <div style="display:flex;justify-content:space-between;margin:0 24px 8px;position:relative;z-index:2;">
+    <div style="padding:8px 16px;border-radius:8px;background:rgba(75,206,151,.1);border:1px dashed rgba(75,206,151,.35);font-size:12px;font-weight:700;color:var(--teal);">⚡ Фаст-трек · O·0—O·2<span style="font-weight:400;margin-left:8px;font-size:11px;opacity:.7;">песочница, без бюрократии</span></div>
+    <div style="padding:8px 16px;border-radius:8px;background:rgba(245,158,11,.1);border:1px dashed rgba(245,158,11,.35);font-size:12px;font-weight:700;color:var(--amber);">🔒 Полный режим · O·3—O·5<span style="font-weight:400;margin-left:8px;font-size:11px;opacity:.7;">аудит ИБ, доступ к WB</span></div>
   </div>
 
   <div class="solar-split" id="solar-split">
@@ -427,167 +427,28 @@
 </div>
 
 
-<!-- ═══════════ ЖИЗНЕННЫЙ ЦИКЛ (по брифу Этина) ═══════════ -->
-<div style="max-width:100%;margin:24px auto 28px;">
-  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:12px;">Жизненный цикл инициативы</h3>
-  <p style="font-size:12px;color:var(--muted);margin-bottom:16px;max-width:800px;">Два режима работы: <b style="color:var(--teal);">фаст-трек</b> (O·0—O·2) — быстрая проверка гипотезы в песочнице, минимум согласований, когорта до 1000 человек. <b style="color:var(--amber);">Полный режим</b> (O·3—O·5) — после аудита ИБ, полный доступ к 70 млн покупателей WB, все комитеты. Три развилки определяют судьбу проекта.</p>
-
-  <div style="display:flex;flex-direction:column;gap:2px;">
-    <a href="catalog.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--violet);border-radius:6px 6px 0 0;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
-      <div style="font-size:12px;font-weight:800;color:var(--violet);min-width:120px;">ПОРТФЕЛЬ</div>
-      <div style="font-size:12px;color:var(--muted);">Все проекты и заявки департамента &rarr;</div>
-    </a>
-    <a href="committees.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
-      <div style="font-size:12px;font-weight:800;color:var(--teal);min-width:120px;">КОМИТЕТЫ</div>
-      <div style="font-size:12px;color:var(--muted);">Финансовый &rarr; Технический &rarr; Управляющий</div>
-    </a>
-    <a href="tools/brief.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:0 0 6px 6px;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--card)'">
-      <div style="font-size:12px;font-weight:800;color:var(--amber);min-width:120px;">ПОДАТЬ ЗАЯВКУ</div>
-      <div style="font-size:12px;color:var(--muted);">Заполнить бриф новой инициативы &rarr;</div>
-    </a>
-  </div>
-</div>
-
-<!-- Развилки вшиты в стадии O·1, O·2, O·3 — видны в detail card -->
+<!-- Навигация убрана — уже есть в top nav. Развилки вшиты в стадии. -->
 
 <!-- ═══════════ КОГДА ОСТАНАВЛИВАЕМ ═══════════ -->
 <div style="max-width:100%;margin:0 auto 28px;">
-  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:12px;">Когда останавливаем проект</h3>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-    <div style="padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:2px solid var(--red);">
-      <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:4px;">Комитет дважды не пропустил</div>
-      <div style="font-size:11px;color:var(--muted);">Максимум две попытки на одной контрольной точке. После второго отказа — эскалация и решение об архивации.</div>
+  <h3 style="font-size:14px;font-weight:800;color:var(--red);margin-bottom:14px;">Когда останавливаем проект</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+    <div style="padding:18px;background:var(--card);border:1px solid var(--border);border-radius:10px;border-top:3px solid var(--red);">
+      <div style="font-size:14px;font-weight:800;color:var(--red);margin-bottom:6px;">2 отказа комитета</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55;">Максимум две попытки. Не прошёл дважды — закрываем.</div>
     </div>
-    <div style="padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:2px solid var(--red);">
-      <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:4px;">Проект не двигается 3 месяца</div>
-      <div style="font-size:11px;color:var(--muted);">Автоматический обзор. Директор решает: дать ресурс, сменить команду или закрыть.</div>
+    <div style="padding:18px;background:var(--card);border:1px solid var(--border);border-radius:10px;border-top:3px solid var(--red);">
+      <div style="font-size:14px;font-weight:800;color:var(--red);margin-bottom:6px;">3 месяца без движения</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55;">Директор решает: ресурс, смена команды или закрытие.</div>
     </div>
-    <div style="padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-top:2px solid var(--red);">
-      <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:4px;">Целевая метрика не достигнута за 90 дней</div>
-      <div style="font-size:11px;color:var(--muted);">Проект автоматически выносится на управляющий комитет с рекомендацией: продолжить, развернуть или закрыть.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════ ПРИМЕРЫ ПРОЕКТОВ НА СТАДИЯХ (Приоритет 2 Этина) ═══════════ -->
-<div style="max-width:100%;margin:0 auto 28px;">
-  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:12px;">Как это работает на практике</h3>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:3px solid #579DFF;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#579DFF;margin-bottom:4px;">O·0 Заявка → O·1 Разведка</div>
-      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">Маркетплейс Услуг</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.5;">Идея: витрина услуг в WB (ремонт, красота, медицина). Проектный блок проверил — дублей нет. Блок «бизнес и финансы» оценил рынок: 5 трлн руб. Заявка принята, бриф готовится. Следующий шаг — 15-20 интервью с клиентами и финмодель к финансовому комитету.</div>
-    </div>
-    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:3px solid #8B6AD0;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8B6AD0;margin-bottom:4px;">O·2 Прототип</div>
-      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">WB Знакомства</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.5;">Прошёл разведку и финансовый комитет. Сейчас: разработка MVP (матчинг, профили, чат). Верификация через WB ID — нет ботов. Градация MVP: низкий репутационный риск → песочница на когорте 1000 пользователей, лимиты запросов. Тестирование — июль 2026.</div>
-    </div>
-    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:3px solid #9B7AE8;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9B7AE8;margin-bottom:4px;">O·3 Разгон</div>
-      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">WB Книги</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.5;">Прошёл все комитеты. Продукт запущен: цифровые книги, аудиокниги. Подключён трафик WB. Задача Q2-Q3: рост MAU, платная подписка, кросс-продажи с бумажным каталогом. <b>Развилка 3:</b> проект технологический → остаётся в экосистеме.</div>
-    </div>
-    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:3px solid #E774BB;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#E774BB;margin-bottom:4px;">O·3 Разгон → O·5 Зрелость</div>
-      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">Мост поколений</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.5;">MAU >100К, интеграция с архивами, школьная программа. Продукт работает, но модель монетизации не найдена. На управляющем комитете Q3 2026: решение — подписка, школьные лицензии или закрытие. Пример стоп-сигнала: если 90 дней без выручки → пересмотр.</div>
+    <div style="padding:18px;background:var(--card);border:1px solid var(--border);border-radius:10px;border-top:3px solid var(--red);">
+      <div style="font-size:14px;font-weight:800;color:var(--red);margin-bottom:6px;">90 дней без метрики</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55;">Автоматический вынос на управляющий комитет.</div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════ ПЕСОЧНИЦА MVP (Приоритет 2 Этина) ═══════════ -->
-<div style="max-width:100%;margin:0 auto 28px;">
-  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:12px;">Песочница MVP — как меняется по стадиям</h3>
-  <div style="padding:16px;background:var(--card);border:1px solid var(--teal-border);border-radius:10px;border-left:4px solid var(--teal);">
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px;">Уровень инфраструктурных ограничений растёт от стадии к стадии</div>
-
-    <!-- Progress table -->
-    <table style="width:100%;border-collapse:collapse;font-size:10px;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px;">
-      <thead>
-        <tr>
-          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:13%;">Стадия</th>
-          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:18%;">Аудитория</th>
-          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:18%;">Доступ к API WB</th>
-          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:18%;">Безопасность</th>
-          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:18%;">Данные</th>
-          <th style="background:var(--teal);color:#fff;padding:7px 10px;font-size:9px;width:15%;">Комитет</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:#6B4FA0;">O·0 Заявка</b></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Нет доступа</td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Нет</td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Не требуется</td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Только desk research</td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">—</td>
-        </tr>
-        <tr>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:#7B5CB8;">O·1 Разведка</b></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">15-20 интервью (ручной отбор)</td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Нет. Прототип на мокапах</td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Не требуется</td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">Аналитика рынка, без данных WB</td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--muted);">ФК</td>
-        </tr>
-        <tr style="background:rgba(0,212,180,.03);">
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:#8B6AD0;">O·2 Прототип</b><br><span style="font-size:8px;color:var(--teal);font-weight:700;">ПЕСОЧНИЦА</span></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Когорта 100-1000</b><br><span style="color:var(--muted);">закрытое тестирование</span></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Лимиты RPS</b><br><span style="color:var(--muted);">sandbox-среда, автоотключение при превышении</span></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Sandbox-ограничения</b><br><span style="color:var(--muted);">без полного аудита ИБ, лимиты на уровне инфры</span></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Ограниченный доступ</b><br><span style="color:var(--muted);">нет платёжных данных, нет полной базы</span></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">ТК</b></td>
-        </tr>
-        <tr>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:#9B7AE8;">O·3 Разгон</b><br><span style="font-size:8px;color:var(--amber);font-weight:700;">ПОЛНЫЙ ДОСТУП</span></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">70 млн покупателей WB</b></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Полный доступ к API</b><br><span style="color:var(--muted);">трафик WB, рекомендации, таргетинг</span></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Полный аудит ИБ</b><br><span style="color:var(--muted);">пройден перед запуском</span></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">Полный доступ</b><br><span style="color:var(--muted);">товарная история, профили, Кошелёк</span></td>
-          <td style="padding:7px 10px;border-bottom:1px solid var(--border);"><b style="color:var(--text);">ФК+ТК+УК</b></td>
-        </tr>
-        <tr>
-          <td style="padding:7px 10px;"><b style="color:#AB8AF0;">O·4-O·5</b></td>
-          <td style="padding:7px 10px;color:var(--muted);">Полная аудитория</td>
-          <td style="padding:7px 10px;color:var(--muted);">Глубокая интеграция (WB ID, ПВЗ, CRM)</td>
-          <td style="padding:7px 10px;color:var(--muted);">Постоянный мониторинг + SLA</td>
-          <td style="padding:7px 10px;color:var(--muted);">Перекрёстные продажи</td>
-          <td style="padding:7px 10px;color:var(--muted);">УК</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div style="font-size:10px;color:var(--muted);font-style:italic;"><b>Ключевой переход O·2 → O·3:</b> полный аудит безопасности — обязательное условие. Технический комитет не пропустит на разгон без пройденного ИБ-аудита. До этого момента продукт работает в изолированной среде с лимитами.</div>
-  </div>
-</div>
-
-<!-- ═══════════ ЯДРО КОМАНДЫ (Приоритет 2 Этина) ═══════════ -->
-<div style="max-width:100%;margin:0 auto 28px;">
-  <h3 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:12px;">Формирование команд — приоритет ядра</h3>
-  <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;">
-    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;">
-      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;">Принцип: максимально переиспользовать ядро собственной команды</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.6;">
-        <div style="margin-bottom:6px;"><b style="color:var(--teal);">Ядро (по умолчанию):</b> Фиксированная команда департамента — заточена на быстрые MVP. Каждый участник грейдирован, стоимость проекта = грейды × срок. Один человек может работать на 1-2 проекта одновременно.</div>
-        <div style="margin-bottom:6px;"><b style="color:var(--amber);">Смешанная (исключение):</b> Когда компетенция выходит за рамки департамента. Привлечение внешних модулей — через запрос на управляющем комитете. Цель: минимизировать нагрузку на соседние команды.</div>
-        <div><b style="color:var(--pink);">Эксперты коммерции (консультации):</b> Основные предметные эксперты — в коммерции. Они заняты и не должны отвлекаться на MVP. Но как консультантов их привлекаем всегда: на финансовый комитет, на интервью с клиентами, на оценку рынка.</div>
-      </div>
-    </div>
-    <div style="padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px;">
-      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Правила привлечения</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.6;">
-        <div style="margin-bottom:6px;padding-left:12px;border-left:2px solid var(--teal);">Внутренний ресурс → директор распределяет</div>
-        <div style="margin-bottom:6px;padding-left:12px;border-left:2px solid var(--amber);">Внешний модуль → обоснование + решение УК</div>
-        <div style="margin-bottom:6px;padding-left:12px;border-left:2px solid var(--pink);">Эксперт коммерции → приглашение по запросу</div>
-        <div style="padding-left:12px;border-left:2px solid var(--red);">Найм в штат → только через обоснование + УК</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- убрано: Архитектура системы, Collapsible sections, sidebar TOC, все fw-section -->
-<!-- оставлено: орбитальная визуализация + жизненный цикл + развилки + стоп-сигналы + примеры + песочница + команды -->
+<!-- Примеры, песочница, ядро команды — вшиты в detail card стадий -->
 
 <div style="display:none"><!-- hidden old layout -->
 <nav class="fw-toc" id="fw-toc">
@@ -1483,6 +1344,36 @@ function openStage(id) {
   html += '<div class="d-section"><h4>' + linkComm(s.gate.name) + '</h4><div class="d-gate">';
   s.gate.checks.forEach(function(g) { html += '<div class="d-gi">' + g + '</div>'; });
   html += '</div><div class="d-gate-meta">Решение: ' + linkComm(s.gate.decision) + ' \u00b7 Срок: ' + s.gate.timeline + '</div></div>';
+
+  // Sandbox/access info per stage
+  var INFRA = {
+    o0: { mode:'фаст-трек', color:'var(--teal)', text:'Нет доступа к WB. Только desk research.' },
+    o1: { mode:'фаст-трек', color:'var(--teal)', text:'15-20 интервью. Мокапы. Без API WB.' },
+    o2: { mode:'фаст-трек · песочница', color:'var(--teal)', text:'Когорта 100-1000. Лимиты RPS. Без полного аудита ИБ.' },
+    o3: { mode:'полный режим', color:'var(--amber)', text:'Аудит ИБ пройден. 70 млн покупателей WB. Полный доступ к API.' },
+    o4: { mode:'полный режим', color:'var(--amber)', text:'Глубокая интеграция: WB ID, ПВЗ, CRM, Кошелёк.' },
+    o5: { mode:'полный режим', color:'var(--amber)', text:'Зрелый бизнес. Мониторинг + SLA. Перекрёстные продажи.' }
+  };
+  var infra = INFRA[s.id];
+  if (infra) {
+    html += '<div style="margin-top:12px;padding:10px 14px;border-radius:8px;border:1px dashed ' + infra.color + ';background:color-mix(in srgb, ' + infra.color + ' 6%, transparent);">';
+    html += '<div style="font-size:11px;font-weight:700;color:' + infra.color + ';text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;">' + (infra.mode.indexOf('фаст') >= 0 ? '\u26a1 ' : '\ud83d\udd12 ') + infra.mode + '</div>';
+    html += '<div style="font-size:12px;color:var(--muted);">' + infra.text + '</div></div>';
+  }
+
+  // Real project example per stage
+  var EXAMPLES = {
+    o0: { name:'Маркетплейс Услуг', text:'Рынок 5 трлн. Бриф готовится. Следующий шаг — интервью + финмодель к ФК.' },
+    o2: { name:'WB Знакомства', text:'MVP в разработке. Когорта 1000, лимит 50 RPS к WB ID, без платёжных данных.' },
+    o3: { name:'WB Книги', text:'Запущен. Трафик WB подключён. Рост MAU, платная подписка.' },
+    o5: { name:'Мост поколений', text:'MAU >100К. Ищет монетизацию. Q3: подписка, лицензии или закрытие.' }
+  };
+  var ex = EXAMPLES[s.id];
+  if (ex) {
+    html += '<div style="margin-top:8px;padding:10px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--border);">';
+    html += '<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;">Пример</div>';
+    html += '<div style="font-size:12px;color:var(--text);"><b>' + ex.name + '</b> — ' + ex.text + '</div></div>';
+  }
 
   document.getElementById('d-body').innerHTML = html;
   detail.classList.add('visible');
