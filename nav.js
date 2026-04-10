@@ -148,13 +148,15 @@
     // ── Календарь (hidden for CEO demo) ──────────────
     // + '<a class="en-link' + calendarActive + '" href="' + base + 'calendar.html" role="menuitem">Календарь</a>'
 
+    // ── Комитеты (direct link) ──────────────
+    + '<a class="en-link' + committeesActive + '" href="' + base + 'committees.html" role="menuitem">Комитеты</a>'
+
     // ── Методология (dropdown) ───────────────
     + '<div class="en-drop' + methActive + '">'
     +   '<a class="en-drop-trigger" aria-haspopup="true" aria-expanded="false">Методология</a>'
     +   '<div class="en-drop-menu" role="menu">'
     +     a('framework.html',                'Как мы работаем')
     +     a('glossary.html',                 'Глоссарий')
-    +     a('committees.html',               'Комитеты')
     +   '</div>'
     + '</div>'
 
