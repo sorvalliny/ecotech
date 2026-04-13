@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Департамент Развития Экосистемы · Презентация для COO</title>
+<style>
+:root{--bg:#FAFAFE;--ink:#1A1430;--muted:#5E5880;--lav:#B8A4E3;--wb:#CB11AB;--line:#D9D1EC;--card:#FFF;--accent:#6E49C7;--ok:#2E8B57;--warn:#C77A00;--red:#D03050;--c0:#8B5CF6;--c1:#579DFF;--c2:#4BCE97;--c3:#F5CD47;--c4:#F59E0B;--c5:#F87171;--teal:#0D9488}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"SF Pro Display","Inter","Helvetica Neue",sans-serif;background:#E8E4F0;color:var(--ink);line-height:1.5}
+
+/* ── Slide frame ── */
+.slide{width:1440px;height:900px;background:#fff;margin:40px auto;border-radius:12px;box-shadow:0 8px 40px rgba(30,20,60,.12);padding:60px 72px;position:relative;overflow:hidden;page-break-after:always}
+.slide::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--wb))}
+
+/* ── Typography ── */
+.s-kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--wb);font-weight:700;margin-bottom:8px}
+.s-title{font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
+.s-subtitle{font-size:16px;color:var(--muted);line-height:1.55;max-width:900px;margin-bottom:32px}
+.s-label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin:24px 0 12px}
+.s-h2{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+.s-h3{font-size:14px;font-weight:800;margin-bottom:4px}
+.s-body{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* ── Grids ── */
+.sg2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.sg4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+
+/* ── Cards ── */
+.sc{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:20px}
+.sc h4{font-size:13px;font-weight:800;margin-bottom:6px}
+.sc p,.sc li{font-size:12px;color:var(--muted);line-height:1.5}
+.sc ul{padding-left:16px;margin-top:4px}
+
+/* ── Pills ── */
+.sp{display:inline-block;font-size:10px;padding:3px 10px;border-radius:999px;font-weight:700}
+
+/* ── Tables ── */
+.st{width:100%;border-collapse:collapse;font-size:12px;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.st th{background:var(--lav);color:#fff;padding:10px 14px;text-align:left;font-size:10px;letter-spacing:.06em;font-weight:700}
+.st td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.st tr:last-child td{border-bottom:none}
+
+/* ── Chip ── */
+.schip{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-align:center}
+
+/* ── CTA ── */
+.s-cta{background:linear-gradient(135deg,#FAF0FF,#FFF5FC);border:2px solid var(--wb);border-radius:16px;padding:28px 36px;text-align:center}
+.s-cta h3{font-size:20px;font-weight:800;color:var(--wb);margin-bottom:6px}
+.s-cta .big{font-size:26px;font-weight:800;margin:8px 0}
+.s-cta p{font-size:14px;color:var(--ink);max-width:800px;margin:0 auto;line-height:1.55}
+
+/* ── Slide number ── */
+.snum{position:absolute;bottom:28px;right:36px;font-size:11px;color:var(--line);font-weight:700}
+.slogo{position:absolute;bottom:28px;left:36px;font-size:10px;color:var(--muted);letter-spacing:.1em}
+
+/* ── Committee mini ── */
+.comm-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.comm-card{border:1px solid var(--line);border-radius:10px;padding:16px 18px;font-size:11px}
+
+/* ── Print ── */
+@media print{body{background:#fff}.slide{margin:0;box-shadow:none;border-radius:0;page-break-after:always}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     СЛАЙД 1 · ТИТУЛЬНЫЙ
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-1">
+  <div style="display:flex;flex-direction:column;justify-content:center;height:100%">
+    <div class="s-kicker">Департамент Развития Экосистемы</div>
+    <div class="s-title" style="font-size:42px;max-width:900px">Строим бизнесы, за которыми наши покупатели сейчас уходят к&nbsp;Яндексу и&nbsp;Авито</div>
+    <div class="s-subtitle" style="margin-top:16px;font-size:18px">Управляющая команда быстро проверяет перспективные ниши: если стоит строить&nbsp;&mdash; строит и&nbsp;выводит на&nbsp;рынок. Если нет&nbsp;&mdash; закрывает за&nbsp;недели, а&nbsp;не&nbsp;за&nbsp;годы.</div>
+    <div style="margin-top:40px;display:flex;gap:24px">
+      <div style="padding:12px 20px;background:rgba(110,73,199,.06);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--accent)">4</div>
+        <div style="font-size:12px;color:var(--muted)">блока CORE-команды</div>
+      </div>
+      <div style="padding:12px 20px;background:rgba(203,17,171,.06);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--wb)">3</div>
+        <div style="font-size:12px;color:var(--muted)">комитета принятия решений</div>
+      </div>
+      <div style="padding:12px 20px;background:rgba(13,148,136,.06);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--teal)">2</div>
+        <div style="font-size:12px;color:var(--muted)">стрима монетизации</div>
+      </div>
+      <div style="padding:12px 20px;background:rgba(245,158,11,.06);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--c4)">12</div>
+        <div style="font-size:12px;color:var(--muted)">направлений в проработке</div>
+      </div>
+    </div>
+  </div>
+  <div class="slogo">ОРБИТА · v11</div>
+  <div class="snum">1 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     СЛАЙД 2 · УПРАВЛЕНИЕ И КОМИТЕТЫ
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-2">
+  <div class="s-kicker">Управление</div>
+  <div class="s-h2">Три комитета &mdash; три вопроса</div>
+  <div class="s-body" style="margin-bottom:20px">Каждая инициатива проходит три уровня защиты. Каждый комитет отвечает на свой вопрос и не лезет в чужой. Каждый блок CORE лидирует свой комитет: организует повестку, готовит материалы, ведёт протокол и контролирует исполнение решений.</div>
+
+  <!-- Вертикаль -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+    <div class="schip" style="background:#6E49C7;color:#fff">RWB</div>
+    <div style="color:var(--lav);font-size:18px">&rarr;</div>
+    <div class="schip" style="background:var(--wb);color:#fff">Директор департамента</div>
+    <div style="color:var(--lav);font-size:18px">&rarr;</div>
+    <div class="schip" style="background:#F0ECF8;color:var(--accent)">CORE (4 блока)</div>
+  </div>
+
+  <!-- 3 комитета -->
+  <div class="comm-grid">
+    <div class="comm-card" style="border-top:3px solid var(--c0);background:rgba(139,92,246,.03)">
+      <div style="font-weight:800;color:var(--c0);font-size:15px;margin-bottom:6px">Финансовый</div>
+      <div style="color:var(--muted);margin-bottom:8px"><b>Стоит ли строить?</b> Есть ли рынок и деньги</div>
+      <div style="font-size:10px;color:var(--muted)"><b>Частота:</b> еженедельно</div>
+      <div style="font-size:10px;color:var(--muted)"><b>Состав:</b> директор + инвест-директор + рук. бизнеса + эксперт коммерции</div>
+      <div style="margin-top:10px;padding:6px 10px;background:rgba(139,92,246,.06);border-radius:6px;font-size:10px;color:var(--c0)"><b>Лидирует:</b> блок «Бизнес и финансы»</div>
+    </div>
+    <div class="comm-card" style="border-top:3px solid var(--c1);background:rgba(87,157,255,.03)">
+      <div style="font-weight:800;color:var(--c1);font-size:15px;margin-bottom:6px">Технический</div>
+      <div style="color:var(--muted);margin-bottom:8px"><b>Можно ли построить?</b> Безопасность, уровень проработки</div>
+      <div style="font-size:10px;color:var(--muted)"><b>Частота:</b> после финансового</div>
+      <div style="font-size:10px;color:var(--muted)"><b>Состав:</b> рук. техблока + ИБ + тех. лидер проекта</div>
+      <div style="margin-top:10px;padding:6px 10px;background:rgba(87,157,255,.06);border-radius:6px;font-size:10px;color:var(--c1)"><b>Лидирует:</b> Технический блок</div>
+    </div>
+    <div class="comm-card" style="border-top:3px solid var(--c4);background:rgba(245,158,11,.03)">
+      <div style="font-weight:800;color:var(--c4);font-size:15px;margin-bottom:6px">Управляющий</div>
+      <div style="color:var(--muted);margin-bottom:8px"><b>Финальное решение:</b> запускаем, останавливаем, перенаправляем</div>
+      <div style="font-size:10px;color:var(--muted)"><b>Частота:</b> еженедельно</div>
+      <div style="font-size:10px;color:var(--muted)"><b>Состав:</b> CEO + директор + инвест-директор</div>
+      <div style="margin-top:10px;padding:6px 10px;background:rgba(245,158,11,.06);border-radius:6px;font-size:10px;color:var(--c4)"><b>Лидирует:</b> Проектный блок</div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;padding:12px 16px;background:rgba(0,0,0,.02);border-radius:8px;font-size:12px;color:var(--muted)">
+    <b>48 ч на подготовку материалов.</b> Три решения: проходит / доработать / не проходит. Сделки M&A проходят через те же комитеты.
+  </div>
+
+  <div class="slogo">ОРБИТА · v11</div>
+  <div class="snum">2 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     СЛАЙД 3 · CORE-КОМАНДА + РЕСУРСЫ
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-3">
+  <div class="s-kicker">Команда</div>
+  <div class="s-h2">CORE: 4 блока &mdash; одна управляющая команда</div>
+  <div class="s-body" style="margin-bottom:20px">Ядро команды &mdash; собственные специалисты, заточенные на быстрые MVP. Привлечение внешних модулей &mdash; исключение. Эксперты из коммерции участвуют как консультанты на ранних стадиях.</div>
+
+  <div class="sg4">
+    <div class="sc" style="border-top:3px solid var(--wb)">
+      <h4 style="color:var(--wb)">Проектный</h4>
+      <div><span class="sp" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></div>
+      <p style="margin-top:6px"><b>Когда &middot; кем &middot; за сколько</b></p>
+      <ul>
+        <li>Управление проектами</li>
+        <li>Сводный план ресурсов</li>
+        <li>Контроль сроков</li>
+        <li>Подготовка M&A</li>
+        <li>Автоматизация</li>
+      </ul>
+    </div>
+    <div class="sc" style="border-top:3px solid var(--c3)">
+      <h4 style="color:var(--c3)">Бизнес и финансы</h4>
+      <div><span class="sp" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></div>
+      <p style="margin-top:6px"><b>Стоит ли &middot; сколько заработаем</b></p>
+      <ul>
+        <li>Бизнес-обоснование</li>
+        <li>Финансовая модель</li>
+        <li>Анализ рынка</li>
+        <li>Гранты (ИРИ, ФРИИ)</li>
+        <li>Проверка цифр</li>
+      </ul>
+    </div>
+    <div class="sc" style="border-top:3px solid var(--c1)">
+      <h4 style="color:var(--c1)">Технический</h4>
+      <div><span class="sp" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></div>
+      <p style="margin-top:6px"><b>Как построить &middot; безопасно ли</b></p>
+      <ul>
+        <li>Архитектура и стек</li>
+        <li>Безопасность</li>
+        <li>Инфраструктура WB</li>
+        <li>Общие модули</li>
+        <li>Тех. партнёрства</li>
+      </ul>
+    </div>
+    <div class="sc" style="border-top:3px solid var(--c4)">
+      <h4 style="color:var(--c4)">Продуктовое развитие</h4>
+      <div><span class="sp" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></div>
+      <p style="margin-top:6px"><b>Что строим &middot; для кого</b></p>
+      <ul>
+        <li>Продуктовая стратегия</li>
+        <li>Интервью с клиентами</li>
+        <li>Дизайн и прототипы</li>
+        <li>Стандарты качества</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Ресурсная модель -->
+  <div class="s-label">Ресурсная модель</div>
+  <div class="sg2">
+    <div class="sc">
+      <h4>Фиксированная команда</h4>
+      <ul>
+        <li>Штат с конкретными людьми и грейдами</li>
+        <li>3&ndash;5 приоритетов в квартал</li>
+        <li>Не хватает &mdash; проект ждёт квартал</li>
+        <li>Стоимость = грейды &times; срок (прозрачно)</li>
+      </ul>
+    </div>
+    <div class="sc">
+      <h4>Доп. ресурс (через управляющий комитет)</h4>
+      <ul>
+        <li>Обоснование &rarr; комитет &rarr; люди на срок</li>
+        <li>Привлечение из других деп-тов, не найм</li>
+        <li><b>Штат не раздуваем</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slogo">ОРБИТА · v11</div>
+  <div class="snum">3 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     СЛАЙД 4 · ЖИЗНЕННЫЙ ЦИКЛ
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-4">
+  <div class="s-kicker">Процесс</div>
+  <div class="s-h2">От идеи до бизнеса: путь проекта</div>
+  <div class="s-body" style="margin-bottom:16px">Каждый проект проходит стадии с чёткими развилками. На каждой контрольной точке &mdash; решение комитета.</div>
+
+  <table class="st">
+    <thead><tr><th style="width:140px">Этап</th><th style="width:90px">Сроки</th><th>Что делаем</th><th style="width:220px">Решение / развилка</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b style="color:var(--c0)">Заявка</b></td>
+        <td>до 10 дней</td>
+        <td>Проверяем: есть ли рынок, не дублируем ли, реалистично ли</td>
+        <td>Берём / не берём</td>
+      </tr>
+      <tr>
+        <td><b style="color:var(--c1)">Исследование</b></td>
+        <td>3&ndash;6 недель</td>
+        <td>Интервью с клиентами, экономика, конкуренты, техническое решение</td>
+        <td style="color:var(--c4)"><b>Строим сами / передаём в коммерцию</b></td>
+      </tr>
+      <tr>
+        <td><b style="color:var(--c1)">Первая версия</b></td>
+        <td>6&ndash;12 недель</td>
+        <td>MVP в изолированной песочнице: лимиты запросов, ограниченная когорта. Полный аудит ИБ &mdash; на следующей стадии</td>
+        <td style="color:var(--c4)"><b>Высокий риск &rarr; полноценно; низкий &rarr; упрощённая версия</b></td>
+      </tr>
+      <tr>
+        <td><b style="color:var(--c2)">Выход на рынок</b></td>
+        <td>1&ndash;3 мес.</td>
+        <td>Трафик WB (70 млн), реклама, ключевые метрики</td>
+        <td style="color:var(--c4)"><b>Остаётся у нас / переезжает в коммерцию</b></td>
+      </tr>
+      <tr>
+        <td><b style="color:var(--c2)">Встраивание</b></td>
+        <td>3&ndash;12 мес.</td>
+        <td>Интеграция: единый аккаунт, кошелёк, ПВЗ, перекрёстные продажи</td>
+        <td>&mdash;</td>
+      </tr>
+      <tr>
+        <td><b style="color:var(--c5)">Зрелый бизнес</b></td>
+        <td>постоянно</td>
+        <td>Оптимизация, новые точки роста</td>
+        <td style="color:var(--c4)"><b>Развивать / снимать прибыль / закрыть</b></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Стоп-сигналы -->
+  <div class="s-label">Когда останавливаем</div>
+  <div class="sg3">
+    <div style="padding:10px 14px;background:rgba(208,48,80,.04);border-radius:8px;border-left:3px solid var(--red)">
+      <div style="font-size:12px;font-weight:800;color:var(--red)">Двойной отказ комитета</div>
+      <div style="font-size:11px;color:var(--muted)">Два раза «доработать» = закрытие или откат</div>
+    </div>
+    <div style="padding:10px 14px;background:rgba(208,48,80,.04);border-radius:8px;border-left:3px solid var(--red)">
+      <div style="font-size:12px;font-weight:800;color:var(--red)">Нет прогресса 3 месяца</div>
+      <div style="font-size:11px;color:var(--muted)">Обзор у директора: ресурс / смена / закрытие</div>
+    </div>
+    <div style="padding:10px 14px;background:rgba(208,48,80,.04);border-radius:8px;border-left:3px solid var(--red)">
+      <div style="font-size:12px;font-weight:800;color:var(--red)">90 дней без метрики</div>
+      <div style="font-size:11px;color:var(--muted)">Авто-вынос на управляющий комитет</div>
+    </div>
+  </div>
+
+  <div class="slogo">ОРБИТА · v11</div>
+  <div class="snum">4 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     СЛАЙД 5 · 12 НАПРАВЛЕНИЙ + СТАТУС
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-5">
+  <div class="s-kicker">Портфель</div>
+  <div class="s-h2">12 источников дохода</div>
+  <div class="s-body" style="margin-bottom:16px">Каждый квартал выбираем 3&ndash;5 приоритетов из 12. Ресурс ограничен &mdash; фокус важнее охвата.</div>
+
+  <div class="sg2" style="margin-bottom:20px">
+    <div class="sc" style="padding:14px 18px">
+      <table style="font-size:12px;border:none;width:100%">
+        <tr><td style="width:24px;color:var(--accent);font-weight:700;border:none;padding:4px 0">1</td><td style="border:none;padding:4px 0"><b>Питомцы</b></td><td style="border:none;padding:4px 0;color:var(--muted)">груминг, телемедицина</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700;border:none;padding:4px 0">2</td><td style="border:none;padding:4px 0"><b>Игры</b></td><td style="border:none;padding:4px 0;color:var(--muted)">каталог, детский, экспансия</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700;border:none;padding:4px 0">3</td><td style="border:none;padding:4px 0"><b>Семья</b></td><td style="border:none;padding:4px 0;color:var(--muted)">мероприятия, маркетплейс</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700;border:none;padding:4px 0">4</td><td style="border:none;padding:4px 0"><b>Дети</b></td><td style="border:none;padding:4px 0;color:var(--muted)">маркетплейс, игры, контент</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700;border:none;padding:4px 0">5</td><td style="border:none;padding:4px 0"><b>Книги</b></td><td style="border:none;padding:4px 0;color:var(--muted)">сервис, бумажные, издательство</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700;border:none;padding:4px 0">6</td><td style="border:none;padding:4px 0"><b>Стиль</b></td><td style="border:none;padding:4px 0;color:var(--muted)">онлайн-стилист, капсулы</td></tr>
+      </table>
+    </div>
+    <div class="sc" style="padding:14px 18px">
+      <table style="font-size:12px;border:none;width:100%">
+        <tr><td style="width:24px;color:var(--accent);font-weight:700;border:none;padding:4px 0">7</td><td style="border:none;padding:4px 0"><b>Здоровье</b></td><td style="border:none;padding:4px 0;color:var(--muted)">телемедицина, страхование</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700;border:none;padding:4px 0">8</td><td style="border:none;padding:4px 0"><b>Стройка</b></td><td style="border:none;padding:4px 0;color:var(--muted)">строители, дизайн, материалы</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700;border:none;padding:4px 0">9</td><td style="border:none;padding:4px 0"><b>Спорт</b></td><td style="border:none;padding:4px 0;color:var(--muted)">мероприятия, тренировки</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700;border:none;padding:4px 0">10</td><td style="border:none;padding:4px 0"><b>Блогеры</b></td><td style="border:none;padding:4px 0;color:var(--muted)">платформа, выплаты</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700;border:none;padding:4px 0">11</td><td style="border:none;padding:4px 0"><b>Облако</b></td><td style="border:none;padding:4px 0;color:var(--muted)">GPU/AI, ML для e-com</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700;border:none;padding:4px 0">12</td><td style="border:none;padding:4px 0"><b>SaaS B2B</b></td><td style="border:none;padding:4px 0;color:var(--muted)">сервисы МСП, фрилансеры</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="font-size:12px;color:var(--muted);margin-bottom:16px"><b>Ключевой сервис: Маркетплейс Услуг</b> &mdash; сквозной сервис на 8 вертикалей (красота, ремонт, репетиторы, здоровье, дом, авто, бизнес, физлица). Рынок: 5,0 трлн руб.</div>
+
+  <div class="s-label">Статус приоритетных инициатив</div>
+  <table class="st">
+    <thead><tr><th>Инициатива</th><th>Стадия</th><th>Ближайшее решение</th><th>Руководитель</th></tr></thead>
+    <tbody>
+      <tr><td><b>Маркетплейс Услуг</b> (8 вертикалей)</td><td><span class="sp" style="background:rgba(87,157,255,.15);color:var(--c1)">Исследование</span></td><td>Старт разработки: Q2 2026</td><td><span class="sp" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></td></tr>
+      <tr><td><b>Игры</b></td><td><span class="sp" style="background:rgba(87,157,255,.15);color:var(--c1)">Исследование</span></td><td>Старт разработки: Q2 2026</td><td><span class="sp" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></td></tr>
+      <tr><td><b>Книги</b></td><td><span class="sp" style="background:rgba(0,212,180,.12);color:var(--c2)">Выход на рынок</span></td><td>Рост аудитории, подписка</td><td><span class="sp" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></td></tr>
+      <tr><td><b>Знакомства</b></td><td><span class="sp" style="background:rgba(59,130,246,.12);color:var(--c1)">Первая версия</span></td><td>Тест 1000 чел. &rarr; ТК</td><td><span class="sp" style="background:rgba(46,139,87,.12);color:var(--ok)">есть</span></td></tr>
+      <tr><td><b>Здоровье</b></td><td><span class="sp" style="background:rgba(139,92,246,.12);color:var(--c0)">Заявка</span></td><td>Решение: май 2026</td><td><span class="sp" style="background:rgba(200,122,0,.12);color:var(--warn)">вакансия</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="slogo">ОРБИТА · v11</div>
+  <div class="snum">5 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     СЛАЙД 6 · ПАРТНЁРЫ (СТРИМ 2)
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-6">
+  <div class="s-kicker">Стрим 2</div>
+  <div class="s-h2">Быстрые деньги через партнёров</div>
+  <div class="s-body" style="margin-bottom:20px">Не строить то, что уже построено. В каждой нише есть зрелые игроки, которые хотят 70 млн покупателей WB. Мы даём аудиторию за процент от выручки.</div>
+
+  <div class="sg3" style="margin-bottom:20px">
+    <div class="sc" style="border-top:3px solid var(--teal)">
+      <h4 style="color:var(--teal)">Первые 3 партнёра (60 дней)</h4>
+      <ul>
+        <li><b>Профи.ру</b> &mdash; ремонт, клининг, репетиторы</li>
+        <li><b>YCLIENTS</b> &mdash; beauty, 150K салонов</li>
+        <li><b>СберЗдоровье</b> &mdash; телемедицина</li>
+      </ul>
+      <p style="margin-top:8px;font-size:11px">Готовые API, подключение 30&ndash;45 дней</p>
+    </div>
+    <div class="sc" style="border-top:3px solid var(--teal)">
+      <h4 style="color:var(--teal)">Таргетинг по данным WB</h4>
+      <ul>
+        <li>Стройматериалы &rarr; ремонт</li>
+        <li>Косметика &rarr; салон</li>
+        <li>Витамины &rarr; врач</li>
+        <li>Детские товары &rarr; репетитор</li>
+      </ul>
+      <p style="margin-top:8px;font-size:11px">WB знает о товарном поведении больше, чем Яндекс и Авито</p>
+    </div>
+    <div class="sc" style="border-top:3px solid var(--teal)">
+      <h4 style="color:var(--teal)">Экономика</h4>
+      <table style="font-size:12px;border:none;width:100%">
+        <tr><td style="border:none;padding:4px 0">Средний чек</td><td style="border:none;padding:4px 0;text-align:right"><b>3 000 руб.</b></td></tr>
+        <tr><td style="border:none;padding:4px 0">Доля WB</td><td style="border:none;padding:4px 0;text-align:right"><b>15%</b></td></tr>
+        <tr><td style="border:none;padding:4px 0">Доход / транзакция</td><td style="border:none;padding:4px 0;text-align:right"><b>450 руб.</b></td></tr>
+        <tr><td style="border:none;padding:4px 0">Цель 90 дней</td><td style="border:none;padding:4px 0;text-align:right"><b>1 000 / мес</b></td></tr>
+      </table>
+      <p style="margin-top:8px;font-size:10px;color:var(--red)">Стоп: конверсия &lt; 0,1% за 60 дней</p>
+    </div>
+  </div>
+
+  <!-- Синергия -->
+  <div class="sc" style="border-left:3px solid var(--accent)">
+    <h4 style="color:var(--accent)">Синергия двух стримов</h4>
+    <div class="sg3" style="margin-top:8px">
+      <p style="font-size:12px"><b>Партнёры валидируют ниши.</b> Видим реальный спрос &rarr; данные для решения: строить своё или продолжать через партнёра.</p>
+      <p style="font-size:12px"><b>Свои продукты усиливают позицию.</b> Есть Книги и Игры &rarr; партнёры видят серьёзность &rarr; лучше условия.</p>
+      <p style="font-size:12px"><b>Одна CORE-команда.</b> Проектный блок ведёт оба стрима. Техблок строит и MVP, и Partner API.</p>
+    </div>
+  </div>
+
+  <div class="slogo">ОРБИТА · v11</div>
+  <div class="snum">6 / 7</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     СЛАЙД 7 · ПРИМЕРЫ + CTA
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-7">
+  <div class="s-kicker">Примеры и итог</div>
+  <div class="s-h2">Реальные проекты &mdash; как это работает</div>
+
+  <div class="sg2" style="margin-bottom:20px">
+    <div class="sc" style="border-left:3px solid var(--c2)">
+      <h4 style="color:var(--c2)">WB Книги &mdash; уже растёт</h4>
+      <p>Прошёл все 90 дней Q4 2025. Решение: масштабировать. Полная проверка ИБ пройдена, трафик WB подключён. Технологический продукт &mdash; остаётся внутри. Следующий шаг: платная подписка.</p>
+    </div>
+    <div class="sc" style="border-left:3px solid var(--c1)">
+      <h4 style="color:var(--c1)">WB Знакомства &mdash; первая версия</h4>
+      <p>Отбор за 5 дней, 8 интервью, 4 цикла разработки. Тест-группа 1000 человек в изолированной среде. Без доступа к платёжным данным.</p>
+    </div>
+    <div class="sc" style="border-left:3px solid var(--teal)">
+      <h4 style="color:var(--teal)">Профи.ру &mdash; партнёр с API</h4>
+      <p>На разведке поняли: готовое решение. Сокращено с 13 до 8 недель. Цель: 500 услуг/мес. Доля WB: 15% за сделку.</p>
+    </div>
+    <div class="sc" style="border-left:3px solid var(--red)">
+      <h4 style="color:var(--red)">Мост поколений &mdash; стоп-сигнал</h4>
+      <p>100K+ активных пользователей/мес. Проблема: модель заработка не найдена. Решение Q3: подписка / лицензии для школ / закрытие.</p>
+    </div>
+  </div>
+
+  <!-- Ритм -->
+  <div class="sg4" style="margin-bottom:24px">
+    <div style="text-align:center;padding:10px;background:var(--bg);border-radius:8px"><div style="font-size:13px;font-weight:800">Ежедневно</div><div style="font-size:11px;color:var(--muted)">Летучки команд</div></div>
+    <div style="text-align:center;padding:10px;background:var(--bg);border-radius:8px"><div style="font-size:13px;font-weight:800">Еженедельно</div><div style="font-size:11px;color:var(--muted)">Статус &rarr; сводка RWB</div></div>
+    <div style="text-align:center;padding:10px;background:var(--bg);border-radius:8px"><div style="font-size:13px;font-weight:800">Ежемесячно</div><div style="font-size:11px;color:var(--muted)">Ревью с C-level</div></div>
+    <div style="text-align:center;padding:10px;background:var(--bg);border-radius:8px"><div style="font-size:13px;font-weight:800">Ежеквартально</div><div style="font-size:11px;color:var(--muted)">План + FTE + совет</div></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="s-cta">
+    <h3>Что просим</h3>
+    <div class="big">Два параллельных стрима: собственные продукты + партнёры</div>
+    <p>CORE из 4 блоков работает на оба стрима. Стрим 1 &mdash; длинный цикл, высокая маржа. Стрим 2 &mdash; быстрые деньги и валидация ниш за 60 дней. Три блока укомплектованы, один &mdash; вакансия. Через 90 дней: первые транзакции партнёров + первый отчёт по собственным инициативам.</p>
+  </div>
+
+  <div class="slogo">ОРБИТА · v11</div>
+  <div class="snum">7 / 7</div>
+</div>
+
+</body>
+</html>
