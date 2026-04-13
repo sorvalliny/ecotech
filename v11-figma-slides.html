@@ -688,211 +688,242 @@ body{font-family:-apple-system,"SF Pro Display","Inter","Helvetica Neue",sans-se
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     СЛАЙД 9 · СХЕМА РАЗВИЛОК И СЦЕНАРИЕВ
+     СЛАЙД 9 · СХЕМА РАЗВИЛОК И СЦЕНАРИЕВ (v2 — grid)
      ═══════════════════════════════════════════════════════════════ -->
-<div class="slide" id="slide-9" style="padding:40px 48px">
+<div class="slide" id="slide-9" style="padding:44px 52px">
   <div class="s-kicker">Методология ОРБИТА</div>
-  <div class="s-h2" style="margin-bottom:4px;font-size:22px">Схема развилок и сценариев развития проекта</div>
-  <div class="s-body" style="margin-bottom:16px;font-size:12px">Каждая контрольная точка — решение комитета. Проект может двигаться вперёд, вернуться на доработку, передаться владельцу или закрыться.</div>
+  <div class="s-h2" style="margin-bottom:4px;font-size:22px">Схема развилок и сценариев</div>
+  <div class="s-body" style="margin-bottom:14px;font-size:12px">Контрольная точка = решение комитета. Проект двигается вперёд, возвращается на доработку, передаётся владельцу или закрывается.</div>
 
-  <!-- ── FLOWCHART ── -->
-  <div style="position:relative;width:100%;height:620px;font-size:11px">
-
-    <!-- ═══ ROW 0: THREE INTAKE CHANNELS (top) ═══ -->
-    <div style="position:absolute;top:0;left:60px;width:120px;padding:10px 12px;border-radius:8px;background:rgba(110,73,199,.06);border:1px solid rgba(110,73,199,.2);text-align:center">
+  <!-- ═══ INTAKE ROW ═══ -->
+  <div style="display:flex;gap:10px;margin-bottom:8px">
+    <div style="flex:1;padding:10px 14px;border-radius:8px;background:rgba(110,73,199,.05);border:1px solid rgba(110,73,199,.15);text-align:center">
       <div style="font-size:9px;font-weight:700;color:var(--accent);letter-spacing:.08em">ИСТОЧНИК 1</div>
-      <div style="font-size:11px;font-weight:700;margin-top:2px">Наш анализ</div>
-      <div style="font-size:9px;color:var(--muted)">тренды, интервью с бизнесом</div>
+      <div style="font-size:12px;font-weight:700;margin-top:2px">Наш анализ</div>
+      <div style="font-size:10px;color:var(--muted)">тренды, интервью с бизнесом</div>
     </div>
-    <div style="position:absolute;top:0;left:210px;width:120px;padding:10px 12px;border-radius:8px;background:rgba(110,73,199,.06);border:1px solid rgba(110,73,199,.2);text-align:center">
+    <div style="flex:1;padding:10px 14px;border-radius:8px;background:rgba(110,73,199,.05);border:1px solid rgba(110,73,199,.15);text-align:center">
       <div style="font-size:9px;font-weight:700;color:var(--accent);letter-spacing:.08em">ИСТОЧНИК 2</div>
-      <div style="font-size:11px;font-weight:700;margin-top:2px">Запросы бизнеса</div>
-      <div style="font-size:9px;color:var(--muted)">моделирование, гипотезы</div>
+      <div style="font-size:12px;font-weight:700;margin-top:2px">Запросы бизнеса</div>
+      <div style="font-size:10px;color:var(--muted)">моделирование, гипотезы</div>
     </div>
-    <div style="position:absolute;top:0;left:360px;width:120px;padding:10px 12px;border-radius:8px;background:rgba(110,73,199,.06);border:1px solid rgba(110,73,199,.2);text-align:center">
+    <div style="flex:1;padding:10px 14px;border-radius:8px;background:rgba(110,73,199,.05);border:1px solid rgba(110,73,199,.15);text-align:center">
       <div style="font-size:9px;font-weight:700;color:var(--accent);letter-spacing:.08em">ИСТОЧНИК 3</div>
-      <div style="font-size:11px;font-weight:700;margin-top:2px">Рынок</div>
-      <div style="font-size:9px;color:var(--muted)">фонды, акселераторы, M&A</div>
+      <div style="font-size:12px;font-weight:700;margin-top:2px">Рынок</div>
+      <div style="font-size:10px;color:var(--muted)">фонды, акселераторы, M&A</div>
+    </div>
+    <div style="display:flex;align-items:center;color:var(--lav);font-size:18px;padding:0 4px">&darr;</div>
+  </div>
+
+  <!-- ═══ MAIN PIPELINE ROW ═══ -->
+  <div style="display:flex;align-items:center;gap:0;margin-bottom:0;padding:16px 0;background:linear-gradient(90deg,rgba(255,184,48,.04),rgba(255,133,192,.04));border-radius:12px;border:1px solid var(--line)">
+
+    <!-- О·0 -->
+    <div style="flex:0 0 90px;text-align:center;padding:0 6px">
+      <div style="width:52px;height:52px;border-radius:50%;background:#FFB830;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;box-shadow:0 2px 10px rgba(255,184,48,.3)">О·0</div>
+      <div style="font-size:11px;font-weight:700;color:#C77A00;margin-top:4px">Заявка</div>
+      <div style="font-size:9px;color:var(--muted)">до 5 дней</div>
     </div>
 
-    <!-- Arrows down to О·0 -->
-    <svg style="position:absolute;top:60px;left:0;width:540px;height:30px" viewBox="0 0 540 30">
-      <line x1="120" y1="0" x2="270" y2="25" stroke="#B8A4E3" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <line x1="270" y1="0" x2="270" y2="25" stroke="#B8A4E3" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <line x1="420" y1="0" x2="270" y2="25" stroke="#B8A4E3" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <polygon points="265,25 275,25 270,30" fill="#B8A4E3"/>
-    </svg>
-
-    <!-- ═══ ROW 1: MAIN FLOW ═══ -->
-    <!-- О·0 -->
-    <div style="position:absolute;top:90px;left:230px;width:80px;height:44px;border-radius:22px;background:#FFB830;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;box-shadow:0 2px 8px rgba(255,184,48,.3)">О·0</div>
-    <div style="position:absolute;top:136px;left:228px;font-size:10px;font-weight:700;color:#C77A00;text-align:center;width:84px">Заявка</div>
-    <div style="position:absolute;top:149px;left:220px;font-size:8px;color:var(--muted);text-align:center;width:100px">до 5 дней</div>
-
-    <!-- Arrow О·0 → КТ-0 -->
-    <svg style="position:absolute;top:108px;left:310px;width:40px;height:20px"><line x1="0" y1="10" x2="35" y2="10" stroke="#B8A4E3" stroke-width="2"/><polygon points="35,6 40,10 35,14" fill="#B8A4E3"/></svg>
-
-    <!-- КТ-0 diamond -->
-    <div style="position:absolute;top:96px;left:350px;width:36px;height:36px;border-radius:5px;background:#fff;border:2.5px solid var(--accent);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(110,73,199,.15)"><span style="transform:rotate(-45deg);font-size:9px;font-weight:800;color:var(--accent)">КТ-0</span></div>
-    <div style="position:absolute;top:136px;left:342px;font-size:8px;color:var(--accent);font-weight:700;text-align:center;width:52px">ФМК &rarr; УК</div>
-
-    <!-- Arrow КТ-0 → О·1 -->
-    <svg style="position:absolute;top:108px;left:388px;width:42px;height:20px"><line x1="0" y1="10" x2="37" y2="10" stroke="#B8A4E3" stroke-width="2"/><polygon points="37,6 42,10 37,14" fill="#B8A4E3"/></svg>
+    <!-- КТ-0 -->
+    <div style="flex:0 0 52px;text-align:center">
+      <div style="font-size:16px;color:var(--lav)">&rarr;</div>
+      <div style="width:24px;height:24px;border-radius:4px;background:#fff;border:2px solid var(--accent);transform:rotate(45deg);display:inline-flex;align-items:center;justify-content:center;margin:2px auto"><span style="transform:rotate(-45deg);font-size:7px;font-weight:800;color:var(--accent)">0</span></div>
+      <div style="font-size:7px;color:var(--accent);font-weight:700;margin-top:4px">ФМК&rarr;УК</div>
+    </div>
 
     <!-- О·1 -->
-    <div style="position:absolute;top:90px;left:430px;width:80px;height:44px;border-radius:22px;background:#4FC3F7;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;box-shadow:0 2px 8px rgba(79,195,247,.3)">О·1</div>
-    <div style="position:absolute;top:136px;left:428px;font-size:10px;font-weight:700;color:#0288D1;text-align:center;width:84px">Разведка</div>
-    <div style="position:absolute;top:149px;left:425px;font-size:8px;color:var(--muted);text-align:center;width:90px">3&ndash;6 нед</div>
+    <div style="flex:0 0 90px;text-align:center;padding:0 6px">
+      <div style="width:52px;height:52px;border-radius:50%;background:#4FC3F7;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;box-shadow:0 2px 10px rgba(79,195,247,.3)">О·1</div>
+      <div style="font-size:11px;font-weight:700;color:#0288D1;margin-top:4px">Разведка</div>
+      <div style="font-size:9px;color:var(--muted)">3&ndash;6 нед</div>
+    </div>
 
-    <!-- Arrow О·1 → КТ-1 -->
-    <svg style="position:absolute;top:108px;left:510px;width:40px;height:20px"><line x1="0" y1="10" x2="35" y2="10" stroke="#B8A4E3" stroke-width="2"/><polygon points="35,6 40,10 35,14" fill="#B8A4E3"/></svg>
-
-    <!-- КТ-1 diamond (BIG FORK) -->
-    <div style="position:absolute;top:92px;left:550px;width:44px;height:44px;border-radius:6px;background:linear-gradient(135deg,#fff,#FFF8F0);border:2.5px solid var(--c4);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(245,158,11,.2)"><span style="transform:rotate(-45deg);font-size:9px;font-weight:800;color:var(--c4)">КТ-1</span></div>
-    <div style="position:absolute;top:140px;left:536px;font-size:7px;color:var(--c4);font-weight:700;text-align:center;width:72px">ФМК &rarr; ТК &rarr; УК</div>
-
-    <!-- ═══ FORK КТ-1: Three paths ═══ -->
-
-    <!-- Path A: Строим сами → О·2 (continues right-down) -->
-    <svg style="position:absolute;top:125px;left:594px;width:80px;height:80px"><path d="M0,0 Q40,0 40,40 Q40,60 60,60" stroke="#3B82F6" stroke-width="2" fill="none"/><polygon points="60,56 65,60 60,64" fill="#3B82F6"/></svg>
-    <div style="position:absolute;top:153px;left:598px;font-size:8px;font-weight:700;color:#3B82F6;transform:rotate(30deg)">строим сами</div>
+    <!-- КТ-1 (big fork) -->
+    <div style="flex:0 0 56px;text-align:center">
+      <div style="font-size:16px;color:var(--lav)">&rarr;</div>
+      <div style="width:28px;height:28px;border-radius:4px;background:linear-gradient(135deg,#fff,#FFF8F0);border:2.5px solid var(--c4);transform:rotate(45deg);display:inline-flex;align-items:center;justify-content:center;margin:2px auto;box-shadow:0 1px 6px rgba(245,158,11,.2)"><span style="transform:rotate(-45deg);font-size:7px;font-weight:800;color:var(--c4)">1</span></div>
+      <div style="font-size:7px;color:var(--c4);font-weight:700;margin-top:4px">ФМК&rarr;ТК&rarr;УК</div>
+    </div>
 
     <!-- О·2 -->
-    <div style="position:absolute;top:180px;left:654px;width:80px;height:44px;border-radius:22px;background:#3B82F6;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;box-shadow:0 2px 8px rgba(59,130,246,.3)">О·2</div>
-    <div style="position:absolute;top:226px;left:652px;font-size:10px;font-weight:700;color:#1D4ED8;text-align:center;width:84px">Прототип</div>
-    <div style="position:absolute;top:239px;left:650px;font-size:8px;color:var(--muted);text-align:center;width:90px">6&ndash;12 нед</div>
-
-    <!-- MVP gradation badge on О·2 -->
-    <div style="position:absolute;top:200px;left:740px;padding:4px 8px;border-radius:5px;border:1px dashed #3B82F6;background:rgba(59,130,246,.04)">
-      <div style="font-size:7px;font-weight:700;color:#3B82F6">ГРАДАЦИЯ MVP</div>
-      <div style="font-size:7px;color:var(--muted)">высокий риск &rarr; полный</div>
-      <div style="font-size:7px;color:var(--muted)">низкий &rarr; песочница</div>
+    <div style="flex:0 0 90px;text-align:center;padding:0 6px">
+      <div style="width:52px;height:52px;border-radius:50%;background:#3B82F6;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;box-shadow:0 2px 10px rgba(59,130,246,.3)">О·2</div>
+      <div style="font-size:11px;font-weight:700;color:#1D4ED8;margin-top:4px">Прототип</div>
+      <div style="font-size:9px;color:var(--muted)">6&ndash;12 нед</div>
     </div>
-
-    <!-- Path B: Передаём владельцу (goes down from КТ-1) -->
-    <svg style="position:absolute;top:140px;left:570px;width:20px;height:70px"><line x1="10" y1="0" x2="10" y2="65" stroke="var(--c4)" stroke-width="1.5" stroke-dasharray="5,3"/><polygon points="6,65 14,65 10,70" fill="var(--c4)"/></svg>
-
-    <div style="position:absolute;top:210px;left:510px;width:140px;padding:8px 10px;border-radius:8px;background:rgba(245,158,11,.06);border:1.5px solid rgba(245,158,11,.3);text-align:center">
-      <div style="font-size:9px;font-weight:700;color:var(--c4)">Передаём владельцу</div>
-      <div style="font-size:8px;color:var(--muted);margin-top:2px">мы = менеджер проекта</div>
-      <div style="display:flex;gap:3px;justify-content:center;margin-top:4px;flex-wrap:wrap">
-        <span style="font-size:7px;padding:2px 5px;border-radius:3px;background:rgba(245,158,11,.1);color:var(--c4);font-weight:700">CX</span>
-        <span style="font-size:7px;padding:2px 5px;border-radius:3px;background:rgba(245,158,11,.1);color:var(--c4);font-weight:700">ПВЗ</span>
-        <span style="font-size:7px;padding:2px 5px;border-radius:3px;background:rgba(245,158,11,.1);color:var(--c4);font-weight:700">Склад</span>
-        <span style="font-size:7px;padding:2px 5px;border-radius:3px;background:rgba(245,158,11,.1);color:var(--c4);font-weight:700">Коммерция</span>
-        <span style="font-size:7px;padding:2px 5px;border-radius:3px;background:rgba(245,158,11,.1);color:var(--c4);font-weight:700">ESG</span>
-      </div>
-    </div>
-
-    <!-- ═══ О·2 → КТ-2 → О·3 ═══ -->
-    <!-- Arrow О·2 → КТ-2 -->
-    <svg style="position:absolute;top:198px;left:734px;width:40px;height:20px"><line x1="0" y1="10" x2="35" y2="10" stroke="#B8A4E3" stroke-width="2"/><polygon points="35,6 40,10 35,14" fill="#B8A4E3"/></svg>
 
     <!-- КТ-2 -->
-    <div style="position:absolute;top:186px;left:774px;width:36px;height:36px;border-radius:5px;background:#fff;border:2.5px solid var(--accent);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 1px 6px rgba(110,73,199,.15)"><span style="transform:rotate(-45deg);font-size:9px;font-weight:800;color:var(--accent)">КТ-2</span></div>
-    <div style="position:absolute;top:226px;left:768px;font-size:8px;color:var(--accent);font-weight:700;text-align:center;width:50px">ТК &rarr; УК</div>
-
-    <!-- Arrow КТ-2 → О·3 -->
-    <svg style="position:absolute;top:198px;left:812px;width:40px;height:20px"><line x1="0" y1="10" x2="35" y2="10" stroke="#B8A4E3" stroke-width="2"/><polygon points="35,6 40,10 35,14" fill="#B8A4E3"/></svg>
+    <div style="flex:0 0 52px;text-align:center">
+      <div style="font-size:16px;color:var(--lav)">&rarr;</div>
+      <div style="width:24px;height:24px;border-radius:4px;background:#fff;border:2px solid var(--accent);transform:rotate(45deg);display:inline-flex;align-items:center;justify-content:center;margin:2px auto"><span style="transform:rotate(-45deg);font-size:7px;font-weight:800;color:var(--accent)">2</span></div>
+      <div style="font-size:7px;color:var(--accent);font-weight:700;margin-top:4px">ТК&rarr;УК</div>
+    </div>
 
     <!-- О·3 -->
-    <div style="position:absolute;top:180px;left:852px;width:80px;height:44px;border-radius:22px;background:#00D4B4;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;box-shadow:0 2px 8px rgba(0,212,180,.3)">О·3</div>
-    <div style="position:absolute;top:226px;left:850px;font-size:10px;font-weight:700;color:#0D9488;text-align:center;width:84px">Разгон</div>
-    <div style="position:absolute;top:239px;left:848px;font-size:8px;color:var(--muted);text-align:center;width:90px">1&ndash;3 мес</div>
+    <div style="flex:0 0 90px;text-align:center;padding:0 6px">
+      <div style="width:52px;height:52px;border-radius:50%;background:#00D4B4;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;box-shadow:0 2px 10px rgba(0,212,180,.3)">О·3</div>
+      <div style="font-size:11px;font-weight:700;color:#0D9488;margin-top:4px">Разгон</div>
+      <div style="font-size:9px;color:var(--muted)">1&ndash;3 мес</div>
+    </div>
 
-    <!-- ═══ О·3 → КТ-3 (SECOND BIG FORK) ═══ -->
-    <svg style="position:absolute;top:198px;left:932px;width:40px;height:20px"><line x1="0" y1="10" x2="35" y2="10" stroke="#B8A4E3" stroke-width="2"/><polygon points="35,6 40,10 35,14" fill="#B8A4E3"/></svg>
-
-    <!-- КТ-3 diamond -->
-    <div style="position:absolute;top:182px;left:972px;width:44px;height:44px;border-radius:6px;background:linear-gradient(135deg,#fff,#F0FFF8);border:2.5px solid var(--teal);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(13,148,136,.2)"><span style="transform:rotate(-45deg);font-size:9px;font-weight:800;color:var(--teal)">КТ-3</span></div>
-    <div style="position:absolute;top:230px;left:958px;font-size:7px;color:var(--teal);font-weight:700;text-align:center;width:72px">ФМК &rarr; ТК &rarr; УК</div>
-
-    <!-- Path A from КТ-3: Остаётся у нас → О·4 → О·5 -->
-    <svg style="position:absolute;top:196px;left:1016px;width:60px;height:60px"><path d="M0,10 Q30,10 30,40 Q30,55 50,55" stroke="#34D399" stroke-width="2" fill="none"/><polygon points="50,51 55,55 50,59" fill="#34D399"/></svg>
-    <div style="position:absolute;top:202px;left:1020px;font-size:7px;font-weight:700;color:#059669">остаётся у нас</div>
+    <!-- КТ-3 (big fork) -->
+    <div style="flex:0 0 56px;text-align:center">
+      <div style="font-size:16px;color:var(--lav)">&rarr;</div>
+      <div style="width:28px;height:28px;border-radius:4px;background:linear-gradient(135deg,#fff,#F0FFF8);border:2.5px solid var(--teal);transform:rotate(45deg);display:inline-flex;align-items:center;justify-content:center;margin:2px auto;box-shadow:0 1px 6px rgba(13,148,136,.2)"><span style="transform:rotate(-45deg);font-size:7px;font-weight:800;color:var(--teal)">3</span></div>
+      <div style="font-size:7px;color:var(--teal);font-weight:700;margin-top:4px">ФМК&rarr;ТК&rarr;УК</div>
+    </div>
 
     <!-- О·4 -->
-    <div style="position:absolute;top:240px;left:1068px;width:70px;height:38px;border-radius:19px;background:#34D399;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;box-shadow:0 2px 6px rgba(52,211,153,.3)">О·4</div>
-    <div style="position:absolute;top:280px;left:1060px;font-size:9px;font-weight:700;color:#059669;text-align:center;width:86px">Экосистема</div>
+    <div style="flex:0 0 90px;text-align:center;padding:0 6px">
+      <div style="width:52px;height:52px;border-radius:50%;background:#34D399;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;box-shadow:0 2px 10px rgba(52,211,153,.3)">О·4</div>
+      <div style="font-size:11px;font-weight:700;color:#059669;margin-top:4px">Экосистема</div>
+      <div style="font-size:9px;color:var(--muted)">3&ndash;12 мес</div>
+    </div>
 
-    <!-- Arrow О·4 → О·5 -->
-    <svg style="position:absolute;top:256px;left:1138px;width:30px;height:20px"><line x1="0" y1="10" x2="25" y2="10" stroke="#B8A4E3" stroke-width="1.5"/><polygon points="25,7 30,10 25,13" fill="#B8A4E3"/></svg>
+    <!-- КТ-4 -->
+    <div style="flex:0 0 52px;text-align:center">
+      <div style="font-size:16px;color:var(--lav)">&rarr;</div>
+      <div style="width:24px;height:24px;border-radius:4px;background:#fff;border:2px solid var(--accent);transform:rotate(45deg);display:inline-flex;align-items:center;justify-content:center;margin:2px auto"><span style="transform:rotate(-45deg);font-size:7px;font-weight:800;color:var(--accent)">4</span></div>
+      <div style="font-size:7px;color:var(--accent);font-weight:700;margin-top:4px">УК</div>
+    </div>
 
     <!-- О·5 -->
-    <div style="position:absolute;top:240px;left:1168px;width:70px;height:38px;border-radius:19px;background:#FF85C0;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;box-shadow:0 2px 6px rgba(255,133,192,.3)">О·5</div>
-    <div style="position:absolute;top:280px;left:1164px;font-size:9px;font-weight:700;color:#DB2777;text-align:center;width:78px">Плато</div>
+    <div style="flex:0 0 80px;text-align:center;padding:0 6px">
+      <div style="width:52px;height:52px;border-radius:50%;background:#FF85C0;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;box-shadow:0 2px 10px rgba(255,133,192,.3)">О·5</div>
+      <div style="font-size:11px;font-weight:700;color:#DB2777;margin-top:4px">Плато</div>
+      <div style="font-size:9px;color:var(--muted)">ongoing</div>
+    </div>
 
-    <!-- Path B from КТ-3: Передаётся владельцу (goes down) -->
-    <svg style="position:absolute;top:230px;left:992px;width:20px;height:55px"><line x1="10" y1="0" x2="10" y2="50" stroke="var(--teal)" stroke-width="1.5" stroke-dasharray="5,3"/><polygon points="6,50 14,50 10,55" fill="var(--teal)"/></svg>
+    <!-- О·6 -->
+    <div style="flex:0 0 60px;text-align:center;padding:0 4px;opacity:.6">
+      <div style="font-size:12px;color:var(--muted)">&rarr;</div>
+      <div style="width:40px;height:40px;border-radius:50%;background:#8B8BAE;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:12px">О·6</div>
+      <div style="font-size:9px;font-weight:700;color:#8B8BAE;margin-top:4px">Архив</div>
+    </div>
+  </div>
 
-    <div style="position:absolute;top:285px;left:936px;width:132px;padding:8px 10px;border-radius:8px;background:rgba(13,148,136,.06);border:1.5px solid rgba(13,148,136,.3);text-align:center">
-      <div style="font-size:9px;font-weight:700;color:var(--teal)">Передаётся владельцу</div>
-      <div style="display:flex;gap:3px;justify-content:center;margin-top:4px;flex-wrap:wrap">
-        <span style="font-size:7px;padding:2px 5px;border-radius:3px;background:rgba(13,148,136,.08);color:var(--teal);font-weight:700">CX</span>
-        <span style="font-size:7px;padding:2px 5px;border-radius:3px;background:rgba(13,148,136,.08);color:var(--teal);font-weight:700">ПВЗ</span>
-        <span style="font-size:7px;padding:2px 5px;border-radius:3px;background:rgba(13,148,136,.08);color:var(--teal);font-weight:700">Склад</span>
-        <span style="font-size:7px;padding:2px 5px;border-radius:3px;background:rgba(13,148,136,.08);color:var(--teal);font-weight:700">Коммерция</span>
-        <span style="font-size:7px;padding:2px 5px;border-radius:3px;background:rgba(13,148,136,.08);color:var(--teal);font-weight:700">ESG</span>
+  <!-- ═══ FORKS + SCENARIOS (below pipeline) ═══ -->
+  <div style="display:grid;grid-template-columns:90px 52px 90px 56px 90px 52px 90px 56px 90px 52px 80px 60px;gap:0;margin-top:6px">
+
+    <!-- under О·0 — empty -->
+    <div></div>
+    <!-- under КТ-0 — empty -->
+    <div></div>
+    <!-- under О·1 — empty -->
+    <div></div>
+
+    <!-- under КТ-1: FORK 1 -->
+    <div style="grid-column:4/5;padding-top:4px;text-align:center">
+      <div style="font-size:14px;color:var(--c4)">&darr;</div>
+    </div>
+
+    <!-- under О·2: gradation -->
+    <div style="grid-column:5/6;padding:4px 2px">
+      <div style="padding:5px 6px;border-radius:6px;border:1px dashed #3B82F6;background:rgba(59,130,246,.03);text-align:center">
+        <div style="font-size:8px;font-weight:700;color:#3B82F6">ГРАДАЦИЯ MVP</div>
+        <div style="font-size:8px;color:var(--muted)">высокий риск &rarr; полный</div>
+        <div style="font-size:8px;color:var(--muted)">низкий &rarr; песочница</div>
       </div>
     </div>
 
-    <!-- ═══ О·5 THREE PATHS ═══ -->
-    <!-- Path 1: Pivot back to О·1 -->
-    <svg style="position:absolute;top:104px;left:460px;width:750px;height:140px">
-      <path d="M748,156 Q748,0 400,0 Q50,0 10,6" stroke="#DB2777" stroke-width="1.5" stroke-dasharray="6,3" fill="none"/>
-      <polygon points="10,2 4,6 10,10" fill="#DB2777"/>
-    </svg>
-    <div style="position:absolute;top:84px;left:780px;padding:3px 8px;border-radius:4px;background:rgba(219,39,119,.06);font-size:8px;font-weight:700;color:#DB2777">разворот &rarr; О·1</div>
+    <!-- under КТ-2 — empty -->
+    <div></div>
+    <!-- under О·3 — empty -->
+    <div></div>
 
-    <!-- Path 2: Harvest (stays) -->
-    <div style="position:absolute;top:295px;left:1168px;padding:5px 8px;border-radius:6px;background:rgba(255,133,192,.06);border:1px solid rgba(255,133,192,.2);text-align:center">
-      <div style="font-size:8px;font-weight:700;color:#DB2777">Сбор прибыли</div>
-      <div style="font-size:7px;color:var(--muted)">остаёмся на О·5</div>
+    <!-- under КТ-3: FORK 2 -->
+    <div style="grid-column:8/9;padding-top:4px;text-align:center">
+      <div style="font-size:14px;color:var(--teal)">&darr;</div>
     </div>
 
-    <!-- Path 3: Archive О·6 -->
-    <svg style="position:absolute;top:265px;left:1238px;width:50px;height:40px"><path d="M0,0 Q25,0 25,20 Q25,35 45,35" stroke="#8B8BAE" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/><polygon points="45,31 50,35 45,39" fill="#8B8BAE"/></svg>
+    <!-- under О·4 — empty -->
+    <div></div>
+    <!-- under КТ-4 — empty -->
+    <div></div>
 
-    <!-- О·6 Архив -->
-    <div style="position:absolute;top:286px;left:1288px;width:56px;height:32px;border-radius:16px;background:#8B8BAE;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;opacity:.8">О·6</div>
-    <div style="position:absolute;top:320px;left:1284px;font-size:8px;font-weight:700;color:#8B8BAE;text-align:center;width:64px">Архив</div>
+    <!-- under О·5: THREE PATHS -->
+    <div style="grid-column:11/12;padding:4px 0">
+      <div style="padding:4px 5px;border-radius:5px;border:1px dashed #DB2777;background:rgba(219,39,119,.03);text-align:center">
+        <div style="font-size:8px;font-weight:700;color:#DB2777">ТРИ ПУТИ</div>
+        <div style="font-size:8px;color:var(--muted)">&circlearrowleft; О·1</div>
+        <div style="font-size:8px;color:var(--muted)">&dollar; прибыль</div>
+        <div style="font-size:8px;color:var(--muted)">&rarr; О·6</div>
+      </div>
+    </div>
 
-    <!-- ═══ STOP SIGNAL (from any КТ) ═══ -->
-    <!-- Global stop arrow from bottom -->
-    <div style="position:absolute;bottom:115px;left:30px;width:360px;padding:10px 14px;border-radius:8px;background:rgba(208,48,80,.04);border:1.5px solid rgba(208,48,80,.15)">
-      <div style="font-size:10px;font-weight:800;color:var(--red);margin-bottom:4px">Стоп-сигналы (с любой контрольной точки)</div>
-      <div style="display:flex;gap:12px">
-        <div>
-          <div style="font-size:9px;color:var(--red)"><b>1.</b> Двойной отказ комитета</div>
-          <div style="font-size:8px;color:var(--muted)">Два раза &laquo;доработать&raquo; = закрытие или откат на стадию назад</div>
+    <div></div>
+  </div>
+
+  <!-- ═══ FORK DETAIL CARDS ═══ -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+
+    <!-- Fork КТ-1 -->
+    <div style="padding:14px 18px;border-radius:10px;border:1.5px solid rgba(245,158,11,.25);background:rgba(245,158,11,.03)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="width:24px;height:24px;border-radius:4px;background:linear-gradient(135deg,#fff,#FFF8F0);border:2px solid var(--c4);transform:rotate(45deg);display:flex;align-items:center;justify-content:center"><span style="transform:rotate(-45deg);font-size:7px;font-weight:800;color:var(--c4)">1</span></div>
+        <div style="font-size:13px;font-weight:800;color:var(--c4)">Развилка КТ-1: после разведки</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="padding:8px 10px;border-radius:6px;background:#fff;border:1px solid rgba(59,130,246,.2)">
+          <div style="font-size:10px;font-weight:700;color:#3B82F6;margin-bottom:2px">&rarr; Строим сами</div>
+          <div style="font-size:9px;color:var(--muted)">Переходим к О·2 Прототип. CORE-команда ведёт разработку MVP.</div>
         </div>
-        <div>
-          <div style="font-size:9px;color:var(--red)"><b>2.</b> Нет прогресса 3 месяца</div>
-          <div style="font-size:8px;color:var(--muted)">Обзор у директора: доп. ресурс / смена команды / закрытие</div>
-        </div>
-        <div>
-          <div style="font-size:9px;color:var(--red)"><b>3.</b> 90 дней без метрики</div>
-          <div style="font-size:8px;color:var(--muted)">Авто-вынос на управляющий комитет</div>
+        <div style="padding:8px 10px;border-radius:6px;background:#fff;border:1px solid rgba(245,158,11,.2)">
+          <div style="font-size:10px;font-weight:700;color:var(--c4);margin-bottom:2px">&darr; Передаём владельцу</div>
+          <div style="font-size:9px;color:var(--muted)">Мы = менеджер проекта до завершения</div>
+          <div style="display:flex;gap:3px;margin-top:4px;flex-wrap:wrap">
+            <span style="font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(245,158,11,.08);color:var(--c4);font-weight:700">CX</span>
+            <span style="font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(245,158,11,.08);color:var(--c4);font-weight:700">ПВЗ</span>
+            <span style="font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(245,158,11,.08);color:var(--c4);font-weight:700">Склад</span>
+            <span style="font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(245,158,11,.08);color:var(--c4);font-weight:700">Коммерция</span>
+            <span style="font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(245,158,11,.08);color:var(--c4);font-weight:700">ESG</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- ═══ RETURN ARROWS (доработка) ═══ -->
-    <div style="position:absolute;bottom:115px;right:30px;width:240px;padding:10px 14px;border-radius:8px;background:rgba(110,73,199,.03);border:1.5px solid rgba(110,73,199,.12)">
-      <div style="font-size:10px;font-weight:800;color:var(--accent);margin-bottom:4px">Доработка (возврат на стадию назад)</div>
-      <div style="font-size:9px;color:var(--muted)">Комитет говорит &laquo;доработать&raquo; &mdash; проект возвращается на предыдущую стадию с рекомендациями. Максимум 2 попытки на одной точке.</div>
+    <!-- Fork КТ-3 -->
+    <div style="padding:14px 18px;border-radius:10px;border:1.5px solid rgba(13,148,136,.25);background:rgba(13,148,136,.03)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="width:24px;height:24px;border-radius:4px;background:linear-gradient(135deg,#fff,#F0FFF8);border:2px solid var(--teal);transform:rotate(45deg);display:flex;align-items:center;justify-content:center"><span style="transform:rotate(-45deg);font-size:7px;font-weight:800;color:var(--teal)">3</span></div>
+        <div style="font-size:13px;font-weight:800;color:var(--teal)">Развилка КТ-3: после разгона</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="padding:8px 10px;border-radius:6px;background:#fff;border:1px solid rgba(52,211,153,.2)">
+          <div style="font-size:10px;font-weight:700;color:#059669;margin-bottom:2px">&rarr; Остаётся у нас</div>
+          <div style="font-size:9px;color:var(--muted)">Технологический продукт. Переходим к О·4 Экосистема. Глубокая интеграция WB.</div>
+        </div>
+        <div style="padding:8px 10px;border-radius:6px;background:#fff;border:1px solid rgba(13,148,136,.2)">
+          <div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:2px">&darr; Передаётся владельцу</div>
+          <div style="font-size:9px;color:var(--muted)">Завязан на операционку подразделения</div>
+          <div style="display:flex;gap:3px;margin-top:4px;flex-wrap:wrap">
+            <span style="font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(13,148,136,.06);color:var(--teal);font-weight:700">CX</span>
+            <span style="font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(13,148,136,.06);color:var(--teal);font-weight:700">ПВЗ</span>
+            <span style="font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(13,148,136,.06);color:var(--teal);font-weight:700">Склад</span>
+            <span style="font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(13,148,136,.06);color:var(--teal);font-weight:700">Коммерция</span>
+            <span style="font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(13,148,136,.06);color:var(--teal);font-weight:700">ESG</span>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- ═══ LEGEND ═══ -->
-    <div style="position:absolute;bottom:10px;left:30px;display:flex;gap:16px;align-items:center">
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:30px;height:22px;border-radius:11px;background:linear-gradient(90deg,#FFB830,#4FC3F7)"></div><span style="font-size:9px;color:var(--muted)">Стадия</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:16px;height:16px;border-radius:3px;background:#fff;border:2px solid var(--accent);transform:rotate(45deg)"></div><span style="font-size:9px;color:var(--muted);margin-left:4px">Контрольная точка</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:20px;height:0;border-top:2px solid #3B82F6"></div><span style="font-size:9px;color:var(--muted)">Основной путь</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:20px;height:0;border-top:2px dashed var(--c4)"></div><span style="font-size:9px;color:var(--muted)">Передача владельцу</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:20px;height:0;border-top:2px dashed #DB2777"></div><span style="font-size:9px;color:var(--muted)">Разворот / архив</span></div>
+  <!-- ═══ STOP + RETURN ═══ -->
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:10px">
+    <div style="padding:10px 14px;border-radius:8px;background:rgba(208,48,80,.03);border:1px solid rgba(208,48,80,.1)">
+      <div style="font-size:10px;font-weight:800;color:var(--red);margin-bottom:4px">Стоп-сигналы (с любой КТ)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div><div style="font-size:9px;font-weight:700;color:var(--red)">Двойной отказ</div><div style="font-size:8px;color:var(--muted)">2&times; &laquo;доработать&raquo; = закрытие или откат</div></div>
+        <div><div style="font-size:9px;font-weight:700;color:var(--red)">3 мес без прогресса</div><div style="font-size:8px;color:var(--muted)">Обзор: ресурс / смена / закрытие</div></div>
+        <div><div style="font-size:9px;font-weight:700;color:var(--red)">90 дней без метрики</div><div style="font-size:8px;color:var(--muted)">Авто-вынос на управляющий комитет</div></div>
+      </div>
     </div>
-
-  </div><!-- /flowchart -->
+    <div style="padding:10px 14px;border-radius:8px;background:rgba(110,73,199,.03);border:1px solid rgba(110,73,199,.1)">
+      <div style="font-size:10px;font-weight:800;color:var(--accent);margin-bottom:4px">Доработка</div>
+      <div style="font-size:9px;color:var(--muted)">Комитет &laquo;доработать&raquo; &mdash; возврат на предыдущую стадию. Макс. 2 попытки на одной точке.</div>
+    </div>
+  </div>
 
   <div class="slogo">ОРБИТА · v11</div>
   <div class="snum">9 / 13</div>
