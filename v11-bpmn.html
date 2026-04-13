@@ -1,0 +1,329 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<title>ОРБИТА — BPMN Жизненный цикл</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"SF Pro Display","Inter",sans-serif;background:#E8E4F0}
+.slide{width:1440px;height:900px;background:#fff;margin:40px auto;border-radius:12px;box-shadow:0 8px 40px rgba(30,20,60,.12);position:relative;overflow:hidden;padding:0}
+.slide::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6E49C7,#CB11AB);z-index:10}
+</style>
+</head><body>
+<div class="slide">
+<svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,'SF Pro Display','Inter',sans-serif">
+<defs>
+  <marker id="a" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#5E5880"/></marker>
+  <marker id="ao" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#D97706"/></marker>
+  <marker id="at" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#0D9488"/></marker>
+  <marker id="ar" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#D03050"/></marker>
+  <marker id="ap" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#DB2777"/></marker>
+</defs>
+
+<!-- ═══ HEADER ═══ -->
+<text x="56" y="38" font-size="10" font-weight="700" fill="#CB11AB" letter-spacing="2.5">МЕТОДОЛОГИЯ ОРБИТА</text>
+<text x="56" y="62" font-size="20" font-weight="800" fill="#1A1430">Жизненный цикл проекта — BPMN</text>
+<text x="56" y="80" font-size="11" fill="#5E5880">Swimlanes: кто участвует на каждом шаге. Ромб = решение комитета. Прямоугольник = работа CORE.</text>
+
+<!-- ═══ SWIMLANES ═══ -->
+<!-- Lane backgrounds -->
+<rect x="40" y="96" width="1360" height="120" rx="0" fill="#FAFAFE" stroke="#E8E4F0" stroke-width="1"/>
+<rect x="40" y="216" width="1360" height="100" rx="0" fill="#fff" stroke="#E8E4F0" stroke-width="1"/>
+<rect x="40" y="316" width="1360" height="100" rx="0" fill="#FAFAFE" stroke="#E8E4F0" stroke-width="1"/>
+<rect x="40" y="416" width="1360" height="100" rx="0" fill="#fff" stroke="#E8E4F0" stroke-width="1"/>
+<rect x="40" y="516" width="1360" height="90" rx="0" fill="#FFF9F0" stroke="#E8E4F0" stroke-width="1"/>
+
+<!-- Lane labels (rotated) -->
+<rect x="40" y="96" width="72" height="120" fill="rgba(110,73,199,.05)" stroke="#E8E4F0" stroke-width="1"/>
+<text x="76" y="163" text-anchor="middle" font-size="10" font-weight="700" fill="#6E49C7" transform="rotate(-90,76,156)">CORE-команда</text>
+
+<rect x="40" y="216" width="72" height="100" fill="rgba(139,92,246,.04)" stroke="#E8E4F0" stroke-width="1"/>
+<text x="76" y="272" text-anchor="middle" font-size="10" font-weight="700" fill="#8B5CF6" transform="rotate(-90,76,266)">ФМК</text>
+
+<rect x="40" y="316" width="72" height="100" fill="rgba(87,157,255,.04)" stroke="#E8E4F0" stroke-width="1"/>
+<text x="76" y="372" text-anchor="middle" font-size="10" font-weight="700" fill="#3B82F6" transform="rotate(-90,76,366)">ТК</text>
+
+<rect x="40" y="416" width="72" height="100" fill="rgba(203,17,171,.04)" stroke="#E8E4F0" stroke-width="1"/>
+<text x="76" y="472" text-anchor="middle" font-size="10" font-weight="700" fill="#CB11AB" transform="rotate(-90,76,466)">УК</text>
+
+<rect x="40" y="516" width="72" height="90" fill="rgba(245,158,11,.05)" stroke="#E8E4F0" stroke-width="1"/>
+<text x="76" y="567" text-anchor="middle" font-size="9" font-weight="700" fill="#D97706" transform="rotate(-90,76,561)">Владелец BU</text>
+
+<!-- ═══ PROCESS FLOW ═══ -->
+
+<!-- ── 3 START EVENTS (in CORE lane) ── -->
+<circle cx="140" cy="130" r="12" fill="none" stroke="#6E49C7" stroke-width="2"/>
+<circle cx="140" cy="130" r="5" fill="#6E49C7"/>
+<text x="140" y="152" text-anchor="middle" font-size="7" fill="#5E5880">Анализ</text>
+<text x="140" y="160" text-anchor="middle" font-size="7" fill="#5E5880">трендов</text>
+
+<circle cx="140" cy="170" r="12" fill="none" stroke="#6E49C7" stroke-width="2"/>
+<rect cx="140" cy="170" x="135" y="165" width="10" height="10" fill="#6E49C7" rx="1"/>
+<text x="140" y="192" text-anchor="middle" font-size="7" fill="#5E5880">Запросы</text>
+<text x="140" y="200" text-anchor="middle" font-size="7" fill="#5E5880">бизнеса</text>
+
+<circle cx="175" cy="150" r="12" fill="none" stroke="#6E49C7" stroke-width="2"/>
+<path d="M170,150 L180,150 M175,145 L175,155" stroke="#6E49C7" stroke-width="2"/>
+<text x="175" y="170" text-anchor="middle" font-size="7" fill="#5E5880">Рынок/M&amp;A</text>
+
+<!-- Merge arrows to О·0 -->
+<line x1="152" y1="130" x2="210" y2="146" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="152" y1="170" x2="210" y2="154" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="187" y1="150" x2="210" y2="150" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+
+<!-- ── О·0 ЗАЯВКА (CORE lane) ── -->
+<rect x="218" y="132" width="90" height="40" rx="6" fill="#FFB830" stroke="#E8A000" stroke-width="1"/>
+<text x="263" y="149" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">О·0 Заявка</text>
+<text x="263" y="162" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.8)">до 5 дней</text>
+<!-- subprocess marker -->
+<rect x="253" y="166" width="20" height="3" rx="1" fill="rgba(255,255,255,.5)"/>
+
+<!-- Arrow down to ФМК -->
+<line x1="263" y1="172" x2="263" y2="240" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+
+<!-- ── КТ-0 (ФМК lane → УК lane) ── -->
+<!-- Diamond in ФМК lane -->
+<rect x="248" y="248" width="30" height="30" rx="3" transform="rotate(45,263,263)" fill="#fff" stroke="#8B5CF6" stroke-width="2"/>
+<text x="263" y="267" text-anchor="middle" font-size="7" font-weight="800" fill="#8B5CF6">КТ-0</text>
+
+<!-- Arrow down through ТК to УК for approval -->
+<line x1="263" y1="284" x2="263" y2="458" stroke="#5E5880" stroke-width="1" stroke-dasharray="4,3"/>
+<circle cx="263" cy="458" r="3" fill="#CB11AB"/>
+<text x="270" y="454" font-size="7" fill="#CB11AB" font-weight="600">утверждает</text>
+
+<!-- Arrow right (approved) back up to CORE -->
+<line x1="278" y1="263" x2="340" y2="263" stroke="#5E5880" stroke-width="1.2"/>
+<line x1="340" y1="263" x2="340" y2="150" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="310" y="257" font-size="7" fill="#2E8B57" font-weight="600">✓</text>
+
+<!-- ── О·1 РАЗВЕДКА (CORE lane) ── -->
+<rect x="348" y="132" width="100" height="40" rx="6" fill="#4FC3F7" stroke="#0288D1" stroke-width="1"/>
+<text x="398" y="149" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">О·1 Разведка</text>
+<text x="398" y="162" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.8)">3–6 недель</text>
+<rect x="388" y="166" width="20" height="3" rx="1" fill="rgba(255,255,255,.5)"/>
+
+<!-- Arrow down to ФМК -->
+<line x1="398" y1="172" x2="398" y2="240" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+
+<!-- ── КТ-1 ★ КЛЮЧЕВАЯ РАЗВИЛКА (ФМК lane) ── -->
+<rect x="380" y="248" width="36" height="36" rx="4" transform="rotate(45,398,266)" fill="#FFFBF0" stroke="#F59E0B" stroke-width="2.5"/>
+<text x="398" y="270" text-anchor="middle" font-size="8" font-weight="800" fill="#D97706">КТ-1</text>
+<text x="398" y="244" text-anchor="middle" font-size="6" font-weight="700" fill="#D97706">★ РАЗВИЛКА</text>
+
+<!-- КТ-1 goes down through ТК → УК -->
+<line x1="398" y1="288" x2="398" y2="356" stroke="#5E5880" stroke-width="1" stroke-dasharray="4,3"/>
+<circle cx="398" cy="356" r="3" fill="#3B82F6"/>
+<text x="406" y="352" font-size="7" fill="#3B82F6" font-weight="600">оценивает</text>
+<line x1="398" y1="362" x2="398" y2="458" stroke="#5E5880" stroke-width="1" stroke-dasharray="4,3"/>
+<circle cx="398" cy="458" r="3" fill="#CB11AB"/>
+<text x="406" y="454" font-size="7" fill="#CB11AB" font-weight="600">решает</text>
+
+<!-- КТ-1: approved → right, back up to CORE -->
+<line x1="416" y1="266" x2="478" y2="266" stroke="#5E5880" stroke-width="1.2"/>
+<line x1="478" y1="266" x2="478" y2="150" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="448" y="260" font-size="7" fill="#3B82F6" font-weight="600">строим сами →</text>
+
+<!-- КТ-1: handoff → down to BU lane -->
+<line x1="398" y1="288" x2="398" y2="460" stroke="#D97706" stroke-width="1.5" stroke-dasharray="6,3"/>
+<line x1="398" y1="460" x2="398" y2="550" stroke="#D97706" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#ao)"/>
+
+<!-- Handoff box in BU lane -->
+<rect x="340" y="530" width="116" height="60" rx="6" fill="#FFFBF0" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="398" y="548" text-anchor="middle" font-size="9" font-weight="700" fill="#D97706">↓ Передаём</text>
+<text x="398" y="560" text-anchor="middle" font-size="9" font-weight="700" fill="#D97706">владельцу</text>
+<text x="398" y="576" text-anchor="middle" font-size="7" fill="#5E5880">CX·ПВЗ·Склад</text>
+<text x="398" y="586" text-anchor="middle" font-size="7" fill="#5E5880">Коммерция·ESG</text>
+
+<!-- ── О·2 ПРОТОТИП (CORE lane) ── -->
+<rect x="486" y="132" width="100" height="40" rx="6" fill="#3B82F6" stroke="#1D4ED8" stroke-width="1"/>
+<text x="536" y="149" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">О·2 Прототип</text>
+<text x="536" y="162" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.8)">6–12 недель</text>
+<rect x="526" y="166" width="20" height="3" rx="1" fill="rgba(255,255,255,.5)"/>
+<!-- MVP badge -->
+<rect x="486" y="118" width="100" height="14" rx="3" fill="rgba(59,130,246,.06)" stroke="#3B82F6" stroke-width=".7" stroke-dasharray="3,2"/>
+<text x="536" y="128" text-anchor="middle" font-size="7" font-weight="600" fill="#3B82F6">песочница · уровень по рискам</text>
+
+<!-- Arrow down to ТК -->
+<line x1="536" y1="172" x2="536" y2="348" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+
+<!-- ── КТ-2 (ТК lane) ── -->
+<rect x="521" y="356" width="30" height="30" rx="3" transform="rotate(45,536,371)" fill="#fff" stroke="#3B82F6" stroke-width="2"/>
+<text x="536" y="375" text-anchor="middle" font-size="7" font-weight="800" fill="#3B82F6">КТ-2</text>
+
+<!-- КТ-2 → УК -->
+<line x1="536" y1="392" x2="536" y2="458" stroke="#5E5880" stroke-width="1" stroke-dasharray="4,3"/>
+<circle cx="536" cy="458" r="3" fill="#CB11AB"/>
+
+<!-- КТ-2 approved → right, up to CORE -->
+<line x1="551" y1="371" x2="610" y2="371" stroke="#5E5880" stroke-width="1.2"/>
+<line x1="610" y1="371" x2="610" y2="150" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="582" y="365" font-size="7" fill="#2E8B57" font-weight="600">✓</text>
+
+<!-- ── О·3 РАЗГОН (CORE lane) ── -->
+<rect x="618" y="132" width="100" height="40" rx="6" fill="#00D4B4" stroke="#0D9488" stroke-width="1"/>
+<text x="668" y="149" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">О·3 Разгон</text>
+<text x="668" y="162" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.8)">1–3 месяца</text>
+<rect x="658" y="166" width="20" height="3" rx="1" fill="rgba(255,255,255,.5)"/>
+
+<!-- Arrow down to ФМК -->
+<line x1="668" y1="172" x2="668" y2="240" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+
+<!-- ── КТ-3 ★ КЛЮЧЕВАЯ РАЗВИЛКА (ФМК lane) ── -->
+<rect x="650" y="248" width="36" height="36" rx="4" transform="rotate(45,668,266)" fill="#F0FFFE" stroke="#0D9488" stroke-width="2.5"/>
+<text x="668" y="270" text-anchor="middle" font-size="8" font-weight="800" fill="#0D9488">КТ-3</text>
+<text x="668" y="244" text-anchor="middle" font-size="6" font-weight="700" fill="#0D9488">★ РАЗВИЛКА</text>
+
+<!-- КТ-3 → ТК → УК -->
+<line x1="668" y1="288" x2="668" y2="356" stroke="#5E5880" stroke-width="1" stroke-dasharray="4,3"/>
+<circle cx="668" cy="356" r="3" fill="#3B82F6"/>
+<line x1="668" y1="362" x2="668" y2="458" stroke="#5E5880" stroke-width="1" stroke-dasharray="4,3"/>
+<circle cx="668" cy="458" r="3" fill="#CB11AB"/>
+
+<!-- КТ-3 approved → right, up to CORE -->
+<line x1="686" y1="266" x2="748" y2="266" stroke="#5E5880" stroke-width="1.2"/>
+<line x1="748" y1="266" x2="748" y2="150" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="718" y="260" font-size="7" fill="#059669" font-weight="600">остаётся у нас →</text>
+
+<!-- КТ-3: handoff → down to BU lane -->
+<line x1="668" y1="288" x2="668" y2="460" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="6,3"/>
+<line x1="668" y1="460" x2="668" y2="550" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#at)"/>
+
+<!-- Handoff box 2 in BU lane -->
+<rect x="610" y="530" width="116" height="60" rx="6" fill="#F0FFFE" stroke="#0D9488" stroke-width="1.5"/>
+<text x="668" y="548" text-anchor="middle" font-size="9" font-weight="700" fill="#0D9488">↓ Передаётся</text>
+<text x="668" y="560" text-anchor="middle" font-size="9" font-weight="700" fill="#0D9488">владельцу</text>
+<text x="668" y="576" text-anchor="middle" font-size="7" fill="#5E5880">CX·ПВЗ·Склад</text>
+<text x="668" y="586" text-anchor="middle" font-size="7" fill="#5E5880">Коммерция·ESG</text>
+
+<!-- ── О·4 ЭКОСИСТЕМА (CORE lane) ── -->
+<rect x="756" y="132" width="106" height="40" rx="6" fill="#34D399" stroke="#059669" stroke-width="1"/>
+<text x="809" y="149" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">О·4 Экосистема</text>
+<text x="809" y="162" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.8)">3–12 месяцев</text>
+<rect x="799" y="166" width="20" height="3" rx="1" fill="rgba(255,255,255,.5)"/>
+
+<!-- Arrow down to УК -->
+<line x1="809" y1="172" x2="809" y2="448" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+
+<!-- ── КТ-4 (УК lane) ── -->
+<rect x="794" y="456" width="30" height="30" rx="3" transform="rotate(45,809,471)" fill="#fff" stroke="#CB11AB" stroke-width="2"/>
+<text x="809" y="475" text-anchor="middle" font-size="7" font-weight="800" fill="#CB11AB">КТ-4</text>
+
+<!-- КТ-4 approved → right, up to CORE -->
+<line x1="824" y1="471" x2="890" y2="471" stroke="#5E5880" stroke-width="1.2"/>
+<line x1="890" y1="471" x2="890" y2="150" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="858" y="465" font-size="7" fill="#2E8B57" font-weight="600">✓</text>
+
+<!-- ── О·5 ПЛАТО (CORE lane) ── -->
+<rect x="898" y="132" width="90" height="40" rx="6" fill="#FF85C0" stroke="#DB2777" stroke-width="1"/>
+<text x="943" y="149" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">О·5 Плато</text>
+<text x="943" y="162" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.8)">ongoing</text>
+<rect x="933" y="166" width="20" height="3" rx="1" fill="rgba(255,255,255,.5)"/>
+
+<!-- Arrow right to 3-way gateway -->
+<line x1="988" y1="152" x2="1024" y2="152" stroke="#5E5880" stroke-width="1.2" marker-end="url(#a)"/>
+
+<!-- ── 3-way gateway from О·5 ── -->
+<rect x="1020" y="137" width="30" height="30" rx="3" transform="rotate(45,1035,152)" fill="#fff" stroke="#DB2777" stroke-width="2"/>
+<text x="1035" y="156" text-anchor="middle" font-size="6" font-weight="800" fill="#DB2777">3</text>
+
+<!-- Path 1: Loop back to О·1 (curved up) -->
+<path d="M1035,137 C1035,100 700,95 398,118" stroke="#DB2777" stroke-width="1.5" stroke-dasharray="7,4" fill="none" marker-end="url(#ap)"/>
+<rect x="660" y="92" width="100" height="16" rx="8" fill="rgba(219,39,119,.06)"/>
+<text x="710" y="103" text-anchor="middle" font-size="8" font-weight="700" fill="#DB2777">разворот → О·1</text>
+
+<!-- Path 2: Harvest → end event -->
+<line x1="1050" y1="152" x2="1100" y2="152" stroke="#DB2777" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#ap)"/>
+<rect x="1108" y="136" width="80" height="34" rx="6" fill="rgba(255,133,192,.06)" stroke="#FF85C0" stroke-width="1"/>
+<text x="1148" y="152" text-anchor="middle" font-size="9" font-weight="700" fill="#DB2777">Сбор</text>
+<text x="1148" y="163" text-anchor="middle" font-size="9" font-weight="700" fill="#DB2777">прибыли</text>
+<!-- End event -->
+<circle cx="1220" cy="152" r="10" fill="none" stroke="#DB2777" stroke-width="3"/>
+<circle cx="1220" cy="152" r="4" fill="#DB2777"/>
+
+<!-- Path 3: Archive → О·6 end -->
+<line x1="1035" y1="168" x2="1035" y2="192" stroke="#8B8BAE" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="1035" y1="192" x2="1110" y2="192" stroke="#8B8BAE" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#a)"/>
+<rect x="1118" y="178" width="70" height="30" rx="6" fill="#EDEDF3" stroke="#8B8BAE" stroke-width="1" opacity=".7"/>
+<text x="1153" y="196" text-anchor="middle" font-size="9" font-weight="700" fill="#8B8BAE">О·6 Архив</text>
+<!-- End event -->
+<circle cx="1218" cy="193" r="10" fill="none" stroke="#8B8BAE" stroke-width="3" opacity=".6"/>
+<rect x="1213" y="188" width="10" height="10" rx="1" fill="#8B8BAE" opacity=".6"/>
+
+<!-- Handoff end events in BU lane -->
+<circle cx="480" cy="560" r="10" fill="none" stroke="#D97706" stroke-width="3"/>
+<circle cx="480" cy="560" r="4" fill="#D97706"/>
+<line x1="456" y1="560" x2="468" y2="560" stroke="#D97706" stroke-width="1.2" marker-end="url(#ao)"/>
+
+<circle cx="750" cy="560" r="10" fill="none" stroke="#0D9488" stroke-width="3"/>
+<circle cx="750" cy="560" r="4" fill="#0D9488"/>
+<line x1="726" y1="560" x2="738" y2="560" stroke="#0D9488" stroke-width="1.2" marker-end="url(#at)"/>
+
+<!-- ═══ STOP SIGNAL (boundary event on all stages) ═══ -->
+<!-- Timer boundary on О·3 as example -->
+<circle cx="718" cy="165" r="8" fill="#fff" stroke="#D03050" stroke-width="1.5"/>
+<text x="718" y="168" text-anchor="middle" font-size="6" font-weight="700" fill="#D03050">⏱</text>
+<text x="718" y="180" text-anchor="start" font-size="6" fill="#D03050">90д</text>
+
+<!-- ═══ BOTTOM INFO PANELS ═══ -->
+<rect x="40" y="620" width="460" height="80" rx="8" fill="rgba(208,48,80,.03)" stroke="rgba(208,48,80,.1)" stroke-width="1"/>
+<text x="56" y="640" font-size="11" font-weight="800" fill="#D03050">Стоп-сигналы</text>
+<text x="56" y="656" font-size="9" fill="#5E5880">• Двойной отказ комитета → закрытие или откат</text>
+<text x="56" y="670" font-size="9" fill="#5E5880">• 3 месяца без прогресса → обзор у директора</text>
+<text x="56" y="684" font-size="9" fill="#5E5880">• 90 дней без целевой метрики → авто-вынос на УК</text>
+
+<rect x="520" y="620" width="280" height="80" rx="8" fill="rgba(110,73,199,.03)" stroke="rgba(110,73,199,.1)" stroke-width="1"/>
+<text x="536" y="640" font-size="11" font-weight="800" fill="#6E49C7">Доработка (возврат)</text>
+<text x="536" y="656" font-size="9" fill="#5E5880">• Комитет «доработать» → стадия назад</text>
+<text x="536" y="670" font-size="9" fill="#5E5880">• Максимум 2 попытки на одной точке</text>
+<text x="536" y="684" font-size="9" fill="#5E5880">• 3-я неудача = закрытие</text>
+
+<rect x="820" y="620" width="280" height="80" rx="8" fill="rgba(0,0,0,.02)" stroke="rgba(0,0,0,.06)" stroke-width="1"/>
+<text x="836" y="640" font-size="11" font-weight="800" fill="#1A1430">Комитеты</text>
+<text x="836" y="656" font-size="9" fill="#8B5CF6" font-weight="600">ФМК — стоит ли строить? рынок, деньги</text>
+<text x="836" y="670" font-size="9" fill="#3B82F6" font-weight="600">ТК — можно ли построить? безопасность</text>
+<text x="836" y="684" font-size="9" fill="#CB11AB" font-weight="600">УК — финальное решение: go / no-go</text>
+
+<!-- ═══ LEGEND ═══ -->
+<rect x="40" y="716" width="1360" height="40" rx="6" fill="#FAFAFE" stroke="#E8E4F0" stroke-width="1"/>
+<!-- Start event -->
+<circle cx="70" cy="736" r="7" fill="none" stroke="#6E49C7" stroke-width="1.5"/>
+<circle cx="70" cy="736" r="3" fill="#6E49C7"/>
+<text x="84" y="740" font-size="8" fill="#5E5880">Старт</text>
+
+<!-- Task -->
+<rect x="118" y="728" width="36" height="16" rx="3" fill="#4FC3F7"/>
+<text x="160" y="740" font-size="8" fill="#5E5880">Стадия (subprocess)</text>
+
+<!-- Gateway -->
+<rect x="248" y="728" width="14" height="14" rx="2" transform="rotate(45,255,735)" fill="#fff" stroke="#6E49C7" stroke-width="1.5"/>
+<text x="270" y="740" font-size="8" fill="#5E5880">Контрольная точка</text>
+
+<!-- Key gateway -->
+<rect x="368" y="728" width="14" height="14" rx="2" transform="rotate(45,375,735)" fill="#FFFBF0" stroke="#F59E0B" stroke-width="2"/>
+<text x="390" y="740" font-size="8" fill="#5E5880">Ключевая развилка</text>
+
+<!-- Solid arrow -->
+<line x1="490" y1="736" x2="520" y2="736" stroke="#5E5880" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="528" y="740" font-size="8" fill="#5E5880">Основной путь</text>
+
+<!-- Dashed -->
+<line x1="620" y1="736" x2="650" y2="736" stroke="#D97706" stroke-width="1.5" stroke-dasharray="5,3"/>
+<text x="658" y="740" font-size="8" fill="#5E5880">Передача владельцу</text>
+
+<!-- Loop -->
+<line x1="770" y1="736" x2="800" y2="736" stroke="#DB2777" stroke-width="1.5" stroke-dasharray="5,3"/>
+<text x="808" y="740" font-size="8" fill="#5E5880">Разворот</text>
+
+<!-- End -->
+<circle cx="870" cy="736" r="7" fill="none" stroke="#5E5880" stroke-width="2.5"/>
+<circle cx="870" cy="736" r="3" fill="#5E5880"/>
+<text x="884" y="740" font-size="8" fill="#5E5880">Завершение</text>
+
+<!-- Timer -->
+<circle cx="950" cy="736" r="7" fill="#fff" stroke="#D03050" stroke-width="1.2"/>
+<text x="950" y="739" text-anchor="middle" font-size="6" fill="#D03050">⏱</text>
+<text x="964" y="740" font-size="8" fill="#5E5880">Таймер (стоп-сигнал)</text>
+
+<!-- Footer -->
+<text x="720" y="776" text-anchor="middle" font-size="9" fill="#B8A4E3">ОРБИТА · v11 · BPMN</text>
+
+</svg>
+</div>
+</body></html>
