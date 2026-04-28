@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>01 · Модель управления · единая система принятия решений</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@page { size: A3 landscape; margin: 0; }
+:root {
+  --bg1: #1F0F3A; --bg2: #2A1555; --bg3: #3B1E6E;
+  --pink: #CB11AB; --pink-hot: #FF3DC8; --pink-soft: #E879C4;
+  --violet: #6341B5; --violet-2: #8B5FD6; --violet-soft: #4B2E8C;
+  --gold: #FCD34D;
+  --white: #FFFFFF; --white-80: rgba(255,255,255,0.82); --white-60: rgba(255,255,255,0.6); --white-20: rgba(255,255,255,0.15);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100%; }
+body { font-family: "Inter", sans-serif; background: #13092A; color: var(--white); padding: 24px; display: flex; justify-content: center; }
+
+.slide {
+  width: 1587px; height: 1123px;
+  background:
+    radial-gradient(ellipse 900px 600px at 85% 15%, rgba(203,17,171,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 700px 500px at 10% 95%, rgba(139,95,214,0.20) 0%, transparent 50%),
+    linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+  border-radius: 6px;
+  padding: 30px 42px 28px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto auto auto auto 1fr;
+  gap: 14px;
+  box-shadow: 0 32px 100px rgba(19,9,42,0.6);
+}
+.slide::before {
+  content: ""; position: absolute;
+  top: -200px; right: -180px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,61,200,0.18), transparent 70%);
+  filter: blur(60px); z-index: 0;
+}
+.slide > * { position: relative; z-index: 1; }
+
+/* TOP BAR */
+.top-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 10px;
+}
+.eyebrow {
+  font-family: "Manrope"; font-weight: 800; font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--pink-soft);
+  display: flex; align-items: center; gap: 10px;
+}
+.eyebrow .num {
+  background: var(--pink); color: var(--white);
+  padding: 3px 9px; border-radius: 4px;
+  font-weight: 900;
+}
+.brand {
+  font-family: "Manrope"; font-weight: 900; font-style: italic;
+  font-size: 28px;
+  background: linear-gradient(135deg, var(--pink-hot), var(--pink));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+/* TITLE */
+.title {
+  font-family: "Manrope"; font-weight: 800; font-size: 36px;
+  line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--white);
+}
+.title .g {
+  background: linear-gradient(135deg, var(--pink-hot), var(--pink-soft));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.subtitle {
+  font-family: "Inter"; font-weight: 500; font-size: 13.5px;
+  line-height: 1.55; color: var(--white-80);
+  max-width: 1300px;
+  margin-top: 4px;
+}
+.subtitle b { color: var(--white); font-weight: 700; }
+
+/* BREADCRUMB TABS */
+.tabs {
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap;
+}
+.tab {
+  font-family: "Manrope"; font-weight: 700; font-size: 10px;
+  padding: 7px 16px; border-radius: 100px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--white-60);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.tab.active {
+  background: linear-gradient(135deg, var(--pink), var(--pink-hot));
+  color: var(--white);
+  border-color: var(--pink-hot);
+  box-shadow: 0 4px 16px rgba(255,61,200,0.35);
+}
+.tab-arrow { color: var(--white-60); font-size: 11px; margin: 0 -2px; }
+
+/* HERO BANNER · pink */
+.hero {
+  background: linear-gradient(135deg, var(--pink), var(--pink-hot));
+  border-radius: 14px;
+  padding: 14px 20px;
+  display: grid; grid-template-columns: 1fr auto; gap: 18px;
+  align-items: center;
+  box-shadow: 0 10px 36px rgba(203,17,171,0.35);
+}
+.hero .left .lbl {
+  font-family: "Manrope"; font-weight: 900; font-size: 15px;
+  color: var(--white); letter-spacing: -0.01em; line-height: 1.2;
+}
+.hero .left .note {
+  font-family: "Inter"; font-weight: 500; font-size: 11px;
+  color: rgba(255,255,255,0.88); margin-top: 3px;
+}
+.hero-pills { display: flex; gap: 7px; flex-wrap: wrap; }
+.hero-pill {
+  background: rgba(255,255,255,0.92); color: var(--pink);
+  font-family: "Manrope"; font-weight: 800; font-size: 10px;
+  padding: 7px 13px; border-radius: 6px;
+  letter-spacing: 0.04em;
+  text-align: center; line-height: 1.2;
+  max-width: 160px;
+}
+.hero-pill b { color: #7A0F5E; font-weight: 900; }
+
+/* 3 COMMITTEE CARDS */
+.committees { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; min-height: 0; }
+.com {
+  background: linear-gradient(160deg, rgba(99,65,181,0.28), rgba(75,46,140,0.22));
+  border: 1.5px solid rgba(139,95,214,0.35);
+  border-radius: 14px;
+  padding: 18px 20px 16px;
+  display: flex; flex-direction: column;
+  position: relative;
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+.com::before {
+  content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+  border-radius: 14px 14px 0 0;
+}
+.com.c1::before { background: linear-gradient(90deg, var(--pink), var(--pink-hot)); }
+.com.c2::before { background: linear-gradient(90deg, var(--violet-2), #A688F0); }
+.com.c3::before { background: linear-gradient(90deg, var(--gold), #F59E0B); }
+
+.com-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.com-num {
+  font-family: "Manrope"; font-weight: 900; font-size: 38px;
+  line-height: 1; letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--white), rgba(255,255,255,0.5));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  min-width: 44px;
+}
+.com.c1 .com-num { background: linear-gradient(135deg, var(--pink-hot), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.com.c2 .com-num { background: linear-gradient(135deg, #A688F0, var(--violet-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.com.c3 .com-num { background: linear-gradient(135deg, var(--gold), #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.com-ttl-wrap { flex: 1; }
+.com-ttl {
+  font-family: "Manrope"; font-weight: 800; font-size: 18px;
+  color: var(--white); letter-spacing: -0.02em; line-height: 1.15;
+}
+.com-q {
+  font-family: "Inter"; font-weight: 500; font-size: 12px;
+  color: var(--white-80); line-height: 1.4;
+  margin-top: 6px;
+  font-style: italic;
+}
+.com-q b { color: var(--white); font-weight: 700; font-style: normal; }
+
+.com-section {
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px dashed rgba(255,255,255,0.15);
+}
+.com-section .lbl {
+  font-family: "Manrope"; font-weight: 800; font-size: 8.5px;
+  color: var(--pink-soft); letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.com-section .v {
+  font-family: "Inter"; font-weight: 500; font-size: 11px;
+  color: var(--white-80); line-height: 1.5;
+}
+.com-section .v b { color: var(--white); font-weight: 700; }
+
+.com-footer {
+  margin-top: auto; padding-top: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 8px;
+}
+.com-lead {
+  font-family: "Inter"; font-weight: 500; font-size: 10px;
+  color: var(--white-60);
+}
+.com-lead b { color: var(--white-80); font-weight: 700; }
+.com-freq {
+  display: inline-flex; align-items: center;
+  font-family: "Manrope"; font-weight: 800; font-size: 9px;
+  padding: 4px 10px; border-radius: 5px;
+  background: rgba(255,255,255,0.12);
+  color: var(--white);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.com-exit {
+  margin-top: 10px;
+  background: linear-gradient(135deg, var(--pink), var(--pink-hot));
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex; align-items: center; gap: 8px;
+  font-family: "Manrope"; font-weight: 800; font-size: 10px;
+  color: var(--white);
+  box-shadow: 0 4px 14px rgba(203,17,171,0.3);
+  line-height: 1.3;
+}
+.com-exit .arr { font-size: 12px; }
+
+/* DECORATIVE RWB CORNER */
+.deco {
+  position: absolute; bottom: 30px; right: 38px;
+  width: 70px; height: 70px;
+  background: linear-gradient(135deg, var(--pink), var(--violet-2));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 30px rgba(203,17,171,0.4);
+  z-index: 2;
+}
+.deco-inner {
+  font-family: "Manrope"; font-weight: 900; font-style: italic;
+  font-size: 20px; color: var(--white);
+  letter-spacing: -0.03em;
+}
+
+@media print {
+  body { background: white; padding: 0; }
+  .slide { box-shadow: none; border-radius: 0; width: 100%; height: 100%; padding: 12mm 14mm; }
+}
+</style>
+</head>
+<body>
+
+<div class="slide">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="eyebrow">
+      <span class="num">01</span>
+      <span>Модель управления</span>
+    </div>
+    <div class="brand">rwb</div>
+  </div>
+
+  <!-- TITLE -->
+  <div>
+    <div class="title">Единая система <span class="g">принятия решений</span></div>
+    <div class="subtitle">Каждая инициатива проходит <b>три уровня защиты</b>. Каждый комитет отвечает на свой вопрос и не лезет в чужой. Каждый блок управляющей команды лидирует свой комитет: <b>организует повестку, готовит материалы, ведёт протокол и контролирует исполнение решений</b>.</div>
+  </div>
+
+  <!-- BREADCRUMB TABS -->
+  <div class="tabs">
+    <span class="tab active">RWB</span>
+    <span class="tab-arrow">›</span>
+    <span class="tab">Директор департамента</span>
+    <span class="tab-arrow">›</span>
+    <span class="tab">Управляющая команда</span>
+    <span class="tab-arrow">›</span>
+    <span class="tab">Инвест-проекты</span>
+    <span class="tab-arrow">›</span>
+    <span class="tab">Кросс-функциональные команды</span>
+  </div>
+
+  <!-- HERO BANNER · pink -->
+  <div class="hero">
+    <div class="left">
+      <div class="lbl">0. Штаб руководителей департаментов по развитию экосистемы</div>
+      <div class="note">Все проекты проходят через 3 точки контроля — комитеты ниже принимают решения</div>
+    </div>
+    <div class="hero-pills">
+      <div class="hero-pill"><b>Новые</b> источники<br>доходов</div>
+      <div class="hero-pill"><b>Недорогой</b><br>и быстрый старт</div>
+      <div class="hero-pill">Опция за счёт<br><b>приобретения</b></div>
+    </div>
+  </div>
+
+  <!-- 3 COMMITTEES -->
+  <div class="committees">
+
+    <!-- КОМИТЕТ 1 · ИНВЕСТ -->
+    <div class="com c1">
+      <div class="com-head">
+        <div class="com-num">1.</div>
+        <div class="com-ttl-wrap">
+          <div class="com-ttl">Инвест-комитет</div>
+          <div class="com-q"><b>«Стоит ли строить?»</b><br>Есть заказчик · соответствует стратегии · юнит-экономика · рынок</div>
+        </div>
+      </div>
+
+      <div class="com-section">
+        <div class="lbl">Состав</div>
+        <div class="v">Германова · Митин · Газизов · Пешняк</div>
+      </div>
+
+      <div class="com-section">
+        <div class="lbl">На вход</div>
+        <div class="v">бизнес-кейс · финмодель · конкуренты · запрос бюджета</div>
+      </div>
+
+      <div class="com-footer">
+        <div class="com-lead">Лидирует:<br><b>Блок «Стратегия · Развитие»</b></div>
+        <span class="com-freq">Еженедельно</span>
+      </div>
+
+      <div class="com-exit"><span class="arr">→</span>Решение: GO в прототип / доработать / не проходит</div>
+    </div>
+
+    <!-- КОМИТЕТ 2 · ТЕХНИЧЕСКИЙ -->
+    <div class="com c2">
+      <div class="com-head">
+        <div class="com-num">2.</div>
+        <div class="com-ttl-wrap">
+          <div class="com-ttl">Технический комитет</div>
+          <div class="com-q"><b>«Можно ли построить?»</b><br>Безопасно · уровень проработки · архитектура · сроки</div>
+        </div>
+      </div>
+
+      <div class="com-section">
+        <div class="lbl">Состав</div>
+        <div class="v">Бобрецов · Камшилин · Талызин</div>
+      </div>
+
+      <div class="com-section">
+        <div class="lbl">На вход</div>
+        <div class="v">арх-ревью · ИБ-проверка · предоценка инфры · тех-DD</div>
+      </div>
+
+      <div class="com-footer">
+        <div class="com-lead">Лидирует:<br><b>Технический блок</b></div>
+        <span class="com-freq">2× в месяц</span>
+      </div>
+
+      <div class="com-exit"><span class="arr">→</span>Решение: песочница / полный MVP / переработать стек</div>
+    </div>
+
+    <!-- КОМИТЕТ 3 · УПРАВЛЯЮЩИЙ -->
+    <div class="com c3">
+      <div class="com-head">
+        <div class="com-num">3.</div>
+        <div class="com-ttl-wrap">
+          <div class="com-ttl">Управляющий комитет</div>
+          <div class="com-q"><b>«Финальное решение»</b><br>Запуск · остановка · перенаправление · <b>передача в проф. департамент</b></div>
+        </div>
+      </div>
+
+      <div class="com-section">
+        <div class="lbl">Состав</div>
+        <div class="v">Ким Т.В. · Мирзоян Р.Г. · Демяшкевич · Митин</div>
+      </div>
+
+      <div class="com-section">
+        <div class="lbl">На выход</div>
+        <div class="v">старт + бюджет · <b>передача в профильный департамент</b> · архив</div>
+      </div>
+
+      <div class="com-footer">
+        <div class="com-lead">Лидирует:<br><b>Проектный офис</b></div>
+        <span class="com-freq">Еженедельно</span>
+      </div>
+
+      <div class="com-exit"><span class="arr">→</span>Решение: запуск MVP · передача в департамент · архив</div>
+    </div>
+
+  </div>
+
+  <!-- DECORATIVE RWB BADGE -->
+  <div class="deco">
+    <div class="deco-inner">rwb</div>
+  </div>
+
+</div>
+
+</body>
+</html>
