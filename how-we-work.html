@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как мы работаем · ОРБИТА</title>
+<link rel="stylesheet" href="design-system.css">
+<style>
+.hw-page{max-width:1280px;margin:0 auto;padding:32px 24px 96px}
+
+/* ── Hero ── */
+.hw-hero{padding:36px 32px;border-radius:14px;background:linear-gradient(135deg,rgba(123,92,184,0.10),rgba(0,212,180,0.06));border:1px solid var(--border);margin-bottom:24px}
+.hw-hero .eyebrow{font-family:var(--font-head);font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);margin-bottom:8px}
+.hw-hero h1{font-family:var(--font-head);font-size:30px;font-weight:900;line-height:1.18;margin-bottom:10px}
+.hw-hero .lead{font-size:14px;color:var(--muted);max-width:820px;line-height:1.6}
+.hw-hero-meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px;font-size:11px;color:var(--muted)}
+.hw-hero-meta b{color:var(--text);font-weight:800}
+
+/* ── TOC ── */
+.hw-toc{display:flex;gap:8px;flex-wrap:wrap;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:32px;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.hw-toc a{font-size:11px;font-weight:700;padding:6px 11px;border-radius:7px;background:var(--surface2);color:var(--text);text-decoration:none;border:1px solid var(--border);white-space:nowrap;transition:all .15s}
+.hw-toc a:hover{border-color:var(--violet-border);color:var(--violet);transform:translateY(-1px)}
+.hw-toc a .n{font-family:'SF Mono','Consolas',monospace;color:var(--muted);font-weight:700;margin-right:5px}
+
+/* ── Section ── */
+.hw-sec{margin-bottom:48px;scroll-margin-top:80px}
+.hw-sec-hdr{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}
+.hw-sec-num{font-family:'SF Mono','Consolas',monospace;font-size:14px;font-weight:800;color:var(--violet)}
+.hw-sec-title{font-family:var(--font-head);font-size:22px;font-weight:900;color:var(--text)}
+.hw-sec-tagline{font-size:12px;color:var(--muted);margin-left:auto;text-align:right;max-width:50%}
+.hw-sec-body{padding:0}
+.hw-callout{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;max-width:880px}
+
+/* ── Cards grid ── */
+.hw-grid{display:grid;gap:14px}
+.hw-grid.c2{grid-template-columns:repeat(2,1fr)}
+.hw-grid.c3{grid-template-columns:repeat(3,1fr)}
+.hw-grid.c4{grid-template-columns:repeat(4,1fr)}
+.hw-grid.c6{grid-template-columns:repeat(6,1fr)}
+
+.hw-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px;transition:border-color .15s}
+.hw-card:hover{border-color:var(--violet-border)}
+.hw-card-eyebrow{font-family:var(--font-head);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.hw-card-title{font-family:var(--font-head);font-size:14px;font-weight:800;color:var(--text);line-height:1.25}
+.hw-card-text{font-size:12px;color:var(--text);line-height:1.5}
+.hw-card-meta{font-size:11px;color:var(--muted);font-weight:600}
+.hw-card-meta b{color:var(--text);font-weight:700}
+
+/* ── Big map (картина целиком) ── */
+.hw-map{display:grid;grid-template-columns:1fr;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.hw-map-row{display:grid;gap:8px}
+.hw-map-row-label{font-family:var(--font-head);font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.hw-map-cells{display:grid;gap:8px}
+.hw-map-cells.c4{grid-template-columns:repeat(4,1fr)}
+.hw-map-cells.c6{grid-template-columns:repeat(6,1fr)}
+.hw-map-cells.c3{grid-template-columns:repeat(3,1fr)}
+.hw-cell{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;transition:border-color .15s}
+.hw-cell:hover{border-color:var(--violet-border)}
+.hw-cell-title{font-family:var(--font-head);font-size:12px;font-weight:800;line-height:1.2}
+.hw-cell-sub{font-size:10px;color:var(--muted);font-weight:600;line-height:1.35}
+.hw-cell-mini{font-family:'SF Mono','Consolas',monospace;font-size:9.5px;color:var(--muted);font-weight:700;letter-spacing:.04em}
+
+/* ── Chain (Цели → Инициативы → Эпики → Задачи) ── */
+.hw-chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px}
+.hw-chain-item{flex:1;min-width:180px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-right:18px;position:relative;display:flex;flex-direction:column;gap:6px}
+.hw-chain-item:last-child{margin-right:0}
+.hw-chain-item::after{content:"→";position:absolute;right:-14px;top:50%;transform:translateY(-50%);font-size:18px;font-weight:900;color:var(--violet)}
+.hw-chain-item:last-child::after{display:none}
+.hw-chain-item .lvl{font-family:var(--font-head);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--violet)}
+.hw-chain-item .name{font-family:var(--font-head);font-size:14px;font-weight:800}
+.hw-chain-item .desc{font-size:11px;color:var(--muted);line-height:1.5}
+.hw-chain-item .horizon{font-family:'SF Mono','Consolas',monospace;font-size:10px;color:var(--text);font-weight:700;border-top:1px dashed var(--border);padding-top:5px;margin-top:auto}
+
+/* ── Decomposition table ── */
+.hw-tbl{width:100%;border-collapse:collapse;font-size:12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.hw-tbl th{text-align:left;padding:11px 14px;font-family:var(--font-head);font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border);white-space:nowrap}
+.hw-tbl td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+.hw-tbl tr:last-child td{border-bottom:none}
+.hw-tbl tr:hover td{background:var(--surface2)}
+.hw-tbl .lvl-pill{display:inline-block;font-family:'SF Mono','Consolas',monospace;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;background:var(--violet-dim);color:var(--violet);border:1px solid var(--violet-border)}
+.hw-tbl .horizon-pill{display:inline-block;font-family:'SF Mono','Consolas',monospace;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+
+/* ── Stage cards (ОРБИТА) ── */
+.hw-stages{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.hw-stage{background:var(--card);border:2px solid;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.hw-stage .hd{display:flex;align-items:center;gap:6px}
+.hw-stage .ic{font-size:18px}
+.hw-stage .num{font-family:'SF Mono','Consolas',monospace;font-size:12px;font-weight:900}
+.hw-stage .nm{font-family:var(--font-head);font-size:12px;font-weight:800;line-height:1.2}
+.hw-stage .tag{font-size:10px;color:var(--muted);line-height:1.4}
+.hw-stage .meta{font-size:10px;color:var(--text);font-weight:600;border-top:1px dashed var(--border);padding-top:5px;margin-top:auto}
+.hw-stage .meta b{display:block;font-weight:700;margin-bottom:1px}
+.hw-stage .meta .small{font-size:9.5px;color:var(--muted);font-weight:600}
+
+/* ── Lifecycle types ── */
+.hw-life{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.hw-life-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.hw-life-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.hw-life-name{font-family:var(--font-head);font-size:14px;font-weight:800}
+.hw-life-tag{font-family:'SF Mono','Consolas',monospace;font-size:10px;font-weight:800;padding:3px 8px;border-radius:5px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.hw-life-tag.t-amber{background:rgba(255,184,48,.12);color:#FFB830;border-color:rgba(255,184,48,.35)}
+.hw-life-tag.t-teal{background:rgba(0,212,180,.12);color:#00D4B4;border-color:rgba(0,212,180,.35)}
+.hw-life-tag.t-rose{background:rgba(255,133,192,.12);color:#FF85C0;border-color:rgba(255,133,192,.35)}
+.hw-life-flow{font-family:'SF Mono','Consolas',monospace;font-size:11px;font-weight:700;padding:7px 9px;border-radius:6px;background:var(--surface2);color:var(--text);border:1px solid var(--border);line-height:1.4}
+.hw-life-ex{font-size:11px;color:var(--muted);line-height:1.5}
+.hw-life-ex b{color:var(--text);font-weight:700}
+
+/* ── Committees ── */
+.hw-comm{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.hw-comm-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.hw-comm-card.c-violet{border-color:rgba(123,92,184,.35);background:rgba(123,92,184,.04)}
+.hw-comm-card.c-amber{border-color:rgba(255,184,48,.35);background:rgba(255,184,48,.04)}
+.hw-comm-card.c-blue{border-color:rgba(79,195,247,.35);background:rgba(79,195,247,.04)}
+.hw-comm-card.c-teal{border-color:rgba(0,212,180,.35);background:rgba(0,212,180,.04)}
+.hw-comm-hdr{display:flex;align-items:baseline;gap:10px}
+.hw-comm-name{font-family:var(--font-head);font-size:15px;font-weight:900}
+.hw-comm-rhythm{font-family:'SF Mono','Consolas',monospace;font-size:10px;font-weight:700;padding:3px 9px;border-radius:5px;background:var(--surface2);color:var(--muted);border:1px solid var(--border);margin-left:auto}
+.hw-comm-q{font-style:italic;color:var(--muted);font-size:12px;line-height:1.5}
+.hw-comm-row{display:flex;gap:12px;font-size:11px;flex-wrap:wrap}
+.hw-comm-row .lbl{font-family:var(--font-head);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);min-width:70px}
+.hw-comm-row .val{flex:1;color:var(--text);font-weight:600;line-height:1.5}
+
+/* ── Rituals table ── */
+.hw-rituals{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+.hw-rituals table{width:100%;border-collapse:collapse;font-size:11.5px;min-width:900px}
+.hw-rituals th{text-align:left;padding:10px 12px;font-family:var(--font-head);font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border)}
+.hw-rituals td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.4}
+.hw-rituals tr:last-child td{border-bottom:none}
+.hw-rituals .r-name{font-weight:800;color:var(--text);font-size:12.5px}
+.hw-rituals .r-tool{font-family:'SF Mono','Consolas',monospace;font-size:10.5px;font-weight:700;background:var(--surface2);padding:2px 7px;border-radius:4px;color:var(--text);border:1px solid var(--border);white-space:nowrap}
+
+/* ── Tiers ── */
+.hw-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.hw-tier{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.hw-tier-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.hw-tier-name{font-family:var(--font-head);font-size:13px;font-weight:900}
+.hw-tier-pill{font-family:'SF Mono','Consolas',monospace;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:var(--violet-dim);color:var(--violet);border:1px solid var(--violet-border)}
+.hw-tier-aud{font-size:11px;color:var(--muted);font-weight:600}
+.hw-tier-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px}
+.hw-tier-list li{font-size:11.5px;line-height:1.4;padding-left:14px;position:relative}
+.hw-tier-list li::before{content:"•";position:absolute;left:0;color:var(--violet);font-weight:900}
+
+/* ── Tools ── */
+.hw-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hw-tool{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s}
+.hw-tool:hover{border-color:var(--violet-border)}
+.hw-tool-name{font-family:var(--font-head);font-size:15px;font-weight:900}
+.hw-tool-corp{font-family:'SF Mono','Consolas',monospace;font-size:10px;font-weight:700;color:var(--muted);padding:3px 8px;border-radius:5px;background:var(--surface2);border:1px solid var(--border);align-self:flex-start}
+.hw-tool-corp.in-progress{color:#FFB830;background:rgba(255,184,48,.08);border-color:rgba(255,184,48,.3)}
+.hw-tool-orbit{font-family:'SF Mono','Consolas',monospace;font-size:10px;font-weight:700;color:#00B89C;padding:3px 8px;border-radius:5px;background:rgba(0,212,180,.08);border:1px solid rgba(0,212,180,.3);align-self:flex-start}
+.hw-tool-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--text);line-height:1.5}
+.hw-tool-list li{padding-left:14px;position:relative}
+.hw-tool-list li::before{content:"›";position:absolute;left:0;color:var(--violet);font-weight:700}
+.hw-tool-link{font-size:11px;font-weight:700;padding:6px 11px;border-radius:6px;text-decoration:none;background:var(--violet-dim);color:var(--violet);border:1px solid var(--violet-border);align-self:flex-start;transition:transform .15s}
+.hw-tool-link:hover{transform:translateX(2px)}
+
+/* ── Calendar ── */
+.hw-cal{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.hw-cal-q{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.hw-cal-q-hdr{display:flex;justify-content:space-between;align-items:baseline}
+.hw-cal-q-name{font-family:var(--font-head);font-size:14px;font-weight:900}
+.hw-cal-q-h{font-family:'SF Mono','Consolas',monospace;font-size:10px;font-weight:700;color:var(--muted)}
+.hw-cal-q-list{margin:0;padding:0;list-style:none;font-size:11px;line-height:1.5;color:var(--text)}
+.hw-cal-q-list li{padding-left:12px;position:relative}
+.hw-cal-q-list li::before{content:"·";position:absolute;left:3px;color:var(--violet);font-weight:900}
+
+/* ── Defense template ── */
+.hw-defense{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.hw-def{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.hw-def-num{font-family:'SF Mono','Consolas',monospace;font-size:11px;font-weight:800;color:var(--violet)}
+.hw-def-name{font-family:var(--font-head);font-size:13px;font-weight:800}
+.hw-def-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px;font-size:11.5px;line-height:1.5}
+.hw-def-list li{padding-left:12px;position:relative;color:var(--text)}
+.hw-def-list li::before{content:"›";position:absolute;left:0;color:var(--violet);font-weight:700}
+
+/* ── 8 Decisions ── */
+.hw-dec-tbl{font-size:11.5px}
+.hw-dec-tbl td{padding:9px 12px}
+.hw-dec-tbl .st{font-family:'SF Mono','Consolas',monospace;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap}
+.hw-dec-tbl .st-todo{background:rgba(255,184,48,.12);color:#D89200;border:1px solid rgba(255,184,48,.35)}
+.hw-dec-tbl .st-wip{background:rgba(79,195,247,.12);color:#0B7FB3;border:1px solid rgba(79,195,247,.35)}
+.hw-dec-tbl .st-done{background:rgba(0,212,180,.12);color:#00B89C;border:1px solid rgba(0,212,180,.35)}
+.hw-dec-tbl .st-info{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+
+/* ── Open questions ── */
+.hw-oq{background:rgba(255,184,48,0.05);border:1px solid rgba(255,184,48,0.35);border-radius:12px;padding:18px}
+.hw-oq h3{font-family:var(--font-head);font-size:14px;font-weight:900;color:#D89200;margin-bottom:10px}
+.hw-oq ol{margin:0;padding-left:20px;font-size:12.5px;line-height:1.7;color:var(--text)}
+.hw-oq ol li{margin-bottom:4px}
+
+/* ── Footer ── */
+.hw-foot{margin-top:48px;padding:18px;border-radius:10px;background:var(--surface);border:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.6}
+.hw-foot b{color:var(--text);font-weight:700}
+
+@media(max-width:960px){
+  .hw-grid.c2,.hw-grid.c3,.hw-grid.c4,.hw-grid.c6,.hw-stages,.hw-life,.hw-comm,.hw-tiers,.hw-tools,.hw-cal,.hw-defense{grid-template-columns:1fr}
+  .hw-hero h1{font-size:22px}
+  .hw-chain-item{margin-right:0;margin-bottom:18px}
+  .hw-chain-item::after{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="nav-mount"></div>
+
+<div class="hw-page">
+
+  <!-- HERO -->
+  <div class="hw-hero">
+    <div class="eyebrow">Департамент развития экосистемы и инноваций · РВБ</div>
+    <h1>Как мы работаем — операционка продуктового контура Департамента</h1>
+    <div class="lead">
+      Единая страница, объединяющая операционную модель Департамента, проектный фреймворк,
+      жизненный цикл ОРБИТА, ритуалы управления, шаблон карточки проекта Этина и стек инструментов.
+      Сборка по двум документам: Опер-модель Департамента (28.04.2026) + Проектный фреймворк (01.2026).
+    </div>
+    <div class="hw-hero-meta">
+      <span>Источники: <b>Опер-модель 28.04 · Проектный фреймворк 01.2026 · stages.js · протокол 23.04</b></span>
+      <span>Версия: <b>0.9-draft</b></span>
+      <span>Под согласование: <b>Этин</b></span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <nav class="hw-toc">
+    <a href="#map"><span class="n">01</span>Картина целиком</a>
+    <a href="#chain"><span class="n">02</span>Сквозная цепочка</a>
+    <a href="#decomp"><span class="n">03</span>Декомпозиция целей</a>
+    <a href="#orbit"><span class="n">04</span>6 стадий ОРБИТА</a>
+    <a href="#lifecycle"><span class="n">05</span>4 типа жизненного цикла</a>
+    <a href="#committees"><span class="n">06</span>4 комитета</a>
+    <a href="#rituals"><span class="n">07</span>6 ритуалов</a>
+    <a href="#rhythm"><span class="n">08</span>Управленческий ритм</a>
+    <a href="#defense"><span class="n">09</span>Шаблон защиты проекта</a>
+    <a href="#tiers"><span class="n">10</span>3 уровня репортинга</a>
+    <a href="#tools"><span class="n">11</span>Стек инструментов</a>
+    <a href="#calendar"><span class="n">12</span>Календарь 2026</a>
+    <a href="#decisions"><span class="n">13</span>Решения 23.04</a>
+    <a href="#open"><span class="n">14</span>Открытые вопросы</a>
+  </nav>
+
+  <!-- 01. Картина целиком -->
+  <section class="hw-sec" id="map">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">01</span><span class="hw-sec-title">Картина целиком</span><span class="hw-sec-tagline">Опер-модель, слайд 2</span></div>
+    <div class="hw-callout">4 сквозные функции управляют 3 портфелями через 4 комитета и 6-стадийный жизненный цикл.</div>
+    <div class="hw-map">
+
+      <div class="hw-map-row">
+        <div class="hw-map-row-label">4 сквозные функции — управляющий блок</div>
+        <div class="hw-map-cells c4">
+          <div class="hw-cell"><div class="hw-cell-mini">Когда · кем · за сколько</div><div class="hw-cell-title">Проектный офис</div><div class="hw-cell-sub">Сорваль В. — реестр, Gate-цикл, поручения, протоколы УК</div></div>
+          <div class="hw-cell"><div class="hw-cell-mini">Стоит ли строить · профит</div><div class="hw-cell-title">Монетизация</div><div class="hw-cell-sub">Боголепова Л. — бизнес-кейсы, финмодель. Лидер ИК</div></div>
+          <div class="hw-cell"><div class="hw-cell-mini">Как построить · безопасно ли</div><div class="hw-cell-title">Технический</div><div class="hw-cell-sub">Талызин А. — арх-ревью, ИБ. Лидер ТК</div></div>
+          <div class="hw-cell"><div class="hw-cell-mini">Что строим · для кого · опыт</div><div class="hw-cell-title">Прод. развитие</div><div class="hw-cell-sub">[TBD: лидер] — Discovery, CustDev, продуктовая стратегия</div></div>
+        </div>
+      </div>
+
+      <div class="hw-map-row">
+        <div class="hw-map-row-label">Жизненный цикл — 6 стадий</div>
+        <div class="hw-map-cells c6" id="hw-stages-mini"></div>
+      </div>
+
+      <div class="hw-map-row">
+        <div class="hw-map-row-label">4 комитета</div>
+        <div class="hw-map-cells c4">
+          <div class="hw-cell"><div class="hw-cell-mini">Ежеквартально</div><div class="hw-cell-title">Штаб</div><div class="hw-cell-sub">Стратегия портфеля</div></div>
+          <div class="hw-cell"><div class="hw-cell-mini">Еженедельно</div><div class="hw-cell-title">Инвест</div><div class="hw-cell-sub">Стоит ли строить</div></div>
+          <div class="hw-cell"><div class="hw-cell-mini">2 раза в месяц</div><div class="hw-cell-title">Тех</div><div class="hw-cell-sub">Можно ли построить</div></div>
+          <div class="hw-cell"><div class="hw-cell-mini">По запросу</div><div class="hw-cell-title">УК</div><div class="hw-cell-sub">Финальное решение, лидирует ПО</div></div>
+        </div>
+      </div>
+
+      <div class="hw-map-row">
+        <div class="hw-map-row-label">3 портфеля проектов</div>
+        <div class="hw-map-cells c3">
+          <div class="hw-cell"><div class="hw-cell-mini">До О·1</div><div class="hw-cell-title">Входящие</div><div class="hw-cell-sub">Заявки на скрининге</div></div>
+          <div class="hw-cell"><div class="hw-cell-mini">О·1–О·3</div><div class="hw-cell-title">Новые</div><div class="hw-cell-sub">Новые центры прибыли</div></div>
+          <div class="hw-cell"><div class="hw-cell-mini">О·3–О·5</div><div class="hw-cell-title">Текущие</div><div class="hw-cell-sub">12 проектов в портфеле</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02. Сквозная цепочка -->
+  <section class="hw-sec" id="chain">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">02</span><span class="hw-sec-title">Сквозная цепочка работ</span><span class="hw-sec-tagline">Фреймворк, слайд 3</span></div>
+    <div class="hw-callout">Единый стандарт от стратегии до задач: связываем стратегические векторы топ-менеджмента с действиями команд через 4 уровня.</div>
+    <div class="hw-chain">
+      <div class="hw-chain-item">
+        <span class="lvl">Уровень 1 · Стратегия</span>
+        <span class="name">Цели</span>
+        <span class="desc">Бизнес-результаты и продуктовые события, которые влияют на цели RWB (метрики GWM)</span>
+        <span class="horizon">Горизонт 6–12 мес</span>
+      </div>
+      <div class="hw-chain-item">
+        <span class="lvl">Уровень 2 · Тактика</span>
+        <span class="name">Инициативы</span>
+        <span class="desc">Крупное направление изменений или гипотеза ценности, двигающая метрики целей</span>
+        <span class="horizon">Горизонт 3 мес</span>
+      </div>
+      <div class="hw-chain-item">
+        <span class="lvl">Уровень 3 · Команда</span>
+        <span class="name">Эпики</span>
+        <span class="desc">Организованный набор работ (фичи, релизы) с чётким сроком, объёмом, владельцем и ресурсом</span>
+        <span class="horizon">Горизонт до 2 мес</span>
+      </div>
+      <div class="hw-chain-item">
+        <span class="lvl">Уровень 4 · Операционка</span>
+        <span class="name">Задачи</span>
+        <span class="desc">Атомарный элемент работы (user story, bug, исследование, техдолг) с чётким результатом</span>
+        <span class="horizon">Горизонт 1–3 дня</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03. Декомпозиция -->
+  <section class="hw-sec" id="decomp">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">03</span><span class="hw-sec-title">Декомпозиция целей на уровни исполнителей</span><span class="hw-sec-tagline">Фреймворк, слайд 4</span></div>
+    <div class="hw-callout">Каждому уровню исполнителя — свой горизонт планирования и тип артефакта. Цели каскадируются сверху вниз.</div>
+    <table class="hw-tbl">
+      <thead><tr>
+        <th>Уровень</th><th>Кто</th><th>Тип</th><th>Горизонт</th><th>Что планирует</th><th>Метрика</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><span class="lvl-pill">1</span></td><td>Менеджмент RWB</td><td>Цель компании</td><td><span class="horizon-pill">∞</span></td><td>Рост GVG RWB</td><td>GVG RWB · ₽</td></tr>
+        <tr><td><span class="lvl-pill">2</span></td><td>Директор Департамента</td><td>Цель Департамента</td><td><span class="horizon-pill">от 12 мес</span></td><td>Лидерство в продуктах для B2B/B2C пользователей</td><td>Доля вовлечённых пользователей</td></tr>
+        <tr><td><span class="lvl-pill">3</span></td><td>Рук. направления / CPO</td><td>Цель Направления</td><td><span class="horizon-pill">6–12 мес</span></td><td>Повышение вовлечённости B2C-пользователей сервиса</td><td>Доля вовлечённых B2C-пользователей</td></tr>
+        <tr><td><span class="lvl-pill">4</span></td><td>Продакт-лид</td><td>Инициатива</td><td><span class="horizon-pill">3–6 мес</span></td><td>Перезапуск «Кабинета автора»</td><td>Рост авторов</td></tr>
+        <tr><td><span class="lvl-pill">5</span></td><td>Продакт-менеджер</td><td>Эпик</td><td><span class="horizon-pill">до 2 мес</span></td><td>Точка входа в «Кабинет автора»</td><td>Переходы в кабинет</td></tr>
+        <tr><td><span class="lvl-pill">6</span></td><td>Инженер / специалист</td><td>Задача</td><td><span class="horizon-pill">до недели</span></td><td>Кнопка «Создать кабинет автора»</td><td>Кнопка корректно работает</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 04. ОРБИТА -->
+  <section class="hw-sec" id="orbit">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">04</span><span class="hw-sec-title">6 стадий ОРБИТА — жизненный цикл проекта</span><span class="hw-sec-tagline">stages.js · единый источник правды</span></div>
+    <div class="hw-callout">Все проекты проходят О·0..О·5 (О·6 Архив — служебная). Каждая стадия закреплена за своим комитетом, имеет цель, развилку и срок.</div>
+    <div class="hw-stages" id="hw-stages-full"></div>
+  </section>
+
+  <!-- 05. 4 типа жизненного цикла -->
+  <section class="hw-sec" id="lifecycle">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">05</span><span class="hw-sec-title">4 типа жизненного цикла под тип проекта</span><span class="hw-sec-tagline">Опер-модель, слайд 6</span></div>
+    <div class="hw-callout">Не все проекты проходят полный путь. Тип задаёт пайплайн, обязательные комитеты и срок до интеграции.</div>
+    <div class="hw-life">
+
+      <div class="hw-life-card">
+        <div class="hw-life-hdr">
+          <div class="hw-life-name">Продукт</div>
+          <span class="hw-life-tag">Полный цикл</span>
+        </div>
+        <div class="hw-life-flow">О·0 → О·1 → О·2 → О·3 → О·4 → О·5</div>
+        <div class="hw-life-ex">Все 6 стадий, все 3 комитета. Максимальный контроль и срок.<br>Примеры: <b>Маркетплейс Услуг, ВБ Игры, ВБ Здоровье, ВБ Дети</b></div>
+      </div>
+
+      <div class="hw-life-card">
+        <div class="hw-life-hdr">
+          <div class="hw-life-name">Тех. решение / платформа</div>
+          <span class="hw-life-tag t-amber">Без коммерч. комитета</span>
+        </div>
+        <div class="hw-life-flow">О·0 → О·1 → О·2 → О·3 → О·4 → О·5</div>
+        <div class="hw-life-ex">Без Инвест-комитета на входе. Фокус на Тех-комитете. Не передаётся в коммерцию.<br>Примеры: <b>ВБ Книги, Облако (аренда), внутренние сервисы</b></div>
+      </div>
+
+      <div class="hw-life-card">
+        <div class="hw-life-hdr">
+          <div class="hw-life-name">Партнёрская интеграция</div>
+          <span class="hw-life-tag t-teal">−30–40% времени</span>
+        </div>
+        <div class="hw-life-flow">О·0 → О·1 → ⊘ О·2 → О·3 → О·4 → О·5</div>
+        <div class="hw-life-ex">Сокращённый: пропускает О·2 (MVP делает партнёр). Решение build / buy / integrate.<br>Примеры: <b>Профи.ру, YCLIENTS, СберЗдоровье, ВБ Запись</b></div>
+      </div>
+
+      <div class="hw-life-card">
+        <div class="hw-life-hdr">
+          <div class="hw-life-name">Ивент / спецпроект</div>
+          <span class="hw-life-tag t-rose">Мини-цикл</span>
+        </div>
+        <div class="hw-life-flow">О·0 → О·2 → закрытие</div>
+        <div class="hw-life-ex">Разовый, без стадий роста. Решение «повторить» = новый О·0.<br>Примеры: <b>хакатоны, AR-квесты в ПВЗ, разовые активации</b></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 06. Комитеты -->
+  <section class="hw-sec" id="committees">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">06</span><span class="hw-sec-title">4 комитета — кто лидирует и что готовит ПО</span><span class="hw-sec-tagline">Опер-модель, слайд 7</span></div>
+    <div class="hw-callout">Каждый комитет отвечает на свой вопрос и не лезет в чужой. ПО лидирует УК и обеспечивает протоколирование всех решений.</div>
+    <div class="hw-comm">
+
+      <div class="hw-comm-card c-violet">
+        <div class="hw-comm-hdr"><span class="hw-comm-name">Штаб</span><span class="hw-comm-rhythm">Ежеквартально</span></div>
+        <div class="hw-comm-q">«Стратегия портфеля. Новые источники доходов · недорогой и быстрый старт · опции через M&A · оценка экспертизы команд»</div>
+        <div class="hw-comm-row"><span class="lbl">Лидер</span><span class="val">Руководители департаментов экосистемы (с HR)</span></div>
+        <div class="hw-comm-row"><span class="lbl">ПО готовит</span><span class="val">Портфельный обзор · итоги квартала · план</span></div>
+      </div>
+
+      <div class="hw-comm-card c-amber">
+        <div class="hw-comm-hdr"><span class="hw-comm-name">Инвест-комитет</span><span class="hw-comm-rhythm">Еженедельно</span></div>
+        <div class="hw-comm-q">«Стоит ли строить? Есть ли заказчик · соответствует стратегии · сами или M&A»</div>
+        <div class="hw-comm-row"><span class="lbl">Лидер</span><span class="val">Боголепова Л. (Монетизация)</span></div>
+        <div class="hw-comm-row"><span class="lbl">Состав</span><span class="val">Германова, Митин, Газизов, Пешняк</span></div>
+        <div class="hw-comm-row"><span class="lbl">ПО готовит</span><span class="val">Слот · бизнес-кейс · финмодель · OMD · протокол</span></div>
+      </div>
+
+      <div class="hw-comm-card c-blue">
+        <div class="hw-comm-hdr"><span class="hw-comm-name">Тех-комитет</span><span class="hw-comm-rhythm">2 раза в месяц</span></div>
+        <div class="hw-comm-q">«Можно ли построить? Архитектура · ИБ · сами / интегрируем / M&A»</div>
+        <div class="hw-comm-row"><span class="lbl">Лидер</span><span class="val">Талызин А. (Технический)</span></div>
+        <div class="hw-comm-row"><span class="lbl">Состав</span><span class="val">Бобрецов, Камшилин, Талызин</span></div>
+        <div class="hw-comm-row"><span class="lbl">ПО готовит</span><span class="val">Арх-brief · ИБ-чеклист · оценка инфры</span></div>
+      </div>
+
+      <div class="hw-comm-card c-teal">
+        <div class="hw-comm-hdr"><span class="hw-comm-name">Управляющий комитет</span><span class="hw-comm-rhythm">По запросу</span></div>
+        <div class="hw-comm-q">«Финальное решение. Запуск MVP · интеграция · масштаб · архив»</div>
+        <div class="hw-comm-row"><span class="lbl">Лидер</span><span class="val">Сорваль В. (ПО)</span></div>
+        <div class="hw-comm-row"><span class="lbl">Состав</span><span class="val">Ким Т.В., Мирзоян Р.Г., Демяшкевич, Митин</span></div>
+        <div class="hw-comm-row"><span class="lbl">ПО готовит</span><span class="val">Повестка · кейс · бюджет · протокол · decision log</span></div>
+      </div>
+
+    </div>
+    <div style="margin-top:14px;text-align:right">
+      <a href="committees.html" style="font-size:11px;font-weight:700;color:var(--violet);text-decoration:none">Подробно по комитетам →</a>
+    </div>
+  </section>
+
+  <!-- 07. Ритуалы -->
+  <section class="hw-sec" id="rituals">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">07</span><span class="hw-sec-title">6 ритуалов управления продуктом</span><span class="hw-sec-tagline">Фреймворк, слайд 6</span></div>
+    <div class="hw-callout">Перечень обязательных ритуалов для принятия ключевых решений. Каждый ритуал имеет owner, ритм, SLA и инструмент.</div>
+    <div class="hw-rituals">
+      <table>
+        <thead><tr>
+          <th>Ритуал</th><th>Цель</th><th>Результат</th><th>Ритм</th><th>Owner</th><th>SLA</th><th>Инструмент</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td class="r-name">Цели</td>
+            <td>Планирование и защита целей у бизнес-лидеров. Связанность инициатив с целями</td>
+            <td>Согласованные цели на 6–12 мес</td>
+            <td>1 раз в полгода</td>
+            <td>PMO + CPO/CTO + CEO BU</td>
+            <td>14 дней</td>
+            <td><span class="r-tool">WB WIKI (GOALS)</span></td>
+          </tr>
+          <tr>
+            <td class="r-name">Инициативы</td>
+            <td>Планирование и защита инициатив для оценки и приоритезации</td>
+            <td>Согласованный список инициатив</td>
+            <td>1 раз в квартал</td>
+            <td>PMO + CPO/CTO</td>
+            <td>14 дней</td>
+            <td><span class="r-tool">WB YouTrack</span></td>
+          </tr>
+          <tr>
+            <td class="r-name">Декомпозиция</td>
+            <td>Оценка, приоритезация и проектирование инициатив. Декомпозиция до проектов (эпики, фичи, релизы)</td>
+            <td>Приоритезированный роадмэп проектов и беклог эпиков/фичей/релизов на 3 месяца с оценкой ресурсов</td>
+            <td>1 раз в квартал</td>
+            <td>PMO + CPO/CTO + CEO BU</td>
+            <td>7–14 дней</td>
+            <td><span class="r-tool">WB YouTrack</span></td>
+          </tr>
+          <tr>
+            <td class="r-name">Ревью</td>
+            <td>Обзор продуктовых артефактов инициатив и принятие решения Go / No-go</td>
+            <td>Решения о прохождении контрольной точки</td>
+            <td>1 раз в месяц</td>
+            <td>CPO</td>
+            <td>30 минут</td>
+            <td><span class="r-tool">WB WIKI (GOALS)</span></td>
+          </tr>
+          <tr>
+            <td class="r-name">Проектный комитет</td>
+            <td>Синхронизация статусов, принятие решения по проектам. Оценка входящих ad-hoc инициатив</td>
+            <td>Решения по проектам</td>
+            <td>1 раз в месяц</td>
+            <td>PMO + Product PM</td>
+            <td>30 минут</td>
+            <td><span class="r-tool">WB YouTrack</span></td>
+          </tr>
+          <tr>
+            <td class="r-name">Продуктовый синк</td>
+            <td>Поддержание общего контекста: предстоящие запуски, хайлайты, метрики</td>
+            <td>Статус по запускам / релизам и метрикам</td>
+            <td>1 раз в месяц</td>
+            <td>CPO</td>
+            <td>30 минут</td>
+            <td><span class="r-tool">Презентация (шаблон)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 08. Управленческий ритм -->
+  <section class="hw-sec" id="rhythm">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">08</span><span class="hw-sec-title">Управленческий ритм</span><span class="hw-sec-tagline">Фреймворк, слайд 5</span></div>
+    <div class="hw-callout">4 уровня ритма: от стратегического планирования раз в полгода до спринтового цикла внутри команд.</div>
+    <div class="hw-grid c4">
+      <div class="hw-card">
+        <div class="hw-card-eyebrow">Полугодовой</div>
+        <div class="hw-card-title">Синк по целям продуктов в OKR</div>
+        <div class="hw-card-text">Стратегическое планирование (Q4 предыдущего года). Review каждые полгода (H1 / H2). Статус по ключевым результатам, инициативам, метрикам. Приоритизация (весовая модель). Каскадирование целей и инициатив.</div>
+      </div>
+      <div class="hw-card">
+        <div class="hw-card-eyebrow">Квартальный</div>
+        <div class="hw-card-title">Контрольные точки Q1–Q4</div>
+        <div class="hw-card-text">Обзор по инициативам и метрикам, статус (план / факт). Калибровка целей и планов. План реализации инициатив на 3 месяца, приоритизация, проектирование (эпики, фичи, релизы).</div>
+      </div>
+      <div class="hw-card">
+        <div class="hw-card-eyebrow">Месячный</div>
+        <div class="hw-card-title">Светофор статусов</div>
+        <div class="hw-card-text">Синк по целям. Статус по инициативам и метрикам (светофор). Проверка гипотез и эффекта на метрики. Ревью релизов.</div>
+      </div>
+      <div class="hw-card">
+        <div class="hw-card-eyebrow">Спринтовый</div>
+        <div class="hw-card-title">Внутри команд</div>
+        <div class="hw-card-text">Эскалация рисков и проблем. Планирование спринта. Реализация задач и сторис.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09. Шаблон защиты -->
+  <section class="hw-sec" id="defense">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">09</span><span class="hw-sec-title">Шаблон защиты проекта — 10 минут на проект</span><span class="hw-sec-tagline">Аудио Этина, 30.04</span></div>
+    <div class="hw-callout">6 блоков, каждый слайд презентации = ответ на один пункт шаблона. Структура едина для всех проектов.</div>
+    <div class="hw-defense">
+      <div class="hw-def">
+        <span class="hw-def-num">Блок 1</span>
+        <span class="hw-def-name">Идентификация</span>
+        <ul class="hw-def-list">
+          <li>Название проекта</li>
+          <li>Заказчик</li>
+        </ul>
+      </div>
+      <div class="hw-def">
+        <span class="hw-def-num">Блок 2</span>
+        <span class="hw-def-name">Рынок</span>
+        <ul class="hw-def-list">
+          <li>Размер ниши в стратегии онлайн</li>
+          <li>Ожидаемая доля рынка в цифрах</li>
+        </ul>
+      </div>
+      <div class="hw-def">
+        <span class="hw-def-num">Блок 3</span>
+        <span class="hw-def-name">Стратегия</span>
+        <ul class="hw-def-list">
+          <li>Попадание в общую стратегию компании</li>
+          <li>Предполагаемый рост GMV</li>
+        </ul>
+      </div>
+      <div class="hw-def">
+        <span class="hw-def-num">Блок 4</span>
+        <span class="hw-def-name">Команда (условная)</span>
+        <ul class="hw-def-list">
+          <li>Лидер проекта</li>
+          <li>Ключевые участники</li>
+          <li>Примерный ФОТ</li>
+        </ul>
+      </div>
+      <div class="hw-def">
+        <span class="hw-def-num">Блок 5</span>
+        <span class="hw-def-name">Наработки и интеграции</span>
+        <ul class="hw-def-list">
+          <li>Какие наработки есть</li>
+          <li>Кем интегрируемся внутри компании</li>
+        </ul>
+      </div>
+      <div class="hw-def">
+        <span class="hw-def-num">Блок 6</span>
+        <span class="hw-def-name">Разведка и P&L</span>
+        <ul class="hw-def-list">
+          <li>Чекпоинты из разведки</li>
+          <li>Есть ли P&L</li>
+          <li>Основные цифры из P&L (выручка / маржа / EBITDA / окупаемость)</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:14px;text-align:right">
+      <a href="registry-projects.html" style="font-size:11px;font-weight:700;color:var(--violet);text-decoration:none">Реестр всех проектов →</a>
+    </div>
+  </section>
+
+  <!-- 10. Tiers -->
+  <section class="hw-sec" id="tiers">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">10</span><span class="hw-sec-title">3 уровня репортинга для C-level</span><span class="hw-sec-tagline">Фреймворк, слайд 9</span></div>
+    <div class="hw-callout">Видимость = контроль. Прозрачим реализацию продуктов на ключевые группы.</div>
+    <div class="hw-tiers">
+      <div class="hw-tier">
+        <div class="hw-tier-hdr">
+          <span class="hw-tier-name">Продукт</span>
+          <span class="hw-tier-pill">Tier 2</span>
+        </div>
+        <span class="hw-tier-aud">Бизнес-лидер · Продуктовый лидер</span>
+        <ul class="hw-tier-list">
+          <li>Продуктовые цели</li>
+          <li>Мои инициативы</li>
+          <li>Спринты</li>
+          <li>Релизы</li>
+          <li>Метрики</li>
+          <li>Загрузка команды</li>
+        </ul>
+      </div>
+      <div class="hw-tier">
+        <div class="hw-tier-hdr">
+          <span class="hw-tier-name">Портфель инициатив</span>
+          <span class="hw-tier-pill">Tier 1</span>
+        </div>
+        <span class="hw-tier-aud">Продуктовый лидер · C-level</span>
+        <ul class="hw-tier-list">
+          <li>Видимость всех целей и инициатив по продуктам Департамента</li>
+          <li>Статус по целям и инициативам</li>
+          <li>Вклад в метрики</li>
+          <li>Ресурсы в норме?</li>
+          <li>Риски</li>
+        </ul>
+      </div>
+      <div class="hw-tier">
+        <div class="hw-tier-hdr">
+          <span class="hw-tier-name">Цели и метрики</span>
+          <span class="hw-tier-pill">Tier 1</span>
+        </div>
+        <span class="hw-tier-aud">C-level</span>
+        <ul class="hw-tier-list">
+          <li>Финансовые метрики</li>
+          <li>Продуктовые метрики</li>
+          <li>ROI и метрики инвестиций</li>
+          <li>На треке ли основные цели</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Стек инструментов -->
+  <section class="hw-sec" id="tools">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">11</span><span class="hw-sec-title">Стек инструментов</span><span class="hw-sec-tagline">Фреймворк, слайд 11 + ОРБИТА</span></div>
+    <div class="hw-callout">Три инструмента управления для руководителей продуктов и бизнес-лидеров. ОРБИТА = MVP под корпоративные системы (в проработке).</div>
+    <div class="hw-tools">
+      <div class="hw-tool">
+        <div class="hw-tool-name">Реестр инициатив</div>
+        <span class="hw-tool-corp in-progress">Корп: WB PPM (ECOSYS) — в проработке</span>
+        <span class="hw-tool-orbit">ОРБИТА: registry-projects.html · workspace.html</span>
+        <ul class="hw-tool-list">
+          <li>Мастер-система портфеля инициатив и проектов</li>
+          <li>Утверждение целей и инициатив</li>
+          <li>Приоритизация инициатив</li>
+          <li>Статусы инициатив и проектов</li>
+          <li>Ресурсное планирование</li>
+          <li>Контрольные точки</li>
+          <li>Риски (эскалация, пуши)</li>
+        </ul>
+        <a class="hw-tool-link" href="registry-projects.html">Открыть реестр →</a>
+      </div>
+
+      <div class="hw-tool">
+        <div class="hw-tool-name">Дашборд метрик</div>
+        <span class="hw-tool-corp in-progress">Корп: WB BI (ECOSYS) — в проработке</span>
+        <span class="hw-tool-orbit">ОРБИТА: бэклог (планируется)</span>
+        <ul class="hw-tool-list">
+          <li>Витрина целей и метрик продуктов</li>
+          <li>Продуктовые метрики</li>
+          <li>Коммерческие метрики</li>
+          <li>Вклад инициатив в метрики OKR (proxy)</li>
+        </ul>
+        <a class="hw-tool-link" href="#open">Открытый вопрос →</a>
+      </div>
+
+      <div class="hw-tool">
+        <div class="hw-tool-name">Витрина знаний</div>
+        <span class="hw-tool-corp in-progress">Корп: WB WIKI (ECOSYS) — в проработке</span>
+        <span class="hw-tool-orbit">ОРБИТА: framework.html · how-we-work.html</span>
+        <ul class="hw-tool-list">
+          <li>База знаний продуктов Департамента</li>
+          <li>Артефакты и документация</li>
+          <li>Методология стратегического планирования</li>
+          <li>Жизненный цикл продукта</li>
+          <li>Модели приоритизации</li>
+          <li>Матрица компетенций</li>
+          <li>Handbook лида / проджекта / продакта</li>
+          <li>Паспорта проектов · лучшие практики</li>
+        </ul>
+        <a class="hw-tool-link" href="framework.html">Открыть фреймворк →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. Календарь -->
+  <section class="hw-sec" id="calendar">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">12</span><span class="hw-sec-title">Календарь 2026</span><span class="hw-sec-tagline">Фреймворк, слайд 10</span></div>
+    <div class="hw-callout">Чекин — плановый замер промежуточных метрик и статус инициатив (светофор «On track / At risk / In problem»). Калибровка — пересмотр целей с Директором при изменениях.</div>
+    <div class="hw-cal">
+      <div class="hw-cal-q">
+        <div class="hw-cal-q-hdr"><span class="hw-cal-q-name">Q1</span><span class="hw-cal-q-h">Янв–Мар · H1</span></div>
+        <ul class="hw-cal-q-list">
+          <li>Цели H1</li>
+          <li>Инициативы Q1</li>
+          <li>Ревью 2025</li>
+          <li>Месячно: синки + комитеты + ревью</li>
+        </ul>
+      </div>
+      <div class="hw-cal-q">
+        <div class="hw-cal-q-hdr"><span class="hw-cal-q-name">Q2</span><span class="hw-cal-q-h">Апр–Июн</span></div>
+        <ul class="hw-cal-q-list">
+          <li>Инициативы Q2</li>
+          <li>Ревью Q1</li>
+          <li>Чекин по KR</li>
+          <li>Месячно: синки + комитеты + ревью</li>
+        </ul>
+      </div>
+      <div class="hw-cal-q">
+        <div class="hw-cal-q-hdr"><span class="hw-cal-q-name">Q3</span><span class="hw-cal-q-h">Июл–Сен · H2</span></div>
+        <ul class="hw-cal-q-list">
+          <li>Цели H2 (полугодовой синк)</li>
+          <li>Калибровка с Директором</li>
+          <li>Инициативы Q3</li>
+          <li>Месячно: синки + комитеты + ревью</li>
+        </ul>
+      </div>
+      <div class="hw-cal-q">
+        <div class="hw-cal-q-hdr"><span class="hw-cal-q-name">Q4</span><span class="hw-cal-q-h">Окт–Дек</span></div>
+        <ul class="hw-cal-q-list">
+          <li>Стратегическое планирование 2027</li>
+          <li>Ревью Q3</li>
+          <li>Инициативы Q4</li>
+          <li>Месячно: синки + комитеты + ревью</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. Решения 23.04 -->
+  <section class="hw-sec" id="decisions">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">13</span><span class="hw-sec-title">Статус по 8 решениям встречи 23.04.2026</span><span class="hw-sec-tagline">Опер-модель, слайд 4</span></div>
+    <div class="hw-callout">Owner и next step по каждому пункту протокола. На исполнении со стороны ПО — все восемь.</div>
+    <table class="hw-tbl hw-dec-tbl">
+      <thead><tr>
+        <th style="width:30px">#</th><th>Решение</th><th>Owner</th><th>Статус</th><th>Next step</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Уточнение названия — «Департамент развития экосистемы и инноваций»</td><td>HR</td><td><span class="st st-info">К сведению</span></td><td>Используем уточнённое название во всех артефактах. Ждём решение HR</td></tr>
+        <tr><td>2</td><td>Фокус Департамента — отбор, развитие и передача проектов с экспертным руководителем</td><td>Деп · описание ПО</td><td><span class="st st-wip">В работе</span></td><td>Зафиксировано в опер-модели. На согласование Этину</td></tr>
+        <tr><td>3</td><td>Схема комитета руководителей с HR + критерии целесообразности запуска</td><td>HR + Деп</td><td><span class="st st-todo">Драфт</span></td><td>Драфт критериев на базе Gate-фреймворка. Согл. с HR — [TBD]</td></tr>
+        <tr><td>4</td><td>Заказчик от бизнеса — обязательное условие запуска проекта</td><td>Деп · процедура ПО</td><td><span class="st st-todo">Драфт</span></td><td>Шаблон процедуры в работе. Сделаем обязательным полем карточки на О·1</td></tr>
+        <tr><td>5</td><td>Соотнесение со стратегией — синк с Игорем Ковалем</td><td>Деп организует</td><td><span class="st st-wip">Запланирован</span></td><td>Запрос на синк отправлен. Дата — [TBD]</td></tr>
+        <tr><td>6</td><td>Единая точка сборки + валидация уникальности проектов</td><td>HR + Деп</td><td><span class="st st-todo">Концепция</span></td><td>Реестр-фильтр на О·0 + кросс-проверка по библиотеке решений. На обсуждение с HR</td></tr>
+        <tr><td>7</td><td>KPI Департамента — тех. уровень команды + экспертность лидеров</td><td>Деп</td><td><span class="st st-info">К сведению</span></td><td>Раскрытие в KPI ПО. Метрика «Уровень руководителя» — добавим в карточку проекта</td></tr>
+        <tr><td>8</td><td>Акселератор идей для сотрудников силами HR + жюри из бизнеса</td><td>HR</td><td><span class="st st-todo">Ожидаем</span></td><td>Ждём механику от HR. ПО готов принять воронку как 4-й источник проектов</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 14. Открытые вопросы -->
+  <section class="hw-sec" id="open">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">14</span><span class="hw-sec-title">Открытые вопросы под решение Этина</span><span class="hw-sec-tagline">Требуют согласования</span></div>
+    <div class="hw-oq">
+      <h3>14 открытых пунктов</h3>
+      <ol>
+        <li><b>Состав портфеля</b> — фреймворк (11+2) или опер-модель (12 проектов)? Что источник правды?</li>
+        <li><b>6 ритуалов vs 4 комитета</b> — это разные слои или конкурирующие модели? Гипотеза: ритуалы внутри Департамента, комитеты — кросс-функция.</li>
+        <li><b>WB PPM / WB BI / WB WIKI</b> — это уже существующие системы или строим? Если строим — ОРБИТА = MVP?</li>
+        <li><b>P&L</b> — формат полей карточки (выручка / маржа / EBITDA / окупаемость / иное)?</li>
+        <li><b>Команда (условная)</b> — лидер + ключевые участники + ФОТ. Формат ФОТ: точная цифра / диапазон, помесячно или годовой?</li>
+        <li><b>Документы и приложения</b> — внешние ссылки (Drive / Confluence) или загрузка файлов?</li>
+        <li><b>Заказчик</b> — фиксированный справочник или свободный ввод?</li>
+        <li><b>Группировка шаблона в 6 блоков</b> — согласовать формулировки и порядок.</li>
+        <li><b>Уровни декомпозиции</b> (Цели → Инициативы → Эпики → Задачи) — отражаем в UI или это методология на бумаге?</li>
+        <li><b>Календарь ритуалов 2026</b> — встраиваем в calendar.html или это внешний документ?</li>
+        <li><b>Лидер «Прод. развитие»</b> — TBD из опер-модели. Кто закрывает функцию?</li>
+        <li><b>Дата первого Штаба</b> — не зафиксирована (опер-модель, слайд 9). Запрос: до 04.05.</li>
+        <li><b>Лидеры 5 из 12 проектов</b> — без явного лидера. Запрос: назначить до 11.05.</li>
+        <li><b>Ресурс на ОРБИТА-MVP</b> — без ресурса остаёмся на Excel + статика на GitHub Pages.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="hw-foot">
+    <b>Источники сборки:</b> «Операционная модель Департамента — в исполнении ПО» (28.04.2026, Сорваль В.) ·
+    «Проектный фреймворк для продуктов» (01.2026, Проектный офис) ·
+    Транскрипция аудио Этина (30.04.2026) · Протокол встречи 23.04.2026 · stages.js · portfolio.json.
+    <br><b>Версия:</b> 0.9-draft. <b>Под согласование:</b> Этин.
+    <br><b>Связанные страницы:</b>
+    <a href="registry-projects.html" style="color:var(--violet);font-weight:700">Реестр проектов</a> ·
+    <a href="committees.html" style="color:var(--violet);font-weight:700">Комитеты</a> ·
+    <a href="framework.html" style="color:var(--violet);font-weight:700">Старый фреймворк</a> ·
+    <a href="catalog.html" style="color:var(--violet);font-weight:700">Каталог</a>.
+  </div>
+
+</div>
+
+<script src="stages.js"></script>
+<script src="nav.js"></script>
+<script>
+(function(){
+  var STAGES = (window.STAGES_DEFAULT || []).filter(function(s){ return !s.service; });
+
+  // Mini stages в "картине целиком"
+  var miniHtml = STAGES.map(function(s){
+    return '<div class="hw-cell" style="border-color:' + s.colorBorder + ';background:' + s.colorDim + '">'
+      + '<div class="hw-cell-mini">О·' + s.num + ' · ' + (s.duration || '') + '</div>'
+      + '<div class="hw-cell-title" style="color:' + s.color + '">' + s.icon + ' ' + s.name + '</div>'
+      + '<div class="hw-cell-sub">' + (s.committee || '') + '</div>'
+      + '</div>';
+  }).join('');
+  var miniBox = document.getElementById('hw-stages-mini');
+  if (miniBox) miniBox.innerHTML = miniHtml;
+
+  // Full stages cards
+  var fullHtml = STAGES.map(function(s){
+    return '<div class="hw-stage" style="border-color:' + s.colorBorder + ';background:' + s.colorDim + '">'
+      + '<div class="hd"><span class="ic">' + s.icon + '</span><span class="num" style="color:' + s.color + '">О·' + s.num + '</span><span class="nm">' + s.name + '</span></div>'
+      + '<div class="tag">' + (s.tagline || '') + '</div>'
+      + '<div class="meta">'
+      +   '<b>Цель</b><span class="small">' + (s.goal || '—') + '</span>'
+      +   (s.fork ? '<b style="margin-top:5px">Развилка</b><span class="small">' + s.fork + '</span>' : '')
+      +   '<b style="margin-top:5px">Комитет · Срок</b><span class="small">' + (s.committee || '—') + ' · ' + (s.duration || '—') + '</span>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+  var fullBox = document.getElementById('hw-stages-full');
+  if (fullBox) fullBox.innerHTML = fullHtml;
+})();
+</script>
+</body>
+</html>
