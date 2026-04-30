@@ -159,7 +159,7 @@
       + 'О·' + g + '<span class="nm">' + esc(label) + '</span></span>';
   }
 
-  function pipelineBadge(p){
+  function pnlBadge(p){
     if (p && typeof p === 'object') {
       var has = !!p.exists;
       var nums = p.numbers || p.metrics || '';
@@ -167,6 +167,7 @@
       if (has && nums) html += '<div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.35">' + esc(nums) + '</div>';
       return html;
     }
+    if (p && /\[заполняет РП\]/.test(String(p))) return '<span class="empty">— заполнит РП</span>';
     if (p) return '<span class="rp-pipeline yes">' + esc(p) + '</span>';
     return '<span class="empty">—</span>';
   }
@@ -244,7 +245,7 @@
     { key:'marketSize',         label:'Размер ниши',     col:'c-mkt',   render:function(p){ return clip(p.marketSize); } },
     { key:'targetShare',        label:'Целевая доля',    col:'c-share', render:function(p){ return clip(p.targetShare); } },
     { key:'team',               label:'Команда',         col:'c-team',  render:function(p){ return '<div class="clip">' + teamShort(p) + '</div>'; } },
-    { key:'pipeline',           label:'Пайплайн',        col:'c-pipe',  render:function(p){ return pipelineBadge(p.pipeline); } },
+    { key:'pnl',                label:'P&L',             col:'c-pipe',  render:function(p){ return pnlBadge(p.pnl != null ? p.pnl : p.pipeline); } },
     { key:'gmvGrowth',          label:'Рост GMV',        col:'c-gmv',   render:function(p){ return clip(p.gmvGrowth); } },
     { key:'checkpoints',        label:'Чекпоинт',        col:'c-cp',    render:function(p){
       var c = checkpointsCount(p);
@@ -286,7 +287,7 @@
       html += '<div><div class="lbl">Размер ниши</div><div class="val ' + (p.marketSize ? '' : 'empty') + '">' + esc(p.marketSize || '—') + '</div></div>';
       html += '<div><div class="lbl">Целевая доля</div><div class="val ' + (p.targetShare ? '' : 'empty') + '">' + esc(p.targetShare || '—') + '</div></div>';
       html += '<div><div class="lbl">Команда</div><div class="val">' + teamShort(p) + '</div></div>';
-      html += '<div><div class="lbl">Пайплайн</div><div class="val">' + pipelineBadge(p.pipeline) + '</div></div>';
+      html += '<div><div class="lbl">P&L</div><div class="val">' + pnlBadge(p.pnl != null ? p.pnl : p.pipeline) + '</div></div>';
       html += '<div class="full"><div class="lbl">Рост GMV</div><div class="val ' + (p.gmvGrowth ? '' : 'empty') + '">' + esc(p.gmvGrowth || '—') + '</div></div>';
       html += '</div>';
 

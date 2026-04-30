@@ -218,7 +218,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   .ws-section{break-inside:avoid}
 }
 /* ── Defense panel (формат Этина: 10 мин на проект) ── */
-.defense-wrap{display:flex;flex-direction:column;gap:18px}
+.defense-wrap{display:flex;flex-direction:column;gap:14px}
+.def-section{display:flex;flex-direction:column;gap:8px}
+.def-section-hdr{display:flex;align-items:baseline;gap:10px;padding:10px 14px;border-radius:8px 8px 0 0;background:linear-gradient(90deg,rgba(123,92,184,0.08),rgba(123,92,184,0));border-left:3px solid var(--violet)}
+.def-section-num{font-family:'SF Mono','Consolas',monospace;font-size:10px;font-weight:800;color:var(--violet);letter-spacing:.05em}
+.def-section-title{font-family:var(--font-head);font-size:14px;font-weight:800;color:var(--text)}
 .def-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;border-radius:12px;background:linear-gradient(135deg,rgba(123,92,184,0.08),rgba(0,212,180,0.05));border:1px solid var(--border)}
 .def-hdr-eyebrow{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:4px}
 .def-hdr-title{font-family:var(--font-head);font-size:20px;font-weight:900;color:var(--text)}
@@ -1061,7 +1065,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       return esc(v);
     }
 
-    function pipelineHtml(pl){
+    function pnlHtml(pl){
       if (pl && typeof pl === 'object') {
         var has = !!pl.exists;
         var nums = pl.numbers || pl.metrics || '';
@@ -1092,6 +1096,16 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     var team = p.team;
     if ((!team || !team.length) && (p.owner || p.pm)) team = [p.owner || p.pm];
 
+    // Источник P&L: новое поле p.pnl, fallback на старое p.pipeline
+    var pnlSource = p.pnl != null ? p.pnl : p.pipeline;
+
+    function blockSection(num, title, gridHtml) {
+      return '<div class="def-section">'
+        + '<div class="def-section-hdr"><span class="def-section-num">Блок ' + num + '</span><span class="def-section-title">' + esc(title) + '</span></div>'
+        + '<div class="def-grid">' + gridHtml + '</div>'
+        + '</div>';
+    }
+
     var html = '<div class="defense-wrap">';
 
     // Header
@@ -1099,6 +1113,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     html += '<div>';
     html += '<div class="def-hdr-eyebrow">Карточка проекта — формат «10 минут на защиту»</div>';
     html += '<div class="def-hdr-title">' + esc(p.name || p.id) + '</div>';
+    if (p.defenseDate) {
+      html += '<div style="margin-top:6px;font-size:11px;color:var(--violet);font-weight:700">Защита: ' + esc(p.defenseDate) + '</div>';
+    }
     html += '</div>';
     html += '<div class="def-hdr-stage">';
     html += '<div class="def-stage-num">О·' + g + '</div>';
@@ -1106,37 +1123,64 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     html += '</div>';
     html += '</div>';
 
-    // Grid
-    html += '<div class="def-grid">';
+    // Блок 1. Идентификация
+    html += blockSection(1, 'Идентификация',
+        block('Название проекта', esc(p.name || p.id), 'Как звучит на встрече')
+      + block('Заказчик', val(p.customer || p.businessSponsor), 'Внутренний бизнес-заказчик в RWB')
+    );
 
-    // Always shown — базовая часть шаблона Этина
-    html += block('Заказчик', val(p.customer || p.businessSponsor), 'Внутренний бизнес-заказчик в RWB');
-    html += block('Источник', val(p.source), '4 канала: гипотезы / запросы бизнеса / рынок (M&A) / акселератор');
-    html += block('Размер ниши', val(p.marketSize), 'Объём рынка в цифрах', true);
-    html += block('Целевая доля рынка', val(p.targetShare), 'Какую долю забираем и в какой срок');
-    html += block('Стратегический фит', val(p.strategicAlignment), 'Как попадаем в общую стратегию RWB', true);
-    html += block('Команда / Исполнитель', val(team), 'Пословная команда на нашей стороне', true);
-    html += block('Чекпоинты разведки', val(cp), 'Что прошли по стадиям ОРБИТА', true);
-    html += block('Build / Buy / Integrate', val(p.buildBuyIntegrate), 'Решение: строим / покупаем / интегрируем партнёра', true);
-    html += block('Наработки', val(p.progress || p.achievements), 'Что уже сделано: артефакты, релизы, договорённости', true);
-    html += block('Интеграции внутри WB', val(p.integrations), 'WB ID, Кошелёк, ПВЗ, каталог, push', true);
-    html += block('Пайплайн', pipelineHtml(p.pipeline), 'Есть ли пайплайн + основные цифры', true);
-    html += block('Рост GMV (план)', val(p.gmvGrowth), 'Предполагаемый рост GMV');
-    html += block('Метрики 90 дней', val(p.metrics90), 'Ключевые метрики, retention, NPS');
-    html += block('Передача в департамент', val(p.handoverDept), 'О·4: профильный департамент-владелец');
-    html += block('EBITDA / Доля рынка', val(p.ebitdaShare), 'О·5: фин. показатели на масштабе');
+    // Блок 2. Рынок
+    html += blockSection(2, 'Рынок',
+        block('Размер ниши', val(p.marketSize), 'Объём рынка в цифрах', true)
+      + block('Целевая доля рынка', val(p.targetShare), 'Какую долю забираем и в какой срок', true)
+    );
 
-    html += '</div>';
+    // Блок 3. Стратегия
+    html += blockSection(3, 'Стратегия',
+        block('Стратегический фит', val(p.strategicAlignment), 'Попадание в общую стратегию RWB', true)
+      + block('Предполагаемый рост GMV', val(p.gmvGrowth), 'План роста GMV', true)
+    );
+
+    // Блок 4. Команда (условная)
+    html += blockSection(4, 'Команда и исполнение (условная команда)',
+        block('Команда / Исполнитель', val(team), 'Лидер · Ключевые участники · Примерный ФОТ', true)
+    );
+
+    // Блок 5. Наработки и интеграции
+    html += blockSection(5, 'Наработки и интеграции',
+        block('Какие наработки есть', val(p.progress || p.achievements), 'Артефакты, релизы, договорённости', true)
+      + block('Кем интегрируемся внутри компании', val(p.integrations), 'WB ID, Кошелёк, ПВЗ, каталог, push', true)
+      + block('Build / Buy / Integrate', val(p.buildBuyIntegrate), 'Решение: строим / покупаем / интегрируем', true)
+    );
+
+    // Блок 6. P&L
+    html += blockSection(6, 'P&L',
+        block('Есть ли P&L', pnlHtml(pnlSource), 'Финансовая модель: выручка / маржа / EBITDA / окупаемость', true)
+      + block('EBITDA / Доля рынка', val(p.ebitdaShare), 'О·5: фин. показатели на масштабе', true)
+    );
+
+    // Блок 7. Чекпоинты — ключевые вехи проекта
+    html += blockSection(7, 'Чекпоинты — ключевые вехи проекта',
+        block('Что пройдено по стадиям', val(cp), 'Чекпоинты разведки и факт по стадиям ОРБИТА', true)
+      + block('Метрики 90 дней', val(p.metrics90), 'Ключевые метрики (retention D7, NSM, юнит-экономика)', true)
+      + block('Передача в департамент', val(p.handoverDept), 'О·4: профильный департамент-владелец', true)
+    );
 
     // Footer hint
-    var missing = ['customer','source','marketSize','targetShare','strategicAlignment','team','checkpoints','buildBuyIntegrate','progress','integrations','pipeline','gmvGrowth','metrics90'].filter(function(k){
+    var fields = ['customer','marketSize','targetShare','strategicAlignment','team','checkpoints','buildBuyIntegrate','progress','integrations','pnl','gmvGrowth'];
+    var missing = fields.filter(function(k){
       var v = p[k];
+      // Спец-обработка для pnl с fallback на pipeline
+      if (k === 'pnl') v = pnlSource;
+      // Плейсхолдер [заполняет РП] считаем как пустое
+      if (typeof v === 'string' && /\[заполняет РП\]/.test(v)) return true;
+      if (Array.isArray(v) && v.length === 1 && /\[заполняет РП\]/.test(v[0])) return true;
       return v == null || v === '' || (Array.isArray(v) && !v.length);
     });
     if (missing.length) {
-      html += '<div class="def-footer">Не заполнено полей: <b>' + missing.length + '</b>. Поля редактируются в <code>data/portfolio.json</code> у объекта <code>' + esc(p.id) + '</code>.</div>';
+      html += '<div class="def-footer">Не заполнено блоков: <b>' + missing.length + '</b> из ' + fields.length + '. Поля редактируются в <code>data/portfolio.json</code> у объекта <code>' + esc(p.id) + '</code>.</div>';
     } else {
-      html += '<div class="def-footer def-ok">✓ Все поля шаблона заполнены — готово к защите.</div>';
+      html += '<div class="def-footer def-ok">✓ Все 7 блоков шаблона заполнены — готово к защите.</div>';
     }
     html += '</div>';
     return html;
