@@ -217,6 +217,35 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   .ws-panel{display:block!important}
   .ws-section{break-inside:avoid}
 }
+/* ── Defense panel (формат Этина: 10 мин на проект) ── */
+.defense-wrap{display:flex;flex-direction:column;gap:18px}
+.def-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;border-radius:12px;background:linear-gradient(135deg,rgba(123,92,184,0.08),rgba(0,212,180,0.05));border:1px solid var(--border)}
+.def-hdr-eyebrow{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:4px}
+.def-hdr-title{font-family:var(--font-head);font-size:20px;font-weight:900;color:var(--text)}
+.def-hdr-stage{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
+.def-stage-num{font-family:'SF Mono','Consolas',monospace;font-size:22px;font-weight:900;color:var(--violet)}
+.def-stage-name{font-size:11px;color:var(--muted);font-weight:600}
+.def-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.def-block{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.def-block.full{grid-column:1/-1}
+.def-label{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.def-value{font-size:13px;color:var(--text);line-height:1.5;font-weight:500}
+.def-empty{color:var(--muted);font-style:italic;font-weight:400}
+.def-hint{font-size:10px;color:var(--muted);font-style:italic;line-height:1.4;margin-top:2px}
+.def-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.def-list li{font-size:12px;line-height:1.45;padding-left:14px;position:relative}
+.def-list li::before{content:"›";position:absolute;left:0;color:var(--violet);font-weight:700}
+.def-pl{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:5px}
+.def-pl.yes{background:rgba(0,212,180,.12);color:#00B89C;border:1px solid rgba(0,212,180,.3)}
+.def-pl.no{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.def-footer{padding:12px 16px;border-radius:8px;background:var(--surface);border:1px dashed var(--border);font-size:12px;color:var(--muted);text-align:center}
+.def-footer.def-ok{color:#00B89C;border-color:rgba(0,212,180,.4);background:rgba(0,212,180,.06);font-weight:600}
+.def-footer code{font-family:'SF Mono','Consolas',monospace;background:var(--surface2);padding:1px 5px;border-radius:3px;font-size:11px;color:var(--text)}
+@media(max-width:720px){
+  .def-grid{grid-template-columns:1fr}
+  .def-hdr{flex-direction:column;align-items:flex-start}
+  .def-hdr-stage{flex-direction:row;gap:8px;align-items:baseline}
+}
 
 /* ── STAGE METRICS ── */
 .ws-stage-metrics{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
@@ -320,7 +349,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   'use strict';
 
   // ── Constants ──
-  var GATE_NAMES = ['O\xB70 Заявка','O\xB71 Разведка','O\xB72 Прототип','O\xB73 Разгон','O\xB74 Экосистема','O\xB75 Плато'];
+  var GATE_NAMES = ['O\xB70 Заявка','O\xB71 Проектирование','O\xB72 Запуск MVP','O\xB73 Рост метрик','O\xB74 Интеграция','O\xB75 Масштаб'];
   var TECH_GATE_NAMES = ['T\xB70 Заявка','T\xB71 Проектирование','T\xB72 Реализация','T\xB73 Приёмка'];
   var STATUS_LABELS = {'on-track':'Активен','at-risk':'Риск','blocked':'Заблокирован','screening':'Заявка (O\xB70)','pending':'Заявка (O\xB70)','done':'Завершён','paused':'Приостановлен','active':'Активен','archived':'Архив','draft':'Черновик','wip':'В работе','planned':'Запланировано','backlog':'Бэклог'};
   var STATUS_CLS = {'on-track':'sb-on-track','at-risk':'sb-at-risk','blocked':'sb-blocked','paused':'sb-paused','done':'sb-done','active':'sb-active','pending':'sb-pending','archived':'sb-archived','draft':'sb-paused','screening':'sb-pending'};
@@ -784,6 +813,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     // ── TABS ──
     html += '<div class="ws-tabs" id="ws-tabs">';
     html += tabBtn('passport', '\u041F\u0430\u0441\u043F\u043E\u0440\u0442');
+    html += tabBtn('defense', '\u041A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u043F\u0440\u043E\u0435\u043A\u0442\u0430');
     html += tabBtn('initiatives', '\u0418\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B', initiatives.length);
     html += tabBtn('goals', '\u041F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435', goals.length);
     if (!isGuest()) {
@@ -794,6 +824,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
     // ── PANELS ──
     html += '<div class="ws-panel' + (activeTab === 'passport' ? ' active' : '') + '" id="panel-passport">' + renderPassport(editable, initiatives, goals) + '</div>';
+    html += '<div class="ws-panel' + (activeTab === 'defense' ? ' active' : '') + '" id="panel-defense">' + renderDefense(initiatives) + '</div>';
     html += '<div class="ws-panel' + (activeTab === 'initiatives' ? ' active' : '') + '" id="panel-initiatives">' + renderInitiatives(initiatives, editable) + '</div>';
     html += '<div class="ws-panel' + (activeTab === 'goals' ? ' active' : '') + '" id="panel-goals">' + renderPlanning(goals, initiatives, editable) + '</div>';
     if (!isGuest()) {
@@ -1014,6 +1045,102 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   // ═══════════════════════════════════════════════════════════════
   //  TAB 1: PASSPORT
   // ═══════════════════════════════════════════════════════════════
+
+  function renderDefense(initiatives) {
+    var p = _product || {};
+    var g = (typeof p.gate === 'number') ? p.gate : 0;
+    var stageName = (GATE_NAMES[g] || ('О·' + g));
+
+    function val(v, fallback){
+      if (v == null || v === '' || (Array.isArray(v) && !v.length)) {
+        return '<span class="def-empty">' + esc(fallback || '—') + '</span>';
+      }
+      if (Array.isArray(v)) {
+        return '<ul class="def-list">' + v.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+      }
+      return esc(v);
+    }
+
+    function pipelineHtml(pl){
+      if (pl && typeof pl === 'object') {
+        var has = !!pl.exists;
+        var nums = pl.numbers || pl.metrics || '';
+        var html = '<span class="def-pl ' + (has ? 'yes' : 'no') + '">' + (has ? '✓ Есть' : '— Нет') + '</span>';
+        if (has && nums) html += '<div style="margin-top:6px;font-size:12px;color:var(--text);font-weight:500">' + esc(nums) + '</div>';
+        return html;
+      }
+      if (pl) return '<span class="def-pl yes">' + esc(pl) + '</span>';
+      return '<span class="def-empty">—</span>';
+    }
+
+    function block(label, html, hint, full) {
+      return '<div class="def-block' + (full ? ' full' : '') + '">'
+        + '<div class="def-label">' + esc(label) + '</div>'
+        + '<div class="def-value">' + html + '</div>'
+        + (hint ? '<div class="def-hint">' + esc(hint) + '</div>' : '')
+        + '</div>';
+    }
+
+    // Чекпоинты — берём из p.checkpoints или агрегируем done-инициативы
+    var cp = p.checkpoints;
+    if (!cp || !cp.length) {
+      var done = (initiatives || []).filter(function(i){ return i.status === 'done'; });
+      if (done.length) cp = done.map(function(i){ return (i.stage ? i.stage + ' · ' : '') + i.name + ' — done'; });
+    }
+
+    // Команда — из p.team или owner/pm
+    var team = p.team;
+    if ((!team || !team.length) && (p.owner || p.pm)) team = [p.owner || p.pm];
+
+    var html = '<div class="defense-wrap">';
+
+    // Header
+    html += '<div class="def-hdr">';
+    html += '<div>';
+    html += '<div class="def-hdr-eyebrow">Карточка проекта — формат «10 минут на защиту»</div>';
+    html += '<div class="def-hdr-title">' + esc(p.name || p.id) + '</div>';
+    html += '</div>';
+    html += '<div class="def-hdr-stage">';
+    html += '<div class="def-stage-num">О·' + g + '</div>';
+    html += '<div class="def-stage-name">' + esc(stageName.replace(/^O[·.]\d\s*/i, '')) + '</div>';
+    html += '</div>';
+    html += '</div>';
+
+    // Grid
+    html += '<div class="def-grid">';
+
+    // Always shown — базовая часть шаблона Этина
+    html += block('Заказчик', val(p.customer || p.businessSponsor), 'Внутренний бизнес-заказчик в RWB');
+    html += block('Источник', val(p.source), '4 канала: гипотезы / запросы бизнеса / рынок (M&A) / акселератор');
+    html += block('Размер ниши', val(p.marketSize), 'Объём рынка в цифрах', true);
+    html += block('Целевая доля рынка', val(p.targetShare), 'Какую долю забираем и в какой срок');
+    html += block('Стратегический фит', val(p.strategicAlignment), 'Как попадаем в общую стратегию RWB', true);
+    html += block('Команда / Исполнитель', val(team), 'Пословная команда на нашей стороне', true);
+    html += block('Чекпоинты разведки', val(cp), 'Что прошли по стадиям ОРБИТА', true);
+    html += block('Build / Buy / Integrate', val(p.buildBuyIntegrate), 'Решение: строим / покупаем / интегрируем партнёра', true);
+    html += block('Наработки', val(p.progress || p.achievements), 'Что уже сделано: артефакты, релизы, договорённости', true);
+    html += block('Интеграции внутри WB', val(p.integrations), 'WB ID, Кошелёк, ПВЗ, каталог, push', true);
+    html += block('Пайплайн', pipelineHtml(p.pipeline), 'Есть ли пайплайн + основные цифры', true);
+    html += block('Рост GMV (план)', val(p.gmvGrowth), 'Предполагаемый рост GMV');
+    html += block('Метрики 90 дней', val(p.metrics90), 'Ключевые метрики, retention, NPS');
+    html += block('Передача в департамент', val(p.handoverDept), 'О·4: профильный департамент-владелец');
+    html += block('EBITDA / Доля рынка', val(p.ebitdaShare), 'О·5: фин. показатели на масштабе');
+
+    html += '</div>';
+
+    // Footer hint
+    var missing = ['customer','source','marketSize','targetShare','strategicAlignment','team','checkpoints','buildBuyIntegrate','progress','integrations','pipeline','gmvGrowth','metrics90'].filter(function(k){
+      var v = p[k];
+      return v == null || v === '' || (Array.isArray(v) && !v.length);
+    });
+    if (missing.length) {
+      html += '<div class="def-footer">Не заполнено полей: <b>' + missing.length + '</b>. Поля редактируются в <code>data/portfolio.json</code> у объекта <code>' + esc(p.id) + '</code>.</div>';
+    } else {
+      html += '<div class="def-footer def-ok">✓ Все поля шаблона заполнены — готово к защите.</div>';
+    }
+    html += '</div>';
+    return html;
+  }
 
   function renderPassport(editable, initiatives, goals) {
     var html = '';

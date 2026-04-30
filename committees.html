@@ -124,12 +124,46 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body,'Inter',
 /* divider */
 .gc-div{height:1px;background:linear-gradient(90deg,transparent,var(--violet-border,rgba(79,195,247,0.25)),transparent);margin:32px 0;}
 
+/* ── TIMELINE (stages ↔ committees) ── */
+.tl{position:relative;margin:8px 0 36px;padding:24px 26px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);}
+.tl-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+.tl-title{font-family:var(--font-head);font-size:15px;font-weight:900;letter-spacing:-.2px;color:var(--text);}
+.tl-sub{font-size:12px;color:var(--muted);}
+.tl-list{position:relative;padding-left:22px;}
+.tl-list::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--amber),var(--violet) 18%,var(--violet) 38%,var(--teal) 50%,var(--amber) 62%,var(--amber) 100%);border-radius:2px;}
+.tl-row{position:relative;display:grid;grid-template-columns:96px 1fr 200px;gap:18px;align-items:start;padding:11px 0;}
+.tl-row + .tl-row{border-top:1px dashed var(--border);}
+.tl-dot{position:absolute;left:-22px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:2px solid var(--gray);box-shadow:0 0 0 3px var(--bg);}
+.tl-row.s-amber .tl-dot{border-color:var(--amber);}
+.tl-row.s-violet .tl-dot{border-color:var(--violet);}
+.tl-row.s-teal .tl-dot{border-color:var(--teal);}
+.tl-stage{display:flex;flex-direction:column;gap:2px;}
+.tl-orbita{font-family:var(--font-head);font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.04em;}
+.tl-name{font-family:var(--font-head);font-size:14px;font-weight:900;color:var(--text);letter-spacing:-.2px;}
+.tl-dur{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;}
+.tl-desc{font-size:12.5px;color:var(--text);line-height:1.5;}
+.tl-fork{margin-top:6px;font-size:11.5px;color:var(--muted);font-style:italic;display:flex;gap:6px;align-items:flex-start;}
+.tl-fork::before{content:'↳';color:var(--pink);font-style:normal;font-weight:700;}
+.tl-comm{display:flex;flex-direction:column;gap:4px;align-items:flex-end;text-align:right;}
+.tl-comm-badge{font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px;border:1px solid;text-decoration:none;display:inline-block;transition:transform .15s;}
+.tl-comm-badge:hover{transform:translateX(-2px);}
+.tl-comm-badge.b-violet{color:var(--violet);background:var(--violet-dim);border-color:var(--violet-border);}
+.tl-comm-badge.b-teal{color:var(--teal);background:var(--teal-dim);border-color:var(--teal-border);}
+.tl-comm-badge.b-amber{color:var(--amber);background:var(--amber-dim);border-color:var(--amber-border);}
+.tl-comm-badge.b-gray{color:var(--gray2);background:var(--surface2);border-color:var(--border-hi);}
+.tl-comm-cycle{font-size:10px;color:var(--muted);}
+.tl-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);}
+.tl-legend-item{display:flex;align-items:center;gap:6px;}
+.tl-legend-dot{width:9px;height:9px;border-radius:3px;}
+
 /* ── RESPONSIVE ── */
 @media(max-width:960px){
   .comm-body{grid-template-columns:1fr 1fr;}
   .comm-col:nth-child(2){border-right:none;}
   .comm-col:nth-child(3){grid-column:1/3;border-top:1px solid var(--border);border-right:none;}
   .gc-stats{grid-template-columns:repeat(2,1fr);}
+  .tl-row{grid-template-columns:80px 1fr;}
+  .tl-comm{grid-column:1/3;align-items:flex-start;text-align:left;flex-direction:row;flex-wrap:wrap;gap:10px;align-items:center;}
 }
 @media(max-width:640px){
   .comm-body{grid-template-columns:1fr;}
@@ -154,19 +188,101 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body,'Inter',
 
 <!-- ══ HERO ══ -->
 <div class="gc-hero">
-  <div class="gc-eyebrow">Департамент Развития Экосистемы · Комитеты · 2026</div>
-  <h1 class="gc-title">Три <em>комитета</em></h1>
-  <p class="gc-sub">Каждая инициатива проходит три уровня защиты. Каждый комитет отвечает на свой вопрос и не лезет в чужой. Каждый блок CORE лидирует свой комитет: организует повестку, готовит материалы, ведёт протокол и контролирует исполнение решений.</p>
+  <div class="gc-eyebrow">Департамент развития экосистемы и инноваций · 2026</div>
+  <h1 class="gc-title">Единая <em>система принятия решений</em></h1>
+  <p class="gc-sub">Каждая инициатива проходит три уровня защиты. Каждый комитет отвечает на свой вопрос и не лезет в чужой. Каждый блок операционной команды лидирует свой комитет: организует повестку, готовит материалы, ведёт протокол и контролирует исполнение решений.</p>
   <div class="gc-tags">
-    <span class="gc-tag">3 комитета</span>
-    <span class="gc-tag">Финансовый → Технический → Управляющий</span>
-    <span class="gc-tag">48 ч на подготовку материалов</span>
-    <span class="gc-tag">3 решения: проходит / доработать / не проходит</span>
+    <span class="gc-tag">Уровень 0: ежеквартальный синк рук-лей департаментов</span>
+    <span class="gc-tag">Инвест → Тех → УК</span>
+    <span class="gc-tag">3 решения: в работу / доработать / не проходит</span>
+    <span class="gc-tag">Реестр проектов = единый источник правды</span>
   </div>
 </div>
 
 <!-- ══ STATS + LEGEND hidden for CEO demo ══ -->
 
+
+<!-- ══════════════════════════════════════ УРОВЕНЬ 0 — СТРАТЕГИЧЕСКИЙ СИНК ══ -->
+<div class="comm-card" id="lvl0" style="border:1px solid var(--border-hi);background:linear-gradient(135deg,rgba(139,92,246,0.05),rgba(0,212,180,0.04));">
+  <div class="comm-hdr" style="background:rgba(139,92,246,0.06);border-left:3px solid var(--violet);">
+    <div class="comm-icon" style="background:var(--violet-dim);border:1px solid var(--violet-border);color:var(--violet);">0</div>
+    <div class="comm-hdr-info">
+      <div class="comm-eyebrow" style="color:var(--violet);">Уровень 0 · Стратегический синк</div>
+      <div class="comm-name">Встреча руководителей департаментов по развитию экосистемы</div>
+      <div class="comm-goal">Сверяем стратегические векторы до того, как запускать новые проекты. Не комитет — формат коллегиального согласования направления.</div>
+    </div>
+    <div class="comm-hdr-meta">
+      <span class="comm-cycle" style="color:var(--violet);background:var(--violet-dim);border-color:var(--violet-border);">Ежеквартально</span>
+      <span class="comm-coord">Организатор: Департамент</span>
+    </div>
+    <div class="comm-chevron">▾</div>
+  </div>
+  <div class="comm-body">
+    <div class="comm-col">
+      <div class="col-title">5 стратегических векторов</div>
+      <div class="art-list">
+        <div class="art-item" style="color:var(--text);">→ Двигаемся по стратегии RWB</div>
+        <div class="art-item" style="color:var(--text);">→ Новые источники доходов</div>
+        <div class="art-item" style="color:var(--text);">→ Недорогой и быстрый старт</div>
+        <div class="art-item" style="color:var(--text);">→ Опция за счёт приобретения (M&A)</div>
+        <div class="art-item" style="color:var(--text);">→ Высокая экспертиза команды</div>
+      </div>
+    </div>
+    <div class="comm-col">
+      <div class="col-title">Состав</div>
+      <div class="p-list">
+        <div class="p-row"><div class="p-ava">RWB</div><div><div class="p-role">Руководители ключевых департаментов</div><div class="p-mandate">Согласование векторов, ресурсный мандат</div></div></div>
+        <div class="p-row"><div class="p-ava">DIR</div><div><div class="p-role">Директор Департамента</div><div class="p-mandate">Презентация портфеля и инициатив</div></div></div>
+        <div class="p-row"><div class="p-ava">HR</div><div><div class="p-role">HR / People</div><div class="p-mandate">Орг-структура, акселератор идей</div></div></div>
+      </div>
+    </div>
+    <div class="comm-col">
+      <div class="col-title">Что согласуем</div>
+      <div class="exit-steps">
+        <div class="exit-step">Стратегические приоритеты квартала</div>
+        <div class="exit-step">Критерии целесообразности запуска проектов</div>
+        <div class="exit-step">Перечень потенциальных бизнес-заказчиков</div>
+        <div class="exit-step">Уникальность инициатив (нет дубля в реестре)</div>
+        <div class="exit-step">Ресурсная модель и кадровые решения</div>
+      </div>
+    </div>
+  </div>
+  <div class="comm-footer">
+    <div class="comm-meta-item"><span class="comm-meta-label">Решение группы:</span><span class="comm-meta-val">направление поддержано / на доработку / не приоритет</span></div>
+    <div class="comm-footer-tags"><span class="cft">До запуска цикла комитетов</span><span class="cft">Соответствие стратегии</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ 4 ИСТОЧНИКА НОВЫХ ПРОЕКТОВ ══ -->
+<div class="comm-card" id="sources" style="border:1px dashed var(--border-hi);background:transparent;">
+  <div class="comm-hdr" style="background:transparent;">
+    <div class="comm-icon" style="background:var(--surface2);border:1px solid var(--border-hi);color:var(--gray2);">4×</div>
+    <div class="comm-hdr-info">
+      <div class="comm-eyebrow" style="color:var(--gray2);">Источники проектов</div>
+      <div class="comm-name">Откуда заходят новые инициативы</div>
+      <div class="comm-goal">Все инициативы попадают в единый Реестр Департамента через 4 канала. Реестр — единый источник правды и точка сборки (стратегия, цели, ресурсы, планы).</div>
+    </div>
+    <div class="comm-chevron">▾</div>
+  </div>
+  <div class="comm-body" style="grid-template-columns:1fr 1fr 1fr 1fr;">
+    <div class="comm-col" style="border-right:1px solid var(--border);">
+      <div class="col-title">1 · Исследование</div>
+      <div style="font-size:12px;color:var(--text);line-height:1.5;">Анализ трендов, новых вертикалей и сегментов прибыли операционной командой Департамента.</div>
+    </div>
+    <div class="comm-col" style="border-right:1px solid var(--border);">
+      <div class="col-title">2 · Запрос бизнеса</div>
+      <div style="font-size:12px;color:var(--text);line-height:1.5;">Заказы от профильных департаментов RWB. Заказчик от бизнеса — обязательное условие.</div>
+    </div>
+    <div class="comm-col" style="border-right:1px solid var(--border);">
+      <div class="col-title">3 · M&A сделки</div>
+      <div style="font-size:12px;color:var(--text);line-height:1.5;">Целевой пайплайн поглощений: фонды, ВТБ Венчур, ФРИИ, точечные таргеты. Опция «купить вместо построить».</div>
+    </div>
+    <div class="comm-col">
+      <div class="col-title" style="color:var(--amber);">4 · Акселератор идей</div>
+      <div style="font-size:12px;color:var(--text);line-height:1.5;">Программа сотрудников: HR + жюри из бизнес-направлений. Пилот → решение о развитии формата (п.8 протокола 23.04).</div>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════════════════════════════════ 3 КОМИТЕТА (новые) ══ -->
 <!-- old committees hidden -->
@@ -884,18 +1000,18 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body,'Inter',
 <!-- OLD END -->
 </div><!-- /hidden old -->
 
-<!-- ══════════════════════════════════════ ФИНАНСОВЫЙ КОМИТЕТ ══ -->
-<div class="comm-card" id="fk">
+<!-- ══════════════════════════════════════ ИНВЕСТ КОМИТЕТ ══ -->
+<div class="comm-card" id="ik">
   <div class="comm-hdr cv">
-    <div class="comm-icon">ФК</div>
+    <div class="comm-icon">ИК</div>
     <div class="comm-hdr-info">
-      <div class="comm-eyebrow">Финансовый комитет</div>
-      <div class="comm-name">Стоит ли строить?</div>
-      <div class="comm-goal">Первый уровень защиты. Оценивает бизнес-обоснование, рынок, финансовую модель. Определяет: делаем MVP сами или передаём в коммерцию.</div>
+      <div class="comm-eyebrow">Инвест комитет</div>
+      <div class="comm-name">Есть ли рынок? Кто заказчик? Соответствует стратегии?</div>
+      <div class="comm-goal">Первый уровень защиты. Оценивает бизнес-обоснование, размер рынка, потенциального заказчика от бизнеса и соответствие стратегии RWB. Лидирует блок «Монетизация».</div>
     </div>
     <div class="comm-hdr-meta">
       <span class="comm-cycle">Еженедельно</span>
-      <span class="comm-coord">Лидирует: блок «бизнес и финансы»</span>
+      <span class="comm-coord">Лидирует: Монетизация (Боголепова Л.)</span>
     </div>
     <div class="comm-chevron">▾</div>
   </div>
@@ -903,66 +1019,69 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body,'Inter',
     <div class="comm-col">
       <div class="col-title">Участники</div>
       <div class="p-list">
-        <div class="p-row"><div class="p-ava">DIR</div><div><div class="p-role">Директор департамента</div><div class="p-mandate">Стратегические приоритеты</div></div></div>
-        <div class="p-row"><div class="p-ava">INV</div><div><div class="p-role">Инвест-директор</div><div class="p-mandate">Бюджетная экспертиза</div></div></div>
-        <div class="p-row"><div class="p-ava">БФ</div><div><div class="p-role">Рук. блока «бизнес и финансы» <span style="font-size:10px;color:#00D4B4">(есть)</span></div><div class="p-mandate">Организатор: повестка, материалы, протокол, контроль</div></div></div>
-        <div class="p-row"><div class="p-ava">ЭКС</div><div><div class="p-role">Эксперт из коммерции</div><div class="p-mandate">Рыночный контекст (по теме проекта)</div><div class="p-opt">приглашается по запросу</div></div></div>
+        <div class="p-row"><div class="p-ava">DIR</div><div><div class="p-role">Директор Департамента</div><div class="p-mandate">Стратегические приоритеты, экосистемный контекст</div></div></div>
+        <div class="p-row"><div class="p-ava">МОН</div><div><div class="p-role">Рук. блока «Монетизация» (Боголепова Л.) <span style="font-size:10px;color:#00D4B4">(есть)</span></div><div class="p-mandate">Организатор: повестка, материалы, протокол, контроль</div></div></div>
+        <div class="p-row"><div class="p-ava">ПР</div><div><div class="p-role">Рук. Проектного офиса (Сорваль В.)</div><div class="p-mandate">Реестр инициатив, проверка уникальности</div></div></div>
+        <div class="p-row"><div class="p-ava">M&amp;A</div><div><div class="p-role">M&amp;A экосистемы</div><div class="p-mandate">Опция «купить вместо построить»</div></div></div>
+        <div class="p-row"><div class="p-ava">БИЗ</div><div><div class="p-role">Бизнес-заказчик (профильный департамент RWB)</div><div class="p-mandate">Подтверждение готовности забрать проект на выходе</div><div class="p-opt">обязательно с О·1</div></div></div>
       </div>
       <div class="col-title" style="margin-top:14px;">Команда проекта</div>
       <div class="p-list">
-        <div class="p-row"><div class="p-ava">РП</div><div><div class="p-role">Руководитель инициативы</div><div class="p-mandate">Защита бизнес-обоснования</div></div></div>
+        <div class="p-row"><div class="p-ava">РП</div><div><div class="p-role">Руководитель инициативы (эксперт отрасли)</div><div class="p-mandate">Защита гипотезы, рынка и финмодели</div></div></div>
       </div>
     </div>
     <div class="comm-col">
       <div class="col-title">Артефакты</div>
       <div class="art-group ag-in"><div class="art-group-label">На вход</div><div class="art-list">
-        <div class="art-item">Есть заказчик (бизнес-подтверждение)</div>
-        <div class="art-item">Соответствует стратегии экосистемы</div>
+        <div class="art-item">Бизнес-заказчик подтверждён (имя, роль, готовность забрать)</div>
+        <div class="art-item">Соответствие стратегии RWB (5 векторов с уровня 0)</div>
+        <div class="art-item">Уникальность: нет дубля в Реестре</div>
         <div class="art-item">Бизнес-обоснование (до 6 слайдов)</div>
-        <div class="art-item">Финмодель, юнит-экономика, рынок</div>
-        <div class="art-item">Запрос ресурсов и бюджета</div>
+        <div class="art-item">Размер рынка, конкуренты, финмодель / юнит-экономика</div>
+        <div class="art-item">5–10 интервью с клиентами</div>
+        <div class="art-item">Лидер проекта (опыт в отрасли)</div>
       </div></div>
       <div class="art-group ag-out" style="margin-top:14px;"><div class="art-group-label">На выход</div><div class="art-list">
-        <div class="art-item">Решение: проходит / доработать / не проходит</div>
-        <div class="art-item">Развилка: делаем MVP или передаём в коммерцию</div>
-        <div class="art-item">Согласованный бюджет (при решении «проходит»)</div>
-        <div class="art-item">Протокол → на технический комитет</div>
+        <div class="art-item">Решение: <strong>в работу</strong> / доработать / не проходит</div>
+        <div class="art-item">Зафиксированный бизнес-заказчик и стратегический вектор</div>
+        <div class="art-item">Согласованный бюджет на О·2 (при «в работу»)</div>
+        <div class="art-item">Протокол → на Тех комитет с ТЗ</div>
       </div></div>
     </div>
     <div class="comm-col">
       <div class="col-title">Процесс</div>
       <div class="proc-phase ph-entry"><div class="proc-label">Вход</div><div class="proc-steps">
-        <div class="proc-step">Руководитель инициативы готовит бизнес-обоснование</div>
-        <div class="proc-step">Блок «бизнес и финансы» включает в повестку</div>
+        <div class="proc-step">Лидер проекта готовит бизнес-обоснование на стадии О·1 «Проект-ние»</div>
+        <div class="proc-step">Блок «Монетизация» включает в повестку</div>
         <div class="proc-step">Материалы рассылаются за 48 часов</div>
-        <div class="proc-step">Защита 15–20 мин + вопросы</div>
+        <div class="proc-step">Защита 15–20 мин + Q&amp;A</div>
       </div></div>
       <div class="proc-phase ph-exit" style="margin-top:14px;"><div class="proc-label">Выход</div><div class="exit-steps">
-        <div class="exit-step">Проходит → переход на технический комитет</div>
-        <div class="exit-step">Передать в коммерцию → департамент сопровождает как менеджер</div>
-        <div class="exit-step">Не проходит → план доработки 5 дней, максимум 2 попытки</div>
+        <div class="exit-step">В работу → Тех комитет на О·2 (Запуск MVP)</div>
+        <div class="exit-step">Доработать → возврат на 5 рабочих дней, max 2 попытки</div>
+        <div class="exit-step">Не проходит → архивация или передача в M&amp;A пайплайн</div>
       </div></div>
     </div>
   </div>
   <div class="comm-footer">
-    <div class="comm-meta-item"><span class="comm-meta-label">Стадии:</span><span class="comm-meta-val"><a href="framework.html#o0" style="color:var(--violet);text-decoration:none">Заявка</a> → <a href="framework.html#o1" style="color:var(--violet);text-decoration:none">Разведка</a> → <a href="framework.html#o3" style="color:var(--violet);text-decoration:none">Разгон</a></span></div>
-    <div class="comm-footer-tags"><span class="cft">Первый уровень</span><span class="cft">Развилка: MVP или коммерция</span></div>
+    <div class="comm-meta-item"><span class="comm-meta-label">Стадии:</span><span class="comm-meta-val"><a href="framework.html#o1" style="color:var(--violet);text-decoration:none">О·1 Проект-ние</a></span></div>
+    <div class="comm-footer-tags"><span class="cft">Первый уровень</span><span class="cft">Заказчик от бизнеса</span><span class="cft">Стратегический фит</span><span class="cft">Уникальность</span></div>
   </div>
 </div>
 
 
-<!-- ══════════════════════════════════════ ТЕХНИЧЕСКИЙ КОМИТЕТ ══ -->
+<!-- ══════════════════════════════════════ ТЕХ КОМИТЕТ ══ -->
 <div class="comm-card" id="tk">
   <div class="comm-hdr ct">
     <div class="comm-icon">ТК</div>
     <div class="comm-hdr-info">
-      <div class="comm-eyebrow">Технический комитет</div>
-      <div class="comm-name">Можно ли построить?</div>
-      <div class="comm-goal">Второй уровень защиты. Оценивает техническую реализуемость, архитектуру, безопасность. Определяет градацию MVP: полноценный прототип или песочница.</div>
+      <div class="comm-eyebrow">Тех комитет</div>
+      <div class="comm-name">Можно ли реализовать самим или купить? Нужно интегрировать?</div>
+      <div class="comm-goal">Второй уровень защиты. Оценивает техническую реализуемость, выбор «строим / покупаем (M&A) / интегрируем партнёра», архитектуру, безопасность, лимиты интеграции с экосистемой.</div>
     </div>
     <div class="comm-hdr-meta">
-      <span class="comm-cycle">После финансового, по готовности</span>
-      <span class="comm-coord">Лидирует: технический блок</span>
+      <span class="comm-cycle">2 раза в месяц</span>
+      <span class="comm-coord">Лидирует: Технический (Талызин А.)</span>
     </div>
     <div class="comm-chevron">▾</div>
   </div>
@@ -970,47 +1089,48 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body,'Inter',
     <div class="comm-col">
       <div class="col-title">Участники</div>
       <div class="p-list">
-        <div class="p-row"><div class="p-ava">ТЕХ</div><div><div class="p-role">Рук. технического блока <span style="font-size:10px;color:#00D4B4">(есть)</span></div><div class="p-mandate">Организатор: повестка, материалы, протокол, контроль</div></div></div>
-        <div class="p-row"><div class="p-ava">ИБ</div><div><div class="p-role">Информационная безопасность</div><div class="p-mandate">Оценка рисков, уровень аудита MVP</div><div class="p-opt">при интеграции с внешними системами</div></div></div>
+        <div class="p-row"><div class="p-ava">ТЕХ</div><div><div class="p-role">Рук. блока «Технический» (Талызин А.) <span style="font-size:10px;color:#00D4B4">(есть)</span></div><div class="p-mandate">Организатор: повестка, материалы, протокол, контроль</div></div></div>
+        <div class="p-row"><div class="p-ava">M&amp;A</div><div><div class="p-role">M&amp;A экосистемы</div><div class="p-mandate">Альтернатива «купить» — поглощение или партнёрство</div></div></div>
+        <div class="p-row"><div class="p-ava">ИБ</div><div><div class="p-role">Информационная безопасность</div><div class="p-mandate">Оценка рисков, уровень аудита MVP</div><div class="p-opt">при интеграциях</div></div></div>
+        <div class="p-row"><div class="p-ava">ИНФР</div><div><div class="p-role">Инфраструктура / API данных</div><div class="p-mandate">Доступ к товарным выгрузкам, корзине, финтеху по API</div></div></div>
         <div class="p-row"><div class="p-ava">TL</div><div><div class="p-role">Технический лидер проекта</div><div class="p-mandate">Архитектура, стек, зависимости</div></div></div>
       </div>
-      <div class="col-title" style="margin-top:14px;">Не участвуют</div>
-      <div style="font-size:11px;color:var(--muted);font-style:italic;">Финансисты и маркетологи — только техническая оценка</div>
     </div>
     <div class="comm-col">
       <div class="col-title">Артефакты</div>
       <div class="art-group ag-in"><div class="art-group-label">На вход</div><div class="art-list">
-        <div class="art-item">Техническое задание</div>
-        <div class="art-item">Архитектурная схема</div>
-        <div class="art-item">Градация MVP: репутационный риск → уровень проработки</div>
-        <div class="art-item">Перечень внешних модулей и интеграций</div>
-        <div class="art-item">Оценка ресурсов и команды</div>
+        <div class="art-item">Решение «в работу» от Инвест комитета</div>
+        <div class="art-item">Техническое задание + архитектурная схема</div>
+        <div class="art-item">Сравнение альтернатив: build / buy / integrate</div>
+        <div class="art-item">Перечень интеграций с экосистемой RWB</div>
+        <div class="art-item">Оценка ресурсов, команды, репутационных рисков</div>
       </div></div>
       <div class="art-group ag-out" style="margin-top:14px;"><div class="art-group-label">На выход</div><div class="art-list">
-        <div class="art-item">Решение: проходит / доработать / не проходит</div>
-        <div class="art-item">Уровень MVP: полноценный прототип или песочница</div>
+        <div class="art-item">Решение: <strong>строим / покупаем / интегрируем</strong></div>
+        <div class="art-item">Уровень MVP: песочница (когорта 100–1000) или полноценный прототип</div>
         <div class="art-item">Лимиты интеграции (пороговые значения)</div>
-        <div class="art-item">Протокол → на управляющий комитет</div>
+        <div class="art-item">Протокол → на Управляющий комитет</div>
       </div></div>
     </div>
     <div class="comm-col">
       <div class="col-title">Процесс</div>
       <div class="proc-phase ph-entry"><div class="proc-label">Вход</div><div class="proc-steps">
-        <div class="proc-step">Получено решение «проходит» от финансового комитета</div>
-        <div class="proc-step">Руководитель инициативы и тех. лидер готовят ТЗ и архитектуру</div>
+        <div class="proc-step">Получено «в работу» от Инвест комитета</div>
+        <div class="proc-step">Лидер проекта и тех. лидер готовят ТЗ и сравнение альтернатив</div>
         <div class="proc-step">Материалы рассылаются за 48 часов</div>
         <div class="proc-step">Защита 20–30 мин + техническое демо</div>
       </div></div>
       <div class="proc-phase ph-exit ct-exit" style="margin-top:14px;"><div class="proc-label">Выход</div><div class="exit-steps">
-        <div class="exit-step">Проходит → полная картина (деньги + техника) → управляющий комитет</div>
-        <div class="exit-step">Доработать → пересмотр ТЗ, повторный вход</div>
-        <div class="exit-step">Не проходит → возврат на финансовый с пересмотром</div>
+        <div class="exit-step">Строим → запуск MVP в песочнице, передача в УК</div>
+        <div class="exit-step">Покупаем → задача в M&amp;A пайплайн</div>
+        <div class="exit-step">Интегрируем → коммерческий контракт с партнёром</div>
+        <div class="exit-step">Доработать → пересмотр архитектуры, повторный вход</div>
       </div></div>
     </div>
   </div>
   <div class="comm-footer">
-    <div class="comm-meta-item"><span class="comm-meta-label">Стадии:</span><span class="comm-meta-val"><a href="framework.html#o1" style="color:var(--teal);text-decoration:none">Разведка</a> → <a href="framework.html#o2" style="color:var(--teal);text-decoration:none">Прототип</a> → <a href="framework.html#o4" style="color:var(--teal);text-decoration:none">Экосистема</a></span></div>
-    <div class="comm-footer-tags"><span class="cft">Второй уровень</span><span class="cft">Градация MVP</span><span class="cft">Песочница / полноценный</span></div>
+    <div class="comm-meta-item"><span class="comm-meta-label">Стадии:</span><span class="comm-meta-val"><a href="framework.html#o2" style="color:var(--teal);text-decoration:none">О·2 Запуск MVP</a></span></div>
+    <div class="comm-footer-tags"><span class="cft">Второй уровень</span><span class="cft">Build / Buy / Integrate</span><span class="cft">Песочница</span></div>
   </div>
 </div>
 
@@ -1021,12 +1141,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body,'Inter',
     <div class="comm-icon">УК</div>
     <div class="comm-hdr-info">
       <div class="comm-eyebrow">Управляющий комитет</div>
-      <div class="comm-name">Финальное решение</div>
-      <div class="comm-goal">Третий уровень. Собирается после прохождения финансового и технического комитетов с полной картиной: деньги + техника + сроки. Принимает решение о старте, остановке, распределении ресурсов.</div>
+      <div class="comm-name">Запускаем · масштабируем · перенаправляем</div>
+      <div class="comm-goal">Третий уровень. Финальные решения по выходу проекта в продуктив, передаче в профильный департамент, масштабированию или архивации. Состав — руководство компании и акционеры.</div>
     </div>
     <div class="comm-hdr-meta">
-      <span class="comm-cycle">Еженедельно</span>
-      <span class="comm-coord">Лидирует: проектный блок</span>
+      <span class="comm-cycle">По мере необходимости</span>
+      <span class="comm-coord">Лидирует: Проектный офис (Сорваль В.)</span>
     </div>
     <div class="comm-chevron">▾</div>
   </div>
@@ -1034,53 +1154,144 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body,'Inter',
     <div class="comm-col">
       <div class="col-title">Участники</div>
       <div class="p-list">
-        <div class="p-row"><div class="p-ava">RWB</div><div><div class="p-role">Руководство RWB</div><div class="p-mandate">Финальное стратегическое решение</div></div></div>
-        <div class="p-row"><div class="p-ava">DIR</div><div><div class="p-role">Директор департамента</div><div class="p-mandate">Защита инициативы, экосистемный контекст</div></div></div>
-        <div class="p-row"><div class="p-ava">INV</div><div><div class="p-role">Инвест-директор</div><div class="p-mandate">Финансовое решение, бюджетный мандат</div></div></div>
-        <div class="p-row"><div class="p-ava">ПР</div><div><div class="p-role">Рук. проектного блока <span style="font-size:10px;color:#00D4B4">(есть)</span></div><div class="p-mandate">Организатор: сводка по ФК + ТК, протокол, контроль исполнения</div></div></div>
-      </div>
-      <div class="col-title" style="margin-top:14px;">Команда проекта</div>
-      <div class="p-list">
-        <div class="p-row"><div class="p-ava">РП</div><div><div class="p-role">Руководитель инициативы</div><div class="p-mandate">Итоговая защита</div></div></div>
+        <div class="p-row"><div class="p-ava">SH</div><div><div class="p-role">Акционеры</div><div class="p-mandate">Финальная санкция на запуск, масштаб, архив</div></div></div>
+        <div class="p-row"><div class="p-ava">CEO</div><div><div class="p-role">Руководство компании</div><div class="p-mandate">Стратегическое решение, ресурсный мандат</div></div></div>
+        <div class="p-row"><div class="p-ava">DIR</div><div><div class="p-role">Директор Департамента</div><div class="p-mandate">Защита инициативы, экосистемный контекст</div></div></div>
+        <div class="p-row"><div class="p-ava">ПО</div><div><div class="p-role">Рук. блока «Проектный офис» (Сорваль В.) <span style="font-size:10px;color:#00D4B4">(есть)</span></div><div class="p-mandate">Организатор: сводка ИК + ТК, протокол, еженедельный статус</div></div></div>
+        <div class="p-row"><div class="p-ava">БИЗ</div><div><div class="p-role">Бизнес-заказчик (профильный департамент RWB)</div><div class="p-mandate">Готовность принять проект с командой</div></div></div>
       </div>
     </div>
     <div class="comm-col">
-      <div class="col-title">Артефакты</div>
-      <div class="art-group ag-in"><div class="art-group-label">На вход</div><div class="art-list">
-        <div class="art-item">Протокол финансового комитета</div>
-        <div class="art-item">Протокол технического комитета</div>
-        <div class="art-item">Сводная презентация (до 6 слайдов)</div>
-        <div class="art-item">Запрос бюджета и команды</div>
+      <div class="col-title">3 точки контроля</div>
+      <div class="art-group ag-in"><div class="art-group-label">УК (Интеграция) · О·3</div><div class="art-list">
+        <div class="art-item">Запуск MVP в продуктив, трафик WB (70 млн), реклама, цель на 90 дней</div>
       </div></div>
-      <div class="art-group ag-out" style="margin-top:14px;"><div class="art-group-label">На выход</div><div class="art-list">
-        <div class="art-item">Финальное решение: проходит / доработать / не проходит</div>
-        <div class="art-item">Бюджетный мандат (при «проходит»)</div>
-        <div class="art-item">Передача в профильный департамент (на выходе из экосистемы)</div>
-        <div class="art-item">Обновлённый статус в портфеле</div>
+      <div class="art-group ag-in" style="margin-top:10px;"><div class="art-group-label">УК (Масштаб) · О·4</div><div class="art-list">
+        <div class="art-item">Глубокая интеграция: WB ID, Кошелёк, ПВЗ, перекрёстные продажи, A/B</div>
+        <div class="art-item">Передача с командой в профильный департамент</div>
+      </div></div>
+      <div class="art-group ag-in" style="margin-top:10px;"><div class="art-group-label">УК (Развитие) · О·5</div><div class="art-list">
+        <div class="art-item">Новые модели монетизации и роста</div>
+        <div class="art-item">Развилка: цикл разведки / сбор прибыли / закрытие</div>
       </div></div>
     </div>
     <div class="comm-col">
-      <div class="col-title">Процесс</div>
+      <div class="col-title">Решения и процесс</div>
       <div class="proc-phase ph-entry"><div class="proc-label">Вход</div><div class="proc-steps">
-        <div class="proc-step">Получено «проходит» от финансового и технического комитетов</div>
-        <div class="proc-step">Проектный блок готовит сводку</div>
+        <div class="proc-step">Решение Тех комитета (строим / покупаем / интегрируем)</div>
+        <div class="proc-step">Проектный офис готовит сводку</div>
         <div class="proc-step">Материалы рассылаются за 48 часов</div>
-        <div class="proc-step">Итоговая защита 15–20 мин + вопросы</div>
+        <div class="proc-step">Итоговая защита 15–20 мин + Q&amp;A</div>
       </div></div>
       <div class="proc-phase ph-exit" style="margin-top:14px;"><div class="proc-label">Выход</div><div class="exit-steps">
-        <div class="exit-step">Проходит → старт проекта, бюджет, команда</div>
-        <div class="exit-step">Проходит зрелость → передача в профильный департамент RWB</div>
-        <div class="exit-step">Доработать → возврат на нужный комитет</div>
-        <div class="exit-step">Не проходит → архивация (max 2 попытки)</div>
+        <div class="exit-step">Запуск MVP → бюджет, команда, цель на 90 дней</div>
+        <div class="exit-step">Масштаб → передача в профильный департамент с командой</div>
+        <div class="exit-step">Архив → закрытие или перенаправление в M&amp;A</div>
       </div></div>
+      <div style="margin-top:14px;font-size:11px;color:var(--muted);font-style:italic;">Решение уходит в работу под контроль Проектного офиса (статус — еженедельно).</div>
     </div>
   </div>
   <div class="comm-footer">
-    <div class="comm-meta-item"><span class="comm-meta-label">Стадии:</span><span class="comm-meta-val"><a href="framework.html#o0" style="color:var(--amber);text-decoration:none">Заявка</a> → <a href="framework.html#o1" style="color:var(--amber);text-decoration:none">Разведка</a> → <a href="framework.html#o2" style="color:var(--amber);text-decoration:none">Прототип</a> → <a href="framework.html#o3" style="color:var(--amber);text-decoration:none">Разгон</a> → <a href="framework.html#o4" style="color:var(--amber);text-decoration:none">Экосистема</a> → <a href="framework.html#o5" style="color:var(--amber);text-decoration:none">Зрелость</a></span></div>
-    <div class="comm-footer-tags"><span class="cft">Третий уровень</span><span class="cft">Финальное решение</span><span class="cft">Бюджетный мандат</span></div>
+    <div class="comm-meta-item"><span class="comm-meta-label">Стадии:</span><span class="comm-meta-val"><a href="framework.html#o3" style="color:var(--amber);text-decoration:none">О·3 Рост метрик</a> → <a href="framework.html#o4" style="color:var(--amber);text-decoration:none">О·4 Интеграция</a> → <a href="framework.html#o5" style="color:var(--amber);text-decoration:none">О·5 Масштаб</a></span></div>
+    <div class="comm-footer-tags"><span class="cft">Третий уровень</span><span class="cft">Акционеры + руководство</span><span class="cft">Запуск / Масштаб / Архив</span></div>
   </div>
 </div>
 
+
+<!-- ══ DIVIDER ══ -->
+<div class="gc-div"></div>
+
+<!-- ══════════════════════════════════════ КРИТЕРИИ ЦЕЛЕСООБРАЗНОСТИ ══ -->
+<div class="comm-card" id="criteria">
+  <div class="comm-hdr" style="background:rgba(255,184,48,0.06);border-left:3px solid var(--amber);">
+    <div class="comm-icon" style="background:var(--amber-dim);border:1px solid var(--amber-border);color:var(--amber);">✓</div>
+    <div class="comm-hdr-info">
+      <div class="comm-eyebrow" style="color:var(--amber);">Критерии целесообразности</div>
+      <div class="comm-name">Что должно быть, чтобы запускать новый проект</div>
+      <div class="comm-goal">Согласуется с уровнем 0 (рук-ли департаментов + HR). Без этих критериев проект не входит в Реестр инициатив. Принимается коллегиально, дополняется ежеквартально.</div>
+    </div>
+    <div class="comm-hdr-meta">
+      <span class="comm-cycle" style="color:var(--amber);background:var(--amber-dim);border-color:var(--amber-border);">Согласование: HR + Департамент</span>
+    </div>
+    <div class="comm-chevron">▾</div>
+  </div>
+  <div class="comm-body">
+    <div class="comm-col">
+      <div class="col-title">Бизнес-обоснование</div>
+      <div class="art-list">
+        <div class="art-item">Заказчик от бизнеса подтверждён (имя, роль, готовность забрать)</div>
+        <div class="art-item">Соответствие стратегии RWB (один из 5 векторов уровня 0)</div>
+        <div class="art-item">Уникальность: нет дубля в Реестре, нет конфликта с действующими проектами</div>
+        <div class="art-item">Размер рынка ≥ порога (TBD на синке с И. Ковалём)</div>
+        <div class="art-item">Юнит-экономика положительна на горизонте 12–24 мес</div>
+      </div>
+    </div>
+    <div class="comm-col">
+      <div class="col-title">Команда и руководитель</div>
+      <div class="art-list">
+        <div class="art-item">Лидер проекта = эксперт отрасли (опыт ≥ конкурентов на рынке)</div>
+        <div class="art-item">Технический лидер закрыт</div>
+        <div class="art-item">Бюджет на О·1 + О·2 согласован</div>
+        <div class="art-item">Высокий технический и креативный уровень команды (п.7 протокола)</div>
+      </div>
+    </div>
+    <div class="comm-col">
+      <div class="col-title">Соответствие 4 источникам</div>
+      <div class="art-list">
+        <div class="art-item">Источник чётко идентифицирован (исследование / запрос / M&amp;A / акселератор)</div>
+        <div class="art-item">Если M&amp;A — есть согласованный таргет в пайплайне</div>
+        <div class="art-item">Если акселератор сотрудников — прошли HR-механику и жюри</div>
+        <div class="art-item">Если запрос бизнеса — есть явный SLA по передаче и эксплуатации</div>
+      </div>
+    </div>
+  </div>
+  <div class="comm-footer">
+    <div class="comm-meta-item"><span class="comm-meta-label">Источник:</span><span class="comm-meta-val">Протокол встречи 23.04.2026 (п.3, п.4, п.5, п.7)</span></div>
+    <div class="comm-footer-tags"><span class="cft">До запуска проекта</span><span class="cft">Согласовано HR</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ ОТКРЫТЫЕ ВОПРОСЫ РАБОЧЕЙ ГРУППЫ ══ -->
+<div class="comm-card" id="open-questions">
+  <div class="comm-hdr" style="background:rgba(255,133,192,0.06);border-left:3px solid var(--pink);">
+    <div class="comm-icon" style="background:rgba(255,133,192,0.12);border:1px solid rgba(255,133,192,0.35);color:var(--pink);">?</div>
+    <div class="comm-hdr-info">
+      <div class="comm-eyebrow" style="color:var(--pink);">Открытые вопросы рабочей группы</div>
+      <div class="comm-name">На проработку: ИТ + Инфра + Бизнес</div>
+      <div class="comm-goal">Системные вопросы, выходящие за периметр Департамента, требуют коллегиального решения с ИТ, Инфраструктурой и бизнес-заказчиками. Список ведём здесь, статус — еженедельно.</div>
+    </div>
+    <div class="comm-hdr-meta">
+      <span class="comm-cycle" style="color:var(--pink);background:rgba(255,133,192,0.12);border-color:rgba(255,133,192,0.35);">Рабочая группа</span>
+    </div>
+    <div class="comm-chevron">▾</div>
+  </div>
+  <div class="comm-body" style="grid-template-columns:1fr;">
+    <div class="comm-col" style="border-right:none;">
+      <div class="col-title">#1 · Единый трекер задач и проектов компании</div>
+      <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">
+        В компании сейчас <strong>зоопарк решений</strong>: каждое подразделение ведёт задачи в своём инструменте, нет единой системы для портфеля проектов, OKR, бэклога инициатив, статусов комитетов. Невозможно построить сквозной отчёт «инициатива → продукт → цель → ресурсы».
+      </div>
+      <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">
+        <strong>Предложение Департамента:</strong> ОРБИТА (наш кастомный продукт) развивается как фундамент единого трекера: Реестр проектов, Каталог инициатив, Карточки продуктов с целями и комитетами уже работают. Готовы расширить под потребности компании.
+      </div>
+      <div class="art-group ag-out" style="margin-top:14px;">
+        <div class="art-group-label">Что выносим на рабочую группу</div>
+        <div class="art-list">
+          <div class="art-item">Состав: ИТ + Инфраструктура + бизнес-заказчики + HR</div>
+          <div class="art-item">Аудит текущего «зоопарка»: какие инструменты, кто в них работает, дубли</div>
+          <div class="art-item">Целевая модель единого трекера: что покрывает ОРБИТА, что — внешние системы</div>
+          <div class="art-item">План миграции и интеграции по API (товарные выгрузки, корзина, финтех — уже есть в финале как сквозные данные)</div>
+          <div class="art-item">Решение: ОРБИТА как кастомный продукт компании vs покупка SaaS vs гибрид</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);font-style:italic;">Дальше блок будет пополняться: дополнительные системные вопросы добавляются по мере выявления.</div>
+    </div>
+  </div>
+  <div class="comm-footer">
+    <div class="comm-meta-item"><span class="comm-meta-label">Owner:</span><span class="comm-meta-val">Сорваль В. (Проектный офис)</span></div>
+    <div class="comm-footer-tags"><span class="cft">Рабочая группа</span><span class="cft">ИТ + Инфра + Бизнес</span><span class="cft">Системный вопрос</span></div>
+  </div>
+</div>
 
 <!-- ══ DIVIDER ══ -->
 <div class="gc-div"></div>
