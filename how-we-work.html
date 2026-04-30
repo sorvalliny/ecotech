@@ -198,6 +198,63 @@
   .hw-chain-item{margin-right:0;margin-bottom:18px}
   .hw-chain-item::after{display:none}
 }
+
+/* ── PRINT (PDF export) ── */
+@media print{
+  @page{size:A4 portrait;margin:14mm 12mm}
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important}
+  html,body{background:#fff !important;color:#1a1a2e !important}
+  #nav-mount{display:none !important}
+  .hw-page{max-width:none;padding:0;margin:0}
+  .hw-toc{display:none !important}
+  .hw-hero{break-after:page;page-break-after:always;padding:18mm 12mm;border-radius:0;border:none;background:#fff !important;border-bottom:2px solid #7B5CB8}
+  .hw-hero h1{font-size:24px;color:#1a1a2e !important}
+  .hw-hero .eyebrow{color:#7B5CB8 !important}
+  .hw-hero .lead{font-size:11px;color:#555 !important}
+  .hw-hero-meta{font-size:10px}
+  .hw-sec{break-inside:avoid-page;page-break-inside:avoid;margin-bottom:18px}
+  .hw-sec + .hw-sec{break-before:auto;page-break-before:auto}
+  /* секции с большим контентом — каждая с новой страницы */
+  #map,#decomp,#orbit,#lifecycle,#committees,#rituals,#defense,#tiers,#tools,#calendar,#decisions,#tracker{break-before:page;page-break-before:always}
+  .hw-sec-title{font-size:16px;color:#1a1a2e !important}
+  .hw-sec-num{color:#7B5CB8 !important;font-size:12px}
+  .hw-sec-tagline{font-size:10px;color:#777 !important}
+  .hw-callout{font-size:10.5px;color:#444 !important;margin-bottom:8px}
+  .hw-card,.hw-cell,.hw-life-card,.hw-comm-card,.hw-tier,.hw-tool,.hw-cal-q,.hw-def,.hw-stage,.hw-chain-item{
+    border:1px solid #d0d0d8 !important;background:#fff !important;
+    box-shadow:none !important;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .hw-card-title,.hw-cell-title,.hw-life-name,.hw-comm-name,.hw-tier-name,.hw-tool-name,.hw-cal-q-name,.hw-def-name,.hw-stage .nm{color:#1a1a2e !important}
+  .hw-card-text,.hw-cell-sub,.hw-life-ex,.hw-tier-list li,.hw-tool-list li,.hw-cal-q-list li,.hw-def-list li,.hw-stage .meta,.hw-stage .tag{color:#333 !important}
+  .hw-card-eyebrow,.hw-cell-mini,.hw-card-meta,.hw-tier-aud{color:#777 !important}
+  .hw-tbl,.hw-rituals{break-inside:avoid;page-break-inside:avoid;background:#fff !important;border-color:#d0d0d8 !important}
+  .hw-tbl th,.hw-rituals th{background:#f3f3f7 !important;color:#555 !important;border-bottom-color:#d0d0d8 !important;font-size:9px}
+  .hw-tbl td,.hw-rituals td{border-bottom-color:#e5e5ec !important;color:#333 !important;font-size:10px;padding:7px 9px}
+  .hw-tbl tr:hover td,.hw-rituals tr:hover td{background:transparent !important}
+  .hw-comm-card.c-violet{background:#f5f1fc !important;border-color:#a991d8 !important}
+  .hw-comm-card.c-amber{background:#fff7e8 !important;border-color:#e0b95a !important}
+  .hw-comm-card.c-blue{background:#eaf4fc !important;border-color:#7eb8db !important}
+  .hw-comm-card.c-teal{background:#e6f8f4 !important;border-color:#5fc8b1 !important}
+  .hw-comm-q{color:#555 !important}
+  .hw-stages,.hw-life,.hw-comm,.hw-tiers,.hw-tools,.hw-cal,.hw-defense,.hw-grid.c4,.hw-grid.c3{gap:6px}
+  .hw-stages{grid-template-columns:repeat(3,1fr)}
+  .hw-stage{padding:8px;font-size:10px}
+  .hw-stage .nm{font-size:11px}
+  .hw-life-flow,.hw-tool-corp,.hw-tool-orbit,.hw-cal-q-h,.hw-tier-pill,.hw-life-tag,.hw-comm-rhythm{background:#f3f3f7 !important;color:#555 !important;border-color:#d0d0d8 !important}
+  .hw-tool-link{display:none !important}
+  .hw-chain{flex-direction:column;background:#fff !important;border-color:#d0d0d8 !important}
+  .hw-chain-item{margin-right:0;margin-bottom:8px}
+  .hw-chain-item::after{display:none}
+  .hw-oq{background:#fff8ec !important;border-color:#e0b95a !important}
+  .hw-oq h3{color:#a76b00 !important}
+  .hw-oq ol li{font-size:11px;color:#333 !important}
+  .hw-foot{background:#f5f5f8 !important;border-color:#d0d0d8 !important;color:#555 !important;font-size:9.5px}
+  a{color:#7B5CB8 !important;text-decoration:none}
+  /* Page numbers and header (if browser supports running heads) */
+  .hw-map{background:#fff !important;border-color:#d0d0d8 !important}
+  .hw-map-row-label{color:#777 !important}
+}
 </style>
 </head>
 <body>
@@ -237,7 +294,7 @@
     <a href="#tools"><span class="n">11</span>Стек инструментов</a>
     <a href="#calendar"><span class="n">12</span>Календарь 2026</a>
     <a href="#decisions"><span class="n">13</span>Решения 23.04</a>
-    <a href="#open"><span class="n">14</span>Открытые вопросы</a>
+    <a href="#tracker"><span class="n">14</span>Трекер проектов · выбор</a>
   </nav>
 
   <!-- 01. Картина целиком -->
@@ -754,27 +811,101 @@
     </table>
   </section>
 
-  <!-- 14. Открытые вопросы -->
-  <section class="hw-sec" id="open">
-    <div class="hw-sec-hdr"><span class="hw-sec-num">14</span><span class="hw-sec-title">Открытые вопросы под решение Этина</span><span class="hw-sec-tagline">Требуют согласования</span></div>
-    <div class="hw-oq">
-      <h3>14 открытых пунктов</h3>
-      <ol>
-        <li><b>Состав портфеля</b> — фреймворк (11+2) или опер-модель (12 проектов)? Что источник правды?</li>
-        <li><b>6 ритуалов vs 4 комитета</b> — это разные слои или конкурирующие модели? Гипотеза: ритуалы внутри Департамента, комитеты — кросс-функция.</li>
-        <li><b>WB PPM / WB BI / WB WIKI</b> — это уже существующие системы или строим? Если строим — ОРБИТА = MVP?</li>
-        <li><b>P&L</b> — формат полей карточки (выручка / маржа / EBITDA / окупаемость / иное)?</li>
-        <li><b>Команда (условная)</b> — лидер + ключевые участники + ФОТ. Формат ФОТ: точная цифра / диапазон, помесячно или годовой?</li>
-        <li><b>Документы и приложения</b> — внешние ссылки (Drive / Confluence) или загрузка файлов?</li>
-        <li><b>Заказчик</b> — фиксированный справочник или свободный ввод?</li>
-        <li><b>Группировка шаблона в 6 блоков</b> — согласовать формулировки и порядок.</li>
-        <li><b>Уровни декомпозиции</b> (Цели → Инициативы → Эпики → Задачи) — отражаем в UI или это методология на бумаге?</li>
-        <li><b>Календарь ритуалов 2026</b> — встраиваем в calendar.html или это внешний документ?</li>
-        <li><b>Лидер «Прод. развитие»</b> — TBD из опер-модели. Кто закрывает функцию?</li>
-        <li><b>Дата первого Штаба</b> — не зафиксирована (опер-модель, слайд 9). Запрос: до 04.05.</li>
-        <li><b>Лидеры 5 из 12 проектов</b> — без явного лидера. Запрос: назначить до 11.05.</li>
-        <li><b>Ресурс на ОРБИТА-MVP</b> — без ресурса остаёмся на Excel + статика на GitHub Pages.</li>
-      </ol>
+  <!-- 14. Трекер проектов — выбор инструмента -->
+  <section class="hw-sec" id="tracker">
+    <div class="hw-sec-hdr"><span class="hw-sec-num">14</span><span class="hw-sec-title">Трекер проектов — выбор инструмента</span><span class="hw-sec-tagline">Опер-модель, слайд 10 · GAP-анализ</span></div>
+    <div class="hw-callout">
+      <b style="color:var(--text)">Ключевой вопрос Этину:</b>
+      единой системы под Департамент сейчас нет. Текущие корп. системы не закрывают специфику.
+      <b style="color:#D89200">Пилим свою (прототип ОРБИТА уже есть) или работаем в Excel до появления корп. решения?</b>
+    </div>
+
+    <div class="hw-tools">
+
+      <div class="hw-tool" style="border-color:rgba(255,184,48,.4);background:rgba(255,184,48,.04)">
+        <div class="hw-tool-name">Excel · временный костыль</div>
+        <span class="hw-tool-corp" style="color:#D89200;background:rgba(255,184,48,.08);border-color:rgba(255,184,48,.35)">Минимальный путь</span>
+        <ul class="hw-tool-list">
+          <li>✓ Реестр проектов и поручений</li>
+          <li>✗ Нет ролевой модели</li>
+          <li>✗ Нет аудит-лога, версионность вручную</li>
+          <li>✗ Не масштабируется на 4 комитета</li>
+          <li>✗ Нет визуализации Gate-цикла</li>
+          <li>✗ Нет связки «поручение → проект → решение»</li>
+        </ul>
+        <div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:auto;padding-top:6px;border-top:1px dashed var(--border)">Работает только на старте · до 12 проектов</div>
+      </div>
+
+      <div class="hw-tool" style="border-color:rgba(139,139,174,.4)">
+        <div class="hw-tool-name">Корп. системы — Jira · YouTrack · Битрикс</div>
+        <span class="hw-tool-corp">Не подходят «как есть»</span>
+        <ul class="hw-tool-list">
+          <li>✓ Есть инфраструктура и поддержка</li>
+          <li>✗ Нет Gate-цикла О·0..О·5</li>
+          <li>✗ Нет 3 портфелей (входящие / новые / текущие)</li>
+          <li>✗ Нет 4 типов жизненного цикла</li>
+          <li>✗ Нет ритмики 4 комитетов</li>
+          <li>✗ Нет связки «поручение → проект → решение»</li>
+        </ul>
+        <div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:auto;padding-top:6px;border-top:1px dashed var(--border)">Требуют кастомизации, сопоставимой по объёму с MVP</div>
+      </div>
+
+      <div class="hw-tool" style="border-color:rgba(0,212,180,.45);background:rgba(0,212,180,.04)">
+        <div class="hw-tool-name">ОРБИТА · прототип готов</div>
+        <span class="hw-tool-orbit" style="font-size:10.5px">GitHub Pages · 20+ модулей · работает</span>
+        <ul class="hw-tool-list">
+          <li>✓ Gate-цикл О·0..О·5 заложен</li>
+          <li>✓ Реестр инициатив и проектов</li>
+          <li>✓ Карточка проекта с шаблоном защиты Этина</li>
+          <li>✓ Методология (RICE, шаблоны, lifecycle)</li>
+          <li>! Прототип, не продакшн</li>
+          <li>! Нет SSO · ролей · аудит-лога · API</li>
+        </ul>
+        <a class="hw-tool-link" href="registry-projects.html" style="background:rgba(0,212,180,.1);border-color:rgba(0,212,180,.3);color:#00B89C">Открыть прототип →</a>
+      </div>
+
+    </div>
+
+    <!-- Scope MVP block -->
+    <div style="margin-top:18px;padding:18px;border-radius:12px;background:var(--surface);border:1px solid var(--border)">
+      <div style="font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:10px">
+        Scope MVP ОРБИТА — что закрывает в v1
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:12px;color:var(--text);line-height:1.6">
+        <div>› Реестр 3 портфелей с фильтрами и поиском</div>
+        <div>› Карточка проекта: lifecycle, артефакты, история, связи</div>
+        <div>› Gate-переходы с обязательными артефактами</div>
+        <div>› Реестр поручений с привязкой к проекту и комитету</div>
+        <div>› Календарь и протоколы 4 комитетов + decision log</div>
+        <div>› Дашборд для УК и Штаба</div>
+        <div>› Ролевая модель + SSO · аудит-лог · экспорт</div>
+        <div>› Связка «поручение → проект → решение»</div>
+      </div>
+    </div>
+
+    <!-- Resource request -->
+    <div style="margin-top:14px;padding:18px;border-radius:12px;background:linear-gradient(135deg,rgba(123,92,184,0.08),rgba(0,212,180,0.05));border:1px solid var(--border)">
+      <div style="font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:10px">
+        Запрос на ресурс под MVP — параметры
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-size:12px;line-height:1.5">
+        <div><div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Команда</div><div style="font-weight:700">[TBD: 2–3 разраб + дизайн + QA]</div></div>
+        <div><div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Срок до MVP</div><div style="font-weight:700">[TBD: 4–6 недель]</div></div>
+        <div><div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Бюджет</div><div style="font-weight:700">[TBD: после согласования scope]</div></div>
+        <div><div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Хостинг</div><div style="font-weight:700">Внутренний контур RWB</div></div>
+      </div>
+    </div>
+
+    <!-- Decision question -->
+    <div style="margin-top:14px;padding:18px;border-radius:12px;background:rgba(255,184,48,0.06);border:1.5px solid rgba(255,184,48,0.45)">
+      <div style="font-family:var(--font-head);font-size:13px;font-weight:900;color:#D89200;margin-bottom:8px">
+        ⚡ Решение Этина — выбираем путь
+      </div>
+      <div style="font-size:13px;line-height:1.7;color:var(--text)">
+        <b>Вариант А:</b> Работаем в Excel, ждём корп. решение (WB PPM в проработке) — низкие издержки сейчас, риск зависнуть на 6+ мес без удобного инструмента.<br>
+        <b>Вариант Б:</b> Допиливаем ОРБИТА до MVP с выделенным ресурсом — 4–6 недель работы, получаем рабочий трекер под специфику Департамента.<br>
+        <b>Вариант В:</b> Пилотируем на Excel + ОРБИТА параллельно (Excel — реестр, ОРБИТА — карточка проекта и методология) — гибрид на 1–2 месяца.
+      </div>
     </div>
   </section>
 
