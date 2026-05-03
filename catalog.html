@@ -536,15 +536,75 @@
         '</div>';
       }
 
-      // ── INITIATIVE PASSPORT (for screening/new) ──
+      // ── Helpers for Etin defense template (unified across screening/launched) ──
+      function _isPlaceholder(v){
+        if (typeof v === 'string') return /\[заполняет РП\]/.test(v);
+        if (Array.isArray(v) && v.length === 1) return /\[заполняет РП\]/.test(String(v[0]));
+        return false;
+      }
+      function _empty(v){
+        if (v == null || v === '') return true;
+        if (Array.isArray(v) && !v.length) return true;
+        return _isPlaceholder(v);
+      }
+      function _short(v, max){
+        if (!v) return '';
+        var s = String(v);
+        return s.length > max ? s.slice(0, max) + '…' : s;
+      }
+      function _pnlChip(pn){
+        if (!pn) return '<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)">P&L —</span>';
+        var has = (typeof pn === 'object') ? !!pn.exists : !_isPlaceholder(pn);
+        return has
+          ? '<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(0,212,180,.12);color:#00B89C;border:1px solid rgba(0,212,180,.3)">P&L ✓</span>'
+          : '<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)">P&L —</span>';
+      }
+      function _defenseFieldRow(label, value){
+        var v = value;
+        if (Array.isArray(v)) v = v[0];
+        var empty = _empty(v);
+        return '<div style="font-size:11px;line-height:1.4">'
+          + '<span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">' + esc(label) + '</span>'
+          + '<div style="color:' + (empty ? 'var(--muted)' : 'var(--gray2)') + ';margin-top:2px;font-style:' + (empty ? 'italic' : 'normal') + ';display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">'
+          + (empty ? '— заполнит РП' : esc(_short(v, 140)))
+          + '</div></div>';
+      }
+      function _renderEtinFields(p){
+        var pnlSrc = p.pnl != null ? p.pnl : p.pipeline;
+        var teamFirst = (Array.isArray(p.team) && p.team.length) ? p.team[0] : (p.owner || '');
+        return '<div style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px">'
+          + _defenseFieldRow('Заказчик', p.customer || p.businessSponsor)
+          + _defenseFieldRow('Размер ниши · доля', [p.marketSize, p.targetShare].filter(Boolean).join(' · '))
+          + _defenseFieldRow('Стратегический фит', p.strategicAlignment)
+          + _defenseFieldRow('Лидер · команда', teamFirst)
+          + '</div>';
+      }
+      function _miniBadges(p){
+        var badges = [];
+        // Defense date
+        if (p.defenseDate) {
+          badges.push('<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(123,92,184,.14);color:var(--violet);border:1px solid var(--violet-border)">Защита ' + esc(p.defenseDate) + '</span>');
+        }
+        // P&L badge
+        var pnlSrc = p.pnl != null ? p.pnl : p.pipeline;
+        badges.push(_pnlChip(pnlSrc));
+        // GMV badge
+        if (p.gmvGrowth && !_isPlaceholder(p.gmvGrowth)) {
+          badges.push('<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(255,184,48,.12);color:#D89200;border:1px solid rgba(255,184,48,.35)">GMV ' + esc(_short(p.gmvGrowth, 32)) + '</span>');
+        }
+        // Checkpoints badge (count of done)
+        if (Array.isArray(p.checkpoints) && p.checkpoints.length && !_isPlaceholder(p.checkpoints)) {
+          var done = p.checkpoints.filter(function(c){ return /done|✓|готов/i.test(c); }).length;
+          badges.push('<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--surface2);color:var(--text);border:1px solid var(--border)">Чекпоинты ' + done + '/' + p.checkpoints.length + '</span>');
+        }
+        return badges.length ? '<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">' + badges.join('') + '</div>' : '';
+      }
+
+      // ── INITIATIVE PASSPORT (for screening/new) — Etin defense template ──
       if (p.status === 'screening') {
         var nextStep = p.statusText || 'Следующий шаг не определён';
-        var ownerTag = (p.owner && p.owner !== 'Вакансия' && p.owner.indexOf('наём') < 0)
-          ? '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:rgba(0,212,180,.12);color:#00D4B4">есть</span> ' + esc(p.owner)
-          : '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:rgba(255,184,48,.12);color:#FFB830">вакансия</span>';
-
         return '<div class="cat-card" data-pid="' + esc(p.id) + '" style="border-left:3px solid ' + sColor + '">' +
-          '<a href="workspace.html?id=' + encodeURIComponent(p.id) + '" style="text-decoration:none;color:inherit;display:block;">' +
+          '<a href="workspace.html?id=' + encodeURIComponent(p.id) + '&tab=defense" style="text-decoration:none;color:inherit;display:block;">' +
 
           // Header: type tag + name
           '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
@@ -558,28 +618,21 @@
             esc(nextStep) +
           '</div>' +
 
-          // Passport fields
-          '<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">' +
-            // UTP
-            (p.utp && p.utp !== '--' ? '<div style="font-size:11px"><span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">УТП</span><div style="color:var(--gray2);margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + esc(p.utp) + '</div></div>' : '') +
-            // Audience
-            (p.audience && p.audience !== '--' ? '<div style="font-size:11px"><span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Аудитория</span><div style="color:var(--gray2);margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + esc(p.audience) + '</div></div>' : '') +
-            // Business model
-            (p.businessModel && p.businessModel !== '--' ? '<div style="font-size:11px"><span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Бизнес-модель</span><div style="color:var(--gray2);margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + esc(p.businessModel) + '</div></div>' : '') +
-          '</div>' +
+          // Mini badges (Defense / P&L / GMV / Checkpoints)
+          _miniBadges(p) +
 
-          // Owner
-          '<div style="font-size:11px;margin-bottom:8px"><span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Руководитель: </span>' + ownerTag + '</div>' +
+          // 7-block defense fields (compact)
+          _renderEtinFields(p) +
 
           // Initiatives count
-          (initCount > 0 ? '<div style="font-size:10px;color:var(--muted);border-top:1px solid var(--border);padding-top:6px">' + initCount + ' задач в очереди</div>' : '') +
+          (initCount > 0 ? '<div style="font-size:10px;color:var(--muted);border-top:1px solid var(--border);padding-top:6px">' + initCount + ' задач · открыть карточку проекта →</div>' : '<div style="font-size:10px;color:var(--muted);border-top:1px solid var(--border);padding-top:6px">Открыть карточку проекта →</div>') +
 
           '</a></div>';
       }
 
-      // ── PRODUCT CARD (launched) ──
+      // ── PRODUCT CARD (launched) — синхронизировано с шаблоном Этина ──
       return '<div class="cat-card' + (isT ? ' is-transferring' : '') + '" data-pid="' + esc(p.id) + '">' +
-        '<a href="workspace.html?id=' + encodeURIComponent(p.id) + '" style="text-decoration:none;color:inherit;display:block;">' +
+        '<a href="workspace.html?id=' + encodeURIComponent(p.id) + '&tab=defense" style="text-decoration:none;color:inherit;display:block;">' +
 
         // Row 1: Name + health dot
         '<div class="cat-card-head">' +
@@ -587,26 +640,29 @@
           '<span class="cat-health ' + hCls + '" title="' + esc(statusLabel(p.status)) + '"></span>' +
         '</div>' +
 
-        // Row 2: Stage label + progress
+        // Row 2: Stage label + owner
         '<div class="cat-orbit-label">' +
           '<span class="cat-orbit-tag" style="background:' + sColorDim + ';color:' + sColor + '">' + esc(sName) + '</span>' +
           '<span class="cat-orbit-name">' + esc(p.owner || '') + '</span>' +
         '</div>' +
         '<div class="cat-orbit">' + orbitSteps + '</div>' +
 
-        // Row 3: Status reason (if any)
+        // Row 3: Status reason
         reasonHtml +
 
-        // Row 4: Description
-        '<div class="cat-desc">' + esc(p.desc) + '</div>' +
+        // Row 4: Mini badges (Defense / P&L / GMV / Checkpoints)
+        _miniBadges(p) +
 
-        // Row 5: KPI + metrics chips
+        // Row 5: 7-block defense fields (compact) — same as workspace defense panel
+        _renderEtinFields(p) +
+
+        // Row 6: KPI chips (legacy)
         dataHtml +
 
-        // Row 6: OKR
+        // Row 7: OKR
         okrHtml +
 
-        // Row 7: Initiatives
+        // Row 8: Initiatives
         initHtml +
 
         '</a></div>';
