@@ -1,0 +1,69 @@
+[
+  {
+    "_schema_note": "DecisionRecord — журнал решений комитетов (см. how-we-work.html секция 13 + ADR-014).",
+    "_fields": {
+      "id": "DEC-YYYY-Q-NNN",
+      "date": "ISO 2026-05-04",
+      "committee": "Штаб | ИК | ТК | УК | Департамент",
+      "type": "gate | budget | kill | pivot | staffing | policy",
+      "decision": "go | no-go | pivot | hold | park",
+      "context": "2-3 sentences",
+      "rationale": "обоснование",
+      "projectIds": "[INI-XXX, PRD-XXX] — N:M связь с portfolio.json",
+      "initiativeIds": "[I-XXX] — N:M связь с backlog.json",
+      "owner": "ответственный за исполнение",
+      "dueDate": "ISO",
+      "status": "open | in-progress | closed | overdue",
+      "artifacts": "[{label, url}]",
+      "followUps": "[DEC-* потомки]"
+    }
+  },
+  {
+    "id": "DEC-2026-Q2-001",
+    "date": "2026-04-23",
+    "committee": "Департамент",
+    "type": "policy",
+    "decision": "go",
+    "context": "Установочная встреча Этина 23.04.2026 — 8 ключевых решений по операционной модели.",
+    "rationale": "Согласование структуры Департамента, фокус на отбор-развитие-передачу проектов с экспертным руководителем.",
+    "projectIds": [],
+    "initiativeIds": [],
+    "owner": "Сорваль В. (ПО)",
+    "dueDate": "2026-05-15",
+    "status": "in-progress",
+    "artifacts": [
+      {
+        "label": "Опер-модель Департамента 28.04.2026",
+        "url": "/Users/sorval/Downloads/Операционная модель Департамента.pdf"
+      },
+      {
+        "label": "Слайд 4 — статус по 8 решениям",
+        "url": "https://sorvalliny.github.io/ecotech/how-we-work.html#decisions"
+      }
+    ],
+    "followUps": []
+  },
+  {
+    "id": "DEC-2026-Q2-002",
+    "date": "2026-05-04",
+    "committee": "Департамент",
+    "type": "staffing",
+    "decision": "hold",
+    "context": "Проект ВБ Дети (INI-009) — лидер не назначен, защита 07.05 под угрозой.",
+    "rationale": "Решение требуется до 03-05.05.2026: РП — Ксения Идолова или Илья Низовцев?",
+    "projectIds": [
+      "INI-009"
+    ],
+    "initiativeIds": [],
+    "owner": "Сорваль В. + Этин",
+    "dueDate": "2026-05-05",
+    "status": "open",
+    "artifacts": [
+      {
+        "label": "Карточка ВБ Дети",
+        "url": "https://sorvalliny.github.io/ecotech/workspace.html?id=INI-009&tab=defense"
+      }
+    ],
+    "followUps": []
+  }
+]

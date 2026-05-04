@@ -18,16 +18,58 @@
     "updated": "2026-04-10",
     "quarter": "Q2-Q3 2026",
     "kpi": [
-      {"icon": "trending-up", "value": "8", "label": "Вертикалей"},
-      {"icon": "users", "value": "3", "label": "Партнёра на пилот"},
-      {"icon": "zap", "value": "10-15%", "label": "Revenue share"}
+      {
+        "icon": "trending-up",
+        "value": "8",
+        "label": "Вертикалей"
+      },
+      {
+        "icon": "users",
+        "value": "3",
+        "label": "Партнёра на пилот"
+      },
+      {
+        "icon": "zap",
+        "value": "10-15%",
+        "label": "Revenue share"
+      }
     ],
     "initiatives": [
-      {"id": "i-001-1", "name": "Подготовка брифа и бизнес-обоснования", "status": "planned", "rice": 95, "quarter": "Апрель-Май 2026"},
-      {"id": "i-001-2", "name": "Интервью с клиентами: красота, ремонт, репетиторы", "status": "planned", "rice": 90, "quarter": "Май-Июнь 2026"},
-      {"id": "i-001-3", "name": "Финмодель по 3 вертикалям к финансовому комитету", "status": "planned", "rice": 88, "quarter": "Июнь 2026"},
-      {"id": "i-001-4", "name": "LOI с Профи.ру и YCLIENTS", "status": "planned", "rice": 85, "quarter": "Июнь-Июль 2026"},
-      {"id": "i-001-5", "name": "Прототип витрины «Услуги» в приложении WB", "status": "planned", "rice": 82, "quarter": "Q3 2026"}
+      {
+        "id": "i-001-1",
+        "name": "Подготовка брифа и бизнес-обоснования",
+        "status": "planned",
+        "rice": 95,
+        "quarter": "Апрель-Май 2026"
+      },
+      {
+        "id": "i-001-2",
+        "name": "Интервью с клиентами: красота, ремонт, репетиторы",
+        "status": "planned",
+        "rice": 90,
+        "quarter": "Май-Июнь 2026"
+      },
+      {
+        "id": "i-001-3",
+        "name": "Финмодель по 3 вертикалям к финансовому комитету",
+        "status": "planned",
+        "rice": 88,
+        "quarter": "Июнь 2026"
+      },
+      {
+        "id": "i-001-4",
+        "name": "LOI с Профи.ру и YCLIENTS",
+        "status": "planned",
+        "rice": 85,
+        "quarter": "Июнь-Июль 2026"
+      },
+      {
+        "id": "i-001-5",
+        "name": "Прототип витрины «Услуги» в приложении WB",
+        "status": "planned",
+        "rice": 82,
+        "quarter": "Q3 2026"
+      }
     ],
     "statusLight": "amber",
     "statusText": "Заявка готовится. Старт после согласования структуры департамента",
@@ -52,7 +94,8 @@
       "LOI с Профи.ру и YCLIENTS — wip"
     ],
     "buildBuyIntegrate": "Гипотеза: своя витрина (build) для 3 ключевых вертикалей + партнёрство с Профи.ру/YCLIENTS (integrate). M&A YCLIENTS обсуждается.",
-    "gmvGrowth": "₽5 млрд GMV в Q4 2026 → ₽30 млрд к Q4 2027 (при пилоте на 3 вертикалях)"
+    "gmvGrowth": "₽5 млрд GMV в Q4 2026 → ₽30 млрд к Q4 2027 (при пилоте на 3 вертикалях)",
+    "lifecycleType": "Продукт"
   },
   {
     "id": "INI-002",
@@ -78,21 +121,64 @@
       "Гаранян Кристина — соруководитель"
     ],
     "kpi": [
-      {"icon": "trending-up", "value": "5", "label": "Вертикалей"},
-      {"icon": "zap", "value": "15-30%", "label": "Комиссия каталога"},
-      {"icon": "users", "value": "20+", "label": "Игр на старте"}
+      {
+        "icon": "trending-up",
+        "value": "5",
+        "label": "Вертикалей"
+      },
+      {
+        "icon": "zap",
+        "value": "15-30%",
+        "label": "Комиссия каталога"
+      },
+      {
+        "icon": "users",
+        "value": "20+",
+        "label": "Игр на старте"
+      }
     ],
     "initiatives": [
-      {"id": "i-002-1", "name": "Подготовка брифа и конкурентный анализ", "status": "planned", "rice": 90, "quarter": "Апрель-Май 2026"},
-      {"id": "i-002-2", "name": "Заявка в ИРИ: 4 проекта детского контента", "status": "planned", "rice": 92, "quarter": "Май 2026"},
-      {"id": "i-002-3", "name": "Концепция Вэбэшка MVP", "status": "planned", "rice": 85, "quarter": "Май-Июнь 2026"},
-      {"id": "i-002-4", "name": "Бизнес-обоснование к финансовому комитету", "status": "planned", "rice": 88, "quarter": "Июнь 2026"},
-      {"id": "i-002-5", "name": "Переговоры с издателями РФ/СНГ", "status": "planned", "rice": 80, "quarter": "Q3 2026"}
+      {
+        "id": "i-002-1",
+        "name": "Подготовка брифа и конкурентный анализ",
+        "status": "planned",
+        "rice": 90,
+        "quarter": "Апрель-Май 2026"
+      },
+      {
+        "id": "i-002-2",
+        "name": "Заявка в ИРИ: 4 проекта детского контента",
+        "status": "planned",
+        "rice": 92,
+        "quarter": "Май 2026"
+      },
+      {
+        "id": "i-002-3",
+        "name": "Концепция Вэбэшка MVP",
+        "status": "planned",
+        "rice": 85,
+        "quarter": "Май-Июнь 2026"
+      },
+      {
+        "id": "i-002-4",
+        "name": "Бизнес-обоснование к финансовому комитету",
+        "status": "planned",
+        "rice": 88,
+        "quarter": "Июнь 2026"
+      },
+      {
+        "id": "i-002-5",
+        "name": "Переговоры с издателями РФ/СНГ",
+        "status": "planned",
+        "rice": 80,
+        "quarter": "Q3 2026"
+      }
     ],
     "statusLight": "amber",
     "statusText": "Заявка готовится. Старт после согласования структуры департамента",
     "statusDate": "2026-04-10",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Продукт"
   },
   {
     "id": "INI-003",
@@ -113,20 +199,57 @@
     "updated": "2026-04-10",
     "quarter": "Q3 2026",
     "kpi": [
-      {"icon": "trending-up", "value": "5", "label": "Вертикалей"},
-      {"icon": "zap", "value": "8-12%", "label": "Revenue share"},
-      {"icon": "users", "value": "40К+", "label": "ПВЗ как точки"}
+      {
+        "icon": "trending-up",
+        "value": "5",
+        "label": "Вертикалей"
+      },
+      {
+        "icon": "zap",
+        "value": "8-12%",
+        "label": "Revenue share"
+      },
+      {
+        "icon": "users",
+        "value": "40К+",
+        "label": "ПВЗ как точки"
+      }
     ],
     "initiatives": [
-      {"id": "i-003-1", "name": "Подготовка брифа: проблема, ЦА, рынок, конкуренты", "status": "planned", "rice": 85, "quarter": "Май-Июнь 2026"},
-      {"id": "i-003-2", "name": "Предварительные переговоры с СберЗдоровье", "status": "planned", "rice": 82, "quarter": "Июнь-Июль 2026"},
-      {"id": "i-003-3", "name": "Регуляторный скан: Rx-аптека через ПВЗ", "status": "planned", "rice": 78, "quarter": "Июль-Август 2026"},
-      {"id": "i-003-4", "name": "Предварительные переговоры с Инвитро", "status": "planned", "rice": 75, "quarter": "Q3 2026"}
+      {
+        "id": "i-003-1",
+        "name": "Подготовка брифа: проблема, ЦА, рынок, конкуренты",
+        "status": "planned",
+        "rice": 85,
+        "quarter": "Май-Июнь 2026"
+      },
+      {
+        "id": "i-003-2",
+        "name": "Предварительные переговоры с СберЗдоровье",
+        "status": "planned",
+        "rice": 82,
+        "quarter": "Июнь-Июль 2026"
+      },
+      {
+        "id": "i-003-3",
+        "name": "Регуляторный скан: Rx-аптека через ПВЗ",
+        "status": "planned",
+        "rice": 78,
+        "quarter": "Июль-Август 2026"
+      },
+      {
+        "id": "i-003-4",
+        "name": "Предварительные переговоры с Инвитро",
+        "status": "planned",
+        "rice": 75,
+        "quarter": "Q3 2026"
+      }
     ],
     "statusLight": "amber",
     "statusText": "Заявка готовится. Приоритет Q3 2026",
     "statusDate": "2026-04-10",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Продукт"
   },
   {
     "id": "INI-004",
@@ -147,19 +270,50 @@
     "updated": "2026-04-10",
     "quarter": "Q2-Q3 2026",
     "kpi": [
-      {"icon": "trending-up", "value": "500", "label": "Транзакций/мес цель"},
-      {"icon": "zap", "value": "15%", "label": "Revenue share"},
-      {"icon": "users", "value": "8 млн", "label": "Исполнителей"}
+      {
+        "icon": "trending-up",
+        "value": "500",
+        "label": "Транзакций/мес цель"
+      },
+      {
+        "icon": "zap",
+        "value": "15%",
+        "label": "Revenue share"
+      },
+      {
+        "icon": "users",
+        "value": "8 млн",
+        "label": "Исполнителей"
+      }
     ],
     "initiatives": [
-      {"id": "i-004-1", "name": "Подготовка коммерческого предложения для Профи.ру", "status": "planned", "rice": 95, "quarter": "Май 2026"},
-      {"id": "i-004-2", "name": "Подписать LOI", "status": "planned", "rice": 90, "quarter": "Май-Июнь 2026"},
-      {"id": "i-004-3", "name": "Интеграция Partner API + Кошелёк", "status": "planned", "rice": 85, "quarter": "Июль-Август 2026"}
+      {
+        "id": "i-004-1",
+        "name": "Подготовка коммерческого предложения для Профи.ру",
+        "status": "planned",
+        "rice": 95,
+        "quarter": "Май 2026"
+      },
+      {
+        "id": "i-004-2",
+        "name": "Подписать LOI",
+        "status": "planned",
+        "rice": 90,
+        "quarter": "Май-Июнь 2026"
+      },
+      {
+        "id": "i-004-3",
+        "name": "Интеграция Partner API + Кошелёк",
+        "status": "planned",
+        "rice": 85,
+        "quarter": "Июль-Август 2026"
+      }
     ],
     "statusLight": "amber",
     "statusText": "Заявка готовится. Старт переговоров — май 2026",
     "statusDate": "2026-04-10",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Партнёр"
   },
   {
     "id": "INI-005",
@@ -180,18 +334,43 @@
     "updated": "2026-04-10",
     "quarter": "Q3 2026",
     "kpi": [
-      {"icon": "trending-up", "value": "300", "label": "Записей/мес цель"},
-      {"icon": "zap", "value": "12%", "label": "Revenue share"},
-      {"icon": "users", "value": "150К", "label": "Салонов"}
+      {
+        "icon": "trending-up",
+        "value": "300",
+        "label": "Записей/мес цель"
+      },
+      {
+        "icon": "zap",
+        "value": "12%",
+        "label": "Revenue share"
+      },
+      {
+        "icon": "users",
+        "value": "150К",
+        "label": "Салонов"
+      }
     ],
     "initiatives": [
-      {"id": "i-005-1", "name": "Подготовка предложения для YCLIENTS", "status": "planned", "rice": 88, "quarter": "Июнь 2026"},
-      {"id": "i-005-2", "name": "Подписать LOI и начать интеграцию", "status": "planned", "rice": 82, "quarter": "Июль-Август 2026"}
+      {
+        "id": "i-005-1",
+        "name": "Подготовка предложения для YCLIENTS",
+        "status": "planned",
+        "rice": 88,
+        "quarter": "Июнь 2026"
+      },
+      {
+        "id": "i-005-2",
+        "name": "Подписать LOI и начать интеграцию",
+        "status": "planned",
+        "rice": 82,
+        "quarter": "Июль-Август 2026"
+      }
     ],
     "statusLight": "amber",
     "statusText": "Заявка готовится. Приоритет Q3 2026",
     "statusDate": "2026-04-10",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Партнёр"
   },
   {
     "id": "INI-006",
@@ -212,17 +391,38 @@
     "updated": "2026-04-10",
     "quarter": "Q3 2026",
     "kpi": [
-      {"icon": "trending-up", "value": "200", "label": "Консультаций/мес"},
-      {"icon": "zap", "value": "10%", "label": "Revenue share"}
+      {
+        "icon": "trending-up",
+        "value": "200",
+        "label": "Консультаций/мес"
+      },
+      {
+        "icon": "zap",
+        "value": "10%",
+        "label": "Revenue share"
+      }
     ],
     "initiatives": [
-      {"id": "i-006-1", "name": "Подготовка предложения для СберЗдоровье", "status": "planned", "rice": 82, "quarter": "Июнь-Июль 2026"},
-      {"id": "i-006-2", "name": "Встроить white-label виджет телемедицины", "status": "planned", "rice": 78, "quarter": "Q3 2026"}
+      {
+        "id": "i-006-1",
+        "name": "Подготовка предложения для СберЗдоровье",
+        "status": "planned",
+        "rice": 82,
+        "quarter": "Июнь-Июль 2026"
+      },
+      {
+        "id": "i-006-2",
+        "name": "Встроить white-label виджет телемедицины",
+        "status": "planned",
+        "rice": 78,
+        "quarter": "Q3 2026"
+      }
     ],
     "statusLight": "amber",
     "statusText": "Заявка готовится. Приоритет Q3 2026",
     "statusDate": "2026-04-10",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Партнёр"
   },
   {
     "id": "PRD-001",
@@ -243,15 +443,51 @@
     "updated": "2026-04-10",
     "quarter": "Q2-Q3 2026",
     "kpi": [
-      {"icon": "users", "value": "—", "label": "MAU (уточнить)"},
-      {"icon": "trending-up", "value": "—", "label": "Выручка (уточнить)"},
-      {"icon": "zap", "value": "—", "label": "Retention D7"}
+      {
+        "icon": "users",
+        "value": "—",
+        "label": "MAU (уточнить)"
+      },
+      {
+        "icon": "trending-up",
+        "value": "—",
+        "label": "Выручка (уточнить)"
+      },
+      {
+        "icon": "zap",
+        "value": "—",
+        "label": "Retention D7"
+      }
     ],
     "initiatives": [
-      {"id": "i-kn-1", "name": "Рост MAU: маркетинг + размещение в главной WB", "status": "planned", "rice": 85, "quarter": "Май-Июнь 2026"},
-      {"id": "i-kn-2", "name": "Запуск аудиокниг", "status": "planned", "rice": 80, "quarter": "Июнь-Июль 2026"},
-      {"id": "i-kn-3", "name": "Интеграция оплаты через WB Кошелёк", "status": "planned", "rice": 75, "quarter": "Июль 2026"},
-      {"id": "i-kn-4", "name": "Платная подписка: модель и ценообразование", "status": "planned", "rice": 78, "quarter": "Q3 2026"}
+      {
+        "id": "i-kn-1",
+        "name": "Рост MAU: маркетинг + размещение в главной WB",
+        "status": "planned",
+        "rice": 85,
+        "quarter": "Май-Июнь 2026"
+      },
+      {
+        "id": "i-kn-2",
+        "name": "Запуск аудиокниг",
+        "status": "planned",
+        "rice": 80,
+        "quarter": "Июнь-Июль 2026"
+      },
+      {
+        "id": "i-kn-3",
+        "name": "Интеграция оплаты через WB Кошелёк",
+        "status": "planned",
+        "rice": 75,
+        "quarter": "Июль 2026"
+      },
+      {
+        "id": "i-kn-4",
+        "name": "Платная подписка: модель и ценообразование",
+        "status": "planned",
+        "rice": 78,
+        "quarter": "Q3 2026"
+      }
     ],
     "statusLight": "green",
     "statusText": "Продукт запущен. План роста на Q2-Q3 2026.",
@@ -298,7 +534,8 @@
       "Конверсия читатель → платящий: 8%",
       "NPS: 51",
       "Доля кросс-продаж с бумажным каталогом: 18%"
-    ]
+    ],
+    "lifecycleType": "Платформа"
   },
   {
     "id": "PRD-002",
@@ -368,20 +605,57 @@
       "Риск: задержка LOI с Кассир.ру → fallback на собственный каталог афиш"
     ],
     "kpi": [
-      {"icon": "clock", "value": "Июнь 2026", "label": "MVP релиз"},
-      {"icon": "users", "value": "1000", "label": "Тестовая когорта"},
-      {"icon": "trending-up", "value": "₽1.6 млрд", "label": "GMV к Q4 2027"}
+      {
+        "icon": "clock",
+        "value": "Июнь 2026",
+        "label": "MVP релиз"
+      },
+      {
+        "icon": "users",
+        "value": "1000",
+        "label": "Тестовая когорта"
+      },
+      {
+        "icon": "trending-up",
+        "value": "₽1.6 млрд",
+        "label": "GMV к Q4 2027"
+      }
     ],
     "initiatives": [
-      {"id": "i-zn-1", "name": "Разработка MVP: матчинг, профили, чат", "status": "wip", "rice": 85, "quarter": "Апрель-Июнь 2026"},
-      {"id": "i-zn-2", "name": "Закрытое тестирование на 1000 пользователей", "status": "planned", "rice": 80, "quarter": "Июль 2026"},
-      {"id": "i-zn-3", "name": "Интеграция WB ID для верификации", "status": "wip", "rice": 78, "quarter": "Июль-Август 2026"},
-      {"id": "i-zn-4", "name": "LOI с Кассир.ру (Афиши)", "status": "wip", "rice": 82, "quarter": "Май 2026"}
+      {
+        "id": "i-zn-1",
+        "name": "Разработка MVP: матчинг, профили, чат",
+        "status": "wip",
+        "rice": 85,
+        "quarter": "Апрель-Июнь 2026"
+      },
+      {
+        "id": "i-zn-2",
+        "name": "Закрытое тестирование на 1000 пользователей",
+        "status": "planned",
+        "rice": 80,
+        "quarter": "Июль 2026"
+      },
+      {
+        "id": "i-zn-3",
+        "name": "Интеграция WB ID для верификации",
+        "status": "wip",
+        "rice": 78,
+        "quarter": "Июль-Август 2026"
+      },
+      {
+        "id": "i-zn-4",
+        "name": "LOI с Кассир.ру (Афиши)",
+        "status": "wip",
+        "rice": 82,
+        "quarter": "Май 2026"
+      }
     ],
     "statusLight": "green",
     "statusText": "ДЕМО-заполнение для образца. MVP в разработке (40%), защита 07.05.2026.",
     "statusDate": "2026-05-03",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Продукт"
   },
   {
     "id": "PRD-003",
@@ -402,18 +676,45 @@
     "updated": "2026-04-10",
     "quarter": "Q2-Q3 2026",
     "kpi": [
-      {"icon": "users", "value": ">100К", "label": "MAU"},
-      {"icon": "trending-up", "value": "—", "label": "Выручка (ищем модель)"}
+      {
+        "icon": "users",
+        "value": ">100К",
+        "label": "MAU"
+      },
+      {
+        "icon": "trending-up",
+        "value": "—",
+        "label": "Выручка (ищем модель)"
+      }
     ],
     "initiatives": [
-      {"id": "i-mp-1", "name": "Исследование моделей монетизации", "status": "planned", "rice": 90, "quarter": "Май-Июнь 2026"},
-      {"id": "i-mp-2", "name": "Пилот подписки на расширенные архивы", "status": "planned", "rice": 82, "quarter": "Июль-Август 2026"},
-      {"id": "i-mp-3", "name": "Переговоры с Минпросвещения: школьная лицензия", "status": "planned", "rice": 78, "quarter": "Q3 2026"}
+      {
+        "id": "i-mp-1",
+        "name": "Исследование моделей монетизации",
+        "status": "planned",
+        "rice": 90,
+        "quarter": "Май-Июнь 2026"
+      },
+      {
+        "id": "i-mp-2",
+        "name": "Пилот подписки на расширенные архивы",
+        "status": "planned",
+        "rice": 82,
+        "quarter": "Июль-Август 2026"
+      },
+      {
+        "id": "i-mp-3",
+        "name": "Переговоры с Минпросвещения: школьная лицензия",
+        "status": "planned",
+        "rice": 78,
+        "quarter": "Q3 2026"
+      }
     ],
     "statusLight": "amber",
     "statusText": "Продукт запущен. Поиск монетизации — Q2-Q3 2026.",
     "statusDate": "2026-04-10",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Продукт"
   },
   {
     "id": "INI-007",
@@ -430,15 +731,23 @@
     "updated": "2026-04-30",
     "quarter": "Q2 2026",
     "defenseDate": "2026-05-07",
-    "team": ["Боголепова Людмила — РП / Лидер проекта"],
+    "team": [
+      "Боголепова Людмила — РП / Лидер проекта"
+    ],
     "customer": "[заполняет РП]",
     "marketSize": "[заполняет РП]",
     "targetShare": "[заполняет РП]",
     "strategicAlignment": "[заполняет РП]",
-    "checkpoints": ["[заполняет РП] — ключевые вехи проекта"],
+    "checkpoints": [
+      "[заполняет РП] — ключевые вехи проекта"
+    ],
     "buildBuyIntegrate": "[заполняет РП]",
-    "progress": ["[заполняет РП]"],
-    "integrations": ["[заполняет РП]"],
+    "progress": [
+      "[заполняет РП]"
+    ],
+    "integrations": [
+      "[заполняет РП]"
+    ],
     "pnl": "[заполняет РП — выручка / маржа / EBITDA / окупаемость]",
     "gmvGrowth": "[заполняет РП]",
     "kpi": [],
@@ -446,7 +755,8 @@
     "statusLight": "amber",
     "statusText": "Защита 07.05.2026 — РП заполняет 7 блоков шаблона",
     "statusDate": "2026-04-30",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Продукт"
   },
   {
     "id": "INI-008",
@@ -463,15 +773,23 @@
     "updated": "2026-04-30",
     "quarter": "Q2 2026",
     "defenseDate": "2026-05-07",
-    "team": ["Карпова — РП / Лидер проекта"],
+    "team": [
+      "Карпова — РП / Лидер проекта"
+    ],
     "customer": "Направление Здоровье",
     "marketSize": "[заполняет РП]",
     "targetShare": "[заполняет РП]",
     "strategicAlignment": "[заполняет РП]",
-    "checkpoints": ["[заполняет РП] — ключевые вехи проекта"],
+    "checkpoints": [
+      "[заполняет РП] — ключевые вехи проекта"
+    ],
     "buildBuyIntegrate": "[заполняет РП] — гипотеза партнёрской интеграции (СберЗдоровье / Инвитро / build)",
-    "progress": ["[заполняет РП]"],
-    "integrations": ["[заполняет РП]"],
+    "progress": [
+      "[заполняет РП]"
+    ],
+    "integrations": [
+      "[заполняет РП]"
+    ],
     "pnl": "[заполняет РП]",
     "gmvGrowth": "[заполняет РП]",
     "kpi": [],
@@ -479,7 +797,8 @@
     "statusLight": "amber",
     "statusText": "Защита 07.05.2026 — РП заполняет 7 блоков шаблона",
     "statusDate": "2026-04-30",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Партнёр"
   },
   {
     "id": "INI-009",
@@ -504,10 +823,16 @@
     "marketSize": "[заполняет РП]",
     "targetShare": "[заполняет РП]",
     "strategicAlignment": "[заполняет РП]",
-    "checkpoints": ["[заполняет РП] — ключевые вехи проекта"],
+    "checkpoints": [
+      "[заполняет РП] — ключевые вехи проекта"
+    ],
     "buildBuyIntegrate": "[заполняет РП]",
-    "progress": ["[заполняет РП]"],
-    "integrations": ["[заполняет РП]"],
+    "progress": [
+      "[заполняет РП]"
+    ],
+    "integrations": [
+      "[заполняет РП]"
+    ],
     "pnl": "[заполняет РП]",
     "gmvGrowth": "[заполняет РП]",
     "kpi": [],
@@ -515,7 +840,8 @@
     "statusLight": "red",
     "statusText": "Защита 07.05.2026. Блокер: лидер проекта не назначен (Идолова или Низовцев?)",
     "statusDate": "2026-04-30",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Продукт"
   },
   {
     "id": "INI-010",
@@ -532,15 +858,23 @@
     "updated": "2026-04-30",
     "quarter": "Q2 2026",
     "defenseDate": "2026-05-07",
-    "team": ["Дина — РП / Лидер проекта (Коммерция)"],
+    "team": [
+      "Дина — РП / Лидер проекта (Коммерция)"
+    ],
     "customer": "Коммерция (внутренний заказчик)",
     "marketSize": "[заполняет РП]",
     "targetShare": "[заполняет РП]",
     "strategicAlignment": "[заполняет РП]",
-    "checkpoints": ["[заполняет РП] — ключевые вехи проекта"],
+    "checkpoints": [
+      "[заполняет РП] — ключевые вехи проекта"
+    ],
     "buildBuyIntegrate": "[заполняет РП]",
-    "progress": ["[заполняет РП]"],
-    "integrations": ["[заполняет РП]"],
+    "progress": [
+      "[заполняет РП]"
+    ],
+    "integrations": [
+      "[заполняет РП]"
+    ],
     "pnl": "[заполняет РП]",
     "gmvGrowth": "[заполняет РП]",
     "kpi": [],
@@ -548,6 +882,7 @@
     "statusLight": "amber",
     "statusText": "Защита 07.05.2026 — РП заполняет 7 блоков шаблона",
     "statusDate": "2026-04-30",
-    "leadId": ""
+    "leadId": "",
+    "lifecycleType": "Продукт"
   }
 ]

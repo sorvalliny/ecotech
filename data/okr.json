@@ -8,10 +8,27 @@
     "owner": "PM Wibes",
     "status": "approved",
     "keyResults": [
-      { "id": "KR-001", "text": "Увеличить time spend на 25%", "current": 12, "target": 25 },
-      { "id": "KR-002", "text": "Увеличить среднее кол-во просмотров на пользователя на 30%", "current": 14, "target": 30 },
-      { "id": "KR-003", "text": "Техническое качество контента: 90% видео без буферизации", "current": 78, "target": 90 }
-    ]
+      {
+        "id": "KR-001",
+        "text": "Увеличить time spend на 25%",
+        "current": 12,
+        "target": 25
+      },
+      {
+        "id": "KR-002",
+        "text": "Увеличить среднее кол-во просмотров на пользователя на 30%",
+        "current": 14,
+        "target": 30
+      },
+      {
+        "id": "KR-003",
+        "text": "Техническое качество контента: 90% видео без буферизации",
+        "current": 78,
+        "target": 90
+      }
+    ],
+    "legacy": true,
+    "archived": true
   },
   {
     "id": "G-002",
@@ -22,10 +39,27 @@
     "owner": "PM Wibes",
     "status": "approved",
     "keyResults": [
-      { "id": "KR-004", "text": "Увеличить GMV на просмотр на 15%", "current": 6, "target": 15 },
-      { "id": "KR-005", "text": "Увеличить CTR добавления в корзину до 8%", "current": 5.2, "target": 8 },
-      { "id": "KR-006", "text": "Увеличить CTR выкупа до 4%", "current": 2.8, "target": 4 }
-    ]
+      {
+        "id": "KR-004",
+        "text": "Увеличить GMV на просмотр на 15%",
+        "current": 6,
+        "target": 15
+      },
+      {
+        "id": "KR-005",
+        "text": "Увеличить CTR добавления в корзину до 8%",
+        "current": 5.2,
+        "target": 8
+      },
+      {
+        "id": "KR-006",
+        "text": "Увеличить CTR выкупа до 4%",
+        "current": 2.8,
+        "target": 4
+      }
+    ],
+    "legacy": true,
+    "archived": true
   },
   {
     "id": "G-003",
@@ -36,35 +70,69 @@
     "owner": "PM Wibes",
     "status": "approved",
     "keyResults": [
-      { "id": "KR-007", "text": "Увеличить DAU на 20%, сохранив долю платящих", "current": 9, "target": 20 },
-      { "id": "KR-008", "text": "Увеличить sticky RR MoM на 10%", "current": 4, "target": 10 }
-    ]
+      {
+        "id": "KR-007",
+        "text": "Увеличить DAU на 20%, сохранив долю платящих",
+        "current": 9,
+        "target": 20
+      },
+      {
+        "id": "KR-008",
+        "text": "Увеличить sticky RR MoM на 10%",
+        "current": 4,
+        "target": 10
+      }
+    ],
+    "legacy": true,
+    "archived": true
   },
   {
     "id": "G-010",
     "title": "Запуск MVP WB Книги",
     "type": "product",
     "period": "H1 2026",
-    "productId": "ECO-04",
+    "productId": "PRD-001",
     "owner": "PM WB Книги",
     "status": "approved",
     "keyResults": [
-      { "id": "KR-010", "text": "MAU 10K к июню", "current": 1200, "target": 10000 },
-      { "id": "KR-011", "text": "Retention D7 30%", "current": 18, "target": 30 }
-    ]
+      {
+        "id": "KR-010",
+        "text": "MAU 10K к июню",
+        "current": 1200,
+        "target": 10000
+      },
+      {
+        "id": "KR-011",
+        "text": "Retention D7 30%",
+        "current": 18,
+        "target": 30
+      }
+    ],
+    "legacyProductId": "ECO-04"
   },
   {
     "id": "G-011",
     "title": "Определить целевую аудиторию и концепцию WB Kids",
     "type": "product",
     "period": "H1 2026",
-    "productId": "ECO-05",
+    "productId": "INI-009",
     "owner": "PM WB Kids",
     "status": "approved",
     "keyResults": [
-      { "id": "KR-012", "text": "Провести 10 CustDev интервью с родителями", "current": 3, "target": 10 },
-      { "id": "KR-013", "text": "Problem-Solution Fit подтверждён", "current": 0, "target": 1 }
-    ]
+      {
+        "id": "KR-012",
+        "text": "Провести 10 CustDev интервью с родителями",
+        "current": 3,
+        "target": 10
+      },
+      {
+        "id": "KR-013",
+        "text": "Problem-Solution Fit подтверждён",
+        "current": 0,
+        "target": 1
+      }
+    ],
+    "legacyProductId": "ECO-05"
   },
   {
     "id": "G-012",
@@ -75,8 +143,18 @@
     "owner": "PM WB Встречи",
     "status": "approved",
     "keyResults": [
-      { "id": "KR-014", "text": "MVP готов к тестированию", "current": 0, "target": 1 },
-      { "id": "KR-015", "text": "50 тестовых пользователей подключены", "current": 0, "target": 50 }
+      {
+        "id": "KR-014",
+        "text": "MVP готов к тестированию",
+        "current": 0,
+        "target": 1
+      },
+      {
+        "id": "KR-015",
+        "text": "50 тестовых пользователей подключены",
+        "current": 0,
+        "target": 50
+      }
     ]
   }
 ]

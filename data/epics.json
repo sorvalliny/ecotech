@@ -1,0 +1,52 @@
+[
+  {
+    "_schema_note": "Epic — уровень декомпозиции между Инициативой и Задачей. Цикл до 2 мес. Owner: Product PM.",
+    "_fields": {
+      "id": "EPIC-NNN",
+      "initiativeId": "I-XXX (parent в backlog.json)",
+      "projectId": "INI-/PRD-* (для быстрого поиска)",
+      "name": "string",
+      "desc": "что входит в эпик",
+      "goal": "результат эпика",
+      "status": "planned | wip | done | blocked",
+      "startDate": "ISO",
+      "targetDate": "ISO",
+      "fteAlloc": "doли FTE команды на эпик",
+      "blockedBy": "[EPIC-NNN] зависимости",
+      "tasks": "[{id, name, status, owner, due}]",
+      "trackerUrl": "ссылка на YouTrack/Jira"
+    }
+  },
+  {
+    "id": "EPIC-001",
+    "initiativeId": "I-101",
+    "projectId": "INI-001",
+    "name": "Скрининг рынка услуг — артефакты",
+    "desc": "Объём рынка РФ + карта конкурентов + UTP-различия",
+    "goal": "1-pager отчёт + карта сегментов",
+    "status": "done",
+    "startDate": "2026-02-15",
+    "targetDate": "2026-03-30",
+    "fteAlloc": 0.4,
+    "blockedBy": [],
+    "tasks": [],
+    "trackerUrl": ""
+  },
+  {
+    "id": "EPIC-002",
+    "initiativeId": "I-103",
+    "projectId": "INI-001",
+    "name": "CustDev по 3 вертикалям (красота, ремонт, репетиторы)",
+    "desc": "5-10 интервью на вертикаль, JTBD анализ, матрица гипотез",
+    "goal": "CustDev-отчёт 10-15 стр.",
+    "status": "wip",
+    "startDate": "2026-04-15",
+    "targetDate": "2026-05-30",
+    "fteAlloc": 0.8,
+    "blockedBy": [
+      "EPIC-001"
+    ],
+    "tasks": [],
+    "trackerUrl": ""
+  }
+]
